@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Nombre requerido'),
@@ -20,20 +21,28 @@ const contactSchema = z.object({
 type ContactFormData = z.infer<typeof contactSchema>
 
 export default function ContactoPage() {
-  const [submitted, setSubmitted] = useState(false)
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<ContactFormData>({
+  const router = useRouter()
+  const [error, setError] = useState('')
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
   })
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      console.log('Form data:', data)
-      // Aquí irá la integración con tu API de emails
-      setSubmitted(true)
-      reset()
-      setTimeout(() => setSubmitted(false), 5000)
-    } catch (error) {
-      console.error('Error:', error)
+      setError('')
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      })
+
+      if (!response.ok) {
+        throw new Error('Error al enviar')
+      }
+
+      router.push('/gracias')
+    } catch {
+      setError('Hubo un problema al enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a info@wellnessreal.es')
     }
   }
 
@@ -68,11 +77,9 @@ export default function ContactoPage() {
                   <div>
                     <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Ubicación</h3>
                     <p className="text-gray-400 text-base">
-                      Retiro
+                      Online (toda España)
                       <br />
-                      28007 Madrid
-                      <br />
-                      España
+                      Presencial: Madrid
                     </p>
                   </div>
                 </div>
@@ -126,12 +133,12 @@ export default function ContactoPage() {
             {/* Form */}
             <div className="md:col-span-2">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {submitted && (
-                  <div className="p-4 rounded-lg flex items-start gap-3" style={{ backgroundColor: 'rgba(76, 175, 80, 0.1)', borderLeft: '4px solid #4caf50' }}>
-                    <MessageCircle size={20} style={{ color: '#4caf50' }} className="flex-shrink-0 mt-0.5" />
+                {error && (
+                  <div className="p-4 rounded-lg flex items-start gap-3" style={{ backgroundColor: 'rgba(255, 107, 107, 0.1)', borderLeft: '4px solid #ff6b6b' }}>
+                    <MessageCircle size={20} style={{ color: '#ff6b6b' }} className="flex-shrink-0 mt-0.5" />
                     <div>
-                      <p style={{ color: '#4caf50' }} className="font-bold">¡Mensaje enviado correctamente!</p>
-                      <p style={{ color: '#4caf50' }} className="text-sm">Te contactaremos pronto.</p>
+                      <p style={{ color: '#ff6b6b' }} className="font-bold">Error al enviar</p>
+                      <p style={{ color: '#ff6b6b' }} className="text-sm">{error}</p>
                     </div>
                   </div>
                 )}

@@ -18,20 +18,27 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#16122B]/90 to-[#662D91]/80 z-0"></div>
         <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center">
           <h1 className="text-5xl md:text-7xl font-extrabold mb-6 gradient-text leading-tight">
-            TU ENTRENADOR PERSONAL<br/>EN TU BOLSILLO
+            PONTE EN FORMA<br/>SIN VIVIR EN EL GIMNASIO
           </h1>
           <p className="text-2xl md:text-3xl text-white mb-4 max-w-3xl font-semibold">
-            Entrena donde quieras, cuando quieras.<br/>
-            <span style={{ color: '#FCEE21' }} className="font-extrabold">Con app profesional, seguimiento real y resultados garantizados.</span>
+            Entrenamiento online para gente con trabajo, familia y poco tiempo.<br/>
+            <span style={{ color: '#FCEE21' }} className="font-extrabold">Sin dietas extremas. Sin perfección. Solo resultados.</span>
           </p>
           <p className="text-lg text-gray-300 mb-10 max-w-2xl">
-            Sin horarios fijos. Sin desplazamientos. Solo tú, tu objetivo y mi método probado.
+            Plan personalizado + app profesional + seguimiento semanal. Adaptado a TU vida real.
           </p>
-          <Link href="/contacto">
-            <button className="px-10 py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
-              🚀 SOLICITA TU VALORACIÓN GRATIS
-            </button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <Link href="/contacto">
+              <button className="px-10 py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
+                QUIERO MI PLAN PERSONALIZADO
+              </button>
+            </Link>
+            <Link href="/recurso-gratis">
+              <button className="px-8 py-4 rounded-full border-2 border-white text-white text-lg font-bold hover:bg-white hover:text-[#16122B] transition-all duration-200">
+                Descargar guía gratis
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -245,16 +252,23 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-r from-[#16122B]/95 via-[#662D91]/85 to-transparent z-1"></div>
         <div className="relative z-10 text-center max-w-3xl mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-extrabold mb-8 gradient-text">
-            Deja de posponer tu cambio
+            No necesitas más información.<br/>Necesitas empezar.
           </h2>
           <p className="text-2xl text-white mb-10 font-semibold">
-            Valoración profesional <span style={{ color: '#FCEE21' }}>100% GRATIS</span>. Sin compromiso. Sin excusas.
+            Valoración profesional <span style={{ color: '#FCEE21' }}>GRATIS</span>. Analizamos tu caso y te digo si puedo ayudarte.
           </p>
-          <Link href="/contacto">
-            <button className="px-12 py-6 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-2xl hover:scale-110 transition-all duration-200">
-              🚀 EMPIEZO HOY
-            </button>
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+            <Link href="/contacto">
+              <button className="px-12 py-6 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-2xl hover:scale-110 transition-all duration-200">
+                QUIERO EMPEZAR
+              </button>
+            </Link>
+            <Link href="/recurso-gratis">
+              <button className="px-8 py-4 rounded-full border-2 border-[#FCEE21] text-[#FCEE21] text-lg font-bold hover:bg-[#FCEE21] hover:text-[#16122B] transition-all duration-200">
+                Primero quiero la guía gratis
+              </button>
+            </Link>
+          </div>
         </div>
       </section>
     </>
