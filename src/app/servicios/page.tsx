@@ -91,7 +91,7 @@ export default function ServiciosPage() {
                 Entrenamiento Presencial
               </h3>
               <p className="text-gray-300 mb-6">
-                Sesiones 1 a 1 donde te guío en cada ejercicio. Técnica perfecta, motivación constante. Disponible en Madrid y Santander.
+                Sesiones 1 a 1 donde te guío en cada ejercicio. Técnica perfecta, motivación constante. Disponible en Madrid.
               </p>
               <Link href="/servicios/entrenamiento-personalizado">
                 <Button variant="outline" size="md" className="w-full">
@@ -171,7 +171,7 @@ export default function ServiciosPage() {
             Cuéntame tu situación y vemos juntos qué servicio encaja mejor contigo. Sin compromiso.
           </p>
           <Link href="/contacto">
-            <Button variant="primary" size="lg">
+            <Button variant="primary" size="lg" className="px-12 py-5 text-xl tracking-wide shadow-[0_0_25px_rgba(252,238,33,0.4)]">
               Solicitar valoración gratuita
             </Button>
           </Link>

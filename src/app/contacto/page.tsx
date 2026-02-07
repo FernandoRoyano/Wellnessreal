@@ -77,9 +77,9 @@ export default function ContactoPage() {
                   <div>
                     <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Ubicación</h3>
                     <p className="text-gray-400 text-base">
-                      Online (toda España)
+                      Online Internacional (España)
                       <br />
-                      Presencial: Madrid
+                      Presencial en Madrid
                     </p>
                   </div>
                 </div>
@@ -260,7 +260,7 @@ export default function ContactoPage() {
               },
               {
                 q: '¿Dónde están ubicados?',
-                a: 'Trabajamos 100% online y a domicilio en Madrid y alrededores. Entrenamientos personalizados, osteopatía y consultas directas donde tú estés.'
+                a: 'Trabajamos online para toda España y ofrecemos servicio presencial en Madrid. Entrenamientos personalizados, osteopatía y consultas directas donde tú estés.'
               },
               {
                 q: '¿Hacen consultas online?',

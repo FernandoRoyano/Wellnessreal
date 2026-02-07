@@ -15,7 +15,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       'inline-flex items-center justify-center font-bold rounded-lg transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
 
     const variants = {
-      primary: 'bg-amarillo text-morado-intenso hover:shadow-lg',
+      primary: 'bg-amarillo text-morado-intenso hover:shadow-[0_0_20px_rgba(252,238,33,0.5)] hover:scale-105',
       secondary: 'bg-purpura text-white hover:shadow-lg',
       outline: 'border-2 border-amarillo text-amarillo hover:bg-amarillo hover:text-morado-intenso',
     }

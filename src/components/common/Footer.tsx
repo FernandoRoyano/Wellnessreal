@@ -141,9 +141,9 @@ export default function Footer() {
               <li className="flex items-start gap-2">
                 <MapPin size={18} className="mt-1 flex-shrink-0" style={{ color: '#FCEE21' }} />
                 <span>
-                  San Fernando, 16
+                  Online Internacional (España)
                   <br />
-                  Santander, Cantabria
+                  Presencial en Madrid
                 </span>
               </li>
               <li className="flex items-center gap-2">

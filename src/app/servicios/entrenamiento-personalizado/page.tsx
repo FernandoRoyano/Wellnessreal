@@ -120,9 +120,7 @@ export default function EntrenamientoPersonalizadoPage() {
                 <h3 className="text-xl font-bold text-white">Ubicación</h3>
               </div>
               <p className="text-gray-400">
-                Sesiones a domicilio o en gimnasio (Madrid y alrededores).
-                <br />
-                También disponible en Santander.
+                Sesiones a domicilio o en gimnasio en Madrid.
               </p>
             </div>
 

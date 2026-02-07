@@ -11,10 +11,10 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'WellnessReal - Entrenamiento, Nutrición y Osteopatía en Santander',
+  title: 'WellnessReal - Entrenamiento, Nutrición y Osteopatía en Madrid',
   description:
     'Transforma tu salud con planes personalizados de entrenamiento, nutrición y recuperación. Primera sesión gratuita.',
-  keywords: 'entrenamiento personal, nutrición, osteopatía, santander, wellness, fitness',
+  keywords: 'entrenamiento personal, nutrición, osteopatía, madrid, wellness, fitness',
 }
 
 export default function RootLayout({
