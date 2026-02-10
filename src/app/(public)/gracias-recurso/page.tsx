@@ -1,12 +1,12 @@
 import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { CheckCircle, Mail, MessageCircle, ArrowRight } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Guía Enviada | WellnessReal',
-  description: 'Tu guía gratuita está en camino. Revisa tu email.',
+  title: 'Descarga tu Guía | WellnessReal',
+  description: 'Descarga tu guía gratuita de fitness real.',
   robots: 'noindex, nofollow',
 }
 
@@ -28,24 +28,26 @@ export default function GraciasRecursoPage() {
             </div>
 
             <h1 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-6 tracking-wide">
-              ¡YA TIENES TU GUÍA!
+              ¡TU GUÍA ESTÁ LISTA!
             </h1>
 
-            <p className="text-xl md:text-2xl text-gray-300 mb-4">
-              Revisa tu bandeja de entrada (y spam, por si acaso).
+            <p className="text-xl md:text-2xl text-gray-300 mb-8">
+              Descárgala ahora y empieza a entrenar con sentido.
             </p>
 
-            <p className="text-lg text-gray-400 mb-8">
-              Te he enviado la guía a tu email. Si no llega en los próximos 5 minutos, escríbeme.
-            </p>
-
-            <div
-              className="inline-flex items-center gap-3 px-6 py-4 rounded-xl"
-              style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
+            <a
+              href="/guia-wellness-real.pdf"
+              download
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-xl text-lg font-bold transition-transform hover:scale-105"
+              style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
             >
-              <Mail size={24} style={{ color: '#FCEE21' }} />
-              <span className="text-gray-300">Busca un email de <span className="text-white font-bold">WellnessReal</span></span>
-            </div>
+              <Download size={24} />
+              DESCARGAR GUÍA GRATIS
+            </a>
+
+            <p className="text-sm text-gray-500 mt-4">
+              PDF · Lectura de 10 minutos
+            </p>
           </div>
         </Container>
       </section>

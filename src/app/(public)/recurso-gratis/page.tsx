@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { CheckCircle, X, Clock, Briefcase, Baby, Utensils } from 'lucide-react'
+import { CheckCircle, X, Briefcase, Baby, Utensils } from 'lucide-react'
 
 const newsletterSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -92,6 +92,7 @@ export default function RecursoGratisPage() {
 
             {/* Columna derecha: Formulario */}
             <div
+              id="formulario"
               className="p-8 rounded-2xl"
               style={{ backgroundColor: '#1a1535', border: '2px solid #662D91' }}
             >
@@ -253,20 +254,16 @@ export default function RecursoGratisPage() {
               Empieza hoy. Sin excusas.
             </h2>
             <p className="text-gray-400 mb-6">
-              Deja tu email y recibe la guía ahora mismo.
+              Descarga la guía y empieza a entrenar con sentido.
             </p>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                {...register('email')}
-                type="email"
-                placeholder="tu@email.com"
-                style={{ backgroundColor: '#1a1535', borderColor: '#662D91' }}
-                className="flex-1 px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition"
-              />
-              <Button type="submit" variant="primary" size="lg" disabled={isSubmitting}>
-                {isSubmitting ? '...' : 'DESCARGAR'}
-              </Button>
-            </form>
+            <Button
+              variant="primary"
+              size="lg"
+              className="text-lg px-8 py-4"
+              onClick={() => document.getElementById('formulario')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              QUIERO LA GUÍA GRATIS
+            </Button>
           </div>
         </Container>
       </section>

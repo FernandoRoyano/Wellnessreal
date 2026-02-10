@@ -164,7 +164,7 @@ export default function Footer() {
 
         <div className="border-t py-6" style={{ borderTopColor: '#662D91' }}>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-400">
-            <p>© {currentYear} WellnessReal. CIF: 72171129G. Todos los derechos reservados.</p>
+            <p>© {currentYear} WellnessReal. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/privacidad" className="hover:text-white transition">
                 Privacidad

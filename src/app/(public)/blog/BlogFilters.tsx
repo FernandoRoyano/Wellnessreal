@@ -5,8 +5,8 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { Calendar, Clock, Filter } from 'lucide-react'
-import { urlFor } from '../../../sanity/lib/image'
-import type { SanityPost, SanityCategory } from '../../../sanity/lib/queries'
+import { urlFor } from '../../../../sanity/lib/image'
+import type { SanityPost, SanityCategory } from '../../../../sanity/lib/queries'
 
 interface BlogFiltersProps {
   posts: SanityPost[]
