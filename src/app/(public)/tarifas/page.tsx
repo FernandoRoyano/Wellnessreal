@@ -5,6 +5,13 @@ import { Check } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 
+const PHONE = '34633261963'
+
+function whatsappUrl(plan: string) {
+  const msg = `Hola, me interesa el plan ${plan}. Me gustaría recibir más información.`
+  return `https://wa.me/${PHONE}?text=${encodeURIComponent(msg)}`
+}
+
 export const metadata = buildMetadata({
   title: 'Tarifas | Planes de Entrenamiento Online',
   description:
@@ -93,9 +100,15 @@ export default function TarifasPage() {
                   <span>Valoración inicial gratuita</span>
                 </li>
               </ul>
-              <Link href="/contacto">
-                <Button variant="primary" size="lg" className="w-full">Empezar ahora</Button>
-              </Link>
+              <a
+                href={whatsappUrl('Starter 1 Mes (€120)')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+              >
+                Empezar ahora
+              </a>
             </div>
 
             {/* 3 Meses - Pack ahorro */}
@@ -137,9 +150,15 @@ export default function TarifasPage() {
                   <span>Revisión mensual en profundidad</span>
                 </li>
               </ul>
-              <Link href="/contacto">
-                <Button variant="primary" size="lg" className="w-full">Elegir este plan</Button>
-              </Link>
+              <a
+                href={whatsappUrl('Pack 3 Meses (€300)')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+              >
+                Elegir este plan
+              </a>
             </div>
 
             {/* PREMIUM */}
@@ -177,9 +196,15 @@ export default function TarifasPage() {
                   <span>Pautas nutricionales incluidas</span>
                 </li>
               </ul>
-              <Link href="/contacto">
-                <Button variant="primary" size="lg" className="w-full">Consultar disponibilidad</Button>
-              </Link>
+              <a
+                href={whatsappUrl('Premium 3 Meses (€500)')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+              >
+                Consultar disponibilidad
+              </a>
             </div>
           </div>
         </Container>
@@ -218,9 +243,14 @@ export default function TarifasPage() {
                   <span style={{ color: '#FCEE21' }} className="text-3xl font-bold">€{service.price}</span>
                   <span className="text-gray-400 ml-2">/ sesión</span>
                 </div>
-                <Link href="/contacto">
-                  <Button variant="outline" size="md" className="w-full">Reservar</Button>
-                </Link>
+                <a
+                  href={whatsappUrl(`${service.name} (€${service.price})`)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-3 rounded-lg text-center font-bold transition-all duration-200 border-2 border-[#FCEE21] text-[#FCEE21] hover:bg-[#FCEE21] hover:text-[#16122B] hover:scale-105"
+                >
+                  Reservar
+                </a>
               </div>
             ))}
           </div>
@@ -304,11 +334,15 @@ export default function TarifasPage() {
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
             Cuéntame tu situación y te ayudo a elegir el plan que mejor encaja contigo.
           </p>
-          <Link href="/contacto">
-            <Button variant="primary" size="lg">
-              Solicitar valoración gratuita
-            </Button>
-          </Link>
+          <a
+            href={whatsappUrl('Valoración gratuita')}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:scale-105"
+            style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+          >
+            Solicitar valoración gratuita
+          </a>
         </Container>
       </section>
     </>

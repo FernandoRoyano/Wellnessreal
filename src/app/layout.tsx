@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import Script from 'next/script'
 import JsonLd, { organizationSchema } from '@/components/seo/JsonLd'
+import WhatsAppBubble from '@/components/common/WhatsAppBubble'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -90,6 +91,7 @@ export default function RootLayout({
       </head>
       <body className="font-sans bg-morado-intenso text-white">
         {children}
+        <WhatsAppBubble />
       </body>
     </html>
   )
