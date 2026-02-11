@@ -2,6 +2,21 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { Heart, Activity, Moon } from 'lucide-react'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
+  title: 'Nuestra Filosofía | Fitness Real Sin Extremos',
+  description:
+    'La filosofía WellnessReal: salud real basada en actividad física, nutrición y recuperación. Sin postureo, sin excusas. Solo lo que funciona de verdad.',
+  path: '/filosofia',
+  keywords: [
+    'filosofía fitness',
+    'salud real',
+    'bienestar integral',
+    'entrenamiento sin extremos',
+    'vida saludable',
+  ],
+})
 
 export default function FilosofiaPage() {
   return (

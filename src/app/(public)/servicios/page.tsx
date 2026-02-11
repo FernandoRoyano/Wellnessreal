@@ -3,10 +3,32 @@ import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import Image from 'next/image'
 import { Smartphone, Utensils, Bone, Dumbbell } from 'lucide-react'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+
+export const metadata = buildMetadata({
+  title: 'Servicios | Entrenamiento, Nutrición y Osteopatía',
+  description:
+    'Servicios de entrenamiento online personalizado, nutrición adaptada y osteopatía. Planes flexibles para gente con vida real. Sin extremos, solo resultados.',
+  path: '/servicios',
+  keywords: [
+    'servicios entrenamiento online',
+    'nutrición personalizada online',
+    'osteopatía Santander',
+    'entrenador personal online',
+    'entrenamiento presencial Madrid',
+  ],
+})
 
 export default function ServiciosPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+        ])}
+      />
       {/* Hero */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-32">
         <Container>

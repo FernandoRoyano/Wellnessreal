@@ -2,16 +2,41 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { MapPin, Clock, Users, Target, Dumbbell, CheckCircle } from 'lucide-react'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Entrenamiento Personalizado Presencial | WellnessReal',
-  description: 'Entrenamiento personal 1 a 1 en Madrid. Sesiones adaptadas a tu nivel, objetivos y disponibilidad. Resultados garantizados.',
-}
+export const metadata = buildMetadata({
+  title: 'Entrenamiento Personalizado Presencial en Madrid',
+  description:
+    'Entrenamiento personal 1 a 1 en Madrid. Sesiones adaptadas a tu nivel, objetivos y disponibilidad. Técnica perfecta y resultados garantizados.',
+  path: '/servicios/entrenamiento-personalizado',
+  keywords: [
+    'entrenador personal Madrid',
+    'entrenamiento personalizado presencial',
+    'personal trainer Madrid',
+    'entrenamiento 1 a 1',
+    'sesiones entrenamiento Madrid',
+  ],
+})
 
 export default function EntrenamientoPersonalizadoPage() {
   return (
     <>
+      <JsonLd
+        data={serviceSchema({
+          name: 'Entrenamiento Personalizado Presencial',
+          description: 'Sesiones de entrenamiento personal 1 a 1 en Madrid. Técnica perfecta, motivación constante y resultados.',
+          url: 'https://wellnessreal.es/servicios/entrenamiento-personalizado',
+          areaServed: 'Madrid, ES',
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+          { name: 'Entrenamiento Personalizado', url: 'https://wellnessreal.es/servicios/entrenamiento-personalizado' },
+        ])}
+      />
       {/* Hero */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-32">
         <Container>

@@ -2,16 +2,41 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { Check } from 'lucide-react'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Tarifas | WellnessReal',
-  description: 'Planes de entrenamiento online personalizados. Desde €120/mes. Valoración gratuita incluida.',
-}
+export const metadata = buildMetadata({
+  title: 'Tarifas | Planes de Entrenamiento Online',
+  description:
+    'Planes de entrenamiento online personalizados desde €120/mes. Pack 3 meses, Premium con videollamadas. Valoración gratuita incluida.',
+  path: '/tarifas',
+  keywords: [
+    'tarifas entrenamiento online',
+    'precios entrenador personal',
+    'planes entrenamiento personalizado',
+    'entrenamiento online precio',
+  ],
+})
 
 export default function TarifasPage() {
   return (
     <>
+      <JsonLd
+        data={offerSchema([
+          { name: 'Starter - 1 Mes', price: '120', description: 'Plan personalizado en app, revisión semanal, vídeos explicativos, soporte por chat.' },
+          { name: 'Pack 3 Meses', price: '300', description: 'Todo lo del Starter + 12 semanas de seguimiento, ajustes semanales y revisión mensual.' },
+          { name: 'Premium - 3 Meses', price: '500', description: 'Todo lo del pack 3 meses + videollamada semanal, soporte prioritario y pautas nutricionales.' },
+        ])}
+      />
+      <JsonLd
+        data={faqSchema([
+          { question: '¿Puedo cambiar de plan?', answer: 'Sí, puedes cambiar o cancelar en cualquier momento. Sin permanencia ni penalización.' },
+          { question: '¿Cómo es la valoración gratuita?', answer: 'Hablamos de tu situación, objetivos y disponibilidad. Te digo si puedo ayudarte y cómo. Sin compromiso.' },
+          { question: '¿Incluye nutrición?', answer: 'Los planes incluyen pautas nutricionales básicas. El plan Premium incluye seguimiento nutricional completo.' },
+          { question: '¿Qué pasa si no veo resultados?', answer: 'Si después de seguir el plan correctamente no ves progreso, revisamos todo y ajustamos sin coste extra.' },
+          { question: '¿Puedo combinar servicios?', answer: 'Sí, puedes añadir nutrición, osteopatía o análisis corporal a cualquier plan.' },
+        ])}
+      />
       {/* Hero */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>

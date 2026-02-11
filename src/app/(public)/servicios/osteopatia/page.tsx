@@ -3,9 +3,41 @@ import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { Check } from 'lucide-react'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+
+export const metadata = buildMetadata({
+  title: 'Osteopatía y Recuperación en Santander',
+  description:
+    'Osteopatía y recuperación de lesiones en Santander. Tratamiento personalizado, prevención y optimización del rendimiento físico. Sesiones presenciales.',
+  path: '/servicios/osteopatia',
+  keywords: [
+    'osteopatía Santander',
+    'recuperación lesiones',
+    'osteópata Santander',
+    'tratamiento lesiones musculares',
+    'fisioterapia Santander',
+  ],
+})
 
 export default function OsteopatiaRecuperacionPage() {
   return (
+    <>
+      <JsonLd
+        data={serviceSchema({
+          name: 'Osteopatía y Recuperación',
+          description: 'Tratamiento personalizado de lesiones, prevención y optimización del rendimiento físico en Santander.',
+          url: 'https://wellnessreal.es/servicios/osteopatia',
+          areaServed: 'Santander, Cantabria, ES',
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+          { name: 'Osteopatía', url: 'https://wellnessreal.es/servicios/osteopatia' },
+        ])}
+      />
     <section style={{ backgroundColor: '#16122B' }} className="py-20">
       <Container>
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
@@ -59,5 +91,6 @@ export default function OsteopatiaRecuperacionPage() {
         </div>
       </Container>
     </section>
+    </>
   )
 }

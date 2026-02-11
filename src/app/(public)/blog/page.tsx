@@ -5,12 +5,21 @@ import { Calendar, Clock, Filter } from 'lucide-react'
 import { getAllPosts, getAllCategories, type SanityPost, type SanityCategory } from '../../../../sanity/lib/queries'
 import { urlFor } from '../../../../sanity/lib/image'
 import BlogFilters from './BlogFilters'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Blog | WellnessReal',
-  description: 'Consejos de entrenamiento y nutrición sin rodeos. Lo que funciona, explicado simple.',
-}
+export const metadata = buildMetadata({
+  title: 'Blog | Consejos de Entrenamiento y Nutrición',
+  description:
+    'Blog de entrenamiento y nutrición sin rodeos. Consejos prácticos, artículos de fitness y guías para ponerte en forma de verdad.',
+  path: '/blog',
+  keywords: [
+    'blog fitness',
+    'consejos entrenamiento',
+    'nutrición deportiva',
+    'artículos fitness',
+    'blog entrenamiento online',
+  ],
+})
 
 export const revalidate = 60 // Revalidar cada 60 segundos
 

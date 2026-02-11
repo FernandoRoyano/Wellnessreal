@@ -3,9 +3,40 @@ import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { Check } from 'lucide-react'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+
+export const metadata = buildMetadata({
+  title: 'Nutrición Personalizada Online',
+  description:
+    'Pautas nutricionales adaptadas a tu vida, tus gustos y tu contexto. Sin dietas imposibles ni prohibiciones. Resultados que se mantienen.',
+  path: '/servicios/nutricion',
+  keywords: [
+    'nutrición personalizada online',
+    'pautas nutricionales',
+    'dietista online',
+    'nutricionista online España',
+    'plan nutricional personalizado',
+  ],
+})
 
 export default function NutricionPersonalizadaPage() {
   return (
+    <>
+      <JsonLd
+        data={serviceSchema({
+          name: 'Nutrición Personalizada Online',
+          description: 'Pautas nutricionales adaptadas a tu vida, tus gustos y tu contexto. Sin dietas imposibles.',
+          url: 'https://wellnessreal.es/servicios/nutricion',
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+          { name: 'Nutrición', url: 'https://wellnessreal.es/servicios/nutricion' },
+        ])}
+      />
     <section style={{ backgroundColor: '#16122B' }} className="py-20">
       <Container>
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row gap-12 items-center">
@@ -59,5 +90,6 @@ export default function NutricionPersonalizadaPage() {
         </div>
       </Container>
     </section>
+    </>
   )
 }

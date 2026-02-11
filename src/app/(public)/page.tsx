@@ -2,12 +2,31 @@ import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { localBusinessSchema, webSiteSchema } from '@/components/seo/JsonLd'
+
+export const metadata = buildMetadata({
+  title: 'WellnessReal | Entrenamiento Online Personalizado en Madrid',
+  description:
+    'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real con app profesional y seguimiento semanal. Primera valoración gratis.',
+  path: '/',
+  keywords: [
+    'entrenamiento online personalizado',
+    'entrenador personal Madrid',
+    'entrenamiento a distancia',
+    'fitness online personalizado',
+    'plan entrenamiento app',
+    'nutrición personalizada',
+  ],
+})
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={localBusinessSchema()} />
+      <JsonLd data={webSiteSchema()} />
       {/* HERO ULTRA POTENTE */}
-      <section className="relative h-[80vh] flex items-center justify-center bg-[#16122B]">
+      <section className="relative min-h-[80vh] flex items-center justify-center bg-[#16122B] py-16">
         <Image
           src="/images/portada-WR.jpg"
           alt="Entrenamiento Online WellnessReal"
@@ -16,25 +35,26 @@ export default function HomePage() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#16122B]/90 to-[#662D91]/80 z-0"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 px-4 text-center">
-          <h1 className="text-5xl md:text-7xl font-extrabold mb-6 gradient-text leading-tight">
+        <div className="relative flex flex-col items-center justify-center z-10 px-4 text-center">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 gradient-text leading-tight">
             PONTE EN FORMA<br/>SIN VIVIR EN EL GIMNASIO
           </h1>
-          <p className="text-2xl md:text-3xl text-white mb-4 max-w-3xl font-semibold">
-            Entrenamiento online para gente con trabajo, familia y poco tiempo.<br/>
-            <span style={{ color: '#FCEE21' }} className="font-extrabold">Sin dietas extremas. Sin perfección. Solo resultados.</span>
+          <p className="text-lg sm:text-2xl md:text-3xl text-white mb-3 md:mb-4 max-w-3xl font-semibold">
+            Entrenamiento online para gente con trabajo, familia y poco tiempo.
+            <br className="hidden sm:block" />
+            <span style={{ color: '#FCEE21' }} className="font-extrabold"> Sin dietas extremas. Sin perfección. Solo resultados.</span>
           </p>
-          <p className="text-lg text-gray-300 mb-10 max-w-2xl">
+          <p className="text-base md:text-lg text-gray-300 mb-8 md:mb-10 max-w-2xl">
             Plan personalizado + app profesional + seguimiento semanal. Adaptado a TU vida real.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full px-2">
             <Link href="/contacto">
-              <button className="px-10 py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
+              <button className="px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-lg sm:text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
                 QUIERO MI PLAN PERSONALIZADO
               </button>
             </Link>
             <Link href="/recurso-gratis">
-              <button className="px-8 py-4 rounded-full border-2 border-white text-white text-lg font-bold hover:bg-white hover:text-[#16122B] transition-all duration-200">
+              <button className="px-6 py-3 sm:px-8 sm:py-4 rounded-full border-2 border-white text-white text-base sm:text-lg font-bold hover:bg-white hover:text-[#16122B] transition-all duration-200">
                 Descargar guía gratis
               </button>
             </Link>

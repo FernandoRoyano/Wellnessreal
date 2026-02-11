@@ -3,16 +3,40 @@ import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { Check, Smartphone, Clock, Target, MessageCircle } from 'lucide-react'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
+import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 
-export const metadata: Metadata = {
-  title: 'Entrenamiento Online | WellnessReal',
-  description: 'Entrenamiento personalizado 100% online. App profesional, seguimiento semanal y plan adaptado a tu vida real. Sin horarios fijos.',
-}
+export const metadata = buildMetadata({
+  title: 'Entrenamiento Online Personalizado',
+  description:
+    'Entrenamiento personalizado 100% online con app profesional. Seguimiento semanal, vídeos explicativos y plan adaptado a tu vida real. Sin horarios fijos.',
+  path: '/servicios/entrenamiento-online',
+  keywords: [
+    'entrenamiento online personalizado',
+    'entrenador personal online',
+    'app entrenamiento personalizado',
+    'plan entrenamiento online',
+    'fitness online',
+  ],
+})
 
 export default function EntrenamientoOnlinePage() {
   return (
     <>
+      <JsonLd
+        data={serviceSchema({
+          name: 'Entrenamiento Online Personalizado',
+          description: 'Plan de entrenamiento personalizado con app profesional, seguimiento semanal y vídeos explicativos.',
+          url: 'https://wellnessreal.es/servicios/entrenamiento-online',
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+          { name: 'Entrenamiento Online', url: 'https://wellnessreal.es/servicios/entrenamiento-online' },
+        ])}
+      />
       {/* Hero */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>

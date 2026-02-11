@@ -7,6 +7,7 @@ import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPostSlugs } from '../../../../../sanity/lib/queries'
 import { urlFor } from '../../../../../sanity/lib/image'
 import type { Metadata } from 'next'
+import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 import '../markdown.css'
 
 export const revalidate = 60
@@ -30,16 +31,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     }
   }
 
+  const ogImage = post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined
+
   return {
-    title: `${post.title} | WellnessReal`,
+    title: post.title,
     description: post.excerpt,
+    alternates: {
+      canonical: `https://wellnessreal.es/blog/${slug}`,
+    },
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: 'article',
       publishedTime: post.publishedAt,
       authors: [post.author],
-      images: post.mainImage ? [urlFor(post.mainImage).width(1200).height(630).url()] : [],
+      url: `https://wellnessreal.es/blog/${slug}`,
+      siteName: 'WellnessReal',
+      locale: 'es_ES',
+      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: ogImage ? [ogImage] : [],
     },
   }
 }
@@ -128,6 +143,23 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <JsonLd
+        data={articleSchema({
+          title: post.title,
+          description: post.excerpt,
+          url: `https://wellnessreal.es/blog/${slug}`,
+          image: post.mainImage ? urlFor(post.mainImage).width(1200).height(630).url() : undefined,
+          datePublished: post.publishedAt,
+          author: post.author,
+        })}
+      />
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Blog', url: 'https://wellnessreal.es/blog' },
+          { name: post.title, url: `https://wellnessreal.es/blog/${slug}` },
+        ])}
+      />
       {/* Hero del Post */}
       <section style={{ backgroundColor: '#16122B' }} className="pt-24 pb-8">
         <Container>
