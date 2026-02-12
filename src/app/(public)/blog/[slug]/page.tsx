@@ -289,7 +289,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             y diseña un plan adaptado a tu vida real.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <Button variant="primary" size="lg">
                 Solicitar valoración gratuita
               </Button>

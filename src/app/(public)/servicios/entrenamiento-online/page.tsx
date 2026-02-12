@@ -59,7 +59,7 @@ export default function EntrenamientoOnlinePage() {
                 </span>
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/contacto">
+                <Link href="/valoracion">
                   <Button variant="primary" size="lg">
                     Solicitar valoración gratuita
                   </Button>
@@ -204,7 +204,7 @@ export default function EntrenamientoOnlinePage() {
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
             La valoración inicial es gratuita. Me cuentas tu situación y vemos si puedo ayudarte. Sin compromiso.
           </p>
-          <Link href="/contacto">
+          <Link href="/valoracion">
             <Button variant="primary" size="lg">
               Solicitar valoración gratuita
             </Button>

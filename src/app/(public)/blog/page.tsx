@@ -83,7 +83,7 @@ export default async function BlogPage() {
           <p className="text-gray-400 mb-6">
             ¿Prefieres un plan personalizado a tu situación?
           </p>
-          <Link href="/contacto">
+          <Link href="/valoracion">
             <Button variant="outline" size="lg">
               Solicitar valoración gratuita
             </Button>

@@ -69,7 +69,7 @@ export default function NutricionPersonalizadaPage() {
                 <span>¡Nada de prohibiciones absurdas! Aprendes a comer para sentirte y verte mejor sin sacrificar tu vida social.</span>
               </li>
             </ul>
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <Button size="lg" variant="primary" className="uppercase tracking-widest font-bold px-8 py-3 rounded-xl">
                 🚀 Quiero mi valoración nutricional gratis
               </Button>

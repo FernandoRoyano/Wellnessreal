@@ -54,7 +54,7 @@ export default function EntrenamientoPersonalizadoPage() {
               Sesiones 1 a 1 donde <span style={{ color: '#FCEE21' }} className="font-bold">tú eres el centro</span>.
               Técnica perfecta, motivación constante y resultados que se ven.
             </p>
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <Button variant="primary" size="lg">
                 Reservar sesión de prueba
               </Button>
@@ -177,7 +177,7 @@ export default function EntrenamientoPersonalizadoPage() {
             Reserva tu primera sesión de valoración. Sin compromiso, sin presión. Solo hablamos de ti y tus objetivos.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <Button variant="primary" size="lg" className="px-8">
                 Reservar sesión de prueba
               </Button>

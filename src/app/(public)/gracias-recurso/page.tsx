@@ -73,7 +73,7 @@ export default function GraciasRecursoPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center mb-6">
-                <Link href="/contacto">
+                <Link href="/valoracion">
                   <Button variant="primary" size="lg" className="px-8">
                     Solicitar valoración gratuita
                   </Button>

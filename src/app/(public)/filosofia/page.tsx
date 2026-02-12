@@ -158,7 +158,7 @@ export default function FilosofiaPage() {
             Empieza tu transformación ahora con la primera sesión gratuita. Sin humo, sin excusas.
           </p>
 <Link
-  href="/contacto"
+  href="/valoracion"
   className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all tracking-wide text-base"
   style={{
     backgroundColor: '#FCEE21',

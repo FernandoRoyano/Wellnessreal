@@ -81,77 +81,22 @@ Enviado desde wellnessreal.es
       `
     }
 
-    // ============================================================
-    // OPCIONES DE INTEGRACIÓN - Descomenta la que vayas a usar
-    // ============================================================
+    // Send via Resend
+    const resendKey = process.env.RESEND_API_KEY
+    if (resendKey) {
+      const { Resend } = await import('resend')
+      const resend = new Resend(resendKey)
 
-    // OPCIÓN 1: Resend (Recomendado - gratis hasta 3000 emails/mes)
-    // npm install resend
-    // Crea cuenta en resend.com y añade RESEND_API_KEY en .env.local
-    /*
-    const { Resend } = await import('resend')
-    const resend = new Resend(process.env.RESEND_API_KEY)
-
-    await resend.emails.send({
-      from: emailContent.from,
-      to: emailContent.to,
-      reply_to: emailContent.replyTo,
-      subject: emailContent.subject,
-      html: emailContent.html,
-    })
-    */
-
-    // OPCIÓN 2: Nodemailer con SMTP (Gmail, tu hosting, etc.)
-    // npm install nodemailer
-    // Añade SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS en .env.local
-    /*
-    const nodemailer = await import('nodemailer')
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || '587'),
-      secure: false,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
-
-    await transporter.sendMail({
-      from: emailContent.from,
-      to: emailContent.to,
-      replyTo: emailContent.replyTo,
-      subject: emailContent.subject,
-      html: emailContent.html,
-      text: emailContent.text,
-    })
-    */
-
-    // OPCIÓN 3: SendGrid
-    // npm install @sendgrid/mail
-    // Añade SENDGRID_API_KEY en .env.local
-    /*
-    const sgMail = await import('@sendgrid/mail')
-    sgMail.default.setApiKey(process.env.SENDGRID_API_KEY!)
-
-    await sgMail.default.send({
-      to: emailContent.to,
-      from: emailContent.from,
-      replyTo: emailContent.replyTo,
-      subject: emailContent.subject,
-      html: emailContent.html,
-      text: emailContent.text,
-    })
-    */
-
-    // TEMPORAL: Log para desarrollo (quita esto cuando actives una opción)
-    console.log('📧 Nuevo contacto recibido:')
-    console.log('- Nombre:', name)
-    console.log('- Email:', email)
-    console.log('- Teléfono:', phone)
-    console.log('- Asunto:', subject)
-    console.log('- Mensaje:', message)
-    console.log('---')
-    console.log('⚠️  Activa una opción de envío en /api/contact/route.ts')
+      await resend.emails.send({
+        from: emailContent.from,
+        to: emailContent.to,
+        replyTo: emailContent.replyTo,
+        subject: emailContent.subject,
+        html: emailContent.html,
+      })
+    } else {
+      console.log('⚠️ RESEND_API_KEY no configurada. Contacto recibido:', name, email)
+    }
 
     return NextResponse.json({
       success: true,

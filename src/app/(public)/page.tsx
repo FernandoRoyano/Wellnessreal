@@ -48,7 +48,7 @@ export default function HomePage() {
             Plan personalizado + app profesional + seguimiento semanal. Adaptado a TU vida real.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full px-2">
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <button className="px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-lg sm:text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
                 QUIERO MI PLAN PERSONALIZADO
               </button>
@@ -278,7 +278,7 @@ export default function HomePage() {
             Valoración profesional <span style={{ color: '#FCEE21' }}>GRATIS</span>. Analizamos tu caso y te digo si puedo ayudarte.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <button className="px-12 py-6 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-2xl hover:scale-110 transition-all duration-200">
                 QUIERO EMPEZAR
               </button>

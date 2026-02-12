@@ -70,7 +70,7 @@ export default function OsteopatiaRecuperacionPage() {
                 <span>Sesiones presenciales en Santander con atención profesional.</span>
               </li>
             </ul>
-            <Link href="/contacto">
+            <Link href="/valoracion">
               <Button size="lg" variant="primary" className="uppercase tracking-widest font-bold px-8 py-3 rounded-xl">
                 🚀 Reserva tu sesión ahora
               </Button>

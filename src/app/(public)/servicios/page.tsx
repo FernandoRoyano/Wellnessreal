@@ -192,7 +192,7 @@ export default function ServiciosPage() {
           <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
             Cuéntame tu situación y vemos juntos qué servicio encaja mejor contigo. Sin compromiso.
           </p>
-          <Link href="/contacto">
+          <Link href="/valoracion">
             <Button variant="primary" size="lg" className="px-12 py-5 text-xl tracking-wide shadow-[0_0_25px_rgba(252,238,33,0.4)]">
               Solicitar valoración gratuita
             </Button>

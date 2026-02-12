@@ -52,11 +52,11 @@ export default function Header() {
           {/* CTA Desktop */}
           <div className="hidden lg:block">
             <Link
-              href="/contacto"
+              href="/valoracion"
               className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all tracking-wide text-base hover:brightness-110"
               style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
             >
-              🚀 Solicita tu valoración gratis
+              Solicita tu valoración gratis
             </Link>
           </div>
 
@@ -89,12 +89,12 @@ export default function Header() {
                 </Link>
               ))}
               <Link
-                href="/contacto"
+                href="/valoracion"
                 className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all mt-2 tracking-wide text-base hover:brightness-110"
                 style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
                 onClick={() => setIsMenuOpen(false)}
               >
-                🚀 Solicita tu valoración gratis
+                Solicita tu valoración gratis
               </Link>
             </div>
           </nav>
