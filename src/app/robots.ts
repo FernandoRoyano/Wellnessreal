@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/cliente/', '/studio/', '/gracias', '/gracias-recurso'],
+        disallow: ['/admin/', '/api/', '/cliente/', '/studio/', '/gracias', '/gracias-recurso', '/gracias-valoracion'],
       },
     ],
     sitemap: 'https://wellnessreal.es/sitemap.xml',
