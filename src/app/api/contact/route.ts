@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
 
     // Configuración del email
     const emailContent = {
-      to: 'info@wellnessreal.es',
+      to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
       from: 'noreply@wellnessreal.es', // Configura con tu dominio verificado
       replyTo: email,
       subject: `[WellnessReal] ${subject}`,

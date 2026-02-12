@@ -144,7 +144,7 @@ export async function POST(request: NextRequest) {
       // Email to business
       await resend.emails.send({
         from: 'WellnessReal <noreply@wellnessreal.es>',
-        to: 'info@wellnessreal.es',
+        to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
         replyTo: email,
         subject: `[Valoración] ${name} — ${objectiveLabels[objective] || objective}`,
         html: businessHtml,
