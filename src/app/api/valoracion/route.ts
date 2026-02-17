@@ -141,9 +141,11 @@ export async function POST(request: NextRequest) {
       const { Resend } = await import('resend')
       const resend = new Resend(resendKey)
 
+      const fromEmail = process.env.RESEND_FROM_EMAIL || 'WellnessReal <onboarding@resend.dev>'
+
       // Email to business
       await resend.emails.send({
-        from: 'WellnessReal <noreply@wellnessreal.es>',
+        from: fromEmail,
         to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
         replyTo: email,
         subject: `[Valoración] ${name} — ${objectiveLabels[objective] || objective}`,
@@ -152,7 +154,7 @@ export async function POST(request: NextRequest) {
 
       // Confirmation to user
       await resend.emails.send({
-        from: 'WellnessReal <noreply@wellnessreal.es>',
+        from: fromEmail,
         to: email,
         subject: 'Tu valoración en WellnessReal — La hemos recibido',
         html: userHtml,
