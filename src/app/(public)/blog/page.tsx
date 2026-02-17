@@ -1,9 +1,7 @@
 import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { Calendar, Clock, Filter } from 'lucide-react'
-import { getAllPosts, getAllCategories, type SanityPost, type SanityCategory } from '../../../../sanity/lib/queries'
-import { urlFor } from '../../../../sanity/lib/image'
+import { getAllPosts, getAllCategories } from '@/lib/db/posts'
 import BlogFilters from './BlogFilters'
 import { buildMetadata } from '@/lib/seo'
 
@@ -21,7 +19,7 @@ export const metadata = buildMetadata({
   ],
 })
 
-export const revalidate = 60 // Revalidar cada 60 segundos
+export const revalidate = 60
 
 export default async function BlogPage() {
   const [posts, categories] = await Promise.all([

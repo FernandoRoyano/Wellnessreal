@@ -1,21 +1,19 @@
 import { NextResponse } from 'next/server'
-import { getAllPosts } from '../../../../sanity/lib/queries'
-import { urlFor } from '../../../../sanity/lib/image'
+import { getAllPosts } from '@/lib/db/posts'
 
 export async function GET() {
   try {
     const posts = await getAllPosts()
 
-    // Devolver datos formateados para el listado
     const postsForListing = posts.map(post => ({
-      slug: post.slug.current,
+      slug: post.slug,
       title: post.title,
       excerpt: post.excerpt,
       category: post.category?.title || 'Sin categoría',
       author: post.author,
-      date: post.publishedAt,
-      readTime: post.readTime,
-      image: post.mainImage ? urlFor(post.mainImage).width(400).height(200).url() : null,
+      date: post.published_at,
+      readTime: post.read_time,
+      image: post.main_image_url,
     }))
 
     return NextResponse.json(postsForListing)

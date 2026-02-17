@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectDB } from '@/lib/db/connection'
-import Proposal from '@/lib/db/models/Proposal'
+import { getProposalByToken, updateProposalByToken } from '@/lib/db/proposals'
 import { getStripe } from '@/lib/stripe'
 
 export async function POST(request: NextRequest) {
@@ -11,8 +10,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Token requerido' }, { status: 400 })
     }
 
-    await connectDB()
-    const proposal = await Proposal.findOne({ token })
+    const proposal = await getProposalByToken(token)
 
     if (!proposal) {
       return NextResponse.json({ error: 'Propuesta no encontrada' }, { status: 404 })
@@ -30,23 +28,24 @@ export async function POST(request: NextRequest) {
           price_data: {
             currency: 'eur',
             product_data: {
-              name: `${proposal.serviceLabel} - ${proposal.duration}`,
-              description: `Propuesta para ${proposal.clientName}`,
+              name: `${proposal.service_label} - ${proposal.duration}`,
+              description: `Propuesta para ${proposal.client_name}`,
             },
             unit_amount: Math.round(proposal.price * 100),
           },
           quantity: 1,
         },
       ],
-      customer_email: proposal.clientEmail,
+      customer_email: proposal.client_email,
       metadata: { proposalToken: proposal.token },
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cliente/${proposal.token}/exito`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cliente/${proposal.token}/cancelado`,
     })
 
-    proposal.stripeSessionId = session.id
-    proposal.paymentMethod = 'stripe'
-    await proposal.save()
+    await updateProposalByToken(token, {
+      stripe_session_id: session.id,
+      payment_method: 'stripe',
+    })
 
     return NextResponse.json({ sessionUrl: session.url })
   } catch {
