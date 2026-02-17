@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendEmail } from '@/lib/email'
 
 const objectiveLabels: Record<string, string> = {
   'perder-grasa': 'Perder grasa',
@@ -135,33 +136,19 @@ export async function POST(request: NextRequest) {
 </div>
 </body></html>`
 
-    // Send emails via Resend
-    const resendKey = process.env.RESEND_API_KEY
-    if (resendKey) {
-      const { Resend } = await import('resend')
-      const resend = new Resend(resendKey)
+    // Send emails via Gmail SMTP
+    await sendEmail({
+      to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
+      replyTo: email,
+      subject: `[Valoración] ${name} — ${objectiveLabels[objective] || objective}`,
+      html: businessHtml,
+    })
 
-      const fromEmail = process.env.RESEND_FROM_EMAIL || 'WellnessReal <onboarding@resend.dev>'
-
-      // Email to business
-      await resend.emails.send({
-        from: fromEmail,
-        to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
-        replyTo: email,
-        subject: `[Valoración] ${name} — ${objectiveLabels[objective] || objective}`,
-        html: businessHtml,
-      })
-
-      // Confirmation to user
-      await resend.emails.send({
-        from: fromEmail,
-        to: email,
-        subject: 'Tu valoración en WellnessReal — La hemos recibido',
-        html: userHtml,
-      })
-    } else {
-      console.log('⚠️ RESEND_API_KEY no configurada. Valoración recibida:', name, email)
-    }
+    await sendEmail({
+      to: email,
+      subject: 'Tu valoración en WellnessReal — La hemos recibido',
+      html: userHtml,
+    })
 
     // Subscribe to MailerLite
     const mlKey = process.env.MAILERLITE_API_KEY

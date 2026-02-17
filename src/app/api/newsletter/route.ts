@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { sendEmail } from '@/lib/email'
 
 // API para suscripción a newsletter + envío de guía gratuita por email
 
@@ -73,36 +74,16 @@ function buildGuideEmailHTML(name: string, downloadUrl: string): string {
 }
 
 async function sendGuideEmail(email: string, name: string) {
-  const RESEND_API_KEY = process.env.RESEND_API_KEY
-  if (!RESEND_API_KEY) {
-    console.log('[Newsletter] RESEND_API_KEY no configurada, email de guía no enviado')
-    return
-  }
-
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.com'
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'
   const downloadUrl = `${baseUrl}/guia-wellness-real.pdf`
 
   try {
-    const res = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: process.env.RESEND_FROM_EMAIL || 'WellnessReal <onboarding@resend.dev>',
-        to: [email],
-        subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
-        html: buildGuideEmailHTML(name, downloadUrl),
-      }),
+    await sendEmail({
+      to: email,
+      subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
+      html: buildGuideEmailHTML(name, downloadUrl),
     })
-
-    if (res.ok) {
-      console.log('[Newsletter] Email de guía enviado a:', email)
-    } else {
-      const err = await res.json().catch(() => ({}))
-      console.error('[Newsletter] Error enviando email de guía:', err)
-    }
+    console.log('[Newsletter] Email de guía enviado a:', email)
   } catch (err) {
     console.error('[Newsletter] Error enviando email de guía:', err)
   }
@@ -113,7 +94,6 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const { email, name } = body
 
-    // Validación básica
     if (!email) {
       return NextResponse.json(
         { error: 'El email es requerido' },
@@ -121,7 +101,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Validar formato email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
       return NextResponse.json(
@@ -161,7 +140,6 @@ export async function POST(request: NextRequest) {
       console.error('Error Mailerlite:', errorData)
 
       if (response.status === 409) {
-        // Ya suscrito — igualmente enviar el email con la guía
         sendGuideEmail(email, name || '').catch(() => {})
         return NextResponse.json({
           success: true,
@@ -174,7 +152,6 @@ export async function POST(request: NextRequest) {
 
     console.log('Nuevo suscriptor:', email)
 
-    // Enviar email con la guía (en background, no bloquea la respuesta)
     sendGuideEmail(email, name || '').catch(() => {})
 
     return NextResponse.json({
