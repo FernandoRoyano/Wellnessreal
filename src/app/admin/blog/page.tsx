@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Plus, Edit2, Trash2, Eye, EyeOff } from 'lucide-react'
+import AdminSidebar from '@/components/admin/AdminSidebar'
 import type { PostWithCategory } from '@/lib/types/database'
 
 export default function AdminBlogPage() {
@@ -37,7 +38,9 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div>
+    <div className="flex min-h-screen">
+      <AdminSidebar />
+      <main className="flex-1 p-8" style={{ backgroundColor: '#16122B' }}>
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-white">Blog</h1>
@@ -135,6 +138,7 @@ export default function AdminBlogPage() {
           </table>
         </div>
       )}
+      </main>
     </div>
   )
 }
