@@ -1,14 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-
-// API para enviar formulario de contacto
-// Configurada para enviar a: info@wellnessreal.es
+import { sendEmail } from '@/lib/email'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { name, email, phone, subject, message } = body
 
-    // Validación básica
     if (!name || !email || !phone || !subject || !message) {
       return NextResponse.json(
         { error: 'Todos los campos son requeridos' },
@@ -16,10 +13,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Configuración del email
-    const emailContent = {
+    await sendEmail({
       to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
-      from: process.env.RESEND_FROM_EMAIL || 'WellnessReal <onboarding@resend.dev>',
       replyTo: email,
       subject: `[WellnessReal] ${subject}`,
       html: `
@@ -65,38 +60,7 @@ export async function POST(request: NextRequest) {
           </div>
         </div>
       `,
-      text: `
-Nuevo mensaje de contacto - WellnessReal
-
-Nombre: ${name}
-Email: ${email}
-Teléfono: ${phone}
-Asunto: ${subject}
-
-Mensaje:
-${message}
-
----
-Enviado desde wellnessreal.es
-      `
-    }
-
-    // Send via Resend
-    const resendKey = process.env.RESEND_API_KEY
-    if (resendKey) {
-      const { Resend } = await import('resend')
-      const resend = new Resend(resendKey)
-
-      await resend.emails.send({
-        from: emailContent.from,
-        to: emailContent.to,
-        replyTo: emailContent.replyTo,
-        subject: emailContent.subject,
-        html: emailContent.html,
-      })
-    } else {
-      console.log('⚠️ RESEND_API_KEY no configurada. Contacto recibido:', name, email)
-    }
+    })
 
     return NextResponse.json({
       success: true,
