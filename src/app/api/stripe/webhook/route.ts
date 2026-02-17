@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getStripe } from '@/lib/stripe'
-import { connectDB } from '@/lib/db/connection'
-import Proposal from '@/lib/db/models/Proposal'
+import { updateProposalByToken } from '@/lib/db/proposals'
 import type Stripe from 'stripe'
 
 export async function POST(request: NextRequest) {
@@ -28,16 +27,12 @@ export async function POST(request: NextRequest) {
     const proposalToken = session.metadata?.proposalToken
 
     if (proposalToken) {
-      await connectDB()
-      await Proposal.findOneAndUpdate(
-        { token: proposalToken },
-        {
-          status: 'paid',
-          paidAt: new Date(),
-          confirmedBy: 'stripe_webhook',
-          stripePaymentIntentId: session.payment_intent as string,
-        }
-      )
+      await updateProposalByToken(proposalToken, {
+        status: 'paid',
+        paid_at: new Date().toISOString(),
+        confirmed_by: 'stripe_webhook',
+        stripe_payment_intent_id: session.payment_intent as string,
+      })
     }
   }
 

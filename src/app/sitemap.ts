@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next'
-import { getAllPosts } from '../../sanity/lib/queries'
+import { getAllPosts } from '@/lib/db/posts'
 
 const SITE_URL = 'https://wellnessreal.es'
 
@@ -79,18 +79,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
   ]
 
-  // Blog posts from Sanity CMS
+  // Blog posts from Supabase
   let blogPages: MetadataRoute.Sitemap = []
   try {
     const posts = await getAllPosts()
     blogPages = posts.map((post) => ({
-      url: `${SITE_URL}/blog/${post.slug.current}`,
-      lastModified: new Date(post.publishedAt),
+      url: `${SITE_URL}/blog/${post.slug}`,
+      lastModified: new Date(post.published_at),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))
   } catch {
-    // Sanity not configured or unavailable — skip blog posts
+    // Supabase not configured or unavailable — skip blog posts
   }
 
   return [...staticPages, ...blogPages]

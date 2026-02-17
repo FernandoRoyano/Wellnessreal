@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectDB } from '@/lib/db/connection'
-import Proposal from '@/lib/db/models/Proposal'
+import { getAllProposals, createProposal, toClientProposal } from '@/lib/db/proposals'
 import { createProposalSchema, serviceLabels } from '@/lib/validations/proposal'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { nanoid } from 'nanoid'
@@ -11,13 +10,9 @@ export async function GET() {
       return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
     }
 
-    await connectDB()
-    const proposals = await Proposal.find({})
-      .sort({ createdAt: -1 })
-      .select('-contractText')
-      .lean()
+    const proposals = await getAllProposals()
 
-    return NextResponse.json({ proposals })
+    return NextResponse.json({ proposals: proposals.map(toClientProposal) })
   } catch (err) {
     console.error('[GET /api/admin/proposals]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
@@ -41,19 +36,37 @@ export async function POST(request: NextRequest) {
     const token = nanoid(21)
     const serviceLabel = serviceLabels[data.serviceType]
 
-    await connectDB()
-    const proposal = await Proposal.create({
-      ...data,
-      serviceLabel,
+    const proposal = await createProposal({
+      client_name: data.clientName,
+      client_email: data.clientEmail.toLowerCase().trim(),
+      client_phone: data.clientPhone,
+      service_type: data.serviceType,
+      service_label: serviceLabel,
+      price: data.price,
+      duration: data.duration,
+      description: data.description || '',
+      contract_text: data.contractText,
       token,
       status: 'pending',
+      signed_at: null,
+      signature_full_name: null,
+      signature_ip: null,
+      payment_method: null,
+      stripe_session_id: null,
+      stripe_payment_intent_id: null,
+      transfer_marked_at: null,
+      paid_at: null,
+      confirmed_at: null,
+      confirmed_by: null,
+      viewed_at: null,
+      notes: data.notes || '',
     })
 
     const clientUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/cliente/${token}`
 
     return NextResponse.json({
       success: true,
-      proposal: { _id: proposal._id, token },
+      proposal: { _id: proposal.id, token },
       clientUrl,
     })
   } catch (err) {

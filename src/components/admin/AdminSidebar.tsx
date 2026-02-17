@@ -2,11 +2,12 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, PlusCircle, LogOut, Mail } from 'lucide-react'
+import { LayoutDashboard, PlusCircle, LogOut, Mail, BookOpen } from 'lucide-react'
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/proposals/new', label: 'Nueva propuesta', icon: PlusCircle },
+  { href: '/admin/blog', label: 'Blog', icon: BookOpen },
 ]
 
 const emailSubItems = [

@@ -5,12 +5,11 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { Calendar, Clock, Filter } from 'lucide-react'
-import { urlFor } from '../../../../sanity/lib/image'
-import type { SanityPost, SanityCategory } from '../../../../sanity/lib/queries'
+import type { PostWithCategory, Category } from '@/lib/types/database'
 
 interface BlogFiltersProps {
-  posts: SanityPost[]
-  categories: SanityCategory[]
+  posts: PostWithCategory[]
+  categories: Category[]
 }
 
 export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
@@ -58,15 +57,15 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredPosts.map((post) => (
                 <article
-                  key={post._id}
+                  key={post.id}
                   className="rounded-xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300"
                   style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
                 >
                   <div className="relative h-48 bg-gray-800">
-                    {post.mainImage ? (
+                    {post.main_image_url ? (
                       <img
-                        src={urlFor(post.mainImage).width(400).height(200).url()}
-                        alt={post.mainImage.alt || post.title}
+                        src={post.main_image_url}
+                        alt={post.main_image_alt || post.title}
                         className="w-full h-full object-cover"
                       />
                     ) : (
@@ -74,7 +73,7 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                         className="absolute inset-0 flex items-center justify-center"
                         style={{ backgroundColor: 'rgba(102, 45, 145, 0.3)' }}
                       >
-                        <span className="text-6xl opacity-30">📝</span>
+                        <span className="text-6xl opacity-30">&#x1F4DD;</span>
                       </div>
                     )}
                   </div>
@@ -98,21 +97,21 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                     <div className="flex items-center gap-4 text-xs text-gray-500 mb-5">
                       <span className="flex items-center gap-1">
                         <Calendar size={14} />
-                        {new Date(post.publishedAt).toLocaleDateString('es-ES', {
+                        {new Date(post.published_at).toLocaleDateString('es-ES', {
                           day: 'numeric',
                           month: 'short',
                           year: 'numeric'
                         })}
                       </span>
-                      {post.readTime && (
+                      {post.read_time && (
                         <span className="flex items-center gap-1">
                           <Clock size={14} />
-                          {post.readTime}
+                          {post.read_time}
                         </span>
                       )}
                     </div>
 
-                    <Link href={`/blog/${post.slug.current}`}>
+                    <Link href={`/blog/${post.slug}`}>
                       <Button variant="primary" size="md" className="w-full">
                         Leer artículo
                       </Button>

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectDB } from '@/lib/db/connection'
-import Proposal from '@/lib/db/models/Proposal'
+import { getProposalByToken, updateProposalByToken } from '@/lib/db/proposals'
 
 export async function POST(
   _request: NextRequest,
@@ -8,9 +7,7 @@ export async function POST(
 ) {
   try {
     const { token } = await params
-    await connectDB()
-
-    const proposal = await Proposal.findOne({ token })
+    const proposal = await getProposalByToken(token)
 
     if (!proposal) {
       return NextResponse.json({ error: 'Propuesta no encontrada' }, { status: 404 })
@@ -20,10 +17,11 @@ export async function POST(
       return NextResponse.json({ error: 'El contrato debe estar firmado primero' }, { status: 400 })
     }
 
-    proposal.status = 'payment_pending'
-    proposal.paymentMethod = 'transfer'
-    proposal.transferMarkedAt = new Date()
-    await proposal.save()
+    await updateProposalByToken(token, {
+      status: 'payment_pending',
+      payment_method: 'transfer',
+      transfer_marked_at: new Date().toISOString(),
+    })
 
     return NextResponse.json({ success: true })
   } catch {

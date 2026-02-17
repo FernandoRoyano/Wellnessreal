@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getProposalById, updateProposalById, deleteProposalById, toClientProposal } from '@/lib/db/proposals'
 import { isAdminAuthenticated } from '@/lib/auth'
+import { getPostById, updatePost, deletePost } from '@/lib/db/posts'
 
 export async function GET(
   _request: NextRequest,
@@ -12,13 +12,13 @@ export async function GET(
     }
 
     const { id } = await params
-    const proposal = await getProposalById(id)
+    const post = await getPostById(id)
 
-    if (!proposal) {
-      return NextResponse.json({ error: 'Propuesta no encontrada' }, { status: 404 })
+    if (!post) {
+      return NextResponse.json({ error: 'Post no encontrado' }, { status: 404 })
     }
 
-    return NextResponse.json({ proposal: toClientProposal(proposal) })
+    return NextResponse.json({ post })
   } catch {
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
   }
@@ -36,7 +36,7 @@ export async function PATCH(
     const { id } = await params
     const updates = await request.json()
 
-    const allowedFields = ['notes', 'status']
+    const allowedFields = ['title', 'slug', 'excerpt', 'author', 'main_image_url', 'main_image_alt', 'category_id', 'published_at', 'read_time', 'content', 'published']
     const filtered: Record<string, unknown> = {}
     for (const key of allowedFields) {
       if (updates[key] !== undefined) {
@@ -44,13 +44,8 @@ export async function PATCH(
       }
     }
 
-    const proposal = await updateProposalById(id, filtered)
-
-    if (!proposal) {
-      return NextResponse.json({ error: 'Propuesta no encontrada' }, { status: 404 })
-    }
-
-    return NextResponse.json({ proposal: toClientProposal(proposal) })
+    const post = await updatePost(id, filtered)
+    return NextResponse.json({ success: true, post })
   } catch {
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
   }
@@ -66,8 +61,7 @@ export async function DELETE(
     }
 
     const { id } = await params
-    await deleteProposalById(id)
-
+    await deletePost(id)
     return NextResponse.json({ success: true })
   } catch {
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { connectDB } from '@/lib/db/connection'
-import Proposal from '@/lib/db/models/Proposal'
+import { getProposalByToken, updateProposalByToken } from '@/lib/db/proposals'
 
 export async function GET(
   _request: NextRequest,
@@ -8,9 +7,7 @@ export async function GET(
 ) {
   try {
     const { token } = await params
-    await connectDB()
-
-    const proposal = await Proposal.findOne({ token })
+    const proposal = await getProposalByToken(token)
 
     if (!proposal) {
       return NextResponse.json({ error: 'Propuesta no encontrada' }, { status: 404 })
@@ -18,28 +15,30 @@ export async function GET(
 
     // Mark as viewed on first access
     if (proposal.status === 'pending') {
+      await updateProposalByToken(token, {
+        status: 'viewed',
+        viewed_at: new Date().toISOString(),
+      })
       proposal.status = 'viewed'
-      proposal.viewedAt = new Date()
-      await proposal.save()
     }
 
     // Return client-safe data (exclude admin notes)
     return NextResponse.json({
       proposal: {
-        clientName: proposal.clientName,
-        serviceType: proposal.serviceType,
-        serviceLabel: proposal.serviceLabel,
+        clientName: proposal.client_name,
+        serviceType: proposal.service_type,
+        serviceLabel: proposal.service_label,
         price: proposal.price,
         duration: proposal.duration,
         description: proposal.description,
-        contractText: proposal.contractText,
+        contractText: proposal.contract_text,
         status: proposal.status,
-        signedAt: proposal.signedAt,
-        signatureFullName: proposal.signatureFullName,
-        paymentMethod: proposal.paymentMethod,
-        transferMarkedAt: proposal.transferMarkedAt,
-        paidAt: proposal.paidAt,
-        confirmedAt: proposal.confirmedAt,
+        signedAt: proposal.signed_at,
+        signatureFullName: proposal.signature_full_name,
+        paymentMethod: proposal.payment_method,
+        transferMarkedAt: proposal.transfer_marked_at,
+        paidAt: proposal.paid_at,
+        confirmedAt: proposal.confirmed_at,
       },
     })
   } catch {
