@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, Upload, X } from 'lucide-react'
 import Link from 'next/link'
+import AdminSidebar from '@/components/admin/AdminSidebar'
 import BlogEditor from '@/components/admin/blog/BlogEditor'
 import type { Category, PostWithCategory } from '@/lib/types/database'
 
@@ -104,11 +105,21 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
   }
 
   if (loading) {
-    return <div className="text-center py-20 text-gray-400">Cargando...</div>
+    return (
+      <div className="flex min-h-screen">
+        <AdminSidebar />
+        <main className="flex-1 p-8" style={{ backgroundColor: '#16122B' }}>
+          <div className="text-center py-20 text-gray-400">Cargando...</div>
+        </main>
+      </div>
+    )
   }
 
   return (
-    <div className="max-w-4xl">
+    <div className="flex min-h-screen">
+      <AdminSidebar />
+      <main className="flex-1 p-8" style={{ backgroundColor: '#16122B' }}>
+      <div className="max-w-4xl">
       <div className="flex items-center gap-4 mb-8">
         <Link href="/admin/blog" className="text-gray-400 hover:text-white transition">
           <ArrowLeft size={20} />
@@ -276,6 +287,8 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           </button>
         </div>
       </form>
+    </div>
+      </main>
     </div>
   )
 }
