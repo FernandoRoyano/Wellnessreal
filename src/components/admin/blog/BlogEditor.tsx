@@ -36,7 +36,7 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
     },
     editorProps: {
       attributes: {
-        class: 'prose prose-invert prose-lg max-w-none min-h-[400px] p-4 outline-none text-gray-300',
+        class: 'tiptap',
       },
     },
   })
