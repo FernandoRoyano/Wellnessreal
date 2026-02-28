@@ -101,10 +101,10 @@ export default function LeadMagnetPopup() {
         ) : (
           <>
             <h2 className="text-xl font-bold text-white mb-1">
-              Antes de irte...
+              ¡No te lo pierdas!
             </h2>
             <p className="text-gray-400 text-sm mb-1">
-              Descarga gratis la guía:
+              Descarga gratis nuestra guía:
             </p>
             <p className="font-bold mb-5" style={{ color: '#FCEE21' }}>
               &ldquo;Fitness real para gente con vida real&rdquo;
