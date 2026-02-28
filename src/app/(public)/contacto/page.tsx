@@ -4,6 +4,7 @@ import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { trackContact } from '@/lib/analytics'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -40,6 +41,7 @@ export default function ContactoPage() {
         throw new Error('Error al enviar')
       }
 
+      trackContact()
       router.push('/gracias')
     } catch {
       setError('Hubo un problema al enviar tu mensaje. Inténtalo de nuevo o escríbenos directamente a info@wellnessreal.es')

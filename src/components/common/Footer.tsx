@@ -5,6 +5,7 @@ import Image from 'next/image'
 import Container from './Container'
 import { Mail, MapPin, Phone, Send } from 'lucide-react'
 import { useState } from 'react'
+import { trackSignUp } from '@/lib/analytics'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
@@ -26,6 +27,7 @@ export default function Footer() {
       if (!response.ok) throw new Error()
 
       setStatus('success')
+      trackSignUp('footer')
       setEmail('')
       setTimeout(() => setStatus('idle'), 4000)
     } catch {

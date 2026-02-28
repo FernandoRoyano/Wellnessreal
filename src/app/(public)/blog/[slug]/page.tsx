@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPostSlugs } from '@/lib/db/posts'
 import type { Metadata } from 'next'
 import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
 import '../markdown.css'
 
 export const revalidate = 60
@@ -165,11 +166,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
 
-            {/* Contenido principal HTML */}
-            <article
-              className="prose prose-invert prose-lg max-w-none markdown-content"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+            {/* Contenido principal HTML con CTAs inline */}
+            <BlogContentWithCTAs content={post.content} />
           </div>
         </Container>
       </section>

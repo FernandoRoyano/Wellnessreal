@@ -1,6 +1,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import { trackClickWhatsApp } from '@/lib/analytics'
 
 const PHONE = '34633261963'
 const MESSAGE = 'Hola, me gustaría recibir información sobre vuestros servicios de entrenamiento.'
@@ -17,6 +18,7 @@ export default function WhatsAppBubble() {
   return (
     <a
       href={url}
+      onClick={() => trackClickWhatsApp()}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Contactar por WhatsApp"

@@ -8,6 +8,7 @@ import { z } from 'zod'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, X, Briefcase, Baby, Utensils } from 'lucide-react'
+import { trackSignUp } from '@/lib/analytics'
 
 const newsletterSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -36,6 +37,7 @@ export default function RecursoGratisPage() {
         throw new Error('Error al suscribir')
       }
 
+      trackSignUp('recurso_gratis')
       router.push('/gracias-recurso')
     } catch {
       setError('Hubo un problema. Inténtalo de nuevo.')

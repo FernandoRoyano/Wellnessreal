@@ -4,6 +4,7 @@ import Container from '@/components/common/Container'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ChevronRight, ChevronLeft, User, Target, Dumbbell, Calendar, Heart, Send } from 'lucide-react'
+import { trackGenerateLead } from '@/lib/analytics'
 
 const TOTAL_STEPS = 6
 
@@ -128,6 +129,7 @@ export default function ValoracionPage() {
         body: JSON.stringify(data),
       })
       if (!res.ok) throw new Error('Error al enviar')
+      trackGenerateLead()
       router.push('/gracias-valoracion')
     } catch {
       setError('Hubo un error al enviar. Inténtalo de nuevo o escríbenos por WhatsApp.')
