@@ -1,7 +1,7 @@
 import Container from '@/components/common/Container'
 import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { CheckCircle, Download, MessageCircle, ArrowRight } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -97,7 +97,11 @@ export default function GraciasRecursoPage() {
 
           <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center p-6">
-              <div className="text-4xl mb-4">📖</div>
+              <div className="flex justify-center mb-4">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)', border: '2px solid #FCEE21' }}>
+                  <BookOpen size={28} style={{ color: '#FCEE21' }} />
+                </div>
+              </div>
               <h3 className="text-lg font-bold text-white mb-2">Léela con calma</h3>
               <p className="text-gray-400 text-sm">
                 No es un PDF de 100 páginas. Es directo y al grano. Puedes leerla en 10 minutos.
@@ -105,7 +109,11 @@ export default function GraciasRecursoPage() {
             </div>
 
             <div className="text-center p-6">
-              <div className="text-4xl mb-4">✍️</div>
+              <div className="flex justify-center mb-4">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)', border: '2px solid #FCEE21' }}>
+                  <PenLine size={28} style={{ color: '#FCEE21' }} />
+                </div>
+              </div>
               <h3 className="text-lg font-bold text-white mb-2">Aplica una cosa</h3>
               <p className="text-gray-400 text-sm">
                 No intentes cambiar todo a la vez. Elige UNA idea de la guía y ponla en práctica esta semana.
@@ -113,7 +121,11 @@ export default function GraciasRecursoPage() {
             </div>
 
             <div className="text-center p-6">
-              <div className="text-4xl mb-4">💬</div>
+              <div className="flex justify-center mb-4">
+                <div className="w-14 h-14 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)', border: '2px solid #FCEE21' }}>
+                  <MessageCircle size={28} style={{ color: '#FCEE21' }} />
+                </div>
+              </div>
               <h3 className="text-lg font-bold text-white mb-2">Cuéntame qué tal</h3>
               <p className="text-gray-400 text-sm">
                 Si tienes dudas o quieres contarme tu caso, responde al email o escríbeme por aquí.

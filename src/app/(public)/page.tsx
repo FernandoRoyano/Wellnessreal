@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
+import { Smartphone, Target, BarChart3, Flame, Clock, TrendingUp, Check } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { localBusinessSchema, webSiteSchema } from '@/components/seo/JsonLd'
 
@@ -71,42 +72,49 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-10">
             {[
               {
-                icon: '📱',
+                icon: Smartphone,
                 title: 'App profesional exclusiva',
                 desc: 'Recibes tu plan en una app móvil súper intuitiva. Entrena con vídeos, tracking automático y soporte directo desde tu móvil.'
               },
               {
-                icon: '🎯',
+                icon: Target,
                 title: '100% Personalizado',
                 desc: 'Tu plan se adapta a TU espacio, TU material, TU nivel y TUS objetivos. Nada de rutinas genéricas.'
               },
               {
-                icon: '📊',
+                icon: BarChart3,
                 title: 'Seguimiento real cada semana',
                 desc: 'Análisis de tu progreso, ajustes constantes y feedback profesional. No estás solo: estoy contigo en cada paso.'
               },
               {
-                icon: '💪',
+                icon: Flame,
                 title: 'Resultados comprobados',
                 desc: 'Método basado en ciencia, experiencia real con +100 clientes y transformaciones documentadas.'
               },
               {
-                icon: '⏰',
+                icon: Clock,
                 title: 'Entrena a tu ritmo',
                 desc: 'Sin horarios fijos ni citas obligatorias. Tú decides cuándo y dónde entrenar. Yo te guío siempre.'
               },
               {
-                icon: '💰',
+                icon: TrendingUp,
                 title: 'Mejor precio que presencial',
                 desc: 'Servicio profesional de élite por una fracción del coste del entrenamiento presencial tradicional.'
               }
-            ].map((item, i) => (
+            ].map((item, i) => {
+              const Icon = item.icon
+              return (
               <div key={i} className="p-8 rounded-xl bg-[#16122B] border-2 border-[#662D91] text-center hover-lift">
-                <div className="text-6xl mb-4">{item.icon}</div>
+                <div className="flex justify-center mb-4">
+                  <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)', border: '2px solid #FCEE21' }}>
+                    <Icon size={32} style={{ color: '#FCEE21' }} />
+                  </div>
+                </div>
                 <h3 className="text-2xl font-bold mb-3" style={{ color: '#FCEE21' }}>{item.title}</h3>
                 <p className="text-gray-300 text-base">{item.desc}</p>
               </div>
-            ))}
+              )
+            })}
           </div>
         </Container>
       </section>
@@ -176,23 +184,23 @@ export default function HomePage() {
               </p>
               <ul className="space-y-4 text-gray-200 text-lg">
                 <li className="flex items-start gap-3">
-                  <span style={{ color: '#FCEE21' }} className="text-2xl">✓</span>
+                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
                   <span>App móvil nativa (iOS y Android) súper intuitiva</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span style={{ color: '#FCEE21' }} className="text-2xl">✓</span>
+                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
                   <span>Vídeos explicativos de cada ejercicio</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span style={{ color: '#FCEE21' }} className="text-2xl">✓</span>
+                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
                   <span>Tracking automático de peso, sensaciones y progreso</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span style={{ color: '#FCEE21' }} className="text-2xl">✓</span>
+                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
                   <span>Notificaciones y recordatorios personalizados</span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span style={{ color: '#FCEE21' }} className="text-2xl">✓</span>
+                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
                   <span>Conexión directa conmigo desde la app</span>
                 </li>
               </ul>
@@ -247,7 +255,7 @@ export default function HomePage() {
               { name: 'PREMIUM', price: '500', period: '3 meses', desc: 'Máxima personalización', popular: false }
             ].map((plan, i) => (
               <div key={i} className={`p-8 rounded-xl text-center ${plan.popular ? 'border-4 scale-105' : 'border-2'} border-[#FCEE21] bg-[#16122B]`}>
-                {plan.popular && <div className="mb-3 text-sm font-bold px-3 py-1 rounded-full inline-block" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>⭐ FAVORITO</div>}
+                {plan.popular && <div className="mb-3 text-sm font-bold px-3 py-1 rounded-full inline-block" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>MÁS POPULAR</div>}
                 <h3 className="text-2xl font-bold mb-2" style={{ color: '#FCEE21' }}>{plan.name}</h3>
                 <div className="text-5xl font-extrabold mb-2" style={{ color: '#FCEE21' }}>€{plan.price}</div>
                 <p className="text-gray-400 mb-4">{plan.period}</p>

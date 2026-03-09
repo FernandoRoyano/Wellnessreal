@@ -71,7 +71,7 @@ export default function NutricionPersonalizadaPage() {
             </ul>
             <Link href="/valoracion">
               <Button size="lg" variant="primary" className="uppercase tracking-widest font-bold px-8 py-3 rounded-xl">
-                🚀 Quiero mi valoración nutricional gratis
+                Quiero mi valoración nutricional gratis
               </Button>
             </Link>
             <p className="mt-8 text-base md:text-lg text-gray-400">

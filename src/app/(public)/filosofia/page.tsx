@@ -1,7 +1,6 @@
 import Container from '@/components/common/Container'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { Heart, Activity, Moon } from 'lucide-react'
+import { Heart, Activity, Moon, Check } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
@@ -64,7 +63,7 @@ export default function FilosofiaPage() {
                 'Higiene y entorno limpio',
               ].map((item, i) => (
                 <li key={i} className="flex items-center gap-3">
-                  <span style={{ color: '#FCEE21' }}>✓</span>
+                  <Check size={18} style={{ color: '#FCEE21' }} className="flex-shrink-0" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -165,7 +164,7 @@ export default function FilosofiaPage() {
     color: '#16122B'
   }}
 >
-  🚀 Empieza tu transformación
+  Empieza tu transformación
 </Link>
 
 

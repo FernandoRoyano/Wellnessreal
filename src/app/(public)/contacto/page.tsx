@@ -230,7 +230,7 @@ export default function ContactoPage() {
                     size="lg"
                     className="w-full"
                   >
-                    {isSubmitting ? 'Enviando...' : '🚀 Enviar mensaje'}
+                    {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
                   </Button>
                 </div>
 
@@ -294,7 +294,7 @@ export default function ContactoPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contacto">
               <Button variant="primary" size="lg" className="px-8">
-                🚀 Solicita tu valoración gratis
+                Solicita tu valoración gratis
               </Button>
             </Link>
             <Link href="/tarifas">

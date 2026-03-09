@@ -172,7 +172,7 @@ export default function RecursoGratisPage() {
                   'Estás cansado de consejos extremos que no aplican a tu vida',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-300">
-                    <span style={{ color: '#4caf50' }}>✓</span>
+                    <CheckCircle size={16} style={{ color: '#4caf50' }} className="mt-1 flex-shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -194,7 +194,7 @@ export default function RecursoGratisPage() {
                   'Prefieres excusas antes que soluciones',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-gray-300">
-                    <span style={{ color: '#ff6b6b' }}>✗</span>
+                    <X size={16} style={{ color: '#ff6b6b' }} className="mt-1 flex-shrink-0" />
                     {item}
                   </li>
                 ))}

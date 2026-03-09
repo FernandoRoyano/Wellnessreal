@@ -120,7 +120,11 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const response = await fetch('https://connect.mailerlite.com/api/subscribers', {
+    // Enviar guía por email siempre (independiente de MailerLite)
+    sendGuideEmail(email, name || '').catch(() => {})
+
+    // Suscribir en MailerLite en background (no bloquea la respuesta)
+    fetch('https://connect.mailerlite.com/api/subscribers', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,25 +138,11 @@ export async function POST(request: NextRequest) {
         status: 'active',
       }),
     })
-
-    if (!response.ok) {
-      const errorData = await response.json()
-      console.error('Error Mailerlite:', errorData)
-
-      if (response.status === 409) {
-        sendGuideEmail(email, name || '').catch(() => {})
-        return NextResponse.json({
-          success: true,
-          message: 'Ya estás suscrito'
-        })
-      }
-
-      throw new Error('Error al suscribir en Mailerlite')
-    }
-
-    console.log('Nuevo suscriptor:', email)
-
-    sendGuideEmail(email, name || '').catch(() => {})
+      .then(res => {
+        if (res.ok) console.log('Nuevo suscriptor:', email)
+        else console.error('Error Mailerlite:', res.status)
+      })
+      .catch(err => console.error('Error Mailerlite:', err))
 
     return NextResponse.json({
       success: true,
