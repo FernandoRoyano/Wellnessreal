@@ -19,7 +19,8 @@ export async function GET(
     }
 
     return NextResponse.json({ post })
-  } catch {
+  } catch (err) {
+    console.error('[GET /api/admin/blog/[id]]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
   }
 }
@@ -46,7 +47,8 @@ export async function PATCH(
 
     const post = await updatePost(id, filtered)
     return NextResponse.json({ success: true, post })
-  } catch {
+  } catch (err) {
+    console.error('[PATCH /api/admin/blog/[id]]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
   }
 }
