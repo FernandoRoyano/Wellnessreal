@@ -37,11 +37,14 @@ export default function TarifasPage() {
       />
       <JsonLd
         data={faqSchema([
-          { question: '¿Puedo cambiar de plan?', answer: 'Sí, puedes cambiar o cancelar en cualquier momento. Sin permanencia ni penalización.' },
-          { question: '¿Cómo es la valoración gratuita?', answer: 'Hablamos de tu situación, objetivos y disponibilidad. Te digo si puedo ayudarte y cómo. Sin compromiso.' },
-          { question: '¿Incluye nutrición?', answer: 'Los planes incluyen pautas nutricionales básicas. El plan Premium incluye seguimiento nutricional completo.' },
-          { question: '¿Qué pasa si no veo resultados?', answer: 'Si después de seguir el plan correctamente no ves progreso, revisamos todo y ajustamos sin coste extra.' },
-          { question: '¿Puedo combinar servicios?', answer: 'Sí, puedes añadir nutrición, osteopatía o análisis corporal a cualquier plan.' },
+          { question: '¿Cómo es la valoración gratuita?', answer: 'Es una conversación de 20-30 minutos donde me cuentas tu situación, historial, objetivos y disponibilidad. Analizo tu caso y te digo honestamente si puedo ayudarte y cómo. Si no eres el perfil adecuado para lo que ofrezco, también te lo digo. Sin presión ni ventas agresivas.' },
+          { question: '¿Puedo cambiar de plan?', answer: 'Sí, sin ningún problema. Puedes cambiar, pausar o cancelar en cualquier momento. Sin permanencia, sin penalización, sin letra pequeña.' },
+          { question: '¿Incluye nutrición?', answer: 'El plan Starter y Pack 3 meses incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.' },
+          { question: '¿Qué pasa si no veo resultados?', answer: 'Si sigues el plan correctamente y no ves progreso, revisamos todo sin coste adicional y ajustamos hasta que funcione. En más de 100 clientes nunca he tenido que aplicar esta garantía porque el método funciona — pero existe porque confío en el proceso y en que si algo no avanza, hay una razón que encontraremos juntos.' },
+          { question: '¿Hay descuento por pago anual?', answer: 'Sí. Si quieres comprometerte a 6 o 12 meses, contacta directamente y te hago una propuesta con descuento adicional. Es la opción más rentable para quien tiene claro que quiere un cambio definitivo.' },
+          { question: '¿Qué necesito para empezar?', answer: 'Solo un móvil con la app instalada. Puedes entrenar en casa, en el gimnasio, en un parque — donde quieras. El plan se adapta al espacio y material que tengas disponible, no al contrario.' },
+          { question: '¿Puedo combinar servicios?', answer: 'Sí. Puedes añadir consultas de nutrición, sesiones de osteopatía o análisis corporal a cualquier plan. Cuéntame tu situación en la valoración gratuita y buscamos la combinación que más te conviene.' },
+          { question: '¿Funciona si tengo muy poco tiempo?', answer: 'Es precisamente para quien tiene poco tiempo. Las sesiones están diseñadas para ser efectivas en 30-45 minutos. Lo importante no es cuánto tiempo tienes — es usarlo bien.' },
         ])}
       />
       {/* Hero */}
@@ -61,7 +64,142 @@ export default function TarifasPage() {
         </Container>
       </section>
 
+      {/* Así es el proceso */}
+      <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
+        <Container>
+          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
+            Así es el proceso
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {[
+              {
+                step: '01',
+                title: 'Valoración gratuita',
+                desc: 'Hablamos de tu situación, tus objetivos y tu vida real. Analizamos qué necesitas y si puedo ayudarte. Sin vender, sin presionar.',
+              },
+              {
+                step: '02',
+                title: 'Tu plan en 48h',
+                desc: 'Diseño tu plan personalizado y te envío acceso a la app. Desde el primer día tienes todo listo para empezar.',
+              },
+              {
+                step: '03',
+                title: 'Empiezas y yo te acompaño',
+                desc: 'Entrenas con tu plan, yo reviso tu evolución cada semana y ajusto lo que haga falta. No estás solo en ningún momento.',
+              },
+              {
+                step: '04',
+                title: 'Resultados que se quedan',
+                desc: 'No trabajamos para que llegues a un número en la báscula. Trabajamos para que los hábitos que construimos duren el resto de tu vida.',
+              },
+            ].map((item) => (
+              <div key={item.step} className="p-6 rounded-xl" style={{ backgroundColor: '#16122B', borderTop: '4px solid #FCEE21' }}>
+                <span style={{ color: '#FCEE21' }} className="text-sm font-bold tracking-widest">
+                  PASO {item.step}
+                </span>
+                <h3 className="text-xl font-bold text-white mt-2 mb-3">
+                  {item.title}
+                </h3>
+                <p className="text-gray-300 text-base leading-relaxed">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* ¿Por dónde empezar? */}
+      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+        <Container>
+          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
+            ¿Por dónde empezar?
+          </h2>
+          <div className="max-w-4xl space-y-8">
+            {[
+              {
+                question: '¿Quieres probar el método y ver si encajamos?',
+                arrow: 'Starter',
+              },
+              {
+                question: '¿Quieres resultados reales y construir un hábito sólido?',
+                arrow: 'Pack 3 meses (el más elegido)',
+              },
+              {
+                question: '¿Quieres máxima atención, seguimiento intensivo y nutrición incluida?',
+                arrow: 'Premium',
+              },
+            ].map((item, index) => (
+              <div
+                key={index}
+                className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 p-6 rounded-xl"
+                style={{ backgroundColor: '#1a1535', border: '1px solid rgba(252, 238, 33, 0.2)' }}
+              >
+                <p className="text-gray-300 text-lg flex-1">
+                  {item.question}
+                </p>
+                <span style={{ color: '#FCEE21' }} className="text-lg font-bold whitespace-nowrap">
+                  → {item.arrow}
+                </span>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
+
       <PricingCards />
+
+      {/* Testimonios */}
+      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+        <Container>
+          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
+            Lo que dicen quienes ya han pasado por aquí
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
+            {[
+              {
+                text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg. Pero lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta. Estaba viviendo.',
+                name: 'Hombre, 41 años',
+                badge: '21kg menos en 14 meses',
+              },
+              {
+                text: 'No quería perder peso, quería verme diferente. Empecé en 88kg y terminé en 86kg — casi igual en la báscula. Pero la ropa me queda completamente distinta. Tengo músculo donde antes no había nada. Nadie se cree que no haya adelgazado más.',
+                name: 'Mujer, 34 años',
+                badge: 'Recomposición corporal',
+              },
+              {
+                text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva. Mi médico no se lo creía.',
+                name: 'Hombre, 45 años',
+                badge: '19kg menos, valores normalizados',
+              },
+              {
+                text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Empecé a ir a sitios que antes evitaba, a ponerme ropa que tenía guardada. Me sentí cómoda en mi propio cuerpo por primera vez desde que era adolescente.',
+                name: 'Mujer, 29 años',
+                badge: 'Cambio de autopercepción',
+              },
+            ].map((t, index) => (
+              <div
+                key={index}
+                className="p-8 rounded-xl"
+                style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}
+              >
+                <p className="text-gray-300 text-base leading-relaxed italic mb-6">
+                  &ldquo;{t.text}&rdquo;
+                </p>
+                <div className="flex items-center justify-between flex-wrap gap-2">
+                  <span className="text-white font-bold">{t.name}</span>
+                  <span
+                    className="text-xs font-bold px-3 py-1 rounded-full"
+                    style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+                  >
+                    {t.badge}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Container>
+      </section>
 
       {/* FAQ */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
@@ -72,28 +210,36 @@ export default function TarifasPage() {
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
             {[
               {
-                q: '¿Puedo cambiar de plan?',
-                a: 'Sí, puedes cambiar o cancelar en cualquier momento. Sin permanencia ni penalización.'
-              },
-              {
                 q: '¿Cómo es la valoración gratuita?',
-                a: 'Hablamos de tu situación, objetivos y disponibilidad. Te digo si puedo ayudarte y cómo. Sin compromiso.'
+                a: 'Es una conversación de 20-30 minutos donde me cuentas tu situación, historial, objetivos y disponibilidad. Analizo tu caso y te digo honestamente si puedo ayudarte y cómo. Si no eres el perfil adecuado para lo que ofrezco, también te lo digo. Sin presión ni ventas agresivas.',
               },
               {
-                q: '¿Hay descuento por pago anual?',
-                a: 'Sí, contacta conmigo para ver las opciones de pago anual con descuento adicional.'
+                q: '¿Puedo cambiar de plan?',
+                a: 'Sí, sin ningún problema. Puedes cambiar, pausar o cancelar en cualquier momento. Sin permanencia, sin penalización, sin letra pequeña.',
               },
               {
                 q: '¿Incluye nutrición?',
-                a: 'Los planes incluyen pautas nutricionales básicas. El plan Premium incluye seguimiento nutricional completo.'
+                a: 'El plan Starter y Pack 3 meses incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.',
               },
               {
                 q: '¿Qué pasa si no veo resultados?',
-                a: 'Si después de seguir el plan correctamente no ves progreso, revisamos todo y ajustamos sin coste extra.'
+                a: 'Si sigues el plan correctamente y no ves progreso, revisamos todo sin coste adicional y ajustamos hasta que funcione. En más de 100 clientes nunca he tenido que aplicar esta garantía porque el método funciona — pero existe porque confío en el proceso y en que si algo no avanza, hay una razón que encontraremos juntos.',
+              },
+              {
+                q: '¿Hay descuento por pago anual?',
+                a: 'Sí. Si quieres comprometerte a 6 o 12 meses, contacta directamente y te hago una propuesta con descuento adicional. Es la opción más rentable para quien tiene claro que quiere un cambio definitivo.',
+              },
+              {
+                q: '¿Qué necesito para empezar?',
+                a: 'Solo un móvil con la app instalada. Puedes entrenar en casa, en el gimnasio, en un parque — donde quieras. El plan se adapta al espacio y material que tengas disponible, no al contrario.',
               },
               {
                 q: '¿Puedo combinar servicios?',
-                a: 'Sí, puedes añadir nutrición, osteopatía o análisis corporal a cualquier plan. Hablamos y lo adaptamos.'
+                a: 'Sí. Puedes añadir consultas de nutrición, sesiones de osteopatía o análisis corporal a cualquier plan. Cuéntame tu situación en la valoración gratuita y buscamos la combinación que más te conviene.',
+              },
+              {
+                q: '¿Funciona si tengo muy poco tiempo?',
+                a: 'Es precisamente para quien tiene poco tiempo. Las sesiones están diseñadas para ser efectivas en 30-45 minutos. Lo importante no es cuánto tiempo tienes — es usarlo bien.',
               },
             ].map((faq, index) => (
               <div key={index} className="p-8 rounded-xl" style={{ backgroundColor: '#16122B', borderLeft: '4px solid #FCEE21' }}>

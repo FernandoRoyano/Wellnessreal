@@ -30,7 +30,7 @@ export default function PricingCards() {
               </h3>
               <p className="text-gray-400 mb-2">Entrenamiento Online — 1 mes</p>
               <p className="text-gray-300 text-sm mb-4">
-                Ideal para empezar y ver si encajamos. Plan completo desde el primer día.
+                Prueba el método sin compromiso. Plan completo desde el primer día.
               </p>
               <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
                 <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€120</span>
@@ -39,23 +39,23 @@ export default function PricingCards() {
               <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Plan personalizado en app</span>
+                  <span>Plan 100% personalizado en app profesional</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Revisión semanal de progreso</span>
+                  <span>Revisión semanal de tu progreso</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Vídeos explicativos</span>
+                  <span>Vídeos explicativos de cada ejercicio</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Soporte por chat</span>
+                  <span>Soporte directo por chat</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Valoración inicial gratuita</span>
+                  <span>Valoración inicial gratuita incluida</span>
                 </li>
               </ul>
               <a
@@ -66,7 +66,7 @@ export default function PricingCards() {
                 className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
                 style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
               >
-                Empezar ahora
+                Quiero empezar
               </a>
             </div>
 
@@ -80,7 +80,7 @@ export default function PricingCards() {
               </h3>
               <p className="text-gray-400 mb-2">Entrenamiento Online</p>
               <p className="text-gray-300 text-sm mb-4">
-                El tiempo necesario para crear un hábito real y ver cambios significativos.
+                El tiempo necesario para crear un hábito real y ver cambios que se notan.
               </p>
               <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
                 <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€300</span>
@@ -94,19 +94,23 @@ export default function PricingCards() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>12 semanas de seguimiento</span>
+                  <span>12 semanas de seguimiento continuo</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Ajustes semanales del plan</span>
+                  <span>Ajustes semanales del plan según tu evolución</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Acceso a biblioteca de vídeos</span>
+                  <span>Acceso a biblioteca completa de vídeos</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
                   <span>Revisión mensual en profundidad</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Pautas nutricionales básicas incluidas</span>
                 </li>
               </ul>
               <a
@@ -128,7 +132,7 @@ export default function PricingCards() {
               </h3>
               <p className="text-gray-400 mb-2">Máxima personalización</p>
               <p className="text-gray-300 text-sm mb-4">
-                Seguimiento intensivo con videollamadas semanales y atención prioritaria.
+                Para quien quiere el máximo nivel de atención y resultados en el menor tiempo posible.
               </p>
               <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
                 <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€500</span>
@@ -137,23 +141,27 @@ export default function PricingCards() {
               <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Todo lo del pack 3 meses</span>
+                  <span>Todo lo del Pack 3 meses</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Videollamada semanal</span>
+                  <span>Videollamada semanal de seguimiento</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Análisis mensual de progreso</span>
+                  <span>Análisis mensual completo de composición corporal</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Soporte prioritario (WhatsApp)</span>
+                  <span>Soporte prioritario por WhatsApp (respuesta en menos de 24h)</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Pautas nutricionales incluidas</span>
+                  <span>Plan nutricional completo y personalizado</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Acceso directo para consultas en cualquier momento</span>
                 </li>
               </ul>
               <a

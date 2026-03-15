@@ -2,7 +2,7 @@ import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import Image from 'next/image'
-import { Smartphone, Utensils, Bone, Dumbbell } from 'lucide-react'
+import { Smartphone, Utensils, Bone, Dumbbell, Video, BarChart3, RefreshCw, MessageCircle, MapPin, Quote } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 
@@ -40,7 +40,7 @@ export default function ServiciosPage() {
               Entrenamiento y nutrición adaptados a tu vida real.
               <br />
               <span style={{ color: '#FCEE21' }} className="font-bold">
-                Sin extremos, sin perfección. Solo lo que funciona para ti.
+                Sin excusas de tiempo. Sin planes imposibles. Solo lo que funciona para ti.
               </span>
             </p>
           </div>
@@ -68,29 +68,37 @@ export default function ServiciosPage() {
                   Entrenamiento Online
                 </h2>
                 <p className="text-xl text-gray-300 mb-6">
-                  Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento real cada semana.
+                  Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento real cada semana. No es una rutina de YouTube ni un PDF genérico. Es un plan diseñado para ti — tu horario, tu material, tu nivel, tu objetivo — con ajustes semanales según cómo vas evolucionando.
                 </p>
                 <ul className="space-y-3 text-gray-200 mb-8">
                   <li className="flex items-start gap-3">
                     <Smartphone size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                    <span>App móvil con tu plan, vídeos y tracking de progreso</span>
+                    <span>Plan 100% personalizado en app móvil profesional</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span style={{ color: '#FCEE21' }} className="text-xl">✓</span>
-                    <span>Ajustes semanales según tu evolución</span>
+                    <Video size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
+                    <span>Vídeos explicativos de cada ejercicio</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span style={{ color: '#FCEE21' }} className="text-xl">✓</span>
-                    <span>Adaptado a tu horario, material y nivel</span>
+                    <BarChart3 size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
+                    <span>Tracking automático de tu progreso</span>
                   </li>
                   <li className="flex items-start gap-3">
-                    <span style={{ color: '#FCEE21' }} className="text-xl">✓</span>
+                    <RefreshCw size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
+                    <span>Revisión y ajuste semanal</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <MessageCircle size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
                     <span>Soporte directo cuando lo necesites</span>
                   </li>
+                  <li className="flex items-start gap-3">
+                    <MapPin size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
+                    <span>Adaptado a casa, gimnasio o donde entrenes</span>
+                  </li>
                 </ul>
-                <Link href="/servicios/entrenamiento-online">
+                <Link href="/tarifas">
                   <Button variant="primary" size="lg" className="w-full md:w-auto">
-                    Ver más detalles
+                    Ver tarifas
                   </Button>
                 </Link>
               </div>
@@ -113,7 +121,7 @@ export default function ServiciosPage() {
                 Entrenamiento Presencial
               </h3>
               <p className="text-gray-300 mb-6">
-                Sesiones 1 a 1 donde te guío en cada ejercicio. Técnica perfecta, motivación constante. Disponible en Madrid.
+                Sesiones individuales en Madrid donde te guío en cada ejercicio. Técnica perfecta, corrección en tiempo real, motivación constante. Ideal si prefieres el contacto directo o estás en una fase inicial donde la supervisión marca la diferencia.
               </p>
               <Link href="/servicios/entrenamiento-personalizado">
                 <Button variant="outline" size="md" className="w-full">
@@ -129,7 +137,7 @@ export default function ServiciosPage() {
                 Nutrición Personalizada
               </h3>
               <p className="text-gray-300 mb-6">
-                Pautas adaptadas a tu vida, tus gustos y tu contexto. Sin dietas imposibles, sin prohibiciones absurdas. Resultados que se mantienen.
+                Pautas adaptadas a tu vida real — tus horarios, tus gustos, tu contexto. Sin dietas imposibles que nadie puede mantener, sin prohibiciones absurdas, sin contar calorías de por vida. Un sistema nutricional que puedas sostener en el tiempo y que trabaje en la misma dirección que tu entrenamiento.
               </p>
               <Link href="/servicios/nutricion">
                 <Button variant="outline" size="md" className="w-full">
@@ -145,13 +153,55 @@ export default function ServiciosPage() {
                 Osteopatía
               </h3>
               <p className="text-gray-300 mb-6">
-                Recuperación de lesiones, alivio de tensiones y optimización del rendimiento. Sesiones presenciales en Santander.
+                Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. Si llevas tiempo con una molestia que no termina de resolverse, o quieres prevenir lesiones antes de que aparezcan, esta es la pieza que muchos entrenamientos ignoran. Sesiones presenciales en Santander.
               </p>
               <Link href="/servicios/osteopatia">
                 <Button variant="outline" size="md" className="w-full">
                   Más información
                 </Button>
               </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Por qué WellnessReal es diferente */}
+      <section style={{ backgroundColor: '#1a1535' }} className="py-24">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-12" style={{ color: '#FCEE21' }}>
+              Por qué WellnessReal es diferente
+            </h2>
+            <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+              Hay cientos de entrenadores online. La diferencia no está en la app ni en los vídeos — está en el criterio.
+            </p>
+            <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+              Llevo más de 10 años en esto. He visto qué funciona y qué no. No sigo modas — sigo principios. No voy a ponerte el ejercicio viral de Instagram si no tiene sentido para tu caso. No voy a darte una dieta de moda si no encaja con tu vida.
+            </p>
+            <p className="text-lg text-gray-300 leading-relaxed">
+              Lo que sí voy a hacer es analizar tu contexto en profundidad, diseñar algo específico para ti y estar ahí cada semana para asegurarme de que avanzas. Más de 100 personas han pasado por este proceso. Algunas han perdido 20-30 kilos. Otras han ganado músculo por primera vez en su vida. Todas han cambiado algo más que el cuerpo.
+            </p>
+          </div>
+        </Container>
+      </section>
+
+      {/* Testimonios */}
+      <section style={{ backgroundColor: '#16122B' }} className="py-24">
+        <Container>
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#FCEE21]">
+              <Quote size={32} style={{ color: '#FCEE21' }} className="mb-4" />
+              <p className="text-gray-300 italic text-lg mb-6 leading-relaxed">
+                &ldquo;Llevaba años probando cosas por mi cuenta. Lo que cambió con WellnessReal fue tener a alguien que entiende realmente mi situación y ajusta el plan cuando la vida se complica. Eso no lo da ninguna app.&rdquo;
+              </p>
+              <p className="text-white font-bold">— Cliente online, 38 años</p>
+            </div>
+            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#FCEE21]">
+              <Quote size={32} style={{ color: '#FCEE21' }} className="mb-4" />
+              <p className="text-gray-300 italic text-lg mb-6 leading-relaxed">
+                &ldquo;Pensaba que no tenía tiempo para esto. Con 45 minutos tres veces a la semana he conseguido más que en años de ir al gimnasio sin rumbo.&rdquo;
+              </p>
+              <p className="text-white font-bold">— Cliente online, 43 años</p>
             </div>
           </div>
         </Container>
