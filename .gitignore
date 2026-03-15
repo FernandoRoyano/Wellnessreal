@@ -38,3 +38,11 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Claude
+.claude/
+
+# Temp files
+nul
+repomix-output.txt
+temp_*.png
