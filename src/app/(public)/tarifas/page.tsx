@@ -94,8 +94,12 @@ export default function TarifasPage() {
                 desc: 'No trabajamos para que llegues a un número en la báscula. Trabajamos para que los hábitos que construimos duren el resto de tu vida.',
               },
             ].map((item) => (
-              <div key={item.step} className="p-6 rounded-xl" style={{ backgroundColor: '#16122B', borderTop: '4px solid #FCEE21' }}>
-                <span style={{ color: '#FCEE21' }} className="text-sm font-bold tracking-widest">
+              <div
+                key={item.step}
+                className="step-card group relative p-6 rounded-xl border border-[#662D91] cursor-default"
+                style={{ backgroundColor: '#16122B' }}
+              >
+                <span className="step-num block text-sm font-bold tracking-widest transition-all duration-300 group-hover:tracking-[4px]" style={{ color: '#FCEE21' }}>
                   PASO {item.step}
                 </span>
                 <h3 className="text-xl font-bold text-white mt-2 mb-3">

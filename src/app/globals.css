@@ -78,6 +78,38 @@
   }
 }
 
+/* Step cards — Tarifas */
+.step-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s,
+              background 0.25s;
+}
+
+.step-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #FCEE21;
+  border-radius: 12px 12px 0 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(252, 238, 33, 0.4) !important;
+}
+
+.step-card:hover::after {
+  transform: scaleX(1);
+}
+
 /* TipTap Editor dark theme */
 .tiptap {
   color: #d1d5db;
