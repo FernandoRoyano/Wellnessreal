@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
+import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
 
 const PHONE = '34633261963'
 
@@ -297,6 +298,8 @@ export default function TarifasPage() {
           </a>
         </Container>
       </section>
+
+      <ExitIntentPopup />
     </>
   )
 }
