@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
+import PlanSelector from '@/components/sections/PlanSelector'
 import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
 
 const PHONE = '34633261963'
@@ -114,41 +115,10 @@ export default function TarifasPage() {
         </Container>
       </section>
 
-      {/* ¿Por dónde empezar? */}
+      {/* ¿Por dónde empezar? — Acordeón */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
-            ¿Por dónde empezar?
-          </h2>
-          <div className="max-w-4xl space-y-8">
-            {[
-              {
-                question: '¿Quieres probar el método y ver si encajamos?',
-                arrow: 'Starter',
-              },
-              {
-                question: '¿Quieres resultados reales y construir un hábito sólido?',
-                arrow: 'Pack 3 meses (el más elegido)',
-              },
-              {
-                question: '¿Quieres máxima atención, seguimiento intensivo y nutrición incluida?',
-                arrow: 'Premium',
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="flex flex-col md:flex-row md:items-center gap-3 md:gap-6 p-6 rounded-xl"
-                style={{ backgroundColor: '#1a1535', border: '1px solid rgba(252, 238, 33, 0.2)' }}
-              >
-                <p className="text-gray-300 text-lg flex-1">
-                  {item.question}
-                </p>
-                <span style={{ color: '#FCEE21' }} className="text-lg font-bold whitespace-nowrap">
-                  → {item.arrow}
-                </span>
-              </div>
-            ))}
-          </div>
+          <PlanSelector />
         </Container>
       </section>
 

@@ -24,7 +24,7 @@ export default function PricingCards() {
         <Container>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Starter 1 mes */}
-            <div className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center">
+            <div id="starter" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
               <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
                 STARTER
               </h3>
@@ -71,7 +71,7 @@ export default function PricingCards() {
             </div>
 
             {/* 3 Meses - Pack ahorro */}
-            <div className="rounded-xl p-8 border-2 border-[#FCEE21] text-center scale-105 bg-[#16122B] shadow-xl">
+            <div id="pack3" className="rounded-xl p-8 border-2 border-[#FCEE21] text-center scale-105 bg-[#16122B] shadow-xl scroll-mt-24">
               <div className="mb-4 inline-block px-4 py-1 rounded-full text-sm font-bold tracking-wide" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
                 MÁS POPULAR
               </div>
@@ -126,7 +126,7 @@ export default function PricingCards() {
             </div>
 
             {/* PREMIUM */}
-            <div className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center">
+            <div id="premium" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
               <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
                 PREMIUM
               </h3>
