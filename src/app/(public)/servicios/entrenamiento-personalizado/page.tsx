@@ -182,11 +182,15 @@ export default function EntrenamientoPersonalizadoPage() {
                 Reservar sesión de prueba
               </Button>
             </Link>
-            <Link href="/tarifas">
+            <a
+              href="https://wa.me/34633261963?text=Hola%2C%20me%20interesa%20el%20entrenamiento%20presencial%20en%20Madrid.%20Me%20gustar%C3%ADa%20recibir%20m%C3%A1s%20informaci%C3%B3n."
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Button variant="outline" size="lg" className="px-8">
-                Ver tarifas
+                Consultar disponibilidad
               </Button>
-            </Link>
+            </a>
           </div>
         </Container>
       </section>
