@@ -134,6 +134,7 @@ export function articleSchema(article: {
   url: string
   image?: string
   datePublished: string
+  dateModified?: string
   author: string
 }) {
   return {
@@ -144,9 +145,12 @@ export function articleSchema(article: {
     url: article.url,
     image: article.image,
     datePublished: article.datePublished,
+    dateModified: article.dateModified || article.datePublished,
+    inLanguage: 'es',
     author: {
       '@type': 'Person',
       name: article.author,
+      url: 'https://wellnessreal.es',
     },
     publisher: {
       '@type': 'Organization',
@@ -155,6 +159,10 @@ export function articleSchema(article: {
         '@type': 'ImageObject',
         url: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
       },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': article.url,
     },
   }
 }
@@ -179,5 +187,47 @@ export function offerSchema(offers: { name: string; price: string; description: 
         description: offer.description,
       })),
     },
+  }
+}
+
+export function reviewSchema(reviews: { text: string; author: string; result: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: 'WellnessReal',
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5',
+      reviewCount: String(reviews.length),
+      bestRating: '5',
+      worstRating: '1',
+    },
+    review: reviews.map((r) => ({
+      '@type': 'Review',
+      reviewBody: r.text,
+      author: { '@type': 'Person', name: r.author },
+      reviewRating: {
+        '@type': 'Rating',
+        ratingValue: '5',
+        bestRating: '5',
+      },
+    })),
+  }
+}
+
+export function personSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Fernando Royano',
+    jobTitle: 'Entrenador Personal Online',
+    url: 'https://wellnessreal.es',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'WellnessReal',
+      url: 'https://wellnessreal.es',
+    },
+    knowsAbout: ['Entrenamiento personal', 'Nutrición deportiva', 'Osteopatía', 'Fitness online'],
+    sameAs: [],
   }
 }

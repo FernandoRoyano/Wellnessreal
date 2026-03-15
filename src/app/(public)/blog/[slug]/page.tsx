@@ -75,6 +75,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           url: `https://wellnessreal.es/blog/${slug}`,
           image: post.main_image_url || undefined,
           datePublished: post.published_at,
+          dateModified: post.updated_at,
           author: post.author,
         })}
       />

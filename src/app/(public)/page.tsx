@@ -4,7 +4,7 @@ import Link from 'next/link'
 import Button from '@/components/ui/Button'
 import { Smartphone, Target, BarChart3, Flame, Clock, TrendingUp, Check } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
-import JsonLd, { localBusinessSchema, webSiteSchema } from '@/components/seo/JsonLd'
+import JsonLd, { localBusinessSchema, webSiteSchema, reviewSchema, personSchema } from '@/components/seo/JsonLd'
 
 export const metadata = buildMetadata({
   title: 'WellnessReal | Entrenamiento Online Personalizado en Madrid',
@@ -26,6 +26,13 @@ export default function HomePage() {
     <>
       <JsonLd data={localBusinessSchema()} />
       <JsonLd data={webSiteSchema()} />
+      <JsonLd data={personSchema()} />
+      <JsonLd data={reviewSchema([
+        { text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg.', author: 'Hombre, 41 años', result: '-21kg en 14 meses' },
+        { text: 'No quería perder peso, quería verme diferente. La ropa me queda completamente distinta. Tengo músculo donde antes no había nada.', author: 'Mujer, 34 años', result: 'Recomposición corporal' },
+        { text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva.', author: 'Hombre, 45 años', result: '-19kg y sin medicación' },
+        { text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Me sentí cómoda en mi propio cuerpo por primera vez desde que era adolescente.', author: 'Mujer, 29 años', result: 'Cambio de vida' },
+      ])} />
       {/* HERO ULTRA POTENTE */}
       <section className="relative min-h-[80vh] flex items-center justify-center bg-[#16122B] py-16">
         <Image
