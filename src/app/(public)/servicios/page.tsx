@@ -14,7 +14,7 @@ export const metadata = buildMetadata({
   keywords: [
     'servicios entrenamiento online',
     'nutrición personalizada online',
-    'osteopatía Santander',
+    'osteopatía Madrid',
     'entrenador personal online',
     'entrenamiento presencial Madrid',
   ],
@@ -153,7 +153,7 @@ export default function ServiciosPage() {
                 Osteopatía
               </h3>
               <p className="text-gray-300 mb-6">
-                Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. Si llevas tiempo con una molestia que no termina de resolverse, o quieres prevenir lesiones antes de que aparezcan, esta es la pieza que muchos entrenamientos ignoran. Sesiones presenciales en Santander.
+                Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. Si llevas tiempo con una molestia que no termina de resolverse, o quieres prevenir lesiones antes de que aparezcan, esta es la pieza que muchos entrenamientos ignoran. Sesiones presenciales en Madrid.
               </p>
               <Link href="/servicios/osteopatia">
                 <Button variant="outline" size="md" className="w-full">

@@ -22,6 +22,13 @@ export default function PricingCards() {
       {/* Pricing Cards */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
         <Container>
+          {/* Section Label */}
+          <div className="flex items-center gap-4 mb-10">
+            <span className="text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full whitespace-nowrap border border-green-500/30 text-green-400 bg-green-500/10">
+              Online — España
+            </span>
+            <div className="flex-1 h-px bg-[#662D91]/40" />
+          </div>
           <div className="grid md:grid-cols-3 gap-8">
             {/* Starter 1 mes */}
             <div id="starter" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
@@ -179,31 +186,66 @@ export default function PricingCards() {
         </Container>
       </section>
 
-      {/* Servicios Adicionales */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+      {/* Nutrición Online */}
+      <section style={{ backgroundColor: '#16122B' }} className="py-16 md:py-20">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-12 text-center tracking-wide">
-            Servicios adicionales
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Section Label */}
+          <div className="flex items-center gap-4 mb-8">
+            <span className="text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full whitespace-nowrap border border-green-500/30 text-green-400 bg-green-500/10">
+              Online — España
+            </span>
+            <div className="flex-1 h-px bg-[#662D91]/40" />
+          </div>
+          <div className="max-w-md">
+            <div className="p-8 rounded-xl flex flex-col" style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}>
+              <h3 style={{ color: '#FCEE21' }} className="text-2xl font-bold mb-2 tracking-wide">
+                Consulta Nutrición
+              </h3>
+              <p className="text-gray-300 mb-6 flex-grow">
+                Sesión individual para diseñar tus pautas nutricionales adaptadas a tu objetivo y contexto.
+              </p>
+              <div className="mb-6">
+                <span style={{ color: '#FCEE21' }} className="text-3xl font-bold">€50</span>
+                <span className="text-gray-400 ml-2">/ sesión</span>
+              </div>
+              <a
+                href={whatsappUrl('Consulta Nutrición (€50)')}
+                onClick={() => trackClickPlan('consulta_nutricion')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-3 rounded-lg text-center font-bold transition-all duration-200 border-2 border-[#FCEE21] text-[#FCEE21] hover:bg-[#FCEE21] hover:text-[#16122B] hover:scale-105"
+              >
+                Reservar
+              </a>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Presencial Madrid */}
+      <section style={{ backgroundColor: '#1a1535' }} className="py-16 md:py-20">
+        <Container>
+          {/* Section Label */}
+          <div className="flex items-center gap-4 mb-8">
+            <span className="text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full whitespace-nowrap border border-blue-500/30 text-blue-400 bg-blue-500/10">
+              Presencial — Madrid
+            </span>
+            <div className="flex-1 h-px bg-[#662D91]/40" />
+          </div>
+          <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
             {[
-              {
-                name: 'Consulta Nutrición',
-                price: '50',
-                description: 'Sesión individual para diseñar tus pautas nutricionales adaptadas a tu objetivo y contexto.'
-              },
               {
                 name: 'Análisis Corporal',
                 price: '40',
-                description: 'Medición de composición corporal y seguimiento de cambios reales en tu físico.'
+                description: 'Medición de composición corporal y seguimiento de cambios reales en tu físico.',
               },
               {
                 name: 'Sesión Osteopatía',
                 price: '60',
-                description: 'Tratamiento de lesiones y recuperación. Presencial en Santander.'
+                description: 'Tratamiento de lesiones y recuperación. Sesión presencial en Madrid.',
               },
             ].map((service, i) => (
-              <div key={i} className="p-8 rounded-xl flex flex-col" style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}>
+              <div key={i} className="p-8 rounded-xl flex flex-col" style={{ backgroundColor: '#16122B', border: '1px solid #662D91' }}>
                 <h3 style={{ color: '#FCEE21' }} className="text-2xl font-bold mb-2 tracking-wide">
                   {service.name}
                 </h3>

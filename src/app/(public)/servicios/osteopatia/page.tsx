@@ -7,16 +7,16 @@ import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 
 export const metadata = buildMetadata({
-  title: 'Osteopatía y Recuperación en Santander',
+  title: 'Osteopatía y Recuperación en Madrid',
   description:
-    'Osteopatía y recuperación de lesiones en Santander. Tratamiento personalizado, prevención y optimización del rendimiento físico. Sesiones presenciales.',
+    'Osteopatía y recuperación de lesiones en Madrid. Tratamiento personalizado, prevención y optimización del rendimiento físico. Sesiones presenciales.',
   path: '/servicios/osteopatia',
   keywords: [
-    'osteopatía Santander',
+    'osteopatía Madrid',
     'recuperación lesiones',
-    'osteópata Santander',
+    'osteópata Madrid',
     'tratamiento lesiones musculares',
-    'fisioterapia Santander',
+    'fisioterapia Madrid',
   ],
 })
 
@@ -26,9 +26,9 @@ export default function OsteopatiaRecuperacionPage() {
       <JsonLd
         data={serviceSchema({
           name: 'Osteopatía y Recuperación',
-          description: 'Tratamiento personalizado de lesiones, prevención y optimización del rendimiento físico en Santander.',
+          description: 'Tratamiento personalizado de lesiones, prevención y optimización del rendimiento físico en Madrid.',
           url: 'https://wellnessreal.es/servicios/osteopatia',
-          areaServed: 'Santander, Cantabria, ES',
+          areaServed: 'Madrid, Cantabria, ES',
         })}
       />
       <JsonLd
@@ -67,7 +67,7 @@ export default function OsteopatiaRecuperacionPage() {
               </li>
               <li className="flex items-start gap-2">
                 <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} />
-                <span>Sesiones presenciales en Santander con atención profesional.</span>
+                <span>Sesiones presenciales en Madrid con atención profesional.</span>
               </li>
             </ul>
             <Link href="/valoracion">
