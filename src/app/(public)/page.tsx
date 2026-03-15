@@ -213,23 +213,33 @@ export default function HomePage() {
       <section className="py-24 bg-[#16122B]">
         <Container>
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
-            Lo que dicen mis clientes online
+            Lo que dicen mis clientes
           </h2>
-          <div className="grid md:grid-cols-2 gap-10 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {[
               {
-                text: 'Nunca pensé que podría tener un entrenador personal de este nivel online. La app es brutal y Fernando siempre está pendiente de mi evolución. ¡He perdido 12kg en 4 meses!',
-                name: 'María G.',
-                result: '-12kg en 4 meses'
+                text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg. Pero lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta. Estaba viviendo.',
+                name: 'Padre de familia, 41 años',
+                result: '-21kg en 14 meses'
               },
               {
-                text: 'Lo mejor es la flexibilidad. Entreno cuando puedo, desde casa o el gimnasio, y tengo TODO controlado en la app. El seguimiento es mejor que cualquier presencial que probé.',
-                name: 'Carlos M.',
-                result: '+8kg músculo'
+                text: 'No quería perder peso, quería verme diferente. Empecé en 88kg y terminé en 86kg — casi igual en la báscula. Pero la ropa me queda completamente distinta. Tengo músculo donde antes no había nada. Nadie se cree que no haya adelgazado más.',
+                name: 'Mujer, 34 años',
+                result: 'Recomposición corporal'
+              },
+              {
+                text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. Mi médico me recomendó cambiar hábitos. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva que me habían recetado. Mi médico no se lo creía.',
+                name: 'Hombre, 45 años',
+                result: '-19kg y sin medicación'
+              },
+              {
+                text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Empecé a ir a sitios que antes evitaba, a ponerme ropa que tenía guardada, a sentirme cómoda en mi propio cuerpo por primera vez desde que era adolescente. Eso no te lo da ninguna báscula.',
+                name: 'Mujer, 29 años',
+                result: 'Cambio de vida'
               }
             ].map((testimonial, i) => (
               <div key={i} className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#FCEE21] shadow-xl">
-                <p className="text-gray-200 text-lg mb-6 italic">"{testimonial.text}"</p>
+                <p className="text-gray-200 text-lg mb-6 italic leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white">{testimonial.name}</span>
                   <span className="px-4 py-2 rounded-full text-sm font-bold" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
