@@ -28,6 +28,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     read_time: '',
     content: '',
     published: false,
+    published_at: '',
   })
 
   useEffect(() => {
@@ -48,6 +49,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           read_time: post.read_time || '',
           content: post.content,
           published: post.published,
+          published_at: post.published_at ? post.published_at.slice(0, 16) : '',
         })
       }
       setCategories(catData.categories || [])
@@ -89,10 +91,15 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
     e.preventDefault()
     setSaving(true)
 
+    const payload = {
+      ...form,
+      published_at: form.published_at ? new Date(form.published_at).toISOString() : undefined,
+    }
+
     const res = await fetch(`/api/admin/blog/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
+      body: JSON.stringify(payload),
     })
 
     if (res.ok) {
@@ -171,8 +178,8 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           />
         </div>
 
-        {/* Row: Category + Author + Read time */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {/* Row: Category + Author + Read time + Date */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-300 mb-2">Categoría</label>
             <select
@@ -217,6 +224,16 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
               className="w-full px-3 py-2 rounded-lg text-white text-sm outline-none"
               style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
               placeholder="5 min"
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">Fecha publicación</label>
+            <input
+              type="datetime-local"
+              value={form.published_at}
+              onChange={(e) => setForm(prev => ({ ...prev, published_at: e.target.value }))}
+              className="w-full px-3 py-2 rounded-lg text-white text-sm outline-none"
+              style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
             />
           </div>
         </div>
