@@ -307,6 +307,220 @@ const nextConfig: NextConfig = {
         destination: '/blog',
         permanent: true,
       },
+      // Feed URLs (noindex en Search Console)
+      {
+        source: '/:slug*/feed',
+        destination: '/blog',
+        permanent: true,
+      },
+      // WordPress pagination
+      {
+        source: '/:cat/page/:num*',
+        destination: '/blog',
+        permanent: true,
+      },
+      // Old WordPress pages (rastreadas sin indexar)
+      {
+        source: '/valoracion-inicial',
+        destination: '/valoracion',
+        permanent: true,
+      },
+      {
+        source: '/valoracion-estilo-de-vida',
+        destination: '/valoracion',
+        permanent: true,
+      },
+      {
+        source: '/contratacion-nutricion',
+        destination: '/tarifas',
+        permanent: true,
+      },
+      {
+        source: '/contratacion-entrenamiento',
+        destination: '/tarifas',
+        permanent: true,
+      },
+      {
+        source: '/fat-burner-academy',
+        destination: '/tarifas',
+        permanent: true,
+      },
+      {
+        source: '/test-de-salud',
+        destination: '/valoracion',
+        permanent: true,
+      },
+      {
+        source: '/gracias-rellenar-formulario',
+        destination: '/gracias',
+        permanent: true,
+      },
+      {
+        source: '/aviso-legal',
+        destination: '/',
+        permanent: true,
+      },
+      {
+        source: '/politica-de-privacidad',
+        destination: '/',
+        permanent: true,
+      },
+      // All remaining old WordPress blog posts → /blog
+      {
+        source: '/diferenciar-jamon-iberico-del-jamon-serrano',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/cuantas-comidas-al-dia-muchas-pequenas-pocas-grandes',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-combatir-los-antojos-estrategias-para-un-estilo-de-vida-saludable',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/optimiza-tu-ciclo-menstrual-para-mejorar-tu-rendimiento',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/barreras-digestivas-el-estomago',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/desarrollo-de-tus-capacidades-fisicas',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/curcumina',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/estrategias-naturales-y-medicas-para-mejorar-la-caida-del-cabello-en-mujeres',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-mantenerte-activo-con-ninos-pequenos-los-mejores-consejos-y-soluciones-',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/entrenamiento-en-casa-guia-completa-y-mejora-material-para-comprar',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/dolor-menstrual-y-amenorrea',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/vitamina-d-beneficios-sintesis-y-recomendaciones',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/despierta-tus-gluteos-como-entrenarlos-correctamente',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/posibles-alteraciones-durante-el-embarazo-parte-ii',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-vencer-el-hambre-emocional-y-controlar-tu-alimentacion',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/7-factores-que-pueden-afectar-a-tu-pelo',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/esta-bien-planteada-la-piramide-alimentaria-es-buena-para-nuestra-salud',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/l-glutamina-y-sus-funciones-en-el-organismo',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/sentadilla-evitar-piernas-flamenco',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/dolor-lumbar-durante-el-embarazo-parte-iii',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-solucionar-problemas-tipicos-de-la-cetosis',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/minimiza-los-efectos-del-alcohol-y-recuperate-rapido',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/la-verdad-sobre-los-lacteos',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/agujetas-despues-del-entrenamiento',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-identificar-y-tratar-un-esguince-de-tobillo',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/foam-roller-ultimas-evidencias-y-como-aplicarlo',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/mantequilla-ghee',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/kobido-masaje-tradicional-japones',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/grasas-la-verdad-las-grasas-conceptos-importantes',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/adiccion-al-azucar-obesidad-y-falta-de-contexto',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/lo-que-necesitas-saber-sobre-nutriscore',
+        destination: '/blog',
+        permanent: true,
+      },
     ]
   },
 };
