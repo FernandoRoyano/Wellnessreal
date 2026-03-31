@@ -5,6 +5,11 @@ import Button from '@/components/ui/Button'
 import { Smartphone, Target, BarChart3, Flame, Clock, TrendingUp, Check } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { localBusinessSchema, webSiteSchema, reviewSchema, personSchema } from '@/components/seo/JsonLd'
+import HeroAnimation from '@/components/animations/HeroAnimation'
+import ParallaxImage from '@/components/animations/ParallaxImage'
+import AnimatedSection from '@/components/animations/AnimatedSection'
+import StaggerChildren from '@/components/animations/StaggerChildren'
+import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
   title: 'WellnessReal | Entrenamiento Online Personalizado en Madrid',
@@ -33,50 +38,56 @@ export default function HomePage() {
         { text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva.', author: 'Hombre, 45 años', result: '-19kg y sin medicación' },
         { text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Me sentí cómoda en mi propio cuerpo por primera vez desde que era adolescente.', author: 'Mujer, 29 años', result: 'Cambio de vida' },
       ])} />
+
       {/* HERO ULTRA POTENTE */}
-      <section className="relative min-h-[80vh] flex items-center justify-center bg-[#16122B] py-16">
-        <Image
+      <section className="relative min-h-[80vh] flex items-center justify-center bg-[#16122B] py-16 overflow-hidden">
+        <ParallaxImage
           src="/images/portada-WR.jpg"
           alt="Entrenamiento Online WellnessReal"
-          fill
-          className="object-cover object-center opacity-50"
+          speed={0.2}
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#16122B]/90 to-[#662D91]/80 z-0"></div>
-        <div className="relative flex flex-col items-center justify-center z-10 px-4 text-center">
-          <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 gradient-text leading-tight">
-            PONTE EN FORMA<br/>SIN VIVIR EN EL GIMNASIO
-          </h1>
-          <p className="text-lg sm:text-2xl md:text-3xl text-white mb-3 md:mb-4 max-w-3xl font-semibold">
-            Entrenamiento online para gente con trabajo, familia y poco tiempo.
-            <br className="hidden sm:block" />
-            <span style={{ color: '#FCEE21' }} className="font-extrabold"> Sin dietas extremas. Sin perfección. Solo resultados.</span>
-          </p>
-          <p className="text-base md:text-lg text-gray-300 mb-8 md:mb-10 max-w-2xl">
-            Plan personalizado + app profesional + seguimiento semanal. Adaptado a TU vida real.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full px-2">
-            <Link href="/valoracion">
-              <button className="px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-lg sm:text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
-                QUIERO MI PLAN PERSONALIZADO
-              </button>
-            </Link>
-            <Link href="/recurso-gratis">
-              <button className="px-6 py-3 sm:px-8 sm:py-4 rounded-full border-2 border-white text-white text-base sm:text-lg font-bold hover:bg-white hover:text-[#16122B] transition-all duration-200">
-                Descargar guía gratis
-              </button>
-            </Link>
+        <HeroAnimation>
+          <div className="relative flex flex-col items-center justify-center z-10 px-4 text-center">
+            <h1 className="text-3xl sm:text-5xl md:text-7xl font-extrabold mb-4 md:mb-6 gradient-text leading-tight">
+              PONTE EN FORMA<br/>SIN VIVIR EN EL GIMNASIO
+            </h1>
+            <p className="text-lg sm:text-2xl md:text-3xl text-white mb-3 md:mb-4 max-w-3xl font-semibold">
+              Entrenamiento online para gente con trabajo, familia y poco tiempo.
+              <br className="hidden sm:block" />
+              <span style={{ color: '#FCEE21' }} className="font-extrabold"> Sin dietas extremas. Sin perfección. Solo resultados.</span>
+            </p>
+            <p className="text-base md:text-lg text-gray-300 mb-8 md:mb-10 max-w-2xl">
+              Plan personalizado + app profesional + seguimiento semanal. Adaptado a TU vida real.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-center justify-center w-full px-2">
+              <MagneticButton strength={0.25}>
+                <Link href="/valoracion">
+                  <button className="px-8 py-4 sm:px-10 sm:py-5 rounded-full bg-[#FCEE21] text-[#16122B] text-lg sm:text-2xl font-extrabold shadow-xl hover:scale-105 transition-all duration-200">
+                    QUIERO MI PLAN PERSONALIZADO
+                  </button>
+                </Link>
+              </MagneticButton>
+              <Link href="/recurso-gratis">
+                <button className="px-6 py-3 sm:px-8 sm:py-4 rounded-full border-2 border-white text-white text-base sm:text-lg font-bold hover:bg-white hover:text-[#16122B] transition-all duration-200">
+                  Descargar guía gratis
+                </button>
+              </Link>
+            </div>
           </div>
-        </div>
+        </HeroAnimation>
       </section>
 
       {/* POR QUÉ ENTRENAMIENTO ONLINE */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-24">
         <Container>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
-            ¿Por qué entrenar online conmigo?
-          </h2>
-          <div className="grid md:grid-cols-3 gap-10">
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
+              ¿Por qué entrenar online conmigo?
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-3 gap-10">
             {[
               {
                 icon: Smartphone,
@@ -122,17 +133,19 @@ export default function HomePage() {
               </div>
               )
             })}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* CÓMO FUNCIONA */}
       <section className="py-24 bg-[#16122B]">
         <Container>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
-            Cómo funciona (es muy fácil)
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-12">
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
+              Cómo funciona (es muy fácil)
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="max-w-4xl mx-auto space-y-12" childSelector=":scope > div">
             {[
               {
                 step: '01',
@@ -165,64 +178,68 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* TECNOLOGÍA PROFESIONAL */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20">
         <Container>
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="flex-1">
-              <Image
-                src="/images/wr_app_interface.png"
-                alt="App profesional entrenamiento"
-                width={400}
-                height={500}
-                className="rounded-xl border-4 border-[#FCEE21] shadow-2xl"
-              />
+          <AnimatedSection>
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              <div className="flex-1">
+                <Image
+                  src="/images/wr_app_interface.png"
+                  alt="App profesional entrenamiento"
+                  width={400}
+                  height={500}
+                  className="rounded-xl border-4 border-[#FCEE21] shadow-2xl"
+                />
+              </div>
+              <div className="flex-1">
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
+                  Tecnología profesional que marca la diferencia
+                </h2>
+                <p className="text-xl text-gray-300 mb-6">
+                  Trabajo con la plataforma líder en entrenamiento online para ofrecerte la mejor experiencia:
+                </p>
+                <ul className="space-y-4 text-gray-200 text-lg">
+                  <li className="flex items-start gap-3">
+                    <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
+                    <span>App móvil nativa (iOS y Android) súper intuitiva</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
+                    <span>Vídeos explicativos de cada ejercicio</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
+                    <span>Tracking automático de peso, sensaciones y progreso</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
+                    <span>Notificaciones y recordatorios personalizados</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
+                    <span>Conexión directa conmigo desde la app</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div className="flex-1">
-              <h2 className="text-4xl md:text-5xl font-bold mb-6 gradient-text">
-                Tecnología profesional que marca la diferencia
-              </h2>
-              <p className="text-xl text-gray-300 mb-6">
-                Trabajo con la plataforma líder en entrenamiento online para ofrecerte la mejor experiencia:
-              </p>
-              <ul className="space-y-4 text-gray-200 text-lg">
-                <li className="flex items-start gap-3">
-                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
-                  <span>App móvil nativa (iOS y Android) súper intuitiva</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
-                  <span>Vídeos explicativos de cada ejercicio</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
-                  <span>Tracking automático de peso, sensaciones y progreso</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
-                  <span>Notificaciones y recordatorios personalizados</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <Check size={22} style={{ color: '#FCEE21', minWidth: 22 }} className="mt-0.5 flex-shrink-0" />
-                  <span>Conexión directa conmigo desde la app</span>
-                </li>
-              </ul>
-            </div>
-          </div>
+          </AnimatedSection>
         </Container>
       </section>
 
       {/* TESTIMONIOS */}
       <section className="py-24 bg-[#16122B]">
         <Container>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
-            Lo que dicen mis clientes
-          </h2>
-          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
+              Lo que dicen mis clientes
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {[
               {
                 text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg. Pero lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta. Estaba viviendo.',
@@ -255,17 +272,19 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* TARIFAS RÁPIDAS */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-24">
         <Container>
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
-            Elige tu plan
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <AnimatedSection>
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 gradient-text">
+              Elige tu plan
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               { name: 'STARTER', price: '120', period: '1 mes', desc: 'Prueba el método', popular: false },
               { name: 'PACK 3 MESES', price: '300', period: '3 meses', desc: 'Ahorra €60', popular: true },
@@ -282,20 +301,19 @@ export default function HomePage() {
                 </Link>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* CTA FINAL AGRESIVO */}
-      <section className="relative py-28 flex items-center justify-center bg-[#16122B]">
-        <Image
+      <section className="relative py-28 flex items-center justify-center bg-[#16122B] overflow-hidden">
+        <ParallaxImage
           src="/images/lifestyle.jpg"
           alt="Transforma tu vida"
-          fill
-          className="object-cover opacity-40"
+          speed={0.15}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#16122B]/95 via-[#662D91]/85 to-transparent z-1"></div>
-        <div className="relative z-10 text-center max-w-3xl mx-auto px-4">
+        <div className="absolute inset-0 bg-gradient-to-r from-[#16122B]/95 via-[#662D91]/85 to-transparent z-[1]"></div>
+        <AnimatedSection className="relative z-10 text-center max-w-3xl mx-auto px-4">
           <h2 className="text-5xl md:text-6xl font-extrabold mb-8 gradient-text">
             No necesitas más información.<br/>Necesitas empezar.
           </h2>
@@ -303,18 +321,20 @@ export default function HomePage() {
             Valoración profesional <span style={{ color: '#FCEE21' }}>GRATIS</span>. Analizamos tu caso y te digo si puedo ayudarte.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 items-center justify-center">
-            <Link href="/valoracion">
-              <button className="px-12 py-6 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-2xl hover:scale-110 transition-all duration-200">
-                QUIERO EMPEZAR
-              </button>
-            </Link>
+            <MagneticButton strength={0.25}>
+              <Link href="/valoracion">
+                <button className="px-12 py-6 rounded-full bg-[#FCEE21] text-[#16122B] text-2xl font-extrabold shadow-2xl hover:scale-110 transition-all duration-200">
+                  QUIERO EMPEZAR
+                </button>
+              </Link>
+            </MagneticButton>
             <Link href="/recurso-gratis">
               <button className="px-8 py-4 rounded-full border-2 border-[#FCEE21] text-[#FCEE21] text-lg font-bold hover:bg-[#FCEE21] hover:text-[#16122B] transition-all duration-200">
                 Primero quiero la guía gratis
               </button>
             </Link>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
     </>
   )

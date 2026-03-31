@@ -3,6 +3,11 @@ import Button from '@/components/ui/Button'
 import Link from 'next/link'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
+import HeroAnimation from '@/components/animations/HeroAnimation'
+import AnimatedSection from '@/components/animations/AnimatedSection'
+import StaggerChildren from '@/components/animations/StaggerChildren'
+import AnimatedCounter from '@/components/animations/AnimatedCounter'
+import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
   title: 'De 92kg a 71kg en 14 meses | Caso Real — WellnessReal',
@@ -30,62 +35,68 @@ export default function CasoRealPage() {
       {/* Hero */}
       <section className="py-24 md:py-32 bg-[#16122B]">
         <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-wide">
-              De 92kg a 71kg en 14 meses
-            </h1>
-            <p className="text-2xl md:text-3xl text-white font-medium mb-4">
-              Sin dietas extremas. Sin entrenar 6 días a la semana. Sin dejar de vivir.
-            </p>
-            <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
-              La historia real de un padre de familia de 41 años que lo había intentado todo.
-            </p>
-            <Link href="/valoracion">
-              <Button variant="primary" size="lg">
-                Quiero mi valoración gratuita
-              </Button>
-            </Link>
-          </div>
+          <HeroAnimation>
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-wide">
+                De 92kg a 71kg en 14 meses
+              </h1>
+              <p className="text-2xl md:text-3xl text-white font-medium mb-4">
+                Sin dietas extremas. Sin entrenar 6 días a la semana. Sin dejar de vivir.
+              </p>
+              <p className="text-lg text-gray-400 mb-10 max-w-2xl mx-auto">
+                La historia real de un padre de familia de 41 años que lo había intentado todo.
+              </p>
+              <Link href="/valoracion">
+                <Button variant="primary" size="lg">
+                  Quiero mi valoración gratuita
+                </Button>
+              </Link>
+            </div>
+          </HeroAnimation>
         </Container>
       </section>
 
       {/* El punto de partida */}
       <section className="py-20 md:py-28 bg-[#1a1535]">
         <Container>
-          <div className="max-w-3xl mx-auto">
-            <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-10">
-              El punto de partida
-            </h2>
-            <blockquote className="text-2xl md:text-3xl text-white italic leading-relaxed mb-10 pl-6 border-l-4 border-[#FCEE21]">
-              &ldquo;Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar.&rdquo;
-            </blockquote>
-            <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
-              <p>
-                41 años. Padre de dos hijos. Trabajo de oficina, 9 horas sentado. Llegaba a casa agotado.
-                Había probado gimnasios, dietas de revista, apps de fitness, incluso un nutricionista durante tres meses.
-              </p>
-              <p>
-                Resultado: siempre el mismo. Perdía algo de peso las primeras semanas, se estancaba,
-                se frustraba y volvía a los hábitos de siempre. Cada intento fallido sumaba un poco más de desconfianza.
-              </p>
-              <p>
-                Cuando contactó con WellnessReal, sus propias palabras fueron:
-                <span style={{ color: '#FCEE21' }} className="font-bold">
-                  {' '}&ldquo;No sé si esto va a funcionar, pero ya no sé qué más probar.&rdquo;
-                </span>
-              </p>
+          <AnimatedSection>
+            <div className="max-w-3xl mx-auto">
+              <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-10">
+                El punto de partida
+              </h2>
+              <blockquote className="text-2xl md:text-3xl text-white italic leading-relaxed mb-10 pl-6 border-l-4 border-[#FCEE21]">
+                &ldquo;Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar.&rdquo;
+              </blockquote>
+              <div className="space-y-6 text-lg text-gray-300 leading-relaxed">
+                <p>
+                  41 años. Padre de dos hijos. Trabajo de oficina, 9 horas sentado. Llegaba a casa agotado.
+                  Había probado gimnasios, dietas de revista, apps de fitness, incluso un nutricionista durante tres meses.
+                </p>
+                <p>
+                  Resultado: siempre el mismo. Perdía algo de peso las primeras semanas, se estancaba,
+                  se frustraba y volvía a los hábitos de siempre. Cada intento fallido sumaba un poco más de desconfianza.
+                </p>
+                <p>
+                  Cuando contactó con WellnessReal, sus propias palabras fueron:
+                  <span style={{ color: '#FCEE21' }} className="font-bold">
+                    {' '}&ldquo;No sé si esto va a funcionar, pero ya no sé qué más probar.&rdquo;
+                  </span>
+                </p>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
         </Container>
       </section>
 
       {/* Qué hicimos diferente */}
       <section className="py-20 md:py-28 bg-[#16122B]">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-14 text-center">
-            Qué hicimos diferente
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-14 text-center">
+              Qué hicimos diferente
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
               {
                 num: '01',
@@ -109,17 +120,19 @@ export default function CasoRealPage() {
                 <p className="text-gray-300 leading-relaxed">{item.text}</p>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* La evolución */}
       <section className="py-20 md:py-28 bg-[#1a1535]">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-14 text-center">
-            La evolución
-          </h2>
-          <div className="max-w-3xl mx-auto space-y-0">
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-14 text-center">
+              La evolución
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="max-w-3xl mx-auto space-y-0" childSelector=":scope > div" stagger={0.2}>
             {[
               {
                 period: 'Mes 1-2',
@@ -156,72 +169,83 @@ export default function CasoRealPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* En sus palabras */}
       <section className="py-20 md:py-28 bg-[#16122B]">
         <Container>
-          <div className="max-w-3xl mx-auto">
-            <blockquote className="text-2xl md:text-3xl text-white italic leading-relaxed pl-8 border-l-4 border-[#FCEE21]">
-              &ldquo;Lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta.
-              Estaba viviendo. Comía bien, entrenaba porque me gustaba, y los resultados venían solos.&rdquo;
-            </blockquote>
-            <p className="text-gray-400 mt-6 pl-8">
-              Padre de familia, 41 años — Cliente de WellnessReal
-            </p>
-          </div>
+          <AnimatedSection>
+            <div className="max-w-3xl mx-auto">
+              <blockquote className="text-2xl md:text-3xl text-white italic leading-relaxed pl-8 border-l-4 border-[#FCEE21]">
+                &ldquo;Lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta.
+                Estaba viviendo. Comía bien, entrenaba porque me gustaba, y los resultados venían solos.&rdquo;
+              </blockquote>
+              <p className="text-gray-400 mt-6 pl-8">
+                Padre de familia, 41 años — Cliente de WellnessReal
+              </p>
+            </div>
+          </AnimatedSection>
         </Container>
       </section>
 
       {/* Los números */}
       <section className="py-20 md:py-28 bg-[#1a1535]">
         <Container>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
-            {[
-              { num: '-21kg', label: 'Peso perdido' },
-              { num: '14 meses', label: 'De proceso' },
-              { num: '3 días/sem', label: 'De entrenamiento' },
-              { num: '0 dietas', label: 'Restrictivas' },
-            ].map((stat, i) => (
-              <div key={i}>
-                <span style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold block mb-2">{stat.num}</span>
-                <span className="text-gray-400 text-sm">{stat.label}</span>
-              </div>
-            ))}
-          </div>
+          <StaggerChildren className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center" stagger={0.15}>
+            <div>
+              <AnimatedCounter end={21} prefix="-" suffix="kg" className="text-4xl md:text-5xl font-bold block mb-2" />
+              <span className="text-gray-400 text-sm">Peso perdido</span>
+            </div>
+            <div>
+              <AnimatedCounter end={14} suffix=" meses" className="text-4xl md:text-5xl font-bold block mb-2" />
+              <span className="text-gray-400 text-sm">De proceso</span>
+            </div>
+            <div>
+              <AnimatedCounter end={3} suffix=" días/sem" className="text-4xl md:text-5xl font-bold block mb-2" />
+              <span className="text-gray-400 text-sm">De entrenamiento</span>
+            </div>
+            <div>
+              <AnimatedCounter end={0} suffix=" dietas" className="text-4xl md:text-5xl font-bold block mb-2" />
+              <span className="text-gray-400 text-sm">Restrictivas</span>
+            </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* CTA Final */}
       <section className="py-20 md:py-28 bg-[#16122B]">
         <Container className="text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-6">
-              ¿Te identificas con esta historia?
-            </h2>
-            <p className="text-lg text-gray-300 mb-4 leading-relaxed">
-              No necesitas ser un caso extremo. Solo necesitas un plan que funcione en tu vida real
-              y a alguien que te acompañe en el proceso.
-            </p>
-            <p className="text-lg text-gray-300 mb-10 leading-relaxed">
-              La valoración es gratuita, sin compromiso y sin presión.
-              Analizamos tu caso y te digo exactamente qué haríamos.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/valoracion">
-                <Button variant="primary" size="lg">
-                  Solicitar valoración gratuita
-                </Button>
-              </Link>
-              <Link href="/tarifas">
-                <Button variant="outline" size="lg">
-                  Ver tarifas
-                </Button>
-              </Link>
+          <AnimatedSection>
+            <div className="max-w-3xl mx-auto">
+              <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-6">
+                ¿Te identificas con esta historia?
+              </h2>
+              <p className="text-lg text-gray-300 mb-4 leading-relaxed">
+                No necesitas ser un caso extremo. Solo necesitas un plan que funcione en tu vida real
+                y a alguien que te acompañe en el proceso.
+              </p>
+              <p className="text-lg text-gray-300 mb-10 leading-relaxed">
+                La valoración es gratuita, sin compromiso y sin presión.
+                Analizamos tu caso y te digo exactamente qué haríamos.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <MagneticButton>
+                  <Link href="/valoracion">
+                    <Button variant="primary" size="lg">
+                      Solicitar valoración gratuita
+                    </Button>
+                  </Link>
+                </MagneticButton>
+                <Link href="/tarifas">
+                  <Button variant="outline" size="lg">
+                    Ver tarifas
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
+          </AnimatedSection>
         </Container>
       </section>
     </>

@@ -6,6 +6,10 @@ import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
 import PlanSelector from '@/components/sections/PlanSelector'
 import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
+import HeroAnimation from '@/components/animations/HeroAnimation'
+import AnimatedSection from '@/components/animations/AnimatedSection'
+import StaggerChildren from '@/components/animations/StaggerChildren'
+import MagneticButton from '@/components/animations/MagneticButton'
 
 const PHONE = '34633261963'
 
@@ -52,27 +56,31 @@ export default function TarifasPage() {
       {/* Hero */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>
-          <div className="max-w-4xl">
-            <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-widest">
-              TARIFAS
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-              Planes flexibles que se adaptan a ti.
-              <span style={{ color: '#FCEE21' }} className="font-bold">
-                {' '}La valoración inicial siempre es gratuita.
-              </span>
-            </p>
-          </div>
+          <HeroAnimation>
+            <div className="max-w-4xl">
+              <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-widest">
+                TARIFAS
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                Planes flexibles que se adaptan a ti.
+                <span style={{ color: '#FCEE21' }} className="font-bold">
+                  {' '}La valoración inicial siempre es gratuita.
+                </span>
+              </p>
+            </div>
+          </HeroAnimation>
         </Container>
       </section>
 
       {/* Así es el proceso */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
-            Así es el proceso
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
+              Así es el proceso
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
               {
                 step: '01',
@@ -111,14 +119,16 @@ export default function TarifasPage() {
                 </p>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* ¿Por dónde empezar? — Acordeón */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>
-          <PlanSelector />
+          <AnimatedSection>
+            <PlanSelector />
+          </AnimatedSection>
         </Container>
       </section>
 
@@ -127,10 +137,12 @@ export default function TarifasPage() {
       {/* Testimonios */}
       <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
-            Lo que dicen quienes ya han pasado por aquí
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-14 tracking-wide">
+              Lo que dicen quienes ya han pasado por aquí
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl">
             {[
               {
                 text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg. Pero lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta. Estaba viviendo.',
@@ -172,17 +184,19 @@ export default function TarifasPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* FAQ */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-12 tracking-wide">
-            Preguntas frecuentes
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl">
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-12 tracking-wide">
+              Preguntas frecuentes
+            </h2>
+          </AnimatedSection>
+          <StaggerChildren className="grid md:grid-cols-2 gap-8 max-w-4xl" stagger={0.08}>
             {[
               {
                 q: '¿Cómo es la valoración gratuita?',
@@ -226,50 +240,56 @@ export default function TarifasPage() {
                 </p>
               </div>
             ))}
-          </div>
+          </StaggerChildren>
         </Container>
       </section>
 
       {/* CTA Lead Magnet */}
       <section style={{ backgroundColor: '#16122B' }} className="py-16">
         <Container>
-          <div
-            className="max-w-3xl mx-auto p-8 md:p-10 rounded-2xl text-center"
-            style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              ¿Todavía no lo tienes claro?
-            </h2>
-            <p className="text-lg text-gray-300 mb-6 max-w-xl mx-auto">
-              Descarga la guía gratuita y empieza a entender qué necesitas realmente.
-            </p>
-            <Link href="/recurso-gratis">
-              <Button variant="primary" size="lg">
-                Descargar guía gratis
-              </Button>
-            </Link>
-          </div>
+          <AnimatedSection>
+            <div
+              className="max-w-3xl mx-auto p-8 md:p-10 rounded-2xl text-center"
+              style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}
+            >
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+                ¿Todavía no lo tienes claro?
+              </h2>
+              <p className="text-lg text-gray-300 mb-6 max-w-xl mx-auto">
+                Descarga la guía gratuita y empieza a entender qué necesitas realmente.
+              </p>
+              <Link href="/recurso-gratis">
+                <Button variant="primary" size="lg">
+                  Descargar guía gratis
+                </Button>
+              </Link>
+            </div>
+          </AnimatedSection>
         </Container>
       </section>
 
       {/* CTA Final */}
       <section style={{ backgroundColor: '#1a1535' }} className="py-20">
         <Container className="text-center">
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-6">
-            ¿Dudas? Hablemos
-          </h2>
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            Cuéntame tu situación y te ayudo a elegir el plan que mejor encaja contigo.
-          </p>
-          <a
-            href={whatsappUrl('Valoración gratuita')}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:scale-105"
-            style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
-          >
-            Solicitar valoración gratuita
-          </a>
+          <AnimatedSection>
+            <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-6">
+              ¿Dudas? Hablemos
+            </h2>
+            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+              Cuéntame tu situación y te ayudo a elegir el plan que mejor encaja contigo.
+            </p>
+            <MagneticButton>
+              <a
+                href={whatsappUrl('Valoración gratuita')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-8 py-4 rounded-lg font-bold text-lg transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+              >
+                Solicitar valoración gratuita
+              </a>
+            </MagneticButton>
+          </AnimatedSection>
         </Container>
       </section>
 

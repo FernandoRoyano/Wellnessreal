@@ -4,6 +4,7 @@ import { useEffect } from 'react'
 import { Check } from 'lucide-react'
 import Container from '@/components/common/Container'
 import { trackViewPricing, trackClickPlan } from '@/lib/analytics'
+import { useStagger, useReveal } from '@/hooks/useGSAP'
 
 const PHONE = '34633261963'
 
@@ -13,6 +14,10 @@ function whatsappUrl(plan: string) {
 }
 
 export default function PricingCards() {
+  const onlineCardsRef = useStagger<HTMLDivElement>({ y: 60, stagger: 0.15, duration: 0.8 })
+  const nutricionRef = useReveal<HTMLDivElement>({ y: 50 })
+  const presencialRef = useStagger<HTMLDivElement>({ y: 50, stagger: 0.15 })
+
   useEffect(() => {
     trackViewPricing()
   }, [])
@@ -29,7 +34,7 @@ export default function PricingCards() {
             </span>
             <div className="flex-1 h-px bg-[#662D91]/40" />
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
+          <div ref={onlineCardsRef} className="grid md:grid-cols-3 gap-8">
             {/* Starter 1 mes */}
             <div id="starter" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
               <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
@@ -196,7 +201,7 @@ export default function PricingCards() {
             </span>
             <div className="flex-1 h-px bg-[#662D91]/40" />
           </div>
-          <div className="max-w-md">
+          <div ref={nutricionRef} className="max-w-md">
             <div className="p-8 rounded-xl flex flex-col" style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}>
               <h3 style={{ color: '#FCEE21' }} className="text-2xl font-bold mb-2 tracking-wide">
                 Consulta Nutrición
@@ -232,7 +237,7 @@ export default function PricingCards() {
             </span>
             <div className="flex-1 h-px bg-[#662D91]/40" />
           </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl">
+          <div ref={presencialRef} className="grid md:grid-cols-2 gap-8 max-w-3xl">
             {[
               {
                 name: 'Análisis Corporal',
