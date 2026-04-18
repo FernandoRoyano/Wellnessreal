@@ -73,25 +73,13 @@ export async function POST(request: NextRequest) {
     // Subscribe to MailerLite with VSL group tag
     const mlKey = process.env.MAILERLITE_API_KEY
     const vslGroupId = process.env.MAILERLITE_VSL_GROUP_ID
-    const defaultGroupId = process.env.MAILERLITE_GROUP_ID
-
-    const diag = {
-      mlKeySet: !!mlKey,
-      vslGroupIdSet: !!vslGroupId,
-      vslGroupIdPreview: vslGroupId ? `${vslGroupId.slice(0, 6)}...` : null,
-      defaultGroupIdSet: !!defaultGroupId,
-      groupsUsed: [] as string[],
-      mlResponse: null as null | { ok: boolean; status: number },
-    }
-
     if (mlKey) {
       try {
         const groups: string[] = []
         if (vslGroupId) groups.push(vslGroupId)
-        else if (defaultGroupId) groups.push(defaultGroupId)
-        diag.groupsUsed = groups
+        else if (process.env.MAILERLITE_GROUP_ID) groups.push(process.env.MAILERLITE_GROUP_ID)
 
-        const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+        await fetch('https://connect.mailerlite.com/api/subscribers', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -103,13 +91,12 @@ export async function POST(request: NextRequest) {
             groups,
           }),
         })
-        diag.mlResponse = { ok: mlRes.ok, status: mlRes.status }
       } catch (e) {
         console.error('Error subscribing VSL lead to MailerLite:', e)
       }
     }
 
-    return NextResponse.json({ success: true, diag })
+    return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error en API VSL opt-in:', error)
     return NextResponse.json({ error: 'Error al procesar el registro' }, { status: 500 })
