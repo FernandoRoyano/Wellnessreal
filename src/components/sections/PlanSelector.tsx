@@ -5,43 +5,44 @@ import { ChevronDown } from 'lucide-react'
 
 const plans = [
   {
-    id: 'starter',
-    badge: 'Starter',
-    badgeStyle: 'bg-[#1a1535] text-gray-300 border border-[#662D91]',
-    question: '¿Quieres probar el método y ver si encajamos?',
-    description:
-      'Ideal si nunca has trabajado con un entrenador online o quieres comprobar cómo es el proceso antes de comprometerte. Un mes es suficiente para ver cómo funciona el método, cómo es el seguimiento y si el estilo de trabajo encaja con lo que buscas.',
-    highlights: [
-      'Sin permanencia — cancelas cuando quieras',
-      'Plan completo desde el primer día, no una versión recortada',
-      'Revisión semanal incluida para que no estés solo',
-    ],
-    ctaLabel: 'Ver precio del Starter',
-    ctaHref: '#starter',
-  },
-  {
     id: 'pack3',
-    badge: 'Más elegido',
-    badgeStyle: 'text-[#16122B] font-bold',
-    badgeBg: '#FCEE21',
-    question: '¿Quieres resultados reales y construir un hábito sólido?',
+    badge: 'Entrada',
+    badgeStyle: 'bg-[#1a1535] text-gray-300 border border-[#662D91]',
+    question: '¿Quieres probar el método con compromiso razonable?',
     description:
-      '3 meses es el tiempo mínimo para que los cambios sean visibles y los hábitos empiecen a ser automáticos. No es magia — es que el cuerpo necesita ese tiempo para adaptarse y responder. La mayoría de los resultados reales ocurren en este rango de tiempo.',
+      '3 meses es el mínimo que acepto. Es el tiempo real que necesita el cuerpo para empezar a responder y los hábitos para empezar a asentarse. No es magia — es biología. La mayoría de los resultados tangibles aparecen en este rango.',
     highlights: [
-      '12 semanas de seguimiento continuo con ajustes semanales',
-      'Ahorras 60€ respecto a 3 meses de Starter',
+      '12 semanas de seguimiento con ajustes semanales',
       'Pautas nutricionales básicas incluidas',
-      'La opción más elegida por quienes quieren hacerlo bien',
+      'Revisión mensual en profundidad',
+      'Valoración inicial gratuita',
     ],
     ctaLabel: 'Ver precio del Pack 3 meses',
     ctaHref: '#pack3',
+  },
+  {
+    id: 'pack6',
+    badge: 'Más elegido',
+    badgeStyle: 'text-[#16122B] font-bold',
+    badgeBg: '#FCEE21',
+    question: '¿Quieres resultados que se queden y no volver al punto de partida?',
+    description:
+      '6 meses es el tiempo necesario para que los cambios se consoliden de verdad. No es un programa "rápido" — es el tiempo real en el que los hábitos se vuelven automáticos y dejan de depender de fuerza de voluntad. El que más eligen los que van en serio.',
+    highlights: [
+      '26 semanas de seguimiento continuo',
+      'Adaptaciones al plan según evoluciona tu vida',
+      'El mejor precio mensual del catálogo (125€/mes)',
+      'El compromiso largo es el que cambia cosas',
+    ],
+    ctaLabel: 'Ver precio del Pack 6 meses',
+    ctaHref: '#pack6',
   },
   {
     id: 'premium',
     badge: 'Premium',
     badgeStyle: 'bg-[#1a1535] text-[#FCEE21] border border-[#FCEE21]',
     question:
-      '¿Quieres máxima atención, seguimiento intensivo y nutrición incluida?',
+      '¿Quieres máxima atención, videollamada semanal y nutrición completa?',
     description:
       'Para quien quiere el nivel más alto de personalización y no quiere dejar ningún cabo suelto. Videollamada semanal para revisar todo en detalle, plan nutricional completo integrado con el entrenamiento, y acceso directo cuando lo necesites.',
     highlights: [

@@ -11,6 +11,7 @@ export type PaymentMethod = 'stripe' | 'transfer'
 export type ServiceType =
   | 'starter_1mes'
   | 'pack_3meses'
+  | 'pack_6meses_transformacion'
   | 'premium_3meses'
   | 'solo_entrenamiento_trimestral'
   | 'entrenamiento_presencial'

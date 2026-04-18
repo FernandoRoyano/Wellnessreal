@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const serviceTypes = [
   'starter_1mes',
   'pack_3meses',
+  'pack_6meses_transformacion',
   'premium_3meses',
   'solo_entrenamiento_trimestral',
   'entrenamiento_presencial',
@@ -14,8 +15,9 @@ export const serviceTypes = [
 ] as const
 
 export const serviceLabels: Record<(typeof serviceTypes)[number], string> = {
-  starter_1mes: 'Starter — Entrenamiento Online (1 mes)',
+  starter_1mes: 'Starter — Entrenamiento Online (1 mes) — legacy',
   pack_3meses: 'Pack 3 Meses — Entrenamiento Online',
+  pack_6meses_transformacion: 'Pack 6 Meses Transformación — Entrenamiento Online',
   premium_3meses: 'Premium — Máxima Personalización (3 meses)',
   solo_entrenamiento_trimestral: 'Solo Entrenamiento (trimestral)',
   entrenamiento_presencial: 'Entrenamiento Presencial',
@@ -36,17 +38,22 @@ export const planPresets: Record<(typeof serviceTypes)[number], PlanPreset> = {
   starter_1mes: {
     price: 120,
     duration: '1 mes',
-    description: 'Plan personalizado en app, revisión semanal, vídeos explicativos, soporte por chat y valoración inicial gratuita.',
+    description: 'Plan personalizado en app, revisión semanal, vídeos explicativos, soporte por chat y valoración inicial gratuita. (Plan legacy — solo disponible por propuesta directa)',
   },
   pack_3meses: {
-    price: 300,
+    price: 450,
     duration: '3 meses',
-    description: '12 semanas de seguimiento, ajustes semanales del plan, biblioteca de vídeos y revisión mensual en profundidad. Ahorras 60€.',
+    description: '12 semanas de seguimiento, ajustes semanales del plan, biblioteca de vídeos y revisión mensual en profundidad.',
+  },
+  pack_6meses_transformacion: {
+    price: 750,
+    duration: '6 meses',
+    description: '6 meses de trabajo conjunto. Seguimiento semanal continuo, ajustes del plan en función de tu evolución y el tiempo real para consolidar hábitos que se quedan. El mejor precio mensual por el compromiso largo.',
   },
   premium_3meses: {
-    price: 500,
+    price: 750,
     duration: '3 meses',
-    description: 'Videollamada semanal, análisis mensual de progreso, soporte prioritario WhatsApp y pautas nutricionales incluidas.',
+    description: 'Videollamada semanal, análisis mensual de progreso, soporte prioritario WhatsApp y plan nutricional completo incluido.',
   },
   solo_entrenamiento_trimestral: {
     price: 180,

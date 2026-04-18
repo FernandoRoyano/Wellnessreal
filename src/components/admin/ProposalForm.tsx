@@ -30,10 +30,10 @@ export default function ProposalForm() {
   const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      serviceType: 'starter_1mes',
-      price: '120',
-      duration: '1 mes',
-      description: planPresets.starter_1mes.description,
+      serviceType: 'pack_3meses',
+      price: '450',
+      duration: '3 meses',
+      description: planPresets.pack_3meses.description,
       contractText: '',
     },
   })
@@ -201,10 +201,11 @@ export default function ProposalForm() {
           className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none transition"
         >
           <optgroup label="Planes de entrenamiento online" style={{ backgroundColor: '#16122B' }}>
-            <option value="starter_1mes" style={{ backgroundColor: '#16122B' }}>Starter — 120€/mes</option>
-            <option value="pack_3meses" style={{ backgroundColor: '#16122B' }}>Pack 3 Meses — 300€ (ahorra 60€)</option>
-            <option value="premium_3meses" style={{ backgroundColor: '#16122B' }}>Premium — 500€/3 meses</option>
+            <option value="pack_3meses" style={{ backgroundColor: '#16122B' }}>Pack 3 Meses — 450€ (150€/mes)</option>
+            <option value="pack_6meses_transformacion" style={{ backgroundColor: '#16122B' }}>Pack 6 Meses Transformación — 750€ (125€/mes)</option>
+            <option value="premium_3meses" style={{ backgroundColor: '#16122B' }}>Premium — 750€/3 meses (250€/mes)</option>
             <option value="solo_entrenamiento_trimestral" style={{ backgroundColor: '#16122B' }}>Solo Entrenamiento — 180€/trimestre (60€/mes)</option>
+            <option value="starter_1mes" style={{ backgroundColor: '#16122B' }}>Starter — 120€/mes (legacy)</option>
           </optgroup>
           <optgroup label="Servicios individuales" style={{ backgroundColor: '#16122B' }}>
             <option value="entrenamiento_presencial" style={{ backgroundColor: '#16122B' }}>Entrenamiento Presencial</option>

@@ -28,6 +28,13 @@ const daysOptions = ['2 días', '3 días', '4 días', '5+ días']
 const timeOptions = ['30 min', '45 min', '60 min', '90 min']
 const scheduleOptions = ['Mañana', 'Mediodía', 'Tarde', 'Noche', 'Me da igual']
 const modalityOptions = ['Online', 'Presencial (Madrid)', 'Me da igual']
+const budgetOptions = [
+  { value: 'menos-100', label: 'Menos de 100€/mes' },
+  { value: '100-200', label: '100 - 200€/mes' },
+  { value: '200-300', label: '200 - 300€/mes' },
+  { value: 'mas-300', label: 'Más de 300€/mes' },
+  { value: 'no-seguro', label: 'Aún no lo tengo claro' },
+]
 const sourceOptions = [
   'Google',
   'Instagram',
@@ -54,6 +61,7 @@ interface FormData {
   medicalConditions: string
   diet: string
   expectations: string
+  budget: string
   source: string
 }
 
@@ -75,6 +83,7 @@ const initialData: FormData = {
   medicalConditions: '',
   diet: '',
   expectations: '',
+  budget: '',
   source: '',
 }
 
@@ -105,7 +114,7 @@ export default function ValoracionPage() {
       case 5:
         return true
       case 6:
-        return true
+        return data.budget !== ''
       default:
         return false
     }
@@ -442,6 +451,19 @@ export default function ValoracionPage() {
                   <p className="text-gray-400 text-sm mb-6">
                     Cuéntame qué esperas de esto y envía tu valoración.
                   </p>
+                  <div>
+                    <label className="block text-sm font-bold text-gray-300 mb-2">
+                      Presupuesto mensual que estás considerando *
+                    </label>
+                    <p className="text-gray-500 text-xs mb-3">
+                      No es un filtro para venderte — es para que te proponga el plan que encaja con tu realidad. Sin sorpresas después.
+                    </p>
+                    <RadioOption
+                      options={budgetOptions}
+                      value={data.budget}
+                      onChange={(v) => update('budget', v)}
+                    />
+                  </div>
                   <div>
                     <label className="block text-sm font-bold text-gray-300 mb-2">
                       ¿Qué esperas de un entrenador online?

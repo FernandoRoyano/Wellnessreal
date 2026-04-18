@@ -286,9 +286,9 @@ export default function HomePage() {
           </AnimatedSection>
           <StaggerChildren className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {[
-              { name: 'STARTER', price: '120', period: '1 mes', desc: 'Prueba el método', popular: false },
-              { name: 'PACK 3 MESES', price: '300', period: '3 meses', desc: 'Ahorra €60', popular: true },
-              { name: 'PREMIUM', price: '500', period: '3 meses', desc: 'Máxima personalización', popular: false }
+              { name: 'PACK 3 MESES', price: '450', period: '3 meses (150€/mes)', desc: 'Entrada estándar', popular: false },
+              { name: 'PACK 6 MESES', price: '750', period: '6 meses (125€/mes)', desc: 'El más elegido', popular: true },
+              { name: 'PREMIUM', price: '750', period: '3 meses (250€/mes)', desc: 'Máxima personalización', popular: false }
             ].map((plan, i) => (
               <div key={i} className={`p-8 rounded-xl text-center ${plan.popular ? 'border-4 scale-105' : 'border-2'} border-[#FCEE21] bg-[#16122B]`}>
                 {plan.popular && <div className="mb-3 text-sm font-bold px-3 py-1 rounded-full inline-block" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>MÁS POPULAR</div>}

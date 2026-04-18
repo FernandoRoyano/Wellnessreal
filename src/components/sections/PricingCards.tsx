@@ -35,18 +35,19 @@ export default function PricingCards() {
             <div className="flex-1 h-px bg-[#662D91]/40" />
           </div>
           <div ref={onlineCardsRef} className="grid md:grid-cols-3 gap-8">
-            {/* Starter 1 mes */}
-            <div id="starter" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
+            {/* Pack 3 Meses - Entrada */}
+            <div id="pack3" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
               <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
-                STARTER
+                PACK 3 MESES
               </h3>
-              <p className="text-gray-400 mb-2">Entrenamiento Online — 1 mes</p>
+              <p className="text-gray-400 mb-2">Entrenamiento Online — 3 meses</p>
               <p className="text-gray-300 text-sm mb-4">
-                Prueba el método sin compromiso. Plan completo desde el primer día.
+                La entrada estándar. El tiempo mínimo para que los cambios empiecen a asentarse.
               </p>
               <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
-                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€120</span>
-                <span className="text-gray-400 ml-2">/mes</span>
+                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€450</span>
+                <span className="text-gray-400 ml-2">/3 meses</span>
+                <p className="text-sm text-gray-400 mt-1">150€/mes</p>
               </div>
               <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
                 <li className="flex items-start gap-2">
@@ -55,66 +56,11 @@ export default function PricingCards() {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Revisión semanal de tu progreso</span>
+                  <span>12 semanas de seguimiento con ajustes semanales</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
                   <span>Vídeos explicativos de cada ejercicio</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Soporte directo por chat</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Valoración inicial gratuita incluida</span>
-                </li>
-              </ul>
-              <a
-                href={whatsappUrl('Starter 1 Mes (€120)')}
-                onClick={() => trackClickPlan('starter_1mes')}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
-                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
-              >
-                Quiero empezar
-              </a>
-            </div>
-
-            {/* 3 Meses - Pack ahorro */}
-            <div id="pack3" className="rounded-xl p-8 border-2 border-[#FCEE21] text-center scale-105 bg-[#16122B] shadow-xl scroll-mt-24">
-              <div className="mb-4 inline-block px-4 py-1 rounded-full text-sm font-bold tracking-wide" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
-                MÁS POPULAR
-              </div>
-              <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
-                PACK 3 MESES
-              </h3>
-              <p className="text-gray-400 mb-2">Entrenamiento Online</p>
-              <p className="text-gray-300 text-sm mb-4">
-                El tiempo necesario para crear un hábito real y ver cambios que se notan.
-              </p>
-              <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
-                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€300</span>
-                <span className="text-gray-400 ml-2">/3 meses</span>
-                <p className="text-sm text-green-400 mt-1">Ahorras €60</p>
-              </div>
-              <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Todo lo del plan Starter</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>12 semanas de seguimiento continuo</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Ajustes semanales del plan según tu evolución</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
-                  <span>Acceso a biblioteca completa de vídeos</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
@@ -124,10 +70,69 @@ export default function PricingCards() {
                   <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
                   <span>Pautas nutricionales básicas incluidas</span>
                 </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Valoración inicial gratuita</span>
+                </li>
               </ul>
               <a
-                href={whatsappUrl('Pack 3 Meses (€300)')}
+                href={whatsappUrl('Pack 3 Meses (450€)')}
                 onClick={() => trackClickPlan('pack_3meses')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
+                style={{ backgroundColor: '#FCEE21', color: '#16122B', boxShadow: '0 0 20px rgba(252, 238, 33, 0.3)' }}
+              >
+                Quiero empezar
+              </a>
+            </div>
+
+            {/* Pack 6 Meses Transformación - Más popular */}
+            <div id="pack6" className="rounded-xl p-8 border-2 border-[#FCEE21] text-center scale-105 bg-[#16122B] shadow-xl scroll-mt-24">
+              <div className="mb-4 inline-block px-4 py-1 rounded-full text-sm font-bold tracking-wide" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
+                MÁS POPULAR
+              </div>
+              <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
+                PACK 6 MESES
+              </h3>
+              <p className="text-gray-400 mb-2">Transformación — Entrenamiento Online</p>
+              <p className="text-gray-300 text-sm mb-4">
+                6 meses es el tiempo real en el que los hábitos se consolidan y los resultados se quedan. El que más eligen los que van en serio.
+              </p>
+              <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
+                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€750</span>
+                <span className="text-gray-400 ml-2">/6 meses</span>
+                <p className="text-sm text-green-400 mt-1">125€/mes — mejor precio mensual</p>
+              </div>
+              <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Todo lo del Pack 3 meses</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>26 semanas de seguimiento continuo</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Adaptaciones al plan según evoluciona tu vida</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>El tiempo real para consolidar hábitos que se quedan</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Mejor precio mensual del catálogo</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <Check size={20} style={{ color: '#FCEE21', minWidth: 20 }} />
+                  <span>Pautas nutricionales básicas incluidas</span>
+                </li>
+              </ul>
+              <a
+                href={whatsappUrl('Pack 6 Meses Transformación (750€)')}
+                onClick={() => trackClickPlan('pack_6meses_transformacion')}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full py-4 rounded-lg text-center font-bold text-lg transition-all duration-200 hover:scale-105"
@@ -137,18 +142,19 @@ export default function PricingCards() {
               </a>
             </div>
 
-            {/* PREMIUM */}
+            {/* Premium 3M - Máxima intensidad */}
             <div id="premium" className="rounded-xl p-8 bg-[#16122B] border border-[#662D91] text-center scroll-mt-24">
               <h3 className="text-3xl font-bold mb-2 tracking-widest" style={{ color: '#FCEE21' }}>
                 PREMIUM
               </h3>
-              <p className="text-gray-400 mb-2">Máxima personalización</p>
+              <p className="text-gray-400 mb-2">Máxima personalización — 3 meses</p>
               <p className="text-gray-300 text-sm mb-4">
-                Para quien quiere el máximo nivel de atención y resultados en el menor tiempo posible.
+                Para quien quiere el máximo nivel de atención y nutrición incluida. Videollamada semanal conmigo.
               </p>
               <div className="mb-8 pb-8 border-b" style={{ borderBottomColor: '#662D91' }}>
-                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€500</span>
+                <span className="text-5xl font-bold" style={{ color: '#FCEE21' }}>€750</span>
                 <span className="text-gray-400 ml-2">/3 meses</span>
+                <p className="text-sm text-gray-400 mt-1">250€/mes</p>
               </div>
               <ul className="space-y-3 mb-8 text-gray-300 text-left mx-auto max-w-xs">
                 <li className="flex items-start gap-2">
@@ -177,7 +183,7 @@ export default function PricingCards() {
                 </li>
               </ul>
               <a
-                href={whatsappUrl('Premium 3 Meses (€500)')}
+                href={whatsappUrl('Premium 3 Meses (750€)')}
                 onClick={() => trackClickPlan('premium_3meses')}
                 target="_blank"
                 rel="noopener noreferrer"

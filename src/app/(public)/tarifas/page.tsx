@@ -21,7 +21,7 @@ function whatsappUrl(plan: string) {
 export const metadata = buildMetadata({
   title: 'Tarifas | Planes de Entrenamiento Online',
   description:
-    'Planes de entrenamiento online personalizados desde €120/mes. Pack 3 meses, Premium con videollamadas. Valoración gratuita incluida.',
+    'Planes de entrenamiento online personalizados desde €125/mes. Pack 3 meses, Pack 6 meses Transformación y Premium con videollamadas. Valoración gratuita incluida.',
   path: '/tarifas',
   keywords: [
     'tarifas entrenamiento online',
@@ -36,16 +36,16 @@ export default function TarifasPage() {
     <>
       <JsonLd
         data={offerSchema([
-          { name: 'Starter - 1 Mes', price: '120', description: 'Plan personalizado en app, revisión semanal, vídeos explicativos, soporte por chat.' },
-          { name: 'Pack 3 Meses', price: '300', description: 'Todo lo del Starter + 12 semanas de seguimiento, ajustes semanales y revisión mensual.' },
-          { name: 'Premium - 3 Meses', price: '500', description: 'Todo lo del pack 3 meses + videollamada semanal, soporte prioritario y pautas nutricionales.' },
+          { name: 'Pack 3 Meses', price: '450', description: 'Plan personalizado en app, 12 semanas de seguimiento con ajustes semanales, revisión mensual en profundidad y pautas nutricionales básicas.' },
+          { name: 'Pack 6 Meses Transformación', price: '750', description: '26 semanas de seguimiento continuo. El tiempo real para consolidar hábitos. Mejor precio mensual del catálogo (125€/mes).' },
+          { name: 'Premium - 3 Meses', price: '750', description: 'Todo lo del Pack 3 meses + videollamada semanal, análisis mensual de composición corporal, soporte prioritario y plan nutricional completo.' },
         ])}
       />
       <JsonLd
         data={faqSchema([
           { question: '¿Cómo es la valoración gratuita?', answer: 'Es una conversación de 20-30 minutos donde me cuentas tu situación, historial, objetivos y disponibilidad. Analizo tu caso y te digo honestamente si puedo ayudarte y cómo. Si no eres el perfil adecuado para lo que ofrezco, también te lo digo. Sin presión ni ventas agresivas.' },
           { question: '¿Puedo cambiar de plan?', answer: 'Sí, sin ningún problema. Puedes cambiar, pausar o cancelar en cualquier momento. Sin permanencia, sin penalización, sin letra pequeña.' },
-          { question: '¿Incluye nutrición?', answer: 'El plan Starter y Pack 3 meses incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.' },
+          { question: '¿Incluye nutrición?', answer: 'El Pack 3 meses y el Pack 6 meses Transformación incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.' },
           { question: '¿Qué pasa si no veo resultados?', answer: 'Si sigues el plan correctamente y no ves progreso, revisamos todo sin coste adicional y ajustamos hasta que funcione. En más de 100 clientes nunca he tenido que aplicar esta garantía porque el método funciona — pero existe porque confío en el proceso y en que si algo no avanza, hay una razón que encontraremos juntos.' },
           { question: '¿Hay descuento por pago anual?', answer: 'Sí. Si quieres comprometerte a 6 o 12 meses, contacta directamente y te hago una propuesta con descuento adicional. Es la opción más rentable para quien tiene claro que quiere un cambio definitivo.' },
           { question: '¿Qué necesito para empezar?', answer: 'Solo un móvil con la app instalada. Puedes entrenar en casa, en el gimnasio, en un parque — donde quieras. El plan se adapta al espacio y material que tengas disponible, no al contrario.' },
@@ -208,7 +208,7 @@ export default function TarifasPage() {
               },
               {
                 q: '¿Incluye nutrición?',
-                a: 'El plan Starter y Pack 3 meses incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.',
+                a: 'El Pack 3 meses y el Pack 6 meses Transformación incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.',
               },
               {
                 q: '¿Qué pasa si no veo resultados?',

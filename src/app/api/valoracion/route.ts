@@ -17,6 +17,14 @@ const levelLabels: Record<string, string> = {
   'avanzado': 'Avanzado (3+ años)',
 }
 
+const budgetLabels: Record<string, string> = {
+  'menos-100': 'Menos de 100€/mes',
+  '100-200': '100 - 200€/mes',
+  '200-300': '200 - 300€/mes',
+  'mas-300': 'Más de 300€/mes',
+  'no-seguro': 'Aún no lo tiene claro',
+}
+
 function row(label: string, value: string | undefined) {
   if (!value) return ''
   return `<tr>
@@ -34,7 +42,7 @@ export async function POST(request: NextRequest) {
       level, currentlyTraining, trainingDetail,
       daysPerWeek, sessionDuration, schedule, modality,
       injuries, medicalConditions, diet,
-      expectations, source,
+      expectations, budget, source,
     } = body
 
     if (!name || !email || !phone || !objective || !level) {
@@ -89,6 +97,7 @@ export async function POST(request: NextRequest) {
 
     <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Otros</h2>
     <table style="width:100%;border-collapse:collapse;">
+      ${row('Presupuesto mensual', budgetLabels[budget] || budget)}
       ${row('Expectativas', expectations)}
       ${row('Nos conoció por', source)}
     </table>
