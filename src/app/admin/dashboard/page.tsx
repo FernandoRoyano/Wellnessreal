@@ -7,7 +7,8 @@ import Link from 'next/link'
 import {
   PlusCircle, Euro, Users, FileText, BookOpen,
   TrendingUp, CreditCard, ArrowRightLeft, Clock,
-  Pen, Mail,
+  Pen, Mail, Link2, Copy, ExternalLink, Check,
+  PlayCircle, ClipboardList, Gift, MessageCircle, Target,
 } from 'lucide-react'
 
 interface DashboardStats {
@@ -228,6 +229,59 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
+            {/* Row 2.5: Páginas de captación */}
+            <div
+              className="rounded-xl p-6 mb-6"
+              style={{ backgroundColor: '#1a1535', border: '1px solid rgba(102,45,145,0.3)' }}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <Link2 size={16} className="text-gray-400" />
+                <h3 className="text-white font-bold text-sm">Páginas de captación</h3>
+              </div>
+              <p className="text-gray-500 text-xs mb-5">
+                Pega estas URLs en tus anuncios. El funnel VSL (<span style={{ color: '#FCEE21' }}>/metodo</span>) es el principal.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <CaptureCard
+                  icon={Target}
+                  title="VSL — Opt-in"
+                  description="Página de registro. Aquí aterrizan los anuncios."
+                  path="/metodo"
+                  highlight
+                />
+                <CaptureCard
+                  icon={PlayCircle}
+                  title="VSL — Vídeo"
+                  description="Vídeo de 15 min + CTA. Acceso directo."
+                  path="/metodo/video"
+                />
+                <CaptureCard
+                  icon={ClipboardList}
+                  title="Valoración gratuita"
+                  description="Formulario 6 pasos con pre-cualificación de presupuesto."
+                  path="/valoracion"
+                />
+                <CaptureCard
+                  icon={Gift}
+                  title="Recurso gratis (PDF)"
+                  description="Lead magnet — guía descargable."
+                  path="/recurso-gratis"
+                />
+                <CaptureCard
+                  icon={MessageCircle}
+                  title="Contacto"
+                  description="Formulario genérico de contacto."
+                  path="/contacto"
+                />
+                <CaptureCard
+                  icon={FileText}
+                  title="Tarifas"
+                  description="Tráfico orgánico que ya sabe lo que busca."
+                  path="/tarifas"
+                />
+              </div>
+            </div>
+
             {/* Row 3: Quick actions */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <QuickAction href="/admin/proposals/new" label="Nueva propuesta" icon={PlusCircle} />
@@ -312,5 +366,98 @@ function QuickAction({ href, label, icon: Icon }: {
       </div>
       <span className="text-white text-sm font-medium">{label}</span>
     </Link>
+  )
+}
+
+function CaptureCard({
+  icon: Icon,
+  title,
+  description,
+  path,
+  highlight,
+}: {
+  icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>
+  title: string
+  description: string
+  path: string
+  highlight?: boolean
+}) {
+  const [copied, setCopied] = useState(false)
+  const baseUrl = typeof window !== 'undefined'
+    ? 'https://wellnessreal.es'
+    : 'https://wellnessreal.es'
+  const fullUrl = `${baseUrl}${path}`
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(fullUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      // fallback
+    }
+  }
+
+  return (
+    <div
+      className="rounded-xl p-4 transition-all hover:border-opacity-60"
+      style={{
+        backgroundColor: '#16122B',
+        border: highlight
+          ? '1px solid rgba(252,238,33,0.5)'
+          : '1px solid rgba(102,45,145,0.3)',
+      }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <div
+          className="p-1.5 rounded-lg"
+          style={{
+            backgroundColor: highlight ? 'rgba(252,238,33,0.15)' : 'rgba(102,45,145,0.2)',
+          }}
+        >
+          <Icon size={14} style={{ color: highlight ? '#FCEE21' : '#c084fc' }} />
+        </div>
+        <h4 className="text-white text-sm font-bold">{title}</h4>
+        {highlight && (
+          <span
+            className="text-[10px] font-bold px-2 py-0.5 rounded-full ml-auto"
+            style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+          >
+            PRINCIPAL
+          </span>
+        )}
+      </div>
+      <p className="text-gray-400 text-xs leading-relaxed mb-3">{description}</p>
+      <div
+        className="flex items-center gap-1 rounded-lg px-2.5 py-2"
+        style={{ backgroundColor: 'rgba(0,0,0,0.3)', border: '1px solid rgba(102,45,145,0.2)' }}
+      >
+        <code className="flex-1 text-[11px] text-gray-300 truncate font-mono">
+          {fullUrl}
+        </code>
+        <button
+          onClick={handleCopy}
+          className="p-1.5 rounded transition-all hover:bg-white/10"
+          title="Copiar URL"
+          aria-label="Copiar URL"
+        >
+          {copied ? (
+            <Check size={13} style={{ color: '#4ade80' }} />
+          ) : (
+            <Copy size={13} className="text-gray-400" />
+          )}
+        </button>
+        <a
+          href={fullUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-1.5 rounded transition-all hover:bg-white/10"
+          title="Abrir en pestaña nueva"
+          aria-label="Abrir en pestaña nueva"
+        >
+          <ExternalLink size={13} className="text-gray-400" />
+        </a>
+      </div>
+    </div>
   )
 }
