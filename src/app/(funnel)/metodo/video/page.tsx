@@ -24,9 +24,10 @@ export default function MetodoVideoPage() {
           <Image
             src="/images/logos/WR_AUX_normal_bg.png"
             alt="WellnessReal"
-            width={180}
-            height={54}
-            className="object-contain"
+            width={260}
+            height={32}
+            priority
+            className="object-contain w-[220px] sm:w-[260px] h-auto"
           />
         </div>
       </header>

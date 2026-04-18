@@ -28,10 +28,10 @@ export default function MetodoOptInPage() {
           <Image
             src="/images/logos/WR_AUX_normal_bg.png"
             alt="WellnessReal"
-            width={220}
-            height={66}
+            width={360}
+            height={44}
             priority
-            className="object-contain"
+            className="object-contain w-[280px] sm:w-[360px] h-auto"
           />
         </div>
 
