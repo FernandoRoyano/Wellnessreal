@@ -35,46 +35,46 @@ export default function Header() {
       }
     >
       <Container>
-        <div className="flex items-center justify-between h-20 md:h-24">
-          <Link href="/" className="flex items-center shrink-0" aria-label="WellnessReal — inicio">
+        <div className="flex items-center justify-between gap-4 h-20 md:h-24 min-w-0">
+          <Link
+            href="/"
+            className="flex items-center shrink min-w-0"
+            aria-label="WellnessReal — inicio"
+          >
             <Image
               src="/images/logos/WR_AUX_normal_bg.png"
               alt="WellnessReal"
               width={220}
               height={66}
               priority
-              className="h-12 md:h-14 w-auto object-contain"
+              className="h-11 md:h-14 w-auto max-w-[180px] md:max-w-[220px] object-contain"
+              style={{ width: 'auto' }}
             />
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-9">
-            {navigationItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="relative text-fluid-sm font-medium text-white/75 hover:text-white transition-colors group"
-              >
-                {item.label}
-                <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA desktop */}
-          <div className="hidden lg:block">
-            <Link
-              href="/valoracion"
-              className="btn-brand text-fluid-sm px-5 py-2.5"
-            >
+          {/* Desktop nav + CTA — agrupados en un contenedor para que display:none en mobile sea limpio */}
+          <div className="hidden lg:flex items-center gap-9 shrink-0">
+            <nav className="flex items-center gap-9">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="relative text-fluid-sm font-medium text-white/75 hover:text-white transition-colors group"
+                >
+                  {item.label}
+                  <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                </Link>
+              ))}
+            </nav>
+            <Link href="/valoracion" className="btn-brand text-fluid-sm px-5 py-2.5">
               Valoración gratis
             </Link>
           </div>
 
-          {/* Mobile menu btn */}
+          {/* Mobile menu btn — shrink-0 para que nunca colapse, y margin left auto por si acaso */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
+            className="lg:hidden shrink-0 p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
             aria-label="Abrir menú"
             aria-expanded={isMenuOpen}
           >

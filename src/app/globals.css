@@ -136,6 +136,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;   /* bloquea cualquier scroll horizontal causado por elementos absolutos/decorativos */
   }
 
   body {
@@ -143,6 +144,8 @@
     color: var(--color-ink);
     font-family: var(--font-body);
     font-feature-settings: 'ss01', 'cv11';
+    overflow-x: clip;
+    min-width: 0;
   }
 
   h1, h2, h3, h4, h5, h6 {

@@ -229,7 +229,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ TECNOLOGÍA ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-dusk overflow-hidden">
+      <section className="relative py-fluid-xl bg-brand-dusk overflow-x-clip">
         <div className="absolute inset-0 bg-radial-violet opacity-60" />
         <Container>
           <AnimatedSection>
