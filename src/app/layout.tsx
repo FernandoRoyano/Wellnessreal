@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Montserrat, Bricolage_Grotesque } from 'next/font/google'
 import Script from 'next/script'
 import JsonLd, { organizationSchema } from '@/components/seo/JsonLd'
 import WhatsAppBubble from '@/components/common/WhatsAppBubble'
@@ -9,6 +9,14 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
   display: 'swap',
+  weight: ['400', '500', '600', '700', '800'],
+})
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ['latin'],
+  variable: '--font-bricolage',
+  display: 'swap',
+  weight: ['500', '600', '700', '800'],
 })
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID
@@ -74,7 +82,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es" className={`${montserrat.variable}`}>
+    <html lang="es" className={`${montserrat.variable} ${bricolage.variable}`}>
       <head>
         <JsonLd data={organizationSchema()} />
         {GA_ID && (
@@ -89,7 +97,7 @@ export default function RootLayout({
           </>
         )}
       </head>
-      <body className="font-sans bg-morado-intenso text-white">
+      <body className="bg-brand-deep text-white antialiased">
         {children}
         <WhatsAppBubble />
       </body>

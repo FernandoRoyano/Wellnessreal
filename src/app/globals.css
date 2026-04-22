@@ -1,92 +1,361 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
+/* ============================================================
+   WellnessReal — Design Tokens (Tailwind v4 @theme)
+   Paleta oficial: deep purple + electric yellow + magenta-purple
+   ============================================================ */
+
+@theme {
+  /* ═══ COLORES DE MARCA ═══ */
+  --color-brand-ink:        #100d24;   /* tono más profundo, para realzar contraste */
+  --color-brand-deep:       #16122b;   /* fondo principal (el morado oficial) */
+  --color-brand-dusk:       #1a1536;   /* sección alternativa */
+  --color-brand-night:      #1f1a3f;   /* superficie elevada / cards */
+  --color-brand-violet:     #662d91;   /* púrpura acento */
+  --color-brand-violet-soft:#3a1f5e;   /* púrpura tenue para fondos */
+  --color-brand-yellow:     #fcee21;   /* amarillo WR */
+  --color-brand-yellow-soft:#fff26b;
+  --color-brand-cream:      #fdf6c2;   /* amarillo suavizado para texto grande */
+
+  /* Alias semánticos — úsalos en componentes nuevos */
+  --color-surface:          #16122b;
+  --color-surface-alt:      #1a1536;
+  --color-surface-elevated: #1f1a3f;
+  --color-surface-overlay:  rgba(16, 13, 36, 0.85);
+
+  --color-border-subtle:    rgba(252, 238, 33, 0.12);
+  --color-border:           rgba(252, 238, 33, 0.22);
+  --color-border-strong:    rgba(252, 238, 33, 0.45);
+  --color-border-violet:    rgba(102, 45, 145, 0.5);
+
+  --color-accent:           #fcee21;
+  --color-accent-fg:        #16122b;
+  --color-accent-muted:     rgba(252, 238, 33, 0.08);
+  --color-accent-soft:      rgba(252, 238, 33, 0.16);
+
+  --color-ink:              #ffffff;    /* text-ink → blanco puro */
+  --color-muted:            #b8b1d6;    /* text-muted → lila pálido para body sobre dark */
+  --color-subtle:           #7e78a0;    /* text-subtle → para apoyo / meta */
+  --color-dim:              #5a5579;    /* text-dim → casi disabled */
+
+  --color-success: #34d399;
+  --color-warning: #fbbf24;
+  --color-danger:  #f87171;
+
+  /* Back-compat: mantener los nombres actuales para que el código viejo no se rompa */
+  --color-morado-intenso:   #16122b;
+  --color-amarillo:         #fcee21;
+  --color-purpura:          #662d91;
+  --color-gris-palido:      #958d99;
+
+  /* ═══ TIPOGRAFÍA FLUIDA — clamp() escala 1.22 ═══ */
+  --text-fluid-xs:   clamp(0.75rem,  0.72rem + 0.15vw, 0.82rem);
+  --text-fluid-sm:   clamp(0.85rem,  0.82rem + 0.15vw, 0.92rem);
+  --text-fluid-base: clamp(0.95rem,  0.90rem + 0.25vw, 1.05rem);
+  --text-fluid-lg:   clamp(1.05rem,  1.00rem + 0.30vw, 1.20rem);
+  --text-fluid-xl:   clamp(1.20rem,  1.10rem + 0.50vw, 1.40rem);
+  --text-fluid-2xl:  clamp(1.50rem,  1.30rem + 1.00vw, 1.90rem);
+  --text-fluid-3xl:  clamp(1.90rem,  1.55rem + 1.80vw, 2.55rem);
+  --text-fluid-4xl:  clamp(2.30rem,  1.80rem + 2.50vw, 3.30rem);
+  --text-fluid-5xl:  clamp(2.75rem,  2.00rem + 3.75vw, 4.50rem);
+  --text-fluid-6xl:  clamp(3.25rem,  2.25rem + 5.00vw, 5.75rem);
+  --text-fluid-7xl:  clamp(3.75rem,  2.50rem + 6.50vw, 7.00rem);
+
+  /* ═══ FAMILIAS — apuntan a los CSS vars que inyecta next/font ═══ */
+  --font-display: var(--font-bricolage), 'Bricolage Grotesque', 'Montserrat', system-ui, sans-serif;
+  --font-body:    var(--font-montserrat), 'Montserrat', system-ui, sans-serif;
+
+  /* ═══ ESPACIADO FLUIDO ═══ */
+  --spacing-fluid-xs: clamp(0.75rem, 0.60rem + 0.50vw, 1.00rem);
+  --spacing-fluid-sm: clamp(1.00rem, 0.80rem + 0.80vw, 1.50rem);
+  --spacing-fluid-md: clamp(1.50rem, 1.00rem + 2.00vw, 3.00rem);
+  --spacing-fluid-lg: clamp(2.00rem, 1.20rem + 3.00vw, 5.00rem);
+  --spacing-fluid-xl: clamp(3.00rem, 1.50rem + 5.00vw, 8.00rem);
+
+  /* ═══ RADIOS ═══ */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.875rem;
+  --radius-lg: 1.25rem;
+  --radius-xl: 1.75rem;
+  --radius-2xl: 2.25rem;
+
+  /* ═══ SOMBRAS sobre fondo oscuro ═══ */
+  --shadow-sm:          0 2px 8px rgba(0, 0, 0, 0.25);
+  --shadow-md:          0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg:          0 20px 48px rgba(0, 0, 0, 0.4);
+  --shadow-xl:          0 30px 72px rgba(0, 0, 0, 0.5);
+  --shadow-glow:        0 0 32px -4px rgba(252, 238, 33, 0.35);
+  --shadow-glow-strong: 0 0 56px -6px rgba(252, 238, 33, 0.55);
+  --shadow-inner-violet: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+
+  /* ═══ EASINGS ═══ */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* ═══ ANIMACIONES ═══ */
+  --animate-fade-up:    fadeUp 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-fade-in:    fadeIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  --animate-scale-in:   scaleIn 500ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  --animate-shimmer:    shimmer 2.4s linear infinite;
+  --animate-float:      float 7s ease-in-out infinite;
+  --animate-pulse-glow: pulseGlow 3s ease-in-out infinite;
+}
+
+/* ═══ KEYFRAMES ═══ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position: 200% 0; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 24px -4px rgba(252, 238, 33, 0.35); }
+  50%      { box-shadow: 0 0 56px -4px rgba(252, 238, 33, 0.65); }
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
   body {
-    @apply text-white antialiased;
-    font-family: 'Montserrat', sans-serif;
+    background: var(--color-brand-deep);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-feature-settings: 'ss01', 'cv11';
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-bold;
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 1.5px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;   /* display fonts respiran mejor con tracking negativo */
+    line-height: 1.05;
   }
 
-  html {
-    scroll-behavior: smooth;
+  ::selection {
+    background: rgba(252, 238, 33, 0.35);
+    color: var(--color-brand-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
   }
 }
 
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
 @layer utilities {
-  .hover-lift {
-    @apply transition-all duration-300;
-  }
-  
-  .hover-lift:hover {
-    @apply -translate-y-2;
-    box-shadow: 0 20px 40px rgba(252, 238, 33, 0.3);
+  /* ─── Superficies con estilo ─── */
+  .surface-card {
+    background: linear-gradient(180deg, var(--color-brand-night) 0%, var(--color-brand-deep) 100%);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md), var(--shadow-inner-violet);
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, #FCEE21 0%, #662D91 100%);
+  .surface-card-accent {
+    background: linear-gradient(180deg, rgba(252, 238, 33, 0.04) 0%, rgba(102, 45, 145, 0.06) 100%);
+    border: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-lg), 0 0 0 1px rgba(252, 238, 33, 0.08) inset;
+  }
+
+  /* ─── Títulos de lujo — tracking tight en display ─── */
+  .headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+  }
+
+  /* Texto con acento amarillo + outline subtle — reemplaza al viejo gradient morado */
+  .text-accent-glow {
+    color: var(--color-accent);
+    text-shadow: 0 0 48px rgba(252, 238, 33, 0.25);
+  }
+
+  /* Gradiente editorial — amarillo a crema pálido (no violento) */
+  .text-gradient-brand {
+    background: linear-gradient(135deg, #fff7a0 0%, #fcee21 55%, #d4c41a 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .glow-yellow {
-    box-shadow: 0 0 20px rgba(252, 238, 33, 0.5);
+  /* Legacy — mantener por compatibilidad, pero preferir text-gradient-brand */
+  .gradient-text {
+    background: linear-gradient(135deg, #fcee21 0%, #fff7a0 50%, #fcee21 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
-  .glow-purple {
-    box-shadow: 0 0 20px rgba(102, 45, 145, 0.5);
+  /* ─── Efectos ─── */
+  .hover-lift {
+    transition: transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out), border-color 300ms;
+  }
+  .hover-lift:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    border-color: var(--color-border-strong);
   }
 
-  .bg-pattern {
-    background-image: 
-      radial-gradient(circle at 20% 50%, rgba(252, 238, 33, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(102, 45, 145, 0.03) 0%, transparent 50%);
+  .glow-yellow { box-shadow: var(--shadow-glow); }
+  .glow-yellow-strong { box-shadow: var(--shadow-glow-strong); }
+  .glow-purple { box-shadow: 0 0 24px -4px rgba(102, 45, 145, 0.6); }
+
+  /* ─── Botones sellados (dorados) ─── */
+  .btn-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    border-radius: 9999px;
+    font-family: var(--font-body);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    background: linear-gradient(180deg, #fff26b 0%, #fcee21 60%, #e8d815 100%);
+    color: var(--color-brand-deep);
+    box-shadow: 0 10px 30px -8px rgba(252, 238, 33, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    white-space: nowrap;
+  }
+  .btn-brand:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 44px -6px rgba(252, 238, 33, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+  .btn-brand:active { transform: translateY(0); }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: calc(1rem - 1.5px) calc(2rem - 1.5px);
+    border-radius: 9999px;
+    border: 1.5px solid rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    font-family: var(--font-body);
+    font-weight: 600;
+    transition: all 200ms var(--ease-out);
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .btn-ghost:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background: rgba(252, 238, 33, 0.06);
   }
 
-  .animate-fadeInUp {
-    animation: fadeInUp 0.6s ease-out;
+  /* ─── Fondos decorativos sutiles ─── */
+  .bg-grid-soft {
+    background-image:
+      linear-gradient(rgba(252, 238, 33, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(252, 238, 33, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
   }
 
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .bg-radial-accent {
+    background-image: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(252, 238, 33, 0.22), transparent 65%);
   }
 
-  .border-pulse {
-    animation: borderPulse 3s ease-in-out infinite;
+  .bg-radial-violet {
+    background-image: radial-gradient(ellipse 60% 50% at 80% 100%, rgba(102, 45, 145, 0.35), transparent 60%);
   }
 
+  /* Eyebrow — etiqueta de sección */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-fluid-xs);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+  .eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 1.75rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  /* Números grandes — cifras stats */
+  .stat-figure {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  /* Animaciones expuestas como utilidades */
+  .animate-fade-up    { animation: var(--animate-fade-up); }
+  .animate-fade-in    { animation: var(--animate-fade-in); }
+  .animate-scale-in   { animation: var(--animate-scale-in); }
+  .animate-float      { animation: var(--animate-float); }
+  .animate-shimmer    { animation: var(--animate-shimmer); }
+  .animate-pulse-glow { animation: var(--animate-pulse-glow); }
+
+  /* fadeInUp legacy — mantener */
+  .animate-fadeInUp { animation: fadeUp 0.6s var(--ease-out); }
+
+  .border-pulse { animation: borderPulse 3s ease-in-out infinite; }
   @keyframes borderPulse {
-    0%, 100% {
-      border-color: #FCEE21;
-    }
-    50% {
-      border-color: #662D91;
-    }
+    0%, 100% { border-color: var(--color-accent); }
+    50%      { border-color: var(--color-brand-violet); }
+  }
+
+  /* Pattern legacy */
+  .bg-pattern {
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(252, 238, 33, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(102, 45, 145, 0.04) 0%, transparent 50%);
   }
 }
 
-/* Step cards — Tarifas */
+/* ============================================================
+   Step cards — Tarifas (legacy, mantenido)
+   ============================================================ */
 .step-card {
   position: relative;
   overflow: hidden;
-  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-              border-color 0.25s,
-              background 0.25s;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s, background 0.3s;
 }
-
 .step-card::after {
   content: '';
   position: absolute;
@@ -94,30 +363,27 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: #FCEE21;
-  border-radius: 12px 12px 0 0;
+  background: var(--color-accent);
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.35s var(--ease-out);
 }
-
 .step-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(252, 238, 33, 0.4) !important;
+  border-color: var(--color-border-strong) !important;
 }
+.step-card:hover::after { transform: scaleX(1); }
 
-.step-card:hover::after {
-  transform: scaleX(1);
-}
-
-/* TipTap Editor dark theme */
+/* ============================================================
+   TipTap Editor — dark theme (legacy)
+   ============================================================ */
 .tiptap {
   color: #d1d5db;
   min-height: 400px;
   padding: 1rem;
   outline: none;
 }
-
 .tiptap p.is-editor-empty:first-child::before {
   color: #4b5563;
   content: attr(data-placeholder);
@@ -125,93 +391,37 @@
   height: 0;
   pointer-events: none;
 }
-
-.tiptap h2 {
-  color: #fff;
-  font-size: 1.5rem;
-  margin: 1.5rem 0 0.75rem;
-}
-
-.tiptap h3 {
-  color: #fff;
-  font-size: 1.25rem;
-  margin: 1.25rem 0 0.5rem;
-}
-
-.tiptap h4 {
-  color: #e5e7eb;
-  font-size: 1.1rem;
-  margin: 1rem 0 0.5rem;
-}
-
-.tiptap p {
-  margin: 0.5rem 0;
-  line-height: 1.7;
-}
-
-.tiptap ul, .tiptap ol {
-  padding-left: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-.tiptap li {
-  margin: 0.25rem 0;
-}
-
-.tiptap ul li {
-  list-style-type: disc;
-}
-
-.tiptap ol li {
-  list-style-type: decimal;
-}
-
+.tiptap h2 { color: #fff; font-size: 1.5rem; margin: 1.5rem 0 0.75rem; }
+.tiptap h3 { color: #fff; font-size: 1.25rem; margin: 1.25rem 0 0.5rem; }
+.tiptap h4 { color: #e5e7eb; font-size: 1.1rem; margin: 1rem 0 0.5rem; }
+.tiptap p  { margin: 0.5rem 0; line-height: 1.7; }
+.tiptap ul, .tiptap ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.tiptap li { margin: 0.25rem 0; }
+.tiptap ul li { list-style-type: disc; }
+.tiptap ol li { list-style-type: decimal; }
 .tiptap blockquote {
-  border-left: 3px solid #662D91;
+  border-left: 3px solid var(--color-brand-violet);
   padding-left: 1rem;
   margin: 1rem 0;
   color: #9ca3af;
   font-style: italic;
 }
-
 .tiptap pre {
   background: #0f0c20;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   padding: 1rem;
   margin: 1rem 0;
   overflow-x: auto;
 }
-
 .tiptap code {
   background: #0f0c20;
   padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.9em;
-  color: #FCEE21;
+  color: var(--color-accent);
 }
-
-.tiptap pre code {
-  background: none;
-  padding: 0;
-  color: #d1d5db;
-}
-
-.tiptap a {
-  color: #FCEE21;
-  text-decoration: underline;
-}
-
-.tiptap img {
-  border-radius: 0.5rem;
-  max-width: 100%;
-  margin: 1rem 0;
-}
-
-.tiptap hr {
-  border-color: rgba(102, 45, 145, 0.3);
-  margin: 1.5rem 0;
-}
-
-.tiptap strong {
-  color: #fff;
-}
+.tiptap pre code { background: none; padding: 0; color: #d1d5db; }
+.tiptap a { color: var(--color-accent); text-decoration: underline; }
+.tiptap img { border-radius: var(--radius-sm); max-width: 100%; margin: 1rem 0; }
+.tiptap hr  { border-color: rgba(102, 45, 145, 0.3); margin: 1.5rem 0; }
+.tiptap strong { color: #fff; }

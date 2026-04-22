@@ -2,87 +2,95 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Container from './Container'
 import { Menu, X } from 'lucide-react'
 
 const navigationItems = [
   { href: '/filosofia', label: 'Filosofía' },
   { href: '/servicios', label: 'Servicios' },
-  { href: '/tarifas', label: 'Tarifas' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/tarifas',   label: 'Tarifas' },
+  { href: '/blog',      label: 'Blog' },
+  { href: '/contacto',  label: 'Contacto' },
 ]
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [scrolled, setScrolled]     = useState(false)
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
-    <header 
-      style={{ backgroundColor: '#16122B', borderBottomColor: '#662D91' }} 
-      className="sticky top-0 z-50 shadow-lg border-b"
+    <header
+      className={
+        'sticky top-0 z-50 transition-all duration-300 ' +
+        (scrolled
+          ? 'bg-brand-deep/85 backdrop-blur-xl border-b border-border-subtle shadow-lg'
+          : 'bg-brand-deep/60 backdrop-blur-sm border-b border-transparent')
+      }
     >
       <Container>
-        <div className="flex items-center justify-between h-24 md:h-28">
-          {/* Logo - MUCHO MÁS GRANDE */}
-          <Link href="/" className="flex items-center">
+        <div className="flex items-center justify-between h-20 md:h-24">
+          <Link href="/" className="flex items-center shrink-0" aria-label="WellnessReal — inicio">
             <Image
               src="/images/logos/WR_AUX_normal_bg.png"
-              alt="WellnessReal Logo"
-              width={300}
-              height={90}
+              alt="WellnessReal"
+              width={220}
+              height={66}
               priority
-              className="object-contain"
+              className="h-12 md:h-14 w-auto object-contain"
             />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-9">
             {navigationItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-base font-medium text-gray-300 hover:text-white transition-colors tracking-wide"
+                className="relative text-fluid-sm font-medium text-white/75 hover:text-white transition-colors group"
               >
                 {item.label}
+                <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
               </Link>
             ))}
           </nav>
 
-          {/* CTA Desktop */}
+          {/* CTA desktop */}
           <div className="hidden lg:block">
             <Link
               href="/valoracion"
-              className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all tracking-wide text-base hover:brightness-110"
-              style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+              className="btn-brand text-fluid-sm px-5 py-2.5"
             >
-              Solicita tu valoración gratis
+              Valoración gratis
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu btn */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-opacity-20"
-            style={{ color: '#FCEE21' }}
-            aria-label="Toggle menu"
+            className="lg:hidden p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
+            aria-label="Abrir menú"
+            aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile nav */}
         {isMenuOpen && (
-          <nav 
-            className="lg:hidden py-4 border-t" 
-            style={{ borderTopColor: '#662D91', backgroundColor: '#16122B' }}
-          >
-            <div className="flex flex-col gap-4">
+          <nav className="lg:hidden py-5 border-t border-border-subtle animate-fade-in">
+            <div className="flex flex-col gap-1">
               {navigationItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="text-lg font-medium text-gray-300 hover:text-white tracking-wide"
+                  className="py-3 px-2 text-fluid-base font-medium text-white/80 hover:text-accent hover:bg-accent-muted rounded-lg transition-colors"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
@@ -90,11 +98,10 @@ export default function Header() {
               ))}
               <Link
                 href="/valoracion"
-                className="inline-flex items-center justify-center px-6 py-3 rounded-lg font-bold transition-all mt-2 tracking-wide text-base hover:brightness-110"
-                style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+                className="btn-brand mt-3 w-full"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Solicita tu valoración gratis
+                Valoración gratis
               </Link>
             </div>
           </nav>
