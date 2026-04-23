@@ -110,16 +110,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 py-fluid-md">
           {/* Brand */}
           <div className="md:col-span-2 space-y-5">
-            <Link href="/" aria-label="WellnessReal — inicio" className="inline-block">
-              <div className="relative w-56 h-20">
-                <Image
-                  src="/images/logos/WR_AUX_normal_bg.png"
-                  alt="WellnessReal"
-                  fill
-                  className="object-contain object-left"
-                  sizes="224px"
-                />
-              </div>
+            <Link href="/" aria-label="WellnessReal — inicio" className="inline-flex">
+              <Image
+                src="/images/logos/WR_AUX_normal_bg.png"
+                alt="WellnessReal"
+                width={220}
+                height={66}
+                className="h-14 md:h-16 w-auto max-w-[200px] md:max-w-[220px] object-contain"
+              />
             </Link>
             <p className="text-fluid-base text-muted max-w-md leading-relaxed">
               Entrenamiento y nutrición para gente con vida real. Sin extremos, sin perfección. Solo lo que funciona.
