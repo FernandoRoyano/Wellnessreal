@@ -33,10 +33,10 @@
   --color-accent-muted:     rgba(252, 238, 33, 0.08);
   --color-accent-soft:      rgba(252, 238, 33, 0.16);
 
-  --color-ink:              #ffffff;    /* text-ink → blanco puro */
-  --color-muted:            #b8b1d6;    /* text-muted → lila pálido para body sobre dark */
-  --color-subtle:           #7e78a0;    /* text-subtle → para apoyo / meta */
-  --color-dim:              #5a5579;    /* text-dim → casi disabled */
+  --color-ink:              #ffffff;    /* text-ink → blanco puro (ratio 15+) */
+  --color-muted:            #c0b9dd;    /* text-muted → body sobre dark (ratio 8+) */
+  --color-subtle:           #9a93ba;    /* text-subtle → apoyo/meta (ratio 4.7 → WCAG AA) */
+  --color-dim:              #706b8f;    /* text-dim → casi disabled (ratio 3.1 → AA large text) */
 
   --color-success: #34d399;
   --color-warning: #fbbf24;

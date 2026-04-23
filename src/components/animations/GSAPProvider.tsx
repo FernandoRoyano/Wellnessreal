@@ -1,22 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useGsapReady } from '@/hooks/useGSAP'
 
-gsap.registerPlugin(ScrollTrigger)
-
+/**
+ * Wrapper que dispara la carga diferida de GSAP + refresca ScrollTrigger
+ * cuando la página termina de cargar (imágenes, fuentes, etc.).
+ * GSAP ya NO se importa de forma eager en el bundle principal.
+ */
 export default function GSAPProvider({ children }: { children: React.ReactNode }) {
-  useEffect(() => {
-    // Refresh ScrollTrigger after all images/fonts load
-    const handleLoad = () => ScrollTrigger.refresh()
-    window.addEventListener('load', handleLoad)
-
-    return () => {
-      window.removeEventListener('load', handleLoad)
-      ScrollTrigger.getAll().forEach((t) => t.kill())
-    }
-  }, [])
-
+  useGsapReady()
   return <>{children}</>
 }

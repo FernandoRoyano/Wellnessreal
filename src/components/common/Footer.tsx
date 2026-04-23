@@ -189,7 +189,7 @@ export default function Footer() {
 
         {/* ═══════ Bottom bar ═══════ */}
         <div className="border-t border-border-subtle py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-fluid-xs text-subtle">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-fluid-xs text-muted">
             <p>© {currentYear} WellnessReal. Todos los derechos reservados.</p>
             <div className="flex gap-6">
               <Link href="/privacidad" className="hover:text-accent transition-colors">

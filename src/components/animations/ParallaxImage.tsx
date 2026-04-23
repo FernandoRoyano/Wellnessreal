@@ -9,6 +9,8 @@ interface ParallaxImageProps {
   className?: string
   speed?: number
   priority?: boolean
+  quality?: number
+  sizes?: string
 }
 
 export default function ParallaxImage({
@@ -17,6 +19,8 @@ export default function ParallaxImage({
   className = '',
   speed = 0.2,
   priority = false,
+  quality = 70,
+  sizes = '(max-width: 768px) 100vw, (max-width: 1536px) 100vw, 1536px',
 }: ParallaxImageProps) {
   const ref = useParallax<HTMLDivElement>(speed)
 
@@ -28,6 +32,8 @@ export default function ParallaxImage({
         fill
         className="object-cover object-center"
         priority={priority}
+        quality={quality}
+        sizes={sizes}
       />
     </div>
   )
