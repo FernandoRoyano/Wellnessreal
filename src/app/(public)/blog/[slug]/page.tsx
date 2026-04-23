@@ -1,7 +1,6 @@
 import Container from '@/components/common/Container'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { Calendar, Clock, User, ArrowLeft } from 'lucide-react'
+import { Calendar, Clock, User, ArrowLeft, ArrowRight } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPostSlugs } from '@/lib/db/posts'
 import type { Metadata } from 'next'
@@ -11,24 +10,16 @@ import '../markdown.css'
 
 export const revalidate = 60
 
-// Generar rutas estáticas
 export async function generateStaticParams() {
   const slugs = await getAllPostSlugs()
-  return slugs.map((item) => ({
-    slug: item.slug,
-  }))
+  return slugs.map((item) => ({ slug: item.slug }))
 }
 
-// Generar metadata dinámica
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
   const post = await getPostBySlug(slug)
 
-  if (!post) {
-    return {
-      title: 'Post no encontrado | WellnessReal',
-    }
-  }
+  if (!post) return { title: 'Post no encontrado | WellnessReal' }
 
   const ogImage = post.main_image_url || undefined
 
@@ -61,78 +52,66 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getPostBySlug(slug)
-
-  if (!post) {
-    notFound()
-  }
+  if (!post) notFound()
 
   return (
     <>
       <JsonLd
         data={articleSchema({
-          title: post.title,
-          description: post.excerpt,
-          url: `https://wellnessreal.es/blog/${slug}`,
-          image: post.main_image_url || undefined,
+          title:         post.title,
+          description:   post.excerpt,
+          url:           `https://wellnessreal.es/blog/${slug}`,
+          image:         post.main_image_url || undefined,
           datePublished: post.published_at,
-          dateModified: post.updated_at,
-          author: post.author,
+          dateModified:  post.updated_at,
+          author:        post.author,
         })}
       />
       <JsonLd
         data={breadcrumbSchema([
           { name: 'Inicio', url: 'https://wellnessreal.es' },
-          { name: 'Blog', url: 'https://wellnessreal.es/blog' },
+          { name: 'Blog',   url: 'https://wellnessreal.es/blog' },
           { name: post.title, url: `https://wellnessreal.es/blog/${slug}` },
         ])}
       />
-      {/* Hero del Post */}
-      <section style={{ backgroundColor: '#16122B' }} className="pt-24 pb-8">
+
+      {/* ═══════════════ HERO DEL POST ═══════════════ */}
+      <section className="relative pt-fluid-lg pb-fluid-sm bg-brand-deep overflow-hidden">
+        <div className="absolute inset-0 bg-radial-accent opacity-50" />
         <Container>
-          <div className="max-w-4xl mx-auto">
+          <div className="relative max-w-4xl mx-auto">
             <Link
               href="/blog"
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-white mb-6 transition font-medium text-sm"
+              className="inline-flex items-center gap-2 text-fluid-sm text-muted hover:text-accent transition-colors mb-6 group"
             >
-              <ArrowLeft size={16} />
+              <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
               Volver al blog
             </Link>
 
-            {/* Categoría */}
             {post.category && (
-              <span
-                style={{ backgroundColor: 'rgba(252, 238, 33, 0.15)', color: '#FCEE21' }}
-                className="inline-block text-xs font-bold px-3 py-1.5 rounded-full mb-4"
-              >
+              <span className="inline-block text-fluid-xs font-bold px-3 py-1.5 rounded-full mb-5 bg-accent-soft text-accent border border-accent/20 uppercase tracking-wider">
                 {post.category.title}
               </span>
             )}
 
-            {/* Título */}
-            <h1
-              style={{ color: '#FCEE21' }}
-              className="text-4xl md:text-5xl font-bold mb-6 leading-tight"
-            >
+            <h1 className="headline text-fluid-5xl text-white mb-6 leading-[1.1]">
               {post.title}
             </h1>
 
-            {/* Metadata */}
-            <div className="flex flex-wrap items-center gap-5 text-sm text-gray-400 pb-8 border-b border-gray-800">
-              <span className="flex items-center gap-2">
-                <User size={16} />
+            <div className="flex flex-wrap items-center gap-5 text-fluid-sm text-muted pb-6 border-b border-border-subtle">
+              <span className="inline-flex items-center gap-2">
+                <User className="w-4 h-4 text-accent" />
                 {post.author}
               </span>
-              <span className="flex items-center gap-2">
-                <Calendar size={16} />
+              <span className="inline-flex items-center gap-2">
+                <Calendar className="w-4 h-4 text-accent" />
                 {new Date(post.published_at).toLocaleDateString('es-ES', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
+                  day: 'numeric', month: 'long', year: 'numeric',
                 })}
               </span>
               {post.read_time && (
-                <span className="flex items-center gap-2">
-                  <Clock size={16} />
+                <span className="inline-flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-accent" />
                   {post.read_time}
                 </span>
               )}
@@ -141,12 +120,12 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </Container>
       </section>
 
-      {/* Imagen destacada */}
+      {/* ═══════════════ IMAGEN DESTACADA ═══════════════ */}
       {post.main_image_url && (
-        <section style={{ backgroundColor: '#16122B' }} className="pb-12">
+        <section className="bg-brand-deep pb-fluid-md">
           <Container>
             <div className="max-w-4xl mx-auto">
-              <div className="relative w-full aspect-[16/9] rounded-xl overflow-hidden">
+              <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-border-subtle shadow-xl">
                 <img
                   src={post.main_image_url}
                   alt={post.main_image_alt || post.title}
@@ -158,69 +137,63 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </section>
       )}
 
-      {/* Contenido del Post */}
-      <section style={{ backgroundColor: '#16122B' }} className="pb-20">
+      {/* ═══════════════ CONTENIDO ═══════════════ */}
+      <section className="bg-brand-deep pb-fluid-xl">
         <Container>
           <div className="max-w-3xl mx-auto">
-            {/* Excerpt destacado */}
-            <p className="text-xl text-gray-300 leading-relaxed mb-12 pb-8 border-b border-gray-800">
+            <p className="text-fluid-xl text-white/85 leading-relaxed mb-fluid-md pb-fluid-sm border-b border-border-subtle font-medium">
               {post.excerpt}
             </p>
 
-            {/* Contenido principal HTML con CTAs inline */}
             <BlogContentWithCTAs content={post.content} />
           </div>
         </Container>
       </section>
 
-      {/* CTA Lead Magnet */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-16">
+      {/* ═══════════════ LEAD MAGNET ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-dusk">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
-          <div
-            className="max-w-3xl mx-auto p-8 md:p-10 rounded-2xl"
-            style={{ backgroundColor: '#16122B', border: '2px solid #FCEE21' }}
-          >
-            <div className="text-center">
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                ¿Quieres más contenido como este?
-              </h2>
-              <p className="text-lg text-gray-300 mb-6 max-w-xl mx-auto">
-                Descarga la guía gratuita:{' '}
-                <span style={{ color: '#FCEE21' }} className="font-bold">
-                  "Fitness real para gente con vida real"
-                </span>
-              </p>
-              <Link href="/recurso-gratis">
-                <Button variant="primary" size="lg">
-                  Descargar guía gratis
-                </Button>
+          <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+            <h2 className="headline text-fluid-3xl text-white">
+              ¿Quieres más <span className="text-gradient-brand">contenido como este?</span>
+            </h2>
+            <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
+              Descarga la guía gratuita{' '}
+              <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+            </p>
+            <div className="pt-2">
+              <Link href="/recurso-gratis" className="btn-brand text-fluid-base">
+                Descargar guía gratis
+                <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* CTA Final */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-16">
-        <Container className="text-center max-w-3xl mx-auto">
-          <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-6">
-            ¿Prefieres un plan personalizado?
-          </h2>
-          <p className="text-lg text-gray-300 mb-8">
-            Esto que lees aquí es contenido general. Una valoración analiza TU caso
-            y diseña un plan adaptado a tu vida real.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/valoracion">
-              <Button variant="primary" size="lg">
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep overflow-hidden">
+        <div className="absolute inset-0 bg-radial-accent opacity-40" />
+        <Container>
+          <div className="relative text-center max-w-3xl mx-auto space-y-6">
+            <span className="eyebrow justify-center">Tu turno</span>
+            <h2 className="headline text-fluid-4xl text-white">
+              ¿Prefieres un <span className="text-gradient-brand">plan personalizado?</span>
+            </h2>
+            <p className="text-fluid-lg text-muted leading-relaxed">
+              Esto que lees aquí es contenido general. Una valoración analiza TU caso y diseña un plan adaptado a tu
+              vida real.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+              <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
                 Solicitar valoración gratuita
-              </Button>
-            </Link>
-            <Link href="/blog">
-              <Button variant="outline" size="lg">
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link href="/blog" className="btn-ghost text-fluid-base px-8">
                 Ver más artículos
-              </Button>
-            </Link>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

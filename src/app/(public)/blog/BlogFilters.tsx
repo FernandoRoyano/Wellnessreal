@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import Container from '@/components/common/Container'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { Calendar, Clock, Filter } from 'lucide-react'
+import { Calendar, Clock, Filter, ArrowRight, FileText } from 'lucide-react'
 import type { PostWithCategory, Category } from '@/lib/types/database'
 
 interface BlogFiltersProps {
@@ -23,98 +22,107 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
 
   return (
     <>
-      {/* Filtros por categoría */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-6 border-b border-gray-800">
+      {/* ═══════ Filtros ═══════ */}
+      <section className="relative bg-brand-dusk py-6 border-y border-border-subtle sticky top-20 md:top-24 z-20 backdrop-blur-sm">
         <Container>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            <Filter size={18} className="text-gray-400 mr-2" />
-            {allCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  selectedCategory === category
-                    ? 'text-[#16122B] font-bold'
-                    : 'text-gray-400 hover:text-white border border-gray-700 hover:border-gray-500'
-                }`}
-                style={selectedCategory === category ? { backgroundColor: '#FCEE21' } : {}}
-              >
-                {category}
-              </button>
-            ))}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <span className="inline-flex items-center gap-1.5 text-fluid-xs text-muted mr-3 uppercase tracking-wider font-semibold">
+              <Filter className="w-3.5 h-3.5" />
+              Filtros
+            </span>
+            {allCategories.map((category) => {
+              const active = selectedCategory === category
+              return (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={
+                    'px-4 py-1.5 rounded-full text-fluid-xs font-semibold transition-all ' +
+                    (active
+                      ? 'bg-accent text-accent-fg shadow-glow'
+                      : 'text-muted border border-border-subtle hover:text-white hover:border-border-strong bg-brand-night')
+                  }
+                >
+                  {category}
+                </button>
+              )
+            })}
           </div>
         </Container>
       </section>
 
-      {/* Listado de posts */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-16 md:py-20">
+      {/* ═══════ Posts ═══════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
           {filteredPosts.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-gray-400 text-lg">No hay artículos en esta categoría todavía.</p>
+            <div className="text-center py-fluid-lg max-w-md mx-auto space-y-4">
+              <div className="w-14 h-14 rounded-2xl bg-accent-muted border border-border-subtle flex items-center justify-center mx-auto">
+                <FileText className="w-6 h-6 text-muted" />
+              </div>
+              <p className="text-fluid-lg text-muted">No hay artículos en esta categoría todavía.</p>
+              <button
+                onClick={() => setSelectedCategory('Todos')}
+                className="btn-ghost text-fluid-sm px-6 py-2.5"
+              >
+                Ver todos los artículos
+              </button>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredPosts.map((post) => (
                 <article
                   key={post.id}
-                  className="rounded-xl overflow-hidden hover:transform hover:scale-[1.02] transition-all duration-300"
-                  style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
+                  className="surface-card hover-lift rounded-2xl overflow-hidden group flex flex-col"
                 >
-                  <div className="relative h-48 bg-gray-800">
+                  <div className="relative h-48 bg-brand-night overflow-hidden">
                     {post.main_image_url ? (
                       <img
                         src={post.main_image_url}
                         alt={post.main_image_alt || post.title}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
-                      <div
-                        className="absolute inset-0 flex items-center justify-center"
-                        style={{ backgroundColor: 'rgba(102, 45, 145, 0.3)' }}
-                      >
-                        <span className="text-6xl opacity-30">&#x1F4DD;</span>
+                      <div className="absolute inset-0 bg-gradient-to-br from-brand-violet/20 to-brand-deep flex items-center justify-center">
+                        <FileText className="w-12 h-12 text-accent/30" />
                       </div>
                     )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
 
-                  <div className="p-6">
-                    <span
-                      className="text-xs font-bold px-3 py-1 rounded-full"
-                      style={{ backgroundColor: 'rgba(252, 238, 33, 0.15)', color: '#FCEE21' }}
-                    >
+                  <div className="p-6 flex flex-col flex-1">
+                    <span className="self-start inline-block text-fluid-xs font-bold px-3 py-1 rounded-full bg-accent-soft text-accent border border-accent/20 uppercase tracking-wider">
                       {post.category?.title || 'Sin categoría'}
                     </span>
 
-                    <h2 className="text-xl font-bold text-white mt-4 mb-3 line-clamp-2">
+                    <h2 className="text-fluid-lg font-semibold text-white mt-4 mb-3 tracking-tight line-clamp-2 leading-snug">
                       {post.title}
                     </h2>
 
-                    <p className="text-gray-400 text-sm mb-4 line-clamp-3">
+                    <p className="text-fluid-sm text-muted mb-4 line-clamp-3 leading-relaxed flex-1">
                       {post.excerpt}
                     </p>
 
-                    <div className="flex items-center gap-4 text-xs text-gray-500 mb-5">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={14} />
+                    <div className="flex items-center gap-4 text-fluid-xs text-subtle mb-5">
+                      <span className="inline-flex items-center gap-1.5">
+                        <Calendar className="w-3.5 h-3.5" />
                         {new Date(post.published_at).toLocaleDateString('es-ES', {
-                          day: 'numeric',
-                          month: 'short',
-                          year: 'numeric'
+                          day: 'numeric', month: 'short', year: 'numeric',
                         })}
                       </span>
                       {post.read_time && (
-                        <span className="flex items-center gap-1">
-                          <Clock size={14} />
+                        <span className="inline-flex items-center gap-1.5">
+                          <Clock className="w-3.5 h-3.5" />
                           {post.read_time}
                         </span>
                       )}
                     </div>
 
-                    <Link href={`/blog/${post.slug}`}>
-                      <Button variant="primary" size="md" className="w-full">
-                        Leer artículo
-                      </Button>
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-fluid-sm border border-border-strong text-accent hover:bg-accent hover:text-accent-fg transition-all"
+                    >
+                      Leer artículo
+                      <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
                 </article>

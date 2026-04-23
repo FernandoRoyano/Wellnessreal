@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
-import { X, Gift } from 'lucide-react'
+import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
 
 const HIDDEN_PATHS = ['/admin', '/studio', '/cliente']
@@ -12,21 +12,26 @@ const SCROLL_THRESHOLD = 0.55
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
+const FIELD_CLASS =
+  'w-full px-4 py-3 rounded-xl bg-brand-night text-white border border-border-subtle ' +
+  'placeholder:text-dim ' +
+  'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all'
+
 export default function LeadMagnetPopup() {
   const pathname = usePathname()
   const [visible, setVisible] = useState(false)
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<Status>('idle')
+  const [name, setName]       = useState('')
+  const [email, setEmail]     = useState('')
+  const [status, setStatus]   = useState<Status>('idle')
 
   useEffect(() => {
     if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return
-    if (localStorage.getItem(LOCAL_KEY)) return
+    if (localStorage.getItem(LOCAL_KEY))   return
     if (sessionStorage.getItem(SESSION_KEY)) return
 
     const handleScroll = () => {
       const scrolled = window.scrollY + window.innerHeight
-      const total = document.documentElement.scrollHeight
+      const total    = document.documentElement.scrollHeight
       if (scrolled / total >= SCROLL_THRESHOLD) {
         setVisible(true)
         sessionStorage.setItem(SESSION_KEY, '1')
@@ -37,6 +42,13 @@ export default function LeadMagnetPopup() {
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [pathname])
+
+  useEffect(() => {
+    if (!visible) return
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setVisible(false)
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [visible])
 
   const close = () => setVisible(false)
 
@@ -63,50 +75,45 @@ export default function LeadMagnetPopup() {
 
   return (
     <div
-      className="fixed inset-0 z-40 flex items-end sm:items-center justify-center p-4"
-      style={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="leadmagnet-title"
+      className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in"
       onClick={close}
     >
       <div
-        className="relative w-full max-w-md rounded-2xl p-8 animate-fadeInUp"
-        style={{
-          backgroundColor: '#1a1535',
-          border: '2px solid #662D91',
-          zIndex: 45,
-        }}
+        className="relative w-full max-w-md surface-card-accent rounded-2xl p-7 md:p-8 animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={close}
-          className="absolute top-4 right-4 text-gray-400 hover:text-white transition"
           aria-label="Cerrar"
+          className="absolute top-4 right-4 p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent-muted transition-colors"
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
-        <div
-          className="w-12 h-12 rounded-full flex items-center justify-center mb-4"
-          style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}
-        >
-          <Gift size={24} style={{ color: '#FCEE21' }} />
+        <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 bg-accent-muted border border-border-strong">
+          <Gift className="w-5 h-5 text-accent" />
         </div>
 
         {status === 'success' ? (
-          <div className="text-center py-4">
-            <p className="text-xl font-bold text-white mb-2">¡Perfecto!</p>
-            <p className="text-gray-300">
+          <div className="text-center py-4 space-y-3">
+            <CheckCircle className="w-10 h-10 text-success mx-auto" />
+            <p className="text-fluid-xl font-bold text-white">¡Perfecto!</p>
+            <p className="text-fluid-sm text-muted">
               Revisa tu email — la guía está en camino.
             </p>
           </div>
         ) : (
           <>
-            <h2 className="text-xl font-bold text-white mb-1">
+            <h2 id="leadmagnet-title" className="headline text-fluid-xl text-white mb-1">
               ¡No te lo pierdas!
             </h2>
-            <p className="text-gray-400 text-sm mb-1">
-              Descarga gratis nuestra guía:
+            <p className="text-fluid-sm text-muted mb-1">
+              Descarga gratis la guía:
             </p>
-            <p className="font-bold mb-5" style={{ color: '#FCEE21' }}>
+            <p className="text-fluid-base font-bold text-accent mb-5">
               &ldquo;Fitness real para gente con vida real&rdquo;
             </p>
 
@@ -117,8 +124,7 @@ export default function LeadMagnetPopup() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-lg text-white border border-[#662D91] focus:border-[#FCEE21] focus:outline-none transition"
-                style={{ backgroundColor: '#16122B' }}
+                className={FIELD_CLASS}
               />
               <input
                 type="email"
@@ -126,25 +132,23 @@ export default function LeadMagnetPopup() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-lg text-white border border-[#662D91] focus:border-[#FCEE21] focus:outline-none transition"
-                style={{ backgroundColor: '#16122B' }}
+                className={FIELD_CLASS}
               />
               {status === 'error' && (
-                <p className="text-red-400 text-sm">
-                  Algo falló. Inténtalo de nuevo.
+                <p className="text-fluid-sm text-danger flex items-center gap-1.5">
+                  <AlertCircle className="w-4 h-4" /> Algo falló. Inténtalo de nuevo.
                 </p>
               )}
               <button
                 type="submit"
                 disabled={status === 'loading'}
-                className="w-full py-3 rounded-lg font-bold text-lg transition hover:scale-105 disabled:opacity-50"
-                style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+                className="btn-brand w-full text-fluid-base py-3 disabled:opacity-60"
               >
-                {status === 'loading' ? 'Enviando...' : 'QUIERO LA GUÍA GRATIS'}
+                {status === 'loading' ? 'Enviando…' : (<>Quiero la guía gratis <ArrowRight className="w-4 h-4" /></>)}
               </button>
             </form>
 
-            <p className="text-xs text-gray-500 text-center mt-3">
+            <p className="text-fluid-xs text-subtle text-center mt-4">
               Sin spam. Puedes darte de baja cuando quieras.
             </p>
           </>

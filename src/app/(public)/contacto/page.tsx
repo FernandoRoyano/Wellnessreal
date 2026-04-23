@@ -1,9 +1,8 @@
 'use client'
 
 import Container from '@/components/common/Container'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
-import { Mail, Phone, MapPin, Clock, MessageCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, AlertCircle, ArrowRight, Sparkles } from 'lucide-react'
 import { trackContact } from '@/lib/analytics'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -12,14 +11,45 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 
 const contactSchema = z.object({
-  name: z.string().min(2, 'Nombre requerido'),
-  email: z.string().email('Email inválido'),
-  phone: z.string().min(9, 'Teléfono inválido'),
-  subject: z.string().min(5, 'Asunto requerido'),
+  name:    z.string().min(2,  'Nombre requerido'),
+  email:   z.email({ message: 'Email inválido' }),
+  phone:   z.string().min(9,  'Teléfono inválido'),
+  subject: z.string().min(5,  'Asunto requerido'),
   message: z.string().min(10, 'Mensaje muy corto'),
 })
 
 type ContactFormData = z.infer<typeof contactSchema>
+
+const CONTACT_INFO = [
+  { icon: MapPin, title: 'Ubicación', lines: ['Online internacional', 'Presencial en Madrid'] },
+  { icon: Mail,   title: 'Email',     lines: ['info@wellnessreal.es'], href: 'mailto:info@wellnessreal.es' },
+  { icon: Phone,  title: 'Teléfono',  lines: ['+34 633 261 963'],      href: 'tel:+34633261963' },
+  { icon: Clock,  title: 'Horario',   lines: ['Lun-Vie · 08:00 – 20:00', 'Sábados · 10:00 – 14:00'] },
+] as const
+
+const FAQ_ITEMS = [
+  {
+    q: '¿Cuándo recibiré respuesta a mi mensaje?',
+    a: 'Respondo todos los mensajes en menos de 24 horas hábiles. Generalmente en la primera hora del horario de oficina.',
+  },
+  {
+    q: '¿Puedo llamar directamente?',
+    a: 'Sí, puedes llamar en horario de oficina. El teléfono está en la sección de contacto. También puedes solicitar una llamada programada.',
+  },
+  {
+    q: '¿Dónde están ubicados?',
+    a: 'Trabajo online para toda España y ofrezco servicio presencial en Madrid. Entrenamientos personalizados, osteopatía y consultas directas.',
+  },
+  {
+    q: '¿Hacen consultas online?',
+    a: 'Sí, la valoración profesional es 100% online. Todo el entrenamiento es digital, flexible y personalizado.',
+  },
+] as const
+
+const FIELD_CLASS =
+  'w-full px-4 py-3 rounded-xl bg-brand-night text-white border ' +
+  'placeholder:text-dim ' +
+  'focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all'
 
 export default function ContactoPage() {
   const router = useRouter()
@@ -36,10 +66,7 @@ export default function ContactoPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
-
-      if (!response.ok) {
-        throw new Error('Error al enviar')
-      }
+      if (!response.ok) throw new Error('Error al enviar')
 
       trackContact()
       router.push('/gracias')
@@ -48,260 +75,217 @@ export default function ContactoPage() {
     }
   }
 
+  const borderClass = (hasError: boolean) =>
+    hasError ? 'border-danger focus:border-danger' : 'border-border-subtle focus:border-accent'
+
   return (
     <>
-      {/* Hero */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-32">
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative py-fluid-xl overflow-hidden bg-brand-deep">
+        <div className="absolute inset-0 bg-radial-accent opacity-70" />
+        <div className="absolute inset-0 bg-grid-soft opacity-40" />
         <Container>
-          <div className="max-w-4xl">
-            <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-widest">
-              CONTACTO
+          <div className="relative max-w-4xl space-y-6">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
+                Contacto
+              </span>
+            </div>
+
+            <h1 className="headline text-fluid-7xl text-white animate-fade-up">
+              Hablemos de tu <span className="text-gradient-brand">transformación.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-              Hablemos de tu transformación.
-              <span style={{ color: '#FCEE21' }} className="font-bold"> Respondemos en menos de 24 horas.</span>
+
+            <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
+              Cuéntame tu situación y vemos cómo puedo ayudarte.{' '}
+              <span className="text-accent font-semibold">Respondo en menos de 24 horas.</span>
             </p>
           </div>
         </Container>
       </section>
 
-      {/* Content */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-20 md:py-28">
+      {/* ═══════════════ INFO + FORM ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
-          <div className="grid md:grid-cols-3 gap-12">
-            {/* Contact Info */}
-            <div className="md:col-span-1">
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}>
-                    <MapPin size={24} style={{ color: '#FCEE21' }} />
-                  </div>
-                  <div>
-                    <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Ubicación</h3>
-                    <p className="text-gray-400 text-base">
-                      Online Internacional (España)
-                      <br />
-                      Presencial en Madrid
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}>
-                    <Mail size={24} style={{ color: '#FCEE21' }} />
-                  </div>
-                  <div>
-                    <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Email</h3>
-                    <p className="text-gray-400">
-                      <a href="mailto:info@wellnessreal.es" className="hover:text-white transition text-base">
-                        info@wellnessreal.es
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}>
-                    <Phone size={24} style={{ color: '#FCEE21' }} />
-                  </div>
-                  <div>
-                    <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Teléfono</h3>
-                    <p className="text-gray-400">
-                      <a href="tel:+34XXX" className="hover:text-white transition text-base">
-                        +34 633 261 963
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}>
-                    <Clock size={24} style={{ color: '#FCEE21' }} />
-                  </div>
-                  <div>
-                    <h3 style={{ color: '#FCEE21' }} className="font-bold mb-2 text-lg tracking-wide">Horario</h3>
-                    <p className="text-gray-400 text-base">
-                      Lunes - Viernes
-                      <br />
-                      08:00 - 20:00
-                      <br />
-                      Sábados 10:00 - 14:00
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="grid lg:grid-cols-3 gap-fluid-md">
+            {/* Info */}
+            <aside className="lg:col-span-1 space-y-5">
+              <span className="eyebrow">Cómo encontrarme</span>
+              <h2 className="headline text-fluid-2xl text-white">Datos de contacto</h2>
+              <ul className="space-y-4 pt-3">
+                {CONTACT_INFO.map((item, i) => {
+                  const Icon = item.icon
+                  return (
+                    <li key={i} className="surface-card rounded-2xl p-5 flex items-start gap-4">
+                      <span className="shrink-0 w-11 h-11 rounded-xl bg-accent-muted border border-border-strong flex items-center justify-center">
+                        <Icon className="w-5 h-5 text-accent" />
+                      </span>
+                      <div className="min-w-0">
+                        <h3 className="text-fluid-sm font-bold text-white uppercase tracking-wider mb-1">{item.title}</h3>
+                        {item.lines.map((line, j) => (
+                          <p key={j} className="text-fluid-sm text-muted leading-relaxed">
+                            {'href' in item && item.href && j === 0 ? (
+                              <a href={item.href} className="hover:text-accent transition-colors">{line}</a>
+                            ) : (
+                              line
+                            )}
+                          </p>
+                        ))}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ul>
+            </aside>
 
             {/* Form */}
-            <div className="md:col-span-2">
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {error && (
-                  <div className="p-4 rounded-lg flex items-start gap-3" style={{ backgroundColor: 'rgba(255, 107, 107, 0.1)', borderLeft: '4px solid #ff6b6b' }}>
-                    <MessageCircle size={20} style={{ color: '#ff6b6b' }} className="flex-shrink-0 mt-0.5" />
+            <div className="lg:col-span-2">
+              <div className="surface-card rounded-2xl p-fluid-md">
+                <div className="space-y-2 mb-8">
+                  <span className="eyebrow">Formulario</span>
+                  <h2 className="headline text-fluid-3xl text-white">Escríbeme</h2>
+                </div>
+
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+                  {error && (
+                    <div className="rounded-xl p-4 flex items-start gap-3 bg-danger/10 border-l-4 border-danger">
+                      <AlertCircle className="w-5 h-5 text-danger shrink-0 mt-0.5" />
+                      <div className="text-fluid-sm">
+                        <p className="font-bold text-danger">Error al enviar</p>
+                        <p className="text-danger/90 mt-1">{error}</p>
+                      </div>
+                    </div>
+                  )}
+
+                  <div>
+                    <label htmlFor="name" className="block text-fluid-xs font-bold text-muted mb-2 uppercase tracking-wider">
+                      Nombre completo *
+                    </label>
+                    <input
+                      id="name"
+                      {...register('name')}
+                      type="text"
+                      placeholder="Tu nombre"
+                      className={`${FIELD_CLASS} ${borderClass(!!errors.name)}`}
+                    />
+                    {errors.name && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.name.message}</p>}
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-5">
                     <div>
-                      <p style={{ color: '#ff6b6b' }} className="font-bold">Error al enviar</p>
-                      <p style={{ color: '#ff6b6b' }} className="text-sm">{error}</p>
+                      <label htmlFor="email" className="block text-fluid-xs font-bold text-muted mb-2 uppercase tracking-wider">
+                        Email *
+                      </label>
+                      <input
+                        id="email"
+                        {...register('email')}
+                        type="email"
+                        placeholder="tu@email.com"
+                        className={`${FIELD_CLASS} ${borderClass(!!errors.email)}`}
+                      />
+                      {errors.email && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.email.message}</p>}
+                    </div>
+
+                    <div>
+                      <label htmlFor="phone" className="block text-fluid-xs font-bold text-muted mb-2 uppercase tracking-wider">
+                        Teléfono *
+                      </label>
+                      <input
+                        id="phone"
+                        {...register('phone')}
+                        type="tel"
+                        placeholder="+34 XXX XXX XXX"
+                        className={`${FIELD_CLASS} ${borderClass(!!errors.phone)}`}
+                      />
+                      {errors.phone && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.phone.message}</p>}
                     </div>
                   </div>
-                )}
 
-                {/* Nombre */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2 tracking-wide">
-                    Nombre completo *
-                  </label>
-                  <input
-                    {...register('name')}
-                    type="text"
-                    placeholder="Tu nombre"
-                    style={{ backgroundColor: '#16122B', borderColor: errors.name ? '#ff6b6b' : '#662D91' }}
-                    className="w-full px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition"
-                  />
-                  {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
-                </div>
-
-                {/* Email y Teléfono */}
-                <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-bold text-gray-300 mb-2 tracking-wide">
-                      Email *
+                    <label htmlFor="subject" className="block text-fluid-xs font-bold text-muted mb-2 uppercase tracking-wider">
+                      Asunto *
                     </label>
                     <input
-                      {...register('email')}
-                      type="email"
-                      placeholder="tu@email.com"
-                      style={{ backgroundColor: '#16122B', borderColor: errors.email ? '#ff6b6b' : '#662D91' }}
-                      className="w-full px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition"
+                      id="subject"
+                      {...register('subject')}
+                      type="text"
+                      placeholder="¿En qué puedo ayudarte?"
+                      className={`${FIELD_CLASS} ${borderClass(!!errors.subject)}`}
                     />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                    {errors.subject && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.subject.message}</p>}
                   </div>
 
                   <div>
-                    <label className="block text-sm font-bold text-gray-300 mb-2 tracking-wide">
-                      Teléfono *
+                    <label htmlFor="message" className="block text-fluid-xs font-bold text-muted mb-2 uppercase tracking-wider">
+                      Mensaje *
                     </label>
-                    <input
-                      {...register('phone')}
-                      type="tel"
-                      placeholder="+34 XXX XXX XXX"
-                      style={{ backgroundColor: '#16122B', borderColor: errors.phone ? '#ff6b6b' : '#662D91' }}
-                      className="w-full px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition"
+                    <textarea
+                      id="message"
+                      {...register('message')}
+                      rows={6}
+                      placeholder="Cuéntame cómo puedo ayudarte…"
+                      className={`${FIELD_CLASS} resize-none ${borderClass(!!errors.message)}`}
                     />
-                    {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>}
+                    {errors.message && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.message.message}</p>}
                   </div>
-                </div>
 
-                {/* Asunto */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2 tracking-wide">
-                    Asunto *
-                  </label>
-                  <input
-                    {...register('subject')}
-                    type="text"
-                    placeholder="¿En qué podemos ayudarte?"
-                    style={{ backgroundColor: '#16122B', borderColor: errors.subject ? '#ff6b6b' : '#662D91' }}
-                    className="w-full px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition"
-                  />
-                  {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
-                </div>
+                  <button type="submit" disabled={isSubmitting} className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60">
+                    {isSubmitting ? 'Enviando…' : (<>Enviar mensaje <ArrowRight className="w-4 h-4" /></>)}
+                  </button>
 
-                {/* Mensaje */}
-                <div>
-                  <label className="block text-sm font-bold text-gray-300 mb-2 tracking-wide">
-                    Mensaje *
-                  </label>
-                  <textarea
-                    {...register('message')}
-                    rows={6}
-                    placeholder="Cuéntanos cómo podemos ayudarte..."
-                    style={{ backgroundColor: '#16122B', borderColor: errors.message ? '#ff6b6b' : '#662D91' }}
-                    className="w-full px-4 py-3 rounded-lg text-white border focus:border-yellow-400 focus:outline-none transition resize-none"
-                  />
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
-                </div>
-
-                {/* Button */}
-                <div className="pt-4">
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    variant="primary"
-                    size="lg"
-                    className="w-full"
-                  >
-                    {isSubmitting ? 'Enviando...' : 'Enviar mensaje'}
-                  </Button>
-                </div>
-
-                <p className="text-xs text-gray-500 text-center">
-                  Respetamos tu privacidad. Tus datos serán tratados de forma segura.
-                </p>
-              </form>
+                  <p className="text-fluid-xs text-subtle text-center">
+                    Respeto tu privacidad. Tus datos serán tratados de forma segura.
+                  </p>
+                </form>
+              </div>
             </div>
           </div>
         </Container>
       </section>
 
-      {/* FAQ */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-12 text-center tracking-wide">
-            Preguntas Frecuentes
-          </h2>
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
+            <span className="eyebrow justify-center">Dudas rápidas</span>
+            <h2 className="headline text-fluid-4xl text-white">Preguntas frecuentes</h2>
+          </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {[
-              {
-                q: '¿Cuándo recibiré respuesta a mi mensaje?',
-                a: 'Nos comprometemos a responder todos los mensajes en menos de 24 horas hábiles. Generalmente respondemos en la primera hora de horas de oficina.'
-              },
-              {
-                q: '¿Puedo llamar directamente?',
-                a: 'Sí, puedes llamarnos en horario de oficina. Encuentra nuestro teléfono en la sección de contacto. También puedes solicitar una llamada programada.'
-              },
-              {
-                q: '¿Dónde están ubicados?',
-                a: 'Trabajamos online para toda España y ofrecemos servicio presencial en Madrid. Entrenamientos personalizados, osteopatía y consultas directas donde tú estés.'
-              },
-              {
-                q: '¿Hacen consultas online?',
-                a: 'Sí, ofrecemos valoración profesional 100% online. Todo nuestro entrenamiento es digital, flexible y personalizado.'
-              },
-            ].map((faq, index) => (
-              <div key={index} className="p-8 rounded-xl" style={{ backgroundColor: '#1a1535', borderLeft: '4px solid #FCEE21' }}>
-                <h3 style={{ color: '#FCEE21' }} className="text-xl font-bold mb-3 tracking-wide">
-                  {faq.q}
-                </h3>
-                <p className="text-gray-300 text-base leading-relaxed">
-                  {faq.a}
-                </p>
-              </div>
+          <div className="grid md:grid-cols-2 gap-5 max-w-4xl mx-auto">
+            {FAQ_ITEMS.map((faq, i) => (
+              <article key={i} className="surface-card rounded-2xl p-7 border-l-4 border-l-accent hover-lift">
+                <h3 className="text-fluid-lg font-semibold text-white mb-3 tracking-tight">{faq.q}</h3>
+                <p className="text-fluid-sm text-muted leading-relaxed">{faq.a}</p>
+              </article>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* CTA Final */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-20">
-        <Container className="text-center">
-          <h2 style={{ color: '#FCEE21' }} className="text-4xl md:text-5xl font-bold mb-8 tracking-wide">
-            ¿Listo para transformarte?
-          </h2>
-          <p className="text-xl text-gray-400 mb-10 max-w-2xl mx-auto">
-            Tu valoración profesional es completamente gratis. Sin compromisos, sin presión. Solo análisis real y propuesta personalizada.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contacto">
-              <Button variant="primary" size="lg" className="px-8">
-                Solicita tu valoración gratis
-              </Button>
-            </Link>
-            <Link href="/tarifas">
-              <Button variant="outline" size="lg" className="px-8">
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk overflow-hidden">
+        <div className="absolute inset-0 bg-radial-accent opacity-40" />
+        <Container>
+          <div className="relative max-w-3xl mx-auto text-center space-y-8">
+            <span className="eyebrow justify-center">Último paso</span>
+            <h2 className="headline text-fluid-5xl text-white">
+              ¿Listo para <span className="text-gradient-brand">transformarte?</span>
+            </h2>
+            <p className="text-fluid-xl text-muted leading-relaxed max-w-2xl mx-auto">
+              Tu valoración profesional es completamente gratis. Sin compromisos, sin presión. Solo análisis real y
+              propuesta personalizada.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+              <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
+                Solicitar valoración gratis
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <Link href="/tarifas" className="btn-ghost text-fluid-base px-8">
                 Ver tarifas
-              </Button>
-            </Link>
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

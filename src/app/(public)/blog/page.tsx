@@ -1,6 +1,6 @@
 import Container from '@/components/common/Container'
-import Button from '@/components/ui/Button'
 import Link from 'next/link'
+import { ArrowRight, Sparkles } from 'lucide-react'
 import { getAllPosts, getAllCategories } from '@/lib/db/posts'
 import BlogFilters from './BlogFilters'
 import { buildMetadata } from '@/lib/seo'
@@ -29,16 +29,26 @@ export default async function BlogPage() {
 
   return (
     <>
-      {/* Hero del Blog */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative py-fluid-xl overflow-hidden bg-brand-deep">
+        <div className="absolute inset-0 bg-radial-accent opacity-70" />
+        <div className="absolute inset-0 bg-grid-soft opacity-40" />
         <Container>
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-6xl font-bold mb-6 tracking-wide">
-              BLOG
+          <div className="relative max-w-3xl mx-auto text-center space-y-6">
+            <div className="inline-flex items-center justify-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
+              <Sparkles className="w-3.5 h-3.5 text-accent" />
+              <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
+                Blog
+              </span>
+            </div>
+
+            <h1 className="headline text-fluid-7xl text-white animate-fade-up">
+              Fitness <span className="text-gradient-brand">sin rodeos.</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+
+            <p className="text-fluid-xl text-muted leading-relaxed animate-fade-up [animation-delay:100ms]">
               Consejos de entrenamiento y nutrición{' '}
-              <span style={{ color: '#FCEE21' }} className="font-bold">sin rodeos</span>.
+              <span className="text-accent font-semibold">sin rodeos</span>.
               <br />
               Lo que funciona, explicado simple.
             </p>
@@ -46,46 +56,42 @@ export default async function BlogPage() {
         </Container>
       </section>
 
-      {/* Contenido del blog con filtros */}
+      {/* ═══════════════ POSTS + FILTROS ═══════════════ */}
       <BlogFilters posts={posts} categories={categories} />
 
-      {/* CTA al Lead Magnet */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-16 md:py-20">
+      {/* ═══════════════ LEAD MAGNET ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-dusk">
         <Container>
-          <div
-            className="max-w-3xl mx-auto p-8 md:p-12 rounded-2xl text-center"
-            style={{ backgroundColor: '#16122B', border: '2px solid #FCEE21' }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              ¿Quieres ir al grano?
+          <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+            <h2 className="headline text-fluid-3xl text-white">
+              ¿Quieres ir <span className="text-gradient-brand">al grano?</span>
             </h2>
-            <p className="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
-              Descarga la guía gratuita:{' '}
-              <span style={{ color: '#FCEE21' }} className="font-bold">
-                "Fitness real para gente con vida real"
-              </span>
-              . Sin teoría, solo lo que funciona.
+            <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
+              Descarga la guía gratuita{' '}
+              <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+              Sin teoría, solo lo que funciona.
             </p>
-            <Link href="/recurso-gratis">
-              <Button variant="primary" size="lg">
+            <div className="pt-2">
+              <Link href="/recurso-gratis" className="btn-brand text-fluid-base">
                 Descargar guía gratis
-              </Button>
-            </Link>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* CTA Final */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-16">
-        <Container className="text-center">
-          <p className="text-gray-400 mb-6">
-            ¿Prefieres un plan personalizado a tu situación?
-          </p>
-          <Link href="/valoracion">
-            <Button variant="outline" size="lg">
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-deep">
+        <Container>
+          <div className="text-center max-w-2xl mx-auto space-y-5">
+            <p className="text-fluid-lg text-muted">
+              ¿Prefieres un plan personalizado a tu situación?
+            </p>
+            <Link href="/valoracion" className="btn-ghost text-fluid-base">
               Solicitar valoración gratuita
-            </Button>
-          </Link>
+            </Link>
+          </div>
         </Container>
       </section>
     </>

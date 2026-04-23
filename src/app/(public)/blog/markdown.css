@@ -1,87 +1,159 @@
+/* ─────────────────────────────────────────────
+   Estilos del contenido del artículo (HTML renderizado)
+   Los !important son necesarios para sobrescribir el preflight de Tailwind v4.
+   Los colores usan las CSS vars del design system para mantener consistencia.
+   ───────────────────────────────────────────── */
+
 .markdown-content {
   font-size: 1.125rem;
   line-height: 1.75;
+  color: #ededf5 !important;
 }
 
 .markdown-content h2 {
-  color: #FCEE21 !important;
-  font-size: 1.875rem !important;
+  font-family: var(--font-display) !important;
+  color: var(--color-brand-yellow) !important;
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem) !important;
   font-weight: 700 !important;
+  letter-spacing: -0.02em !important;
   margin-top: 3rem !important;
   margin-bottom: 1.25rem !important;
-  line-height: 1.3 !important;
+  line-height: 1.25 !important;
 }
 
 .markdown-content h3 {
-  color: #FCEE21 !important;
-  font-size: 1.5rem !important;
+  font-family: var(--font-display) !important;
+  color: var(--color-brand-yellow) !important;
+  font-size: clamp(1.25rem, 1.05rem + 0.7vw, 1.5rem) !important;
   font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
   margin-top: 2.5rem !important;
   margin-bottom: 1rem !important;
-  line-height: 1.4 !important;
+  line-height: 1.35 !important;
 }
 
 .markdown-content p {
-  color: #e5e5e5 !important;
+  color: #e5e5ef !important;
   line-height: 1.8 !important;
-  margin-bottom: 1.75rem !important;
-  font-size: 1.125rem !important;
+  margin-bottom: 1.5rem !important;
+  font-size: 1.075rem !important;
 }
 
 .markdown-content strong {
-  color: #FCEE21 !important;
+  color: var(--color-brand-yellow) !important;
   font-weight: 700 !important;
+}
+
+.markdown-content em {
+  color: #ffffff !important;
+  font-style: italic !important;
 }
 
 .markdown-content ul,
 .markdown-content ol {
-  color: #e5e5e5 !important;
-  margin-left: 1.75rem !important;
-  margin-bottom: 2rem !important;
-  margin-top: 1.5rem !important;
+  color: #e5e5ef !important;
+  margin-left: 1.5rem !important;
+  margin-bottom: 1.75rem !important;
+  margin-top: 1.25rem !important;
+  padding-left: 0.5rem !important;
 }
 
 .markdown-content li {
-  margin-bottom: 0.875rem !important;
+  margin-bottom: 0.75rem !important;
   line-height: 1.7 !important;
 }
 
 .markdown-content li::marker {
-  color: #FCEE21 !important;
+  color: var(--color-brand-yellow) !important;
 }
 
 .markdown-content a {
-  color: #FCEE21 !important;
+  color: var(--color-brand-yellow) !important;
   text-decoration: underline !important;
-  transition: opacity 0.2s;
+  text-underline-offset: 3px !important;
+  text-decoration-thickness: 1.5px !important;
+  text-decoration-color: rgba(252, 238, 33, 0.4) !important;
+  transition: text-decoration-color 0.2s, opacity 0.2s !important;
 }
 
 .markdown-content a:hover {
-  opacity: 0.8;
+  text-decoration-color: var(--color-brand-yellow) !important;
+  opacity: 0.9 !important;
 }
 
 .markdown-content blockquote {
-  border-left: 4px solid #FCEE21 !important;
-  padding-left: 1.5rem !important;
-  padding-top: 0.5rem !important;
-  padding-bottom: 0.5rem !important;
-  color: #b0b0b0 !important;
+  border-left: 4px solid var(--color-brand-yellow) !important;
+  background: rgba(252, 238, 33, 0.04) !important;
+  padding: 1rem 1.5rem !important;
+  color: #c8c3de !important;
   font-style: italic !important;
   margin: 2rem 0 !important;
+  border-radius: 0 0.75rem 0.75rem 0 !important;
+}
+
+.markdown-content blockquote p {
+  margin-bottom: 0.5rem !important;
 }
 
 .markdown-content code {
   background-color: rgba(252, 238, 33, 0.1) !important;
-  color: #FCEE21 !important;
-  padding: 0.25rem 0.5rem !important;
-  border-radius: 0.25rem !important;
+  color: var(--color-brand-yellow) !important;
+  padding: 0.2rem 0.45rem !important;
+  border-radius: 0.35rem !important;
   font-size: 0.9em !important;
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace !important;
+  border: 1px solid rgba(252, 238, 33, 0.15) !important;
 }
 
 .markdown-content pre {
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  padding: 1.5rem !important;
-  border-radius: 0.5rem !important;
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  padding: 1.25rem 1.5rem !important;
+  border-radius: 0.875rem !important;
   overflow-x: auto !important;
   margin: 2rem 0 !important;
+  border: 1px solid rgba(252, 238, 33, 0.12) !important;
+}
+
+.markdown-content pre code {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  color: #e5e5ef !important;
+}
+
+.markdown-content hr {
+  border: none !important;
+  border-top: 1px solid rgba(252, 238, 33, 0.18) !important;
+  margin: 3rem auto !important;
+  max-width: 12rem !important;
+}
+
+.markdown-content img {
+  border-radius: 1rem !important;
+  margin: 2rem 0 !important;
+  border: 1px solid rgba(252, 238, 33, 0.15) !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.markdown-content table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 2rem 0 !important;
+  font-size: 0.95rem !important;
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 0.75rem 1rem !important;
+  border-bottom: 1px solid rgba(252, 238, 33, 0.15) !important;
+  text-align: left !important;
+}
+
+.markdown-content th {
+  color: var(--color-brand-yellow) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  font-size: 0.8rem !important;
 }
