@@ -1,13 +1,24 @@
 'use client'
 
 import { useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ArrowRight } from 'lucide-react'
 
-const plans = [
+type Plan = {
+  id: string
+  badge: string
+  badgeTone: 'neutral' | 'accent' | 'outline'
+  question: string
+  description: string
+  highlights: string[]
+  ctaLabel: string
+  ctaHref: string
+}
+
+const PLANS: Plan[] = [
   {
     id: 'pack3',
     badge: 'Entrada',
-    badgeStyle: 'bg-[#1a1535] text-gray-300 border border-[#662D91]',
+    badgeTone: 'neutral',
     question: '¿Quieres probar el método con compromiso razonable?',
     description:
       '3 meses es el mínimo que acepto. Es el tiempo real que necesita el cuerpo para empezar a responder y los hábitos para empezar a asentarse. No es magia — es biología. La mayoría de los resultados tangibles aparecen en este rango.',
@@ -23,8 +34,7 @@ const plans = [
   {
     id: 'pack6',
     badge: 'Más elegido',
-    badgeStyle: 'text-[#16122B] font-bold',
-    badgeBg: '#FCEE21',
+    badgeTone: 'accent',
     question: '¿Quieres resultados que se queden y no volver al punto de partida?',
     description:
       '6 meses es el tiempo necesario para que los cambios se consoliden de verdad. No es un programa "rápido" — es el tiempo real en el que los hábitos se vuelven automáticos y dejan de depender de fuerza de voluntad. El que más eligen los que van en serio.',
@@ -40,9 +50,8 @@ const plans = [
   {
     id: 'premium',
     badge: 'Premium',
-    badgeStyle: 'bg-[#1a1535] text-[#FCEE21] border border-[#FCEE21]',
-    question:
-      '¿Quieres máxima atención, videollamada semanal y nutrición completa?',
+    badgeTone: 'outline',
+    question: '¿Quieres máxima atención, videollamada semanal y nutrición completa?',
     description:
       'Para quien quiere el nivel más alto de personalización y no quiere dejar ningún cabo suelto. Videollamada semanal para revisar todo en detalle, plan nutricional completo integrado con el entrenamiento, y acceso directo cuando lo necesites.',
     highlights: [
@@ -56,84 +65,95 @@ const plans = [
   },
 ]
 
+const BADGE_STYLES: Record<Plan['badgeTone'], string> = {
+  neutral: 'bg-brand-night text-muted border border-border-subtle',
+  accent:  'bg-accent text-accent-fg font-bold border border-accent',
+  outline: 'bg-brand-night text-accent border border-accent/60',
+}
+
 export default function PlanSelector() {
   const [openId, setOpenId] = useState<string | null>(null)
-
-  const toggle = (id: string) => {
-    setOpenId((prev) => (prev === id ? null : id))
-  }
+  const toggle = (id: string) => setOpenId((prev) => (prev === id ? null : id))
 
   return (
     <div className="max-w-3xl mx-auto">
-      <h2 style={{ color: '#FCEE21' }} className="text-3xl md:text-4xl font-bold mb-2">
-        ¿Por dónde empezar?
-      </h2>
-      <p className="text-gray-400 mb-8 text-base">
-        Elige según tu situación — cada plan está pensado para un momento concreto.
-      </p>
+      <div className="space-y-4 mb-fluid-md">
+        <span className="eyebrow">Orientación</span>
+        <h2 className="headline text-fluid-3xl text-white">
+          ¿Por dónde <span className="text-gradient-brand">empezar?</span>
+        </h2>
+        <p className="text-fluid-base text-muted leading-relaxed">
+          Elige según tu situación — cada plan está pensado para un momento concreto.
+        </p>
+      </div>
 
       <div className="flex flex-col gap-3">
-        {plans.map((plan) => {
+        {PLANS.map((plan) => {
           const isOpen = openId === plan.id
           return (
             <div
               key={plan.id}
-              className={`rounded-xl overflow-hidden transition-all duration-300 border ${
-                isOpen ? 'border-[#FCEE21]' : 'border-[#662D91]'
-              }`}
-              style={{ backgroundColor: '#16122B' }}
+              className={
+                'rounded-2xl overflow-hidden transition-all duration-300 border bg-brand-deep ' +
+                (isOpen ? 'border-border-strong shadow-lg' : 'border-border-subtle')
+              }
             >
-              {/* Trigger */}
               <button
+                type="button"
                 onClick={() => toggle(plan.id)}
-                className={`w-full flex items-center justify-between gap-3 px-5 py-5 text-left transition-colors duration-200 ${
-                  isOpen ? 'bg-[#1a1535]' : ''
-                }`}
+                aria-expanded={isOpen}
+                className={
+                  'w-full flex items-center justify-between gap-3 px-5 py-5 text-left transition-colors duration-200 ' +
+                  (isOpen ? 'bg-brand-dusk' : 'hover:bg-brand-dusk/60')
+                }
               >
-                <div className="flex items-center gap-3 flex-1">
+                <div className="flex items-center gap-3 flex-1 min-w-0">
                   <span
-                    className={`text-xs font-medium px-3 py-1 rounded-full whitespace-nowrap ${plan.badgeStyle}`}
-                    style={plan.badgeBg ? { backgroundColor: plan.badgeBg } : undefined}
+                    className={
+                      'text-fluid-xs font-medium px-3 py-1 rounded-full whitespace-nowrap shrink-0 ' +
+                      BADGE_STYLES[plan.badgeTone]
+                    }
                   >
                     {plan.badge}
                   </span>
-                  <span className="text-sm md:text-base font-medium text-gray-200 leading-snug">
+                  <span className="text-fluid-sm md:text-fluid-base font-medium text-white leading-snug">
                     {plan.question}
                   </span>
                 </div>
                 <ChevronDown
                   size={18}
-                  className={`text-gray-400 flex-shrink-0 transition-transform duration-300 ${
-                    isOpen ? 'rotate-180' : ''
-                  }`}
+                  className={
+                    'text-muted flex-shrink-0 transition-transform duration-300 ' +
+                    (isOpen ? 'rotate-180 text-accent' : '')
+                  }
                 />
               </button>
 
-              {/* Body */}
               <div
-                className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                  isOpen ? 'max-h-[500px]' : 'max-h-0'
-                }`}
+                className={
+                  'grid transition-[grid-template-rows] duration-300 ease-out ' +
+                  (isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]')
+                }
               >
-                <div className="px-5 pb-5 bg-[#1a1535]">
-                  <p className="text-sm text-gray-400 leading-relaxed mb-4">
-                    {plan.description}
-                  </p>
-                  <ul className="flex flex-col gap-2 mb-5">
-                    {plan.highlights.map((h, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                        <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ backgroundColor: '#FCEE21' }} />
-                        {h}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={plan.ctaHref}
-                    className="inline-flex items-center gap-1.5 text-sm font-bold rounded-lg px-5 py-2.5 transition-all duration-200 hover:scale-105"
-                    style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
-                  >
-                    {plan.ctaLabel} →
-                  </a>
+                <div className="overflow-hidden">
+                  <div className="px-5 pb-5 bg-brand-dusk">
+                    <p className="text-fluid-sm text-muted leading-relaxed mb-4">{plan.description}</p>
+                    <ul className="flex flex-col gap-2.5 mb-5">
+                      {plan.highlights.map((h, i) => (
+                        <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/85">
+                          <span className="mt-2 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                          <span className="leading-relaxed">{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <a
+                      href={plan.ctaHref}
+                      className="inline-flex items-center gap-2 text-fluid-sm font-semibold rounded-xl px-5 py-2.5 bg-accent text-accent-fg hover:brightness-110 transition-all hover:gap-3"
+                    >
+                      {plan.ctaLabel}
+                      <ArrowRight className="w-4 h-4" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

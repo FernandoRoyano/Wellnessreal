@@ -1,10 +1,12 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import Button from '@/components/ui/Button'
 import Image from 'next/image'
-import { Smartphone, Utensils, Bone, Dumbbell, Video, BarChart3, RefreshCw, MessageCircle, MapPin, Quote } from 'lucide-react'
+import {
+  Smartphone, Utensils, Bone, Dumbbell, Video, BarChart3,
+  RefreshCw, MessageCircle, MapPin, Quote, ArrowRight, Sparkles,
+} from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
-import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
 import HeroAnimation from '@/components/animations/HeroAnimation'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 import StaggerChildren from '@/components/animations/StaggerChildren'
@@ -24,90 +26,134 @@ export const metadata = buildMetadata({
   ],
 })
 
+const MAIN_SERVICE_FEATURES = [
+  { icon: Smartphone,    text: 'Plan 100% personalizado en app móvil profesional' },
+  { icon: Video,         text: 'Vídeos explicativos de cada ejercicio' },
+  { icon: BarChart3,     text: 'Tracking automático de tu progreso' },
+  { icon: RefreshCw,     text: 'Revisión y ajuste semanal' },
+  { icon: MessageCircle, text: 'Soporte directo cuando lo necesites' },
+  { icon: MapPin,        text: 'Adaptado a casa, gimnasio o donde entrenes' },
+] as const
+
+const OTHER_SERVICES = [
+  {
+    icon: Dumbbell,
+    title: 'Entrenamiento presencial',
+    href: '/servicios/entrenamiento-personalizado',
+    desc: 'Sesiones individuales en Madrid donde te guío en cada ejercicio. Técnica perfecta, corrección en tiempo real, motivación constante. Ideal si prefieres el contacto directo o estás en una fase inicial donde la supervisión marca la diferencia.',
+  },
+  {
+    icon: Utensils,
+    title: 'Nutrición personalizada',
+    href: '/servicios/nutricion',
+    desc: 'Pautas adaptadas a tu vida real — tus horarios, tus gustos, tu contexto. Sin dietas imposibles, sin prohibiciones absurdas, sin contar calorías de por vida. Un sistema nutricional que puedas sostener y que trabaje en la misma dirección que tu entrenamiento.',
+  },
+  {
+    icon: Bone,
+    title: 'Osteopatía',
+    href: '/servicios/osteopatia',
+    desc: 'Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. La pieza que muchos entrenamientos ignoran. Sesiones presenciales en Madrid.',
+  },
+] as const
+
+const TESTIMONIALS = [
+  {
+    text: 'Llevaba años probando cosas por mi cuenta. Lo que cambió con WellnessReal fue tener a alguien que entiende realmente mi situación y ajusta el plan cuando la vida se complica. Eso no lo da ninguna app.',
+    author: 'Cliente online, 38 años',
+  },
+  {
+    text: 'Pensaba que no tenía tiempo para esto. Con 45 minutos tres veces a la semana he conseguido más que en años de ir al gimnasio sin rumbo.',
+    author: 'Cliente online, 43 años',
+  },
+] as const
+
 export default function ServiciosPage() {
   return (
     <>
       <JsonLd
         data={breadcrumbSchema([
-          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Inicio',    url: 'https://wellnessreal.es' },
           { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
         ])}
       />
-      {/* Hero */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-32">
+
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative py-fluid-xl overflow-hidden bg-brand-deep">
+        <div className="absolute inset-0 bg-radial-accent opacity-80" />
+        <div className="absolute inset-0 bg-grid-soft opacity-40" />
+        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full bg-brand-violet/20 blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none" />
+
         <Container>
           <HeroAnimation>
-            <div className="max-w-4xl">
-              <h1 style={{ color: '#FCEE21' }} className="text-5xl md:text-7xl font-bold mb-6 tracking-widest">
-                SERVICIOS
-              </h1>
-              <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
-                Entrenamiento y nutrición adaptados a tu vida real.
-                <br />
-                <span style={{ color: '#FCEE21' }} className="font-bold">
-                  Sin excusas de tiempo. Sin planes imposibles. Solo lo que funciona para ti.
+            <div className="relative max-w-4xl space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
+                <Sparkles className="w-3.5 h-3.5 text-accent" />
+                <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
+                  Qué ofrezco
                 </span>
+              </div>
+
+              <h1 className="headline text-fluid-7xl text-white animate-fade-up">
+                Entrenamiento y nutrición
+                <br className="hidden sm:block" />
+                <span className="text-gradient-brand">para tu vida real.</span>
+              </h1>
+
+              <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
+                Sin excusas de tiempo. Sin planes imposibles.{' '}
+                <span className="text-accent font-semibold">Solo lo que funciona para ti.</span>
               </p>
             </div>
           </HeroAnimation>
         </Container>
       </section>
 
-      {/* Servicio Principal: Entrenamiento Online */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-24">
+      {/* ═══════════════ SERVICIO PRINCIPAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <AnimatedSection y={80} duration={1}>
-            <div className="bg-[#16122B] rounded-2xl overflow-hidden border-4 border-[#FCEE21] shadow-2xl">
-              <div className="grid md:grid-cols-2 gap-0">
-                <div className="relative h-80 md:h-full">
+            <div className="surface-card-accent rounded-2xl overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-0 items-stretch">
+                <div className="relative h-72 md:h-full min-h-[24rem]">
                   <Image
                     src="/images/portada-WR.jpg"
-                    alt="Entrenamiento Online"
+                    alt="Entrenamiento online"
                     fill
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-r from-brand-deep/30 via-transparent to-transparent md:bg-gradient-to-l md:from-brand-deep md:via-brand-deep/30 md:to-transparent" />
                 </div>
-                <div className="p-10 md:p-14 flex flex-col justify-center">
-                  <div className="inline-block px-4 py-2 rounded-full text-sm font-bold mb-4 w-fit" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
-                    SERVICIO PRINCIPAL
-                  </div>
-                  <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#FCEE21' }}>
-                    Entrenamiento Online
+
+                <div className="p-fluid-md flex flex-col justify-center space-y-5">
+                  <span className="eyebrow">Servicio principal</span>
+                  <h2 className="headline text-fluid-4xl text-white">
+                    Entrenamiento <span className="text-gradient-brand">online</span>
                   </h2>
-                  <p className="text-xl text-gray-300 mb-6">
-                    Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento real cada semana. No es una rutina de YouTube ni un PDF genérico. Es un plan diseñado para ti — tu horario, tu material, tu nivel, tu objetivo — con ajustes semanales según cómo vas evolucionando.
+                  <p className="text-fluid-base text-muted leading-relaxed">
+                    Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento
+                    real cada semana. No es una rutina de YouTube ni un PDF genérico — es un plan diseñado para ti
+                    (tu horario, tu material, tu nivel, tu objetivo) con ajustes semanales según cómo vas evolucionando.
                   </p>
-                  <ul className="space-y-3 text-gray-200 mb-8">
-                    <li className="flex items-start gap-3">
-                      <Smartphone size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Plan 100% personalizado en app móvil profesional</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Video size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Vídeos explicativos de cada ejercicio</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <BarChart3 size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Tracking automático de tu progreso</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <RefreshCw size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Revisión y ajuste semanal</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <MessageCircle size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Soporte directo cuando lo necesites</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <MapPin size={20} style={{ color: '#FCEE21' }} className="mt-1 flex-shrink-0" />
-                      <span>Adaptado a casa, gimnasio o donde entrenes</span>
-                    </li>
+
+                  <ul className="space-y-3 pt-2">
+                    {MAIN_SERVICE_FEATURES.map(({ icon: Icon, text }, i) => (
+                      <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/85">
+                        <span className="shrink-0 mt-0.5 w-8 h-8 rounded-lg bg-accent-muted border border-border-subtle flex items-center justify-center">
+                          <Icon className="w-4 h-4 text-accent" strokeWidth={2.2} />
+                        </span>
+                        <span className="leading-relaxed">{text}</span>
+                      </li>
+                    ))}
                   </ul>
-                  <Link href="/tarifas">
-                    <Button variant="primary" size="lg" className="w-full md:w-auto">
+
+                  <div className="pt-3">
+                    <Link href="/tarifas" className="btn-brand text-fluid-base">
                       Ver tarifas
-                    </Button>
-                  </Link>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
@@ -115,155 +161,142 @@ export default function ServiciosPage() {
         </Container>
       </section>
 
-      {/* Otros Servicios */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-24">
+      {/* ═══════════════ OTROS SERVICIOS ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
           <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16" style={{ color: '#FCEE21' }}>
-              Más servicios
-            </h2>
+            <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
+              <span className="eyebrow justify-center">Más opciones</span>
+              <h2 className="headline text-fluid-4xl text-white">
+                Otros <span className="text-gradient-brand">servicios</span>
+              </h2>
+              <p className="text-fluid-lg text-muted leading-relaxed">
+                Complementos que funcionan solos o combinados con el plan online.
+              </p>
+            </div>
           </AnimatedSection>
-          <StaggerChildren className="grid md:grid-cols-3 gap-8">
-            {/* Entrenamiento Personalizado */}
-            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#662D91] hover:border-[#FCEE21] transition-all">
-              <Dumbbell size={48} style={{ color: '#FCEE21' }} className="mb-4" />
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#FCEE21' }}>
-                Entrenamiento Presencial
-              </h3>
-              <p className="text-gray-300 mb-6">
-                Sesiones individuales en Madrid donde te guío en cada ejercicio. Técnica perfecta, corrección en tiempo real, motivación constante. Ideal si prefieres el contacto directo o estás en una fase inicial donde la supervisión marca la diferencia.
-              </p>
-              <Link href="/servicios/entrenamiento-personalizado">
-                <Button variant="outline" size="md" className="w-full">
-                  Más información
-                </Button>
-              </Link>
-            </div>
 
-            {/* Nutrición */}
-            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#662D91] hover:border-[#FCEE21] transition-all">
-              <Utensils size={48} style={{ color: '#FCEE21' }} className="mb-4" />
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#FCEE21' }}>
-                Nutrición Personalizada
-              </h3>
-              <p className="text-gray-300 mb-6">
-                Pautas adaptadas a tu vida real — tus horarios, tus gustos, tu contexto. Sin dietas imposibles que nadie puede mantener, sin prohibiciones absurdas, sin contar calorías de por vida. Un sistema nutricional que puedas sostener en el tiempo y que trabaje en la misma dirección que tu entrenamiento.
-              </p>
-              <Link href="/servicios/nutricion">
-                <Button variant="outline" size="md" className="w-full">
-                  Más información
-                </Button>
-              </Link>
-            </div>
-
-            {/* Osteopatía */}
-            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#662D91] hover:border-[#FCEE21] transition-all">
-              <Bone size={48} style={{ color: '#FCEE21' }} className="mb-4" />
-              <h3 className="text-2xl font-bold mb-4" style={{ color: '#FCEE21' }}>
-                Osteopatía
-              </h3>
-              <p className="text-gray-300 mb-6">
-                Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. Si llevas tiempo con una molestia que no termina de resolverse, o quieres prevenir lesiones antes de que aparezcan, esta es la pieza que muchos entrenamientos ignoran. Sesiones presenciales en Madrid.
-              </p>
-              <Link href="/servicios/osteopatia">
-                <Button variant="outline" size="md" className="w-full">
-                  Más información
-                </Button>
-              </Link>
-            </div>
+          <StaggerChildren className="grid md:grid-cols-3 gap-6">
+            {OTHER_SERVICES.map(({ icon: Icon, title, desc, href }, i) => (
+              <article key={i} className="group surface-card hover-lift rounded-2xl p-7 flex flex-col relative overflow-hidden">
+                <div className="absolute -top-12 -right-12 w-32 h-32 rounded-full bg-accent/5 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="relative flex flex-col flex-1">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mb-5 group-hover:scale-110 group-hover:rotate-[-3deg] transition-transform duration-300">
+                    <Icon className="w-5 h-5 text-accent" strokeWidth={2.2} />
+                  </div>
+                  <h3 className="text-fluid-2xl text-white mb-3 tracking-tight">{title}</h3>
+                  <p className="text-fluid-sm text-muted leading-relaxed mb-6 flex-1">{desc}</p>
+                  <Link
+                    href={href}
+                    className="inline-flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-fluid-sm border border-border-strong text-accent hover:bg-accent hover:text-accent-fg transition-all"
+                  >
+                    Más información
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </article>
+            ))}
           </StaggerChildren>
         </Container>
       </section>
 
-      {/* Por qué WellnessReal es diferente */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-24">
+      {/* ═══════════════ DIFERENCIAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk overflow-hidden">
+        <div className="absolute inset-0 bg-radial-violet opacity-70" />
         <Container>
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-4xl md:text-5xl font-bold mb-12" style={{ color: '#FCEE21' }}>
-                Por qué WellnessReal es diferente
+            <div className="relative max-w-3xl mx-auto text-center space-y-6">
+              <span className="eyebrow justify-center">Por qué es diferente</span>
+              <h2 className="headline text-fluid-4xl text-white mb-4">
+                La diferencia <span className="text-gradient-brand">está en el criterio.</span>
               </h2>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
+              <p className="text-fluid-lg text-muted leading-relaxed">
                 Hay cientos de entrenadores online. La diferencia no está en la app ni en los vídeos — está en el criterio.
               </p>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                Llevo más de 10 años en esto. He visto qué funciona y qué no. No sigo modas — sigo principios. No voy a ponerte el ejercicio viral de Instagram si no tiene sentido para tu caso. No voy a darte una dieta de moda si no encaja con tu vida.
+              <p className="text-fluid-lg text-muted leading-relaxed">
+                Llevo más de 10 años en esto. He visto qué funciona y qué no. No sigo modas — sigo principios. No te voy a
+                poner el ejercicio viral de Instagram si no tiene sentido para tu caso. No te voy a dar una dieta de moda
+                si no encaja con tu vida.
               </p>
-              <p className="text-lg text-gray-300 leading-relaxed">
-                Lo que sí voy a hacer es analizar tu contexto en profundidad, diseñar algo específico para ti y estar ahí cada semana para asegurarme de que avanzas. Más de 100 personas han pasado por este proceso. Algunas han perdido 20-30 kilos. Otras han ganado músculo por primera vez en su vida. Todas han cambiado algo más que el cuerpo.
+              <p className="text-fluid-lg text-muted leading-relaxed">
+                Lo que sí voy a hacer es analizar tu contexto en profundidad, diseñar algo específico para ti y estar ahí
+                cada semana para asegurarme de que avanzas. Más de 100 personas han pasado por este proceso.{' '}
+                <span className="text-white font-semibold">Todas han cambiado algo más que el cuerpo.</span>
               </p>
             </div>
           </AnimatedSection>
         </Container>
       </section>
 
-      {/* Testimonios */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-24">
+      {/* ═══════════════ TESTIMONIOS ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
-          <StaggerChildren className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#FCEE21]">
-              <Quote size={32} style={{ color: '#FCEE21' }} className="mb-4" />
-              <p className="text-gray-300 italic text-lg mb-6 leading-relaxed">
-                &ldquo;Llevaba años probando cosas por mi cuenta. Lo que cambió con WellnessReal fue tener a alguien que entiende realmente mi situación y ajusta el plan cuando la vida se complica. Eso no lo da ninguna app.&rdquo;
-              </p>
-              <p className="text-white font-bold">— Cliente online, 38 años</p>
-            </div>
-            <div className="p-8 rounded-xl bg-[#1a1535] border-2 border-[#FCEE21]">
-              <Quote size={32} style={{ color: '#FCEE21' }} className="mb-4" />
-              <p className="text-gray-300 italic text-lg mb-6 leading-relaxed">
-                &ldquo;Pensaba que no tenía tiempo para esto. Con 45 minutos tres veces a la semana he conseguido más que en años de ir al gimnasio sin rumbo.&rdquo;
-              </p>
-              <p className="text-white font-bold">— Cliente online, 43 años</p>
-            </div>
+          <StaggerChildren className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            {TESTIMONIALS.map((t, i) => (
+              <figure key={i} className="surface-card rounded-2xl p-8 hover-lift">
+                <Quote className="w-6 h-6 text-accent mb-4" />
+                <blockquote className="text-fluid-base text-white/90 italic leading-relaxed mb-5">
+                  {t.text}
+                </blockquote>
+                <figcaption className="text-fluid-sm font-semibold text-white pt-4 border-t border-border-subtle">
+                  — {t.author}
+                </figcaption>
+              </figure>
+            ))}
           </StaggerChildren>
         </Container>
       </section>
 
-      {/* CTA Lead Magnet */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-16">
+      {/* ═══════════════ LEAD MAGNET ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-dusk">
         <Container>
           <AnimatedSection>
-            <div
-              className="max-w-3xl mx-auto p-8 md:p-12 rounded-2xl text-center"
-              style={{ backgroundColor: '#16122B', border: '2px solid #FCEE21' }}
-            >
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-                ¿No sabes por dónde empezar?
+            <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+              <h2 className="headline text-fluid-3xl text-white">
+                ¿No sabes por <span className="text-gradient-brand">dónde empezar?</span>
               </h2>
-              <p className="text-lg text-gray-300 mb-8 max-w-xl mx-auto">
-                Descarga la guía gratuita:{' '}
-                <span style={{ color: '#FCEE21' }} className="font-bold">
-                  "Fitness real para gente con vida real"
-                </span>
-                . Te ayudará a entender qué necesitas.
+              <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
+                Descarga la guía gratuita{' '}
+                <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+                Te ayudará a entender qué necesitas.
               </p>
-              <Link href="/recurso-gratis">
-                <Button variant="primary" size="lg">
+              <div className="pt-2">
+                <Link href="/recurso-gratis" className="btn-brand text-fluid-base">
                   Descargar guía gratis
-                </Button>
-              </Link>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
             </div>
           </AnimatedSection>
         </Container>
       </section>
 
-      {/* CTA Final */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20">
-        <Container className="text-center">
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep overflow-hidden">
+        <div className="absolute inset-0 bg-grid-soft opacity-30" />
+        <div className="absolute inset-0 bg-radial-accent opacity-50" />
+        <Container>
           <AnimatedSection>
-            <h2 className="text-4xl md:text-5xl font-bold mb-8" style={{ color: '#FCEE21' }}>
-              ¿Hablamos de tu caso?
-            </h2>
-            <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-              Cuéntame tu situación y vemos juntos qué servicio encaja mejor contigo. Sin compromiso.
-            </p>
-            <MagneticButton>
-              <Link href="/valoracion">
-                <Button variant="primary" size="lg" className="px-12 py-5 text-xl tracking-wide shadow-[0_0_25px_rgba(252,238,33,0.4)]">
-                  Solicitar valoración gratuita
-                </Button>
-              </Link>
-            </MagneticButton>
+            <div className="relative max-w-3xl mx-auto text-center space-y-8">
+              <span className="eyebrow justify-center">Hablemos</span>
+              <h2 className="headline text-fluid-5xl text-white">
+                ¿Hablamos de <span className="text-gradient-brand">tu caso?</span>
+              </h2>
+              <p className="text-fluid-xl text-muted leading-relaxed max-w-2xl mx-auto">
+                Cuéntame tu situación y vemos juntos qué servicio encaja mejor contigo. Sin compromiso.
+              </p>
+              <div className="pt-2">
+                <MagneticButton strength={0.25}>
+                  <Link href="/valoracion" className="btn-brand text-fluid-lg px-10 py-5">
+                    Solicitar valoración gratuita
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </MagneticButton>
+              </div>
+              <p className="text-fluid-xs text-white/40 pt-2">
+                Sin compromiso. Respondo personalmente en 24h.
+              </p>
+            </div>
           </AnimatedSection>
         </Container>
       </section>

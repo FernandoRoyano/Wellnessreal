@@ -1,8 +1,7 @@
 import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import Button from '@/components/ui/Button'
-import { Check, Smartphone, Clock, Target, MessageCircle } from 'lucide-react'
+import { Check, Smartphone, Clock, Target, MessageCircle, ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 
@@ -20,6 +19,28 @@ export const metadata = buildMetadata({
   ],
 })
 
+const STEPS = [
+  { step: '01', title: 'Hablamos',       desc: 'Me cuentas tu situación, objetivos y disponibilidad. Sin compromiso.' },
+  { step: '02', title: 'Diseño tu plan', desc: 'Creo un programa 100% personalizado a tu contexto.' },
+  { step: '03', title: 'Entrenas',       desc: 'Sigues tu plan desde la app. Vídeos, instrucciones, todo claro.' },
+  { step: '04', title: 'Ajustamos',      desc: 'Cada semana revisamos y adaptamos según tu evolución.' },
+] as const
+
+const INCLUDED = [
+  { icon: Smartphone,    title: 'App profesional',        desc: 'Tu plan en iOS/Android con vídeos explicativos, tracking de progreso y recordatorios.' },
+  { icon: Target,        title: 'Plan 100% personalizado', desc: 'Diseñado para tu objetivo, tu nivel, tu material disponible y tu tiempo.' },
+  { icon: Clock,         title: 'Flexibilidad total',     desc: 'Sin horarios fijos. Entrenas cuando te venga bien, yo superviso tu progreso.' },
+  { icon: MessageCircle, title: 'Soporte directo',        desc: 'Dudas, ajustes, motivación. Estoy disponible cuando me necesites.' },
+] as const
+
+const FIT_ITEMS = [
+  'Tienes poco tiempo pero quieres resultados reales',
+  'Prefieres entrenar en casa, en el gimnasio o donde sea',
+  'Quieres un plan adaptado a TU situación, no algo genérico',
+  'Valoras tener a alguien que te guíe y te ajuste el plan',
+  'Has probado apps o rutinas de internet sin éxito',
+] as const
+
 export default function EntrenamientoOnlinePage() {
   return (
     <>
@@ -32,137 +53,129 @@ export default function EntrenamientoOnlinePage() {
       />
       <JsonLd
         data={breadcrumbSchema([
-          { name: 'Inicio', url: 'https://wellnessreal.es' },
-          { name: 'Servicios', url: 'https://wellnessreal.es/servicios' },
+          { name: 'Inicio',               url: 'https://wellnessreal.es' },
+          { name: 'Servicios',            url: 'https://wellnessreal.es/servicios' },
           { name: 'Entrenamiento Online', url: 'https://wellnessreal.es/servicios/entrenamiento-online' },
         ])}
       />
-      {/* Hero */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20 md:py-28">
+
+      {/* ═══════════════ HERO ═══════════════ */}
+      <section className="relative py-fluid-xl overflow-hidden bg-brand-deep">
+        <div className="absolute inset-0 bg-radial-accent opacity-70" />
+        <div className="absolute inset-0 bg-grid-soft opacity-40" />
         <Container>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <div
-                className="inline-block px-4 py-2 rounded-full text-sm font-bold mb-6"
-                style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)', color: '#FCEE21' }}
-              >
-                SERVICIO PRINCIPAL
-              </div>
-              <h1 className="text-5xl md:text-6xl font-bold mb-6" style={{ color: '#FCEE21' }}>
-                Entrenamiento Online
-              </h1>
-              <p className="text-xl text-gray-300 mb-8 leading-relaxed">
-                Tu plan de entrenamiento personalizado en una app profesional.
-                Entrena cuando puedas, donde quieras, con seguimiento real cada semana.
-                <span style={{ color: '#FCEE21' }} className="font-bold">
-                  {' '}Adaptado a tu vida, no al revés.
+          <div className="relative grid md:grid-cols-2 gap-fluid-md items-center">
+            <div className="space-y-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
+                <Sparkles className="w-3.5 h-3.5 text-accent" />
+                <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
+                  Servicio principal
                 </span>
+              </div>
+
+              <h1 className="headline text-fluid-6xl text-white animate-fade-up">
+                Entrenamiento <span className="text-gradient-brand">online.</span>
+              </h1>
+
+              <p className="text-fluid-xl text-white/85 leading-relaxed max-w-xl font-medium animate-fade-up [animation-delay:100ms]">
+                Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento real
+                cada semana.{' '}
+                <span className="text-accent font-semibold">Adaptado a tu vida, no al revés.</span>
               </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/valoracion">
-                  <Button variant="primary" size="lg">
-                    Solicitar valoración gratuita
-                  </Button>
+
+              <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:200ms]">
+                <Link href="/valoracion" className="btn-brand text-fluid-base">
+                  Solicitar valoración gratuita
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/tarifas">
-                  <Button variant="outline" size="lg">
-                    Ver tarifas
-                  </Button>
+                <Link href="/tarifas" className="btn-ghost text-fluid-base">
+                  Ver tarifas
                 </Link>
               </div>
             </div>
-            <div className="flex justify-center">
+
+            <div className="relative flex justify-center">
+              <div className="absolute -inset-8 bg-accent/10 rounded-full blur-3xl" />
               <Image
                 src="/images/wr_app_interface.png"
                 alt="App de entrenamiento online"
                 width={350}
                 height={450}
-                className="rounded-xl border-4 border-[#FCEE21] shadow-2xl"
+                className="relative rounded-2xl border border-border-strong shadow-xl"
               />
             </div>
           </div>
         </Container>
       </section>
 
-      {/* Cómo funciona */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-20">
+      {/* ═══════════════ CÓMO FUNCIONA ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12" style={{ color: '#FCEE21' }}>
-            ¿Cómo funciona?
-          </h2>
-          <div className="grid md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {[
-              { step: '01', title: 'Hablamos', desc: 'Me cuentas tu situación, objetivos y disponibilidad. Sin compromiso.' },
-              { step: '02', title: 'Diseño tu plan', desc: 'Creo un programa 100% personalizado a tu contexto.' },
-              { step: '03', title: 'Entrenas', desc: 'Sigues tu plan desde la app. Vídeos, instrucciones, todo claro.' },
-              { step: '04', title: 'Ajustamos', desc: 'Cada semana revisamos y adaptamos según tu evolución.' },
-            ].map((item, i) => (
-              <div key={i} className="text-center">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
+            <span className="eyebrow justify-center">Cuatro pasos</span>
+            <h2 className="headline text-fluid-4xl text-white">¿Cómo funciona?</h2>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {STEPS.map((item, i) => (
+              <article key={i} className="surface-card rounded-2xl p-7 text-center hover-lift">
                 <div
-                  className="w-16 h-16 rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4"
-                  style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+                  className="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 stat-figure text-fluid-xl bg-accent text-accent-fg"
+                  style={{ boxShadow: '0 10px 28px -8px rgba(252, 238, 33, 0.5)' }}
                 >
                   {item.step}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                <p className="text-gray-400">{item.desc}</p>
-              </div>
+                <h3 className="text-fluid-lg text-white mb-2 tracking-tight">{item.title}</h3>
+                <p className="text-fluid-sm text-muted leading-relaxed">{item.desc}</p>
+              </article>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Qué incluye */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-20">
+      {/* ═══════════════ QUÉ INCLUYE ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12" style={{ color: '#FCEE21' }}>
-            ¿Qué incluye?
-          </h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {[
-              { icon: Smartphone, title: 'App profesional', desc: 'Tu plan en iOS/Android con vídeos explicativos, tracking de progreso y recordatorios.' },
-              { icon: Target, title: 'Plan 100% personalizado', desc: 'Diseñado para tu objetivo, tu nivel, tu material disponible y tu tiempo.' },
-              { icon: Clock, title: 'Flexibilidad total', desc: 'Sin horarios fijos. Entrenas cuando te venga bien, yo superviso tu progreso.' },
-              { icon: MessageCircle, title: 'Soporte directo', desc: 'Dudas, ajustes, motivación. Estoy disponible cuando me necesites.' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className="p-6 rounded-xl flex items-start gap-4"
-                style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
-              >
-                <item.icon size={32} style={{ color: '#FCEE21' }} className="flex-shrink-0" />
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
+            <span className="eyebrow justify-center">Lo que llevas</span>
+            <h2 className="headline text-fluid-4xl text-white">¿Qué incluye?</h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            {INCLUDED.map(({ icon: Icon, title, desc }, i) => (
+              <article key={i} className="surface-card rounded-2xl p-6 flex items-start gap-4 hover-lift">
+                <span className="shrink-0 w-12 h-12 rounded-xl bg-accent-muted border border-border-strong flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-accent" strokeWidth={2.2} />
+                </span>
                 <div>
-                  <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
-                  <p className="text-gray-400">{item.desc}</p>
+                  <h3 className="text-fluid-lg text-white mb-2 tracking-tight">{title}</h3>
+                  <p className="text-fluid-sm text-muted leading-relaxed">{desc}</p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </Container>
       </section>
 
-      {/* Para quién es */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-20">
+      {/* ═══════════════ PARA QUIÉN ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
         <Container>
           <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" style={{ color: '#FCEE21' }}>
-              Esto es para ti si...
-            </h2>
-            <div className="space-y-4">
-              {[
-                'Tienes poco tiempo pero quieres resultados reales',
-                'Prefieres entrenar en casa, en el gimnasio o donde sea',
-                'Quieres un plan adaptado a TU situación, no algo genérico',
-                'Valoras tener a alguien que te guíe y te ajuste el plan',
-                'Has probado apps o rutinas de internet sin éxito',
-              ].map((item, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-4 p-4 rounded-lg"
-                  style={{ backgroundColor: '#16122B' }}
-                >
-                  <Check size={24} style={{ color: '#FCEE21' }} className="flex-shrink-0 mt-0.5" />
-                  <span className="text-gray-300 text-lg">{item}</span>
+            <div className="text-center space-y-4 mb-fluid-md">
+              <span className="eyebrow justify-center">Encaja contigo si</span>
+              <h2 className="headline text-fluid-4xl text-white">
+                Esto es <span className="text-gradient-brand">para ti si...</span>
+              </h2>
+            </div>
+
+            <div className="space-y-3">
+              {FIT_ITEMS.map((item, i) => (
+                <div key={i} className="surface-card rounded-2xl flex items-start gap-4 p-5">
+                  <span className="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
+                    <Check className="w-3.5 h-3.5 text-accent" strokeWidth={3} />
+                  </span>
+                  <span className="text-fluid-base text-white/90 leading-relaxed">{item}</span>
                 </div>
               ))}
             </div>
@@ -170,45 +183,46 @@ export default function EntrenamientoOnlinePage() {
         </Container>
       </section>
 
-      {/* CTA Lead Magnet */}
-      <section style={{ backgroundColor: '#16122B' }} className="py-16">
+      {/* ═══════════════ LEAD MAGNET ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-deep">
         <Container>
-          <div
-            className="max-w-3xl mx-auto p-8 md:p-10 rounded-2xl text-center"
-            style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}
-          >
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              ¿Todavía no lo tienes claro?
+          <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+            <h2 className="headline text-fluid-3xl text-white">
+              ¿Todavía <span className="text-gradient-brand">no lo tienes claro?</span>
             </h2>
-            <p className="text-lg text-gray-300 mb-6 max-w-xl mx-auto">
-              Descarga la guía gratuita:{' '}
-              <span style={{ color: '#FCEE21' }} className="font-bold">
-                "Fitness real para gente con vida real"
-              </span>
+            <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
+              Descarga la guía gratuita{' '}
+              <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
             </p>
-            <Link href="/recurso-gratis">
-              <Button variant="primary" size="lg">
+            <div className="pt-2">
+              <Link href="/recurso-gratis" className="btn-brand text-fluid-base">
                 Descargar guía gratis
-              </Button>
-            </Link>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* CTA Final */}
-      <section style={{ backgroundColor: '#1a1535' }} className="py-20">
-        <Container className="text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6" style={{ color: '#FCEE21' }}>
-            ¿Empezamos?
-          </h2>
-          <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-            La valoración inicial es gratuita. Me cuentas tu situación y vemos si puedo ayudarte. Sin compromiso.
-          </p>
-          <Link href="/valoracion">
-            <Button variant="primary" size="lg">
-              Solicitar valoración gratuita
-            </Button>
-          </Link>
+      {/* ═══════════════ CTA FINAL ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk overflow-hidden">
+        <div className="absolute inset-0 bg-radial-accent opacity-40" />
+        <Container>
+          <div className="relative max-w-3xl mx-auto text-center space-y-8">
+            <span className="eyebrow justify-center">Último paso</span>
+            <h2 className="headline text-fluid-5xl text-white">
+              ¿<span className="text-gradient-brand">Empezamos?</span>
+            </h2>
+            <p className="text-fluid-xl text-muted leading-relaxed max-w-2xl mx-auto">
+              La valoración inicial es gratuita. Me cuentas tu situación y vemos si puedo ayudarte. Sin compromiso.
+            </p>
+            <div className="pt-2">
+              <Link href="/valoracion" className="btn-brand text-fluid-lg px-10 py-5">
+                Solicitar valoración gratuita
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </div>
         </Container>
       </section>
     </>
