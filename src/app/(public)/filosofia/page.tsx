@@ -22,32 +22,35 @@ export const metadata = buildMetadata({
 })
 
 const HEALTH_PILLARS = [
-  'Actividad física (sin piedad)',
-  'Nutrición brutal',
-  'Descanso real',
-  'Control del estrés',
-  'Fuerza mental/emocional',
-  'Vida social que suma',
-  'Higiene y entorno limpio',
+  'Moverte con regularidad',
+  'Comer bien (sin obsesionarte)',
+  'Dormir lo que tu cuerpo pide',
+  'Gestionar el estrés del día a día',
+  'Cuidar la cabeza y las emociones',
+  'Rodearte de gente que suma',
+  'Un entorno que te lo ponga fácil',
 ] as const
 
 const CIRCLE = [
   {
     icon: Activity,
-    title: 'Actividad Física',
-    description: 'Mueve el cuerpo o acepta quedarte atrás. Sube tu nivel: más fuerza, menos excusas.',
+    title: 'Moverte',
+    description:
+      'Con regularidad y del modo que encaje en tu vida. Más fuerza, más energía y menos achaques. No hace falta vivir en el gimnasio.',
     accent: true,
   },
   {
     icon: Heart,
-    title: 'Nutrición',
-    description: 'La gasolina de verdad. Si fallas aquí, fallas allá. Come para rendir y proteger tu salud.',
+    title: 'Comer bien',
+    description:
+      'Pautas flexibles, sin prohibiciones absurdas ni dietas de revista. Un modo de comer que puedas sostener años, no semanas.',
     accent: false,
   },
   {
     icon: Moon,
-    title: 'Recuperación',
-    description: 'El descanso de campeones. Dormir poco = rendir menos = fracasar antes.',
+    title: 'Descansar',
+    description:
+      'Dormir y recuperarte no es un lujo — es lo que hace que todo lo demás funcione. Sin descanso real, el cuerpo no responde.',
     accent: false,
   },
 ] as const
@@ -72,19 +75,19 @@ export default function FilosofiaPage() {
               </div>
 
               <h1 className="headline text-fluid-7xl text-white animate-fade-up">
-                Fitness real,
+                Salud real,
                 <br />
-                <span className="text-gradient-brand">cero postureo.</span>
+                <span className="text-gradient-brand">sin postureo.</span>
               </h1>
 
               <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
-                <span className="text-accent font-semibold">¿Cansado de postureo y teorías vacías?</span>{' '}
-                Aquí venimos a lo que cuenta: resultados reales que se sienten y se ven.
+                <span className="text-accent font-semibold">¿Cansado de planes que no encajan con tu vida?</span>{' '}
+                Aquí te cuento cómo lo hago: sin fórmulas mágicas, sin promesas a lo grande, sin jerga de coach.
               </p>
 
               <p className="text-fluid-base text-muted max-w-2xl leading-relaxed animate-fade-up [animation-delay:200ms]">
-                La &ldquo;salud&rdquo; de verdad es dejarse de excusas y atacar de frente lo que importa. El 80% de tu
-                bienestar es lo que haces cada día, no lo que compras ni los likes que recibes.
+                Estar bien no va de dietas perfectas ni entrenar seis días a la semana. El 80% de tu salud son los
+                hábitos que repites cada día. Ni más, ni menos.
               </p>
             </div>
           </HeroAnimation>
@@ -99,10 +102,10 @@ export default function FilosofiaPage() {
             <AnimatedSection>
               <div className="space-y-4 mb-fluid-md">
                 <span className="eyebrow">La base</span>
-                <h2 className="headline text-fluid-4xl text-white">¿Qué es la salud?</h2>
+                <h2 className="headline text-fluid-4xl text-white">¿Qué es estar sano?</h2>
                 <p className="text-fluid-lg text-muted leading-relaxed max-w-3xl">
-                  Hoy abunda la info y reinan las dudas. Aquí desterramos la confusión: el 80% de lo que te mata o te eleva
-                  son tus hábitos.
+                  Hay demasiada información y muy pocas respuestas claras. Te lo resumo: lo que más pesa en tu salud no
+                  son los superalimentos ni la última rutina viral. Son las cosas pequeñas que haces todos los días.
                 </p>
               </div>
 
@@ -115,9 +118,9 @@ export default function FilosofiaPage() {
                   &ldquo;
                 </span>
                 <blockquote className="text-fluid-2xl md:text-fluid-3xl text-white font-semibold text-center leading-[1.3] relative">
-                  Si quieres salud:{' '}
+                  Si quieres estar bien:{' '}
                   <span className="text-gradient-brand">muévete, come bien y descansa.</span>{' '}
-                  Tu círculo, tu mente y tus hábitos pueden impulsarte o hundirte. Tú eliges.
+                  Tu entorno, tu cabeza y tus hábitos suman o restan. Lo que haces cada día pesa más que cualquier plan perfecto.
                 </blockquote>
               </figure>
             </AnimatedSection>
@@ -137,8 +140,8 @@ export default function FilosofiaPage() {
                 ))}
               </ul>
               <p className="text-fluid-xl text-muted leading-relaxed text-center">
-                ¿Listo para romper el círculo vicioso y crear tu{' '}
-                <span className="text-accent font-semibold">círculo virtuoso</span>?
+                No hace falta acertar en todo. Empezar por{' '}
+                <span className="text-accent font-semibold">dos o tres de estas</span> ya cambia las cosas.
               </p>
             </StaggerChildren>
           </div>
@@ -154,11 +157,11 @@ export default function FilosofiaPage() {
               <span className="eyebrow justify-center">La propuesta</span>
               <h2 className="headline text-fluid-5xl text-white">WellnessReal no es un producto</h2>
               <p className="text-fluid-3xl text-white font-semibold">
-                Es una <span className="text-gradient-brand">filosofía de acción.</span>
+                Es una <span className="text-gradient-brand">forma de hacer las cosas.</span>
               </p>
               <p className="text-fluid-lg text-muted leading-relaxed max-w-2xl mx-auto">
-                Aquí no vendemos sueños. Vendemos el sistema, la comunidad y el choque de realidad que necesitas para
-                lograr lo que pocos logran: salud real, duradera y sin excusas.
+                No vendo sueños ni promesas de &ldquo;-20kg en 2 meses&rdquo;. Lo que hago es sentarme contigo, entender
+                tu vida real y montar algo que puedas sostener. Vida sana y vida feliz a la vez. Sin esclavitud fitness.
               </p>
             </div>
           </AnimatedSection>
@@ -172,10 +175,10 @@ export default function FilosofiaPage() {
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
               <span className="eyebrow">Los tres pilares</span>
-              <h2 className="headline text-fluid-4xl text-white">El Círculo de la Salud</h2>
+              <h2 className="headline text-fluid-4xl text-white">Las tres piezas que tienen que encajar</h2>
               <p className="text-fluid-lg text-muted leading-relaxed">
-                Aquí todo suma o todo resta. Si una pata falla, el circuito revienta. Así de simple. Entrena lo físico, lo
-                mental y lo emocional para resultados brutales… ¡o quédate como estás!
+                Si solo trabajas una, las otras tiran para abajo. Cuando las tres empujan en la misma dirección, el
+                cambio deja de depender de fuerza de voluntad. Se vuelve sostenible.
               </p>
             </div>
           </AnimatedSection>
@@ -218,10 +221,11 @@ export default function FilosofiaPage() {
           <AnimatedSection>
             <div className="text-center max-w-2xl mx-auto space-y-3">
               <p className="text-fluid-2xl text-white font-semibold">
-                Las <span className="text-gradient-brand">3 áreas están interconectadas</span>
+                Las tres están <span className="text-gradient-brand">interconectadas.</span>
               </p>
               <p className="text-fluid-base text-muted leading-relaxed">
-                Trabájalas en serio o sigue como estás. Aquí no maquillamos resultados: te ayudamos a conseguirlos.
+                Si entrenas bien pero duermes mal, no avanzas. Si comes bien pero no te mueves, tampoco. El truco no
+                está en ser perfecto en ninguna — está en no abandonar ninguna.
               </p>
             </div>
           </AnimatedSection>
@@ -235,17 +239,18 @@ export default function FilosofiaPage() {
         <Container>
           <AnimatedSection>
             <div className="relative max-w-3xl mx-auto text-center space-y-8">
-              <span className="eyebrow justify-center">El momento</span>
+              <span className="eyebrow justify-center">Si te suena</span>
               <h2 className="headline text-fluid-5xl text-white">
-                ¿Te atreves <span className="text-gradient-brand">o te quedas en la teoría?</span>
+                ¿Empezamos, <span className="text-gradient-brand">o lo dejamos para otro día?</span>
               </h2>
               <p className="text-fluid-xl text-muted leading-relaxed max-w-2xl mx-auto">
-                Empieza tu transformación ahora con la primera sesión gratuita. Sin humo, sin excusas.
+                La valoración inicial es gratuita. Me cuentas tu situación, analizo qué necesitas y te digo honestamente
+                si puedo ayudarte. Sin venderte nada.
               </p>
               <div className="pt-2">
                 <MagneticButton strength={0.25}>
                   <Link href="/valoracion" className="btn-brand text-fluid-lg px-10 py-5">
-                    Empieza tu transformación
+                    Quiero hablar contigo
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                 </MagneticButton>
