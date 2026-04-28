@@ -107,7 +107,7 @@ export default function RecursoGratisPage() {
               </p>
 
               <p className="text-fluid-base text-muted leading-relaxed">
-                Para personas con trabajo, estrés, hijos y poco tiempo. Sin postureo, sin perfección.{' '}
+                Es la guía base que doy a todos mis clientes antes de personalizar el plan. Escrita por alguien que ha acompañado a perder <span className="text-white font-semibold">35 kg en 9 meses</span> o a ganar <span className="text-white font-semibold">8 kg de músculo a los 50</span>.{' '}
                 <span className="text-accent font-semibold">Solo lo que funciona de verdad.</span>
               </p>
 
@@ -126,8 +126,8 @@ export default function RecursoGratisPage() {
             {/* Formulario */}
             <div id="formulario" className="surface-card-accent rounded-2xl p-fluid-md">
               <div className="text-center mb-6 space-y-2">
-                <h2 className="headline text-fluid-2xl text-white">Descarga la guía gratis</h2>
-                <p className="text-fluid-sm text-muted">Déjame tu email y te la envío al momento.</p>
+                <h2 className="headline text-fluid-2xl text-white">Llévate la guía gratis</h2>
+                <p className="text-fluid-sm text-muted">Los principios que aplico con todos mis clientes antes de personalizar. En tu email en menos de 1 minuto.</p>
               </div>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">

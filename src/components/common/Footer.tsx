@@ -54,10 +54,10 @@ export default function Footer() {
           <div className="max-w-2xl mx-auto text-center space-y-4">
             <span className="eyebrow justify-center">Newsletter</span>
             <h3 className="headline text-fluid-3xl text-white">
-              Consejos que funcionan. <span className="text-gradient-brand">Sin spam.</span>
+              Lo que aplico con mis clientes, <span className="text-gradient-brand">cada semana en tu email.</span>
             </h3>
             <p className="text-fluid-base text-muted max-w-xl mx-auto leading-relaxed">
-              Recibe estrategias de entrenamiento y nutrición adaptadas a gente con vida real.
+              Estrategias reales de entrenamiento y nutrición, escritas por alguien que ha acompañado a clientes a perder 35 kg en 9 meses o ganar 8 kg de músculo a los 50.
             </p>
 
             <form

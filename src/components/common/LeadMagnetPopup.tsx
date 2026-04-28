@@ -108,10 +108,10 @@ export default function LeadMagnetPopup() {
         ) : (
           <>
             <h2 id="leadmagnet-title" className="headline text-fluid-xl text-white mb-1">
-              ¡No te lo pierdas!
+              Antes de irte, llévate esto.
             </h2>
             <p className="text-fluid-sm text-muted mb-1">
-              Descarga gratis la guía:
+              La guía base que doy a todos mis clientes antes de empezar:
             </p>
             <p className="text-fluid-base font-bold text-accent mb-5">
               &ldquo;Fitness real para gente con vida real&rdquo;

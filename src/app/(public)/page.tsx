@@ -75,7 +75,7 @@ const TESTIMONIALS = [
 const PLANS = [
   { name: 'Pack 3 meses',  price: '450', period: '3 meses · 150 €/mes',  desc: 'Entrada estándar',          popular: false },
   { name: 'Pack 6 meses',  price: '750', period: '6 meses · 125 €/mes',  desc: 'El más elegido',            popular: true  },
-  { name: 'Premium',       price: '750', period: '3 meses · 250 €/mes',  desc: 'Máxima personalización',    popular: false },
+  { name: 'Premium',       price: '990', period: '3 meses · 330 €/mes',  desc: 'Acompañamiento 1-a-1',      popular: false },
 ] as const
 
 const REVIEW_SCHEMA_DATA = TESTIMONIALS.map(t => ({

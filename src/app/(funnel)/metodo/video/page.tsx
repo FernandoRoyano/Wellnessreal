@@ -130,7 +130,7 @@ export default function MetodoVideoPage() {
             {[
               {
                 q: '¿Cuánto cuesta?',
-                a: 'El Pack 3 meses arranca en 450€ (150€/mes). El Pack 6 meses Transformación — el que más eligen — en 750€ (125€/mes). El Premium con videollamada semanal en 750€/3 meses. En la valoración te digo cuál encaja mejor contigo.',
+                a: 'El Pack 3 meses arranca en 450€ (150€/mes). El Pack 6 meses Transformación — el que más eligen — en 750€ (125€/mes). El Premium con acompañamiento 1-a-1 y videollamada semanal en 990€/3 meses (330€/mes). En la valoración te digo cuál encaja mejor contigo.',
               },
               {
                 q: '¿Puedo cancelar?',

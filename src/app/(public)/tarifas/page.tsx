@@ -119,7 +119,7 @@ export default function TarifasPage() {
         data={offerSchema([
           { name: 'Pack 3 Meses', price: '450', description: 'Plan personalizado en app, 12 semanas de seguimiento con ajustes semanales, revisión mensual en profundidad y pautas nutricionales básicas.' },
           { name: 'Pack 6 Meses Transformación', price: '750', description: '26 semanas de seguimiento continuo. El tiempo real para consolidar hábitos. Mejor precio mensual del catálogo (125€/mes).' },
-          { name: 'Premium - 3 Meses', price: '750', description: 'Todo lo del Pack 3 meses + videollamada semanal, análisis mensual de composición corporal, soporte prioritario y plan nutricional completo.' },
+          { name: 'Premium - 3 Meses', price: '990', description: 'Acompañamiento 1-a-1: sesión inicial de 90 min, videollamada semanal con slot fijo, plan nutricional completo, WhatsApp prioritario con respuesta en menos de 2h y revisión quincenal del plan.' },
         ])}
       />
       <JsonLd data={faqSchema(FAQ_ITEMS.map(({ q, a }) => ({ question: q, answer: a })))} />

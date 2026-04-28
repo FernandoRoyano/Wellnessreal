@@ -4,18 +4,20 @@ import type { NextRequest } from 'next/server'
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
 
-  if (pathname.startsWith('/admin/dashboard') || pathname.startsWith('/admin/proposals') || pathname.startsWith('/admin/email')) {
-    const sessionCookie = request.cookies.get('wr_admin_session')
+  if (pathname === '/admin' || pathname === '/admin/') {
+    return NextResponse.next()
+  }
 
-    if (sessionCookie?.value !== 'authenticated') {
-      const loginUrl = new URL('/admin', request.url)
-      return NextResponse.redirect(loginUrl)
-    }
+  const sessionCookie = request.cookies.get('wr_admin_session')
+
+  if (sessionCookie?.value !== 'authenticated') {
+    const loginUrl = new URL('/admin', request.url)
+    return NextResponse.redirect(loginUrl)
   }
 
   return NextResponse.next()
 }
 
 export const config = {
-  matcher: ['/admin/dashboard/:path*', '/admin/proposals/:path*', '/admin/email/:path*'],
+  matcher: ['/admin/:path*'],
 }

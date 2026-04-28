@@ -203,7 +203,7 @@ export default function ProposalForm() {
           <optgroup label="Planes de entrenamiento online" style={{ backgroundColor: '#16122B' }}>
             <option value="pack_3meses" style={{ backgroundColor: '#16122B' }}>Pack 3 Meses — 450€ (150€/mes)</option>
             <option value="pack_6meses_transformacion" style={{ backgroundColor: '#16122B' }}>Pack 6 Meses Transformación — 750€ (125€/mes)</option>
-            <option value="premium_3meses" style={{ backgroundColor: '#16122B' }}>Premium — 750€/3 meses (250€/mes)</option>
+            <option value="premium_3meses" style={{ backgroundColor: '#16122B' }}>Premium — 990€/3 meses (330€/mes)</option>
             <option value="solo_entrenamiento_trimestral" style={{ backgroundColor: '#16122B' }}>Solo Entrenamiento — 180€/trimestre (60€/mes)</option>
             <option value="starter_1mes" style={{ backgroundColor: '#16122B' }}>Starter — 120€/mes (legacy)</option>
           </optgroup>

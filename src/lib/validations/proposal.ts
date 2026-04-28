@@ -51,9 +51,9 @@ export const planPresets: Record<(typeof serviceTypes)[number], PlanPreset> = {
     description: '6 meses de trabajo conjunto. Seguimiento semanal continuo, ajustes del plan en función de tu evolución y el tiempo real para consolidar hábitos que se quedan. El mejor precio mensual por el compromiso largo.',
   },
   premium_3meses: {
-    price: 750,
+    price: 990,
     duration: '3 meses',
-    description: 'Videollamada semanal, análisis mensual de progreso, soporte prioritario WhatsApp y plan nutricional completo incluido.',
+    description: 'Acompañamiento 1-a-1: sesión inicial de 90 min, videollamada semanal con slot fijo, plan nutricional completo (macros + menú + recetas), WhatsApp prioritario con respuesta en menos de 2h, revisión quincenal y análisis mensual de composición corporal con protocolo guiado.',
   },
   solo_entrenamiento_trimestral: {
     price: 180,
