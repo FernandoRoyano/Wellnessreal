@@ -39,8 +39,11 @@ next-env.d.ts
 
 .vercel
 
-# Claude
+# Claude / sistema personal de desarrollo
 .claude/
+CLAUDE.md
+skills/
+MEMORIA_PARCHES.md
 
 # Temp files
 nul
