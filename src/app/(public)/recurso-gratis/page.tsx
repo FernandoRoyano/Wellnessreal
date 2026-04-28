@@ -17,10 +17,10 @@ const newsletterSchema = z.object({
 type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 const BENEFITS = [
-  'Por qué el "todo o nada" te sabotea',
-  'Cómo adaptar el fitness a TU contexto',
-  'Las 3 prioridades que realmente importan',
-  'Plan de acción para empezar esta semana',
+  'Por qué el "todo o nada" te mantiene estancado',
+  'El sistema de "mínimos no negociables" para semanas buenas, normales y caóticas',
+  'Las 3 prioridades reales: entrenamiento, nutrición y descanso',
+  '7 acciones concretas que puedes implementar hoy mismo',
 ] as const
 
 const IS_FOR = [
