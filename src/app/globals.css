@@ -428,3 +428,48 @@
 .tiptap img { border-radius: var(--radius-sm); max-width: 100%; margin: 1rem 0; }
 .tiptap hr  { border-color: rgba(102, 45, 145, 0.3); margin: 1.5rem 0; }
 .tiptap strong { color: #fff; }
+
+/* Tablas — editor (.tiptap) y vista pública del blog (.markdown-content) */
+.tiptap table,
+.markdown-content table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+}
+.tiptap th,
+.markdown-content th {
+  background-color: #16122B;
+  color: var(--color-accent);
+  font-weight: 700;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border: 1px solid #2a2348;
+}
+.tiptap td,
+.markdown-content td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #2a2348;
+  vertical-align: top;
+  color: #d1d5db;
+}
+.tiptap tr:nth-child(even) td,
+.markdown-content tr:nth-child(even) td {
+  background-color: rgba(102, 45, 145, 0.08);
+}
+.tiptap .selectedCell {
+  background-color: rgba(252, 238, 33, 0.15);
+}
+.tiptap .column-resize-handle {
+  background-color: var(--color-accent);
+  bottom: 0;
+  position: absolute;
+  right: -2px;
+  pointer-events: none;
+  top: 0;
+  width: 2px;
+}
+.tiptap table { position: relative; }
+.tiptap.resize-cursor { cursor: col-resize; }
