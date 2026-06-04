@@ -56,10 +56,11 @@ export default function LeadMagnetPopup() {
     e.preventDefault()
     setStatus('loading')
     try {
+      const { getAttributionForSubmit } = await import('@/lib/tracking')
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name }),
+        body: JSON.stringify({ email, name, _source: 'popup', _attribution: getAttributionForSubmit() }),
       })
       if (!res.ok) throw new Error()
       localStorage.setItem(LOCAL_KEY, '1')

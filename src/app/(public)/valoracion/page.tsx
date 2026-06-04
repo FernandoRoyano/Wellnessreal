@@ -97,10 +97,11 @@ export default function ValoracionPage() {
     setSubmitting(true)
     setError('')
     try {
+      const { getAttributionForSubmit } = await import('@/lib/tracking')
       const res = await fetch('/api/valoracion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, _attribution: getAttributionForSubmit() }),
       })
       if (!res.ok) throw new Error('Error al enviar')
       trackGenerateLead()

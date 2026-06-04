@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { captureLead } from '@/lib/leadCapture'
 
 // API para suscripción a newsletter + envío de guía gratuita por email
 
@@ -92,7 +93,7 @@ async function sendGuideEmail(email: string, name: string) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { email, name } = body
+    const { email, name, _attribution, _source } = body
 
     if (!email) {
       return NextResponse.json(
@@ -119,6 +120,16 @@ export async function POST(request: NextRequest) {
         { status: 500 }
       )
     }
+
+    // Guardar lead en Supabase (no bloqueante: si falla seguimos)
+    await captureLead({
+      request,
+      email,
+      name: name || null,
+      source: 'guia',
+      attribution: _attribution,
+      tags: _source ? [`form:${_source}`] : [],
+    })
 
     // Enviar guía por email siempre (independiente de MailerLite)
     sendGuideEmail(email, name || '').catch(() => {})

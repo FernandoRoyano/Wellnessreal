@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { Montserrat, Bricolage_Grotesque } from 'next/font/google'
 import Script from 'next/script'
 import JsonLd, { organizationSchema } from '@/components/seo/JsonLd'
 import WhatsAppBubble from '@/components/common/WhatsAppBubble'
+import TrackingScripts from '@/components/analytics/TrackingScripts'
 import './globals.css'
 
 const montserrat = Montserrat({
@@ -98,6 +100,9 @@ export default function RootLayout({
         )}
       </head>
       <body className="bg-brand-deep text-white antialiased">
+        <Suspense fallback={null}>
+          <TrackingScripts />
+        </Suspense>
         {children}
         <WhatsAppBubble />
       </body>

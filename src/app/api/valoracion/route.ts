@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { captureLead } from '@/lib/leadCapture'
 
 const objectiveLabels: Record<string, string> = {
   'perder-grasa': 'Perder grasa',
@@ -43,11 +44,28 @@ export async function POST(request: NextRequest) {
       daysPerWeek, sessionDuration, schedule, modality,
       injuries, medicalConditions, diet,
       expectations, budget, source,
+      _attribution,
     } = body
 
     if (!name || !email || !phone || !objective || !level) {
       return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
     }
+
+    // Guardar lead en Supabase (no bloqueante)
+    await captureLead({
+      request,
+      email,
+      name,
+      phone,
+      source: 'valoracion',
+      attribution: _attribution,
+      form_data: {
+        age, objective, objectiveDetail, level, currentlyTraining, trainingDetail,
+        daysPerWeek, sessionDuration, schedule, modality,
+        injuries, medicalConditions, diet,
+        expectations, budget, knownFrom: source,
+      },
+    })
 
     // Email to business owner
     const businessHtml = `

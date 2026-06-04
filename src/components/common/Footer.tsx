@@ -26,10 +26,11 @@ export default function Footer() {
 
     setStatus('loading')
     try {
+      const { getAttributionForSubmit } = await import('@/lib/tracking')
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, _source: 'footer', _attribution: getAttributionForSubmit() }),
       })
       if (!response.ok) throw new Error()
       setStatus('success')

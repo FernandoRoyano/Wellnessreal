@@ -21,10 +21,11 @@ export default function MetodoOptInForm() {
     setError('')
 
     try {
+      const { getAttributionForSubmit } = await import('@/lib/tracking')
       const res = await fetch('/api/metodo-optin', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone }),
+        body: JSON.stringify({ name, email, phone, _attribution: getAttributionForSubmit() }),
       })
 
       if (!res.ok) throw new Error('Error')

@@ -60,10 +60,11 @@ export default function RecursoGratisPage() {
   const onSubmit = async (data: NewsletterFormData) => {
     try {
       setError('')
+      const { getAttributionForSubmit } = await import('@/lib/tracking')
       const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, _attribution: getAttributionForSubmit() }),
       })
       if (!response.ok) throw new Error('Error al suscribir')
 

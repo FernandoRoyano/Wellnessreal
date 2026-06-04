@@ -1,14 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { captureLead } from '@/lib/leadCapture'
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { name, email, phone } = body
+    const { name, email, phone, _attribution } = body
 
     if (!name || !email || !phone) {
       return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
     }
+
+    // Guardar lead en Supabase (no bloqueante)
+    await captureLead({
+      request,
+      email,
+      name,
+      phone,
+      source: 'metodo-optin',
+      attribution: _attribution,
+    })
 
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'
     const videoUrl = `${baseUrl}/metodo/video`
