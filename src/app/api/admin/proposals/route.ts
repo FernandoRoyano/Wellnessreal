@@ -62,7 +62,11 @@ export async function POST(request: NextRequest) {
       notes: data.notes || '',
     })
 
-    const clientUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/cliente/${token}`
+    // Derivar la URL base del request (resiliente: no depende de NEXT_PUBLIC_BASE_URL)
+    const host = request.headers.get('host') || 'wellnessreal.es'
+    const proto = request.headers.get('x-forwarded-proto') || (host.includes('localhost') ? 'http' : 'https')
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || `${proto}://${host}`
+    const clientUrl = `${baseUrl}/cliente/${token}`
 
     return NextResponse.json({
       success: true,
