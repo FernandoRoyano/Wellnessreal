@@ -75,6 +75,7 @@ export async function POST(request: NextRequest) {
     })
   } catch (err) {
     console.error('[POST /api/admin/proposals]', err)
-    return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
+    const message = err instanceof Error ? err.message : 'Error desconocido'
+    return NextResponse.json({ error: 'Error en el servidor', detail: message }, { status: 500 })
   }
 }
