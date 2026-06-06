@@ -49,6 +49,8 @@ Imagina la grasa subcutánea dividida en pequeños compartimentos por unas banda
 
 En los hombres, en cambio, esos septos se disponen en cruz, en diagonal, sujetando la grasa mucho mejor. Por eso solo alrededor del 2% de los hombres la desarrolla, y las mujeres casi todas. **No es cuestión de cuánta grasa tienes, sino de cómo está sujeta.** Por eso una mujer delgada y tonificada también puede tenerla.
 
+![Infografía: estructura interna de la piel en mujeres y hombres. En la mujer los tabiques fibrosos son perpendiculares y la grasa empuja hacia la superficie creando piel de naranja; en el hombre los tabiques están en diagonal y la piel se mantiene lisa.](https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/1780774768468-celulitis-septos-fibrosos-mujer-vs-hombre.png)
+
 > La celulitis no es exceso de grasa. Es la arquitectura natural de la piel femenina haciendo lo que hace en 9 de cada 10 mujeres.
 
 ---
