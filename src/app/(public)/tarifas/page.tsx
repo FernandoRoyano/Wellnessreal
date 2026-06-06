@@ -4,7 +4,6 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
-import PlanSelector from '@/components/sections/PlanSelector'
 import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
 import HeroAnimation from '@/components/animations/HeroAnimation'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -141,7 +140,7 @@ export default function TarifasPage() {
               </div>
 
               <h1 className="headline text-fluid-7xl text-white animate-fade-up">
-                Planes que se <span className="text-gradient-brand">adaptan a ti.</span>
+                Planes hechos para <span className="text-gradient-brand">gente con vida real.</span>
               </h1>
 
               <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
@@ -192,15 +191,6 @@ export default function TarifasPage() {
               </article>
             ))}
           </StaggerChildren>
-        </Container>
-      </section>
-
-      {/* ═══════════════ SELECTOR ACORDEÓN ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-deep">
-        <Container>
-          <AnimatedSection>
-            <PlanSelector />
-          </AnimatedSection>
         </Container>
       </section>
 

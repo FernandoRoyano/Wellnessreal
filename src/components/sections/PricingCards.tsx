@@ -1,7 +1,8 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Check, ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import { Check, ArrowRight, ShieldCheck, MessageCircle } from 'lucide-react'
 import Container from '@/components/common/Container'
 import { trackViewPricing, trackClickPlan } from '@/lib/analytics'
 import { useStagger, useReveal } from '@/hooks/useGSAP'
@@ -26,6 +27,8 @@ type PlanProps = {
   trackId: string
   featured?: boolean
   bestPriceNote?: string
+  monthlyFirst?: boolean
+  priceComparison?: string
 }
 
 function PlanCard({ plan }: { plan: PlanProps }) {
@@ -52,17 +55,37 @@ function PlanCard({ plan }: { plan: PlanProps }) {
       </div>
 
       <div className="mb-6 pb-6 border-b border-border-subtle">
-        <div className="flex items-baseline gap-1">
-          <span className="stat-figure text-fluid-6xl text-accent">{plan.price}</span>
-          <span className="text-fluid-xl text-accent font-bold">€</span>
-          <span className="text-fluid-sm text-muted ml-2">/ {plan.periodLabel}</span>
-        </div>
-        <p className={'text-fluid-xs mt-1 ' + (plan.bestPriceNote ? 'text-success font-semibold' : 'text-subtle')}>
-          {plan.bestPriceNote ?? `${plan.monthly}/mes`}
-        </p>
+        {plan.monthlyFirst ? (
+          <>
+            <div className="flex items-baseline gap-1">
+              <span className="stat-figure text-fluid-6xl text-accent">{plan.monthly.replace('€', '')}</span>
+              <span className="text-fluid-xl text-accent font-bold">€</span>
+              <span className="text-fluid-sm text-muted ml-2">/ mes</span>
+            </div>
+            <p className="text-fluid-xs text-subtle mt-1">
+              {plan.price}€ pago único · {plan.periodLabel}
+            </p>
+          </>
+        ) : (
+          <>
+            <div className="flex items-baseline gap-1">
+              <span className="stat-figure text-fluid-6xl text-accent">{plan.price}</span>
+              <span className="text-fluid-xl text-accent font-bold">€</span>
+              <span className="text-fluid-sm text-muted ml-2">/ {plan.periodLabel}</span>
+            </div>
+            <p className={'text-fluid-xs mt-1 ' + (plan.bestPriceNote ? 'text-success font-semibold' : 'text-subtle')}>
+              {plan.bestPriceNote ?? `${plan.monthly}/mes`}
+            </p>
+          </>
+        )}
+        {plan.priceComparison && (
+          <p className="text-fluid-xs text-muted/80 mt-2 leading-relaxed italic">
+            {plan.priceComparison}
+          </p>
+        )}
       </div>
 
-      <ul className="space-y-3 mb-8 flex-1">
+      <ul className="space-y-3 mb-6 flex-1">
         {plan.features.map((f, i) => (
           <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/85">
             <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
@@ -73,21 +96,43 @@ function PlanCard({ plan }: { plan: PlanProps }) {
         ))}
       </ul>
 
-      <a
-        href={whatsappUrl(`${plan.name} (${plan.price}€)`)}
-        onClick={() => trackClickPlan(plan.trackId)}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={
-          'mt-auto inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-fluid-sm transition-all ' +
-          (plan.featured
-            ? 'btn-brand'
-            : 'border border-border text-white hover:bg-accent-muted hover:border-border-strong')
-        }
-      >
-        {plan.cta}
-        <ArrowRight className="w-4 h-4" />
-      </a>
+      <div className="mt-auto space-y-3">
+        <div className="flex items-center justify-center gap-3 text-fluid-xs text-white/60 pb-1">
+          <span className="inline-flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
+            Sin permanencia
+          </span>
+          <span className="text-border-strong">·</span>
+          <span className="inline-flex items-center gap-1">
+            <ShieldCheck className="w-3.5 h-3.5 text-success" />
+            Garantía de resultados
+          </span>
+        </div>
+
+        <Link
+          href={`/valoracion?plan=${plan.trackId}`}
+          onClick={() => trackClickPlan(plan.trackId)}
+          className={
+            'inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-fluid-sm transition-all ' +
+            (plan.featured
+              ? 'btn-brand'
+              : 'border border-border text-white hover:bg-accent-muted hover:border-border-strong')
+          }
+        >
+          {plan.cta}
+          <ArrowRight className="w-4 h-4" />
+        </Link>
+
+        <a
+          href={whatsappUrl(`${plan.name} (${plan.price}€)`)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center gap-2 text-fluid-xs text-muted hover:text-accent transition-colors"
+        >
+          <MessageCircle className="w-3.5 h-3.5" />
+          ¿Tienes dudas? Pregúntame por WhatsApp
+        </a>
+      </div>
     </div>
   )
 }
@@ -152,8 +197,10 @@ const ONLINE_PLANS: PlanProps[] = [
       'Análisis de composición corporal mensual con protocolo guiado',
       'Adaptación express ante viajes, lesiones o imprevistos en menos de 24h',
     ],
-    cta: 'Consultar disponibilidad',
+    cta: 'Reservar plaza Premium',
     trackId: 'premium_3meses',
+    monthlyFirst: true,
+    priceComparison: 'Un entrenador presencial en Madrid son 240–320€/mes solo en sesiones. Aquí incluye plan, nutrición, WhatsApp directo y videollamada semanal.',
   },
 ]
 

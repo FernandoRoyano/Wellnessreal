@@ -44,6 +44,7 @@ export async function POST(request: NextRequest) {
       daysPerWeek, sessionDuration, schedule, modality,
       injuries, medicalConditions, diet,
       expectations, budget, source,
+      interestedPlan,
       _attribution,
     } = body
 
@@ -59,11 +60,13 @@ export async function POST(request: NextRequest) {
       phone,
       source: 'valoracion',
       attribution: _attribution,
+      tags: interestedPlan ? [`plan:${interestedPlan}`] : [],
       form_data: {
         age, objective, objectiveDetail, level, currentlyTraining, trainingDetail,
         daysPerWeek, sessionDuration, schedule, modality,
         injuries, medicalConditions, diet,
         expectations, budget, knownFrom: source,
+        interestedPlan: interestedPlan || null,
       },
     })
 

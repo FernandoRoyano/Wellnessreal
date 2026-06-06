@@ -1,12 +1,33 @@
 'use client'
 
 import Container from '@/components/common/Container'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import {
   ChevronRight, ChevronLeft, User, Target, Dumbbell, Calendar, Heart, Send, AlertCircle, Sparkles,
 } from 'lucide-react'
 import { trackGenerateLead } from '@/lib/analytics'
+
+const PLAN_LABELS: Record<string, string> = {
+  pack_3meses: 'Pack 3 meses',
+  pack_6meses_transformacion: 'Pack 6 meses Transformación',
+  premium_3meses: 'Premium',
+  starter_1mes: 'Starter 1 mes',
+  solo_entrenamiento_trimestral: 'Solo entrenamiento trimestral',
+  entrenamiento_presencial: 'Entrenamiento presencial',
+  consulta_nutricion: 'Consulta de nutrición',
+  analisis_corporal: 'Análisis corporal',
+  sesion_osteopatia: 'Sesión de osteopatía',
+  pack_combinado: 'Pack combinado',
+  personalizado: 'Plan personalizado',
+}
+
+// Sugerir tramo de presupuesto según el plan del que viene
+const PLAN_BUDGET: Record<string, string> = {
+  pack_3meses: '100-200',
+  pack_6meses_transformacion: '100-200',
+  premium_3meses: 'mas-300',
+}
 
 const TOTAL_STEPS = 6
 
@@ -73,6 +94,20 @@ export default function ValoracionPage() {
   const [data, setData]           = useState<FormData>(initialData)
   const [error, setError]         = useState('')
   const [submitting, setSubmitting] = useState(false)
+  const [interestedPlan, setInterestedPlan] = useState<string>('')
+
+  // Leer ?plan=... de la URL al cargar y pre-seleccionar budget cuando aplique
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const planParam = new URLSearchParams(window.location.search).get('plan')
+    if (planParam && PLAN_LABELS[planParam]) {
+      setInterestedPlan(planParam)
+      const suggestedBudget = PLAN_BUDGET[planParam]
+      if (suggestedBudget) {
+        setData((prev) => ({ ...prev, budget: prev.budget || suggestedBudget }))
+      }
+    }
+  }, [])
 
   const update = (field: keyof FormData, value: string) => {
     setData((prev) => ({ ...prev, [field]: value }))
@@ -101,7 +136,11 @@ export default function ValoracionPage() {
       const res = await fetch('/api/valoracion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...data, _attribution: getAttributionForSubmit() }),
+        body: JSON.stringify({
+          ...data,
+          interestedPlan: interestedPlan || undefined,
+          _attribution: getAttributionForSubmit(),
+        }),
       })
       if (!res.ok) throw new Error('Error al enviar')
       trackGenerateLead()
@@ -164,6 +203,12 @@ export default function ValoracionPage() {
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
               Responde unas preguntas para que pueda analizar tu caso y proponerte un plan real.
             </p>
+            {interestedPlan && PLAN_LABELS[interestedPlan] && (
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-accent/40 bg-accent-soft text-accent text-fluid-sm font-semibold">
+                <Target className="w-4 h-4" />
+                <span>Vienes del <strong>{PLAN_LABELS[interestedPlan]}</strong> — lo ajustamos a tu caso real</span>
+              </div>
+            )}
           </div>
 
           {/* Progress */}
