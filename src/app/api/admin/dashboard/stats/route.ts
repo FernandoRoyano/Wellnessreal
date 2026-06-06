@@ -94,15 +94,22 @@ export async function GET() {
       .filter(p => pendingPayStatuses.includes(p.status))
       .sort((a, b) => (a.signed_at || a.created_at).localeCompare(b.signed_at || b.created_at))
       .slice(0, 10)
-      .map(p => ({
-        id: p.id,
-        clientName: p.client_name,
-        serviceLabel: p.service_label,
-        price: Number(p.price),
-        status: p.status,
-        signedAt: p.signed_at,
-        paymentMethod: p.payment_method,
-      }))
+      .map(p => {
+        const refTime = p.signed_at ? new Date(p.signed_at).getTime() : null
+        const daysSinceSign = refTime !== null
+          ? Math.floor((nowMs - refTime) / DAY_MS)
+          : null
+        return {
+          id: p.id,
+          clientName: p.client_name,
+          serviceLabel: p.service_label,
+          price: Number(p.price),
+          status: p.status,
+          signedAt: p.signed_at,
+          daysSinceSign,
+          paymentMethod: p.payment_method,
+        }
+      })
 
     // ────────────────────────────────────────────────────────────────────
     // BLOG stats

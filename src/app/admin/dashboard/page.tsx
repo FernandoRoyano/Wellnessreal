@@ -27,6 +27,7 @@ interface PendingPayment {
   price: number
   status: string
   signedAt: string | null
+  daysSinceSign: number | null
   paymentMethod: string | null
 }
 
@@ -715,26 +716,22 @@ function PendingPaymentsBlock({ payments, pendingRevenue }: { payments: PendingP
             <p className="text-xs text-gray-500 mt-1">{payments.length} propuesta{payments.length === 1 ? '' : 's'} firmada{payments.length === 1 ? '' : 's'} sin cobrar</p>
           </div>
           <div className="space-y-2">
-            {payments.map((p) => {
-              const daysSince = p.signedAt
-                ? Math.floor((Date.now() - new Date(p.signedAt).getTime()) / (1000 * 60 * 60 * 24))
-                : null
-              return (
-                <Link
-                  key={p.id}
-                  href={`/admin/proposals/${p.id}`}
-                  className="flex items-center justify-between p-3 rounded-lg transition-all hover:bg-white/5 group"
-                  style={{ border: '1px solid rgba(102,45,145,0.2)' }}
-                >
+            {payments.map((p) => (
+              <Link
+                key={p.id}
+                href={`/admin/proposals/${p.id}`}
+                className="flex items-center justify-between p-3 rounded-lg transition-all hover:bg-white/5 group"
+                style={{ border: '1px solid rgba(102,45,145,0.2)' }}
+              >
                   <div className="min-w-0">
                     <p className="text-white text-sm font-medium truncate group-hover:text-[#FCEE21] transition">
                       {p.clientName}
                     </p>
                     <p className="text-gray-500 text-xs truncate">
                       {p.serviceLabel}
-                      {daysSince !== null && (
+                      {p.daysSinceSign !== null && (
                         <span className="ml-2 text-gray-600">
-                          {daysSince === 0 ? 'firmado hoy' : `firmado hace ${daysSince}d`}
+                          {p.daysSinceSign === 0 ? 'firmado hoy' : `firmado hace ${p.daysSinceSign}d`}
                         </span>
                       )}
                     </p>
@@ -748,9 +745,8 @@ function PendingPaymentsBlock({ payments, pendingRevenue }: { payments: PendingP
                       <p className="text-[10px] text-gray-500">Stripe</p>
                     )}
                   </div>
-                </Link>
-              )
-            })}
+              </Link>
+            ))}
           </div>
         </>
       )}
