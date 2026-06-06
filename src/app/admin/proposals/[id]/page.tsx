@@ -5,7 +5,23 @@ import { useParams } from 'next/navigation'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import ProposalStatusBadge from '@/components/admin/ProposalStatusBadge'
 import { useRouter } from 'next/navigation'
-import { Copy, Check, User, Mail, Phone, FileText, CreditCard, Clock, Trash2 } from 'lucide-react'
+import { Copy, Check, User, Mail, Phone, FileText, CreditCard, Clock, Trash2, Settings } from 'lucide-react'
+
+const STATUS_OPTIONS = [
+  { value: 'pending', label: 'Pendiente (sin abrir)' },
+  { value: 'viewed', label: 'Vista por cliente' },
+  { value: 'signed', label: 'Firmada' },
+  { value: 'payment_pending', label: 'Pago pendiente' },
+  { value: 'paid', label: 'Pagada' },
+  { value: 'confirmed', label: 'Confirmada (cobrada)' },
+] as const
+
+const PAYMENT_METHOD_OPTIONS = [
+  { value: '', label: 'No seleccionado' },
+  { value: 'stripe', label: 'Stripe (tarjeta)' },
+  { value: 'transfer', label: 'Transferencia' },
+  { value: 'cash', label: 'Efectivo / fuera del sistema' },
+] as const
 
 interface Proposal {
   _id: string
@@ -42,6 +58,9 @@ export default function ProposalDetailPage() {
   const [savingNotes, setSavingNotes] = useState(false)
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
   const [deleting, setDeleting] = useState(false)
+  const [newStatus, setNewStatus] = useState('')
+  const [newPaymentMethod, setNewPaymentMethod] = useState('')
+  const [savingStatus, setSavingStatus] = useState(false)
   const router = useRouter()
 
   useEffect(() => {
@@ -50,6 +69,8 @@ export default function ProposalDetailPage() {
       .then((data) => {
         setProposal(data.proposal)
         setNotes(data.proposal?.notes || '')
+        setNewStatus(data.proposal?.status || '')
+        setNewPaymentMethod(data.proposal?.paymentMethod || '')
       })
       .catch(() => {})
       .finally(() => setLoading(false))
@@ -94,6 +115,57 @@ export default function ProposalDetailPage() {
       // ignore
     } finally {
       setSavingNotes(false)
+    }
+  }
+
+  const saveStatusChange = async () => {
+    if (!proposal) return
+    if (newStatus === proposal.status && newPaymentMethod === (proposal.paymentMethod || '')) return
+    setSavingStatus(true)
+    try {
+      const body: Record<string, unknown> = {}
+      if (newStatus !== proposal.status) body.status = newStatus
+      if (newPaymentMethod !== (proposal.paymentMethod || '')) body.payment_method = newPaymentMethod || null
+      const res = await fetch(`/api/admin/proposals/${proposal._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setProposal(data.proposal)
+        setNewStatus(data.proposal.status)
+        setNewPaymentMethod(data.proposal.paymentMethod || '')
+      }
+    } catch {
+      // ignore
+    } finally {
+      setSavingStatus(false)
+    }
+  }
+
+  const markAsPaid = async () => {
+    if (!proposal) return
+    setSavingStatus(true)
+    try {
+      const res = await fetch(`/api/admin/proposals/${proposal._id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          status: 'confirmed',
+          payment_method: newPaymentMethod || 'cash',
+        }),
+      })
+      if (res.ok) {
+        const data = await res.json()
+        setProposal(data.proposal)
+        setNewStatus(data.proposal.status)
+        setNewPaymentMethod(data.proposal.paymentMethod || '')
+      }
+    } catch {
+      // ignore
+    } finally {
+      setSavingStatus(false)
     }
   }
 
@@ -234,7 +306,68 @@ export default function ProposalDetailPage() {
                 {confirming ? 'Confirmando...' : 'Confirmar pago'}
               </button>
             )}
+
+            {proposal.status !== 'confirmed' && proposal.status !== 'paid' && (
+              <button
+                onClick={markAsPaid}
+                disabled={savingStatus}
+                className="w-full mt-2 py-2 rounded-lg text-sm font-bold transition-all disabled:opacity-50 border"
+                style={{ borderColor: 'rgba(74,222,128,0.4)', color: '#4ade80', backgroundColor: 'transparent' }}
+              >
+                {savingStatus ? 'Guardando...' : 'Marcar como cobrado manualmente'}
+              </button>
+            )}
           </div>
+        </div>
+
+        {/* Control manual de estado y método de pago */}
+        <div
+          className="rounded-xl p-6 mt-6"
+          style={{ backgroundColor: '#1a1535', border: '1px solid rgba(102, 45, 145, 0.3)' }}
+        >
+          <h3 className="font-bold text-white mb-1 flex items-center gap-2">
+            <Settings size={18} style={{ color: '#FCEE21' }} />
+            Cambiar estado manualmente
+          </h3>
+          <p className="text-xs text-gray-500 mb-4">
+            Forzar el estado o el método de pago si el cliente te pagó por fuera del sistema o necesitas corregir algo. Las fechas del historial se ajustan solas.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Estado</label>
+              <select
+                value={newStatus}
+                onChange={(e) => setNewStatus(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-lg text-white text-sm outline-none"
+                style={{ backgroundColor: '#16122B', border: '1px solid #662D91' }}
+              >
+                {STATUS_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs text-gray-400 mb-1 uppercase tracking-wider">Método de pago</label>
+              <select
+                value={newPaymentMethod}
+                onChange={(e) => setNewPaymentMethod(e.target.value)}
+                className="w-full px-3 py-2.5 rounded-lg text-white text-sm outline-none"
+                style={{ backgroundColor: '#16122B', border: '1px solid #662D91' }}
+              >
+                {PAYMENT_METHOD_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <button
+            onClick={saveStatusChange}
+            disabled={savingStatus || (newStatus === proposal.status && newPaymentMethod === (proposal.paymentMethod || ''))}
+            className="mt-4 px-5 py-2 rounded-lg text-sm font-bold transition-all disabled:opacity-50"
+            style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+          >
+            {savingStatus ? 'Aplicando...' : 'Aplicar cambio'}
+          </button>
         </div>
 
         {/* Timeline */}
