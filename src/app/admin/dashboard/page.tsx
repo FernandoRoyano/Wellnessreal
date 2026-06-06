@@ -9,9 +9,37 @@ import {
   TrendingUp, CreditCard, ArrowRightLeft, Clock,
   Pen, Mail, Link2, Copy, ExternalLink, Check,
   PlayCircle, ClipboardList, Gift, MessageCircle, Target,
+  AlertTriangle, ChevronRight, UserPlus, ArrowUpRight, ArrowDownRight, ArrowRight,
 } from 'lucide-react'
 
+interface AttentionItem {
+  type: string
+  severity: 'critical' | 'warning' | 'info'
+  label: string
+  count: number
+  href: string
+}
+
+interface PendingPayment {
+  id: string
+  clientName: string
+  serviceLabel: string
+  price: number
+  status: string
+  signedAt: string | null
+  paymentMethod: string | null
+}
+
 interface DashboardStats {
+  summary: {
+    hour: number
+    leadsThisWeek: number
+    leadsPrevWeek: number
+    thisMonthRevenue: number
+    lastMonthRevenue: number
+    attentionCount: number
+  }
+  attention: AttentionItem[]
   proposals: {
     total: number
     statusCounts: Record<string, number>
@@ -21,6 +49,8 @@ interface DashboardStats {
     conversionRate: number
     thisMonth: number
     lastMonth: number
+    thisMonthRevenue: number
+    lastMonthRevenue: number
     stripePayments: number
     transferPayments: number
     recent: {
@@ -31,6 +61,16 @@ interface DashboardStats {
       status: string
       createdAt: string
     }[]
+    pendingPayments: PendingPayment[]
+  }
+  leads: {
+    total: number
+    byStatus: Record<string, number>
+    topSources: { source: string; count: number }[]
+    thisWeek: number
+    prevWeek: number
+    uncontactedOver24h: number
+    uncontactedSample: { id: string; name: string; hoursAgo: number }[]
   }
   blog: {
     published: number
@@ -80,6 +120,13 @@ export default function AdminDashboardPage() {
           <div className="text-center py-20 text-gray-400">Cargando métricas...</div>
         ) : (
           <>
+            {/* ────── Resumen ejecutivo + Atención requerida ────── */}
+            <ExecutiveSummary stats={stats} />
+
+            {stats.attention.length > 0 && (
+              <AttentionBlock items={stats.attention} />
+            )}
+
             {/* Row 1: KPIs */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <KPICard
@@ -227,6 +274,12 @@ export default function AdminDashboardPage() {
                   </Card>
                 </div>
               </div>
+            </div>
+
+            {/* Row 2.7: Leads + Próximos cobros */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+              <LeadsBlock leads={stats.leads} />
+              <PendingPaymentsBlock payments={stats.proposals.pendingPayments} pendingRevenue={stats.proposals.pendingRevenue} />
             </div>
 
             {/* Row 2.5: Páginas de captación */}
@@ -460,5 +513,247 @@ function CaptureCard({
         </a>
       </div>
     </div>
+  )
+}
+
+// ════════════════════════════════════════════════════════════════════════
+// Bloques nuevos del dashboard
+// ════════════════════════════════════════════════════════════════════════
+
+function ExecutiveSummary({ stats }: { stats: DashboardStats }) {
+  const { summary } = stats
+  const hour = summary.hour
+  const greeting = hour < 6 ? 'Buenas noches' : hour < 13 ? 'Buenos días' : hour < 21 ? 'Buenas tardes' : 'Buenas noches'
+
+  const weekDelta = summary.leadsThisWeek - summary.leadsPrevWeek
+  const weekDeltaPct = summary.leadsPrevWeek > 0
+    ? Math.round((weekDelta / summary.leadsPrevWeek) * 100)
+    : (summary.leadsThisWeek > 0 ? 100 : 0)
+
+  const revenueDelta = summary.thisMonthRevenue - summary.lastMonthRevenue
+  const revenueDeltaPct = summary.lastMonthRevenue > 0
+    ? Math.round((revenueDelta / summary.lastMonthRevenue) * 100)
+    : (summary.thisMonthRevenue > 0 ? 100 : 0)
+
+  return (
+    <div
+      className="rounded-xl p-6 mb-6"
+      style={{ backgroundColor: '#1a1535', border: '1px solid rgba(252,238,33,0.2)' }}
+    >
+      <p className="text-fluid-sm text-gray-400">
+        {greeting}, Fernando.
+      </p>
+      <p className="text-white text-lg md:text-xl font-medium mt-1 leading-relaxed">
+        {summary.leadsThisWeek === 0 && summary.thisMonthRevenue === 0 ? (
+          <>Hoy es un buen día para construir el embudo. Sin actividad nueva todavía esta semana.</>
+        ) : (
+          <>
+            Esta semana llevas <strong style={{ color: '#FCEE21' }}>{summary.leadsThisWeek} leads</strong>
+            {summary.leadsPrevWeek > 0 && (
+              <span style={{ color: weekDelta >= 0 ? '#4ade80' : '#f87171' }}>
+                {' '}({weekDelta >= 0 ? '+' : ''}{weekDeltaPct}% vs anterior)
+              </span>
+            )}
+            . Este mes <strong style={{ color: '#FCEE21' }}>{summary.thisMonthRevenue.toLocaleString('es-ES')}€</strong> cobrados
+            {summary.lastMonthRevenue > 0 && (
+              <span style={{ color: revenueDelta >= 0 ? '#4ade80' : '#f87171' }}>
+                {' '}({revenueDelta >= 0 ? '+' : ''}{revenueDeltaPct}% vs mes anterior)
+              </span>
+            )}
+            {summary.attentionCount > 0
+              ? <>. Tienes <strong style={{ color: '#f87171' }}>{summary.attentionCount} cosa{summary.attentionCount === 1 ? '' : 's'} por atender</strong> abajo.</>
+              : <>. Todo al día. 👍</>}
+          </>
+        )}
+      </p>
+    </div>
+  )
+}
+
+function AttentionBlock({ items }: { items: AttentionItem[] }) {
+  return (
+    <div
+      className="rounded-xl p-6 mb-6"
+      style={{ backgroundColor: 'rgba(248,113,113,0.05)', border: '1px solid rgba(248,113,113,0.3)' }}
+    >
+      <div className="flex items-center gap-2 mb-4">
+        <AlertTriangle size={18} style={{ color: '#f87171' }} />
+        <h3 className="text-white font-bold text-sm">
+          Atención requerida
+          <span className="ml-2 text-xs font-normal text-gray-500">({items.length})</span>
+        </h3>
+      </div>
+      <div className="space-y-2">
+        {items.map((item) => (
+          <Link
+            key={item.type}
+            href={item.href}
+            className="flex items-center justify-between p-3 rounded-lg transition-all hover:bg-white/5 group"
+            style={{ border: '1px solid rgba(102,45,145,0.2)' }}
+          >
+            <div className="flex items-center gap-3">
+              <div
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: item.severity === 'critical' ? '#f87171' : item.severity === 'warning' ? '#FCEE21' : '#60a5fa' }}
+              />
+              <span className="text-white text-sm group-hover:text-[#FCEE21] transition-colors">
+                {item.label}
+              </span>
+            </div>
+            <ChevronRight size={16} className="text-gray-600 group-hover:text-[#FCEE21] transition-colors" />
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function LeadsBlock({ leads }: { leads: DashboardStats['leads'] }) {
+  const delta = leads.thisWeek - leads.prevWeek
+
+  return (
+    <Card title="Leads" icon={UserPlus}>
+      <div className="grid grid-cols-3 gap-3 mb-5">
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Total</p>
+          <p className="text-2xl font-bold text-white">{leads.total}</p>
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Esta semana</p>
+          <p className="text-2xl font-bold" style={{ color: '#FCEE21' }}>{leads.thisWeek}</p>
+          {leads.prevWeek > 0 && (
+            <p className="text-[10px] mt-0.5" style={{ color: delta >= 0 ? '#4ade80' : '#f87171' }}>
+              {delta >= 0 ? <ArrowUpRight className="inline w-2.5 h-2.5" /> : <ArrowDownRight className="inline w-2.5 h-2.5" />}
+              {' '}{delta >= 0 ? '+' : ''}{delta} vs anterior
+            </p>
+          )}
+        </div>
+        <div>
+          <p className="text-xs text-gray-500 uppercase tracking-wider">Sin contactar</p>
+          <p className="text-2xl font-bold" style={{ color: leads.uncontactedOver24h > 0 ? '#f87171' : '#9ca3af' }}>
+            {leads.uncontactedOver24h}
+          </p>
+          {leads.uncontactedOver24h > 0 && (
+            <p className="text-[10px] text-gray-500 mt-0.5">{'>'}24h</p>
+          )}
+        </div>
+      </div>
+
+      {/* Pipeline visual */}
+      <div className="mb-5">
+        <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Pipeline</p>
+        <div className="space-y-2">
+          {[
+            { key: 'nuevo', label: 'Nuevo', color: '#FCEE21' },
+            { key: 'contactado', label: 'Contactado', color: '#60a5fa' },
+            { key: 'qualified', label: 'Qualified', color: '#a855f7' },
+            { key: 'cliente', label: 'Cliente', color: '#4ade80' },
+          ].map(({ key, label, color }) => {
+            const count = leads.byStatus[key] || 0
+            const pct = leads.total > 0 ? (count / leads.total) * 100 : 0
+            return (
+              <div key={key} className="flex items-center gap-3">
+                <span className="text-gray-400 text-xs w-20 shrink-0">{label}</span>
+                <div className="flex-1 h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'rgba(102,45,145,0.2)' }}>
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{ width: `${pct}%`, backgroundColor: color }}
+                  />
+                </div>
+                <span className="text-white text-xs font-bold w-6 text-right">{count}</span>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Top sources */}
+      {leads.topSources.length > 0 && (
+        <div className="pt-4 border-t" style={{ borderColor: 'rgba(102,45,145,0.3)' }}>
+          <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">Origen</p>
+          <div className="flex flex-wrap gap-2">
+            {leads.topSources.map(({ source, count }) => (
+              <span
+                key={source}
+                className="text-xs px-2 py-1 rounded-full flex items-center gap-1"
+                style={{ backgroundColor: 'rgba(102,45,145,0.2)', color: '#a78bfa' }}
+              >
+                {source}
+                <span className="text-white font-bold">{count}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <Link
+        href="/admin/leads"
+        className="flex items-center justify-center gap-1 mt-4 pt-3 text-sm font-medium hover:underline border-t transition"
+        style={{ color: '#FCEE21', borderColor: 'rgba(102,45,145,0.3)' }}
+      >
+        Ver todos los leads <ArrowRight size={14} />
+      </Link>
+    </Card>
+  )
+}
+
+function PendingPaymentsBlock({ payments, pendingRevenue }: { payments: PendingPayment[]; pendingRevenue: number }) {
+  return (
+    <Card title="Próximos cobros" icon={Clock}>
+      {payments.length === 0 ? (
+        <div className="py-8 text-center">
+          <Euro size={32} className="mx-auto mb-2 opacity-20 text-gray-500" />
+          <p className="text-gray-500 text-sm">Sin cobros pendientes</p>
+        </div>
+      ) : (
+        <>
+          <div className="mb-4 pb-4 border-b" style={{ borderColor: 'rgba(102,45,145,0.3)' }}>
+            <p className="text-xs text-gray-500 uppercase tracking-wider">Total esperando</p>
+            <p className="text-3xl font-bold" style={{ color: '#4ade80' }}>
+              {pendingRevenue.toLocaleString('es-ES')}€
+            </p>
+            <p className="text-xs text-gray-500 mt-1">{payments.length} propuesta{payments.length === 1 ? '' : 's'} firmada{payments.length === 1 ? '' : 's'} sin cobrar</p>
+          </div>
+          <div className="space-y-2">
+            {payments.map((p) => {
+              const daysSince = p.signedAt
+                ? Math.floor((Date.now() - new Date(p.signedAt).getTime()) / (1000 * 60 * 60 * 24))
+                : null
+              return (
+                <Link
+                  key={p.id}
+                  href={`/admin/proposals/${p.id}`}
+                  className="flex items-center justify-between p-3 rounded-lg transition-all hover:bg-white/5 group"
+                  style={{ border: '1px solid rgba(102,45,145,0.2)' }}
+                >
+                  <div className="min-w-0">
+                    <p className="text-white text-sm font-medium truncate group-hover:text-[#FCEE21] transition">
+                      {p.clientName}
+                    </p>
+                    <p className="text-gray-500 text-xs truncate">
+                      {p.serviceLabel}
+                      {daysSince !== null && (
+                        <span className="ml-2 text-gray-600">
+                          {daysSince === 0 ? 'firmado hoy' : `firmado hace ${daysSince}d`}
+                        </span>
+                      )}
+                    </p>
+                  </div>
+                  <div className="text-right ml-3 shrink-0">
+                    <p className="text-sm font-bold" style={{ color: '#FCEE21' }}>{p.price}€</p>
+                    {p.paymentMethod === 'transfer' && (
+                      <p className="text-[10px] text-gray-500">Transferencia</p>
+                    )}
+                    {p.paymentMethod === 'stripe' && (
+                      <p className="text-[10px] text-gray-500">Stripe</p>
+                    )}
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        </>
+      )}
+    </Card>
   )
 }
