@@ -110,17 +110,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY
-    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID
-
-    if (!MAILERLITE_API_KEY) {
-      console.error('MAILERLITE_API_KEY no configurada')
-      return NextResponse.json(
-        { error: 'Error de configuración del servidor' },
-        { status: 500 }
-      )
-    }
-
     // Guardar lead en Supabase (no bloqueante: si falla seguimos)
     await captureLead({
       request,
@@ -131,29 +120,39 @@ export async function POST(request: NextRequest) {
       tags: _source ? [`form:${_source}`] : [],
     })
 
-    // Enviar guía por email siempre (independiente de MailerLite)
-    sendGuideEmail(email, name || '').catch(() => {})
+    // Enviar guía por email — ESPERAR a que termine. En Vercel serverless
+    // si no se hace await, la función termina y la promesa SMTP se cancela.
+    try {
+      await sendGuideEmail(email, name || '')
+    } catch (mailErr) {
+      console.error('[Newsletter] Error enviando guía:', mailErr)
+      // Aun así no rompemos la respuesta — el lead ya quedó guardado en Supabase
+    }
 
-    // Suscribir en MailerLite en background (no bloquea la respuesta)
-    fetch('https://connect.mailerlite.com/api/subscribers', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Authorization': `Bearer ${MAILERLITE_API_KEY}`,
-      },
-      body: JSON.stringify({
-        email,
-        fields: { name: name || '' },
-        groups: MAILERLITE_GROUP_ID ? [MAILERLITE_GROUP_ID] : [],
-        status: 'active',
-      }),
-    })
-      .then(res => {
-        if (res.ok) console.log('Nuevo suscriptor:', email)
-        else console.error('Error Mailerlite:', res.status)
-      })
-      .catch(err => console.error('Error Mailerlite:', err))
+    // Suscribir en MailerLite si está configurada (best-effort, await para Vercel)
+    const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY
+    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID
+    if (MAILERLITE_API_KEY) {
+      try {
+        const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${MAILERLITE_API_KEY}`,
+          },
+          body: JSON.stringify({
+            email,
+            fields: { name: name || '' },
+            groups: MAILERLITE_GROUP_ID ? [MAILERLITE_GROUP_ID] : [],
+            status: 'active',
+          }),
+        })
+        if (!mlRes.ok) console.error('[Newsletter] MailerLite respondió', mlRes.status)
+      } catch (mlErr) {
+        console.error('[Newsletter] Error MailerLite:', mlErr)
+      }
+    }
 
     return NextResponse.json({
       success: true,
