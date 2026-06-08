@@ -49,6 +49,8 @@ Imagina la grasa subcutánea dividida en pequeños compartimentos por unas banda
 
 En los hombres, en cambio, esos septos se disponen en cruz, en diagonal, sujetando la grasa mucho mejor. Por eso solo alrededor del 2% de los hombres la desarrolla, y las mujeres casi todas. **No es cuestión de cuánta grasa tienes, sino de cómo está sujeta.** Por eso una mujer delgada y tonificada también puede tenerla.
 
+![Sección transversal de la piel femenina mostrando los lóbulos de grasa subcutánea separados por septos fibrosos verticales que generan el efecto piel de naranja en la superficie](https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/1780910101254-celulitis-01-anatomia-piel-femenina-jpg.png)
+
 ![Infografía: estructura interna de la piel en mujeres y hombres. En la mujer los tabiques fibrosos son perpendiculares y la grasa empuja hacia la superficie creando piel de naranja; en el hombre los tabiques están en diagonal y la piel se mantiene lisa.](https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/1780774768468-celulitis-septos-fibrosos-mujer-vs-hombre.png)
 
 > La celulitis no es exceso de grasa. Es la arquitectura natural de la piel femenina haciendo lo que hace en 9 de cada 10 mujeres.
@@ -62,6 +64,8 @@ Antes de seguir, una vuelta de tuerca incómoda para la industria de la belleza.
 **1873.** Dos médicos franceses, Émile Littré y Charles-Philippe Robin, incluyen la palabra *cellulite* en un diccionario médico. Pero su definición original no tiene nada que ver con hoyuelos ni grasa: es un término genérico para tejidos en estado de inflamación o infección, primo de la *cellulitis* (la infección bacteriana de la piel que aún hoy se diagnostica en urgencias).
 
 **1968.** *Vogue* publica en EE.UU. un artículo titulado *"Cellulite: la grasa que no podías perder antes"*. Ahí nace, en inglés, la celulitis tal y como la conocemos: una nueva "enfermedad estética" femenina con sus síntomas, sus causas y sus tratamientos. El artículo describe a una mujer joven aterrorizada por haber tardado demasiado en "diagnosticarse" la celulitis.
+
+![Revista vintage abierta sobre mármol con una modelo de espaldas vestida de negro, en alusión al artículo de Vogue 1968 que popularizó la celulitis como problema estético](https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/1780910102187-celulitis-02-historia-vintage-vogue-jpg.png)
 
 **Años 70.** Una propietaria de un salón de belleza de Manhattan publica un libro popularizando esta supuesta "enfermedad". Y, casualidad, ofrece los tratamientos en su propio salón. El negocio explota: empieza la era de las cremas, masajes y aparatos anticelulíticos.
 
@@ -96,6 +100,8 @@ La celulitis es **multifactorial**: no hay una única causa, sino varios factore
 Hasta hace pocos años, el modelo "septos fibrosos + grasa + hormonas" era el único en juego. Pero en 2022 los investigadores **Ilja Kruglikov y Philipp Scherer** publicaron en *Obesity Reviews* una hipótesis nueva que está dando que hablar: la **endotoxemia selectiva**.
 
 Lo resumo en cristiano: proponen que el motor profundo de la celulitis sería la acumulación selectiva, en la grasa de caderas y muslos, de **endotoxinas bacterianas** (LPS) procedentes de la microbiota. Esas endotoxinas dispararían una inflamación crónica de bajo grado que degrada la *fibulina-3*, una proteína clave del tejido conectivo. Resultado: la grasa empuja con más facilidad hacia la dermis y los hoyuelos se hacen visibles.
+
+![Representación abstracta de células de grasa con destello amarillo simulando endotoxinas bacterianas, ilustrando la hipótesis de endotoxemia selectiva de Kruglikov y Scherer](https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/1780910102487-celulitis-03-teoria-endotoxemia-kruglikov-jpg.png)
 
 Lo curioso para nuestra historia: en esta teoría, **la sal sí aparece, pero al revés que en el bulo viral**. Los autores describen que la inflamación provoca una disfunción de las glándulas sudoríparas con "fuga" de sal hacia el tejido graso, lo que estimularía el crecimiento de las células de grasa. O sea: el problema no es que falte sal en el agua que bebes, sino cómo el tejido maneja la sal localmente. Justo lo contrario del consejo de internet.
 
