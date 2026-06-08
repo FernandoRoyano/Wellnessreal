@@ -39,6 +39,7 @@ Este artículo es ese punto incómodo, explicado entero. Al terminar vas a saber
 ---
 
 <a name="que-es"></a>
+<a id="que-es"></a>
 ## 1. Qué es la berberina (de verdad)
 
 La berberina es un **alcaloide vegetal**: un compuesto natural de color amarillo intenso y sabor muy amargo que se extrae de varias plantas, como el agracejo (*Berberis*), el sello de oro (*goldenseal*), el *Phellodendron* o la *Coptis chinensis*. No es nada nuevo: la medicina tradicional china y el ayurveda llevan siglos usándola, sobre todo para problemas digestivos e infecciones intestinales.
@@ -48,6 +49,7 @@ Lo importante para ti, hoy, es esto: **legalmente no es un medicamento, es un su
 Resumen rápido: una molécula vegetal con efectos metabólicos reales, vendida con muy poco control de calidad y muchísimo marketing.
 
 <a name="como-funciona"></a>
+<a id="como-funciona"></a>
 ## 2. Cómo funciona: tu "interruptor metabólico"
 
 Aquí está la parte interesante, y la razón de que tenga estudios de verdad.
@@ -64,6 +66,7 @@ La berberina activa una enzima llamada **AMPK**. Piensa en la AMPK como el senso
 Es un mecanismo elegante y multifrente. Por eso, cuando lo lees, suena espectacular. Pero "actuar sobre la AMPK" en una placa de laboratorio y "cambiarte la vida" son dos cosas muy distintas, como vas a ver ahora.
 
 <a name="usos"></a>
+<a id="usos"></a>
 ## 3. Para qué sirve de verdad: usos y su nivel de evidencia
 
 Aquí va lo que de verdad importa: separar lo que está bien respaldado de lo que es una ilusión. Uso este código de semáforo:
@@ -109,6 +112,7 @@ Un meta-análisis de 12 estudios encontró que la berberina reduce el peso una m
 Léelo otra vez: **2 kilos, en varios meses, y acompañando dieta y ejercicio.** No es nada despreciable como empujón extra. Pero no es lo que te vendió el vídeo. La berberina no "derrite grasa", no te quita el hambre como un fármaco GLP-1, y desde luego no compensa una mala alimentación. Es la guinda de un pastel que tienes que hornear tú.
 
 <a name="ozempic"></a>
+<a id="ozempic"></a>
 ## 4. El bulo del "Ozempic de la naturaleza"
 
 Vamos a desmontar la frase de moda, porque hace mucho daño.
@@ -122,6 +126,7 @@ Por eso los expertos son tajantes. La presidenta del comité que redactó las gu
 > "Natural" no significa "potente", ni "seguro", ni "lo mismo pero barato". Significa que viene de una planta. Punto.
 
 <a name="metformina"></a>
+<a id="metformina"></a>
 ## 5. Berberina vs. metformina: la comparación que todos hacen
 
 Como las dos activan la AMPK, es inevitable compararlas. Aquí lo tienes claro:
@@ -139,6 +144,7 @@ Como las dos activan la AMPK, es inevitable compararlas. Aquí lo tienes claro:
 La conclusión honesta: para una persona con diabetes tipo 2 diagnosticada, la metformina sigue ganando por goleada, porque tenemos décadas de datos de seguridad y de protección cardiovascular que la berberina simplemente no tiene. La berberina puede ser una opción razonable en prediabetes o para acompañar el control del colesterol, pero **no es "la metformina sin receta"** que circula por internet. Y combinarlas por tu cuenta es peligroso: las dos bajan el azúcar, y juntas pueden provocarte una hipoglucemia.
 
 <a name="si-no"></a>
+<a id="si-no"></a>
 ## 6. Por qué SÍ y por qué NO
 
 Para que lo veas de un vistazo:
@@ -158,6 +164,7 @@ Para que lo veas de un vistazo:
 - Esperas que sustituya a comer bien y entrenar. Eso no lo hace ningún bote.
 
 <a name="riesgos"></a>
+<a id="riesgos"></a>
 ## 7. Efectos secundarios, riesgos e interacciones
 
 "Natural" no es sinónimo de "inofensivo". Esto es lo que tienes que saber.
@@ -175,6 +182,7 @@ Para que lo veas de un vistazo:
 - ⚠️ **Personas con medicación habitual**, enfermedad hepática o renal, arritmias, o que vayan a operarse: solo con visto bueno médico.
 
 <a name="como-tomar"></a>
+<a id="como-tomar"></a>
 ## 8. Cuándo y cómo tomarla
 
 Si, leído todo lo anterior, tú y tu médico decidís que tiene sentido probarla, esto es lo que dice la práctica clínica:
@@ -187,6 +195,7 @@ Si, leído todo lo anterior, tú y tu médico decidís que tiene sentido probarl
 - **Sobre las "formas mejoradas":** la **dihidroberberina** se absorbe mejor y suele sentar mejor al estómago, porque el gran problema de la berberina normal es que **solo se absorbe alrededor del 5%** de lo que tragas.
 
 <a name="calidad"></a>
+<a id="calidad"></a>
 ## 9. Lo que nadie te cuenta: la calidad de lo que compras
 
 Y aquí viene el dato que debería hacerte cerrar la pestaña de Amazon un momento.
@@ -201,6 +210,7 @@ Como la berberina es un suplemento sin control previo, lo que hay dentro del bot
 ¿Qué hacer si decides comprarla? Busca marcas que publiquen un **certificado de análisis (COA)** o que tengan **verificación de un laboratorio independiente** (sellos tipo USP, NSF). Desconfía del bote de 5 euros con dosis milagrosa y de las gominolas. Aquí, pagar un poco más sí suele significar recibir lo que pone la etiqueta.
 
 <a name="veredicto"></a>
+<a id="veredicto"></a>
 ## 10. Mi veredicto honesto
 
 Te lo resumo como se lo diría a un cliente que me enseña el bote en mitad de una sesión:

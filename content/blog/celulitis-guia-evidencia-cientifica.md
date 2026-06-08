@@ -27,20 +27,21 @@ Este artículo es lo contrario. Aquí vas a entender qué es realmente la celuli
 
 ## Índice
 
-1. Qué es la celulitis (de verdad)
-2. La historia que casi nadie te cuenta: cómo se "inventó"
-3. Por qué te sale: las causas reales
-4. El papel de las hormonas a fondo
-5. Tratamientos: qué funciona y qué no
-6. ¿Y los métodos alternativos? (MTC, Ayurveda, remedios caseros)
-7. ¿Merece la pena gastarse el dinero?
-8. El ejercicio: tu mejor herramienta
-9. La alimentación que sí ayuda
-10. Cómo "regular" tus hormonas (realista)
-11. Tu plan de acción
+1. [Qué es la celulitis (de verdad)](#seccion-1)
+2. [La historia que casi nadie te cuenta: cómo se "inventó"](#seccion-2)
+3. [Por qué te sale: las causas reales](#seccion-3)
+4. [El papel de las hormonas a fondo](#seccion-4)
+5. [Tratamientos: qué funciona y qué no](#seccion-5)
+6. [¿Y los métodos alternativos? (MTC, Ayurveda, remedios caseros)](#seccion-6)
+7. [¿Merece la pena gastarse el dinero?](#seccion-7)
+8. [El ejercicio: tu mejor herramienta](#seccion-8)
+9. [La alimentación que sí ayuda](#seccion-9)
+10. [Cómo "regular" tus hormonas (realista)](#seccion-10)
+11. [Tu plan de acción](#seccion-11)
 
 ---
 
+<a id="seccion-1"></a>
 ## 1. Qué es la celulitis (de verdad)
 
 La celulitis no es "grasa rebelde", ni "toxinas", ni "agua sin sal". Su nombre médico es *paniculopatía edemato-fibroesclerótica* o *lipodistrofia ginoide*, y es un fenómeno **estructural** de cómo se organiza la grasa bajo tu piel.
@@ -57,6 +58,7 @@ En los hombres, en cambio, esos septos se disponen en cruz, en diagonal, sujetan
 
 ---
 
+<a id="seccion-2"></a>
 ## 2. La historia que casi nadie te cuenta: cómo se "inventó" la celulitis
 
 Antes de seguir, una vuelta de tuerca incómoda para la industria de la belleza. La celulitis tal y como la entendemos hoy —algo que hay que "tratar"— **no existía hace 60 años**. No porque las mujeres no la tuvieran (la han tenido siempre): porque a nadie le habían dicho que era un problema.
@@ -79,6 +81,7 @@ Antes de seguir, una vuelta de tuerca incómoda para la industria de la belleza.
 
 ---
 
+<a id="seccion-3"></a>
 ## 3. Por qué te sale: las causas reales
 
 La celulitis es **multifactorial**: no hay una única causa, sino varios factores que se suman. Estos son los que la ciencia identifica:
@@ -113,6 +116,7 @@ Lo curioso para nuestra historia: en esta teoría, **la sal sí aparece, pero al
 
 ---
 
+<a id="seccion-4"></a>
 ## 4. El papel hormonal, a fondo
 
 Esta es la parte que casi nadie te explica bien. La celulitis es prácticamente exclusiva de las mujeres por una razón: **las hormonas femeninas**. Vamos hormona por hormona.
@@ -137,6 +141,7 @@ El estrés sostenido y el mal sueño elevan el cortisol, favorecen la inflamaci�
 
 ---
 
+<a id="seccion-5"></a>
 ## 5. Tratamientos: qué funciona y qué no
 
 Aquí está lo que pagas. Vamos a ser brutalmente honestos con cada tratamiento y su **nivel de evidencia real**. Antes, un dato demoledor: una revisión sistemática que analizó 67 estudios sobre tratamientos de celulitis **no encontró evidencia clara de buena eficacia en ninguno**. Con eso en mente:
@@ -175,6 +180,7 @@ Hay algún estudio que sugiere que tomar péptidos de colágeno a diario durante
 
 ---
 
+<a id="seccion-6"></a>
 ## 6. ¿Y los métodos alternativos?
 
 Esta es la pregunta que muchas mujeres se hacen y casi ningún blog de fitness responde con honestidad. Hay un universo entero fuera de los tratamientos médicos convencionales: medicinas tradicionales, remedios caseros, rituales. Vamos a verlos uno a uno con la lupa.
@@ -228,6 +234,7 @@ Pregúntate dos cosas:
 
 ---
 
+<a id="seccion-7"></a>
 ## 7. ¿Merece la pena gastarse el dinero?
 
 Respuesta corta y honesta: **en la mayoría de los productos y tratamientos de estética convencional, no.**
@@ -240,6 +247,7 @@ La excepción razonable son las técnicas de **subcisión médica**, que sí tie
 
 ---
 
+<a id="seccion-8"></a>
 ## 8. El ejercicio: tu mejor herramienta (y gratis)
 
 Seamos claros para no engañarte: **ningún ejercicio cambia la estructura de los septos fibrosos.** El ejercicio no "borra" la celulitis. Entonces, ¿por qué es lo primero que recomiendo? Porque mejora todo lo demás:
@@ -260,6 +268,7 @@ El sistema linfático depende de la contracción muscular para mover líquido. C
 
 ---
 
+<a id="seccion-9"></a>
 ## 9. La alimentación que sí ayuda
 
 No existe la "dieta anticelulítica" milagrosa, pero sí hay un patrón alimentario que juega a tu favor porque actúa sobre la insulina, la inflamación, la retención de líquidos y tu composición corporal:
@@ -282,6 +291,7 @@ No existe la "dieta anticelulítica" milagrosa, pero sí hay un patrón alimenta
 
 ---
 
+<a id="seccion-10"></a>
 ## 10. Cómo "regular" tus hormonas (de forma realista)
 
 Cuidado con quien te venda "reequilibrios hormonales" en bote: la mayoría es humo. No vas a anular tus estrógenos (ni quieres: te protegen los huesos, el corazón y mucho más). Pero sí puedes influir en el entorno hormonal y metabólico que **empeora** la celulitis. Esto es lo que de verdad mueve la aguja:
@@ -304,6 +314,7 @@ Tiroides, síndrome de ovario poliquístico, menopausia… son temas médicos. N
 
 ---
 
+<a id="seccion-11"></a>
 ## 11. Tu plan de acción realista
 
 **Si solo te quedas con esto:**
