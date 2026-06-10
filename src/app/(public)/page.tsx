@@ -280,8 +280,59 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ═══════════════ TESTIMONIOS ═══════════════ */}
+      {/* ═══════════════ QUIÉN ESTÁ DETRÁS ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-deep">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
+        <Container>
+          <AnimatedSection>
+            <div className="max-w-3xl mx-auto space-y-6">
+              <div className="text-center space-y-4 mb-fluid-sm">
+                <span className="eyebrow justify-center">Quién está detrás</span>
+                <h2 className="headline text-fluid-4xl text-white">
+                  No es una app. <span className="text-gradient-brand">Soy yo.</span>
+                </h2>
+              </div>
+
+              <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
+                <p>
+                  Me llamo <strong className="text-white">Fernando Royano</strong> y llevo{' '}
+                  <strong className="text-white">14 años</strong> dedicándome a entrenar personas de verdad: con
+                  trabajo, familia, lesiones antiguas y poco tiempo. Soy graduado en{' '}
+                  <strong className="text-white">Ciencias del Deporte</strong> y he acompañado a más de 100 personas a
+                  cambiar su cuerpo y, sobre todo, su relación con el ejercicio.
+                </p>
+                <p>
+                  No creo en las dietas extremas, ni en entrenar hasta vomitar, ni en la culpa como motor. Creo en
+                  planes sensatos, adaptados a tu vida real, que puedas sostener cuando se complica la semana —que es
+                  cuando casi todo el mundo lo deja. Mi trabajo no es contarte repeticiones: es diseñar tu plan, leer
+                  cómo respondes y ajustarlo contigo cada semana hasta que entrenar deje de ser un esfuerzo y se vuelva
+                  un hábito.
+                </p>
+                <p>
+                  Cuando entrenas conmigo no hablas con un bot ni recibes una rutina genérica. Hablas conmigo. Esa es
+                  toda la diferencia.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-3 gap-4 pt-4">
+                {[
+                  { figure: '14', label: 'años de experiencia' },
+                  { figure: '+100', label: 'clientes transformados' },
+                  { figure: 'Cc. Deporte', label: 'formación universitaria' },
+                ].map(({ figure, label }, i) => (
+                  <div key={i} className="surface-card rounded-2xl p-5 text-center">
+                    <div className="stat-figure text-fluid-3xl text-accent">{figure}</div>
+                    <p className="text-fluid-xs text-muted mt-1 leading-snug">{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </AnimatedSection>
+        </Container>
+      </section>
+
+      {/* ═══════════════ TESTIMONIOS ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
@@ -324,7 +375,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ PRICING ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-dusk">
+      <section className="relative py-fluid-xl bg-brand-deep">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <AnimatedSection>
