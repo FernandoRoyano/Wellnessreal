@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Check, Smartphone, Clock, Target, MessageCircle, ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import FaqSection from '@/components/sections/FaqSection'
 
 export const metadata = buildMetadata({
   title: 'Entrenamiento Online Personalizado',
@@ -39,6 +40,39 @@ const FIT_ITEMS = [
   'Quieres un plan adaptado a TU situación, no algo genérico',
   'Valoras tener a alguien que te guíe y te ajuste el plan',
   'Has probado apps o rutinas de internet sin éxito',
+] as const
+
+const FAQS = [
+  {
+    question: '¿El entrenamiento online funciona si nunca he entrenado?',
+    answer:
+      'Sí, de hecho es donde más diferencia se nota. Empiezo desde tu punto de partida real, con vídeos que explican cada ejercicio paso a paso y progresiones pensadas para que nunca te quedes atascado ni te lesiones. No necesitas saber nada previo: para eso estoy yo al otro lado.',
+  },
+  {
+    question: '¿Qué material necesito para entrenar desde casa?',
+    answer:
+      'Diseño tu plan con el material que tengas. Si solo dispones de tu cuerpo y algo de espacio, trabajamos con eso. Si tienes mancuernas, gomas o gimnasio, lo aprovecho. La valoración inicial sirve precisamente para adaptar el plan a tu equipamiento real, no al revés.',
+  },
+  {
+    question: '¿Cuánto tiempo a la semana necesito dedicarle?',
+    answer:
+      'Con 3 sesiones de 40-50 minutos a la semana hay resultados claros. Si tienes menos tiempo, ajusto la frecuencia y la duración sin sacrificar el progreso. El plan se construye alrededor de tu agenda real: trabajo, familia y descanso incluidos.',
+  },
+  {
+    question: '¿En qué se diferencia de una app de rutinas genéricas?',
+    answer:
+      'Una app de rutinas te da el mismo plan que a otras 10.000 personas y no sabe quién eres. Aquí el plan es 100% tuyo: lo diseño yo, lo reviso cada semana mirando tus datos y lo ajusto según cómo respondes. Tienes a un profesional detrás, no un algoritmo.',
+  },
+  {
+    question: '¿Cuánto tardo en ver resultados?',
+    answer:
+      'Las primeras sensaciones (energía, fuerza, adherencia) llegan en 2-3 semanas. Los cambios visibles y medibles aparecen a partir de las 6-8 semanas si el seguimiento es constante. No prometo milagros en 15 días porque lo que dura no funciona así.',
+  },
+  {
+    question: '¿Y si vivo fuera de Madrid o de España?',
+    answer:
+      'El entrenamiento online no tiene fronteras. Trabajo con clientes dentro y fuera de España a través de la app y el seguimiento semanal. Da igual tu zona horaria: tu plan está siempre disponible y yo reviso tu progreso igualmente.',
+  },
 ] as const
 
 export default function EntrenamientoOnlinePage() {
@@ -182,6 +216,44 @@ export default function EntrenamientoOnlinePage() {
           </div>
         </Container>
       </section>
+
+      {/* ═══════════════ EL MÉTODO ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="text-center space-y-4 mb-fluid-sm">
+              <span className="eyebrow justify-center">Cómo trabajo</span>
+              <h2 className="headline text-fluid-4xl text-white">
+                Entrenamiento online <span className="text-gradient-brand">de verdad</span>
+              </h2>
+            </div>
+            <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
+              <p>
+                El <strong className="text-white">entrenamiento online personalizado</strong> no es enviarte un PDF con
+                ejercicios y desaparecer. Mi método parte de una valoración real de tu situación: tu historial, tus
+                lesiones, tu nivel actual, el material del que dispones y, sobre todo, el tiempo que de verdad puedes
+                dedicarle. Con eso diseño un plan que encaja en tu vida, no uno que te obliga a reorganizarla.
+              </p>
+              <p>
+                Cada semana reviso tu progreso con datos reales —cargas, sensaciones, adherencia— y ajusto lo que haga
+                falta. Esa es la diferencia entre un entrenador personal online y una app de rutinas: aquí hay alguien
+                mirando tu evolución y tomando decisiones por ti. Trabajo con software profesional de seguimiento, con
+                vídeos explicativos de cada ejercicio y comunicación directa conmigo desde la propia app, así que nunca
+                te quedas con la duda de si lo estás haciendo bien.
+              </p>
+              <p>
+                El objetivo no es que entrenes durante tres meses y lo dejes. Es que aprendas a entrenar, entiendas por
+                qué haces cada cosa y construyas un hábito que se sostenga solo. Por eso no verás dietas extremas ni
+                rutinas imposibles: solo un plan sensato, progresivo y adaptado a tu vida real, que es lo único que
+                funciona a largo plazo.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <FaqSection faqs={[...FAQS]} background="dusk" />
 
       {/* ═══════════════ LEAD MAGNET ═══════════════ */}
       <section className="relative py-fluid-lg bg-brand-deep">

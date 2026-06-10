@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { MapPin, Clock, Users, Target, Dumbbell, CheckCircle, ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import FaqSection from '@/components/sections/FaqSection'
 
 export const metadata = buildMetadata({
   title: 'Entrenamiento Personalizado Presencial en Madrid',
@@ -30,6 +31,39 @@ const FIT_ITEMS = [
   'Necesitas esa motivación extra que da tener a alguien contigo',
   'Tienes un objetivo específico y quieres el camino más directo',
   'Has tenido lesiones y quieres entrenar con seguridad',
+] as const
+
+const FAQS = [
+  {
+    question: '¿Dónde se realizan las sesiones de entrenamiento personal?',
+    answer:
+      'Entreno a domicilio o en gimnasio dentro de Madrid, según lo que te resulte más cómodo. Llevo el material necesario y adapto la sesión al espacio disponible. Si prefieres tu propio gimnasio, también trabajo allí contigo.',
+  },
+  {
+    question: '¿Cuánto dura cada sesión y con qué frecuencia entreno?',
+    answer:
+      'Cada sesión dura 60 minutos. Para la mayoría de objetivos recomiendo 2-3 sesiones a la semana, pero lo ajustamos a tu disponibilidad y a tu nivel. Lo importante es la constancia, no la intensidad puntual.',
+  },
+  {
+    question: '¿Necesito tener experiencia previa entrenando?',
+    answer:
+      'No. Empiezo desde donde estés. De hecho, el entrenamiento presencial es ideal si nunca has entrenado, porque corrijo tu técnica en tiempo real desde el primer día y evitamos que cojas malos hábitos o te lesiones.',
+  },
+  {
+    question: '¿Puedo combinar las sesiones presenciales con el seguimiento online?',
+    answer:
+      'Sí, es la opción que mejores resultados da. Nos vemos en persona para trabajar técnica y los ejercicios clave, y el resto de la semana entrenas con tu plan en la app, con mi seguimiento. Tienes lo mejor de los dos mundos.',
+  },
+  {
+    question: '¿Qué pasa si tengo una lesión o una limitación física?',
+    answer:
+      'Lo tengo en cuenta desde el principio. En la valoración inicial revisamos tu historial y cualquier lesión o molestia, y diseño las sesiones para trabajar con seguridad. Si hace falta, coordino el entrenamiento con tratamiento de osteopatía.',
+  },
+  {
+    question: '¿Cómo es la primera sesión?',
+    answer:
+      'La primera sesión es una valoración: hablamos de tus objetivos, valoro tu nivel y movilidad, y definimos un punto de partida. Sales de ahí con un plan claro y sabiendo exactamente cómo vamos a trabajar. Sin compromiso.',
+  },
 ] as const
 
 export default function EntrenamientoPersonalizadoPage() {
@@ -157,6 +191,43 @@ export default function EntrenamientoPersonalizadoPage() {
           </div>
         </Container>
       </section>
+
+      {/* ═══════════════ EL MÉTODO ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="text-center space-y-4 mb-fluid-sm">
+              <span className="eyebrow justify-center">Cómo trabajo</span>
+              <h2 className="headline text-fluid-4xl text-white">
+                Un entrenador personal <span className="text-gradient-brand">de verdad</span>
+              </h2>
+            </div>
+            <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
+              <p>
+                Buscar un <strong className="text-white">entrenador personal en Madrid</strong> no debería significar
+                pagar por que alguien cuente repeticiones. Mi trabajo empieza antes de la primera serie: valoro tu
+                nivel, tu movilidad, tu historial de lesiones y tus objetivos reales para construir un plan que tenga
+                sentido para ti, no una sesión genérica que sirve para cualquiera.
+              </p>
+              <p>
+                En cada sesión corrijo tu técnica en tiempo real, ajusto las cargas según cómo respondes ese día y me
+                aseguro de que cada ejercicio suma. Esa supervisión directa es lo que diferencia entrenar bien de
+                entrenar a ciegas: avanzas más rápido, con menos riesgo de lesión y entendiendo por qué haces cada
+                cosa. Con 14 años de experiencia y más de 100 personas acompañadas, sé leer lo que tu cuerpo necesita
+                en cada fase.
+              </p>
+              <p>
+                Y no te dejo solo entre sesiones. Combino el trabajo presencial con seguimiento a través de la app, de
+                forma que los días que entrenas por tu cuenta también sabes exactamente qué hacer. El objetivo es que
+                ganes autonomía y resultados que se mantengan, no que dependas de mí para siempre.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <FaqSection faqs={[...FAQS]} background="dusk" />
 
       {/* ═══════════════ CTA FINAL ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-deep overflow-hidden">

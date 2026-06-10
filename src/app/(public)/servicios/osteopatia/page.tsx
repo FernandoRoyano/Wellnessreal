@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { Check, ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import FaqSection from '@/components/sections/FaqSection'
 
 export const metadata = buildMetadata({
   title: 'Osteopatía y Recuperación en Madrid',
@@ -25,6 +26,39 @@ const BENEFITS = [
   'Mejora de rendimiento físico y recuperación acelerada.',
   'Integrado con tu plan de entrenamiento para resultados máximos.',
   'Sesiones presenciales en Madrid con atención profesional.',
+] as const
+
+const FAQS = [
+  {
+    question: '¿Qué problemas trata la osteopatía?',
+    answer:
+      'Dolores de espalda y cuello, contracturas, tensiones musculares, bloqueos articulares, molestias derivadas de malas posturas y recuperación de lesiones deportivas. Trabajo con técnicas manuales para aliviar el dolor, recuperar movilidad y mejorar cómo se mueve tu cuerpo.',
+  },
+  {
+    question: '¿La primera sesión incluye tratamiento o solo valoración?',
+    answer:
+      'La primera sesión incluye una valoración completa de tu caso y, salvo que encuentre algo que requiera derivarte, también tratamiento. Reviso tu historial, identifico el origen del problema y empiezo a trabajar sobre él el mismo día.',
+  },
+  {
+    question: '¿Cuántas sesiones voy a necesitar?',
+    answer:
+      'Depende del problema. Una tensión puntual puede resolverse en 1-2 sesiones; una lesión o un patrón más arraigado requiere un plan de varias sesiones. Tras la primera valoración te doy una estimación realista, sin alargar el tratamiento artificialmente.',
+  },
+  {
+    question: '¿Es compatible con mi entrenamiento?',
+    answer:
+      'No solo compatible: se potencian. Cuando integro la osteopatía con tu plan de entrenamiento, trato la causa del problema y ajusto los ejercicios para que no reaparezca. Es la mejor forma de entrenar con seguridad y prevenir lesiones futuras.',
+  },
+  {
+    question: '¿Dónde se realizan las sesiones?',
+    answer:
+      'Las sesiones de osteopatía son presenciales, en Madrid. Si entrenas conmigo de forma presencial, coordinamos ambas cosas para que te resulte cómodo. En la reserva acordamos lugar y horario.',
+  },
+  {
+    question: '¿Es un tratamiento doloroso o invasivo?',
+    answer:
+      'No. La osteopatía trabaja con técnicas manuales, sin fármacos ni procedimientos invasivos. Puede haber alguna molestia puntual al tratar una zona tensa, pero siempre adapto la intensidad a ti y a tu tolerancia. El objetivo es aliviar, no añadir dolor.',
+  },
 ] as const
 
 export default function OsteopatiaRecuperacionPage() {
@@ -105,6 +139,46 @@ export default function OsteopatiaRecuperacionPage() {
           </div>
         </Container>
       </section>
+
+      {/* ═══════════════ EL MÉTODO ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-dusk">
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="text-center space-y-4 mb-fluid-sm">
+              <span className="eyebrow justify-center">Cómo trabajo</span>
+              <h2 className="headline text-fluid-4xl text-white">
+                Trato la causa, <span className="text-gradient-brand">no solo el síntoma</span>
+              </h2>
+            </div>
+            <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
+              <p>
+                Cuando algo te duele, lo fácil es tratar el punto donde sientes la molestia. El problema es que muchas
+                veces el dolor aparece en un sitio y se origina en otro. Mi enfoque de{' '}
+                <strong className="text-white">osteopatía en Madrid</strong> empieza por entender de dónde viene
+                realmente: tu postura, tus hábitos, tu forma de moverte y la actividad física que haces. Solo así el
+                alivio dura y el problema no vuelve a las dos semanas.
+              </p>
+              <p>
+                En cada sesión combino técnicas manuales para liberar tensiones, recuperar movilidad y devolver al
+                cuerpo su capacidad natural de moverse sin dolor. Es un tratamiento sin fármacos ni procedimientos
+                invasivos, adaptado a tu tolerancia y a tu situación concreta. Tanto si vienes por una lesión deportiva,
+                una contractura persistente o simplemente para prevenir, el punto de partida siempre es una valoración
+                honesta de tu caso.
+              </p>
+              <p>
+                La gran ventaja de tratarte conmigo es la integración con el entrenamiento. Cuando la osteopatía y tu
+                plan de ejercicio van de la mano, no solo resuelvo el problema actual: ajusto cómo entrenas para que no
+                reaparezca. Cuidar el cuerpo antes de que falle es mucho más rentable —y menos doloroso— que reparar
+                una lesión cuando ya te ha frenado.
+              </p>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════ FAQ ═══════════════ */}
+      <FaqSection faqs={[...FAQS]} background="deep" />
     </>
   )
 }
