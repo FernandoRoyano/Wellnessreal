@@ -11,6 +11,7 @@ export default function JsonLd({ data }: { data: Record<string, unknown> }) {
 const INSTAGRAM = 'https://www.instagram.com/wellnessrealoficial'
 const YOUTUBE = 'https://www.youtube.com/@wellnessreal'
 const LINKEDIN = 'https://www.linkedin.com/in/fernando-royano/'
+const GOOGLE_BUSINESS = 'https://www.google.com/maps?cid=5930759987983497171'
 
 // --- Schema builders ---
 
@@ -23,7 +24,7 @@ export function organizationSchema() {
     logo: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
-    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN],
+    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN, GOOGLE_BUSINESS],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+34633261963',
@@ -46,11 +47,17 @@ export function localBusinessSchema() {
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
     priceRange: '€€',
-    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN],
+    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN, GOOGLE_BUSINESS],
+    hasMap: GOOGLE_BUSINESS,
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Madrid',
       addressCountry: 'ES',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 40.3994792,
+      longitude: -3.6699047,
     },
     openingHoursSpecification: [
       {
@@ -234,6 +241,6 @@ export function personSchema() {
       url: 'https://wellnessreal.es',
     },
     knowsAbout: ['Entrenamiento personal', 'Nutrición deportiva', 'Osteopatía', 'Fitness online'],
-    sameAs: [LINKEDIN, INSTAGRAM, YOUTUBE],
+    sameAs: [LINKEDIN, INSTAGRAM, YOUTUBE, GOOGLE_BUSINESS],
   }
 }
