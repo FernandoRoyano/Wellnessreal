@@ -49,16 +49,17 @@ export function localBusinessSchema() {
     priceRange: '€€',
     sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN, GOOGLE_BUSINESS],
     hasMap: GOOGLE_BUSINESS,
+    // Negocio de zona de servicio (sin local físico): se gestiona online + a
+    // domicilio en Madrid. No se declara dirección de calle ni coordenadas.
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Madrid',
+      addressRegion: 'Madrid',
       addressCountry: 'ES',
     },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: 40.3994792,
-      longitude: -3.6699047,
-    },
+    areaServed: [
+      { '@type': 'City', name: 'Madrid' },
+      { '@type': 'Country', name: 'España' },
+    ],
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
