@@ -7,6 +7,11 @@ export default function JsonLd({ data }: { data: Record<string, unknown> }) {
   )
 }
 
+// Perfiles oficiales de la marca/persona — refuerzan E-E-A-T y la entidad ante Google
+const INSTAGRAM = 'https://www.instagram.com/wellnessrealoficial'
+const YOUTUBE = 'https://www.youtube.com/@wellnessreal'
+const LINKEDIN = 'https://www.linkedin.com/in/fernando-royano/'
+
 // --- Schema builders ---
 
 export function organizationSchema() {
@@ -18,7 +23,7 @@ export function organizationSchema() {
     logo: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
-    sameAs: [],
+    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN],
     contactPoint: {
       '@type': 'ContactPoint',
       telephone: '+34633261963',
@@ -41,6 +46,7 @@ export function localBusinessSchema() {
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
     priceRange: '€€',
+    sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN],
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Madrid',
@@ -228,6 +234,6 @@ export function personSchema() {
       url: 'https://wellnessreal.es',
     },
     knowsAbout: ['Entrenamiento personal', 'Nutrición deportiva', 'Osteopatía', 'Fitness online'],
-    sameAs: [],
+    sameAs: [LINKEDIN, INSTAGRAM, YOUTUBE],
   }
 }

@@ -15,6 +15,30 @@ const NAV_LINKS = [
   { href: '/caso-real', label: 'Caso real' },
 ] as const
 
+// Iconos de marca como SVG inline (lucide deprecó sus iconos de marca por temas de marca registrada)
+const iconClass = 'w-5 h-5'
+const InstagramIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={iconClass} aria-hidden>
+    <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.4a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" />
+  </svg>
+)
+const YoutubeIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={iconClass} aria-hidden>
+    <path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" />
+  </svg>
+)
+const LinkedinIcon = () => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={iconClass} aria-hidden>
+    <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+  </svg>
+)
+
+const SOCIALS = [
+  { href: 'https://www.instagram.com/wellnessrealoficial', label: 'Instagram', Icon: InstagramIcon },
+  { href: 'https://www.youtube.com/@wellnessreal',         label: 'YouTube',   Icon: YoutubeIcon },
+  { href: 'https://www.linkedin.com/in/fernando-royano/',  label: 'LinkedIn',  Icon: LinkedinIcon },
+] as const
+
 export default function Footer() {
   const currentYear = new Date().getFullYear()
   const [email, setEmail]   = useState('')
@@ -129,6 +153,21 @@ export default function Footer() {
             >
               Descarga la guía gratis →
             </Link>
+
+            <div className="flex items-center gap-3 pt-1">
+              {SOCIALS.map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-lg bg-accent-muted border border-border-subtle flex items-center justify-center text-muted hover:text-accent hover:border-border-strong transition-colors"
+                >
+                  <Icon />
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Navegación */}
