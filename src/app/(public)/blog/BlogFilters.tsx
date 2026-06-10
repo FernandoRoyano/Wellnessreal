@@ -95,7 +95,12 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                     </span>
 
                     <h2 className="text-fluid-lg font-semibold text-white mt-4 mb-3 tracking-tight line-clamp-2 leading-snug">
-                      {post.title}
+                      <Link
+                        href={`/blog/${post.slug}`}
+                        className="hover:text-accent transition-colors"
+                      >
+                        {post.title}
+                      </Link>
                     </h2>
 
                     <p className="text-fluid-sm text-muted mb-4 line-clamp-3 leading-relaxed flex-1">
@@ -119,6 +124,7 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
 
                     <Link
                       href={`/blog/${post.slug}`}
+                      aria-label={`Leer artículo: ${post.title}`}
                       className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold text-fluid-sm border border-border-strong text-accent hover:bg-accent hover:text-accent-fg transition-all"
                     >
                       Leer artículo

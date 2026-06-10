@@ -108,7 +108,12 @@ const published_at = fecha ? new Date(fecha).toISOString() : new Date().toISOStr
 const categoryName = pick(frontmatter, 'categoría', 'categoria', 'category')
 
 // --- Convertir Markdown a HTML ---
-const content = marked.parse(body, { breaks: true, gfm: true })
+// El título del post ya se renderiza como <h1> en el template de la página.
+// Eliminamos el <h1> inicial generado desde el "# Título" del markdown para no
+// duplicar el H1 en el DOM.
+const content = marked
+  .parse(body, { breaks: true, gfm: true })
+  .replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, '')
 
 // --- Supabase client ---
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {

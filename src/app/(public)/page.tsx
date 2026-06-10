@@ -11,7 +11,8 @@ import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
-  title: 'WellnessReal | Entrenamiento Online Personalizado en Madrid',
+  // El layout raíz añade " | WellnessReal" vía template — no repetir la marca aquí
+  title: 'Entrenamiento Online Personalizado en Madrid',
   description:
     'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real con app profesional y seguimiento semanal. Primera valoración gratis.',
   path: '/',

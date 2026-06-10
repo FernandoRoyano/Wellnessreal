@@ -49,6 +49,13 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
+// El contenido importado incluye un <h1> inicial generado desde el título del
+// markdown. El template ya renderiza su propio <h1>, así que lo eliminamos para
+// no duplicarlo en el DOM (señal negativa de estructura para crawlers).
+function stripLeadingH1(html: string): string {
+  return html.replace(/^\s*<h1[^>]*>[\s\S]*?<\/h1>\s*/i, '')
+}
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const post = await getPostBySlug(slug)
@@ -145,7 +152,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
 
-            <BlogContentWithCTAs content={post.content} />
+            <BlogContentWithCTAs content={stripLeadingH1(post.content)} />
           </div>
         </Container>
       </section>
