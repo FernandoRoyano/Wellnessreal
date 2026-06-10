@@ -32,6 +32,15 @@ Plataforma completa en **Next.js 16 + React 19 + Tailwind 4**, desplegada en Ver
 - Popup de lead magnet + exit-intent popup
 - Animaciones avanzadas (parallax, counters, scroll progress, magnetic buttons)
 
+**Mejoras SEO (junio 2026):** tras una auditoría se aplicó una tanda de mejoras de posicionamiento:
+- **On-page:** corregido el `<title>` duplicado de la home, eliminado el H1 duplicado en los posts (en render y en el script de importación) y sustituido el texto ancla genérico "Leer artículo" por el título del artículo como enlace descriptivo.
+- **Datos estructurados (JSON-LD):** Organization, `HealthAndBeautyBusiness` (LocalBusiness) con coordenadas `geo` y `hasMap`, Person (Fernando Royano), Article y BreadcrumbList en cada post, y **FAQPage** en las páginas de servicio. Campo `sameAs` enlazando Instagram, YouTube, LinkedIn y la **ficha de Google Business Profile** (entidad web ↔ Google para SEO local).
+- **Contenido:** las 4 páginas de servicio ampliadas con una sección de método (~500 palabras c/u) y un bloque de **preguntas frecuentes** (6 por servicio, con schema). Nueva sección **"Quién está detrás"** en la home (bio + credenciales) que refuerza el E-E-A-T.
+- **Enlazado interno:** sección de **artículos relacionados** al final de cada post (prioriza misma categoría), que reparte autoridad interna y mejora la permanencia.
+- **Core Web Vitals:** imágenes del blog migradas de `<img>` a `next/image` (mejor LCP).
+- **Perfiles sociales** visibles en el footer (Instagram, YouTube, LinkedIn).
+- **Sitemap dinámico** (`sitemap.ts`, 22 URLs desde Supabase) enviado a Google Search Console.
+
 ---
 
 ## 🎯 2. Funnel de captación (VSL)
