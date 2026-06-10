@@ -65,6 +65,28 @@ export async function getPostsByCategory(categorySlug: string): Promise<PostWith
   return (data || []) as PostWithCategory[]
 }
 
+export async function getRelatedPosts(
+  currentSlug: string,
+  categoryId: string | null,
+  limit = 3,
+): Promise<PostWithCategory[]> {
+  const { data, error } = await supabase
+    .from('posts')
+    .select('*, category:categories(*)')
+    .eq('published', true)
+    .neq('slug', currentSlug)
+    .order('published_at', { ascending: false })
+    .limit(12)
+
+  if (error) throw error
+  const posts = (data || []) as PostWithCategory[]
+
+  // Priorizar misma categoría; completar con los más recientes del resto
+  const sameCategory = posts.filter((p) => p.category_id === categoryId)
+  const others = posts.filter((p) => p.category_id !== categoryId)
+  return [...sameCategory, ...others].slice(0, limit)
+}
+
 // --- Admin CRUD ---
 
 export async function getAllPostsAdmin(): Promise<PostWithCategory[]> {

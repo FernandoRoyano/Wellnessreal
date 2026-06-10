@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import { Calendar, Clock, Filter, ArrowRight, FileText } from 'lucide-react'
@@ -76,10 +77,12 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                 >
                   <div className="relative h-48 bg-brand-night overflow-hidden">
                     {post.main_image_url ? (
-                      <img
+                      <Image
                         src={post.main_image_url}
                         alt={post.main_image_alt || post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="absolute inset-0 bg-gradient-to-br from-brand-violet/20 to-brand-deep flex items-center justify-center">

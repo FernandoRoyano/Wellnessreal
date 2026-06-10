@@ -1,11 +1,13 @@
+import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import { Calendar, Clock, User, ArrowLeft, ArrowRight } from 'lucide-react'
 import { notFound } from 'next/navigation'
-import { getPostBySlug, getAllPostSlugs } from '@/lib/db/posts'
+import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/db/posts'
 import type { Metadata } from 'next'
 import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
+import RelatedPosts from '@/components/blog/RelatedPosts'
 import '../markdown.css'
 
 export const revalidate = 60
@@ -60,6 +62,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const { slug } = await params
   const post = await getPostBySlug(slug)
   if (!post) notFound()
+
+  const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
 
   return (
     <>
@@ -133,10 +137,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           <Container>
             <div className="max-w-4xl mx-auto">
               <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-border-subtle shadow-xl">
-                <img
+                <Image
                   src={post.main_image_url}
                   alt={post.main_image_alt || post.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  priority
+                  sizes="(max-width: 896px) 100vw, 896px"
+                  className="object-cover"
                 />
               </div>
             </div>
@@ -156,6 +163,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </Container>
       </section>
+
+      {/* ═══════════════ ARTÍCULOS RELACIONADOS ═══════════════ */}
+      <RelatedPosts posts={relatedPosts} />
 
       {/* ═══════════════ LEAD MAGNET ═══════════════ */}
       <section className="relative py-fluid-lg bg-brand-dusk">
