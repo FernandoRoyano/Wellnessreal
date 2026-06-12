@@ -53,6 +53,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(result)
   } catch (err) {
     console.error('[POST /api/admin/email/campaigns]', err)
-    return NextResponse.json({ error: 'Error al crear campaña' }, { status: 500 })
+    // Mostrar el motivo real (p. ej. remitente sin verificar o límite de plan de MailerLite)
+    const message = err instanceof Error ? err.message : 'Error al crear campaña'
+    return NextResponse.json({ error: message }, { status: 500 })
   }
 }
