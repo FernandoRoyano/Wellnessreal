@@ -56,6 +56,22 @@ export async function getSubscriber(id: string): Promise<{ data: MLSubscriber }>
   return mailerliteRequest(`/subscribers/${id}`)
 }
 
+export async function createSubscriber(data: {
+  email: string
+  name?: string
+  groups?: string[]
+}): Promise<{ data: MLSubscriber }> {
+  return mailerliteRequest('/subscribers', {
+    method: 'POST',
+    body: JSON.stringify({
+      email: data.email,
+      status: 'active',
+      ...(data.name ? { fields: { name: data.name } } : {}),
+      ...(data.groups && data.groups.length ? { groups: data.groups } : {}),
+    }),
+  })
+}
+
 export async function deleteSubscriber(id: string): Promise<void> {
   await fetch(`${MAILERLITE_BASE}/subscribers/${id}`, {
     method: 'DELETE',

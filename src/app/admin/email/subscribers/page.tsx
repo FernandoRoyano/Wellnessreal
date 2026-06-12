@@ -4,8 +4,8 @@ import { useEffect, useState, useCallback } from 'react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import SubscriberStatusBadge from '@/components/admin/email/SubscriberStatusBadge'
 import Link from 'next/link'
-import { Search, Users, Mail, UserMinus, ArrowRight, AlertTriangle } from 'lucide-react'
-import type { MLSubscriber } from '@/lib/types/mailerlite'
+import { Search, Users, Mail, UserMinus, ArrowRight, AlertTriangle, UserPlus, Check, X } from 'lucide-react'
+import type { MLSubscriber, MLGroup } from '@/lib/types/mailerlite'
 
 interface SubscriberCounts {
   total: number
@@ -21,6 +21,16 @@ export default function SubscribersPage() {
   const [cursor, setCursor] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [counts, setCounts] = useState<SubscriberCounts>({ total: 0, active: 0, unsubscribed: 0, bounced: 0 })
+
+  // Alta manual de suscriptor
+  const [groups, setGroups] = useState<MLGroup[]>([])
+  const [showAdd, setShowAdd] = useState(false)
+  const [addEmail, setAddEmail] = useState('')
+  const [addName, setAddName] = useState('')
+  const [addGroupId, setAddGroupId] = useState('')
+  const [adding, setAdding] = useState(false)
+  const [addError, setAddError] = useState('')
+  const [addSuccess, setAddSuccess] = useState(false)
 
   const fetchSubscribers = useCallback(async (nextCursor?: string) => {
     const isLoadMore = !!nextCursor
@@ -51,13 +61,56 @@ export default function SubscribersPage() {
     }
   }, [])
 
-  useEffect(() => {
-    fetchSubscribers()
+  const refreshCounts = useCallback(() => {
     fetch('/api/admin/email/subscribers/count')
       .then((r) => r.json())
       .then((data) => setCounts(data))
       .catch(() => {})
-  }, [fetchSubscribers])
+  }, [])
+
+  useEffect(() => {
+    fetchSubscribers()
+    refreshCounts()
+    fetch('/api/admin/email/groups')
+      .then((r) => r.json())
+      .then((data) => setGroups(data.data || []))
+      .catch(() => {})
+  }, [fetchSubscribers, refreshCounts])
+
+  const handleAddSubscriber = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!addEmail.trim()) return
+    setAdding(true)
+    setAddError('')
+    setAddSuccess(false)
+    try {
+      const res = await fetch('/api/admin/email/subscribers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: addEmail.trim(),
+          name: addName.trim() || undefined,
+          groupId: addGroupId || undefined,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'Error al añadir suscriptor')
+
+      setAddSuccess(true)
+      setAddEmail('')
+      setAddName('')
+      fetchSubscribers()
+      refreshCounts()
+      setTimeout(() => {
+        setAddSuccess(false)
+        setShowAdd(false)
+      }, 1500)
+    } catch (err) {
+      setAddError(err instanceof Error ? err.message : 'Error al añadir suscriptor')
+    } finally {
+      setAdding(false)
+    }
+  }
 
   const filtered = search
     ? subscribers.filter(
@@ -86,7 +139,81 @@ export default function SubscribersPage() {
               Gestiona tu audiencia y segmentos
             </p>
           </div>
+          <button
+            onClick={() => { setShowAdd((v) => !v); setAddError('') }}
+            className="flex items-center gap-2 px-5 py-3 rounded-lg font-bold transition-all hover:scale-105"
+            style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+          >
+            {showAdd ? <X size={18} /> : <UserPlus size={18} />}
+            {showAdd ? 'Cerrar' : 'Añadir suscriptor'}
+          </button>
         </div>
+
+        {/* Formulario de alta manual */}
+        {showAdd && (
+          <form
+            onSubmit={handleAddSubscriber}
+            className="mb-8 p-6 rounded-xl"
+            style={{ backgroundColor: '#1a1535', border: '1px solid rgba(102, 45, 145, 0.3)' }}
+          >
+            <h3 className="text-lg font-bold mb-4" style={{ color: '#FCEE21' }}>Añadir suscriptor manualmente</h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Email *</label>
+                <input
+                  type="email"
+                  value={addEmail}
+                  onChange={(e) => setAddEmail(e.target.value)}
+                  placeholder="persona@email.com"
+                  required
+                  className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none focus:border-[#FCEE21] transition"
+                  style={{ backgroundColor: '#16122B', borderColor: 'rgba(102, 45, 145, 0.5)' }}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Nombre</label>
+                <input
+                  type="text"
+                  value={addName}
+                  onChange={(e) => setAddName(e.target.value)}
+                  placeholder="Opcional"
+                  className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none focus:border-[#FCEE21] transition"
+                  style={{ backgroundColor: '#16122B', borderColor: 'rgba(102, 45, 145, 0.5)' }}
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Grupo</label>
+                <select
+                  value={addGroupId}
+                  onChange={(e) => setAddGroupId(e.target.value)}
+                  className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none focus:border-[#FCEE21] transition"
+                  style={{ backgroundColor: '#16122B', borderColor: 'rgba(102, 45, 145, 0.5)' }}
+                >
+                  <option value="" style={{ backgroundColor: '#16122B' }}>Sin grupo</option>
+                  {groups.map((g) => (
+                    <option key={g.id} value={g.id} style={{ backgroundColor: '#16122B' }}>
+                      {g.name} ({g.active_count})
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {addError && <p className="text-red-400 text-sm mt-4">{addError}</p>}
+
+            <div className="flex items-center gap-3 mt-5">
+              <button
+                type="submit"
+                disabled={adding || addSuccess}
+                className="flex items-center gap-2 px-6 py-3 rounded-lg font-bold transition-all disabled:opacity-50"
+                style={{ backgroundColor: addSuccess ? '#4ade80' : '#FCEE21', color: '#16122B' }}
+              >
+                {addSuccess ? <><Check size={18} /> Añadido</> : adding ? 'Añadiendo…' : <><UserPlus size={18} /> Añadir</>}
+              </button>
+              <span className="text-xs text-gray-500">Se añade a tu lista de MailerLite (newsletter).</span>
+            </div>
+          </form>
+        )}
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
