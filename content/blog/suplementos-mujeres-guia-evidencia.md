@@ -62,7 +62,7 @@ Lo nuevo y potente: la investigación reciente ha ampliado sus beneficios mucho 
 
 Y por si fuera poco: el monohidrato es el más barato. Olvídate de las "creatinas premium" (HCl, líquida, gominolas...): ninguna ha demostrado ser mejor.
 
-👉 **Artículo completo (próximamente):** Creatina para mujeres: la guía definitiva (y por qué pagas de más por las versiones "premium").
+👉 **Amplía aquí:** [Creatina para mujeres: la guía sin humo](/blog/creatina-mujeres-guia-evidencia) — por qué no te pone "musculosa", qué beneficios reales tiene (gimnasio, cabeza y huesos), cómo tomarla y qué calidad comprar.
 
 ### 🟢 Proteína en polvo
 
