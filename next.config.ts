@@ -2,6 +2,10 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    // Optimización de Vercel desactivada: la cuota del plan se agotaba y las
+    // imágenes nuevas devolvían 402 (se veían rotas). Así se sirven directas
+    // desde Supabase/public, sin límite. (Conviene subir imágenes ya comprimidas.)
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
