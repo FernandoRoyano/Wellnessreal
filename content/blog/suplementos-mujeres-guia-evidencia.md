@@ -74,7 +74,7 @@ Lo que cambia el discurso clásico: hoy sabemos que **el total del día importa 
 
 En el artículo entro a fondo en algo clave: no todas son iguales (concentrado, aislado, hidrolizado, vegetales) y, sobre todo, **probablemente estás pagando de más por la que no necesitas**.
 
-👉 **Artículo completo (próximamente):** Proteína en polvo: tipos, calidad y cuál elegir sin que te estafen.
+👉 **Amplía aquí:** [Proteína en polvo: qué tipo elegir sin que te timen](/blog/tipos-proteina-polvo-guia-mujeres) — la guía completa de cada tipo (whey, aislado, vegana, huevo, caseína), qué calidad buscar y cuánto cuesta.
 
 ### 🟡 Vitamina D3
 
