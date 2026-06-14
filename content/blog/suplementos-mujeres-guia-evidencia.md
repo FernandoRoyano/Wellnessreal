@@ -92,7 +92,7 @@ Buen suplemento si no comes pescado azul con regularidad. Cubre beneficios reale
 
 Más no es mejor. Y ojo a las etiquetas: "aceite de pescado 1000 mg" no es lo mismo que 1000 mg de EPA+DHA.
 
-👉 **Artículo completo (próximamente):** Omega 3: para qué sirve de verdad y qué dosis tiene sentido.
+👉 **Amplía aquí:** [Omega 3: para qué sirve y qué dosis tiene sentido](/blog/omega-3-mujeres) — EPA y DHA, la dosis que respalda la evidencia, por qué las megadosis no son mejores y la trampa de la etiqueta del bote.
 
 ### 🟡 Hierro
 
