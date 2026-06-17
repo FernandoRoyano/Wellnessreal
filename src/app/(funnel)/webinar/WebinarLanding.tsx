@@ -143,10 +143,10 @@ export default function WebinarLanding() {
       <div className="progress" id="wr-progress" />
 
       <nav id="wr-nav" className="hero-mode">
-        <div className="logo">
-          <b>Wellness</b>
-          <span className="mark">Real</span>
-        </div>
+        <a href="https://wellnessreal.es" className="logo" aria-label="WellnessReal">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" />
+        </a>
         <button className="nav-cta" onClick={goReserve}>
           Reservar plaza gratis
         </button>
@@ -154,6 +154,7 @@ export default function WebinarLanding() {
 
       {/* HERO */}
       <header className="hero">
+        <div className="hero-grid" />
         <div className="hero-inner">
           <span className="eyebrow">
             <span className="pulse" /> Clase online gratuita
@@ -217,7 +218,7 @@ export default function WebinarLanding() {
             </h2>
           </div>
           <div className="grid-4">
-            <div className="card reveal d1">
+            <div className="card wide reveal d1">
               <div className="ico">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
@@ -248,7 +249,7 @@ export default function WebinarLanding() {
               <h3>Cómo medir tu progreso real</h3>
               <p>Más allá de la báscula. Las métricas que importan para saber que estás avanzando de verdad.</p>
             </div>
-            <div className="card reveal d4">
+            <div className="card wide reveal d4">
               <div className="ico">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="m17 2 4 4-4 4" />
@@ -405,17 +406,56 @@ export default function WebinarLanding() {
       </section>
 
       <footer>
-        <div className="logo">
-          <b>Wellness</b>
-          <span className="mark">Real</span>
+        <div className="foot-wrap">
+          <div className="foot-brand">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" />
+            <p>Entrenamiento y nutrición para gente con vida real. Sin extremos, sin perfección. Solo lo que funciona.</p>
+            <div className="foot-social">
+              <a href="https://www.instagram.com/wellnessrealoficial" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-10.4a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z" /></svg>
+              </a>
+              <a href="https://www.youtube.com/@wellnessreal" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z" /></svg>
+              </a>
+              <a href="https://www.linkedin.com/in/fernando-royano/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" /></svg>
+              </a>
+            </div>
+          </div>
+
+          <div className="foot-col">
+            <h4>Explora</h4>
+            <a href="https://wellnessreal.es/filosofia">Filosofía</a>
+            <a href="https://wellnessreal.es/servicios">Servicios</a>
+            <a href="https://wellnessreal.es/tarifas">Tarifas</a>
+            <a href="https://wellnessreal.es/blog">Blog</a>
+          </div>
+
+          <div className="foot-col">
+            <h4>Empieza</h4>
+            <a href="https://wellnessreal.es/valoracion">Valoración gratis</a>
+            <a href="https://wellnessreal.es/recurso-gratis">Guía gratuita</a>
+            <a href="https://wellnessreal.es/caso-real">Caso real</a>
+          </div>
+
+          <div className="foot-col">
+            <h4>Contacto</h4>
+            <a href="mailto:info@wellnessreal.es">info@wellnessreal.es</a>
+            <a href="https://wa.me/34633261963" target="_blank" rel="noopener noreferrer">WhatsApp · 633 261 963</a>
+            <span style={{ color: "var(--lavender)", fontSize: ".92rem", display: "block", padding: "6px 0" }}>
+              Online · Madrid
+            </span>
+          </div>
         </div>
-        <div className="links">
-          <a href="https://wellnessreal.es/filosofia">Filosofía</a>
-          <a href="https://wellnessreal.es/servicios">Servicios</a>
-          <a href="https://wellnessreal.es/blog">Blog</a>
-          <a href="https://wellnessreal.es/privacidad">Privacidad</a>
+
+        <div className="foot-bottom">
+          <p>© 2026 WellnessReal · Fitness real para gente con vida real</p>
+          <div className="legal">
+            <a href="https://wellnessreal.es/privacidad">Privacidad</a>
+            <a href="https://wellnessreal.es/terminos">Términos</a>
+          </div>
         </div>
-        <p className="copy">© 2026 WellnessReal · info@wellnessreal.es · Madrid</p>
       </footer>
     </div>
   );
