@@ -84,7 +84,7 @@ Aquí toca matizar el discurso de toda la vida. Durante años se ha vendido como
 
 El mensaje sensato: **mídete antes de suplementar.** Si estás baja, corregirlo merece la pena. Si estás bien, el bote no te va a dar un extra.
 
-👉 **Artículo completo (próximamente):** Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing).
+👉 **Amplía aquí:** [Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing)](/blog/vitamina-d-mujeres) — qué dice la evidencia reciente (VITAL, D-Health), por qué solo merece la pena si hay déficit, qué dosis tiene sentido y por qué deberías medirte antes de comprar el bote.
 
 ### 🟡 Omega 3 (EPA y DHA)
 
@@ -100,7 +100,7 @@ Este es delicado y lo coloco en amarillo por una razón: en muchas mujeres el d�
 
 El exceso de hierro es tóxico. Suplementar "por si acaso" es un error que puede salir caro. La norma es simple e innegociable: **analítica primero**, y suplementación solo si hay déficit y mejor con criterio profesional.
 
-👉 **Artículo completo (próximamente):** Hierro en mujeres: el déficit silencioso (y por qué no debes suplementar sin analítica).
+👉 **Amplía aquí:** [Hierro en mujeres: el déficit silencioso (y por qué no debes suplementar sin analítica)](/blog/hierro-mujeres) — por qué el déficit es tan común, cómo afecta a tu energía y tu cabeza, por qué el exceso es peligroso y por qué la analítica es innegociable antes de suplementar.
 
 ---
 
