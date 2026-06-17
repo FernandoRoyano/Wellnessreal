@@ -1,7 +1,7 @@
 import { supabase } from '@/lib/supabase'
 
 export type LeadStatus = 'nuevo' | 'contactado' | 'qualified' | 'cliente' | 'descartado'
-export type LeadSource = 'guia' | 'valoracion' | 'metodo-optin' | 'newsletter' | 'contacto' | 'unknown'
+export type LeadSource = 'guia' | 'valoracion' | 'metodo-optin' | 'newsletter' | 'contacto' | 'webinar' | 'unknown'
 
 export interface Lead {
   id: string
