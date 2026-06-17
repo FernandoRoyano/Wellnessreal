@@ -90,13 +90,14 @@
 @keyframes wrPulse{0%{box-shadow:0 0 0 0 rgba(252,238,33,.6)}70%{box-shadow:0 0 0 10px rgba(252,238,33,0)}100%{box-shadow:0 0 0 0 rgba(252,238,33,0)}}
 
 .wrlp .hero h1{font-size:clamp(2.3rem,6vw,4.4rem);font-weight:800;color:var(--cream);margin-bottom:24px}
-.wrlp .hero h1 .hl{position:relative;color:var(--yellow);white-space:nowrap}
-.wrlp .hero h1 .hl::after{
-  content:"";position:absolute;left:-2%;right:-2%;bottom:8%;height:36%;
-  background:rgba(252,238,33,.14);border-radius:6px;z-index:-1;
-  transform:scaleX(0);transform-origin:left;animation:wrWipe 1s .6s cubic-bezier(.2,.8,.2,1) forwards;
+.wrlp .hero h1 .hl{
+  color:var(--yellow);
+  /* Resaltado que respeta el salto de línea y mantiene el centrado */
+  background:linear-gradient(rgba(252,238,33,.14),rgba(252,238,33,.14));
+  background-size:100% 0.42em;background-position:0 0.82em;background-repeat:no-repeat;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+  padding:0 .08em;border-radius:6px;
 }
-@keyframes wrWipe{to{transform:scaleX(1)}}
 
 .wrlp .hero p.sub{font-size:clamp(1.05rem,2vw,1.25rem);color:var(--lavender);max-width:600px;margin:0 auto 44px;line-height:1.7}
 
