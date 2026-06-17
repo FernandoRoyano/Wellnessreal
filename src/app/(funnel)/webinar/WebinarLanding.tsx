@@ -218,7 +218,7 @@ export default function WebinarLanding() {
             </h2>
           </div>
           <div className="grid-4">
-            <div className="card wide reveal d1">
+            <div className="card reveal d1">
               <div className="ico">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M12 5a3 3 0 1 0-5.997.142 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
@@ -249,7 +249,7 @@ export default function WebinarLanding() {
               <h3>Cómo medir tu progreso real</h3>
               <p>Más allá de la báscula. Las métricas que importan para saber que estás avanzando de verdad.</p>
             </div>
-            <div className="card wide reveal d4">
+            <div className="card reveal d4">
               <div className="ico">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="m17 2 4 4-4 4" />
