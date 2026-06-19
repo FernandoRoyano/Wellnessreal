@@ -1,0 +1,78 @@
+import { NextRequest, NextResponse } from 'next/server'
+import { isAdminAuthenticated } from '@/lib/auth'
+import { supabase } from '@/lib/supabase'
+import type { Programa } from '@/lib/programa-schema'
+
+// Detalle de un programa generado (incluye el JSON completo + datos del cliente).
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+    }
+    const { id } = await params
+
+    const { data, error } = await supabase
+      .from('programas_generados')
+      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena)')
+      .eq('id', id)
+      .single()
+
+    if (error) throw new Error(error.message)
+    return NextResponse.json({ programa: data })
+  } catch (err) {
+    console.error('[GET /api/admin/programas/[id]]', err)
+    return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
+  }
+}
+
+// Revisar / editar el programa antes de enviarlo.
+//   body: { revisado?: boolean, programa?: Programa }
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> },
+) {
+  try {
+    if (!(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+    }
+    const { id } = await params
+    const body = await request.json()
+
+    const update: Record<string, unknown> = {}
+    if (typeof body.revisado === 'boolean') {
+      update.revisado = body.revisado
+      update.revisado_en = body.revisado ? new Date().toISOString() : null
+    }
+    if (body.programa) {
+      update.programa = body.programa as Programa
+    }
+    if (Object.keys(update).length === 0) {
+      return NextResponse.json({ error: 'Nada que actualizar.' }, { status: 400 })
+    }
+
+    const { data, error } = await supabase
+      .from('programas_generados')
+      .update(update)
+      .eq('id', id)
+      .select('id, onboarding_id, revisado')
+      .single()
+
+    if (error) throw new Error(error.message)
+
+    // Mantener el estado del onboarding en sincronía cuando se marca como revisado.
+    if (data?.onboarding_id && typeof body.revisado === 'boolean') {
+      await supabase
+        .from('onboarding_respuestas')
+        .update({ estado: body.revisado ? 'revisado' : 'generado' })
+        .eq('id', data.onboarding_id)
+    }
+
+    return NextResponse.json({ ok: true, programa: data })
+  } catch (err) {
+    console.error('[PATCH /api/admin/programas/[id]]', err)
+    return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
+  }
+}
