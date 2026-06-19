@@ -14,7 +14,12 @@ export default function ProgramaDocumento({
   programa: Programa
   nombre?: string
 }) {
-  const { mensaje_bienvenida, punto_partida, entrenamiento, nutricion, seguimiento } = programa
+  const mensaje_bienvenida = programa?.mensaje_bienvenida ?? ''
+  const punto_partida = programa?.punto_partida ?? ({} as Programa['punto_partida'])
+  const entrenamiento = programa?.entrenamiento ?? ({} as Programa['entrenamiento'])
+  const nutricion = programa?.nutricion ?? ({} as Programa['nutricion'])
+  const seguimiento = programa?.seguimiento ?? ({} as Programa['seguimiento'])
+  const dias = entrenamiento?.dias ?? []
 
   return (
     <div className="wrp">
@@ -30,10 +35,10 @@ export default function ProgramaDocumento({
         {/* 1 · Punto de partida */}
         <Section num={1} title="Tu punto de partida">
           <div className="wrp-facts">
-            <Fact k="Objetivo principal" v={punto_partida.objetivo_principal} />
-            <Fact k="Objetivos secundarios" v={punto_partida.objetivos_secundarios.join(', ') || '—'} />
-            <Fact k="Dónde entrenas" v={punto_partida.donde_entrena} />
-            <Fact k="Días y tiempo" v={punto_partida.dias_tiempo} />
+            <Fact k="Objetivo principal" v={punto_partida.objetivo_principal || '—'} />
+            <Fact k="Objetivos secundarios" v={punto_partida.objetivos_secundarios?.join(', ') || '—'} />
+            <Fact k="Dónde entrenas" v={punto_partida.donde_entrena || '—'} />
+            <Fact k="Días y tiempo" v={punto_partida.dias_tiempo || '—'} />
           </div>
           <div className="wrp-card" style={{ marginTop: 14 }}>
             <div className="wrp-fact" style={{ background: 'transparent', border: 'none', padding: 0 }}>
@@ -61,13 +66,13 @@ export default function ProgramaDocumento({
             </div>
           )}
 
-          {entrenamiento.dias.map((dia, i) => (
+          {dias.map((dia, i) => (
             <div className="wrp-card wrp-day" key={i}>
               <div className="wrp-day-head">
                 <span className="tag">Día {i + 1}</span>
                 <h3>{dia.nombre}</h3>
               </div>
-              {dia.ejercicios.map((ej, j) => (
+              {(dia.ejercicios ?? []).map((ej, j) => (
                 <div className="wrp-ex" key={j}>
                   <div className="wrp-ex-top">
                     <span className="wrp-ex-name">{ej.nombre}</span>

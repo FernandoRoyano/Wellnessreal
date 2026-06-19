@@ -18,10 +18,13 @@ export default function ProgramaTeaser({
   programa: Programa
   nombre: string
 }) {
-  const primerNombre = nombre.split(' ')[0] || 'crack'
-  const { mensaje_bienvenida, punto_partida, entrenamiento } = programa
-  const dia1 = entrenamiento.dias[0]
-  const diasRestantes = Math.max(0, entrenamiento.dias.length - 1)
+  const primerNombre = (nombre || '').split(' ')[0] || 'crack'
+  const mensaje_bienvenida = programa?.mensaje_bienvenida ?? ''
+  const punto_partida = programa?.punto_partida
+  const entrenamiento = programa?.entrenamiento
+  const dias = entrenamiento?.dias ?? []
+  const dia1 = dias[0]
+  const diasRestantes = Math.max(0, dias.length - 1)
 
   const mensaje = encodeURIComponent(
     `Hola Fernando, soy ${nombre}. Acabo de hacer el cuestionario y quiero mi plan completo y empezar a entrenar contigo.`,
@@ -51,10 +54,10 @@ export default function ProgramaTeaser({
               <h2>Tu punto de partida</h2>
             </div>
             <div className="wrp-facts">
-              <Fact k="Objetivo principal" v={punto_partida.objetivo_principal} />
-              <Fact k="Objetivos secundarios" v={punto_partida.objetivos_secundarios.join(', ') || '—'} />
-              <Fact k="Dónde entrenas" v={punto_partida.donde_entrena} />
-              <Fact k="Días y tiempo" v={punto_partida.dias_tiempo} />
+              <Fact k="Objetivo principal" v={punto_partida?.objetivo_principal || '—'} />
+              <Fact k="Objetivos secundarios" v={punto_partida?.objetivos_secundarios?.join(', ') || '—'} />
+              <Fact k="Dónde entrenas" v={punto_partida?.donde_entrena || '—'} />
+              <Fact k="Días y tiempo" v={punto_partida?.dias_tiempo || '—'} />
             </div>
           </section>
 
@@ -64,7 +67,7 @@ export default function ProgramaTeaser({
               <span className="wrp-section-num">2</span>
               <h2>Tu entrenamiento</h2>
             </div>
-            <p className="wrp-lead">{entrenamiento.introduccion}</p>
+            {entrenamiento?.introduccion && <p className="wrp-lead">{entrenamiento.introduccion}</p>}
 
             {dia1 && (
               <div className="wrp-card wrp-day">
@@ -72,7 +75,7 @@ export default function ProgramaTeaser({
                   <span className="tag">Día 1</span>
                   <h3>{dia1.nombre}</h3>
                 </div>
-                {dia1.ejercicios.map((ej, j) => (
+                {(dia1.ejercicios ?? []).map((ej, j) => (
                   <div className="wrp-ex" key={j}>
                     <div className="wrp-ex-top">
                       <span className="wrp-ex-name">{ej.nombre}</span>
