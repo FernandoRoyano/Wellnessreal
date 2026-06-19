@@ -10,6 +10,7 @@ import {
   Pen, Mail, Link2, Copy, ExternalLink, Check,
   PlayCircle, ClipboardList, Gift, MessageCircle, Target,
   AlertTriangle, ChevronRight, UserPlus, ArrowUpRight, ArrowDownRight, ArrowRight,
+  Sparkles,
 } from 'lucide-react'
 
 interface AttentionItem {
@@ -336,6 +337,41 @@ export default function AdminDashboardPage() {
               </div>
             </div>
 
+            {/* Row 2.6: Embudo del plan con IA */}
+            <div
+              className="rounded-xl p-6 mb-6"
+              style={{ backgroundColor: '#1a1535', border: '1px solid rgba(252,238,33,0.25)' }}
+            >
+              <div className="flex items-center gap-2 mb-1">
+                <Sparkles size={16} style={{ color: '#FCEE21' }} />
+                <h3 className="text-white font-bold text-sm">Embudo del plan con IA</h3>
+              </div>
+              <p className="text-gray-500 text-xs mb-5">
+                Las dos puertas del onboarding (webinar y cuestionario directo) y tu pantalla para revisar los planes que genera la IA antes de enviarlos.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <CaptureCard
+                  icon={PlayCircle}
+                  title="Webinar"
+                  description="Landing del webinar. Tras reservar plaza, lleva al cuestionario."
+                  path="/webinar"
+                />
+                <CaptureCard
+                  icon={ClipboardList}
+                  title="Cuestionario (plan IA)"
+                  description="Puerta directa: lo rellenan, la IA genera el plan y ven el teaser."
+                  path="/cuestionario"
+                  highlight
+                />
+                <AdminLinkCard
+                  icon={Sparkles}
+                  title="Revisar planes generados"
+                  description="Tu cola de revisión: aprueba, ajusta y obtén el enlace del cliente."
+                  href="/admin/programas"
+                />
+              </div>
+            </div>
+
             {/* Row 3: Quick actions */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <QuickAction href="/admin/proposals/new" label="Nueva propuesta" icon={PlusCircle} />
@@ -514,6 +550,30 @@ function CaptureCard({
         </a>
       </div>
     </div>
+  )
+}
+
+function AdminLinkCard({ icon: Icon, title, description, href }: {
+  icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>
+  title: string
+  description: string
+  href: string
+}) {
+  return (
+    <Link
+      href={href}
+      className="block rounded-xl p-4 transition-all hover:scale-[1.01]"
+      style={{ backgroundColor: '#16122B', border: '1px solid rgba(102,45,145,0.3)' }}
+    >
+      <div className="flex items-center gap-2 mb-2">
+        <div className="p-1.5 rounded-lg" style={{ backgroundColor: 'rgba(252,238,33,0.15)' }}>
+          <Icon size={14} style={{ color: '#FCEE21' }} />
+        </div>
+        <h4 className="text-white text-sm font-bold">{title}</h4>
+        <ArrowRight size={14} className="text-gray-500 ml-auto" />
+      </div>
+      <p className="text-gray-400 text-xs leading-relaxed">{description}</p>
+    </Link>
   )
 }
 
