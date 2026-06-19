@@ -40,13 +40,16 @@ export default function WebinarGracias() {
             </div>
           </div>
 
-          <p style={{ marginTop: 8 }}>
-            ¿No quieres esperar? Puedes{" "}
-            <Link href="/valoracion" style={{ color: "var(--yellow)", fontWeight: 600 }}>
-              solicitar tu valoración gratuita
-            </Link>{" "}
-            ahora mismo.
-          </p>
+          <div style={{ marginTop: 28, paddingTop: 28, borderTop: "1px solid rgba(255,255,255,.1)" }}>
+            <p style={{ marginBottom: 18 }}>
+              <strong style={{ color: "var(--cream)" }}>¿No quieres esperar al webinar?</strong>{" "}
+              Cuéntame tu situación en 2 minutos y te preparo un primer plan
+              personalizado con mi método. Lo revisas al instante.
+            </p>
+            <Link href="/cuestionario" className="btn-primary">
+              Crear mi plan ahora →
+            </Link>
+          </div>
         </div>
       </section>
     </div>
