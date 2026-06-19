@@ -49,6 +49,7 @@ export default function Cuestionario() {
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [programa, setPrograma] = useState<Programa | null>(null);
+  const [verTeaser, setVerTeaser] = useState(false);
 
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
   const toggleSecundario = (s: string) =>
@@ -129,12 +130,12 @@ export default function Cuestionario() {
     );
   }
 
-  // --- Pantalla: teaser del plan ---
-  if (done && programa) {
+  // --- Pantalla: teaser del plan (tras pulsar "ver adelanto") ---
+  if (done && programa && verTeaser) {
     return <ProgramaTeaser programa={programa} nombre={form.nombre} />;
   }
 
-  // --- Pantalla: gracias (fallback si no llegó el plan) ---
+  // --- Pantalla: gracias ---
   if (done) {
     return (
       <div className="wrq">
@@ -143,10 +144,26 @@ export default function Cuestionario() {
             <div className="wrq-badge">
               <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M20 6 9 17l-5-5" /></svg>
             </div>
-            <h1>¡Recibido, <span className="hl">{form.nombre.split(" ")[0] || "crack"}</span>!</h1>
-            <p>Tu plan personalizado se está preparando. Fernando lo revisa personalmente antes de enviártelo — lo recibirás en tu email <strong style={{ color: "var(--cream)" }}>({form.email})</strong> en menos de 24-48h.</p>
-            <p>Mientras tanto, ve abriendo hueco en la agenda. Esto va en serio.</p>
-            <a href="https://wellnessreal.es/recurso-gratis" className="wrq-btn primary">Descargar la guía gratis</a>
+            <h1>¡Listo, <span className="hl">{form.nombre.split(" ")[0] || "crack"}</span>!</h1>
+            {programa ? (
+              <>
+                <p>Hemos montado tu punto de partida con el método de Fernando. Él lo revisa y lo afináis juntos antes de que empieces — pero ya puedes echarle un vistazo.</p>
+                <button type="button" className="wrq-btn primary" onClick={() => setVerTeaser(true)}>
+                  Ver el adelanto de tu plan →
+                </button>
+                <p style={{ marginTop: 18, fontSize: ".88rem" }}>
+                  <a href="https://wellnessreal.es/recurso-gratis" style={{ color: "var(--lavender)", textDecoration: "underline" }}>
+                    Mientras tanto, descarga la guía gratis
+                  </a>
+                </p>
+              </>
+            ) : (
+              <>
+                <p>Tu plan personalizado se está preparando. Fernando lo revisa personalmente antes de enviártelo — lo recibirás en tu email <strong style={{ color: "var(--cream)" }}>({form.email})</strong> en menos de 24-48h.</p>
+                <p>Mientras tanto, ve abriendo hueco en la agenda. Esto va en serio.</p>
+                <a href="https://wellnessreal.es/recurso-gratis" className="wrq-btn primary">Descargar la guía gratis</a>
+              </>
+            )}
           </div>
         </div>
       </div>
