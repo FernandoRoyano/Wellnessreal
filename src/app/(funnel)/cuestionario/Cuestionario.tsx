@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import "./cuestionario.css";
+import ProgramaTeaser from "@/components/programa/ProgramaTeaser";
+import type { Programa } from "@/lib/programa-schema";
 
 interface FormState {
   nombre: string;
@@ -46,6 +48,7 @@ export default function Cuestionario() {
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [programa, setPrograma] = useState<Programa | null>(null);
 
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
   const toggleSecundario = (s: string) =>
@@ -96,6 +99,7 @@ export default function Cuestionario() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "No se pudo procesar tu cuestionario.");
+      if (data.programa) setPrograma(data.programa as Programa);
       setDone(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error al enviar el cuestionario.");
@@ -125,7 +129,12 @@ export default function Cuestionario() {
     );
   }
 
-  // --- Pantalla: gracias ---
+  // --- Pantalla: teaser del plan ---
+  if (done && programa) {
+    return <ProgramaTeaser programa={programa} nombre={form.nombre} />;
+  }
+
+  // --- Pantalla: gracias (fallback si no llegó el plan) ---
   if (done) {
     return (
       <div className="wrq">

@@ -1,0 +1,46 @@
+/* Teaser del plan: reutiliza .wrp (programa-documento.css) para el contenido
+   visible y añade aquí el bloqueo + CTA. */
+
+.wrt{background:#16122B}
+.wrt .wrp-preview-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-weight:600;
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#16122B;background:#FCEE21;
+  padding:6px 12px;border-radius:100px;margin-bottom:18px;
+}
+.wrt .wrp-preview-note{color:#958D99;font-size:.9rem;margin:-8px 0 4px}
+
+/* zona bloqueada */
+.wrt-lock{position:relative;margin-top:34px}
+.wrt-lock-fade{
+  height:120px;margin-bottom:-1px;
+  background:linear-gradient(to bottom,rgba(22,18,43,0) 0%,rgba(22,18,43,.85) 70%,#16122B 100%);
+  position:relative;
+}
+.wrt-lock-fade::before{
+  content:"";position:absolute;inset:auto 0 100% 0;height:160px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:18px;
+  filter:blur(6px);opacity:.5;
+}
+.wrt-lock-card{
+  background:rgba(252,238,33,.06);border:1px solid rgba(252,238,33,.28);border-radius:18px;
+  padding:clamp(24px,4vw,34px);text-align:center;
+}
+.wrt-lock-ico{
+  width:62px;height:62px;border-radius:50%;background:rgba(252,238,33,.14);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 18px;color:#FCEE21;
+}
+.wrt-lock-card h3{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(1.4rem,4vw,1.9rem);color:#FBFAF6;letter-spacing:-.03em;margin-bottom:12px}
+.wrt-lock-card h3 .hl{color:#FCEE21}
+.wrt-lock-card .sub{color:#958D99;font-size:1.02rem;line-height:1.6;max-width:440px;margin:0 auto 22px}
+.wrt-lock-list{list-style:none;text-align:left;max-width:380px;margin:0 auto 26px;display:flex;flex-direction:column;gap:11px}
+.wrt-lock-list li{position:relative;padding-left:30px;color:#FBFAF6;font-size:.98rem}
+.wrt-lock-list li::before{content:"🔒";position:absolute;left:0;top:0;font-size:.95rem;opacity:.85}
+.wrt-cta{
+  display:inline-flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;
+  background:#FCEE21;color:#16122B;border-radius:100px;padding:16px 30px;text-decoration:none;
+  box-shadow:0 10px 32px rgba(252,238,33,.32);transition:transform .25s ease,box-shadow .25s ease;
+}
+.wrt-cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(252,238,33,.45)}
+.wrt-cta-sub{margin-top:14px;color:#958D99;font-size:.86rem}
+
+@media(prefers-reduced-motion:reduce){.wrt-cta{transition:none}}
