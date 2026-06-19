@@ -9,65 +9,69 @@ import {
 
 const BASE_URL = 'https://wellnessreal.es'
 
-type Pagina = { title: string; description: string; path: string; highlight?: boolean }
+type Pagina = { title: string; description: string; path: string; highlight?: boolean; rol?: string }
 type Grupo = { titulo: string; nota?: string; icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; paginas: Pagina[] }
 
 const GRUPOS: Grupo[] = [
   {
-    titulo: 'Embudo VSL (principal)',
-    nota: 'Donde aterrizan los anuncios.',
-    icon: Target,
+    titulo: 'Embudo del Programa BASE · ACTIVO',
+    nota: 'En el que te estás centrando. Flujo: anuncio → reservar plaza → clase (vídeo de venta) → cuestionario → te escriben.',
+    icon: Sparkles,
     paginas: [
-      { title: 'VSL — Opt-in', description: 'Página de registro. Aquí entran los anuncios.', path: '/metodo', highlight: true },
-      { title: 'VSL — Vídeo', description: 'Vídeo de 15 min + CTA. Acceso directo.', path: '/metodo/video' },
+      { title: 'Webinar (reserva + clase)', description: 'Aquí aterriza tu anuncio. Reservan plaza y, tras hacerlo, ven la clase/vídeo de venta.', path: '/webinar', highlight: true, rol: 'Paso 1 · Entrada' },
+      { title: 'Cuestionario (plan IA)', description: 'El final del embudo: rellenan, la IA genera su plan y ven el adelanto (teaser) → te escriben por WhatsApp.', path: '/cuestionario', highlight: true, rol: 'Paso 2 · Conversión' },
     ],
   },
   {
-    titulo: 'Embudo del plan con IA',
-    nota: 'Las dos puertas del onboarding.',
-    icon: Sparkles,
+    titulo: 'Embudo VSL · EN PAUSA',
+    nota: 'Lo aparcaste. Si algún día lo retomas, es el otro camino (anuncio → vídeo directo). No lo uses ahora.',
+    icon: Target,
     paginas: [
-      { title: 'Webinar', description: 'Landing del webinar. Tras reservar, lleva al cuestionario.', path: '/webinar' },
-      { title: 'Cuestionario (plan IA)', description: 'Puerta directa: rellenan, la IA genera y ven el teaser.', path: '/cuestionario', highlight: true },
+      { title: 'VSL — Opt-in', description: 'Página de registro del VSL.', path: '/metodo', rol: 'En pausa' },
+      { title: 'VSL — Vídeo', description: 'Vídeo de 15 min + CTA.', path: '/metodo/video', rol: 'En pausa' },
     ],
   },
   {
     titulo: 'Captación / lead magnets',
+    nota: 'Imanes para captar email. No son el embudo principal: alimentan tu lista para vender después.',
     icon: Gift,
     paginas: [
-      { title: 'Valoración gratuita', description: 'Formulario 6 pasos con pre-cualificación.', path: '/valoracion' },
-      { title: 'Recurso gratis (PDF)', description: 'Guía descargable. Lead magnet.', path: '/recurso-gratis' },
-      { title: 'Contacto', description: 'Formulario genérico de contacto.', path: '/contacto' },
+      { title: 'Valoración gratuita', description: 'Formulario de 6 pasos con pre-cualificación de presupuesto.', path: '/valoracion', rol: 'Lead magnet' },
+      { title: 'Recurso gratis (PDF)', description: 'Guía descargable a cambio del email.', path: '/recurso-gratis', rol: 'Lead magnet' },
+      { title: 'Contacto', description: 'Formulario genérico de contacto.', path: '/contacto', rol: 'Contacto' },
     ],
   },
   {
     titulo: 'Páginas de venta',
+    nota: 'Donde explicas qué vendes y a qué precio. Tráfico que ya te conoce o que ya sabe lo que busca.',
     icon: FileText,
     paginas: [
-      { title: 'Tarifas', description: 'Tráfico que ya sabe lo que busca.', path: '/tarifas' },
-      { title: 'Servicios', description: 'Resumen de todos los servicios.', path: '/servicios' },
-      { title: 'Entrenamiento online', description: 'Servicio de entrenamiento online.', path: '/servicios/entrenamiento-online' },
-      { title: 'Entrenamiento personalizado', description: 'Servicio 1-a-1 presencial.', path: '/servicios/entrenamiento-personalizado' },
-      { title: 'Nutrición', description: 'Servicio de nutrición.', path: '/servicios/nutricion' },
-      { title: 'Osteopatía', description: 'Servicio de osteopatía.', path: '/servicios/osteopatia' },
+      { title: 'Tarifas', description: 'Precios de tus servicios.', path: '/tarifas', rol: 'Venta' },
+      { title: 'Servicios', description: 'Resumen de todos los servicios.', path: '/servicios', rol: 'Venta' },
+      { title: 'Entrenamiento online', description: 'Ficha del servicio de entrenamiento online.', path: '/servicios/entrenamiento-online', rol: 'Venta' },
+      { title: 'Entrenamiento personalizado', description: 'Ficha del servicio 1-a-1 presencial.', path: '/servicios/entrenamiento-personalizado', rol: 'Venta' },
+      { title: 'Nutrición', description: 'Ficha del servicio de nutrición.', path: '/servicios/nutricion', rol: 'Venta' },
+      { title: 'Osteopatía', description: 'Ficha del servicio de osteopatía.', path: '/servicios/osteopatia', rol: 'Venta' },
     ],
   },
   {
     titulo: 'Marca y contenido',
+    nota: 'Generan confianza y tráfico orgánico. No venden directo, pero sostienen todo lo demás.',
     icon: Home,
     paginas: [
-      { title: 'Home', description: 'Página principal.', path: '/' },
-      { title: 'Filosofía', description: 'Tu enfoque y valores.', path: '/filosofia' },
-      { title: 'Caso real', description: 'Caso de éxito / prueba social.', path: '/caso-real' },
-      { title: 'Blog', description: 'Artículos y SEO.', path: '/blog' },
+      { title: 'Home', description: 'Página principal de la web.', path: '/', rol: 'Marca' },
+      { title: 'Filosofía', description: 'Tu enfoque y valores.', path: '/filosofia', rol: 'Marca' },
+      { title: 'Caso real', description: 'Caso de éxito / prueba social.', path: '/caso-real', rol: 'Prueba social' },
+      { title: 'Blog', description: 'Artículos y SEO.', path: '/blog', rol: 'SEO' },
     ],
   },
   {
     titulo: 'Legal',
+    nota: 'Obligatorias. Enlazadas en los pies de página y formularios.',
     icon: Shield,
     paginas: [
-      { title: 'Privacidad', description: 'Política de privacidad.', path: '/privacidad' },
-      { title: 'Términos', description: 'Términos y condiciones.', path: '/terminos' },
+      { title: 'Privacidad', description: 'Política de privacidad.', path: '/privacidad', rol: 'Legal' },
+      { title: 'Términos', description: 'Términos y condiciones.', path: '/terminos', rol: 'Legal' },
     ],
   },
 ]
@@ -87,7 +91,7 @@ export default function EnlacesAdminPage() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white">Enlaces</h1>
           <p className="text-gray-500 text-sm mt-1">
-            Todas tus páginas públicas en un sitio. Copia la URL para anuncios o ábrela para revisarla.
+            Tus páginas públicas organizadas por su papel en el embudo. La etiqueta de cada tarjeta te dice qué es. Copia la URL para anuncios o ábrela para revisarla.
           </p>
         </div>
 
@@ -144,9 +148,16 @@ function LinkCard({ pagina }: { pagina: Pagina }) {
           <Icon size={14} style={{ color: pagina.highlight ? '#FCEE21' : '#c084fc' }} />
         </div>
         <h4 className="text-white text-sm font-bold">{pagina.title}</h4>
-        {pagina.highlight && (
-          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full ml-auto" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
-            CLAVE
+        {pagina.rol && (
+          <span
+            className="text-[10px] font-bold px-2 py-0.5 rounded-full ml-auto whitespace-nowrap"
+            style={
+              pagina.highlight
+                ? { backgroundColor: '#FCEE21', color: '#16122B' }
+                : { backgroundColor: 'rgba(102,45,145,0.3)', color: '#c4b5fd' }
+            }
+          >
+            {pagina.rol}
           </span>
         )}
       </div>
