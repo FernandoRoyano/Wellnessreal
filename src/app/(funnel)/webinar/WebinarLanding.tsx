@@ -165,9 +165,9 @@ export default function WebinarLanding() {
             <span className="hl">¿Por qué tu cuerpo sigue igual?</span>
           </h1>
           <p className="sub">
-            Descubre por qué el entrenamiento genérico deja de funcionar a partir
-            de los 35 — y el sistema que usan mis clientes para transformar su
-            composición corporal sin dietas extremas ni obsesión.
+            Descubre por qué moverte y comer &ldquo;bien&rdquo; ha dejado de bastar — y el
+            sistema que usan mis clientes para transformar su composición corporal
+            sin dietas extremas ni obsesión.
           </p>
 
           <div className="glass sessions">
@@ -225,8 +225,8 @@ export default function WebinarLanding() {
                   <path d="M12 5a3 3 0 1 1 5.997.142 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
                 </svg>
               </div>
-              <h3>Por qué tu cuerpo cambió</h3>
-              <p>Cómo responde tu metabolismo a partir de los 35 y por qué lo que funcionaba antes ya no funciona.</p>
+              <h3>Por qué tu cuerpo está como está</h3>
+              <p>No es una edad ni falta de fuerza de voluntad: es la suma de cosas pequeñas que se acumulan con los años. Y se le da la vuelta.</p>
             </div>
             <div className="card reveal d2">
               <div className="ico">
@@ -275,7 +275,7 @@ export default function WebinarLanding() {
           </div>
           <div className="whom-grid">
             <div className="whom reveal d1"><span className="chk">✓</span><p>Los resultados se han estancado aunque sigas igual de constante</p></div>
-            <div className="whom reveal d2"><span className="chk">✓</span><p>Tu cuerpo ya no responde igual que con 25 años</p></div>
+            <div className="whom reveal d2"><span className="chk">✓</span><p>Lo que antes te funcionaba ya no mueve la aguja</p></div>
             <div className="whom reveal d3"><span className="chk">✓</span><p>Sabes lo que tienes que hacer pero no consigues mantenerlo</p></div>
             <div className="whom reveal d4"><span className="chk">✓</span><p>No quieres obsesionarte — quieres que funcione y que dure</p></div>
           </div>
