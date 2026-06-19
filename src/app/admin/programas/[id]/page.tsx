@@ -3,7 +3,7 @@
 import { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock, Link2, Copy, ExternalLink } from 'lucide-react'
 import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
 import type { Programa } from '@/lib/programa-schema'
 
@@ -15,6 +15,7 @@ interface Cliente {
   lesiones: string | null
   donde_entrena: string | null
   semana_actual: number | null
+  token: string | null
 }
 
 interface Registro {
@@ -62,6 +63,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
   const [semana, setSemana] = useState('')
   const [ajustando, setAjustando] = useState(false)
   const [errAjuste, setErrAjuste] = useState('')
+  const [copiado, setCopiado] = useState(false)
 
   const cargar = () => {
     setLoading(true)
@@ -129,9 +131,22 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
   }
 
   const c = reg.cliente
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://wellnessreal.es'
+  const clientUrl = c?.token ? `${origin}/programa/${c.token}` : ''
   const mailto = c
-    ? `mailto:${c.email}?subject=${encodeURIComponent('Tu plan personalizado · WellnessReal')}&body=${encodeURIComponent(`Hola ${c.nombre},\n\nAquí tienes tu plan personalizado del Método BASE. Lo he revisado personalmente y está listo para empezar.\n\nUn abrazo,\nFernando`)}`
+    ? `mailto:${c.email}?subject=${encodeURIComponent('Tu plan personalizado · WellnessReal')}&body=${encodeURIComponent(`Hola ${c.nombre},\n\nAquí tienes tu plan personalizado del Método BASE. Lo he revisado personalmente y está listo para empezar:\n\n${clientUrl}\n\nÁbrelo cuando quieras, es tu enlace privado.\n\nUn abrazo,\nFernando`)}`
     : '#'
+
+  const copiarEnlace = async () => {
+    if (!clientUrl) return
+    try {
+      await navigator.clipboard.writeText(clientUrl)
+      setCopiado(true)
+      setTimeout(() => setCopiado(false), 1800)
+    } catch {
+      setErrAjuste('No se pudo copiar el enlace.')
+    }
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#0E0B1E' }}>
@@ -182,6 +197,26 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
 
         {/* Panel de trabajo */}
         <aside className="lg:w-80 flex-none space-y-5">
+          {/* Enlace privado del cliente */}
+          {clientUrl && (
+            <Panel title="Enlace del cliente" icon={<Link2 size={15} />}>
+              <p className="text-xs text-gray-500 mb-2">
+                Enlace privado donde el cliente ve su plan aprobado. Se actualiza solo cuando apruebas una versión.
+              </p>
+              <div className="text-[11px] text-gray-400 break-all rounded-lg px-3 py-2 mb-2" style={{ backgroundColor: '#16122B', border: '1px solid rgba(102,45,145,0.3)' }}>
+                {clientUrl}
+              </div>
+              <div className="flex gap-2">
+                <button onClick={copiarEnlace} className="flex-1 inline-flex items-center justify-center gap-2 py-2 rounded-lg text-sm font-medium" style={{ backgroundColor: copiado ? 'rgba(74,222,128,0.15)' : '#16122B', color: copiado ? '#4ade80' : '#d1d5db', border: '1px solid rgba(102,45,145,0.3)' }}>
+                  {copiado ? <><CheckCircle2 size={14} /> Copiado</> : <><Copy size={14} /> Copiar</>}
+                </button>
+                <a href={clientUrl} target="_blank" rel="noreferrer" className="inline-flex items-center justify-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white" style={{ border: '1px solid rgba(102,45,145,0.3)' }} title="Abrir como lo ve el cliente">
+                  <ExternalLink size={14} />
+                </a>
+              </div>
+            </Panel>
+          )}
+
           {/* Resumen de cambios si esta versión es un ajuste */}
           {reg.origen === 'ajuste' && reg.meta?.resumen_cambios && reg.meta.resumen_cambios.length > 0 && (
             <Panel title="Qué cambió en esta versión" icon={<Wand2 size={15} />}>
