@@ -128,3 +128,26 @@ export const PROGRAMA_JSON_SCHEMA = {
   },
   required: ['mensaje_bienvenida', 'punto_partida', 'entrenamiento', 'nutricion', 'seguimiento'],
 } as const
+
+// ------------------------------------------------------------
+//  Ajuste quirúrgico: devuelve el programa COMPLETO actualizado
+//  (no un diff) + un resumen claro de qué cambió y por qué.
+// ------------------------------------------------------------
+export interface Ajuste {
+  resumen_cambios: string[]
+  programa: Programa
+}
+
+export const AJUSTE_JSON_SCHEMA = {
+  type: 'object',
+  properties: {
+    resumen_cambios: {
+      type: 'array',
+      items: { type: 'string' },
+      description:
+        'Lista breve de qué has cambiado respecto a la versión anterior y por qué. En tú, claro y concreto (ej. "Subo press banca a 4 series porque la semana pasada te sobró energía").',
+    },
+    programa: PROGRAMA_JSON_SCHEMA,
+  },
+  required: ['resumen_cambios', 'programa'],
+} as const

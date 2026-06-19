@@ -16,12 +16,33 @@ export async function GET(
 
     const { data, error } = await supabase
       .from('programas_generados')
-      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena)')
+      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena, semana_actual)')
       .eq('id', id)
       .single()
 
     if (error) throw new Error(error.message)
-    return NextResponse.json({ programa: data })
+
+    // Versiones e historial del mismo cliente (para la línea de tiempo de revisión).
+    const clienteId = data?.cliente_id
+    const [{ data: versiones }, { data: eventos }] = await Promise.all([
+      clienteId
+        ? supabase
+            .from('programas_generados')
+            .select('id, version, vigente, revisado, origen, creado_en')
+            .eq('cliente_id', clienteId)
+            .order('version', { ascending: false })
+        : Promise.resolve({ data: [] }),
+      clienteId
+        ? supabase
+            .from('eventos_cliente')
+            .select('id, creado_en, semana, tipo, contenido')
+            .eq('cliente_id', clienteId)
+            .order('creado_en', { ascending: false })
+            .limit(30)
+        : Promise.resolve({ data: [] }),
+    ])
+
+    return NextResponse.json({ programa: data, versiones: versiones || [], eventos: eventos || [] })
   } catch (err) {
     console.error('[GET /api/admin/programas/[id]]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
