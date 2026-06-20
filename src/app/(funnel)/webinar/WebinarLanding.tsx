@@ -13,57 +13,12 @@ const TICKER = [
   { d: "M12 2v20M2 12h20", t: "Adaptado a tu vida real" },
 ];
 
-interface Session {
-  value: string;
-  label: string;
-  spots: number;
-}
-
-// Sesiones evergreen: se generan automáticamente a partir de "ahora", así que
-// nunca caducan ni hay que mantenerlas a mano.
-function buildSessions(now: Date): Session[] {
-  const HORAS = [11, 19];
-  const SPOTS = [9, 14, 21];
-  const slots: Date[] = [];
-  for (let day = 0; day < 5 && slots.length < 3; day++) {
-    for (const h of HORAS) {
-      const s = new Date(now);
-      s.setDate(now.getDate() + day);
-      s.setHours(h, 0, 0, 0);
-      if (s.getTime() > now.getTime() + 20 * 60 * 1000) slots.push(s);
-    }
-  }
-  const cap = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
-  const fmtDay = (d: Date) => {
-    const t0 = new Date(now); t0.setHours(0, 0, 0, 0);
-    const t1 = new Date(d); t1.setHours(0, 0, 0, 0);
-    const diff = Math.round((t1.getTime() - t0.getTime()) / 86400000);
-    if (diff === 0) return "Hoy";
-    if (diff === 1) return "Mañana";
-    return cap(d.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "short" }));
-  };
-  const fmtHora = (d: Date) => d.toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" });
-  return slots.slice(0, 3).map((d, i) => ({
-    value: d.toISOString(),
-    label: `${fmtDay(d)} · ${fmtHora(d)}h`,
-    spots: SPOTS[i] ?? 12,
-  }));
-}
-
 export default function WebinarLanding() {
   const router = useRouter();
 
-  const [sessions, setSessions] = useState<Session[]>([]);
-  const [form, setForm] = useState({ name: "", email: "", phone: "", session: "" });
+  const [form, setForm] = useState({ name: "", email: "", phone: "" });
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
-
-  // Sesiones calculadas solo en cliente (evita desajuste de hidratación con la fecha)
-  useEffect(() => {
-    const s = buildSessions(new Date());
-    setSessions(s);
-    setForm((f) => (f.session ? f : { ...f, session: s[0]?.value ?? "" }));
-  }, []);
 
   useEffect(() => {
     const nav = document.getElementById("wr-nav");
@@ -109,14 +64,13 @@ export default function WebinarLanding() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    if (!form.name.trim() || !form.email.trim() || !form.phone.trim() || !form.session) {
-      setError("Completa todos los campos y elige una sesión.");
+    if (!form.name.trim() || !form.email.trim() || !form.phone.trim()) {
+      setError("Completa todos los campos.");
       return;
     }
     setSending(true);
     try {
       const { getAttributionForSubmit } = await import("@/lib/tracking");
-      const sessionLabel = sessions.find((s) => s.value === form.session)?.label ?? "";
       const res = await fetch("/api/webinar", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -124,16 +78,14 @@ export default function WebinarLanding() {
           name: form.name.trim(),
           email: form.email.trim(),
           phone: form.phone.trim(),
-          session: form.session,
-          sessionLabel,
           _attribution: getAttributionForSubmit(),
         }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "No se pudo reservar tu plaza.");
-      router.push("/webinar/gracias");
+      if (!res.ok) throw new Error(data.error || "No se pudo acceder a la clase.");
+      router.push("/webinar/clase");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Error al reservar tu plaza.");
+      setError(err instanceof Error ? err.message : "Error al acceder a la clase.");
       setSending(false);
     }
   };
@@ -148,7 +100,7 @@ export default function WebinarLanding() {
           <img src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" />
         </a>
         <button className="nav-cta" onClick={goReserve}>
-          Reservar plaza gratis
+          Ver la clase gratis
         </button>
       </nav>
 
@@ -173,24 +125,29 @@ export default function WebinarLanding() {
           <div className="glass sessions">
             <div className="lab">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" />
-                <path d="M16 2v4M8 2v4M3 10h18" />
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 6v6l4 2" />
               </svg>
-              Próximas sesiones
+              Acceso inmediato
             </div>
-            {(sessions.length ? sessions : [null, null, null]).map((s, i) => (
-              <div className="srow" key={i}>
-                <span className="dot" />
-                <span className="t">{s ? s.label : "Cargando…"}</span>
-                {s && <span className="spots"><b>{s.spots}</b> plazas</span>}
-              </div>
-            ))}
+            <div className="srow">
+              <span className="dot" />
+              <span className="t">Clase grabada de ~15 minutos</span>
+            </div>
+            <div className="srow">
+              <span className="dot" />
+              <span className="t">La ves cuando quieras, ahora mismo</span>
+            </div>
+            <div className="srow">
+              <span className="dot" />
+              <span className="t">Gratis y sin instalar nada</span>
+            </div>
           </div>
 
           <button className="btn-primary" onClick={goReserve}>
-            Reservar mi plaza gratis <span className="arr">→</span>
+            Ver la clase gratis <span className="arr">→</span>
           </button>
-          <p className="micro">Sin tarjeta · 100% online · Respondo personalmente</p>
+          <p className="micro">Sin tarjeta · 100% online · Acceso inmediato</p>
         </div>
       </header>
 
@@ -345,8 +302,8 @@ export default function WebinarLanding() {
       <section className="form-sec" id="reservar">
         <div className="wrap">
           <div className="head reveal">
-            <span className="slabel">Últimas plazas disponibles</span>
-            <h2 className="title">Reserva tu plaza gratis</h2>
+            <span className="slabel">Clase online gratuita</span>
+            <h2 className="title">Mira la clase gratis ahora</h2>
           </div>
           <form className="glass form-card reveal d1" onSubmit={onSubmit}>
             <div className="field">
@@ -376,22 +333,8 @@ export default function WebinarLanding() {
                 onChange={(e) => setForm({ ...form, phone: e.target.value })}
               />
             </div>
-            <div className="field">
-              <label>Elige sesión</label>
-              <select
-                value={form.session}
-                onChange={(e) => setForm({ ...form, session: e.target.value })}
-              >
-                {!sessions.length && <option value="">Cargando sesiones…</option>}
-                {sessions.map((s) => (
-                  <option key={s.value} value={s.value}>
-                    {s.label} ({s.spots} plazas)
-                  </option>
-                ))}
-              </select>
-            </div>
             <button className="btn-submit" type="submit" disabled={sending}>
-              {sending ? "Reservando…" : <>Reservar mi plaza gratis <span className="arr">→</span></>}
+              {sending ? "Accediendo…" : <>Ver la clase gratis <span className="arr">→</span></>}
             </button>
             {error && <p className="formerror">{error}</p>}
             <div className="formnote">

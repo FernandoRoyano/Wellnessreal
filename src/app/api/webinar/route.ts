@@ -17,9 +17,9 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { name, email, phone, session, sessionLabel, _attribution } = await request.json()
+    const { name, email, phone, _attribution } = await request.json()
 
-    if (!name || !email || !phone || !session) {
+    if (!name || !email || !phone) {
       return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
     }
     if (!EMAIL_REGEX.test(email)) {
@@ -35,12 +35,11 @@ export async function POST(request: NextRequest) {
       source: 'webinar',
       attribution: _attribution,
       tags: ['webinar'],
-      form_data: { session, sessionLabel: sessionLabel || null },
+      form_data: { acceso: 'inmediato' },
     })
 
     const safe = {
       name: escapeHtml(name),
-      sessionLabel: escapeHtml(sessionLabel || ''),
     }
 
     // Email de confirmación al asistente
@@ -52,20 +51,20 @@ export async function POST(request: NextRequest) {
   <div style="padding:40px 30px;text-align:center;">
     <h1 style="color:#FCEE21;font-size:24px;margin:0 0 8px;">WellnessReal</h1>
     <div style="height:2px;background:linear-gradient(90deg,#662D91,#FCEE21,#662D91);margin:16px 0;"></div>
-    <h2 style="color:#fff;font-size:22px;margin:16px 0 8px;">¡Plaza reservada, ${safe.name}!</h2>
+    <h2 style="color:#fff;font-size:22px;margin:16px 0 8px;">¡Aquí tienes tu clase, ${safe.name}!</h2>
     <p style="color:#ccc;font-size:16px;line-height:1.6;margin:0 0 24px;">
-      Tu plaza para la clase online gratuita está confirmada.
-      ${safe.sessionLabel ? `<br><strong style="color:#FCEE21;">Sesión: ${safe.sessionLabel}</strong>` : ''}
+      Tu acceso a la clase online gratuita está listo. Puedes verla ahora mismo, cuando quieras.
     </p>
+    <a href="https://wellnessreal.es/webinar/clase" style="display:inline-block;background:#FCEE21;color:#16122B;font-weight:bold;text-decoration:none;padding:14px 28px;border-radius:100px;margin:0 0 24px;">Ver la clase ahora →</a>
     <div style="background:rgba(252,238,33,0.1);padding:20px;border-radius:12px;border-left:4px solid #FCEE21;text-align:left;margin:0 0 24px;">
-      <p style="color:#fff;margin:0 0 8px;font-weight:bold;">Qué hacer ahora:</p>
+      <p style="color:#fff;margin:0 0 8px;font-weight:bold;">Cómo sacarle partido:</p>
       <p style="color:#ccc;margin:0;line-height:1.7;">
-        1. Apunta el día y la hora.<br>
-        2. Te enviaré el enlace de acceso antes de empezar.<br>
-        3. Conéctate desde el móvil o el ordenador, sin instalar nada.
+        1. Busca 15 minutos sin distracciones.<br>
+        2. Al terminar, monta tu plan personalizado gratis (el botón está bajo el vídeo).<br>
+        3. Cualquier duda, responde a este email.
       </p>
     </div>
-    <p style="color:#999;font-size:14px;margin:0;">Si tienes cualquier duda, responde a este email.</p>
+    <p style="color:#999;font-size:14px;margin:0;">Guarda este correo para volver a la clase cuando quieras.</p>
   </div>
   <div style="padding:16px;text-align:center;border-top:1px solid rgba(102,45,145,0.3);">
     <p style="color:#666;font-size:12px;margin:0;">WellnessReal · wellnessreal.es</p>
@@ -83,20 +82,20 @@ export async function POST(request: NextRequest) {
     <p><strong>Nombre:</strong> ${safe.name}</p>
     <p><strong>Email:</strong> <a href="mailto:${escapeHtml(email)}">${escapeHtml(email)}</a></p>
     <p><strong>Teléfono:</strong> <a href="https://wa.me/${String(phone).replace(/[^0-9]/g, '')}">${escapeHtml(phone)}</a></p>
-    <p><strong>Sesión:</strong> ${safe.sessionLabel || '—'}</p>
+    <p><strong>Origen:</strong> Webinar (acceso inmediato)</p>
   </div>
 </div>`
 
     try {
       await sendEmail({
         to: email,
-        subject: 'Tu plaza está reservada — Clase gratuita WellnessReal',
+        subject: 'Tu clase gratuita de WellnessReal (acceso dentro)',
         html: userHtml,
       })
       await sendEmail({
         to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
         replyTo: email,
-        subject: sanitizeHeader(`[Webinar] ${name}${sessionLabel ? ` — ${sessionLabel}` : ''}`),
+        subject: sanitizeHeader(`[Webinar] ${name}`),
         html: businessHtml,
       })
     } catch (mailErr) {
