@@ -31,6 +31,21 @@ export default function WebinarClase() {
               Unos 15 minutos. Cuando termines, justo debajo tienes el botón para montar tu plan
               personalizado gratis.
             </p>
+            <p
+              style={{
+                marginTop: 14,
+                fontSize: ".9rem",
+                color: "var(--lavender)",
+                background: "rgba(252,238,33,.08)",
+                border: "1px solid rgba(252,238,33,.2)",
+                borderRadius: 12,
+                padding: "10px 16px",
+                display: "inline-block",
+              }}
+            >
+              📩 Te hemos enviado el acceso también por email. Si no lo ves en unos minutos, revisa
+              la carpeta de <strong style={{ color: "var(--cream)" }}>spam o promociones</strong> (y márcalo como “no es spam” para no perderte nada).
+            </p>
           </div>
 
           {/* Reproductor 16:9 */}
