@@ -52,12 +52,20 @@ export async function POST(req: NextRequest) {
         dias_semana: datos.dias_semana ?? null,
         minutos_sesion: datos.minutos_sesion ?? null,
         donde_entrena: datos.donde_entrena ?? null,
+        horario_entreno: datos.horario_entreno ?? null,
         material: datos.material ?? null,
         experiencia: datos.experiencia ?? null,
         lesiones: datos.lesiones ?? null,
+        medicacion: datos.medicacion ?? null,
         consideraciones: datos.consideraciones ?? null,
+        dormir_calidad: datos.dormir_calidad ?? null,
+        dormir_horas: datos.dormir_horas ?? null,
+        comidas_dia: datos.comidas_dia ?? null,
         alergias: datos.alergias ?? null,
         preferencias_comida: datos.preferencias_comida ?? null,
+        no_le_gusta: datos.no_le_gusta ?? null,
+        hambre: datos.hambre ?? null,
+        digestion: datos.digestion ?? null,
         estilo_vida: datos.estilo_vida ?? null,
       })
       .select()
@@ -76,13 +84,21 @@ export async function POST(req: NextRequest) {
           objetivo_principal: datos.objetivo_principal,
           objetivos_secundarios: datos.objetivos_secundarios ?? [],
           donde_entrena: datos.donde_entrena ?? null,
+          horario_entreno: datos.horario_entreno ?? null,
           material: datos.material ?? null,
           dias_semana: datos.dias_semana ?? null,
           minutos_sesion: datos.minutos_sesion ?? null,
           experiencia: datos.experiencia ?? null,
           lesiones: datos.lesiones ?? null,
+          medicacion: datos.medicacion ?? null,
+          dormir_calidad: datos.dormir_calidad ?? null,
+          dormir_horas: datos.dormir_horas ?? null,
+          comidas_dia: datos.comidas_dia ?? null,
           alergias: datos.alergias ?? null,
           preferencias_comida: datos.preferencias_comida ?? null,
+          no_le_gusta: datos.no_le_gusta ?? null,
+          hambre: datos.hambre ?? null,
+          digestion: datos.digestion ?? null,
           estilo_vida: datos.estilo_vida ?? null,
           actualizado_en: new Date().toISOString(),
         },
@@ -106,17 +122,27 @@ Genera el programa completo del Método BASE para este cliente:
 - Días que puede entrenar/semana: ${datos.dias_semana ?? 'no indicado'}
 - Minutos por sesión: ${datos.minutos_sesion ?? 'no indicado'}
 - Dónde entrena: ${datos.donde_entrena ?? 'no indicado'}
+- Franja horaria de entrenamiento: ${datos.horario_entreno ?? 'no indicada'}
 - Material disponible: ${datos.material ?? 'no indicado'}
 - Experiencia: ${datos.experiencia ?? 'no indicada'}
 - Lesiones: ${datos.lesiones ?? 'ninguna indicada'}
+- Medicación: ${datos.medicacion ?? 'ninguna indicada'}
 - Otras consideraciones de salud: ${datos.consideraciones ?? 'ninguna'}
+- Sueño: ${datos.dormir_calidad ?? 'no indicado'}${datos.dormir_horas ? `, ${datos.dormir_horas} h` : ''}
+- Comidas al día preferidas: ${datos.comidas_dia ?? 'no indicado'}
 - Alergias / intolerancias: ${datos.alergias ?? 'ninguna'}
-- Preferencias de comida: ${datos.preferencias_comida ?? 'ninguna'}
-- Estilo de vida (trabajo, turnos, estrés, sueño): ${datos.estilo_vida ?? 'no indicado'}
+- Le gusta comer: ${datos.preferencias_comida ?? 'no indicado'}
+- NO comerá: ${datos.no_le_gusta ?? 'nada en concreto'}
+- Momentos de más hambre / ansiedad: ${datos.hambre ?? 'no indicado'}
+- Digestiones: ${datos.digestion ?? 'no indicado'}
+- Estilo de vida (trabajo, turnos, estrés): ${datos.estilo_vida ?? 'no indicado'}
 
 Genera tantos días de entrenamiento como días disponibles tenga. Adapta cada ejercicio a su
-entorno y material. Respeta alergias y preferencias. Devuelve el resultado llamando a la
-herramienta 'entregar_programa'.
+entorno y material. En la nutrición: respeta alergias, lo que NO comerá y sus gustos; estructura
+las comidas según las que prefiera al día y refuerza la saciedad en sus momentos de más hambre o
+ansiedad; ten en cuenta el sueño, la medicación y las digestiones para la recuperación y los
+ajustes. Encaja el plan en su franja horaria de entrenamiento. Devuelve el resultado llamando a
+la herramienta 'entregar_programa'.
 `.trim()
 
     // --- 4) Llamar a Claude con tool use forzado (JSON garantizado) ---

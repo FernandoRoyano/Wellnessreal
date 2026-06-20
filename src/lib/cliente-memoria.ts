@@ -15,13 +15,21 @@ export interface PerfilCliente {
   objetivo_principal: string | null
   objetivos_secundarios: string[] | null
   donde_entrena: string | null
+  horario_entreno: string | null
   material: string | null
   dias_semana: number | null
   minutos_sesion: number | null
   experiencia: string | null
   lesiones: string | null
+  medicacion: string | null
+  dormir_calidad: string | null
+  dormir_horas: string | null
+  comidas_dia: string | null
   alergias: string | null
   preferencias_comida: string | null
+  no_le_gusta: string | null
+  hambre: string | null
+  digestion: string | null
   estilo_vida: string | null
   fase_actual: number | null
   semana_actual: number | null
@@ -80,10 +88,14 @@ export async function construirContextoCliente(clienteId: string): Promise<Conte
     `Objetivo principal: ${p.objetivo_principal ?? '—'}`,
     `Objetivos secundarios: ${(p.objetivos_secundarios ?? []).join(', ') || '—'}`,
     `Dónde entrena: ${p.donde_entrena ?? '—'} · Material: ${p.material ?? '—'}`,
-    `Disponibilidad: ${p.dias_semana ?? '?'} días/sem · ${p.minutos_sesion ?? '?'} min/sesión`,
+    `Disponibilidad: ${p.dias_semana ?? '?'} días/sem · ${p.minutos_sesion ?? '?'} min/sesión · Franja: ${p.horario_entreno ?? '—'}`,
     `Experiencia: ${p.experiencia ?? '—'}`,
     `Lesiones / limitaciones: ${p.lesiones ?? 'ninguna reportada'}`,
-    `Alergias: ${p.alergias ?? 'ninguna'} · Preferencias: ${p.preferencias_comida ?? '—'}`,
+    `Medicación: ${p.medicacion ?? 'ninguna'}`,
+    `Sueño: ${p.dormir_calidad ?? '—'}${p.dormir_horas ? `, ${p.dormir_horas} h` : ''}`,
+    `Comidas/día preferidas: ${p.comidas_dia ?? '—'}`,
+    `Alergias: ${p.alergias ?? 'ninguna'} · Le gusta: ${p.preferencias_comida ?? '—'} · NO comerá: ${p.no_le_gusta ?? '—'}`,
+    `Hambre/ansiedad: ${p.hambre ?? '—'} · Digestiones: ${p.digestion ?? '—'}`,
     `Estilo de vida: ${p.estilo_vida ?? '—'}`,
     `Fase actual: ${p.fase_actual ?? 1} · Semana actual: ${p.semana_actual ?? 1} · Estado: ${p.estado_programa ?? 'activo'}`,
   ].join('\n')
