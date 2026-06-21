@@ -4,6 +4,7 @@ import { useState } from "react";
 import "./cuestionario.css";
 import ProgramaTeaser from "@/components/programa/ProgramaTeaser";
 import type { Programa } from "@/lib/programa-schema";
+import { User, Ruler, Target, CalendarClock, Dumbbell, Moon, Utensils, Activity } from "lucide-react";
 
 interface FormState {
   nombre: string;
@@ -211,7 +212,7 @@ export default function Cuestionario() {
           {/* Paso 0 — contacto */}
           {step === 0 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Empezamos</span>
+              <span className="wrq-eyebrow"><User size={14} /> Empezamos</span>
               <h2 className="wrq-title">Vamos a montar <span className="hl">tu plan</span></h2>
               <p className="wrq-help">Responde con sinceridad: cuanto mejor te conozca, mejor será tu plan. La mayoría son toques rápidos, en 3 minutos lo tienes.</p>
               <div className="wrq-field">
@@ -228,7 +229,7 @@ export default function Cuestionario() {
           {/* Paso 1 — básicos */}
           {step === 1 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Sobre ti</span>
+              <span className="wrq-eyebrow"><Ruler size={14} /> Sobre ti</span>
               <h2 className="wrq-title">Cuatro datos <span className="hl">básicos</span></h2>
               <p className="wrq-help">Para ajustar el punto de partida. Si alguno no lo sabes, déjalo en blanco.</p>
               <div className="wrq-row">
@@ -252,7 +253,7 @@ export default function Cuestionario() {
           {/* Paso 2 — objetivo */}
           {step === 2 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Tu objetivo</span>
+              <span className="wrq-eyebrow"><Target size={14} /> Tu objetivo</span>
               <h2 className="wrq-title">¿Qué quieres <span className="hl">conseguir?</span></h2>
               <p className="wrq-help">Elige lo principal. Luego añade lo que también te importe.</p>
               <div className="wrq-field">
@@ -277,7 +278,7 @@ export default function Cuestionario() {
           {/* Paso 3 — disponibilidad */}
           {step === 3 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Tu disponibilidad</span>
+              <span className="wrq-eyebrow"><CalendarClock size={14} /> Tu disponibilidad</span>
               <h2 className="wrq-title">¿Cuánto, dónde y <span className="hl">cuándo?</span></h2>
               <p className="wrq-help">Sé realista con tu vida actual. El plan se adapta a esto.</p>
               <div className="wrq-field">
@@ -318,7 +319,7 @@ export default function Cuestionario() {
           {/* Paso 4 — material y experiencia */}
           {step === 4 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Material y experiencia</span>
+              <span className="wrq-eyebrow"><Dumbbell size={14} /> Material y experiencia</span>
               <h2 className="wrq-title">¿Con qué <span className="hl">cuentas?</span></h2>
               <p className="wrq-help">Marca todo lo que tengas disponible. Sin material también se entrena.</p>
               <div className="wrq-field">
@@ -343,7 +344,7 @@ export default function Cuestionario() {
           {/* Paso 5 — salud y descanso */}
           {step === 5 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Salud y descanso</span>
+              <span className="wrq-eyebrow"><Moon size={14} /> Salud y descanso</span>
               <h2 className="wrq-title">Para entrenar <span className="hl">seguro</span></h2>
               <p className="wrq-help">Clave para adaptar el plan a ti. Lo que no aplique, déjalo en blanco.</p>
               <div className="wrq-field">
@@ -376,7 +377,7 @@ export default function Cuestionario() {
           {/* Paso 6 — alimentación */}
           {step === 6 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Alimentación</span>
+              <span className="wrq-eyebrow"><Utensils size={14} /> Alimentación</span>
               <h2 className="wrq-title">Cómo <span className="hl">comes</span></h2>
               <p className="wrq-help">Para que el plan de nutrición encaje contigo, no al revés.</p>
               <div className="wrq-field">
@@ -423,7 +424,7 @@ export default function Cuestionario() {
           {/* Paso 7 — estilo de vida y envío */}
           {step === 7 && (
             <>
-              <span className="wrq-eyebrow"><span className="dot" /> Último paso</span>
+              <span className="wrq-eyebrow"><Activity size={14} /> Último paso</span>
               <h2 className="wrq-title">Tu día a día, <span className="hl">{form.nombre.split(" ")[0] || ""}</span></h2>
               <div className="wrq-field">
                 <label>Trabajo, turnos, estrés, hijos... (opcional)</label>
