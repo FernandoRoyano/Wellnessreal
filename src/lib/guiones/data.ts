@@ -12,6 +12,136 @@ export interface Guion {
 
 export const guiones: Guion[] = [
   {
+    slug: 'ads-metodo-base',
+    title: 'Ads - Metodo BASE',
+    subtitle: 'Guion publicitario para vender el Metodo BASE sin enfoque generico WellnessReal.',
+    duration: '60 - 75 seg',
+    wordCount: 492,
+    purpose: 'Anuncio para Meta/TikTok/Reels. Presenta el Metodo BASE como sistema personalizado para +35: perder grasa, ganar fuerza y recuperar energia sin extremos.',
+    status: 'ready',
+    lastUpdated: '2026-06-23',
+    content: `# Guion Ads - Metodo BASE
+**60-75 segundos | Video publicitario | Listo para grabar**
+
+## Enfoque
+El Metodo BASE no se vende como "otro programa fitness". Se presenta como un sistema personalizado para personas de mas de 35 que quieren perder grasa, ganar fuerza y recuperar energia sin dietas extremas, rutinas eternas ni obsesion con la bascula.
+
+---
+
+## ESCENA 1 - Hook
+**Plano:** tu mirando a camara. Directo, serio, sin postureo.
+
+**Voz:**
+Si tienes mas de 35 y sigues intentando ponerte en forma como cuando tenias 20...
+probablemente ese es el problema.
+
+---
+
+## ESCENA 2 - Dolor
+**Plano:** bascula, comida "fit", persona cansada, gimnasio vacio.
+
+**Voz:**
+Mas cardio.
+Menos comida.
+Rutinas larguisimas.
+Motivacion durante dos semanas...
+y luego vuelta al punto de partida.
+
+No te falta disciplina.
+Te falta un sistema que encaje con tu vida real.
+
+---
+
+## ESCENA 3 - Presentacion
+**Plano:** tu entrenando, revisando un plan o mostrando el cuestionario.
+
+**Voz:**
+Por eso he creado el Metodo BASE.
+
+Un metodo para perder grasa, ganar musculo y recuperar energia
+sin dietas agresivas, sin contar calorias y sin vivir pendiente del peso.
+
+---
+
+## ESCENA 4 - Diferenciador
+**Plano:** entrenamiento simple, comida normal, check-in semanal.
+
+**Voz:**
+BASE se construye sobre cinco pilares:
+
+entender tu contexto,
+mejorar tu composicion corporal,
+cuidar tu energia y tu salud,
+crear habitos sostenibles,
+y dejar que el rendimiento llegue como consecuencia.
+
+No buscamos que sufras mas.
+Buscamos que puedas mantenerlo.
+
+---
+
+## ESCENA 5 - Personalizacion
+**Plano:** formulario/cuestionario en pantalla.
+
+**Voz:**
+Primero respondes un cuestionario:
+tu objetivo, edad, tiempo disponible, donde entrenas, material, lesiones, alimentacion y estilo de vida.
+
+Con eso se genera un programa adaptado a ti:
+entrenamiento, nutricion por raciones y seguimiento semanal.
+
+---
+
+## ESCENA 6 - Prueba del metodo
+**Plano:** ejercicios basicos, comida con raciones de mano, app o libreta de seguimiento.
+
+**Voz:**
+Entrenas los dias que realmente puedes.
+Comes con reglas simples: proteina, verdura, carbohidratos bien ajustados y cero alimentos prohibidos.
+Y mides lo que de verdad importa:
+cintura, energia, fuerza, descanso y adherencia.
+
+Porque puedes cambiar tu cuerpo aunque la bascula no baje cada dia.
+
+---
+
+## ESCENA 7 - Cierre
+**Plano:** tu a camara.
+
+**Voz:**
+Si quieres dejar de empezar de cero cada lunes,
+entra en el Metodo BASE.
+
+Rellena el cuestionario y recibe tu plan personalizado.
+
+Sin humo.
+Sin extremos.
+Con una base que puedas sostener.
+
+---
+
+## Version corta - 30 segundos
+
+Si tienes mas de 35 y sigues intentando ponerte en forma con dietas extremas y rutinas imposibles, para.
+
+No te falta disciplina.
+Te falta un sistema.
+
+El Metodo BASE te ayuda a perder grasa, ganar fuerza y recuperar energia con un plan adaptado a tu vida real.
+
+Respondes un cuestionario y recibes tu programa:
+entrenamiento segun tus dias y material,
+nutricion sin contar calorias,
+y seguimiento con metricas que importan de verdad.
+
+Sin humo.
+Sin prohibiciones.
+Sin vivir pendiente de la bascula.
+
+Metodo BASE: construye primero la base.
+`,
+  },
+  {
     slug: 'vsl-metodo',
     title: 'VSL — Método WellnessReal',
     subtitle: 'Vídeo principal del funnel /metodo. Explica el método en 15 min.',
