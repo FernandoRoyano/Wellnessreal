@@ -16,7 +16,7 @@ export const guiones: Guion[] = [
     title: 'Ads - Metodo BASE',
     subtitle: 'Guion publicitario para vender el Metodo BASE sin enfoque generico WellnessReal.',
     duration: '60 - 75 seg',
-    wordCount: 492,
+    wordCount: 1640,
     purpose: 'Anuncio para Meta/TikTok/Reels. Presenta el Metodo BASE como sistema personalizado para +35: perder grasa, ganar fuerza y recuperar energia sin extremos.',
     status: 'ready',
     lastUpdated: '2026-06-23',
@@ -139,6 +139,85 @@ Sin prohibiciones.
 Sin vivir pendiente de la bascula.
 
 Metodo BASE: construye primero la base.
+
+---
+
+## Recursos de video - Prompts para B-roll IA
+
+### Configuracion general
+- Formato: vertical 9:16.
+- Duracion por clip: 4-6 segundos.
+- Estilo: realista, premium pero cercano, documental publicitario.
+- Uso: generar recursos para montar encima de la voz principal.
+- Herramientas recomendadas: Runway, Kling, Pika, Sora o similar.
+
+### Prompt base global
+Vertical 9:16 cinematic realistic fitness advertisement, natural Spanish lifestyle, premium but not luxury, honest and grounded mood, people aged 35-50, real bodies, no exaggerated fitness model look, warm natural light, clean modern home and gym environments, handheld camera with subtle movement, shallow depth of field, high detail, authentic documentary style, no text on screen, no logos, no subtitles, no distorted hands, no fake UI text.
+
+### Negative prompt
+Do not show bodybuilder physiques, extreme transformations, before-after comparison, medical claims, fake app text, unreadable distorted UI, logos, subtitles, text overlays, overly dramatic sweat, unrealistic muscles, young influencer aesthetic, luxury gym, perfect model bodies, distorted hands, extra fingers.
+
+---
+
+## Prompts por plano
+
+### 1. Hook - Mas de 35 intentando volver
+A realistic 40-year-old man or woman standing in front of a bathroom mirror in the morning, looking thoughtful but determined, casual sports clothes, soft natural window light, subtle camera push-in, honest documentary fitness ad style, vertical 9:16, no text, no logos.
+
+### 2. Frustracion - Bascula
+Close-up of bare feet stepping onto a bathroom scale, the person looks down with mild frustration, morning light, minimal bathroom, cinematic close-up, shallow depth of field, realistic lifestyle fitness ad, vertical 9:16, no readable numbers, no text.
+
+### 3. Dieta extrema
+A tired adult in their 40s sitting at a kitchen table with a very restrictive bland meal, looking unmotivated, clean modern kitchen, natural light, realistic, not dramatic, documentary advertising style, vertical 9:16, no text.
+
+### 4. Rutina imposible
+A person in their 40s entering a gym and looking overwhelmed by machines and crowded space, holding a towel and water bottle, realistic commercial gym, cinematic handheld shot, vertical 9:16, no text, no logos.
+
+### 5. Cambio de enfoque
+A calm adult in their 40s closing a laptop, putting on trainers, and preparing for a short workout at home, mood shifts from stressed to focused, warm home lighting, realistic lifestyle ad, vertical 9:16, no text.
+
+### 6. Entrenamiento realista en casa
+A 42-year-old person doing controlled goblet squats with one dumbbell in a living room, simple setup, good technique, calm breathing, realistic body, no extreme sweat, cinematic natural light, vertical 9:16, no text.
+
+### 7. Entrenamiento en gimnasio
+A person in their 40s performing a controlled seated row in a gym, focused expression, moderate effort, realistic technique, premium documentary fitness ad look, shallow depth of field, vertical 9:16, no text, no brand logos.
+
+### 8. Nutricion sin obsesion
+Top-down shot of a normal balanced meal being prepared at home: protein, vegetables, rice or potatoes, olive oil, realistic portions, hands placing food on plate, bright natural kitchen light, vertical 9:16, no text.
+
+### 9. Raciones de mano
+Close-up of adult hands using simple hand portions next to a balanced plate, palm near protein, fist near vegetables, cupped hand near carbohydrates, thumb near fats, clean kitchen counter, realistic, vertical 9:16, no text labels.
+
+### 10. Cuestionario personalizado
+Close-up over shoulder of a person filling a clean fitness questionnaire on a laptop or tablet, modern minimal interface but no readable text, warm desk light, focused mood, realistic tech lifestyle, vertical 9:16, no logos.
+
+### 11. Plan personalizado
+A coach-like adult reviewing a personalized fitness plan on a tablet, making notes with a pen, desk with notebook and coffee, focused and professional, realistic Spanish fitness coaching brand mood, vertical 9:16, no readable text.
+
+### 12. Seguimiento semanal
+A person checking progress in a notebook and mobile app after training, writing down energy, sleep and workout notes, calm satisfied expression, home environment, cinematic close-up, vertical 9:16, no readable text.
+
+### 13. Energia recuperada
+A 40-year-old person walking outside after a workout, smiling subtly, fresh morning light, urban park or quiet street, healthy but realistic lifestyle, handheld cinematic shot, vertical 9:16, no text.
+
+### 14. Cierre - Base sostenible
+A confident adult in their 40s finishing a simple workout, placing dumbbells down calmly, breathing controlled, satisfied but not exaggerated, warm natural light, realistic documentary fitness ad, vertical 9:16, no text, no logos.
+
+---
+
+## Orden recomendado de montaje
+1. Hook mirror.
+2. Bascula.
+3. Dieta restrictiva.
+4. Gimnasio abrumador.
+5. Cambio de enfoque en casa.
+6. Entrenamiento en casa.
+7. Comida real.
+8. Cuestionario.
+9. Plan en tablet.
+10. Seguimiento.
+11. Exterior con energia.
+12. Cierre entrenando.
 `,
   },
   {
