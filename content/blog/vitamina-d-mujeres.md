@@ -2,7 +2,7 @@
 título: "Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing)"
 slug: vitamina-d-mujeres
 meta_descripción: "La vitamina D no es el seguro universal que te han vendido. Te explico qué dice la evidencia reciente, cuándo suplementar tiene sentido de verdad, qué dosis y por qué deberías medirte antes de comprar el bote."
-fecha: 2026-07-07
+fecha: 2026-06-16
 autor: "Fernando Royano"
 categoría: "Suplementación"
 etiquetas: vitamina D, déficit, salud ósea, mujeres, menopausia, suplementación

@@ -2,7 +2,7 @@
 título: "Hierro en mujeres: el déficit silencioso (y por qué no debes suplementar sin analítica)"
 slug: hierro-mujeres
 meta_descripción: "El déficit de hierro es uno de los más comunes en mujeres y afecta a tu energía, tu cabeza y tu rendimiento. Pero suplementar a ciegas es peligroso. Te explico cuándo, cómo y por qué la analítica es innegociable."
-fecha: 2026-07-21
+fecha: 2026-06-17
 autor: "Fernando Royano"
 categoría: "Suplementación"
 etiquetas: hierro, ferritina, déficit, mujeres, anemia, suplementación
@@ -31,7 +31,7 @@ El hierro es la pieza que transporta el oxígeno en tu sangre. Cuando anda bajo,
 - Caída de pelo, uñas frágiles, piel pálida.
 - Más sensación de frío.
 
-¿Por qué las mujeres tenéis más riesgo? Por la palabra clave: **la menstruación**. Cada mes hay una pérdida de sangre —y de hierro— que, si los reglas son abundantes, puede llevar a un déficit progresivo y silencioso. A eso súmale otros grupos de riesgo:
+¿Por qué las mujeres tenéis más riesgo? Por la palabra clave: **la menstruación**. Cada mes hay una pérdida de sangre —y de hierro— que, si las reglas son abundantes, puede llevar a un déficit progresivo y silencioso. A eso súmale otros grupos de riesgo:
 
 - **Dietas vegetarianas o veganas** (el hierro vegetal se absorbe peor).
 - **Deportistas de resistencia** (corredoras, etc.: pierden hierro por varias vías).
