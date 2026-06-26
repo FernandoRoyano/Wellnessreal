@@ -12,6 +12,168 @@ export interface Guion {
 
 export const guiones: Guion[] = [
   {
+    slug: 'metodo-base-explicativo',
+    title: 'Método BASE — Guion explicativo',
+    subtitle: 'Vídeo/clase que explica en qué consiste el programa: los 5 pilares, cómo funciona el entreno y la nutrición, y el flujo cuestionario → plan → seguimiento.',
+    duration: '10:00 — 12:00 min',
+    wordCount: 1980,
+    purpose: 'Explicar el Metodo BASE por dentro (no venderlo en 60s). Para web /metodo, la clase del embudo o un vídeo de YouTube. El espectador termina entendiendo QUÉ es el programa, en qué se basa y cómo se trabaja.',
+    status: 'draft',
+    lastUpdated: '2026-06-26',
+    content: `# 🎬 Guion explicativo — Método BASE
+**~10-12 minutos · ~1.980 palabras · 150 palabras/min**
+
+## Notas de lectura
+- // = pausa corta (respirar)
+- /// = pausa larga (dejar calar)
+- **negrita** = énfasis al hablar
+- *cursiva* = tono más bajo, confidente
+
+## Objetivo del guion
+Que la persona termine entendiendo QUÉ es el Método BASE, sobre qué se construye y cómo se trabaja. No es un anuncio. Es la explicación honesta del programa por dentro.
+
+---
+
+## 🎬 00:00 — Qué es esto (45 seg)
+
+Voy a explicarte qué es el Método BASE. // Sin humo y sin tecnicismos. // Para que cuando termines este vídeo sepas exactamente **en qué consiste** y decidas tú si encaja contigo.
+
+///
+
+El Método BASE es la forma en la que entreno y alimento a las personas que vienen a WellnessReal. // No es una rutina suelta // ni una dieta. // Es un **sistema** // pensado para gente real: // con trabajo, // con familia, // con poco tiempo // y, casi siempre, // con más de 35 años a la espalda.
+
+El nombre lo dice todo: // antes de buscar resultados espectaculares, // **construimos la base.** // Porque sin base, // todo lo que montas encima // se cae.
+
+---
+
+## 🎬 00:45 — Por qué a partir de los 35 cambia todo (1:30 min)
+
+Empecemos por el porqué. //
+
+A los 20 podías hacer cualquier barbaridad // y tu cuerpo lo aguantaba. // Dormías poco, // comías regular, // entrenabas a lo loco // y aun así estabas bien.
+
+///
+
+A partir de los 35 // las reglas cambian. // Recuperas más lento. // Pierdes músculo si no lo trabajas. // El estrés y el mal descanso // te pasan factura de verdad. //
+
+Y aquí está el error que comete casi todo el mundo: // intentar ponerse en forma // **como cuando tenía 20.** // Más cardio, // menos comida, // rutinas eternas. //
+
+Eso no falla porque te falte disciplina. // Falla porque **ya no es la herramienta adecuada** // para tu cuerpo // ni para tu vida de ahora.
+
+El Método BASE parte de ahí: // de entender cómo funciona tu cuerpo **hoy** // y trabajar con eso, // no contra eso.
+
+---
+
+## 🎬 02:15 — Los 5 pilares (3 min)
+
+El método se construye sobre **cinco pilares**, // y van en este orden por una razón. //
+
+///
+
+**Pilar uno: contexto.** // Antes de tocar nada, // entiendes por qué tu cuerpo responde distinto. // Por qué la dieta que le funcionó a tu cuñado // a ti no. // Por qué recuperar músculo a los 45 // es la mejor inversión que puedes hacer. // Cuando entiendes el porqué, // dejas de saltar de moda en moda.
+
+///
+
+**Pilar dos: composición corporal.** // El objetivo no es *"adelgazar"*. // Es **cambiar grasa por músculo.** // Y eso es clave, // porque puedes verte mejor, // tener más fuerza // y usar una talla menos // aunque la báscula apenas se mueva. // La báscula // deja de ser el centro de tu vida.
+
+///
+
+**Pilar tres: energía y salud.** // El proceso tiene que dejarte **mejor**, // no destrozado. // Si un plan te deja sin fuerzas, // de mal humor // y muerto de hambre, // es un mal plan, // por mucho que adelgaces. // Aquí cuidamos que entrenes con energía // y termines el día entero, // no arrastrándote.
+
+///
+
+**Pilar cuatro: hábitos sostenibles.** // No te pido que cambies tu vida entera el lunes. // Empezamos con **dos o tres hábitos base** // y los asentamos antes de añadir más. // Esto es lo que separa // a quien lo mantiene un año // de quien lo deja en tres semanas. // Sistema, // no fuerza de voluntad.
+
+///
+
+**Pilar cinco: rendimiento como consecuencia.** // Cuando los cuatro pilares de abajo están puestos, // el rendimiento // llega solo. // Levantas más, // te cansas menos, // te ves mejor. // Pero llega **como resultado** de haber construido bien, // no como una meta a la que te tiras de cabeza el primer día.
+
+///
+
+Fíjate en el orden: // contexto, // composición, // energía, // hábitos // y luego rendimiento. // La mayoría de programas empiezan por el último // y se saltan los cuatro primeros. // Por eso fracasan.
+
+---
+
+## 🎬 05:15 — Cómo es el entrenamiento (2 min)
+
+Vamos a lo práctico. // ¿Cómo se entrena en BASE? //
+
+Lo primero: // entrenas **los días que de verdad puedes.** // Si son dos, // montamos dos. // Si son cuatro, // cuatro. // No te diseño un plan de seis días // sabiendo que vas a fallar el tercero. //
+
+///
+
+Trabajamos con **ejercicios básicos** // — los de toda la vida — // sentadilla, // peso muerto, // empujes, // remos. // Movimientos que dan resultado de verdad, // no inventos de Instagram. // Y cada ejercicio // lleva **una alternativa**, // por si tienes una lesión, // te falta material // o no llegas a esa postura. //
+
+///
+
+Entrenamos **fuertes pero con cabeza.** // Dejando un par de repeticiones en reserva, // sin llegar al fallo cada serie, // sin machacarte. // Y progresamos despacio y seguro: // primero sumas repeticiones, // luego subes el peso. //
+
+El objetivo es que abras el plan // y sepas **exactamente qué hacer hoy**: // qué ejercicio, // cuántas series, // cuántas repeticiones // y con qué alternativa si algo no encaja. // Sin agobios. // Sin sesiones de dos horas.
+
+---
+
+## 🎬 07:15 — Cómo es la nutrición (1:45 min)
+
+La nutrición sigue la misma filosofía: // sencilla // y sostenible. //
+
+Aquí **no se pesa la comida** // ni se cuentan calorías. // Se mide **con la mano.** //
+
+La palma // es tu proteína // — y es la prioridad en cada comida. // El puño // es la verdura, // medio plato. // La mano ahuecada // es el carbohidrato, // más en los días que entrenas. // Y el pulgar // es la grasa. //
+
+///
+
+Las reglas son cuatro, // en orden: // proteína en cada comida, // medio plato de verdura, // ajustar el carbohidrato al día // y // **cero alimentos prohibidos.** //
+
+Lo repito porque es importante: // **nada está prohibido.** // No eliminamos el pan, // ni la pasta, // ni el día de comer fuera. // El carbohidrato no se quita // — te ayuda a entrenar // y a conservar el músculo. //
+
+Es comida normal, // de tu vida real, // organizada con cabeza. // Para que lo puedas mantener // de viaje, // con turnos // o cenando fuera un sábado.
+
+---
+
+## 🎬 09:00 — Cómo se mide el progreso (1 min)
+
+Y ahora lo que casi nadie te cuenta: // **cómo medimos si funciona.** //
+
+No miramos solo el peso. // El peso engaña // — sube y baja por agua, // por sal, // por mil cosas. //
+
+///
+
+Miramos la **tendencia** del peso a lo largo de la semana, // no el dato de un día. // Miramos las **medidas**, // sobre todo la cintura. // Cómo te queda la **ropa**. // Tu **energía** y tu **descanso**, // del uno al diez. // Y tu **adherencia**: // cuánto del plan estás cumpliendo de verdad. //
+
+La regla de oro: // puedes bajar una talla // sin que la báscula casi se mueva. // Y eso // **es ganar.**
+
+---
+
+## 🎬 10:00 — Cómo funciona en la práctica (1:15 min)
+
+Te resumo cómo se pone todo esto en marcha. //
+
+**Uno:** // rellenas un cuestionario. // Tu objetivo, // tu edad, // los días que tienes, // dónde entrenas, // qué material, // tus lesiones, // tu alimentación // y tu estilo de vida. //
+
+**Dos:** // con eso se genera un programa **adaptado a ti** // — entrenamiento, // nutrición por raciones // y sistema de seguimiento. // No una plantilla con tu nombre puesto. // Un plan para tu caso. //
+
+**Tres:** // antes de que te llegue, // **lo reviso yo personalmente.** // No te mando nada automático sin mirarlo. //
+
+**Cuatro:** // entrenas, // comes // y cada semana revisamos cómo vas // y **ajustamos** lo que haga falta. // Si tienes una mala semana, // bajamos. // Si avanzas rápido, // subimos. // El plan se adapta a tu vida, // no al revés.
+
+---
+
+## 🎬 11:15 — Para quién es y cierre (45 seg)
+
+¿Para quién es el Método BASE? //
+
+Para ti // si tienes más de 35, // poco tiempo, // y estás cansado de empezar de cero cada lunes. // Si quieres perder grasa, // ganar fuerza // y recuperar energía // **sin** dietas extremas, // sin rutinas imposibles // y sin vivir pendiente de la báscula. //
+
+///
+
+No es para quien busca perder quince kilos en dos meses. // Eso ni funciona // ni se sostiene. // Aquí construimos algo que **se queda.** //
+
+Si te encaja, // el primer paso es el cuestionario. // Lo rellenas, // yo reviso tu caso // y recibes tu plan. //
+
+Sin humo. // Sin extremos. // Con una base // que puedas sostener.
+`,
+  },
+  {
     slug: 'ads-metodo-base',
     title: 'Ads - Metodo BASE',
     subtitle: 'Guion publicitario para vender el Metodo BASE sin enfoque generico WellnessReal.',
@@ -218,252 +380,6 @@ A confident adult in their 40s finishing a simple workout, placing dumbbells dow
 10. Seguimiento.
 11. Exterior con energia.
 12. Cierre entrenando.
-`,
-  },
-  {
-    slug: 'vsl-metodo',
-    title: 'VSL — Método WellnessReal',
-    subtitle: 'Vídeo principal del funnel /metodo. Explica el método en 15 min.',
-    duration: '14:30 — 15:00 min',
-    wordCount: 2180,
-    purpose: 'Pegar en /metodo/video. Punto central del funnel de captación de leads cualificados desde anuncios.',
-    status: 'ready',
-    lastUpdated: '2026-04-18',
-    content: `# 🎬 Guión VSL — WellnessReal
-**~15 minutos · ~2.180 palabras · 150 palabras/min**
-
-## Notas de lectura
-- \`//\` = pausa corta (respirar)
-- \`///\` = pausa larga (dejar calar)
-- **negrita** = énfasis al hablar
-- *cursiva* = tono más bajo, confidente
-
----
-
-## 🎬 00:00 — Hook (30 seg)
-
-Si llevas meses entrenando online y no estás viendo los resultados que esperabas, // quiero que sepas una cosa: // **no es culpa tuya.**
-
-///
-
-El problema no es tu fuerza de voluntad. // No es que "te falte constancia". // No es que tu cuerpo sea raro.
-
-El problema está en **cómo está montado el 99% del entrenamiento online que te han vendido.** // Y en los próximos 15 minutos te voy a explicar exactamente por qué — // y qué hago yo diferente.
-
----
-
-## 🎬 00:30 — Quién soy (1 min)
-
-Me llamo Fernando Royano. // Llevo **14 años** como entrenador personal. // Ciencias del Deporte, // más de 100 personas entrenadas, // y ninguna transformación documentada es de Photoshop.
-
-He trabajado con padres de familia de 40 con la espalda machacada, // ejecutivos que duermen 5 horas, // mujeres que llevaban una década a dieta, // gente que ya había tirado la toalla dos o tres veces antes de llegar a mí.
-
-///
-
-Te aviso de una cosa: // yo no soy el típico entrenador que te habla de *"rutas metabólicas"* o te saca un Excel con 40 columnas de macros. // No tengo vídeos gritando en Instagram. // No vendo suplementos.
-
-*Soy una persona normal que entrena a personas normales.* // Y lo que hago, lo pruebo yo antes de mandárselo a nadie.
-
----
-
-## 🎬 01:30 — El problema real (2 min)
-
-Vamos a lo que importa. //
-
-El entrenamiento online se ha convertido en **una máquina de vender PDFs**. /// Pagas 30, 50, 80 euros al mes. // Recibes un plan bonito dentro de una app. // Los primeros 15 días vas motivado. //
-
-Y luego se complica la vida. // Porque se va a complicar — // eso lo sabes tú y lo sé yo. // Tu hijo se pone malo, // tienes un mes infernal en el trabajo, // te vas una semana de viaje.
-
-///
-
-¿Y qué pasa entonces?
-
-**Que estás solo.** // El entrenador no contesta — // o te manda un mensaje pregrabado. // Tu progreso no se revisa. // El plan sigue siendo el mismo de la semana 1, aunque tu vida haya cambiado. //
-
-A las 6 semanas abandonas. // Y te echas la culpa tú.
-
-///
-
-Pues no. // No es tu culpa. // Es que te vendieron un producto que **no estaba diseñado para acompañarte.** // Estaba diseñado para venderte.
-
----
-
-## 🎬 03:30 — Por qué pasa (1:30 min)
-
-Y pasa por una razón muy concreta. // Matemática pura. //
-
-Para que el online barato sea rentable a 30-50€ al mes, // un entrenador necesita **cien clientes mínimo.** /// ¿Y qué pasa cuando un entrenador tiene cien clientes a la vez? //
-
-Que no puede dar seguimiento real a ninguno. // Es imposible. // Ni aunque sea el mejor del mundo.
-
-///
-
-Entonces // lo que te venden como *"plan personalizado con seguimiento"* // en realidad es: // plantilla de plan con tu nombre puesto, // y un bot o un becario contestándote cuando preguntas.
-
-El entrenador que firma el programa // está **de adorno.**
-
-///
-
-Y ojo, // no digo esto porque sea mala gente. // Lo digo porque es **el modelo de negocio**. // Y el modelo de negocio es el que determina la calidad del servicio. // Siempre.
-
----
-
-## 🎬 05:00 — La idea grande (1:30 min)
-
-Ahora te voy a decir la idea que lo cambia todo. // La que yo tardé años en entender y que me hace trabajar diferente. //
-
-**El seguimiento ES el producto. El plan no.**
-
-///
-
-Un buen plan sin nadie que lo ajuste a tu vida real // es prácticamente lo mismo que lo que encuentras gratis en YouTube. // Sí, estará mejor estructurado. // Pero te va a dar el mismo resultado: // empiezas, te estancas, lo dejas.
-
-///
-
-La diferencia entre la gente que consigue resultados // y la que no — // después de entrenar a más de 100 personas te lo digo con datos en la mano — // **no está en el plan.** // Está en tener a alguien detrás que:
-
-- Revisa cómo vas **cada semana**
-- Ajusta cuando tu vida cambia — *y tu vida va a cambiar*
-- Te dice "la semana que viene cambiamos esto porque tú me estás contando aquello"
-- Y te frena cuando te estás machacando de más
-
-///
-
-Eso **no se puede automatizar**. // Y por eso cuesta lo que cuesta.
-
----
-
-## 🎬 06:30 — Cómo trabajo yo (2:30 min)
-
-Te cuento cómo funciono. //
-
-Cada cliente empieza con una **valoración conmigo**. // No con un formulario que rellenas y te mandan un plan. // **Conmigo.** // Hablamos 20-30 minutos de tu vida real: // tu horario, // tu familia, // qué has probado antes, // qué ha fallado, // dónde te atascas.
-
-Si creo que puedo ayudarte, // seguimos. // Si no creo que sea el momento o el perfil, // te lo digo sin vender humo.
-
-///
-
-A partir de ahí // diseño un plan personalizado. // No una plantilla. // Un plan para ti, // con tu material, // tu horario, // tu nivel. // Lo recibes en una app profesional con vídeos de cada ejercicio, // tracking automático, // todo lo que necesitas en el móvil.
-
-///
-
-**Y aquí viene lo importante:**
-
-Cada semana revisamos juntos. // Yo miro cómo ha ido tu semana — // qué has hecho, // qué no, // cómo te has sentido — // y ajusto lo que haga falta.
-
-Si has tenido una semana dura, // bajamos la intensidad en lugar de que te machaques. // Si estás avanzando rápido, // subimos el nivel. // Si tu hijo tiene varicela y pierdes tres entrenamientos, // **no pasa absolutamente nada**. // Cambiamos la semana y seguimos. //
-
-Tu plan **no es una prisión**. // Es una guía que se adapta a ti.
-
-///
-
-Y una última cosa que me parece importante que sepas: // yo pruebo todo lo que te mando. // No te pongo un ejercicio que no haya hecho yo antes. // No te digo *"come esto"* si yo no lo he comido durante meses para saber cómo sienta. //
-
-No sigo las modas de Instagram. // Sigo **principios** que llevan funcionando 50 años. // Lo que pasa es que no son virales porque no son espectaculares. // Solo funcionan.
-
----
-
-## 🎬 09:00 — Prueba: caso -21kg (2 min)
-
-Te voy a contar un caso concreto para que veas a qué me refiero. //
-
-Padre de familia, // 41 años, // **92 kilos**, // trabajo de oficina sentado 9 horas al día. // Había probado de todo: // gimnasio, // dietas de revista, // apps, // incluso tres meses con un nutricionista.
-
-Siempre el mismo patrón. // Perdía 3 kilos las primeras semanas, // se estancaba, // volvía a los hábitos de antes.
-
-///
-
-Cuando empezamos juntos // lo primero que hicimos **no fue entrenar**. // Fue entender **por qué había fallado antes.** //
-
-Y era simple: // todo lo que había probado le obligaba a cambiar su vida entera de golpe. // 5 días de gimnasio, // dietas con comida que no le gustaba, // horarios imposibles. //
-
-**No era sostenible.** // Lo dejaba // y volvía al principio.
-
-///
-
-Lo que hicimos con él fue diferente. // Empezamos con **3 sesiones** de 40 minutos a la semana. // Ajustes nutricionales mínimos — // nada de eliminar el pan, // nada de contar calorías. //
-
-Cambios pequeños. // Revisiones semanales. // Cuando un ejercicio no le entraba, // lo cambiábamos. // Cuando una semana era mala, // seguíamos sin dramas. //
-
-///
-
-En **14 meses** pasó de 92 a 71 kilos. // Normalizó el colesterol, // la tensión, // dejó la medicación preventiva que le habían recetado. //
-
-Pero ¿sabes qué me dijo él después? // Y esto es lo que más me interesa: //
-
-*"Lo que más me sorprendió no fue la báscula. // Fue darme cuenta de que por primera vez en años // **no estaba a dieta**. // Estaba viviendo."*
-
----
-
-## 🎬 11:00 — Para quién es (1 min)
-
-¿Para quién es esto? //
-
-Si estás trabajando, // tienes familia, // poco tiempo, // y has intentado ponerte en forma varias veces pero siempre se te va por la vida — // esto es para ti.
-
-Si tienes entre **30 y 55 años** // y quieres resultados que se queden — // no hacer un cambio radical durante 3 meses para volver al punto de partida — // esto es para ti.
-
-Si buscas a alguien que te guíe, // que esté pendiente de ti de verdad, // pero que **no te convierta en esclavo del gimnasio** — // porque una vida sana tiene que ser compatible con una vida feliz // y no al revés — // esto es para ti.
-
----
-
-## 🎬 12:00 — Para quién NO es (1 min)
-
-Ahora voy a ser claro con lo contrario. // Esto **no es para todo el mundo**. //
-
-Si buscas perder 15 kilos en 2 meses, // no soy tu entrenador. // Eso ni funciona ni se sostiene y yo no lo vendo.
-
-///
-
-Si quieres entrenar a lo bestia 6 días a la semana // y comer pollo con arroz los 365 días del año, // tampoco. // Hay gente que lo hace // y allá cada uno, // pero no es lo que yo ofrezco.
-
-///
-
-Y si no estás dispuesto a comprometerte al menos **3 meses** — // que es el tiempo mínimo para que un cambio se asiente — // no perdamos el tiempo ni tú ni yo. // Los resultados reales no pasan en 30 días. // Quien te diga lo contrario te está vendiendo algo.
-
----
-
-## 🎬 13:00 — La oferta (45 seg)
-
-Si te has visto en lo que acabo de contar // y crees que esto puede ser lo que estabas buscando, // el siguiente paso es una **valoración gratuita** conmigo.
-
-Funciona así: // pinchas el botón de abajo, // rellenas un formulario corto con tu situación, // yo lo leo personalmente, // y si creo que puedo ayudarte // hablamos. //
-
-Si no encajas con lo que hago, // te lo digo también. // **No te voy a hacer perder el tiempo** ni a venderte un paquete que no es para ti.
-
-///
-
-En la llamada analizamos tu caso en profundidad, // te explico exactamente qué haríamos, // cuánto cuesta // y en qué consistiría. // Cero presión, // cero letra pequeña, // cero "oferta por tiempo limitado". // Si encajamos, empezamos. // Si no, cada uno a lo suyo.
-
----
-
-## 🎬 13:45 — FAQ rápida (45 seg)
-
-Antes de que decidas, // las dudas que me suelen llegar: //
-
-**¿Cuánto cuesta?** // El **Pack 3 meses** arranca en **450€** — // ciento cincuenta euros al mes. // El **Pack 6 meses Transformación** — que es el que más elige la gente que va en serio — está en **750€**, // ciento veinticinco euros al mes. // Es el mejor precio mensual porque el compromiso largo es lo que de verdad cambia cosas. // Y si quieres videollamada semanal conmigo y nutrición completa, el **Premium de 3 meses** está en **750€** también. // Toda la info detallada en la página de tarifas.
-
-**¿Puedo cancelar?** // Sin permanencia, sí. // Pero te aviso: // **no trabajo con nadie menos de 3 meses**. // Los cambios reales no pasan en 30 días. // Si no estás dispuesto al menos a 3 meses, // no perdamos el tiempo ninguno de los dos.
-
-**¿Qué necesito?** // Un móvil con la app. // Puedes entrenar en casa, // en el gimnasio, // en un parque. // El plan se adapta al espacio y material que tengas, // no al contrario.
-
-**¿Incluye nutrición?** // Pautas básicas en todos los planes. // Plan nutricional completo y personalizado en el Premium.
-
----
-
-## 🎬 14:30 — Cierre (30 seg)
-
-Eso es todo. //
-
-Si encajas con lo que has visto // y crees que esto puede ser lo que llevas tiempo buscando, // pincha el botón de abajo // y solicita tu valoración gratuita. // Te contesto **yo personalmente** en menos de 24 horas.
-
-///
-
-Y si no, // tampoco pasa nada. // Al menos ahora ya sabes por qué el entrenamiento online barato **no funciona** // y qué deberías buscar la próxima vez que alguien te intente vender uno.
-
-///
-
-Un saludo. // Y suerte con lo que decidas.
 `,
   },
 ]
