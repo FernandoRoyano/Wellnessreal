@@ -14,9 +14,9 @@ export const guiones: Guion[] = [
   {
     slug: 'metodo-base-explicativo',
     title: 'Método BASE — Guion explicativo',
-    subtitle: 'Vídeo/clase que explica en qué consiste el programa: los 5 pilares, cómo funciona el entreno y la nutrición, y el flujo cuestionario → plan → seguimiento.',
-    duration: '10:00 — 12:00 min',
-    wordCount: 1980,
+    subtitle: 'Vídeo/clase que explica en qué consiste el programa: los 5 pilares, qué recibes exactamente, precio honesto y flujo cuestionario → plan → seguimiento.',
+    duration: '13:30 — 14:30 min',
+    wordCount: 2390,
     purpose: 'Explicar el Metodo BASE por dentro (no venderlo en 60s). Para web /metodo, la clase del embudo o un vídeo de YouTube. El espectador termina entendiendo QUÉ es el programa, en qué se basa y cómo se trabaja.',
     status: 'draft',
     lastUpdated: '2026-06-26',
@@ -158,7 +158,45 @@ Te resumo cómo se pone todo esto en marcha. //
 
 ---
 
-## 🎬 11:15 — Para quién es y cierre (45 seg)
+## 🎬 11:15 — Qué recibes exactamente (1:15 min)
+
+Para que veas que esto no es un PDF genérico, // te detallo **qué llega a tus manos.** //
+
+Recibes tu **programa de entrenamiento completo**: // los días que entrenas, // cada ejercicio con sus series y repeticiones, // explicado // y con su alternativa por si tienes una lesión o te falta material. // Sabes exactamente qué hacer al abrirlo. //
+
+///
+
+Recibes tu **guía de nutrición por raciones**: // qué comer, // cuánto, // medido con la mano, // adaptada a tus gustos, // tus alergias // y tu horario real. // Sin pesar nada, // sin contar calorías. //
+
+Recibes un **sistema de seguimiento** // para medir lo que de verdad importa // — cintura, energía, descanso, fuerza, adherencia — // no solo la báscula. //
+
+///
+
+Y lo más importante: // **no es un plan automático.** // Lo genera el sistema con tus datos, // **pero lo reviso yo, persona a persona, antes de enviártelo.** // Ajusto lo que haga falta // para que cuando te llegue // sea un plan que yo firmo. //
+
+Eso es lo que recibes. // Concreto, // tuyo // y revisado.
+
+---
+
+## 🎬 12:30 — Hablemos claro del precio (1 min)
+
+Y ahora te hablo claro, // porque odio la letra pequeña. //
+
+Esto **no es gratis.** // Y prefiero decírtelo a la cara antes que sorprenderte luego. //
+
+Crear tu plan lleva trabajo: // la tecnología que lo genera a tu medida, // y sobre todo **mi tiempo revisándolo y ajustándolo** uno a uno. // Yo no regalo mi trabajo // ni te voy a vender que esto sale de la nada. //
+
+///
+
+Lo que sí te garantizo // es que sabes **exactamente** lo que recibes a cambio: // un programa completo, // personalizado, // revisado por mí // y con seguimiento semanal para ajustarlo según avanzas. // No pagas por un archivo. // Pagas por **tener a alguien detrás** que se asegura de que funcione. //
+
+Trabajar conmigo arranca **desde ciento cincuenta euros al mes**, // y según el tiempo de compromiso // el precio mensual baja. // Toda la info, // sin trucos, // está en la página de tarifas. //
+
+Cero permanencia. // Cero "oferta por tiempo limitado". // Si encajamos, empezamos. // Si no, cada uno a lo suyo.
+
+---
+
+## 🎬 13:30 — Para quién es y cierre (45 seg)
 
 ¿Para quién es el Método BASE? //
 
@@ -168,9 +206,61 @@ Para ti // si tienes más de 35, // poco tiempo, // y estás cansado de empezar 
 
 No es para quien busca perder quince kilos en dos meses. // Eso ni funciona // ni se sostiene. // Aquí construimos algo que **se queda.** //
 
-Si te encaja, // el primer paso es el cuestionario. // Lo rellenas, // yo reviso tu caso // y recibes tu plan. //
+Si te encaja, // el primer paso es el cuestionario. // Lo rellenas, // yo reviso tu caso // y vemos si esto es para ti. //
 
 Sin humo. // Sin extremos. // Con una base // que puedas sostener.
+
+---
+
+# 🎥 DIRECCIÓN DE GRABACIÓN
+
+> No es solo leerlo a cámara. La regla: hablas TÚ a cámara como base, y encima vamos montando recursos (B-roll, rótulos, pantallas) que ilustran lo que dices. Cada vez que aparece algo concreto (un pilar, las raciones, el cuestionario), se VE en pantalla mientras lo cuentas.
+
+## Setup general
+- **Plano base:** medio (de cintura para arriba), cámara a la altura de tus ojos, tú ligeramente descentrado (regla de tercios) para dejar aire donde meter rótulos.
+- **Fondo:** tu espacio real de entreno o un fondo limpio con profundidad (nada de pared plana pegada). Que se respire "entrenador real", no "set de infoproductor".
+- **Luz:** principal suave de frente-lateral + algo de luz de fondo para separarte. Natural de ventana vale si es estable.
+- **Audio:** micro de solapa o de cañón. El audio importa MÁS que la cámara. Sin eco.
+- **Vestuario:** ropa de entreno tuya, sobria, sin logos llamativos. Coherente con la marca (oscuros + acento).
+- **Energía base:** cercano y tranquilo, no presentador. Hablas como si se lo explicaras a un cliente sentado enfrente, no a una multitud.
+
+## Claves de interpretación (cómo decirlo)
+- \`//\` = micro-pausa, respira. \`///\` = paras de verdad, miras a cámara en silencio un segundo, dejas calar.
+- **Negrita** = bajas el ritmo y subes la intención en esa frase. No grites: marca con pausa, no con volumen.
+- *Cursiva* = bajas la voz, tono confidente, como si contaras un secreto.
+- **Mirada:** a cámara (= a los ojos del espectador) en los hooks, las verdades incómodas y el precio. Puedes desviar la mirada al pensar en transiciones, pero vuelve siempre a cámara en lo importante.
+- **Manos:** úsalas para enumerar (los 5 pilares, los 4 pasos, las raciones). Gesto contado, no nervioso.
+- **Cuerpo:** quieto en lo serio (problema, precio), permítete moverte/caminar en las partes explicativas para dar dinamismo y cambiar de plano.
+
+## Recursos a preparar ANTES de grabar
+1. **Gráfico de los 5 pilares** (animación o tarjetas) que se construyen uno a uno mientras los nombras. Núcleo del vídeo.
+2. **Grabación de pantalla del cuestionario** real (scroll suave por las preguntas, sin datos sensibles).
+3. **Mockup/grabación del plan** que recibe el cliente (el documento de marca: entreno + nutrición + seguimiento).
+4. **Demo de raciones de mano** grabada aparte: tus manos sobre un plato real (palma = proteína, puño = verdura, mano ahuecada = carbo, pulgar = grasa).
+5. **B-roll propio:** tú entrenando básicos (sentadilla, remo, peso muerto) con buena técnica, comida normal preparándose, tú revisando un plan en tablet/portátil.
+6. **Rótulos de marca** (lower-thirds y palabras clave) en tipografía y color de WellnessReal.
+
+## Mapa de recursos por bloque
+
+**00:00 Qué es esto** — Plano medio a cámara, directo. Rótulo de entrada: "MÉTODO BASE". Sin B-roll, que te vean la cara y generes confianza. En "construimos la base", rótulo de la palabra **BASE**.
+
+**00:45 Por qué a los 35** — Empieza a cámara; en "más cardio, menos comida, rutinas eternas" mete B-roll corto de esos clichés (báscula, gimnasio abarrotado, comida triste). Vuelve a tu cara en "no falla porque te falte disciplina".
+
+**02:15 Los 5 pilares** — El bloque más visual. Cada pilar = una tarjeta que entra en pantalla al nombrarlo y se queda en una columna lateral, construyendo la lista. Al terminar, los 5 juntos en orden. B-roll suave detrás de cada uno (contexto = persona pensando; composición = espejo/medidas; energía = persona con vitalidad; hábitos = rutina diaria; rendimiento = levantando con buena técnica).
+
+**05:15 Entrenamiento** — B-roll tuyo entrenando básicos mientras hablas. Rótulos con los conceptos: "ejercicios básicos", "siempre con alternativa", "deja reps en reserva", "primero reps, luego peso". Vuelve a cámara en "abras el plan y sepas qué hacer hoy".
+
+**07:15 Nutrición** — Aquí va la **demo de raciones de mano**: corta a tus manos sobre el plato y rotula cada ración (palma/puño/mano ahuecada/pulgar) a medida que las nombras. En "cero alimentos prohibidos", plano de comida normal (pan, pasta) para reforzar el mensaje.
+
+**09:00 Cómo se mide** — Gráfico/checklist que lista las métricas (tendencia de peso, cintura, ropa, energía, descanso, adherencia). En "puedes bajar una talla sin que la báscula se mueva", visual de cinta métrica vs. báscula tachada. Cierra a cámara.
+
+**10:00 Cómo funciona (4 pasos)** — Numéralos con la mano. Sincroniza recursos: paso 1 = grabación del cuestionario; paso 2 = mockup del plan; paso 3 = TÚ revisándolo (refuerza lo humano, cara a cámara); paso 4 = gráfico de ajuste semanal (flecha sube/baja). Rótulos "1 · 2 · 3 · 4".
+
+**11:15 Qué recibes** — Mientras enumeras, muestra cada entregable en pantalla: el programa de entreno, la guía de nutrición, el sistema de seguimiento. En "lo reviso yo, persona a persona", CORTA el B-roll y vuelve a tu cara fija a cámara: este momento es de confianza, no de pantallazos.
+
+**12:30 Precio** — **Todo a cámara, sin B-roll, plano más cerrado.** Es el momento de máxima honestidad y los recursos distraen. Único rótulo permitido: "desde 150€/mes" cuando lo dices, discreto. Cuerpo quieto, mirada directa, ritmo lento.
+
+**13:30 Cierre** — Vuelve al plano de apertura (cierra el círculo visual). Rótulo final con el CTA: "Rellena el cuestionario" + flecha/botón de marca. Última frase ("una base que puedas sostener") a cámara, pausa, fundido.
 `,
   },
   {
