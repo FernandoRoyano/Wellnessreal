@@ -137,6 +137,8 @@ Si tienes una enfermedad renal o estás embarazada o dando el pecho, coméntalo 
 
 ---
 
+> 📚 Este artículo forma parte de la **[guía completa de suplementos para mujeres](/blog/suplementos-mujeres-guia-evidencia)**: qué funciona de verdad, qué es solo marketing y dónde no merece la pena gastar.
+
 *¿Quieres que monte tu suplementación dentro de un plan de verdad, adaptado a ti y a tu vida? Escríbeme. En WellnessReal trabajamos con lo que funciona, no con lo que vende.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**

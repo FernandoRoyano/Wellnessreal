@@ -111,6 +111,8 @@ Si hay déficit y tu médico lo indica, sácale el máximo partido:
 
 ---
 
+> 📚 Este artículo forma parte de la **[guía completa de suplementos para mujeres](/blog/suplementos-mujeres-guia-evidencia)**: qué funciona de verdad, qué es solo marketing y dónde no merece la pena gastar.
+
 *¿Cansada de verdad y no sabes si es el hierro, la falta de descanso o cómo entrenas y comes? En WellnessReal lo miramos con cabeza y montamos un plan real para tu vida, no para la de Instagram.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**

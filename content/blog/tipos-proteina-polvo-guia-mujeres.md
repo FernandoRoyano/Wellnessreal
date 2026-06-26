@@ -153,6 +153,8 @@ Cálculo rápido: a una dosis de ~30 g, un kilo te da unas **33 tomas**. Un conc
 
 ---
 
+> 📚 Este artículo forma parte de la **[guía completa de suplementos para mujeres](/blog/suplementos-mujeres-guia-evidencia)**: qué funciona de verdad, qué es solo marketing y dónde no merece la pena gastar.
+
 *¿No sabes cuánta proteína necesitas tú ni cómo encajarla en tu día sin volverte loca contando? Eso es exactamente lo que monto en WellnessReal: estructura real para tu vida real, sin gramos imposibles ni dietas que abandonas en dos semanas.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**

@@ -94,6 +94,8 @@ Aquí te timan a diario. Un bote pone en grande **"Aceite de pescado 1.000 mg"**
 
 ---
 
+> 📚 Este artículo forma parte de la **[guía completa de suplementos para mujeres](/blog/suplementos-mujeres-guia-evidencia)**: qué funciona de verdad, qué es solo marketing y dónde no merece la pena gastar.
+
 *¿Quieres dejar de coleccionar botes y centrarte en lo que de verdad mueve la aguja para ti? En WellnessReal monto tu nutrición y tu suplementación con cabeza, sin humo ni gasto inútil.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**

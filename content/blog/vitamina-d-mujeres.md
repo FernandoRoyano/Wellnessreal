@@ -111,6 +111,8 @@ La vitamina D es **barata**. No es un suplemento donde tenga sentido gastar much
 
 ---
 
+> 📚 Este artículo forma parte de la **[guía completa de suplementos para mujeres](/blog/suplementos-mujeres-guia-evidencia)**: qué funciona de verdad, qué es solo marketing y dónde no merece la pena gastar.
+
 *¿Quieres dejar de ir dando palos de ciego con suplementos y montar lo que de verdad necesitas dentro de un plan adaptado a ti? Eso es justo lo que hago en WellnessReal: lo que funciona, sin humo.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**
