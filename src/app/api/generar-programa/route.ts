@@ -17,7 +17,7 @@ import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
 
 export const runtime = 'nodejs'
-export const maxDuration = 60 // generar puede tardar; ampliamos el límite
+export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -148,7 +148,7 @@ la herramienta 'entregar_programa'.
     // --- 4) Llamar a Claude con tool use forzado (JSON garantizado) ---
     const respuesta = await anthropic.messages.create({
       model: MODELO_IA,
-      max_tokens: 16000,
+      max_tokens: 8000, // un programa completo cabe de sobra; menos tokens = menos latencia
       // El Método BASE es estable → lo cacheamos para abaratar las siguientes llamadas
       system: [{ type: 'text', text: METODO_BASE_KB, cache_control: { type: 'ephemeral' } }],
       tools: [

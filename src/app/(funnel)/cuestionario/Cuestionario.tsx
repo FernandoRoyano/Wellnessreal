@@ -127,7 +127,20 @@ export default function Cuestionario() {
           estilo_vida: txt(form.estilo_vida),
         }),
       });
-      const data = await res.json();
+      // La respuesta puede no ser JSON (timeout/504 de Vercel devuelve HTML).
+      // Leemos como texto y parseamos a mano para dar un error claro en vez del
+      // críptico "The string did not match the expected pattern." de Safari.
+      const raw = await res.text();
+      let data: { ok?: boolean; error?: string; programa?: Programa } = {};
+      try {
+        data = raw ? JSON.parse(raw) : {};
+      } catch {
+        throw new Error(
+          res.status === 504 || res.status === 408
+            ? "La generación tardó demasiado y se cortó. Inténtalo de nuevo en un minuto."
+            : "El servidor no respondió correctamente. Vuelve a intentarlo en unos segundos.",
+        );
+      }
       if (!res.ok) throw new Error(data.error || "No se pudo procesar tu cuestionario.");
       if (data.programa) setPrograma(data.programa as Programa);
       setDone(true);

@@ -72,7 +72,7 @@ junto con 'resumen_cambios': una lista breve de qué has cambiado y por qué, en
 
     const respuesta = await anthropic.messages.create({
       model: MODELO_IA,
-      max_tokens: 16000,
+      max_tokens: 8000, // cabe el plan completo; menos latencia para no pasar de 60s
       system: [{ type: 'text', text: METODO_BASE_KB, cache_control: { type: 'ephemeral' } }],
       tools: [
         {

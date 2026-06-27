@@ -10,7 +10,7 @@
 export interface Ejercicio {
   nombre: string        // nombre en español (inglés entre paréntesis la 1ª vez)
   series_reps: string   // ej. "3 × 8-10"
-  rir: string           // ej. "2-3"
+  rir: string           // ej. "2-3" o "—"
   alternativa: string   // ejercicio alternativo
   nota?: string         // indicación opcional
 }
@@ -92,7 +92,7 @@ export const PROGRAMA_JSON_SCHEMA = {
                   properties: {
                     nombre: { type: 'string', description: 'Nombre en español, con el inglés entre paréntesis la primera vez.' },
                     series_reps: { type: 'string' },
-                    rir: { type: 'string' },
+                    rir: { type: 'string', description: 'Ej. "2-3" o "—" cuando no aplique.' },
                     alternativa: { type: 'string' },
                     nota: { type: 'string' },
                   },
