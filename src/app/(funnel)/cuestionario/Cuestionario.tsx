@@ -21,6 +21,8 @@ interface FormState {
   horario_entreno: string;
   material: string[];
   experiencia: string;
+  preferencias_entreno: string[];
+  preferencias_entreno_texto: string;
   lesiones: string;
   medicacion: string;
   consideraciones: string;
@@ -39,6 +41,7 @@ const VACIO: FormState = {
   nombre: "", email: "", edad: "", sexo: "", altura_cm: "", peso_kg: "",
   objetivo_principal: "", objetivos_secundarios: [], dias_semana: "", minutos_sesion: "",
   donde_entrena: "", horario_entreno: "", material: [], experiencia: "",
+  preferencias_entreno: [], preferencias_entreno_texto: "",
   lesiones: "", medicacion: "", consideraciones: "",
   dormir_calidad: "", dormir_horas: "", comidas_dia: "",
   alergias: "", preferencias_comida: "", no_le_gusta: "", hambre: [], digestion: [],
@@ -52,6 +55,7 @@ const DONDE = [["En casa", "casa"], ["Gimnasio", "gimnasio"], ["Ambos", "ambos"]
 const HORARIOS = [["Mañana", "manana"], ["Mediodía", "mediodia"], ["Tarde", "tarde"], ["Noche", "noche"], ["Variable", "mixto"]];
 const MATERIAL = ["Mancuernas", "Banda elástica", "Kettlebell", "Barra y discos", "Máquina / multipower", "Barra de dominadas", "Step / cajón", "Solo mi peso corporal"];
 const EXPERIENCIA = [["Nunca he entrenado", "nada"], ["Algo de experiencia", "algo"], ["Con experiencia", "experimentado"]];
+const PREF_ENTRENO = ["Pesas / fuerza", "Peso corporal", "Cardio / resistencia", "Circuitos / HIIT", "Movilidad / estiramientos", "Que varíe y no me aburra", "Lo que tú decidas"];
 const SUENO_CALIDAD = [["Duermo mal", "mal"], ["Regular", "regular"], ["Duermo bien", "bien"]];
 const SUENO_HORAS = [["Menos de 6", "<6"], ["6-7", "6-7"], ["7-8", "7-8"], ["Más de 8", ">8"]];
 const COMIDAS_DIA = [["2", "2"], ["3", "3"], ["4", "4"], ["5 o más", "5+"], ["Me da igual", "flexible"]];
@@ -73,7 +77,7 @@ export default function Cuestionario() {
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
 
   // Alterna un valor dentro de un campo de selección múltiple
-  const toggleMulti = (k: "objetivos_secundarios" | "material" | "hambre" | "digestion", v: string) =>
+  const toggleMulti = (k: "objetivos_secundarios" | "material" | "hambre" | "digestion" | "preferencias_entreno", v: string) =>
     setForm((f) => ({
       ...f,
       [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v],
@@ -113,6 +117,9 @@ export default function Cuestionario() {
           horario_entreno: form.horario_entreno || null,
           material: list(form.material),
           experiencia: form.experiencia || null,
+          preferencias_entreno: list(
+            [...form.preferencias_entreno, form.preferencias_entreno_texto.trim()].filter(Boolean),
+          ),
           lesiones: txt(form.lesiones),
           medicacion: txt(form.medicacion),
           consideraciones: txt(form.consideraciones),
@@ -350,6 +357,15 @@ export default function Cuestionario() {
                     <button key={v} type="button" className={"wrq-chip" + (form.experiencia === v ? " active" : "")} onClick={() => set("experiencia", v)}>{l}</button>
                   ))}
                 </div>
+              </div>
+              <div className="wrq-field">
+                <label>¿Cómo te gusta entrenar? (opcional)</label>
+                <div className="wrq-choices">
+                  {PREF_ENTRENO.map((p) => (
+                    <button key={p} type="button" className={"wrq-chip" + (form.preferencias_entreno.includes(p) ? " active" : "")} onClick={() => toggleMulti("preferencias_entreno", p)}>{p}</button>
+                  ))}
+                </div>
+                <input type="text" value={form.preferencias_entreno_texto} onChange={(e) => set("preferencias_entreno_texto", e.target.value)} placeholder="Si quieres, cuéntame algo más sobre cómo te gusta entrenar" style={{ marginTop: 10 }} />
               </div>
             </>
           )}

@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
         horario_entreno: datos.horario_entreno ?? null,
         material: datos.material ?? null,
         experiencia: datos.experiencia ?? null,
+        preferencias_entreno: datos.preferencias_entreno ?? null,
         lesiones: datos.lesiones ?? null,
         medicacion: datos.medicacion ?? null,
         consideraciones: datos.consideraciones ?? null,
@@ -89,6 +90,7 @@ export async function POST(req: NextRequest) {
           dias_semana: datos.dias_semana ?? null,
           minutos_sesion: datos.minutos_sesion ?? null,
           experiencia: datos.experiencia ?? null,
+          preferencias_entreno: datos.preferencias_entreno ?? null,
           lesiones: datos.lesiones ?? null,
           medicacion: datos.medicacion ?? null,
           dormir_calidad: datos.dormir_calidad ?? null,
@@ -125,6 +127,7 @@ Genera el programa completo del Método BASE para este cliente:
 - Franja horaria de entrenamiento: ${datos.horario_entreno ?? 'no indicada'}
 - Material disponible: ${datos.material ?? 'no indicado'}
 - Experiencia: ${datos.experiencia ?? 'no indicada'}
+- Cómo le gusta entrenar: ${datos.preferencias_entreno ?? 'sin preferencia (decide tú el enfoque)'}
 - Lesiones: ${datos.lesiones ?? 'ninguna indicada'}
 - Medicación: ${datos.medicacion ?? 'ninguna indicada'}
 - Otras consideraciones de salud: ${datos.consideraciones ?? 'ninguna'}
@@ -138,7 +141,8 @@ Genera el programa completo del Método BASE para este cliente:
 - Estilo de vida (trabajo, turnos, estrés): ${datos.estilo_vida ?? 'no indicado'}
 
 Genera tantos días de entrenamiento como días disponibles tenga. Adapta cada ejercicio a su
-entorno y material. En la nutrición: respeta alergias, lo que NO comerá y sus gustos; estructura
+entorno y material. Respeta cómo le gusta entrenar siempre que sea compatible con su objetivo;
+si no ha indicado preferencia, elige tú el enfoque más eficaz. En la nutrición: respeta alergias, lo que NO comerá y sus gustos; estructura
 las comidas según las que prefiera al día y refuerza la saciedad en sus momentos de más hambre o
 ansiedad; ten en cuenta el sueño, la medicación y las digestiones para la recuperación y los
 ajustes. Encaja el plan en su franja horaria de entrenamiento. Devuelve el resultado llamando a
