@@ -3,8 +3,9 @@
 import { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock, Link2, Copy, ExternalLink } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock, Link2, Copy, ExternalLink, Pencil } from 'lucide-react'
 import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
+import ProgramaEditor from '@/components/programa/ProgramaEditor'
 import type { Programa } from '@/lib/programa-schema'
 
 interface Cliente {
@@ -57,6 +58,8 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
   const [eventos, setEventos] = useState<Evento[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [editando, setEditando] = useState(false)
+  const [savingEdit, setSavingEdit] = useState(false)
 
   // formulario de ajuste
   const [cambio, setCambio] = useState('')
@@ -89,6 +92,20 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
     })
     if (res.ok) setReg({ ...reg, revisado, revisado_en: revisado ? new Date().toISOString() : null })
     setSaving(false)
+  }
+
+  const guardarEdicion = async (programa: Programa) => {
+    setSavingEdit(true)
+    const res = await fetch(`/api/admin/programas/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ programa }),
+    })
+    setSavingEdit(false)
+    if (res.ok) {
+      setReg((r) => (r ? { ...r, programa } : r))
+      setEditando(false)
+    }
   }
 
   const ajustar = async () => {
@@ -172,6 +189,11 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
               Pendiente
             </span>
           )}
+          {!editando && (
+            <button onClick={() => setEditando(true)} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white" style={{ border: '1px solid #662D91' }} title="Editar el plan a mano">
+              <Pencil size={15} /> Editar
+            </button>
+          )}
           {reg.revisado ? (
             <>
               <a href={mailto} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
@@ -189,6 +211,19 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
         </div>
       </div>
 
+      {/* Modo edición: editor a ancho completo */}
+      {editando ? (
+        <div className="max-w-6xl mx-auto px-5 py-6">
+          <div className="rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(102,45,145,0.4)' }}>
+            <ProgramaEditor
+              initial={reg.programa}
+              saving={savingEdit}
+              onSave={guardarEdicion}
+              onCancel={() => setEditando(false)}
+            />
+          </div>
+        </div>
+      ) : (
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row gap-6 px-5 py-6">
         {/* Documento de marca */}
         <div className="flex-1 min-w-0 rounded-2xl overflow-hidden border" style={{ borderColor: 'rgba(102,45,145,0.4)' }}>
@@ -302,6 +337,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
           </Panel>
         </aside>
       </div>
+      )}
     </div>
   )
 }
