@@ -1,12 +1,17 @@
+'use client'
+
+import { useState } from 'react'
 import type { Programa } from '@/lib/programa-schema'
+import { PLAN_OPCIONES, type PlanTier } from '@/lib/precios-plan'
 import './programa-documento.css'
 import './programa-teaser.css'
 
 // ============================================================
 //  Teaser del plan: muestra GRATIS la bienvenida + punto de
-//  partida + el Día 1 de entreno. Bloquea el resto (nutrición,
-//  resto de días, seguimiento) y cierra con CTA a WhatsApp.
-//  Es la salida del cuestionario: genera el deseo de tenerlo entero.
+//  partida + el Día 1 de entreno. Bloquea el resto y ofrece las
+//  dos opciones de pago (plan automático / plan revisado).
+//  Es la salida del cuestionario: genera el deseo y cobra en el
+//  pico de motivación.
 // ============================================================
 
 const WHATSAPP = '34633261963'
@@ -14,9 +19,11 @@ const WHATSAPP = '34633261963'
 export default function ProgramaTeaser({
   programa,
   nombre,
+  clienteId,
 }: {
   programa: Programa
   nombre: string
+  clienteId?: string
 }) {
   const primerNombre = (nombre || '').split(' ')[0] || 'crack'
   const mensaje_bienvenida = programa?.mensaje_bienvenida ?? ''
@@ -26,8 +33,30 @@ export default function ProgramaTeaser({
   const dia1 = dias[0]
   const diasRestantes = Math.max(0, dias.length - 1)
 
+  const [cargando, setCargando] = useState<PlanTier | null>(null)
+  const [error, setError] = useState('')
+
+  const comprar = async (tier: PlanTier) => {
+    if (!clienteId) return
+    setError('')
+    setCargando(tier)
+    try {
+      const res = await fetch('/api/stripe/checkout-plan', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cliente_id: clienteId, tier }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.sessionUrl) throw new Error(data.error || 'No se pudo iniciar el pago.')
+      window.location.href = data.sessionUrl
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'No se pudo iniciar el pago.')
+      setCargando(null)
+    }
+  }
+
   const mensaje = encodeURIComponent(
-    `Hola Fernando, soy ${nombre}. Acabo de hacer el cuestionario y quiero mi plan completo y empezar a entrenar contigo.`,
+    `Hola Fernando, soy ${nombre}. Acabo de hacer el cuestionario y tengo una duda sobre mi plan.`,
   )
   const ctaUrl = `https://wa.me/${WHATSAPP}?text=${mensaje}`
 
@@ -42,8 +71,8 @@ export default function ProgramaTeaser({
             </h1>
             <p className="wrp-welcome">{mensaje_bienvenida}</p>
             <p className="wrp-preview-note">
-              Esto es un primer borrador, generado al instante con el método de Fernando. Él lo
-              perfecciona contigo antes de que empieces.
+              Esto es un primer borrador, generado al instante con el método de Fernando. Desbloquéalo
+              entero abajo.
             </p>
           </header>
 
@@ -92,7 +121,7 @@ export default function ProgramaTeaser({
             )}
           </section>
 
-          {/* Bloqueo + CTA */}
+          {/* Bloqueo + opciones de pago */}
           <div className="wrt-lock">
             <div className="wrt-lock-fade" />
             <div className="wrt-lock-card">
@@ -106,22 +135,52 @@ export default function ProgramaTeaser({
                 Y esto es <span className="hl">solo el principio</span>
               </h3>
               <p className="sub">
-                Tu plan completo está listo. Lo desbloqueas hablando conmigo: lo reviso, lo afinamos
-                a tu vida y lo ajustamos juntos cada semana.
+                Tu plan completo está listo. Elige cómo lo quieres y lo desbloqueas ahora mismo.
               </p>
-              <ul className="wrt-lock-list">
-                {diasRestantes > 0 && <li>Los {diasRestantes} día{diasRestantes > 1 ? 's' : ''} de entreno restantes, completos</li>}
-                <li>Tu nutrición por raciones, sin pesar nada</li>
-                <li>Tu sistema de seguimiento y progresión</li>
-                <li>Los ajustes semanales conmigo según cómo respondas</li>
-              </ul>
-              <a className="wrt-cta" href={ctaUrl} target="_blank" rel="noreferrer">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 0 1 8.413 3.488 11.824 11.824 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.51 5.26l-.999 3.648 3.477-.91zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
-                </svg>
-                Hablar con Fernando por WhatsApp
-              </a>
-              <p className="wrt-cta-sub">Sin compromiso. Te respondo yo en persona.</p>
+
+              {error && <p style={{ color: '#fca5a5', fontSize: '.9rem', marginBottom: 14 }}>{error}</p>}
+
+              {clienteId ? (
+                <div className="wrt-plans">
+                  {(['auto', 'revisado'] as PlanTier[]).map((tier) => {
+                    const o = PLAN_OPCIONES[tier]
+                    return (
+                      <div key={tier} className={'wrt-plan' + (o.destacado ? ' destacado' : '')}>
+                        {o.destacado && <span className="wrt-plan-badge">Recomendado</span>}
+                        <h4>{o.nombre}</h4>
+                        <div className="wrt-plan-precio">{o.precio}€<span>pago único</span></div>
+                        <p className="wrt-plan-gancho">{o.gancho}</p>
+                        <ul>
+                          {o.ventajas.map((v, i) => (
+                            <li key={i}>{v}</li>
+                          ))}
+                        </ul>
+                        <button
+                          type="button"
+                          className={'wrt-plan-btn' + (o.destacado ? ' primary' : '')}
+                          onClick={() => comprar(tier)}
+                          disabled={cargando !== null}
+                        >
+                          {cargando === tier ? 'Redirigiendo…' : `Desbloquear · ${o.precio}€`}
+                        </button>
+                      </div>
+                    )
+                  })}
+                </div>
+              ) : (
+                <ul className="wrt-lock-list">
+                  {diasRestantes > 0 && <li>Los {diasRestantes} día{diasRestantes > 1 ? 's' : ''} de entreno restantes</li>}
+                  <li>Tu nutrición por raciones, sin pesar nada</li>
+                  <li>Tu sistema de seguimiento y progresión</li>
+                </ul>
+              )}
+
+              <p className="wrt-cta-sub" style={{ marginTop: 18 }}>
+                Pago seguro con Stripe (tarjeta, Apple Pay y Google Pay).{' '}
+                <a href={ctaUrl} target="_blank" rel="noreferrer" style={{ color: '#FCEE21', textDecoration: 'underline' }}>
+                  ¿Dudas? Habla con Fernando
+                </a>
+              </p>
             </div>
           </div>
         </div>

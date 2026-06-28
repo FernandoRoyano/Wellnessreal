@@ -17,6 +17,8 @@ interface Cliente {
   donde_entrena: string | null
   semana_actual: number | null
   token: string | null
+  pagado_en: string | null
+  plan_tier: string | null
 }
 
 interface Registro {
@@ -187,6 +189,15 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
           ) : (
             <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(252,238,33,0.15)', color: '#FCEE21' }}>
               Pendiente
+            </span>
+          )}
+          {c?.pagado_en ? (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }} title={`Pagado el ${new Date(c.pagado_en).toLocaleString('es-ES')}`}>
+              💳 Pagado{c.plan_tier === 'revisado' ? ' · revisado (49€)' : c.plan_tier === 'auto' ? ' · auto (19€)' : ''}
+            </span>
+          ) : (
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(148,141,153,0.15)', color: '#958D99' }}>
+              Sin pagar
             </span>
           )}
           {!editando && (

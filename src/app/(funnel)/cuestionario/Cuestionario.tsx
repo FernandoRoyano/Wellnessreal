@@ -72,6 +72,7 @@ export default function Cuestionario() {
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
   const [programa, setPrograma] = useState<Programa | null>(null);
+  const [clienteId, setClienteId] = useState<string | null>(null);
   const [verTeaser, setVerTeaser] = useState(false);
 
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
@@ -138,7 +139,7 @@ export default function Cuestionario() {
       // Leemos como texto y parseamos a mano para dar un error claro en vez del
       // críptico "The string did not match the expected pattern." de Safari.
       const raw = await res.text();
-      let data: { ok?: boolean; error?: string; programa?: Programa } = {};
+      let data: { ok?: boolean; error?: string; programa?: Programa; cliente_id?: string; token?: string } = {};
       try {
         data = raw ? JSON.parse(raw) : {};
       } catch {
@@ -150,6 +151,7 @@ export default function Cuestionario() {
       }
       if (!res.ok) throw new Error(data.error || "No se pudo procesar tu cuestionario.");
       if (data.programa) setPrograma(data.programa as Programa);
+      if (data.cliente_id) setClienteId(data.cliente_id as string);
       setDone(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error al enviar el cuestionario.");
@@ -181,7 +183,7 @@ export default function Cuestionario() {
 
   // --- Pantalla: teaser del plan (tras pulsar "ver adelanto") ---
   if (done && programa && verTeaser) {
-    return <ProgramaTeaser programa={programa} nombre={form.nombre} />;
+    return <ProgramaTeaser programa={programa} nombre={form.nombre} clienteId={clienteId ?? undefined} />;
   }
 
   // --- Pantalla: gracias ---

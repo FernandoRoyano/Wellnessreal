@@ -43,4 +43,32 @@
 .wrt-cta:hover{transform:translateY(-2px);box-shadow:0 14px 40px rgba(252,238,33,.45)}
 .wrt-cta-sub{margin-top:14px;color:#958D99;font-size:.86rem}
 
-@media(prefers-reduced-motion:reduce){.wrt-cta{transition:none}}
+/* opciones de pago (bueno / mejor) */
+.wrt-plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:left;margin:4px 0 4px}
+@media(max-width:620px){.wrt-plans{grid-template-columns:1fr}}
+.wrt-plan{
+  position:relative;background:#1a1535;border:1px solid rgba(102,45,145,.5);border-radius:16px;
+  padding:22px 20px;display:flex;flex-direction:column;
+}
+.wrt-plan.destacado{border-color:#FCEE21;box-shadow:0 0 0 1px #FCEE21,0 12px 36px rgba(252,238,33,.14)}
+.wrt-plan-badge{
+  position:absolute;top:-11px;left:20px;background:#FCEE21;color:#16122B;font-family:'Syne',sans-serif;
+  font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:100px;
+}
+.wrt-plan h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1.05rem;color:#FBFAF6;margin:4px 0 8px}
+.wrt-plan-precio{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:#FCEE21;line-height:1;display:flex;align-items:baseline;gap:8px}
+.wrt-plan-precio span{font-family:'DM Sans',sans-serif;font-weight:500;font-size:.78rem;color:#958D99;letter-spacing:0}
+.wrt-plan-gancho{color:#cfc9d4;font-size:.92rem;margin:10px 0 12px;line-height:1.45}
+.wrt-plan ul{list-style:none;display:flex;flex-direction:column;gap:8px;margin:0 0 18px;flex:1}
+.wrt-plan ul li{position:relative;padding-left:24px;color:#FBFAF6;font-size:.9rem;line-height:1.4}
+.wrt-plan ul li::before{content:"✓";position:absolute;left:0;top:0;color:#4ade80;font-weight:700}
+.wrt-plan-btn{
+  width:100%;font-family:'Syne',sans-serif;font-weight:700;font-size:.98rem;cursor:pointer;
+  border-radius:100px;padding:13px 20px;border:1px solid #FCEE21;background:transparent;color:#FCEE21;
+  transition:transform .2s ease,background .2s ease;
+}
+.wrt-plan-btn.primary{background:#FCEE21;color:#16122B;box-shadow:0 8px 24px rgba(252,238,33,.3)}
+.wrt-plan-btn:hover:not(:disabled){transform:translateY(-2px)}
+.wrt-plan-btn:disabled{opacity:.6;cursor:default}
+
+@media(prefers-reduced-motion:reduce){.wrt-cta,.wrt-plan-btn{transition:none}}

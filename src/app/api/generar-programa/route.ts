@@ -211,6 +211,7 @@ la herramienta 'entregar_programa'.
     return NextResponse.json({
       ok: true,
       cliente_id: perfil.id,
+      token: perfil.token,
       programa_id: guardado.id,
       programa,
     })
