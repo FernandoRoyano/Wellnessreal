@@ -80,11 +80,31 @@ const titleLines     = lines(title)
 const highlightLines = lines(highlight)
 const subtitleLines  = lines(subtitle)
 
-const TITLE_SIZE = 96
-const TITLE_LH   = TITLE_SIZE * 1.0
-const TITLE_TOP  = 415     // baseline de la primera línea
+// --- Subtítulo y url anclados ABAJO (la url siempre al fondo) ---
+const URL_Y  = H - 58
+const nSub   = Math.max(subtitleLines.length, 1)
+const subLast = URL_Y - 64                 // última línea de subtítulo
+const SUB_TOP = subLast - (nSub - 1) * 40   // primera línea de subtítulo
+const subtitleBlock = subtitleLines.map((l, i) =>
+  `<text x="${PAD_X}" y="${SUB_TOP + i * 40}" font-family="${BODY_FONT}" font-size="29" font-weight="500" fill="${MUTED}">${esc(l)}</text>`
+).join('')
 
-let cy = TITLE_TOP
+// --- Titular: auto-ajuste por ancho de panel y por el hueco que queda ---
+const allTitle = [...titleLines, ...highlightLines]
+const nLines   = Math.max(allTitle.length, 1)
+const maxChars = Math.max(...allTitle.map((l) => l.length), 1)
+const AVAIL_W  = 900
+const BAND_TOP = 360
+const BAND_H   = (SUB_TOP - 40) - BAND_TOP   // hueco entre eyebrow y subtítulo
+const sizeByWidth = AVAIL_W / (maxChars * 0.58)
+const sizeByCount = (BAND_H / nLines) / 1.04
+const TITLE_SIZE  = Math.max(46, Math.min(96, Math.floor(Math.min(sizeByWidth, sizeByCount))))
+const TITLE_LH    = TITLE_SIZE * 1.04
+
+const blockH        = (nLines - 1) * TITLE_LH
+const firstBaseline = BAND_TOP + (BAND_H - blockH) / 2 + TITLE_SIZE * 0.34
+
+let cy = firstBaseline
 const titleBlock = titleLines.map((l) => {
   const y = cy; cy += TITLE_LH
   return `<text x="${PAD_X}" y="${y}" font-family="${TITLE_FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${WHITE}" letter-spacing="-2">${esc(l)}</text>`
@@ -94,16 +114,12 @@ const highlightBlock = highlightLines.map((l) => {
   return `<text x="${PAD_X}" y="${y}" font-family="${TITLE_FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${YELLOW}" letter-spacing="-2">${esc(l)}</text>`
 }).join('')
 
-const barTop = TITLE_TOP - TITLE_SIZE + 8
-const barBottom = cy - TITLE_LH + 22
+const lastBaseline = firstBaseline + (nLines - 1) * TITLE_LH
+const barTop = firstBaseline - TITLE_SIZE + 8
+const barBottom = lastBaseline + 20
 const bar = `<rect x="${BAR_X}" y="${barTop}" width="7" height="${barBottom - barTop}" fill="${YELLOW}"/>`
 
-const SUB_TOP = cy + 26
-const subtitleBlock = subtitleLines.map((l, i) =>
-  `<text x="${PAD_X}" y="${SUB_TOP + i * 40}" font-family="${BODY_FONT}" font-size="29" font-weight="500" fill="${MUTED}">${esc(l)}</text>`
-).join('')
-
-const EY_Y = 318
+const EY_Y = 300
 const eyebrowBlock = `
   <text x="${PAD_X}" y="${EY_Y}" font-family="${BODY_FONT}" font-size="27" font-weight="700" fill="#D8D5E6" letter-spacing="7">${esc(eyebrow)}</text>
   <rect x="${PAD_X}" y="${EY_Y + 22}" width="78" height="5" fill="${YELLOW}"/>`
