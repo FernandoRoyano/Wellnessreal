@@ -17,8 +17,26 @@
  * Las pipes "|" separan líneas. --highlight es el remate amarillo del título.
  */
 
-import sharp from 'sharp'
-import { resolve, extname } from 'node:path'
+import { resolve, extname, dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { writeFileSync, mkdirSync } from 'node:fs'
+
+// --- Tipografía de marca: Montserrat vía fontconfig (scripts/fonts/*.ttf) ---
+// Generamos fonts.conf con la ruta absoluta de la máquina y apuntamos librsvg ahí
+// ANTES de cargar sharp (de ahí el import dinámico más abajo).
+const FONTS_DIR = join(dirname(fileURLToPath(import.meta.url)), 'fonts')
+mkdirSync(join(FONTS_DIR, 'cache'), { recursive: true })
+const FC = join(FONTS_DIR, 'fonts.conf')
+writeFileSync(FC, `<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <dir>${FONTS_DIR.replace(/\\/g, '/')}</dir>
+  <cachedir>${FONTS_DIR.replace(/\\/g, '/')}/cache</cachedir>
+  <config></config>
+</fontconfig>`)
+process.env.FONTCONFIG_FILE = FC
+
+const sharp = (await import('sharp')).default
 
 function parseArgs(argv) {
   const out = {}
@@ -51,7 +69,8 @@ const H = 941
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const lines = (s) => (s ? s.split('|') : [])
-const FONT = "Montserrat, 'Segoe UI', 'Arial Black', Arial, sans-serif"
+// La serie usa Montserrat Alternates (la 'a' y 'g' de un solo piso).
+const FONT = "Montserrat Alternates, Montserrat, 'Segoe UI', Arial, sans-serif"
 
 const PAD_X = 142          // sangría izquierda del texto
 const BAR_X = 104          // barra vertical amarilla
@@ -113,6 +132,5 @@ else if (ext === 'webp') pipeline = pipeline.webp({ quality: 86 })
 else pipeline = pipeline.png({ compressionLevel: 9 })
 
 const buf = await pipeline.toBuffer()
-const { writeFileSync } = await import('node:fs')
 writeFileSync(resolve(a.out), buf)
 console.log(`✅ Portada generada: ${a.out} (${(buf.length / 1024).toFixed(0)} KB, ${W}x${H})`)
