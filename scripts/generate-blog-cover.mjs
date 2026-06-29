@@ -69,8 +69,10 @@ const H = 941
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const lines = (s) => (s ? s.split('|') : [])
-// La serie usa Montserrat Alternates (la 'a' y 'g' de un solo piso).
-const FONT = "Montserrat Alternates, Montserrat, 'Segoe UI', Arial, sans-serif"
+// La serie usa DOS fuentes: titulares en Montserrat Alternates (la 'a' y 'g' de
+// un solo piso) y el cuerpo (eyebrow, subtítulo, url) en Montserrat normal.
+const TITLE_FONT = "Montserrat Alternates, 'Segoe UI', Arial, sans-serif"
+const BODY_FONT  = "Montserrat, 'Segoe UI', Arial, sans-serif"
 
 const PAD_X = 142          // sangría izquierda del texto
 const BAR_X = 104          // barra vertical amarilla
@@ -85,11 +87,11 @@ const TITLE_TOP  = 415     // baseline de la primera línea
 let cy = TITLE_TOP
 const titleBlock = titleLines.map((l) => {
   const y = cy; cy += TITLE_LH
-  return `<text x="${PAD_X}" y="${y}" font-family="${FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${WHITE}" letter-spacing="-2">${esc(l)}</text>`
+  return `<text x="${PAD_X}" y="${y}" font-family="${TITLE_FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${WHITE}" letter-spacing="-2">${esc(l)}</text>`
 }).join('')
 const highlightBlock = highlightLines.map((l) => {
   const y = cy; cy += TITLE_LH
-  return `<text x="${PAD_X}" y="${y}" font-family="${FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${YELLOW}" letter-spacing="-2">${esc(l)}</text>`
+  return `<text x="${PAD_X}" y="${y}" font-family="${TITLE_FONT}" font-size="${TITLE_SIZE}" font-weight="900" fill="${YELLOW}" letter-spacing="-2">${esc(l)}</text>`
 }).join('')
 
 const barTop = TITLE_TOP - TITLE_SIZE + 8
@@ -98,12 +100,12 @@ const bar = `<rect x="${BAR_X}" y="${barTop}" width="7" height="${barBottom - ba
 
 const SUB_TOP = cy + 26
 const subtitleBlock = subtitleLines.map((l, i) =>
-  `<text x="${PAD_X}" y="${SUB_TOP + i * 40}" font-family="${FONT}" font-size="29" font-weight="500" fill="${MUTED}">${esc(l)}</text>`
+  `<text x="${PAD_X}" y="${SUB_TOP + i * 40}" font-family="${BODY_FONT}" font-size="29" font-weight="500" fill="${MUTED}">${esc(l)}</text>`
 ).join('')
 
 const EY_Y = 318
 const eyebrowBlock = `
-  <text x="${PAD_X}" y="${EY_Y}" font-family="${FONT}" font-size="27" font-weight="700" fill="#D8D5E6" letter-spacing="7">${esc(eyebrow)}</text>
+  <text x="${PAD_X}" y="${EY_Y}" font-family="${BODY_FONT}" font-size="27" font-weight="700" fill="#D8D5E6" letter-spacing="7">${esc(eyebrow)}</text>
   <rect x="${PAD_X}" y="${EY_Y + 22}" width="78" height="5" fill="${YELLOW}"/>`
 
 const overlay = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
@@ -120,7 +122,7 @@ const overlay = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${
   ${titleBlock}
   ${highlightBlock}
   ${subtitleBlock}
-  <text x="${PAD_X}" y="${H - 58}" font-family="${FONT}" font-size="27" font-weight="800" fill="${YELLOW}" letter-spacing="1">${esc(url)}</text>
+  <text x="${PAD_X}" y="${H - 58}" font-family="${BODY_FONT}" font-size="27" font-weight="800" fill="${YELLOW}" letter-spacing="1">${esc(url)}</text>
 </svg>`
 
 const base = await sharp(resolve(a.photo)).resize(W, H, { fit: 'cover', position: 'right' }).toBuffer()
