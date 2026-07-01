@@ -1,8 +1,12 @@
 // ============================================================
 //  Método BASE · Precios y niveles del plan
 //  Punto único para cambiar precios y copy de las dos opciones.
-//  El precio está en EUROS (se convierte a céntimos en Stripe).
+//  Suscripción mensual (Stripe): el precio está en EUROS/mes.
+//  Los price IDs viven en env (test en .env.local, live en Vercel).
 // ============================================================
+
+// Permanencia mínima antes de poder cancelar (meses).
+export const PERMANENCIA_MESES = 3
 
 export type PlanTier = 'auto' | 'revisado'
 
@@ -45,4 +49,9 @@ export const PLAN_OPCIONES: Record<PlanTier, PlanOpcion> = {
 
 export function getPlanOpcion(tier: string): PlanOpcion | null {
   return tier === 'auto' || tier === 'revisado' ? PLAN_OPCIONES[tier] : null
+}
+
+// Price ID recurrente de Stripe para el tier (env: test/live según el entorno).
+export function getPriceId(tier: PlanTier): string | undefined {
+  return tier === 'auto' ? process.env.STRIPE_PRICE_AUTO : process.env.STRIPE_PRICE_REVISADO
 }

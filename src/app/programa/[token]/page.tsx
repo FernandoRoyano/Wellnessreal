@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
 import ProgramaTeaser from '@/components/programa/ProgramaTeaser'
+import ConfirmandoPago from '@/components/programa/ConfirmandoPago'
+import GestionSuscripcion from '@/components/programa/GestionSuscripcion'
 import type { Programa } from '@/lib/programa-schema'
 
 export const metadata: Metadata = {
@@ -26,13 +28,17 @@ export default async function ProgramaPublicoPage({
 
   const { data: perfil } = await supabase
     .from('cliente_perfil')
-    .select('id, nombre, pagado_en, plan_tier')
+    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en')
     .eq('token', token)
     .maybeSingle()
 
   if (!perfil) notFound()
 
-  const pagado = !!perfil.pagado_en
+  // Acceso por ventana de suscripción: estado válido (incluye past_due = gracia)
+  // y dentro del periodo ya pagado.
+  const estadoOk = ['active', 'trialing', 'past_due'].includes(perfil.estado_suscripcion ?? '')
+  const enVentana = perfil.acceso_hasta ? new Date(perfil.acceso_hasta) > new Date() : false
+  const pagado = estadoOk && enVentana
 
   // Plan vigente (revisado o no) — para el teaser de pago.
   const { data: vigenteRow } = await supabase
@@ -56,6 +62,11 @@ export default async function ProgramaPublicoPage({
 
   // --- No ha pagado: muro de pago con el adelanto ---
   if (!pagado) {
+    // Acaba de pagar pero el webhook aún no ha confirmado: pantalla de espera
+    // en vez del muro (evita mostrar el paywall justo tras pagar).
+    if (pago === 'ok') {
+      return <Shell><ConfirmandoPago nombre={perfil.nombre} /></Shell>
+    }
     if (!vigenteRow) {
       return <Shell><EnPreparacion nombre={perfil.nombre} /></Shell>
     }
@@ -77,6 +88,7 @@ export default async function ProgramaPublicoPage({
       <Shell>
         {pago === 'ok' && <Banner tipo="ok" />}
         <EnPreparacion nombre={perfil.nombre} pagado />
+        <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />
       </Shell>
     )
   }
@@ -86,6 +98,7 @@ export default async function ProgramaPublicoPage({
     <Shell>
       {pago === 'ok' && <Banner tipo="ok" />}
       <ProgramaDocumento programa={aprobadoRow.programa as Programa} nombre={perfil.nombre} />
+      <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />
     </Shell>
   )
 }
