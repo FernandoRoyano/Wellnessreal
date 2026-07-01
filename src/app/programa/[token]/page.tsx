@@ -6,6 +6,7 @@ import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
 import ProgramaTeaser from '@/components/programa/ProgramaTeaser'
 import ConfirmandoPago from '@/components/programa/ConfirmandoPago'
 import GestionSuscripcion from '@/components/programa/GestionSuscripcion'
+import CheckinProgreso from '@/components/programa/CheckinProgreso'
 import type { Programa } from '@/lib/programa-schema'
 
 export const metadata: Metadata = {
@@ -28,7 +29,7 @@ export default async function ProgramaPublicoPage({
 
   const { data: perfil } = await supabase
     .from('cliente_perfil')
-    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual')
+    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual, pagado_en')
     .eq('token', token)
     .maybeSingle()
 
@@ -40,15 +41,27 @@ export default async function ProgramaPublicoPage({
   const enVentana = perfil.acceso_hasta ? new Date(perfil.acceso_hasta) > new Date() : false
   const pagado = (estadoOk && enVentana) || perfil.acceso_manual === true
 
-  // Plan vigente (revisado o no) — para el teaser de pago.
+  // Plan vigente (revisado o no) — para el teaser de pago y el check-in.
   const { data: vigenteRow } = await supabase
     .from('programas_generados')
-    .select('programa')
+    .select('programa, creado_en, revisado')
     .eq('cliente_id', perfil.id)
     .eq('vigente', true)
     .order('version', { ascending: false })
     .limit(1)
     .maybeSingle()
+
+  // Elegibilidad del check-in de progreso: plan vigente revisado con ≥4 semanas.
+  // Ancla = lo más reciente entre el alta (pagado_en) y la fecha del plan vigente,
+  // para que un recién suscrito no pueda progresar el día 1.
+  const anclaMs = Math.max(
+    vigenteRow?.creado_en ? new Date(vigenteRow.creado_en).getTime() : 0,
+    perfil.pagado_en ? new Date(perfil.pagado_en).getTime() : 0,
+  )
+  const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
+  const enRevision = vigenteRow?.revisado === false
+  const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= 28
+  const disponibleEnDias = Math.max(0, Math.ceil(28 - diasDesde))
 
   // Último plan APROBADO (revisado) — lo que ve el cliente una vez pagado/entregado.
   const { data: aprobadoRow } = await supabase
@@ -98,6 +111,13 @@ export default async function ProgramaPublicoPage({
     <Shell>
       {pago === 'ok' && <Banner tipo="ok" />}
       <ProgramaDocumento programa={aprobadoRow.programa as Programa} nombre={perfil.nombre} />
+      <CheckinProgreso
+        token={token}
+        tier={perfil.plan_tier}
+        puedeActualizar={puedeActualizar}
+        enRevision={enRevision}
+        disponibleEnDias={disponibleEnDias}
+      />
       {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
     </Shell>
   )
