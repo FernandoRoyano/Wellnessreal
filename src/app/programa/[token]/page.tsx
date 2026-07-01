@@ -28,17 +28,17 @@ export default async function ProgramaPublicoPage({
 
   const { data: perfil } = await supabase
     .from('cliente_perfil')
-    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en')
+    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual')
     .eq('token', token)
     .maybeSingle()
 
   if (!perfil) notFound()
 
   // Acceso por ventana de suscripción: estado válido (incluye past_due = gracia)
-  // y dentro del periodo ya pagado.
+  // y dentro del periodo ya pagado. O acceso manual concedido por admin (pruebas).
   const estadoOk = ['active', 'trialing', 'past_due'].includes(perfil.estado_suscripcion ?? '')
   const enVentana = perfil.acceso_hasta ? new Date(perfil.acceso_hasta) > new Date() : false
-  const pagado = estadoOk && enVentana
+  const pagado = (estadoOk && enVentana) || perfil.acceso_manual === true
 
   // Plan vigente (revisado o no) — para el teaser de pago.
   const { data: vigenteRow } = await supabase
@@ -88,7 +88,7 @@ export default async function ProgramaPublicoPage({
       <Shell>
         {pago === 'ok' && <Banner tipo="ok" />}
         <EnPreparacion nombre={perfil.nombre} pagado />
-        <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />
+        {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
       </Shell>
     )
   }
@@ -98,7 +98,7 @@ export default async function ProgramaPublicoPage({
     <Shell>
       {pago === 'ok' && <Banner tipo="ok" />}
       <ProgramaDocumento programa={aprobadoRow.programa as Programa} nombre={perfil.nombre} />
-      <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />
+      {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
     </Shell>
   )
 }

@@ -16,7 +16,7 @@ export async function GET(
 
     const { data, error } = await supabase
       .from('programas_generados')
-      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena, semana_actual, token, pagado_en, plan_tier)')
+      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena, semana_actual, token, pagado_en, plan_tier, estado_suscripcion, acceso_hasta, acceso_manual, cancela_en)')
       .eq('id', id)
       .single()
 
@@ -61,6 +61,19 @@ export async function PATCH(
     }
     const { id } = await params
     const body = await request.json()
+
+    // --- Acceso manual del cliente (pruebas / cortesía), al margen de Stripe ---
+    if (typeof body.acceso_manual === 'boolean' && body.cliente_id) {
+      const { error: accErr } = await supabase
+        .from('cliente_perfil')
+        .update({ acceso_manual: body.acceso_manual })
+        .eq('id', body.cliente_id)
+      if (accErr) throw new Error(accErr.message)
+      // Si solo se togglea el acceso, respondemos aquí.
+      if (body.revisado === undefined && !body.programa) {
+        return NextResponse.json({ ok: true, acceso_manual: body.acceso_manual })
+      }
+    }
 
     const update: Record<string, unknown> = {}
     if (typeof body.revisado === 'boolean') {

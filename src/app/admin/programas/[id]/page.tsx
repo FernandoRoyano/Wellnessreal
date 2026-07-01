@@ -19,6 +19,9 @@ interface Cliente {
   token: string | null
   pagado_en: string | null
   plan_tier: string | null
+  estado_suscripcion: string | null
+  acceso_manual: boolean | null
+  cancela_en: string | null
 }
 
 interface Registro {
@@ -93,6 +96,20 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
       body: JSON.stringify({ revisado }),
     })
     if (res.ok) setReg({ ...reg, revisado, revisado_en: revisado ? new Date().toISOString() : null })
+    setSaving(false)
+  }
+
+  const toggleAccesoManual = async (valor: boolean) => {
+    if (!reg?.cliente) return
+    setSaving(true)
+    const res = await fetch(`/api/admin/programas/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ acceso_manual: valor, cliente_id: reg.cliente.id }),
+    })
+    if (res.ok) {
+      setReg((r) => (r && r.cliente ? { ...r, cliente: { ...r.cliente, acceso_manual: valor } } : r))
+    }
     setSaving(false)
   }
 
@@ -191,15 +208,39 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
               Pendiente
             </span>
           )}
-          {c?.pagado_en ? (
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }} title={`Pagado el ${new Date(c.pagado_en).toLocaleString('es-ES')}`}>
-              💳 Pagado{c.plan_tier === 'revisado' ? ' · revisado (49€)' : c.plan_tier === 'auto' ? ' · auto (19€)' : ''}
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(148,141,153,0.15)', color: '#958D99' }}>
-              Sin pagar
-            </span>
-          )}
+          {(() => {
+            const suscrito = ['active', 'trialing', 'past_due'].includes(c?.estado_suscripcion ?? '')
+            const manual = c?.acceso_manual === true
+            const tierTxt = c?.plan_tier === 'revisado' ? ' · revisado (49€/mes)' : c?.plan_tier === 'auto' ? ' · auto (19€/mes)' : ''
+            if (suscrito) {
+              return (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }} title={c?.estado_suscripcion === 'past_due' ? 'Cobro pendiente (en gracia)' : 'Suscripción activa'}>
+                  💳 Suscrito{tierTxt}{c?.estado_suscripcion === 'past_due' ? ' · impago' : ''}
+                </span>
+              )
+            }
+            if (manual) {
+              return (
+                <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(96,165,250,0.15)', color: '#60a5fa' }} title="Acceso concedido a mano (prueba/cortesía)">
+                  🧪 Acceso manual
+                </span>
+              )
+            }
+            return (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full" style={{ backgroundColor: 'rgba(148,141,153,0.15)', color: '#958D99' }}>
+                Sin acceso
+              </span>
+            )
+          })()}
+          <button
+            onClick={() => toggleAccesoManual(!(c?.acceso_manual === true))}
+            disabled={saving}
+            className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white disabled:opacity-50"
+            style={{ border: '1px solid #662D91' }}
+            title="Conceder o quitar acceso a mano, sin pasar por Stripe (pruebas)"
+          >
+            {c?.acceso_manual === true ? 'Quitar acceso' : 'Dar acceso (prueba)'}
+          </button>
           {!editando && (
             <button onClick={() => setEditando(true)} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-300 hover:text-white" style={{ border: '1px solid #662D91' }} title="Editar el plan a mano">
               <Pencil size={15} /> Editar

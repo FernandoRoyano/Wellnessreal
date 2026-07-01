@@ -18,7 +18,10 @@ alter table cliente_perfil
   -- (alta + 3 meses). La cancelación se programa para esta fecha si es antes.
   add column if not exists permanencia_hasta      timestamptz,
   -- Cancelación programada (cancel_at de Stripe), informativo para el cliente.
-  add column if not exists cancela_en             timestamptz;
+  add column if not exists cancela_en             timestamptz,
+  -- Acceso manual concedido por admin (pruebas / planes de cortesía), al margen
+  -- de Stripe. Si es true, el cliente ve su plan aunque no tenga suscripción.
+  add column if not exists acceso_manual          boolean not null default false;
 
 -- Índice para resolver rápido por suscripción desde el webhook.
 create index if not exists idx_cliente_perfil_subscription
