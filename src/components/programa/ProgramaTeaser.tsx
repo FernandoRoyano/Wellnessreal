@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import type { Programa } from '@/lib/programa-schema'
-import { PLAN_OPCIONES, type PlanTier } from '@/lib/precios-plan'
+import { PLAN_OPCIONES, PERMANENCIA_MESES, type PlanTier } from '@/lib/precios-plan'
 import './programa-documento.css'
 import './programa-teaser.css'
 
@@ -148,7 +148,7 @@ export default function ProgramaTeaser({
                       <div key={tier} className={'wrt-plan' + (o.destacado ? ' destacado' : '')}>
                         {o.destacado && <span className="wrt-plan-badge">Recomendado</span>}
                         <h4>{o.nombre}</h4>
-                        <div className="wrt-plan-precio">{o.precio}€<span>pago único</span></div>
+                        <div className="wrt-plan-precio">{o.precio}€<span>al mes</span></div>
                         <p className="wrt-plan-gancho">{o.gancho}</p>
                         <ul>
                           {o.ventajas.map((v, i) => (
@@ -161,7 +161,7 @@ export default function ProgramaTeaser({
                           onClick={() => comprar(tier)}
                           disabled={cargando !== null}
                         >
-                          {cargando === tier ? 'Redirigiendo…' : `Desbloquear · ${o.precio}€`}
+                          {cargando === tier ? 'Redirigiendo…' : `Suscribirme · ${o.precio}€/mes`}
                         </button>
                       </div>
                     )
@@ -175,7 +175,14 @@ export default function ProgramaTeaser({
                 </ul>
               )}
 
-              <p className="wrt-cta-sub" style={{ marginTop: 18 }}>
+              {clienteId && (
+                <p className="wrt-cta-sub" style={{ marginTop: 14, fontSize: '.82rem', opacity: 0.85 }}>
+                  Suscripción mensual. Permanencia mínima de {PERMANENCIA_MESES} meses; después la cancelas cuando
+                  quieras desde tu página. Se renueva sola cada mes hasta que canceles.
+                </p>
+              )}
+
+              <p className="wrt-cta-sub" style={{ marginTop: 12 }}>
                 Pago seguro con Stripe (tarjeta, Apple Pay y Google Pay).{' '}
                 <a href={ctaUrl} target="_blank" rel="noreferrer" style={{ color: '#FCEE21', textDecoration: 'underline' }}>
                   ¿Dudas? Habla con Fernando
