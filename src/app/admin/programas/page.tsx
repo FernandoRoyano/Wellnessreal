@@ -14,7 +14,14 @@ interface ProgramaRow {
   modelo: string | null
   origen: string
   creado_en: string
-  cliente: { nombre: string; email: string } | null
+  cliente: {
+    id: string
+    nombre: string
+    email: string
+    acceso_manual: boolean | null
+    estado_suscripcion: string | null
+    acceso_hasta: string | null
+  } | null
 }
 
 const FILTROS = [
@@ -28,6 +35,24 @@ export default function ProgramasAdminPage() {
   const [pendientes, setPendientes] = useState(0)
   const [loading, setLoading] = useState(true)
   const [filtro, setFiltro] = useState('pendientes')
+  const [guardandoId, setGuardandoId] = useState<string | null>(null)
+
+  const toggleAcceso = async (programaId: string, clienteId: string, valor: boolean) => {
+    setGuardandoId(clienteId)
+    const res = await fetch(`/api/admin/programas/${programaId}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ acceso_manual: valor, cliente_id: clienteId }),
+    })
+    if (res.ok) {
+      setProgramas((prev) =>
+        prev.map((p) =>
+          p.cliente?.id === clienteId ? { ...p, cliente: { ...p.cliente, acceso_manual: valor } } : p,
+        ),
+      )
+    }
+    setGuardandoId(null)
+  }
 
   useEffect(() => {
     setLoading(true)
@@ -88,6 +113,7 @@ export default function ProgramasAdminPage() {
                 <tr style={{ backgroundColor: '#0f0c20' }}>
                   <Th>Cliente</Th>
                   <Th>Estado</Th>
+                  <Th>Acceso</Th>
                   <Th>Versión</Th>
                   <Th>Modelo</Th>
                   <Th>Generado</Th>
@@ -117,6 +143,35 @@ export default function ProgramasAdminPage() {
                           <Clock size={13} /> Pendiente
                         </span>
                       )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {(() => {
+                        const cli = p.cliente
+                        const suscrito = ['active', 'trialing', 'past_due'].includes(cli?.estado_suscripcion ?? '')
+                        const manual = cli?.acceso_manual === true
+                        return (
+                          <div className="flex items-center gap-2">
+                            {suscrito ? (
+                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }}>💳 Suscrito</span>
+                            ) : manual ? (
+                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(96,165,250,0.15)', color: '#60a5fa' }}>🧪 Manual</span>
+                            ) : (
+                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(148,141,153,0.15)', color: '#958D99' }}>—</span>
+                            )}
+                            {cli && !suscrito && (
+                              <button
+                                onClick={() => toggleAcceso(p.id, cli.id, !manual)}
+                                disabled={guardandoId === cli.id}
+                                className="text-xs px-2 py-1 rounded-lg text-gray-300 hover:text-white disabled:opacity-50"
+                                style={{ border: '1px solid #662D91' }}
+                                title="Dar o quitar acceso a mano (pruebas), sin pasar por Stripe"
+                              >
+                                {guardandoId === cli.id ? '…' : manual ? 'Quitar' : 'Dar acceso'}
+                              </button>
+                            )}
+                          </div>
+                        )
+                      })()}
                     </td>
                     <td className="px-4 py-3 text-gray-300 text-sm">
                       v{p.version}
