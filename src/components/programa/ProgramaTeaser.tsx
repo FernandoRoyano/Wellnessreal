@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import type { Programa } from '@/lib/programa-schema'
 import { PLAN_OPCIONES, PERMANENCIA_MESES, type PlanTier } from '@/lib/precios-plan'
+import { trackConversion } from '@/lib/tracking'
 import './programa-documento.css'
 import './programa-teaser.css'
 
@@ -40,6 +41,7 @@ export default function ProgramaTeaser({
     if (!clienteId) return
     setError('')
     setCargando(tier)
+    trackConversion('begin_checkout', { value: PLAN_OPCIONES[tier].precio, currency: 'EUR', plan: tier })
     try {
       const res = await fetch('/api/stripe/checkout-plan', {
         method: 'POST',

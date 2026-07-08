@@ -97,6 +97,44 @@ export function captureAttribution(): AttributionData {
 }
 
 /**
+ * Dispara una conversión a Google (GA4), Meta y TikTok con el nombre que cada
+ * plataforma espera. No-op si el pixel no está cargado (sin consentimiento).
+ */
+export type ConversionEvent = 'lead' | 'complete_registration' | 'begin_checkout' | 'purchase'
+
+const META_EVENT: Record<ConversionEvent, string> = {
+  lead: 'Lead',
+  complete_registration: 'CompleteRegistration',
+  begin_checkout: 'InitiateCheckout',
+  purchase: 'Purchase',
+}
+const TIKTOK_EVENT: Record<ConversionEvent, string> = {
+  lead: 'SubmitForm',
+  complete_registration: 'CompleteRegistration',
+  begin_checkout: 'InitiateCheckout',
+  purchase: 'CompletePayment',
+}
+
+export function trackConversion(
+  event: ConversionEvent,
+  params: { value?: number; currency?: string; [key: string]: unknown } = {},
+) {
+  if (typeof window === 'undefined') return
+  const w = window as typeof window & {
+    gtag?: (...a: unknown[]) => void
+    fbq?: (...a: unknown[]) => void
+    ttq?: { track?: (e: string, p?: Record<string, unknown>) => void }
+  }
+  try {
+    w.gtag?.('event', event, params)
+    w.fbq?.('track', META_EVENT[event], params)
+    w.ttq?.track?.(TIKTOK_EVENT[event], params)
+  } catch {
+    // Nunca romper la UX por un fallo de tracking.
+  }
+}
+
+/**
  * Devuelve la atribución almacenada + actualiza fbc/fbp por si han cambiado.
  * Llamar antes de cualquier submit de formulario.
  */

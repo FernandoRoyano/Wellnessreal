@@ -1,10 +1,7 @@
 declare global {
   interface Window {
-    gtag?: (
-      command: 'event' | 'config' | 'js',
-      targetId: string,
-      params?: Record<string, unknown>
-    ) => void
+    // Firma amplia: cubre 'event'/'config'/'js' y también 'consent' (Consent Mode v2).
+    gtag?: (...args: unknown[]) => void
   }
 }
 

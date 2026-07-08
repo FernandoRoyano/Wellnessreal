@@ -89,12 +89,17 @@ export default function RootLayout({
         <JsonLd data={organizationSchema()} />
         {GA_ID && (
           <>
+            {/* Consent Mode v2: por defecto TODO denegado hasta que el usuario
+                acepte en el banner (RGPD). Si ya aceptó antes, se concede. */}
+            <Script id="consent-default" strategy="beforeInteractive">
+              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}window.gtag=gtag;var c;try{c=localStorage.getItem('wr_cookie_consent');}catch(e){}var g=c==='accepted'?'granted':'denied';gtag('consent','default',{ad_storage:g,analytics_storage:g,ad_user_data:g,ad_personalization:g,functionality_storage:'granted',security_storage:'granted',wait_for_update:500});`}
+            </Script>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
               strategy="afterInteractive"
             />
             <Script id="gtag-init" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');`}
+              {`gtag('js',new Date());gtag('config','${GA_ID}');`}
             </Script>
           </>
         )}

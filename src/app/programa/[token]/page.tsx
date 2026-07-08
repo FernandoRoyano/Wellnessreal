@@ -7,6 +7,8 @@ import ProgramaTeaser from '@/components/programa/ProgramaTeaser'
 import ConfirmandoPago from '@/components/programa/ConfirmandoPago'
 import GestionSuscripcion from '@/components/programa/GestionSuscripcion'
 import CheckinProgreso from '@/components/programa/CheckinProgreso'
+import PurchaseTracker from '@/components/programa/PurchaseTracker'
+import { PLAN_OPCIONES } from '@/lib/precios-plan'
 import type { Programa } from '@/lib/programa-schema'
 
 export const metadata: Metadata = {
@@ -63,6 +65,17 @@ export default async function ProgramaPublicoPage({
   const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= 28
   const disponibleEnDias = Math.max(0, Math.ceil(28 - diasDesde))
 
+  // Valor de la conversión 'purchase' (según el plan contratado).
+  const purchaseValue =
+    perfil.plan_tier === 'auto'
+      ? PLAN_OPCIONES.auto.precio
+      : perfil.plan_tier === 'revisado'
+        ? PLAN_OPCIONES.revisado.precio
+        : undefined
+  const tracker = pago === 'ok' && (
+    <PurchaseTracker value={purchaseValue} tier={perfil.plan_tier} dedupeKey={perfil.id} />
+  )
+
   // Último plan APROBADO (revisado) — lo que ve el cliente una vez pagado/entregado.
   const { data: aprobadoRow } = await supabase
     .from('programas_generados')
@@ -78,7 +91,7 @@ export default async function ProgramaPublicoPage({
     // Acaba de pagar pero el webhook aún no ha confirmado: pantalla de espera
     // en vez del muro (evita mostrar el paywall justo tras pagar).
     if (pago === 'ok') {
-      return <Shell><ConfirmandoPago nombre={perfil.nombre} /></Shell>
+      return <Shell>{tracker}<ConfirmandoPago nombre={perfil.nombre} /></Shell>
     }
     if (!vigenteRow) {
       return <Shell><EnPreparacion nombre={perfil.nombre} /></Shell>
@@ -99,6 +112,7 @@ export default async function ProgramaPublicoPage({
   if (!aprobadoRow) {
     return (
       <Shell>
+        {tracker}
         {pago === 'ok' && <Banner tipo="ok" />}
         <EnPreparacion nombre={perfil.nombre} pagado />
         {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
@@ -109,6 +123,7 @@ export default async function ProgramaPublicoPage({
   // --- Pagado y entregado: plan completo ---
   return (
     <Shell>
+      {tracker}
       {pago === 'ok' && <Banner tipo="ok" />}
       <ProgramaDocumento programa={aprobadoRow.programa as Programa} nombre={perfil.nombre} />
       <CheckinProgreso

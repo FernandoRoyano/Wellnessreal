@@ -14,11 +14,21 @@ export default function CookieBanner() {
 
   const accept = () => {
     localStorage.setItem('wr_cookie_consent', 'accepted')
+    // Consent Mode v2: concede analítica y publicidad a Google.
+    window.gtag?.('consent', 'update', {
+      ad_storage: 'granted',
+      analytics_storage: 'granted',
+      ad_user_data: 'granted',
+      ad_personalization: 'granted',
+    })
+    // Avisa a TrackingScripts para cargar Meta/TikTok (no tienen consent mode).
+    window.dispatchEvent(new Event('wr-consent-changed'))
     setVisible(false)
   }
 
   const reject = () => {
     localStorage.setItem('wr_cookie_consent', 'rejected')
+    window.dispatchEvent(new Event('wr-consent-changed'))
     setVisible(false)
   }
 

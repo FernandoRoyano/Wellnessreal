@@ -1,13 +1,14 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { captureAttribution } from '@/lib/tracking'
 
 /**
- * Carga los pixels de Meta y TikTok (si están configurados) y dispara
- * el pageview en cada navegación cliente.
+ * Carga los pixels de Meta y TikTok SOLO tras aceptar cookies (RGPD) y dispara
+ * el pageview en cada navegación cliente. Google (GA4) se gestiona aparte con
+ * Consent Mode v2 en el layout.
  *
  * Variables de entorno:
  *   NEXT_PUBLIC_META_PIXEL_ID
@@ -34,7 +35,16 @@ export default function TrackingScripts() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
-  // Captura UTMs en el primer landing y dispara pageview en cada navegación
+  // Meta y TikTok no tienen Consent Mode: solo se cargan si el usuario aceptó.
+  const [consentido, setConsentido] = useState(false)
+  useEffect(() => {
+    const leer = () => setConsentido(localStorage.getItem('wr_cookie_consent') === 'accepted')
+    leer()
+    window.addEventListener('wr-consent-changed', leer)
+    return () => window.removeEventListener('wr-consent-changed', leer)
+  }, [])
+
+  // Captura UTMs (first-party) y dispara pageview en los pixels ya cargados.
   useEffect(() => {
     captureAttribution()
     if (typeof window === 'undefined') return
@@ -44,7 +54,7 @@ export default function TrackingScripts() {
 
   return (
     <>
-      {META_PIXEL_ID && (
+      {consentido && META_PIXEL_ID && (
         <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -57,7 +67,7 @@ export default function TrackingScripts() {
           `}
         </Script>
       )}
-      {TIKTOK_PIXEL_ID && (
+      {consentido && TIKTOK_PIXEL_ID && (
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
             !function (w, d, t) {
