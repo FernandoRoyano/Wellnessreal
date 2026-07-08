@@ -362,7 +362,7 @@ export default function HomePage() {
                 <blockquote className="text-fluid-base text-white/90 leading-relaxed italic relative">
                   {text}
                 </blockquote>
-                <figcaption className="flex items-center justify-between gap-4 mt-6 pt-5 border-t border-border-subtle">
+                <figcaption className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-5 border-t border-border-subtle">
                   <span className="text-fluid-sm font-semibold text-white">{name}</span>
                   <span className="shrink-0 px-3 py-1 rounded-full text-fluid-xs font-bold bg-accent text-accent-fg">
                     {result}

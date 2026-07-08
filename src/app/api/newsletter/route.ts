@@ -4,7 +4,34 @@ import { captureLead } from '@/lib/leadCapture'
 
 // API para suscripción a newsletter + envío de guía gratuita por email
 
-function buildGuideEmailHTML(name: string, downloadUrl: string): string {
+// Recursos descargables permitidos (whitelist: nunca URLs arbitrarias del cliente)
+const RESOURCES = {
+  guia: {
+    pdf: '/guia-wellness-real.pdf',
+    guideTitle: 'Fitness real para gente con vida real',
+    subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
+    source: 'guia',
+    groupEnv: 'MAILERLITE_GROUP_ID',
+  },
+  tiroides: {
+    pdf: '/tiroides.pdf',
+    guideTitle: 'Entrenar y adelgazar con hipotiroidismo',
+    subject: 'Tu guía de tiroides está lista. Descárgala ahora',
+    source: 'tiroides',
+    groupEnv: 'MAILERLITE_TIROIDES_GROUP_ID',
+  },
+} as const
+
+type ResourceKey = keyof typeof RESOURCES
+type Resource = (typeof RESOURCES)[ResourceKey]
+
+function resolveResource(key: unknown): Resource {
+  return typeof key === 'string' && key in RESOURCES
+    ? RESOURCES[key as ResourceKey]
+    : RESOURCES.guia
+}
+
+function buildGuideEmailHTML(name: string, downloadUrl: string, guideTitle: string): string {
   const displayName = name || 'crack'
   return `<!DOCTYPE html>
 <html lang="es">
@@ -24,7 +51,7 @@ function buildGuideEmailHTML(name: string, downloadUrl: string): string {
           </h2>
           <p style="color:#d1d5db;font-size:16px;line-height:1.6;text-align:center;margin:0 0 24px;">
             Gracias por unirte a la comunidad WellnessReal. Aquí tienes tu guía
-            <strong style="color:#ffffff;">"Fitness real para gente con vida real"</strong>.
+            <strong style="color:#ffffff;">"${guideTitle}"</strong>.
           </p>
           <!-- Download button -->
           <table width="100%" cellpadding="0" cellspacing="0">
@@ -74,15 +101,15 @@ function buildGuideEmailHTML(name: string, downloadUrl: string): string {
 </html>`
 }
 
-async function sendGuideEmail(email: string, name: string) {
+async function sendGuideEmail(email: string, name: string, resource: Resource) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'
-  const downloadUrl = `${baseUrl}/guia-wellness-real.pdf`
+  const downloadUrl = `${baseUrl}${resource.pdf}`
 
   try {
     await sendEmail({
       to: email,
-      subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
-      html: buildGuideEmailHTML(name, downloadUrl),
+      subject: resource.subject,
+      html: buildGuideEmailHTML(name, downloadUrl, resource.guideTitle),
     })
     console.log('[Newsletter] Email de guía enviado a:', email)
   } catch (err) {
@@ -94,6 +121,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
     const { email, name, _attribution, _source } = body
+    const resource = resolveResource(body.resource)
 
     if (!email) {
       return NextResponse.json(
@@ -115,7 +143,7 @@ export async function POST(request: NextRequest) {
       request,
       email,
       name: name || null,
-      source: 'guia',
+      source: resource.source,
       attribution: _attribution,
       tags: _source ? [`form:${_source}`] : [],
     })
@@ -123,15 +151,16 @@ export async function POST(request: NextRequest) {
     // Enviar guía por email — ESPERAR a que termine. En Vercel serverless
     // si no se hace await, la función termina y la promesa SMTP se cancela.
     try {
-      await sendGuideEmail(email, name || '')
+      await sendGuideEmail(email, name || '', resource)
     } catch (mailErr) {
       console.error('[Newsletter] Error enviando guía:', mailErr)
       // Aun así no rompemos la respuesta — el lead ya quedó guardado en Supabase
     }
 
     // Suscribir en MailerLite si está configurada (best-effort, await para Vercel)
+    // Grupo propio del recurso con fallback al general (mismo patrón que metodo-optin)
     const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY
-    const MAILERLITE_GROUP_ID = process.env.MAILERLITE_GROUP_ID
+    const MAILERLITE_GROUP_ID = process.env[resource.groupEnv] || process.env.MAILERLITE_GROUP_ID
     if (MAILERLITE_API_KEY) {
       try {
         const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
