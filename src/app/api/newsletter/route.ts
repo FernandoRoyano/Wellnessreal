@@ -5,6 +5,7 @@ import { captureLead } from '@/lib/leadCapture'
 // API para suscripción a newsletter + envío de guía gratuita por email
 
 // Recursos descargables permitidos (whitelist: nunca URLs arbitrarias del cliente)
+// introHtml: mensaje de bienvenida propio del recurso, se inserta tras el botón de descarga
 const RESOURCES = {
   guia: {
     pdf: '/guia-wellness-real.pdf',
@@ -12,6 +13,7 @@ const RESOURCES = {
     subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
     source: 'guia',
     groupEnv: 'MAILERLITE_GROUP_ID',
+    introHtml: '',
   },
   tiroides: {
     pdf: '/tiroides.pdf',
@@ -19,6 +21,24 @@ const RESOURCES = {
     subject: 'Tu guía de tiroides está lista. Descárgala ahora',
     source: 'tiroides',
     groupEnv: 'MAILERLITE_TIROIDES_GROUP_ID',
+    introHtml: `
+          <p style="color:#d1d5db;font-size:15px;line-height:1.7;text-align:left;margin:28px 0 0;">
+            Antes de que la leas, una sola cosa. Si has llegado hasta aquí es porque llevas tiempo
+            peleándote con tu cuerpo y oyendo que basta con "hacer más y comer menos". Y no te ha funcionado.
+          </p>
+          <p style="color:#d1d5db;font-size:15px;line-height:1.7;text-align:left;margin:16px 0 0;">
+            No es culpa tuya, y no estás rota. Tu tiroides va más <strong style="color:#ffffff;">lenta</strong>,
+            no rota. Es un obstáculo real, no una condena. Y esa diferencia lo cambia todo.
+          </p>
+          <p style="color:#d1d5db;font-size:15px;line-height:1.7;text-align:left;margin:16px 0 0;">
+            En la guía no hay detox, ni suplementos milagro, ni dietas de hambre.
+            Solo lo que sí mueve la aguja, explicado claro. Léela sin prisa —
+            estos días te escribo alguna cosa más para ayudarte a ponerla en práctica.
+          </p>
+          <p style="color:#9ca3af;font-size:13px;line-height:1.6;text-align:left;font-style:italic;margin:20px 0 0;">
+            PD: tu tiroides la lleva tu médico. Lo de entrenar y comer para verte bien con ella regulada,
+            eso lo vemos por aquí. Esta información es general y no sustituye el consejo de tu médico.
+          </p>`,
   },
 } as const
 
@@ -31,7 +51,8 @@ function resolveResource(key: unknown): Resource {
     : RESOURCES.guia
 }
 
-function buildGuideEmailHTML(name: string, downloadUrl: string, guideTitle: string): string {
+function buildGuideEmailHTML(name: string, downloadUrl: string, resource: Resource): string {
+  const { guideTitle, introHtml } = resource
   const displayName = name || 'crack'
   return `<!DOCTYPE html>
 <html lang="es">
@@ -64,7 +85,7 @@ function buildGuideEmailHTML(name: string, downloadUrl: string, guideTitle: stri
           </table>
           <p style="color:#9ca3af;font-size:13px;text-align:center;margin:20px 0 0;">
             Si el botón no funciona, copia este enlace: <a href="${downloadUrl}" style="color:#FCEE21;">${downloadUrl}</a>
-          </p>
+          </p>${introHtml}
         </td></tr>
         <!-- Tips section -->
         <tr><td style="padding:30px 0;">
@@ -109,7 +130,7 @@ async function sendGuideEmail(email: string, name: string, resource: Resource) {
     await sendEmail({
       to: email,
       subject: resource.subject,
-      html: buildGuideEmailHTML(name, downloadUrl, resource.guideTitle),
+      html: buildGuideEmailHTML(name, downloadUrl, resource),
     })
     console.log('[Newsletter] Email de guía enviado a:', email)
   } catch (err) {
