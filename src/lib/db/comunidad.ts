@@ -103,14 +103,24 @@ export async function getSessionMember(): Promise<MemberProfile | null> {
 
   if (!user) return null
 
-  const { data, error } = await supabase
-    .from('member_profiles')
-    .select('*')
-    .eq('id', user.id)
-    .maybeSingle()
+  // Si las tablas aún no existen (migraciones sin ejecutar) o la consulta falla,
+  // degradamos a "sin sesión" en vez de reventar la página con un 500.
+  try {
+    const { data, error } = await supabase
+      .from('member_profiles')
+      .select('*')
+      .eq('id', user.id)
+      .maybeSingle()
 
-  if (error) throw new Error(`[comunidad:getSessionMember] ${error.message}`)
-  return (data as MemberProfile) ?? null
+    if (error) {
+      console.error('[comunidad:getSessionMember]', error.message)
+      return null
+    }
+    return (data as MemberProfile) ?? null
+  } catch (err) {
+    console.error('[comunidad:getSessionMember]', err)
+    return null
+  }
 }
 
 /** Actualiza los datos editables del perfil del miembro. */
