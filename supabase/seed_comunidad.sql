@@ -49,3 +49,15 @@ select id, 'la-bascula-miente', 'Por qué la báscula te miente',
   2, 7
 from spaces where slug = 'aprende-tiroides'
 on conflict (space_id, slug) do nothing;
+
+-- ── Lección con VÍDEO de ejemplo (YouTube / Vimeo) ──
+-- Así se ve una lección con vídeo. Pega tu enlace en el editor con el botón ▶️,
+-- o mete el HTML directamente como aquí. Cambia el src del iframe por tu vídeo:
+--   YouTube → https://www.youtube.com/embed/TU_VIDEO_ID
+--   Vimeo   → https://player.vimeo.com/video/TU_VIDEO_ID
+insert into lessons (space_id, slug, title, content, sort_order, drip_days)
+select id, 'video-bienvenida', 'Vídeo: mi historia con la tiroides',
+  '<h2>Te lo cuento en 3 minutos</h2><p>Antes de entrar en materia, mira este vídeo:</p><div data-video-embed="" class="video-embed"><iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div><p>Cuando termines, sigue con las lecciones de abajo.</p>',
+  2, 0
+from spaces where slug = 'empieza-aqui'
+on conflict (space_id, slug) do nothing;
