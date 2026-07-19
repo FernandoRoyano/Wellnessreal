@@ -55,9 +55,12 @@ on conflict (space_id, slug) do nothing;
 -- o mete el HTML directamente como aquí. Cambia el src del iframe por tu vídeo:
 --   YouTube → https://www.youtube.com/embed/TU_VIDEO_ID
 --   Vimeo   → https://player.vimeo.com/video/TU_VIDEO_ID
+-- El iframe usa un vídeo de ejemplo (open-source) para que se vea funcionando.
+-- Sustitúyelo por el tuyo: edita la lección y pega tu enlace con el botón ▶️,
+-- o cambia el VIDEO_ID en la URL (YouTube: /embed/ID ; Vimeo: /video/ID).
 insert into lessons (space_id, slug, title, content, sort_order, drip_days)
 select id, 'video-bienvenida', 'Vídeo: mi historia con la tiroides',
-  '<h2>Te lo cuento en 3 minutos</h2><p>Antes de entrar en materia, mira este vídeo:</p><div data-video-embed="" class="video-embed"><iframe src="https://www.youtube.com/embed/TU_VIDEO_ID" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div><p>Cuando termines, sigue con las lecciones de abajo.</p>',
+  '<h2>Te lo cuento en 3 minutos</h2><p>Antes de entrar en materia, mira este vídeo (es de ejemplo, cámbialo por el tuyo):</p><div data-video-embed="" class="video-embed"><iframe src="https://www.youtube.com/embed/aqz-KE-bpKQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div><p>Cuando termines, sigue con las lecciones de abajo.</p>',
   2, 0
 from spaces where slug = 'empieza-aqui'
 on conflict (space_id, slug) do nothing;

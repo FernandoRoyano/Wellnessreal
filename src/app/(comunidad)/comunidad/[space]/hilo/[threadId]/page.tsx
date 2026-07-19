@@ -36,10 +36,10 @@ export default async function ThreadPage({
   const pinAction = pinThreadAction.bind(null, spaceSlug, threadId, !thread.pinned)
 
   return (
-    <main className="mx-auto max-w-2xl px-6 py-12">
+    <div className="animate-[fadeUp_500ms_var(--ease-out)_both]">
       <Link
         href={`/comunidad/${spaceSlug}`}
-        className="mb-6 inline-flex items-center gap-2 text-sm text-white/50 hover:text-white"
+        className="mb-6 inline-flex items-center gap-2 text-sm text-white/50 transition hover:text-white"
       >
         <ArrowLeft className="h-4 w-4" /> {space.name}
       </Link>
@@ -105,6 +105,6 @@ export default async function ThreadPage({
           }}
         />
       </div>
-    </main>
+    </div>
   )
 }

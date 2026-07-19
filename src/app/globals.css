@@ -447,6 +447,21 @@
   border: 0;
 }
 
+/* Lectura de lección (vista pública): afina .tiptap para leer cómodo */
+.lesson-prose {
+  min-height: 0;
+  padding: 0;
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: var(--color-muted);
+}
+.lesson-prose p { margin: 0.9rem 0; }
+.lesson-prose h2 { margin-top: 2.2rem; font-size: 1.65rem; }
+.lesson-prose h3 { margin-top: 1.6rem; }
+.lesson-prose ul, .lesson-prose ol { margin: 0.9rem 0; }
+.lesson-prose img { margin: 1.5rem 0; }
+.lesson-prose > *:first-child { margin-top: 0; }
+
 /* Tablas — editor (.tiptap) y vista pública del blog (.markdown-content) */
 .tiptap table,
 .markdown-content table {

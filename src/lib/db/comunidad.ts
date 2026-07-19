@@ -212,6 +212,33 @@ export async function getSpaces(): Promise<Space[]> {
   return (data ?? []) as Space[]
 }
 
+export interface SpaceOverview extends Space {
+  itemCount: number
+}
+
+/** Espacios publicados + nº de elementos (lecciones si content, hilos si forum). */
+export async function getSpacesOverview(): Promise<SpaceOverview[]> {
+  const spaces = await getSpaces()
+  if (spaces.length === 0) return []
+
+  const [{ data: lessonsRows }, { data: threadsRows }] = await Promise.all([
+    supabase.from('lessons').select('space_id').eq('published', true),
+    supabase.from('threads').select('space_id'),
+  ])
+
+  const lessonBy = new Map<string, number>()
+  for (const r of lessonsRows ?? [])
+    lessonBy.set(r.space_id as string, (lessonBy.get(r.space_id as string) ?? 0) + 1)
+  const threadBy = new Map<string, number>()
+  for (const r of threadsRows ?? [])
+    threadBy.set(r.space_id as string, (threadBy.get(r.space_id as string) ?? 0) + 1)
+
+  return spaces.map((s) => ({
+    ...s,
+    itemCount: s.type === 'forum' ? (threadBy.get(s.id) ?? 0) : (lessonBy.get(s.id) ?? 0),
+  }))
+}
+
 export async function getSpace(slug: string): Promise<Space | null> {
   const { data, error } = await supabase
     .from('spaces')
@@ -482,6 +509,41 @@ export async function getThreads(
     like_count: likes.get(t.id)?.count ?? 0,
     liked_by_me: likes.get(t.id)?.mine ?? false,
   }))
+}
+
+export interface RecentThread {
+  id: string
+  title: string
+  creado_en: string
+  space_slug: string
+  author: AuthorRef | null
+}
+
+/** Últimos hilos del foro (para la "actividad reciente" de la home). */
+export async function getRecentThreads(limit = 5): Promise<RecentThread[]> {
+  const { data, error } = await supabase
+    .from('threads')
+    .select('id, title, creado_en, author:member_profiles(display_name, avatar_url), space:spaces(slug)')
+    .order('actualizado_en', { ascending: false })
+    .limit(limit)
+  if (error) throw new Error(`[comunidad:getRecentThreads] ${error.message}`)
+
+  return (data ?? []).map((row) => {
+    const r = row as unknown as {
+      id: string
+      title: string
+      creado_en: string
+      author: AuthorRef | null
+      space: { slug: string } | null
+    }
+    return {
+      id: r.id,
+      title: r.title,
+      creado_en: r.creado_en,
+      author: r.author,
+      space_slug: r.space?.slug ?? '',
+    }
+  })
 }
 
 export async function getThread(

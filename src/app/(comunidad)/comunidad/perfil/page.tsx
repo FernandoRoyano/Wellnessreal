@@ -15,7 +15,7 @@ export default async function PerfilPage() {
   if (!member) redirect('/comunidad/entrar')
 
   return (
-    <main className="mx-auto max-w-md px-6 py-12">
+    <div className="mx-auto max-w-md">
       <Link
         href="/comunidad"
         className="mb-6 inline-flex items-center gap-2 text-sm text-white/50 hover:text-white"
@@ -50,6 +50,6 @@ export default async function PerfilPage() {
           Guardar cambios
         </button>
       </form>
-    </main>
+    </div>
   )
 }
