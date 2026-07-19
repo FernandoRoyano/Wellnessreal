@@ -8,10 +8,11 @@ import Underline from '@tiptap/extension-underline'
 import Placeholder from '@tiptap/extension-placeholder'
 import { TableKit } from '@tiptap/extension-table'
 import { marked } from 'marked'
+import { VideoEmbed, toEmbedUrl } from './VideoEmbed'
 import {
   Bold, Italic, Underline as UnderlineIcon, Strikethrough,
   Heading2, Heading3, List, ListOrdered, Quote, ImageIcon, LinkIcon, Undo, Redo, Code,
-  Table as TableIcon, Plus, Minus, FileCode2, X,
+  Table as TableIcon, Plus, Minus, FileCode2, X, Youtube,
 } from 'lucide-react'
 import { useCallback, useRef, useState } from 'react'
 
@@ -38,6 +39,7 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
       TableKit.configure({
         table: { resizable: true, HTMLAttributes: { class: 'tiptap-table' } },
       }),
+      VideoEmbed,
     ],
     content,
     immediatelyRender: false,
@@ -82,6 +84,18 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
   const insertTable = useCallback(() => {
     if (!editor) return
     editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run()
+  }, [editor])
+
+  const addVideo = useCallback(() => {
+    if (!editor) return
+    const url = window.prompt('Pega el enlace del vídeo de YouTube o Vimeo:')
+    if (!url) return
+    const embed = toEmbedUrl(url)
+    if (!embed) {
+      window.alert('No reconozco ese enlace. Usa una URL de YouTube o Vimeo.')
+      return
+    }
+    editor.chain().focus().setVideoEmbed({ src: embed }).run()
   }, [editor])
 
   const handleImport = useCallback(async () => {
@@ -177,6 +191,10 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
 
           <ToolButton onClick={insertTable} title="Insertar tabla 3x3">
             <TableIcon size={16} />
+          </ToolButton>
+
+          <ToolButton onClick={addVideo} title="Insertar vídeo (YouTube o Vimeo)">
+            <Youtube size={16} />
           </ToolButton>
 
           {inTable && (
