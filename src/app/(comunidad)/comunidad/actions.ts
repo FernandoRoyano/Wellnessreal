@@ -52,7 +52,13 @@ export async function requestMagicLink(
 
     if (error) {
       console.error('[comunidad:magicLink]', error.message)
-      return { ok: false, error: 'No se pudo enviar el enlace. Inténtalo de nuevo.' }
+      const esRate = /rate limit|too many|429/i.test(error.message)
+      return {
+        ok: false,
+        error: esRate
+          ? 'Demasiados envíos: has alcanzado el límite de emails de Supabase. Espera un rato o configura SMTP propio (Resend).'
+          : `No se pudo enviar el enlace: ${error.message}`,
+      }
     }
 
     return { ok: true }
