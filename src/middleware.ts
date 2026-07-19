@@ -18,13 +18,21 @@ export async function middleware(request: NextRequest) {
   }
 
   // ── Zona comunidad: sesión de Supabase Auth (magic link) ──
-  // Refrescamos la sesión en cada request y protegemos las rutas privadas.
-  let response = NextResponse.next({ request })
+  // Refrescamos la sesión y protegemos las rutas privadas. TODO va envuelto
+  // en guardas para que un fallo de auth o una env var ausente NUNCA tumbe el
+  // sitio con MIDDLEWARE_INVOCATION_FAILED (afectaría también a /admin).
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  const esEntrar = pathname === '/comunidad/entrar'
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
+  // Sin configuración de Supabase no podemos verificar la sesión: dejamos pasar
+  // y que la propia página resuelva el acceso.
+  if (!url || !anon) return NextResponse.next()
+
+  try {
+    let response = NextResponse.next({ request })
+
+    const supabase = createServerClient(url, anon, {
       cookies: {
         getAll() {
           return request.cookies.getAll()
@@ -37,21 +45,23 @@ export async function middleware(request: NextRequest) {
           )
         },
       },
+    })
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser()
+
+    if (!user && !esEntrar) {
+      const loginUrl = new URL('/comunidad/entrar', request.url)
+      loginUrl.searchParams.set('next', pathname)
+      return NextResponse.redirect(loginUrl)
     }
-  )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
-  const esEntrar = pathname === '/comunidad/entrar'
-  if (!user && !esEntrar) {
-    const loginUrl = new URL('/comunidad/entrar', request.url)
-    loginUrl.searchParams.set('next', pathname)
-    return NextResponse.redirect(loginUrl)
+    return response
+  } catch {
+    // Nunca tumbamos el sitio por un fallo de verificación de sesión.
+    return NextResponse.next()
   }
-
-  return response
 }
 
 export const config = {

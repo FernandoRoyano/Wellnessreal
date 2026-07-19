@@ -86,10 +86,20 @@ async function sendWelcomeEmail(email: string, name: string): Promise<void> {
  * Verifica la sesión con getUser() (valida el token contra Supabase Auth).
  */
 export async function getSessionMember(): Promise<MemberProfile | null> {
-  const authClient = await createServerSupabase()
-  const {
-    data: { user },
-  } = await authClient.auth.getUser()
+  // Sin config de Supabase Auth tratamos al visitante como no logueado en vez
+  // de reventar la página (evita 500 si falta una env var pública).
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return null
+  }
+
+  let user: { id: string } | null = null
+  try {
+    const authClient = await createServerSupabase()
+    const result = await authClient.auth.getUser()
+    user = result.data.user
+  } catch {
+    return null
+  }
 
   if (!user) return null
 
