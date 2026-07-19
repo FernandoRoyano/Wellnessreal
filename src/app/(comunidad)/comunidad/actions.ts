@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { createServerSupabase } from '@/lib/supabase-ssr'
+import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { getSessionMember, updateMemberProfile } from '@/lib/db/comunidad'
 
 export interface MagicLinkResult {
@@ -28,8 +29,9 @@ export async function requestMagicLink(
     return { ok: false, error: 'Introduce un email válido.' }
   }
 
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
-    console.error('[comunidad:magicLink] Faltan NEXT_PUBLIC_SUPABASE_URL / _ANON_KEY')
+  const cfg = supabaseConfigStatus()
+  if (!cfg.ok) {
+    console.error('[comunidad:magicLink] Config Supabase ausente:', cfg.missing.join(', '))
     return { ok: false, error: 'La comunidad no está configurada todavía. Avísanos.' }
   }
 

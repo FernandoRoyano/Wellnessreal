@@ -1,5 +1,6 @@
 import { supabase } from '@/lib/supabase'
 import { createServerSupabase } from '@/lib/supabase-ssr'
+import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
 import type { User } from '@supabase/supabase-js'
 
@@ -87,8 +88,8 @@ async function sendWelcomeEmail(email: string, name: string): Promise<void> {
  */
 export async function getSessionMember(): Promise<MemberProfile | null> {
   // Sin config de Supabase Auth tratamos al visitante como no logueado en vez
-  // de reventar la página (evita 500 si falta una env var pública).
-  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  // de reventar la página (evita 500 si falta una env var).
+  if (!supabaseConfigStatus().ok) {
     return null
   }
 

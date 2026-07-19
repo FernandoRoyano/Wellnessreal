@@ -3,6 +3,9 @@ import { getSessionMember } from '@/lib/db/comunidad'
 import { signOut } from './comunidad/actions'
 import { LogOut } from 'lucide-react'
 
+// La comunidad depende de la sesión y de config leída en runtime: nunca estática.
+export const dynamic = 'force-dynamic'
+
 export default async function ComunidadLayout({ children }: { children: React.ReactNode }) {
   const member = await getSessionMember()
 
