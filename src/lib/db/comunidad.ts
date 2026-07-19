@@ -19,6 +19,47 @@ export interface MemberProfile {
   bio: string | null
   role: 'member' | 'mod' | 'admin'
   cliente_id: string | null
+  last_seen_at: string | null
+  birth_date: string | null
+  gender: string | null
+  location: string | null
+}
+
+export interface OnlineMember {
+  id: string
+  display_name: string
+  avatar_url: string | null
+}
+
+const ONLINE_MINUTES = 5
+
+/** Marca al miembro como activo ahora (para "en línea"). No bloquea si falla. */
+export async function touchMember(memberId: string): Promise<void> {
+  try {
+    await supabase
+      .from('member_profiles')
+      .update({ last_seen_at: new Date().toISOString() })
+      .eq('id', memberId)
+  } catch {
+    // silencioso: la última actividad no es crítica
+  }
+}
+
+/** Miembros activos en los últimos ONLINE_MINUTES minutos. */
+export async function getOnlineMembers(excludeId?: string): Promise<OnlineMember[]> {
+  const since = new Date(Date.now() - ONLINE_MINUTES * 60 * 1000).toISOString()
+  const { data, error } = await supabase
+    .from('member_profiles')
+    .select('id, display_name, avatar_url')
+    .gte('last_seen_at', since)
+    .order('last_seen_at', { ascending: false })
+    .limit(50)
+  if (error) {
+    console.error('[comunidad:getOnlineMembers]', error.message)
+    return []
+  }
+  const rows = (data ?? []) as OnlineMember[]
+  return excludeId ? rows.filter((m) => m.id !== excludeId) : rows
 }
 
 /** Nombre por defecto a partir del email (parte antes de la @). */
@@ -124,10 +165,27 @@ export async function getSessionMember(): Promise<MemberProfile | null> {
   }
 }
 
+/** Todos los miembros (para el admin: saber quiénes son). */
+export async function getMembersAdmin(): Promise<MemberProfile[]> {
+  const { data, error } = await supabase
+    .from('member_profiles')
+    .select('*')
+    .order('creado_en', { ascending: false })
+  if (error) throw new Error(`[comunidad:getMembersAdmin] ${error.message}`)
+  return (data ?? []) as MemberProfile[]
+}
+
 /** Actualiza los datos editables del perfil del miembro. */
 export async function updateMemberProfile(
   memberId: string,
-  patch: { display_name?: string; bio?: string | null; avatar_url?: string | null }
+  patch: {
+    display_name?: string
+    bio?: string | null
+    avatar_url?: string | null
+    birth_date?: string | null
+    gender?: string | null
+    location?: string | null
+  }
 ): Promise<void> {
   const { error } = await supabase.from('member_profiles').update(patch).eq('id', memberId)
   if (error) throw new Error(`[comunidad:updateMemberProfile] ${error.message}`)

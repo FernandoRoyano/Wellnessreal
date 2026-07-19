@@ -75,9 +75,18 @@ export async function updateProfileAction(formData: FormData) {
 
   const display_name = String(formData.get('display_name') ?? '').trim()
   const bio = String(formData.get('bio') ?? '').trim()
+  const birth_date = String(formData.get('birth_date') ?? '').trim()
+  const gender = String(formData.get('gender') ?? '').trim()
+  const location = String(formData.get('location') ?? '').trim()
   if (!display_name) return
 
-  await updateMemberProfile(member.id, { display_name, bio: bio || null })
+  await updateMemberProfile(member.id, {
+    display_name,
+    bio: bio || null,
+    birth_date: birth_date || null,
+    gender: gender || null,
+    location: location || null,
+  })
   revalidatePath('/comunidad')
   revalidatePath('/comunidad/perfil')
   redirect('/comunidad')

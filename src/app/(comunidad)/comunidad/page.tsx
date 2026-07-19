@@ -1,7 +1,12 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { getSessionMember, getSpacesOverview, getRecentThreads } from '@/lib/db/comunidad'
+import {
+  getSessionMember,
+  getSpacesOverview,
+  getRecentThreads,
+  getOnlineMembers,
+} from '@/lib/db/comunidad'
 import { Avatar } from '@/components/comunidad/Avatar'
 import { timeAgo } from '@/lib/comunidad-format'
 import { BookOpen, MessagesSquare, ArrowRight, Sparkles } from 'lucide-react'
@@ -15,7 +20,11 @@ export default async function ComunidadHome() {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const [spaces, recent] = await Promise.all([getSpacesOverview(), getRecentThreads(5)])
+  const [spaces, recent, online] = await Promise.all([
+    getSpacesOverview(),
+    getRecentThreads(5),
+    getOnlineMembers(),
+  ])
 
   return (
     <div className="animate-[fadeUp_500ms_var(--ease-out)_both]">
@@ -31,6 +40,36 @@ export default async function ComunidadHome() {
           </p>
         </div>
       </div>
+
+      {/* En línea ahora */}
+      {online.length > 0 && (
+        <div className="surface-card mt-8 flex items-center gap-4 rounded-2xl px-5 py-4">
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-white">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-success)] opacity-75" />
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--color-success)]" />
+            </span>
+            {online.length} en línea
+          </span>
+          <div className="flex -space-x-2">
+            {online.slice(0, 10).map((m) => (
+              <span
+                key={m.id}
+                title={m.display_name}
+                className="ring-2 ring-[var(--color-brand-night)]"
+                style={{ borderRadius: '9999px' }}
+              >
+                <Avatar name={m.display_name} url={m.avatar_url} size={30} />
+              </span>
+            ))}
+            {online.length > 10 && (
+              <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white/10 text-[11px] font-semibold text-white ring-2 ring-[var(--color-brand-night)]">
+                +{online.length - 10}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Espacios */}
       <section className="mt-10">

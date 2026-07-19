@@ -1,5 +1,5 @@
 import { redirect } from 'next/navigation'
-import { getSessionMember, getSpaces } from '@/lib/db/comunidad'
+import { getSessionMember, getSpaces, touchMember } from '@/lib/db/comunidad'
 import { Sidebar } from '@/components/comunidad/Sidebar'
 
 // La comunidad depende de la sesión y de config leída en runtime: nunca estática.
@@ -12,6 +12,9 @@ export default async function ComunidadLayout({ children }: { children: React.Re
   if (!member) {
     return <div className="min-h-screen bg-[var(--color-brand-deep)]">{children}</div>
   }
+
+  // Marca actividad para "en línea" (activo < 5 min).
+  await touchMember(member.id)
 
   const spaces = await getSpaces()
 
