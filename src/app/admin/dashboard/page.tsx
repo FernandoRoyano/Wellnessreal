@@ -374,8 +374,8 @@ export default function AdminDashboardPage() {
 
             {/* Row 3: Quick actions */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <QuickAction href="/admin/comunidad" label="Comunidad tiroides" icon={MessageCircle} />
               <QuickAction href="/admin/proposals/new" label="Nueva propuesta" icon={PlusCircle} />
-              <QuickAction href="/admin/guiones" label="Guiones" icon={FileText} />
               <QuickAction href="/admin/blog/new" label="Nuevo artículo" icon={Pen} />
               <QuickAction href="/admin/email/subscribers" label="Ver suscriptores" icon={Users} />
             </div>

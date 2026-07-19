@@ -1,6 +1,6 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -62,6 +62,31 @@ export default function GraciasTiroidesPage() {
             </div>
 
             <p className="text-fluid-sm text-subtle">PDF · Lectura de 10 minutos</p>
+          </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════ ÚNETE A LA COMUNIDAD ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-deep">
+        <Container>
+          <div className="max-w-3xl mx-auto surface-card rounded-2xl p-fluid-md text-center space-y-5">
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto">
+              <Users className="w-6 h-6 text-accent" strokeWidth={2} />
+            </div>
+            <h2 className="headline text-fluid-3xl text-white">
+              Únete a la <span className="text-gradient-brand">comunidad de tiroides</span>
+            </h2>
+            <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
+              Gratis. Contenido paso a paso, un foro para preguntar sin miedo y gente que entiende
+              exactamente por lo que pasas. No estás sola en esto.
+            </p>
+            <div className="pt-2">
+              <Link href="/comunidad/entrar" className="btn-brand text-fluid-base px-8">
+                Entrar en la comunidad
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+            <p className="text-fluid-xs text-subtle">Sin contraseñas. Entras con tu email en 10 segundos.</p>
           </div>
         </Container>
       </section>

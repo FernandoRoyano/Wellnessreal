@@ -2,12 +2,13 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, PlusCircle, LogOut, Mail, BookOpen, FileText, Users, ClipboardList, Sparkles, Link2 } from 'lucide-react'
+import { LayoutDashboard, PlusCircle, LogOut, Mail, BookOpen, FileText, Users, ClipboardList, Sparkles, Link2, MessagesSquare } from 'lucide-react'
 
 const navItems = [
   { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/admin/leads', label: 'Leads', icon: Users },
   { href: '/admin/programas', label: 'Programas IA', icon: Sparkles },
+  { href: '/admin/comunidad', label: 'Comunidad', icon: MessagesSquare },
   { href: '/admin/enlaces', label: 'Enlaces', icon: Link2 },
   { href: '/admin/proposals', label: 'Propuestas', icon: ClipboardList },
   { href: '/admin/proposals/new', label: 'Nueva propuesta', icon: PlusCircle },
