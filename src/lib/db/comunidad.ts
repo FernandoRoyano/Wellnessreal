@@ -103,8 +103,13 @@ export async function ensureMemberProfile(user: User): Promise<MemberProfile> {
 
   if (error) throw new Error(`[comunidad:ensureMemberProfile] ${error.message}`)
 
-  // Aviso de "solicitud recibida" (no bloquea el acceso si falla).
-  sendRequestReceivedEmail(email, (data as MemberProfile).display_name).catch(() => {})
+  // Aviso de "solicitud recibida". Se espera (serverless congela las promesas
+  // sueltas) pero nunca bloquea el alta si el email falla.
+  try {
+    await sendRequestReceivedEmail(email, (data as MemberProfile).display_name)
+  } catch (err) {
+    console.error('[comunidad:ensureMemberProfile] email de solicitud falló:', err)
+  }
 
   return data as MemberProfile
 }
@@ -165,8 +170,15 @@ export async function setMemberStatus(
   if (error) throw new Error(`[comunidad:setMemberStatus] ${error.message}`)
 
   // Solo avisamos cuando pasa a aprobado por primera vez.
+  // IMPORTANTE: hay que esperar el envío. En serverless (Vercel) la función se
+  // congela al responder y una promesa suelta nunca llegaría a enviarse.
   if (status === 'approved' && before && before.status !== 'approved') {
-    sendApprovedEmail(before.email as string, before.display_name as string).catch(() => {})
+    try {
+      await sendApprovedEmail(before.email as string, before.display_name as string)
+    } catch (err) {
+      // No tumbamos la aprobación por un fallo de email, pero lo registramos.
+      console.error('[comunidad:setMemberStatus] email de aprobación falló:', err)
+    }
   }
 }
 

@@ -36,6 +36,21 @@ export async function GET() {
     likes: await tabla('likes'),
   }
 
+  // Transporte de email de la APP (distinto del SMTP del magic link, que va en
+  // Supabase). Sin RESEND_API_KEY (o credenciales Gmail) la app no envía nada.
+  const emailApp = {
+    RESEND_API_KEY: check('RESEND_API_KEY'),
+    MAIL_FROM: check('MAIL_FROM'),
+    GMAIL_USER: check('GMAIL_USER'),
+    GMAIL_APP_PASSWORD: check('GMAIL_APP_PASSWORD'),
+    transporte: process.env.RESEND_API_KEY
+      ? 'Resend (API)'
+      : process.env.GMAIL_USER
+        ? 'Gmail SMTP'
+        : 'NINGUNO — la app no puede enviar emails',
+    remitente: process.env.MAIL_FROM || process.env.GMAIL_USER || 'SIN DEFINIR',
+  }
+
   return NextResponse.json({
     nombresDetectadosConSupa: nombresConSupa,
     esperadas: {
@@ -45,6 +60,7 @@ export async function GET() {
       SUPABASE_ANON_KEY: check('SUPABASE_ANON_KEY'),
       SUPABASE_SERVICE_ROLE_KEY: check('SUPABASE_SERVICE_ROLE_KEY'),
     },
+    emailApp,
     tablas,
   })
 }
