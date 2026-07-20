@@ -12,6 +12,98 @@ export interface Guion {
 
 export const guiones: Guion[] = [
   {
+    slug: 'comunidad-tiroides-quien-soy',
+    title: 'Comunidad Tiroides — Quién soy',
+    subtitle: 'Vídeo de bienvenida de la lección 2 de "Empieza aquí". Construye la confianza personal que hace posible que después alguien pague por el plan revisado a mano.',
+    duration: '2:30 — 3:00 min',
+    wordCount: 420,
+    purpose: 'Que la miembro nueva te ponga cara y te crea. Angulo honesto: NO tienes tiroides y lo dices de frente; tu diferencial es la PRECISION (instrucciones ejecutables) frente a los titulares de internet. No se vende nada en este video.',
+    status: 'draft',
+    lastUpdated: '2026-07-20',
+    content: `# 🎬 Guion — Comunidad Tiroides · "Quién soy"
+
+**~2:30-3:00 min · ~420 palabras · 150 palabras/min**
+
+## Notas de lectura
+- // = pausa corta (respirar)
+- /// = pausa larga (dejar calar)
+- **negrita** = énfasis al hablar
+- *cursiva* = tono más bajo, confidente
+
+## Objetivo
+Que te ponga cara y te crea. Nada más. **No se vende nada aquí.**
+La venta llega tres días después, en otra lección. Si intentas vender en este vídeo, quemas la confianza.
+
+## Tono
+Mirando a cámara, sentado, sin música. Como si se lo contaras a una clienta en la primera sesión.
+Natural. Si te trabas, mejor: parece humano.
+
+---
+
+## 🎬 00:00 — Lo que NO soy (40 seg)
+
+Hola. // Soy Fernando. ///
+
+Y voy a empezar por donde casi nadie empieza: // por lo que **no** soy.
+
+*Yo no tengo hipotiroidismo.* // No he pasado por lo que estás pasando tú. // Y no te voy a decir eso de "sé cómo te sientes" // porque sería mentira. // Y creo que ya te han mentido bastante. ///
+
+Tampoco soy tu endocrino. // De tu medicación y de tu analítica no te voy a decir ni una palabra. // Eso es de tu médico. // Punto.
+
+---
+
+## 🎬 00:40 — Lo que sí (40 seg)
+
+¿Y entonces qué hago yo aquí? ///
+
+Soy graduado en Ciencias del Deporte // y llevo **catorce años** entrenando a gente. // Han pasado por mis manos más de cien personas. // Y muchas de ellas // mujeres con la tiroides lenta // que llegaban diciéndome exactamente la misma frase: ///
+
+*"Ya no sé qué más probar."* ///
+
+Lo que yo aporto no es empatía de haberlo vivido. // Es otra cosa. // Y creo que es justo la que te falta.
+
+**Precisión.**
+
+---
+
+## 🎬 01:20 — Qué es precisión (60 seg)
+
+Te explico a qué me refiero. ///
+
+Internet está lleno de consejos que **no se pueden ejecutar**. //
+
+"Come más proteína." // ¿Cuánta? ¿En qué comida? ¿Cómo lo mido sin volverme loca pesando? //
+
+"Haz fuerza." // ¿Cuántos días? ¿Cuántas series? ¿Con cuánto peso? // ¿Y qué hago el día que me duele el hombro? //
+
+"Descansa mejor." // Ya. // *¿Cómo?* ///
+
+Eso no son consejos. // Son **titulares**. // Y con titulares no se cambia un cuerpo. ///
+
+Mi trabajo es coger todo eso // y convertirlo en instrucciones que puedas ejecutar mañana por la mañana sin pensar. // Qué comes. // Cuánto. // Qué ejercicio. // Cuántas repeticiones. // Qué haces el día que no llegas. // Y qué cambiamos cuando llevas tres semanas sin ver nada.
+
+---
+
+## 🎬 02:20 — Por qué esta comunidad (30 seg)
+
+Monté esto por una razón muy concreta. //
+
+Cuando busqué información decente para mis clientas con tiroides // me encontré un pantano. // Suplementos milagro. // Dietas sin gluten "para curar el Hashimoto". // Gente vendiendo humo a personas que lo están pasando mal. ///
+
+Aquí no va a haber nada de eso. // La información va a ser honesta // y va a ser concreta. // Aunque a veces la respuesta honesta // sea bastante más aburrida que la del vendedor de milagros. ///
+
+Nos vemos dentro.
+
+---
+
+## ✅ Checklist antes de grabar
+- [ ] Luz de frente (ventana), no a la espalda.
+- [ ] Móvil a la altura de los ojos, horizontal.
+- [ ] Micro de auriculares mejor que el del móvil.
+- [ ] **No leas de corrido**: mírate el guion por bloques y cuéntalo.
+- [ ] Al terminar: subir a YouTube como **"No listado"** y pegar el enlace en la lección con el botón ▶️.`,
+  },
+  {
     slug: 'metodo-base-explicativo',
     title: 'Método BASE — Guion explicativo',
     subtitle: 'Vídeo/clase que explica en qué consiste el programa: los 5 pilares, qué recibes exactamente, precio honesto y flujo cuestionario → plan → seguimiento.',

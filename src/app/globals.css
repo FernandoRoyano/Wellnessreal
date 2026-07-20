@@ -462,6 +462,45 @@
 .lesson-prose img { margin: 1.5rem 0; }
 .lesson-prose > *:first-child { margin-top: 0; }
 
+/* CTA dentro del HTML de una lección: se ve como botón de marca, no como enlace suelto */
+.lesson-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.35rem 0.5rem 0.35rem 0;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  text-decoration: none !important;
+  background: linear-gradient(180deg, #fff26b 0%, #fcee21 60%, #e8d815 100%);
+  color: var(--color-brand-deep) !important;
+  box-shadow: 0 10px 30px -8px rgba(252, 238, 33, 0.55);
+  transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+}
+.lesson-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 44px -6px rgba(252, 238, 33, 0.65);
+}
+/* Variante secundaria (segunda vía, menos peso visual) */
+.lesson-cta.is-ghost {
+  background: transparent;
+  color: var(--color-accent) !important;
+  border: 1.5px solid var(--color-border-strong);
+  box-shadow: none;
+}
+
+/* Caja de matiz / aviso dentro de una lección (límite médico, advertencias) */
+.lesson-note {
+  margin: 1.5rem 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--color-brand-violet);
+  border-radius: var(--radius-sm);
+  background: rgba(102, 45, 145, 0.12);
+  font-size: 0.95rem;
+  color: var(--color-subtle);
+}
+.lesson-note strong { color: #fff; }
+
 /* Tablas — editor (.tiptap) y vista pública del blog (.markdown-content) */
 .tiptap table,
 .markdown-content table {
