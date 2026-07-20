@@ -115,12 +115,12 @@ function SidebarBody({
             Discreta a propósito: invita, no interrumpe. */}
         <div className="pt-4">
           <Link
-            href="/cuestionario"
+            href="/comunidad/asesoria"
             onClick={onNavigate}
             className="flex items-center gap-3 rounded-xl border border-[var(--color-border-strong)] bg-[var(--color-accent-muted)] px-3 py-2.5 text-sm font-medium text-[var(--color-accent)] transition hover:bg-[var(--color-accent-soft)]"
           >
             <Sparkles className="h-[18px] w-[18px] shrink-0" />
-            <span className="truncate">Tu plan personalizado</span>
+            <span className="truncate">Grupo Tiroides</span>
           </Link>
         </div>
       </nav>

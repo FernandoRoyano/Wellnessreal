@@ -251,6 +251,99 @@ export async function updateMemberProfile(
 }
 
 // ============================================================
+//  Asesoría grupal ("Grupo Tiroides") · solicitudes de plaza
+// ============================================================
+
+export interface AsesoriaSolicitud {
+  id: string
+  creado_en: string
+  member_id: string | null
+  nombre: string
+  email: string
+  telefono: string | null
+  objetivo: string | null
+  dias_semana: string | null
+  lesiones: string | null
+  disponibilidad_directo: string | null
+  estado: 'nueva' | 'contactada' | 'aceptada' | 'descartada'
+  notas: string | null
+}
+
+/** Crea la solicitud y avisa a Fernando por email (esperado: serverless). */
+export async function createAsesoriaSolicitud(input: {
+  memberId: string | null
+  nombre: string
+  email: string
+  telefono?: string
+  objetivo?: string
+  diasSemana?: string
+  lesiones?: string
+  disponibilidadDirecto?: string
+}): Promise<void> {
+  const { error } = await supabase.from('asesoria_solicitudes').insert({
+    member_id: input.memberId,
+    nombre: input.nombre,
+    email: input.email,
+    telefono: input.telefono ?? null,
+    objetivo: input.objetivo ?? null,
+    dias_semana: input.diasSemana ?? null,
+    lesiones: input.lesiones ?? null,
+    disponibilidad_directo: input.disponibilidadDirecto ?? null,
+  })
+  if (error) throw new Error(`[comunidad:createAsesoriaSolicitud] ${error.message}`)
+
+  try {
+    await sendEmail({
+      to: process.env.MAIL_FROM || 'info@wellnessreal.es',
+      replyTo: input.email,
+      subject: `Nueva solicitud · Grupo Tiroides — ${input.nombre}`,
+      html: emailShell(`
+        <h1 style="font-size:20px">Nueva solicitud de plaza</h1>
+        <p><strong>${input.nombre}</strong> — ${input.email}${input.telefono ? ` · ${input.telefono}` : ''}</p>
+        <p><strong>Objetivo:</strong> ${input.objetivo || '—'}</p>
+        <p><strong>Días que puede entrenar:</strong> ${input.diasSemana || '—'}</p>
+        <p><strong>Puede asistir al directo:</strong> ${input.disponibilidadDirecto || '—'}</p>
+        <p><strong>Lesiones / a tener en cuenta:</strong> ${input.lesiones || '—'}</p>
+        <p style="margin-top:24px">Gestiónalas en <a href="${BASE_URL()}/admin/comunidad/asesoria">Admin → Asesoría grupal</a>.</p>
+      `),
+    })
+  } catch (err) {
+    console.error('[comunidad:createAsesoriaSolicitud] aviso por email falló:', err)
+  }
+}
+
+export async function getAsesoriaSolicitudes(): Promise<AsesoriaSolicitud[]> {
+  const { data, error } = await supabase
+    .from('asesoria_solicitudes')
+    .select('*')
+    .order('creado_en', { ascending: false })
+  if (error) throw new Error(`[comunidad:getAsesoriaSolicitudes] ${error.message}`)
+  return (data ?? []) as AsesoriaSolicitud[]
+}
+
+export async function setAsesoriaEstado(
+  id: string,
+  estado: AsesoriaSolicitud['estado']
+): Promise<void> {
+  const { error } = await supabase
+    .from('asesoria_solicitudes')
+    .update({ estado })
+    .eq('id', id)
+  if (error) throw new Error(`[comunidad:setAsesoriaEstado] ${error.message}`)
+}
+
+/** ¿Esta miembro ya solicitó plaza? (para no repetir el formulario) */
+export async function yaSolicitoAsesoria(memberId: string): Promise<boolean> {
+  const { data } = await supabase
+    .from('asesoria_solicitudes')
+    .select('id')
+    .eq('member_id', memberId)
+    .neq('estado', 'descartada')
+    .limit(1)
+  return (data?.length ?? 0) > 0
+}
+
+// ============================================================
 //  Contenido: espacios y lecciones (con drip + tier)
 // ============================================================
 

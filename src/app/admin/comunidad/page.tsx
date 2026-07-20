@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { PlusCircle, MessagesSquare, BookOpen, ChevronRight, Eye, EyeOff, Users } from 'lucide-react'
+import { PlusCircle, MessagesSquare, BookOpen, ChevronRight, Eye, EyeOff, Users, Sparkles } from 'lucide-react'
 import type { Space } from '@/lib/db/comunidad'
 
 export default function AdminComunidadPage() {
@@ -53,13 +53,22 @@ export default function AdminComunidadPage() {
               Organiza la comunidad en espacios de contenido (lecciones) y de foro.
             </p>
           </div>
-          <Link
-            href="/admin/comunidad/miembros"
-            className="flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/5"
-            style={{ borderColor: '#662D91' }}
-          >
-            <Users size={16} /> Ver miembros
-          </Link>
+          <div className="flex gap-2">
+            <Link
+              href="/admin/comunidad/asesoria"
+              className="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-bold transition hover:opacity-90"
+              style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
+            >
+              <Sparkles size={16} /> Grupo Tiroides
+            </Link>
+            <Link
+              href="/admin/comunidad/miembros"
+              className="flex items-center gap-2 rounded-lg border px-4 py-2.5 text-sm font-medium text-white transition hover:bg-white/5"
+              style={{ borderColor: '#662D91' }}
+            >
+              <Users size={16} /> Ver miembros
+            </Link>
+          </div>
         </div>
 
         {/* Crear espacio */}

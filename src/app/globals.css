@@ -447,6 +447,15 @@
   border: 0;
 }
 
+/* Vídeo vertical (YouTube Shorts, Reels): 9:16 y ancho contenido para que no
+   ocupe toda la columna ni salga con franjas negras. */
+.video-embed.is-vertical {
+  aspect-ratio: 9 / 16;
+  max-width: 340px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /* Lectura de lección (vista pública): afina .tiptap para leer cómodo */
 .lesson-prose {
   min-height: 0;

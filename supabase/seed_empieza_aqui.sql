@@ -60,7 +60,8 @@ on conflict (space_id, slug) do update set
 -- ── 1. Quién soy (honestidad + precisión como diferencial) · VÍDEO ──
 insert into lessons (space_id, slug, title, content, sort_order, drip_days, published)
 select id, 'quien-soy', 'Quién soy y qué puedo hacer por ti',
-'<div class="lesson-note"><p><strong>Fernando:</strong> aquí va tu vídeo. Edita esta lección, borra esta caja y pega el enlace con el botón ▶️ de la barra del editor. Tienes el guión en <em>Admin → Guiones → "Comunidad Tiroides — Quién soy"</em>. El texto de abajo funciona igual aunque aún no esté el vídeo.</p></div>
+'<p>Antes de nada, ponme cara. Son dos minutos:</p>
+<div data-video-embed="" class="video-embed is-vertical"><iframe src="https://www.youtube.com/embed/48tqytciSS8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div>
 <h2>Empiezo por lo que no soy</h2>
 <p>No tengo hipotiroidismo. No he pasado por lo que estás pasando tú, y no te voy a decir <em>"sé cómo te sientes"</em>, porque sería mentira y bastante gente te ha mentido ya.</p>
 <p>Tampoco soy tu endocrino. No voy a opinar sobre tu medicación ni sobre tu analítica.</p>
@@ -182,20 +183,19 @@ select id, 'ir-mas-rapido', 'Cuando quieras ir más rápido',
 <p>Pero hay algo que no puedo darte en abierto, por mucho que escriba: <strong>precisión</strong>.</p>
 <p>Cuántos días puedes entrenar <em>tú</em>. Con qué material. Cuántas series y con cuánto peso. Qué hacemos con esa rodilla que se queja. Cómo encajamos las comidas en tus horarios reales. Qué tocamos exactamente cuando llevas tres semanas estancada.</p>
 <p>Eso no cabe en una lección genérica, porque deja de ser general en el momento en que es tuyo. Y sin ese nivel de detalle, volvemos a los titulares de internet.</p>
-<p>Si en algún momento quieres eso, hay dos formas de trabajar conmigo.</p>
-<h3>1. Tu plan personalizado, al instante</h3>
-<p>Rellenas un cuestionario y te monto tu punto de partida con mi método: tus días de entreno completos, tu nutrición por raciones y tu sistema de progresión. El primer día lo ves gratis, para que juzgues antes de pagar.</p>
+<p>Y hay una segunda cosa que he aprendido en catorce años, y que me parece incluso más importante: <strong>la mayoría no falla por falta de plan. Falla por hacerlo sola.</strong></p>
+<p>Por eso he montado esto.</p>
+<h3>Grupo Tiroides</h3>
+<p>Doce semanas trabajando conmigo, junto a un grupo pequeño de mujeres que están exactamente donde tú.</p>
 <ul>
-<li><strong>19 €/mes</strong> — el plan completo, generado con mi método y disponible al momento.</li>
-<li><strong>49 €/mes</strong> — lo mismo, pero <strong>lo reviso y lo ajusto yo a mano</strong> a tus lesiones y tu vida, con ajustes según cómo vayas respondiendo. Este es el que recomiendo si tienes lesiones o vas muy justa de tiempo.</li>
+<li><strong>Tu plan de entreno y nutrición hecho para ti.</strong> Tus días, tu material, tus lesiones, tus horarios. No una plantilla.</li>
+<li><strong>Un directo conmigo cada semana</strong>, de 45 minutos: dudas, ajustes y un tema por sesión.</li>
+<li><strong>Un espacio privado</strong> para el grupo, aquí mismo. Entre 8 y 12 mujeres, todas con lo mismo que tú.</li>
+<li><strong>Reviso tu plan cada 3 semanas</strong> y cambio lo que haga falta según cómo vayas respondiendo.</li>
 </ul>
-<p>Te lo digo claro para que no haya sorpresas: es una <strong>suscripción mensual con permanencia mínima de 3 meses</strong>. Lo pongo así porque en menos de tres meses no se ve nada serio, y no quiero cobrarte por un mes suelto que no te va a servir.</p>
-<p><a class="lesson-cta" href="/cuestionario">Crear mi plan personalizado →</a></p>
-<p><em>El cuestionario no está enlazado en la web. Es para vosotras.</em></p>
-<h3>2. Hablarlo conmigo antes</h3>
-<p>Si prefieres que te vea una persona antes de decidir nada, pide una valoración. Es una conversación de 20-30 minutos donde miro tu caso y te digo honestamente si puedo ayudarte y cómo.</p>
-<p><a class="lesson-cta is-ghost" href="/valoracion">Prefiero hablar contigo primero</a></p>
-<div class="lesson-note"><p><strong>Y si no encajas con lo que hago, también te lo digo.</strong> Sin presión y sin venta agresiva. Prefiero perder una venta que meter a alguien en algo que no le va a servir.</p></div>
+<p>Son <strong>249 € las doce semanas completas</strong>. Pago único, sin cuotas después y sin permanencia. Lo cobro por trimestre entero por lo mismo que te decía antes: en menos de tres meses no se ve nada serio, y quien se compromete tres meses aparece.</p>
+<p><a class="lesson-cta" href="/comunidad/asesoria">Ver el Grupo Tiroides y solicitar plaza →</a></p>
+<div class="lesson-note"><p><strong>Solicitar no es pagar.</strong> Me cuentas tu caso, te escribo yo personalmente y decides con toda la información encima de la mesa. <strong>Y si veo que no encajas, te lo digo</strong> — prefiero perder una venta que cobrarte por algo que no te va a servir.</p></div>
 <p>Y si no quieres nada de esto, perfecto: la comunidad es tuya igualmente. Sigue leyendo, sigue preguntando en el foro y sigue aplicando. No te voy a perseguir.</p>',
 5, 3, true
 from spaces where slug = 'empieza-aqui'
