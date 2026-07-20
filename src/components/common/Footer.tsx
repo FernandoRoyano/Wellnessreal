@@ -230,6 +230,11 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-fluid-xs text-muted">
             <p>© {currentYear} WellnessReal. Todos los derechos reservados.</p>
             <div className="flex gap-6">
+              {/* Acceso discreto para miembros ya registrados de la comunidad.
+                  Si hay sesión entra directo; si no, el middleware lleva al login. */}
+              <Link href="/comunidad" className="hover:text-accent transition-colors">
+                Acceso miembros
+              </Link>
               <Link href="/privacidad" className="hover:text-accent transition-colors">
                 Privacidad
               </Link>
