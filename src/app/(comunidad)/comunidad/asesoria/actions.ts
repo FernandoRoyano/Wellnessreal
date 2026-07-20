@@ -37,7 +37,15 @@ export async function solicitarPlazaAction(
     })
   } catch (err) {
     console.error('[comunidad:solicitarPlaza]', err)
-    return { ok: false, error: 'No se pudo enviar la solicitud. Inténtalo de nuevo.' }
+    const detalle = err instanceof Error ? err.message : String(err)
+    // Causa típica: la migración de asesoria_solicitudes sin ejecutar.
+    const faltaTabla = /relation .*asesoria_solicitudes.* does not exist|schema cache/i.test(detalle)
+    return {
+      ok: false,
+      error: faltaTabla
+        ? 'La tabla de solicitudes aún no existe en la base de datos. Ejecuta la migración 20260720_asesoria_grupal.sql.'
+        : `No se pudo enviar la solicitud: ${detalle}`,
+    }
   }
 
   revalidatePath('/comunidad/asesoria')
