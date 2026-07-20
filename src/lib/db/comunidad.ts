@@ -23,6 +23,13 @@ export interface MemberProfile {
   birth_date: string | null
   gender: string | null
   location: string | null
+  /** 'pending' (solicitó acceso) | 'approved' (puede entrar) | 'blocked' */
+  status: 'pending' | 'approved' | 'blocked'
+}
+
+/** Solo los aprobados pueden ver contenido, foro y participar. */
+export function isApproved(member: MemberProfile | null): boolean {
+  return member?.status === 'approved'
 }
 
 export interface OnlineMember {
@@ -51,6 +58,7 @@ export async function getOnlineMembers(excludeId?: string): Promise<OnlineMember
   const { data, error } = await supabase
     .from('member_profiles')
     .select('id, display_name, avatar_url')
+    .eq('status', 'approved')
     .gte('last_seen_at', since)
     .order('last_seen_at', { ascending: false })
     .limit(50)
@@ -95,32 +103,71 @@ export async function ensureMemberProfile(user: User): Promise<MemberProfile> {
 
   if (error) throw new Error(`[comunidad:ensureMemberProfile] ${error.message}`)
 
-  // Email de bienvenida (no bloquea el acceso si falla).
-  sendWelcomeEmail(email, (data as MemberProfile).display_name).catch(() => {})
+  // Aviso de "solicitud recibida" (no bloquea el acceso si falla).
+  sendRequestReceivedEmail(email, (data as MemberProfile).display_name).catch(() => {})
 
   return data as MemberProfile
 }
 
-async function sendWelcomeEmail(email: string, name: string): Promise<void> {
-  const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://wellnessreal.es'
+const BASE_URL = () => process.env.NEXT_PUBLIC_BASE_URL ?? 'https://wellnessreal.es'
+
+function emailShell(inner: string): string {
+  return `<div style="font-family:system-ui,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">${inner}<p style="color:#666;font-size:14px">Un abrazo,<br/>Fernando · WellnessReal</p></div>`
+}
+
+/** Al registrarse: la solicitud queda pendiente de aprobación. */
+async function sendRequestReceivedEmail(email: string, name: string): Promise<void> {
   await sendEmail({
     to: email,
-    subject: 'Bienvenida a la comunidad de tiroides 💛',
-    html: `
-      <div style="font-family:system-ui,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">
-        <h1 style="font-size:22px">Hola ${name}, ¡bienvenida!</h1>
-        <p>Ya eres parte de la comunidad de tiroides de WellnessReal. Aquí vas a encontrar
-        contenido paso a paso y un foro para preguntar sin miedo, con gente que entiende
-        por lo que pasas.</p>
-        <p style="margin:28px 0">
-          <a href="${base}/comunidad" style="background:#fcee21;color:#16122b;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:700">
-            Entrar en la comunidad
-          </a>
-        </p>
-        <p style="color:#666;font-size:14px">Un abrazo,<br/>Fernando · WellnessReal</p>
-      </div>
-    `,
+    subject: 'Hemos recibido tu solicitud · Comunidad Tiroides',
+    html: emailShell(`
+      <h1 style="font-size:22px">Hola ${name}, gracias por apuntarte</h1>
+      <p>He recibido tu solicitud para entrar en la comunidad de tiroides. La reviso
+      personalmente para mantenerla como un espacio seguro y de confianza.</p>
+      <p>En cuanto la apruebe te aviso por email y ya podrás entrar. No suele tardar.</p>
+    `),
   })
+}
+
+/** Al aprobar: ya puede entrar. */
+async function sendApprovedEmail(email: string, name: string): Promise<void> {
+  await sendEmail({
+    to: email,
+    subject: '¡Ya puedes entrar en la comunidad! 💛',
+    html: emailShell(`
+      <h1 style="font-size:22px">Hola ${name}, ya estás dentro</h1>
+      <p>He aprobado tu acceso a la comunidad de tiroides. Aquí vas a encontrar contenido
+      paso a paso y un foro para preguntar sin miedo, con gente que entiende por lo que pasas.</p>
+      <p style="margin:28px 0">
+        <a href="${BASE_URL()}/comunidad" style="background:#fcee21;color:#16122b;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:700">
+          Entrar en la comunidad
+        </a>
+      </p>
+    `),
+  })
+}
+
+/** Cambia el estado del miembro (admin). Avisa por email al aprobar. */
+export async function setMemberStatus(
+  memberId: string,
+  status: 'pending' | 'approved' | 'blocked'
+): Promise<void> {
+  const { data: before } = await supabase
+    .from('member_profiles')
+    .select('status, email, display_name')
+    .eq('id', memberId)
+    .maybeSingle()
+
+  const { error } = await supabase
+    .from('member_profiles')
+    .update({ status })
+    .eq('id', memberId)
+  if (error) throw new Error(`[comunidad:setMemberStatus] ${error.message}`)
+
+  // Solo avisamos cuando pasa a aprobado por primera vez.
+  if (status === 'approved' && before && before.status !== 'approved') {
+    sendApprovedEmail(before.email as string, before.display_name as string).catch(() => {})
+  }
 }
 
 /**

@@ -4,6 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import {
   getSessionMember,
+  isApproved,
   getSpace,
   createThread,
   createComment,
@@ -16,6 +17,7 @@ import {
 export async function createThreadAction(spaceSlug: string, formData: FormData) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   const title = String(formData.get('title') ?? '').trim()
   const body = String(formData.get('body') ?? '').trim()
@@ -36,6 +38,7 @@ export async function createCommentAction(
 ) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   const body = String(formData.get('body') ?? '').trim()
   const parentId = (formData.get('parentId') as string) || null
@@ -53,6 +56,7 @@ export async function toggleLikeAction(
 ) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   await toggleLike(member.id, targetType, targetId)
   revalidatePath(`/comunidad/${spaceSlug}/hilo/${threadId}`)
@@ -61,6 +65,7 @@ export async function toggleLikeAction(
 export async function deleteThreadAction(spaceSlug: string, threadId: string) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   await deleteThread(threadId, member)
   revalidatePath(`/comunidad/${spaceSlug}`)
@@ -74,6 +79,7 @@ export async function deleteCommentAction(
 ) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   await deleteComment(commentId, member)
   revalidatePath(`/comunidad/${spaceSlug}/hilo/${threadId}`)
@@ -86,6 +92,7 @@ export async function pinThreadAction(
 ) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+  if (!isApproved(member)) return
 
   await setThreadPinned(threadId, pinned, member)
   revalidatePath(`/comunidad/${spaceSlug}`)
