@@ -29,15 +29,21 @@ export default function AdminMiembrosPage() {
   const [onlineIds, setOnlineIds] = useState<string[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   const load = useCallback(() => {
+    setError(null)
     fetch('/api/admin/comunidad/members')
-      .then((r) => r.json())
+      .then(async (r) => {
+        const body = await r.text()
+        if (!r.ok) throw new Error(`HTTP ${r.status} — ${body.slice(0, 300)}`)
+        return JSON.parse(body)
+      })
       .then((d) => {
         setMembers(d.members ?? [])
         setOnlineIds(d.onlineIds ?? [])
       })
-      .catch(() => {})
+      .catch((e) => setError(e instanceof Error ? e.message : String(e)))
       .finally(() => setLoading(false))
   }, [])
 
@@ -102,9 +108,19 @@ export default function AdminMiembrosPage() {
           </div>
         )}
 
+        {error && (
+          <div
+            className="mb-6 rounded-xl p-4"
+            style={{ backgroundColor: 'rgba(248,113,113,0.08)', border: '1px solid rgba(248,113,113,0.4)' }}
+          >
+            <p className="text-sm font-bold text-red-300">No se pudieron cargar los miembros</p>
+            <p className="mt-1 break-all font-mono text-xs text-red-200/80">{error}</p>
+          </div>
+        )}
+
         {loading ? (
           <p className="py-12 text-center text-gray-400">Cargando…</p>
-        ) : members.length === 0 ? (
+        ) : members.length === 0 && !error ? (
           <p className="py-12 text-center text-gray-500">Aún no hay miembros registrados.</p>
         ) : (
           <div className="overflow-x-auto rounded-xl" style={{ border: '1px solid rgba(102,45,145,0.3)' }}>
