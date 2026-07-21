@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { ArrowLeft, Users, Check, Ban, RotateCcw } from 'lucide-react'
+import { ArrowLeft, Users, Check, Ban, RotateCcw, Trash2 } from 'lucide-react'
 import type { MemberProfile } from '@/lib/db/comunidad'
 
 function edad(birth: string | null): string {
@@ -57,6 +57,22 @@ export default function AdminMiembrosPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ status }),
       })
+      load()
+    } finally {
+      setSaving(null)
+    }
+  }
+
+  const eliminar = async (id: string, nombre: string) => {
+    if (
+      !confirm(
+        `¿Eliminar a "${nombre}" definitivamente?\n\nSe borra su cuenta y todo lo que haya publicado en el foro. Esto no se puede deshacer.\n\n(Si solo quieres vetarla pero conservar el registro, usa "Bloquear".)`
+      )
+    )
+      return
+    setSaving(id)
+    try {
+      await fetch(`/api/admin/comunidad/members/${id}`, { method: 'DELETE' })
       load()
     } finally {
       setSaving(null)
@@ -213,6 +229,14 @@ export default function AdminMiembrosPage() {
                               <RotateCcw size={13} /> Reactivar
                             </button>
                           )}
+                          <button
+                            onClick={() => eliminar(m.id, m.display_name)}
+                            disabled={saving === m.id}
+                            title="Eliminar definitivamente"
+                            className="inline-flex items-center gap-1 rounded px-2 py-1.5 text-xs text-gray-500 hover:text-red-400 disabled:opacity-50"
+                          >
+                            <Trash2 size={13} />
+                          </button>
                         </div>
                       </td>
                     </tr>

@@ -246,6 +246,22 @@ export async function getSessionMember(): Promise<MemberProfile | null> {
   }
 }
 
+/**
+ * Elimina un miembro por completo (para spam o pruebas). Borra el usuario de
+ * auth (cascada a member_profiles + sus hilos/comentarios/likes) y, por
+ * garantía, el perfil directamente por si el usuario de auth ya no existiera.
+ * A diferencia de 'blocked', esto no deja rastro: si vuelve, entra como nuevo.
+ */
+export async function deleteMember(id: string): Promise<void> {
+  try {
+    await supabase.auth.admin.deleteUser(id)
+  } catch (err) {
+    console.error('[comunidad:deleteMember] auth admin:', err)
+  }
+  const { error } = await supabase.from('member_profiles').delete().eq('id', id)
+  if (error) throw new Error(`[comunidad:deleteMember] ${error.message}`)
+}
+
 /** Todos los miembros (para el admin: saber quiénes son). */
 export async function getMembersAdmin(): Promise<MemberProfile[]> {
   const { data, error } = await supabase
