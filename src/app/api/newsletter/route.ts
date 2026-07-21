@@ -38,7 +38,20 @@ const RESOURCES = {
           <p style="color:#9ca3af;font-size:13px;line-height:1.6;text-align:left;font-style:italic;margin:20px 0 0;">
             PD: tu tiroides la lleva tu médico. Lo de entrenar y comer para verte bien con ella regulada,
             eso lo vemos por aquí. Esta información es general y no sustituye el consejo de tu médico.
-          </p>`,
+          </p>
+          <table width="100%" cellpadding="0" cellspacing="0" style="margin:28px 0 0;">
+            <tr><td align="center" style="background-color:#16122B;border-radius:12px;padding:24px;border:1px solid rgba(252,238,33,0.3);">
+              <p style="color:#ffffff;font-size:17px;font-weight:bold;margin:0 0 6px;">No hagas esto sola</p>
+              <p style="color:#d1d5db;font-size:14px;line-height:1.6;margin:0 0 18px;">
+                Tienes una comunidad gratuita de mujeres con tiroides: contenido paso a paso, un foro para
+                preguntar sin miedo y gente que entiende por lo que pasas.
+              </p>
+              <a href="https://wellnessreal.es/comunidad/entrar" target="_blank"
+                style="display:inline-block;background-color:#FCEE21;color:#16122B;font-size:15px;font-weight:bold;text-decoration:none;padding:13px 30px;border-radius:10px;">
+                Entrar en la comunidad gratis
+              </a>
+            </td></tr>
+          </table>`,
   },
 } as const
 
