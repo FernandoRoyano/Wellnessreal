@@ -80,15 +80,36 @@ export default function GraciasValoracionPage() {
         </Container>
       </section>
 
-      {/* ═══════════════ BLOG CTA ═══════════════ */}
-      <section className="relative py-fluid-lg bg-brand-deep">
+      {/* ═══════════════ MIENTRAS TE RESPONDO (mantener caliente) ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
-          <div className="text-center max-w-2xl mx-auto space-y-5">
-            <p className="text-fluid-base text-muted">Mientras tanto, echa un vistazo al blog:</p>
-            <Link href="/blog" className="btn-ghost text-fluid-base px-8">
-              Ver artículos del blog
-              <ArrowRight className="w-4 h-4" />
-            </Link>
+          <div className="max-w-2xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+            <span className="eyebrow justify-center">Mientras te respondo</span>
+            <h2 className="headline text-fluid-2xl text-white">
+              No tienes que hacer nada más. <span className="text-gradient-brand">Yo te escribo.</span>
+            </h2>
+            <p className="text-fluid-base text-muted max-w-xl mx-auto leading-relaxed">
+              Reviso tu caso personalmente y te contacto en menos de 24h. Mientras tanto, si quieres ir
+              abriendo boca, aquí tienes por dónde.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
+              <Link href="/blog" className="btn-brand text-fluid-base px-7">
+                Leer el blog
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <a
+                href="https://www.instagram.com/wellnessrealoficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-ghost text-fluid-base px-7"
+              >
+                Sígueme en Instagram
+                <ArrowRight className="w-4 h-4" />
+              </a>
+            </div>
+            <p className="text-fluid-xs text-subtle">
+              Revisa también tu carpeta de spam por si mi respuesta cae ahí.
+            </p>
           </div>
         </Container>
       </section>

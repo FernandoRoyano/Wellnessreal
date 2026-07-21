@@ -1,6 +1,6 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Sparkles } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -66,27 +66,53 @@ export default function GraciasRecursoPage() {
         </Container>
       </section>
 
-      {/* ═══════════════ ¿QUIERES IR MÁS RÁPIDO? ═══════════════ */}
+      {/* ═══════════════ ¿QUIERES IR MÁS RÁPIDO? — DOS CAMINOS ═══════════════ */}
       <section className="relative py-fluid-lg bg-brand-dusk">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
-          <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-md">
             <h2 className="headline text-fluid-3xl text-white">
               ¿Quieres ir <span className="text-gradient-brand">más rápido?</span>
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
-              La guía te da las bases. Pero si quieres un{' '}
-              <span className="text-accent font-semibold">plan 100% personalizado</span> a tu situación, podemos hablar.
+              La guía te da las bases. Si quieres algo hecho para ti, tienes dos formas de empezar.
             </p>
-            <div className="pt-2">
-              <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
-                Solicitar valoración gratuita
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+            {/* Autoservicio: plan con IA (surfacea la oferta oculta 19/49€) */}
+            <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
+              <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
+                <Sparkles className="w-6 h-6 text-accent" strokeWidth={2} />
+              </span>
+              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Empieza hoy, por tu cuenta</h3>
+              <p className="text-fluid-sm text-muted leading-relaxed mb-5">
+                Responde unas preguntas y te monto tu plan personalizado con mi método,{' '}
+                <span className="text-white font-semibold">al instante</span>. Ves el primer día gratis.
+              </p>
+              <Link href="/cuestionario" className="btn-brand text-fluid-base px-6 mt-auto">
+                Crear mi plan
                 <ArrowRight className="w-4 h-4" />
               </Link>
-            </div>
-            <p className="text-fluid-xs text-subtle">
-              Sin compromiso. Solo una conversación para ver si puedo ayudarte.
-            </p>
+              <p className="text-fluid-xs text-subtle mt-3">Desde 19 €/mes · Acceso inmediato</p>
+            </article>
+
+            {/* Alto contacto: valoración → packs */}
+            <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
+              <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
+                <MessageCircle className="w-6 h-6 text-accent" strokeWidth={2} />
+              </span>
+              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Prefiero que hablemos</h3>
+              <p className="text-fluid-sm text-muted leading-relaxed mb-5">
+                Cuéntame tu caso y te digo honestamente si puedo ayudarte y cómo. Una conversación,{' '}
+                <span className="text-white font-semibold">sin compromiso</span>.
+              </p>
+              <Link href="/valoracion" className="btn-ghost text-fluid-base px-6 mt-auto">
+                Valoración gratuita
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+              <p className="text-fluid-xs text-subtle mt-3">Sin compromiso · Respuesta en 24h</p>
+            </article>
           </div>
         </Container>
       </section>
