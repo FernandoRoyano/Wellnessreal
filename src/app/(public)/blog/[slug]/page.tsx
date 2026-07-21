@@ -65,6 +65,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
 
+  // Los artículos de tiroides funnelizan a su propia guía y a la comunidad,
+  // no al embudo general de fitness.
+  const isThyroid = post.category?.slug === 'tiroides'
+
   return (
     <>
       <JsonLd
@@ -159,7 +163,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
 
-            <BlogContentWithCTAs content={stripLeadingH1(post.content)} />
+            <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} />
           </div>
         </Container>
       </section>
@@ -177,10 +181,15 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
               Descarga la guía gratuita{' '}
-              <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+              <span className="text-accent font-semibold">
+                {isThyroid
+                  ? '“Entrenar y adelgazar con hipotiroidismo”'
+                  : '“Fitness real para gente con vida real”'}
+              </span>
+              .
             </p>
             <div className="pt-2">
-              <Link href="/recurso-gratis" className="btn-brand text-fluid-base">
+              <Link href={isThyroid ? '/tiroides' : '/recurso-gratis'} className="btn-brand text-fluid-base">
                 Descargar guía gratis
                 <ArrowRight className="w-4 h-4" />
               </Link>
@@ -195,22 +204,45 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         <Container>
           <div className="relative text-center max-w-3xl mx-auto space-y-6">
             <span className="eyebrow justify-center">Tu turno</span>
-            <h2 className="headline text-fluid-4xl text-white">
-              ¿Prefieres un <span className="text-gradient-brand">plan personalizado?</span>
-            </h2>
-            <p className="text-fluid-lg text-muted leading-relaxed">
-              Esto que lees aquí es contenido general. Una valoración analiza TU caso y diseña un plan adaptado a tu
-              vida real.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-              <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
-                Solicitar valoración gratuita
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link href="/blog" className="btn-ghost text-fluid-base px-8">
-                Ver más artículos
-              </Link>
-            </div>
+            {isThyroid ? (
+              <>
+                <h2 className="headline text-fluid-4xl text-white">
+                  No hagas esto <span className="text-gradient-brand">sola.</span>
+                </h2>
+                <p className="text-fluid-lg text-muted leading-relaxed">
+                  Tienes una comunidad gratuita de mujeres con tiroides: contenido paso a paso, un foro
+                  para preguntar sin miedo y gente que entiende por lo que pasas.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                  <Link href="/comunidad/entrar" className="btn-brand text-fluid-base px-8">
+                    Entrar en la comunidad gratis
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link href="/blog" className="btn-ghost text-fluid-base px-8">
+                    Ver más artículos
+                  </Link>
+                </div>
+              </>
+            ) : (
+              <>
+                <h2 className="headline text-fluid-4xl text-white">
+                  ¿Prefieres un <span className="text-gradient-brand">plan personalizado?</span>
+                </h2>
+                <p className="text-fluid-lg text-muted leading-relaxed">
+                  Esto que lees aquí es contenido general. Una valoración analiza TU caso y diseña un plan
+                  adaptado a tu vida real.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
+                  <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
+                    Solicitar valoración gratuita
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                  <Link href="/blog" className="btn-ghost text-fluid-base px-8">
+                    Ver más artículos
+                  </Link>
+                </div>
+              </>
+            )}
           </div>
         </Container>
       </section>
