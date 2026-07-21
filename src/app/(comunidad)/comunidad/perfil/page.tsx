@@ -22,9 +22,15 @@ function Field({ label, children }: { label: string; children: React.ReactNode }
   )
 }
 
-export default async function PerfilPage() {
+export default async function PerfilPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
+
+  const { error } = await searchParams
 
   return (
     <div className="mx-auto max-w-md">
@@ -36,6 +42,16 @@ export default async function PerfilPage() {
       </Link>
 
       <h1 className="headline mb-6 text-3xl text-white">Tu perfil</h1>
+
+      {error && (
+        <div className="lesson-note mb-4" style={{ borderColor: 'var(--color-danger)' }}>
+          <p>
+            {error === 'schema'
+              ? 'No se pudo guardar: faltan campos en la base de datos. Hay que ejecutar la migración 20260719_comunidad_perfil_online.sql en Supabase.'
+              : 'No se pudo guardar el perfil. Inténtalo de nuevo en un momento.'}
+          </p>
+        </div>
+      )}
 
       <form action={updateProfileAction} className="surface-card space-y-4 rounded-2xl p-6">
         <Field label="Nombre visible">

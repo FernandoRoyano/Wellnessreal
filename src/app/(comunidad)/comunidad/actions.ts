@@ -80,13 +80,22 @@ export async function updateProfileAction(formData: FormData) {
   const location = String(formData.get('location') ?? '').trim()
   if (!display_name) return
 
-  await updateMemberProfile(member.id, {
-    display_name,
-    bio: bio || null,
-    birth_date: birth_date || null,
-    gender: gender || null,
-    location: location || null,
-  })
+  try {
+    await updateMemberProfile(member.id, {
+      display_name,
+      bio: bio || null,
+      birth_date: birth_date || null,
+      gender: gender || null,
+      location: location || null,
+    })
+  } catch (err) {
+    console.error('[comunidad:updateProfile]', err)
+    const detalle = err instanceof Error ? err.message : String(err)
+    // Causa típica: falta la migración que añade birth_date/gender/location.
+    const faltaColumna = /column .* does not exist|schema cache/i.test(detalle)
+    redirect(`/comunidad/perfil?error=${faltaColumna ? 'schema' : 'save'}`)
+  }
+
   revalidatePath('/comunidad')
   revalidatePath('/comunidad/perfil')
   redirect('/comunidad')
