@@ -18,7 +18,7 @@ const INCLUYE = [
   {
     icon: Video,
     title: 'Directo conmigo cada semana (45 min)',
-    desc: 'Resolvemos dudas, ajustamos y trabajamos un tema. En vivo, no grabado.',
+    desc: 'Entrenamiento, comida real, descanso, energía… y lo que se te atragante esa semana. En vivo, no grabado.',
   },
   {
     icon: Users,
@@ -27,8 +27,8 @@ const INCLUYE = [
   },
   {
     icon: MessageCircle,
-    title: 'Revisión y ajuste cada 3 semanas',
-    desc: 'Miro cómo vas y cambio lo que haga falta. El plan se mueve contigo.',
+    title: 'Ajustamos tu día a día, no solo tu rutina',
+    desc: 'Sueño, organización, la comida cuando no tienes tiempo… Reviso cómo vas cada 3 semanas y lo movemos contigo.',
   },
 ] as const
 
@@ -53,12 +53,15 @@ export default async function AsesoriaPage() {
       <div className="surface-card mt-8 rounded-2xl p-6">
         <p className="text-white/80">
           En la comunidad te doy los principios, y funcionan. Pero llega un punto en el que
-          necesitas que alguien mire <em>tu</em> caso: cuántos días puedes de verdad, qué hacemos
-          con esa rodilla, qué toco cuando llevas tres semanas sin ver nada.
+          necesitas que alguien mire <em>tu</em> vida: cuántos días puedes de verdad, qué hacemos
+          con esa rodilla, cómo encajas la comida cuando no tienes tiempo, por qué duermes mal y
+          qué toco cuando llevas tres semanas sin ver nada.
         </p>
         <p className="mt-3 text-white/80">
-          Eso es esto. Y en grupo, porque descubrí una cosa: la mayoría no falla por falta de
-          plan. Falla por hacerlo sola.
+          Porque esto no va solo de entrenar. Va de <strong className="text-white">ajustar tu día
+          a día</strong> —descanso, energía, comida, hábitos— y de desatascar eso que se te
+          resiste. Y en grupo, porque descubrí una cosa: la mayoría no falla por falta de plan.
+          Falla por hacerlo sola.
         </p>
       </div>
 

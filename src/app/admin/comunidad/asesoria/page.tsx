@@ -14,7 +14,7 @@ function primerMensaje(nombre: string): string {
 
 He leído tu solicitud para el Grupo Tiroides y me encaja lo que cuentas.
 
-Antes de nada quiero entender bien tu caso, así que dime: ¿cómo te va ahora mismo con el entrenamiento y qué es lo que más se te atraganta?
+Antes de nada quiero entender bien cómo es tu día a día: cómo te va con el entrenamiento y la comida, qué tal duermes y de energía, y sobre todo qué es lo que más se te atraganta ahora mismo.
 
 Con eso te digo con sinceridad si el grupo es lo que necesitas o si te viene mejor otra cosa.`
 }

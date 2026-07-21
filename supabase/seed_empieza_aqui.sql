@@ -185,13 +185,14 @@ select id, 'ir-mas-rapido', 'Cuando quieras ir más rápido',
 <p>Eso no cabe en una lección genérica, porque deja de ser general en el momento en que es tuyo. Y sin ese nivel de detalle, volvemos a los titulares de internet.</p>
 <p>Y hay una segunda cosa que he aprendido en catorce años, y que me parece incluso más importante: <strong>la mayoría no falla por falta de plan. Falla por hacerlo sola.</strong></p>
 <p>Por eso he montado esto.</p>
+<p>Y ojo, porque esto no va solo de entrenar. Va de <strong>ajustar tu día a día</strong>: el descanso, la energía, la comida cuando no tienes tiempo, los hábitos que suman y los que restan. De desatascar eso que llevas tiempo sin poder con ello.</p>
 <h3>Grupo Tiroides</h3>
 <p>Doce semanas trabajando conmigo, junto a un grupo pequeño de mujeres que están exactamente donde tú.</p>
 <ul>
 <li><strong>Tu plan de entreno y nutrición hecho para ti.</strong> Tus días, tu material, tus lesiones, tus horarios. No una plantilla.</li>
-<li><strong>Un directo conmigo cada semana</strong>, de 45 minutos: dudas, ajustes y un tema por sesión.</li>
+<li><strong>Un directo conmigo cada semana</strong>, de 45 minutos: entrenamiento, comida real, descanso, energía y lo que se te atragante esa semana.</li>
 <li><strong>Un espacio privado</strong> para el grupo, aquí mismo. Entre 8 y 12 mujeres, todas con lo mismo que tú.</li>
-<li><strong>Reviso tu plan cada 3 semanas</strong> y cambio lo que haga falta según cómo vayas respondiendo.</li>
+<li><strong>Ajusto tu día a día cada 3 semanas</strong>, no solo la rutina, según cómo vayas.</li>
 </ul>
 <p>Son <strong>249 € las doce semanas completas</strong>. Pago único, sin cuotas después y sin permanencia. Lo cobro por trimestre entero por lo mismo que te decía antes: en menos de tres meses no se ve nada serio, y quien se compromete tres meses aparece.</p>
 <p><a class="lesson-cta" href="/comunidad/asesoria">Ver el Grupo Tiroides y solicitar plaza →</a></p>
