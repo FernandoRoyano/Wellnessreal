@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { ArrowLeft, Users, Check, X, Phone, Mail } from 'lucide-react'
+import { ArrowLeft, Users, Check, X, Phone, Mail, Trash2 } from 'lucide-react'
 import type { AsesoriaSolicitud } from '@/lib/db/comunidad'
 
 // Primer contacto ya redactado: abrir conversación y proponer hablar.
@@ -66,6 +66,17 @@ export default function AdminAsesoriaPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, estado }),
       })
+      load()
+    } finally {
+      setSaving(null)
+    }
+  }
+
+  const eliminar = async (id: string, nombre: string) => {
+    if (!confirm(`¿Eliminar la solicitud de "${nombre}" definitivamente? No se puede deshacer.`)) return
+    setSaving(id)
+    try {
+      await fetch(`/api/admin/comunidad/asesoria?id=${encodeURIComponent(id)}`, { method: 'DELETE' })
       load()
     } finally {
       setSaving(null)
@@ -225,6 +236,14 @@ export default function AdminAsesoriaPage() {
                         <X size={13} /> Descartar
                       </button>
                     )}
+                    <button
+                      onClick={() => eliminar(s.id, s.nombre)}
+                      disabled={saving === s.id}
+                      title="Eliminar definitivamente"
+                      className="inline-flex items-center gap-1 rounded px-2.5 py-1.5 text-xs text-gray-500 hover:text-red-400 disabled:opacity-50"
+                    >
+                      <Trash2 size={13} />
+                    </button>
                   </div>
                 </div>
               )

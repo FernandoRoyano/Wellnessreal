@@ -370,6 +370,12 @@ export async function setAsesoriaEstado(
   if (error) throw new Error(`[comunidad:setAsesoriaEstado] ${error.message}`)
 }
 
+/** Borra una solicitud del Grupo Tiroides definitivamente (spam / pruebas). */
+export async function deleteAsesoriaSolicitud(id: string): Promise<void> {
+  const { error } = await supabase.from('asesoria_solicitudes').delete().eq('id', id)
+  if (error) throw new Error(`[comunidad:deleteAsesoriaSolicitud] ${error.message}`)
+}
+
 /** ¿Esta miembro ya solicitó plaza? (para no repetir el formulario) */
 export async function yaSolicitoAsesoria(memberId: string): Promise<boolean> {
   const { data } = await supabase

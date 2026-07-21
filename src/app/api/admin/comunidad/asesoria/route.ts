@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthenticated } from '@/lib/auth'
-import { getAsesoriaSolicitudes, setAsesoriaEstado } from '@/lib/db/comunidad'
+import {
+  getAsesoriaSolicitudes,
+  setAsesoriaEstado,
+  deleteAsesoriaSolicitud,
+} from '@/lib/db/comunidad'
 
 export const dynamic = 'force-dynamic'
 
@@ -32,6 +36,23 @@ export async function PATCH(request: NextRequest) {
     return NextResponse.json({ success: true })
   } catch (err) {
     console.error('[PATCH /api/admin/comunidad/asesoria]', err)
+    return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
+  }
+  try {
+    const id = new URL(request.url).searchParams.get('id')
+    if (!id) {
+      return NextResponse.json({ error: 'Falta el id' }, { status: 400 })
+    }
+    await deleteAsesoriaSolicitud(id)
+    return NextResponse.json({ success: true })
+  } catch (err) {
+    console.error('[DELETE /api/admin/comunidad/asesoria]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
   }
 }
