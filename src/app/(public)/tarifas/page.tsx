@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
+import { PLAN_OPCIONES } from '@/lib/precios-plan'
 import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
 import HeroAnimation from '@/components/animations/HeroAnimation'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -196,6 +197,56 @@ export default function TarifasPage() {
 
       {/* ═══════════════ PRICING CARDS ═══════════════ */}
       <PricingCards />
+
+      {/* ═══════════════ PELDAÑO DE ENTRADA — plan mensual (puente de escaleras) ═══════════════ */}
+      <section className="relative py-fluid-lg bg-brand-deep">
+        <Container>
+          <AnimatedSection>
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center space-y-3 mb-fluid-md">
+                <span className="eyebrow justify-center">¿Aún no para un pack?</span>
+                <h2 className="headline text-fluid-3xl text-white">
+                  Empieza más ligero, <span className="text-gradient-brand">desde 19 €/mes</span>
+                </h2>
+                <p className="text-fluid-base text-muted max-w-2xl mx-auto leading-relaxed">
+                  Si el acompañamiento completo aún te queda grande, no te vayas: puedes arrancar con tu
+                  plan mensual. Respondes unas preguntas y lo tienes al instante. Luego subes cuando quieras.
+                </p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-4">
+                {(['auto', 'revisado'] as const).map((tier) => {
+                  const p = PLAN_OPCIONES[tier]
+                  return (
+                    <article
+                      key={tier}
+                      className={`surface-card rounded-2xl p-6 hover-lift ${p.destacado ? 'border-l-4 border-l-accent' : ''}`}
+                    >
+                      <div className="flex items-baseline justify-between gap-3 mb-1">
+                        <h3 className="text-fluid-lg text-white tracking-tight">{p.nombre}</h3>
+                        <span className="font-display font-extrabold text-fluid-2xl text-accent whitespace-nowrap">
+                          {p.precio} €<span className="text-fluid-sm text-muted font-normal">/mes</span>
+                        </span>
+                      </div>
+                      <p className="text-fluid-sm text-muted leading-relaxed">{p.gancho}</p>
+                    </article>
+                  )
+                })}
+              </div>
+
+              <div className="text-center mt-6">
+                <Link href="/cuestionario" className="btn-brand text-fluid-base px-8">
+                  Crear mi plan ahora
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <p className="text-fluid-xs text-subtle mt-3">
+                  Ves el primer día gratis · Suscripción mensual, permanencia mínima 3 meses
+                </p>
+              </div>
+            </div>
+          </AnimatedSection>
+        </Container>
+      </section>
 
       {/* ═══════════════ TESTIMONIOS ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-deep">

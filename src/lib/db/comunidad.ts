@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
+import { createSubscriber } from '@/lib/mailerlite'
 import type { User } from '@supabase/supabase-js'
 
 // ============================================================
@@ -148,8 +149,27 @@ async function sendApprovedEmail(email: string, name: string): Promise<void> {
           Entrar en la comunidad
         </a>
       </p>
+      <p style="color:#444;font-size:14px">Por cierto: además de la comunidad, cada semana mando un
+      email con lo que de verdad aplico con mis clientes. Y en el
+      <a href="${BASE_URL()}/blog" style="color:#8a6d00">blog</a> tienes artículos sin postureo por si
+      quieres seguir leyendo.</p>
     `),
   })
+}
+
+/**
+ * Conecta al miembro aprobado con la newsletter (comunidad → email).
+ * Solo actúa si MAILERLITE_COMUNIDAD_GROUP_ID está configurado, así Fernando
+ * decide cuándo activarlo. No bloquea la aprobación si falla.
+ */
+async function subscribeMemberToNewsletter(email: string, name: string): Promise<void> {
+  const groupId = process.env.MAILERLITE_COMUNIDAD_GROUP_ID
+  if (!groupId) return
+  try {
+    await createSubscriber({ email, name, groups: [groupId] })
+  } catch (err) {
+    console.error('[comunidad:subscribeMemberToNewsletter]', err)
+  }
 }
 
 /** Cambia el estado del miembro (admin). Avisa por email al aprobar. */
@@ -179,6 +199,8 @@ export async function setMemberStatus(
       // No tumbamos la aprobación por un fallo de email, pero lo registramos.
       console.error('[comunidad:setMemberStatus] email de aprobación falló:', err)
     }
+    // Comunidad → newsletter (solo si está configurado el grupo).
+    await subscribeMemberToNewsletter(before.email as string, before.display_name as string)
   }
 }
 
