@@ -3,8 +3,32 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { ArrowLeft, Users, Check, X, Phone } from 'lucide-react'
+import { ArrowLeft, Users, Check, X, Phone, Mail } from 'lucide-react'
 import type { AsesoriaSolicitud } from '@/lib/db/comunidad'
+
+// Primer contacto ya redactado: abrir conversación y proponer hablar.
+// No se cierra la venta aquí, se abre el diálogo.
+function primerMensaje(nombre: string): string {
+  const n = nombre.split(' ')[0]
+  return `Hola ${n}, soy Fernando de WellnessReal.
+
+He leído tu solicitud para el Grupo Tiroides y me encaja lo que cuentas.
+
+Antes de nada quiero entender bien tu caso, así que dime: ¿cómo te va ahora mismo con el entrenamiento y qué es lo que más se te atraganta?
+
+Con eso te digo con sinceridad si el grupo es lo que necesitas o si te viene mejor otra cosa.`
+}
+
+function waLink(nombre: string, telefono: string): string {
+  const num = telefono.replace(/\D/g, '')
+  const con34 = num.startsWith('34') ? num : `34${num}`
+  return `https://wa.me/${con34}?text=${encodeURIComponent(primerMensaje(nombre))}`
+}
+
+function mailLink(nombre: string, email: string): string {
+  const asunto = encodeURIComponent('Tu solicitud para el Grupo Tiroides')
+  return `mailto:${email}?subject=${asunto}&body=${encodeURIComponent(primerMensaje(nombre))}`
+}
 
 const estadoStyle: Record<string, { label: string; color: string; bg: string }> = {
   nueva: { label: 'Nueva', color: '#FCEE21', bg: 'rgba(252,238,33,0.15)' },
@@ -109,20 +133,7 @@ export default function AdminAsesoriaPage() {
                       <p className="font-bold text-white">{s.nombre}</p>
                       <p className="text-sm text-gray-400">
                         {s.email}
-                        {s.telefono && (
-                          <>
-                            {' · '}
-                            <a
-                              href={`https://wa.me/34${s.telefono.replace(/\D/g, '')}`}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center gap-1 hover:text-white"
-                              style={{ color: '#4ade80' }}
-                            >
-                              <Phone size={12} /> {s.telefono}
-                            </a>
-                          </>
-                        )}
+                        {s.telefono && ` · ${s.telefono}`}
                       </p>
                     </div>
                     <span
@@ -153,7 +164,37 @@ export default function AdminAsesoriaPage() {
                     </p>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-2">
+                  {/* Contacto: mensaje ya redactado para no escribirlo cada vez */}
+                  <div
+                    className="mt-4 flex flex-wrap gap-2 border-t pt-4"
+                    style={{ borderColor: 'rgba(102,45,145,0.25)' }}
+                  >
+                    {s.telefono && (
+                      <a
+                        href={waLink(s.nombre, s.telefono)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1.5 rounded px-3 py-1.5 text-xs font-bold"
+                        style={{ backgroundColor: '#25D366', color: '#0b2e13' }}
+                      >
+                        <Phone size={13} /> WhatsApp
+                      </a>
+                    )}
+                    <a
+                      href={mailLink(s.nombre, s.email)}
+                      className="inline-flex items-center gap-1.5 rounded border px-3 py-1.5 text-xs font-medium text-white"
+                      style={{ borderColor: '#662D91' }}
+                    >
+                      <Mail size={13} /> Email
+                    </a>
+                    {!s.telefono && (
+                      <span className="self-center text-xs text-gray-500">
+                        No dejó teléfono — contáctala por email
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="mt-3 flex flex-wrap gap-2">
                     {s.estado === 'nueva' && (
                       <button
                         onClick={() => cambiar(s.id, 'contactada')}
