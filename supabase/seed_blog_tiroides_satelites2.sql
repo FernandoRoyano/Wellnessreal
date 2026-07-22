@@ -12,12 +12,14 @@ where not exists (select 1 from categories where slug = 'tiroides');
 
 
 -- ── 4. Cansancio e hipotiroidismo ────────────────────────────
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   'Cansancio e hipotiroidismo: qué puedes hacer tú (además de la pastilla)',
   'cansancio-e-hipotiroidismo',
   'El cansancio es de lo que más duele del hipotiroidismo. Además de tu medicación, hay palancas que sí dependen de ti y marcan la diferencia. Aquí están.',
   'Fernando Royano',
+  '/blog/05_cansancio.png',
+  'Cansancio e hipotiroidismo: qué puedes hacer',
   (select id from categories where slug = 'tiroides'),
   now(),
   '8 min de lectura',
@@ -52,12 +54,14 @@ where not exists (select 1 from posts where slug = 'cansancio-e-hipotiroidismo')
 
 
 -- ── 5. Suplementos para la tiroides ──────────────────────────
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   'Suplementos para la tiroides: qué sirve y qué es humo (selenio, yodo y compañía)',
   'suplementos-tiroides',
   'Selenio, yodo, "aceleradores del metabolismo"... el negocio de los suplementos de tiroides es enorme. Qué dice la evidencia y por qué el yodo puede ser peligroso.',
   'Fernando Royano',
+  '/blog/06_suplementos.png',
+  'Suplementos para la tiroides: selenio, yodo y humo',
   (select id from categories where slug = 'tiroides'),
   now(),
   '7 min de lectura',

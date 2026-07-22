@@ -16,12 +16,14 @@ select 'Tiroides', 'tiroides', 'Entrenar, comer y vivir mejor con hipotiroidismo
 where not exists (select 1 from categories where slug = 'tiroides');
 
 -- Artículo pilar (borrador)
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   'Adelgazar con hipotiroidismo: la guía honesta (sin milagros)',
   'adelgazar-con-hipotiroidismo',
   'Con hipotiroidismo adelgazar cuesta más, pero no es imposible. La guía honesta, sin detox ni suplementos milagro: qué falla de verdad y qué sí mueve la aguja.',
   'Fernando Royano',
+  '/blog/01_adelgazar.png',
+  'Adelgazar con hipotiroidismo, sin milagros',
   (select id from categories where slug = 'tiroides'),
   now(),
   '12 min de lectura',

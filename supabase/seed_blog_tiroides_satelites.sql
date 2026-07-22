@@ -14,12 +14,14 @@ where not exists (select 1 from categories where slug = 'tiroides');
 
 
 -- ── 1. ¿Por qué no adelgazo aunque lo hago todo bien? ────────
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   '¿Por qué no adelgazo aunque lo hago todo bien? (con hipotiroidismo)',
   'por-que-no-adelgazo-con-hipotiroidismo',
   'Comes bien, te mueves y la báscula no se entera. Con hipotiroidismo, estas son las razones reales por las que estás estancada, y qué hacer con cada una.',
   'Fernando Royano',
+  '/blog/02_porque_no.png',
+  'Por qué no adelgazo aunque lo hago todo bien con hipotiroidismo',
   (select id from categories where slug = 'tiroides'),
   now(),
   '8 min de lectura',
@@ -49,12 +51,14 @@ where not exists (select 1 from posts where slug = 'por-que-no-adelgazo-con-hipo
 
 
 -- ── 2. Gluten e hipotiroidismo: ¿de verdad tienes que dejarlo? ──
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   'Gluten e hipotiroidismo: ¿de verdad tienes que dejarlo?',
   'gluten-e-hipotiroidismo',
   'Todo el mundo te dice que quites el gluten si tienes Hashimoto. ¿Es verdad o es otro mito? Lo que dice la evidencia, sin humo y sin dietas de miedo.',
   'Fernando Royano',
+  '/blog/03_gluten.png',
+  'Gluten e hipotiroidismo: ¿hay que dejarlo?',
   (select id from categories where slug = 'tiroides'),
   now(),
   '7 min de lectura',
@@ -80,12 +84,14 @@ where not exists (select 1 from posts where slug = 'gluten-e-hipotiroidismo');
 
 
 -- ── 3. El mejor ejercicio para la tiroides lenta ─────────────
-insert into posts (title, slug, excerpt, author, category_id, published_at, read_time, content, published)
+insert into posts (title, slug, excerpt, author, main_image_url, main_image_alt, category_id, published_at, read_time, content, published)
 select
   'El mejor ejercicio para la tiroides lenta (y no es cardio)',
   'mejor-ejercicio-hipotiroidismo',
   'Te han dicho cardio y más cardio. Pero con hipotiroidismo lo que de verdad mueve la aguja es otra cosa. Qué entrenar, cuánto y cómo empezar sin agobios.',
   'Fernando Royano',
+  '/blog/04_ejercicio.png',
+  'El mejor ejercicio para la tiroides lenta',
   (select id from categories where slug = 'tiroides'),
   now(),
   '8 min de lectura',
