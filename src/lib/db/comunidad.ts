@@ -98,19 +98,27 @@ export async function ensureMemberProfile(user: User): Promise<MemberProfile> {
       id: user.id,
       email,
       display_name: defaultDisplayName(email),
+      // Entrada directa: el miembro entra al instante. El anti-spam se hace
+      // reactivo (bloquear/eliminar desde admin), no con una cola de aprobación.
+      status: 'approved',
     })
     .select('*')
     .single()
 
   if (error) throw new Error(`[comunidad:ensureMemberProfile] ${error.message}`)
 
-  // Aviso de "solicitud recibida". Se espera (serverless congela las promesas
-  // sueltas) pero nunca bloquea el alta si el email falla.
+  const displayName = (data as MemberProfile).display_name
+
+  // Email de bienvenida ("ya estás dentro"). Se espera (serverless congela las
+  // promesas sueltas) pero nunca bloquea el alta si el email falla.
   try {
-    await sendRequestReceivedEmail(email, (data as MemberProfile).display_name)
+    await sendWelcomeEmail(email, displayName)
   } catch (err) {
-    console.error('[comunidad:ensureMemberProfile] email de solicitud falló:', err)
+    console.error('[comunidad:ensureMemberProfile] email de bienvenida falló:', err)
   }
+
+  // Comunidad → newsletter (solo si el grupo está configurado). No bloquea.
+  await subscribeMemberToNewsletter(email, displayName)
 
   return data as MemberProfile
 }
@@ -121,16 +129,24 @@ function emailShell(inner: string): string {
   return `<div style="font-family:system-ui,sans-serif;max-width:520px;margin:0 auto;color:#1a1a1a">${inner}<p style="color:#666;font-size:14px">Un abrazo,<br/>Fernando · WellnessReal</p></div>`
 }
 
-/** Al registrarse: la solicitud queda pendiente de aprobación. */
-async function sendRequestReceivedEmail(email: string, name: string): Promise<void> {
+/** Al registrarse (entrada directa): ya está dentro, le damos la bienvenida. */
+async function sendWelcomeEmail(email: string, name: string): Promise<void> {
   await sendEmail({
     to: email,
-    subject: 'Hemos recibido tu solicitud · Comunidad Tiroides',
+    subject: '¡Ya estás dentro de la comunidad! 💛',
     html: emailShell(`
-      <h1 style="font-size:22px">Hola ${name}, gracias por apuntarte</h1>
-      <p>He recibido tu solicitud para entrar en la comunidad de tiroides. La reviso
-      personalmente para mantenerla como un espacio seguro y de confianza.</p>
-      <p>En cuanto la apruebe te aviso por email y ya podrás entrar. No suele tardar.</p>
+      <h1 style="font-size:22px">Hola ${name}, bienvenida</h1>
+      <p>Ya tienes acceso a la comunidad de tiroides. Aquí vas a encontrar contenido
+      paso a paso y un foro para preguntar sin miedo, con gente que entiende por lo que pasas.</p>
+      <p style="margin:28px 0">
+        <a href="${BASE_URL()}/comunidad" style="background:#fcee21;color:#16122b;padding:12px 24px;border-radius:9999px;text-decoration:none;font-weight:700">
+          Entrar en la comunidad
+        </a>
+      </p>
+      <p style="color:#444;font-size:14px">Por cierto: además de la comunidad, cada semana mando un
+      email con lo que de verdad aplico con mis clientes. Y en el
+      <a href="${BASE_URL()}/blog" style="color:#8a6d00">blog</a> tienes artículos sin postureo por si
+      quieres seguir leyendo.</p>
     `),
   })
 }
