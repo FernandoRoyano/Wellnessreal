@@ -4,7 +4,7 @@ import { useActionState } from 'react'
 import { requestMagicLink, type MagicLinkResult } from '../actions'
 import { Mail, Loader2, CheckCircle2 } from 'lucide-react'
 
-export function EntrarForm() {
+export function EntrarForm({ errorMessage }: { errorMessage?: string }) {
   const [state, action, pending] = useActionState<MagicLinkResult | null, FormData>(
     requestMagicLink,
     null
@@ -25,6 +25,12 @@ export function EntrarForm() {
 
   return (
     <form action={action} className="surface-card rounded-3xl p-8">
+      {errorMessage && (
+        <p className="mb-4 rounded-2xl bg-red-500/10 px-4 py-3 text-sm text-red-400">
+          {errorMessage}
+        </p>
+      )}
+
       <label htmlFor="email" className="mb-2 block text-sm font-semibold text-white/80">
         Tu email
       </label>

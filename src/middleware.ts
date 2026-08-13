@@ -24,7 +24,10 @@ export async function middleware(request: NextRequest) {
   // sitio con MIDDLEWARE_INVOCATION_FAILED (afectaría también a /admin).
   const url = supabaseUrl()
   const anon = supabaseAnonKey()
-  const esEntrar = pathname === '/comunidad/entrar'
+  // Rutas públicas de la comunidad: no requieren sesión (son las que sirven
+  // para conseguirla). /comunidad/confirmar es donde aterriza el magic link
+  // antes de que el usuario confirme, así que NO puede exigir sesión previa.
+  const esPublica = pathname === '/comunidad/entrar' || pathname === '/comunidad/confirmar'
 
   // Sin configuración de Supabase no podemos verificar la sesión: dejamos pasar
   // y que la propia página resuelva el acceso.
@@ -52,7 +55,7 @@ export async function middleware(request: NextRequest) {
       data: { user },
     } = await supabase.auth.getUser()
 
-    if (!user && !esEntrar) {
+    if (!user && !esPublica) {
       const loginUrl = new URL('/comunidad/entrar', request.url)
       loginUrl.searchParams.set('next', pathname)
       return NextResponse.redirect(loginUrl)

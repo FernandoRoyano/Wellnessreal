@@ -3,9 +3,10 @@
 import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
+import type { EmailOtpType } from '@supabase/supabase-js'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
-import { getSessionMember, updateMemberProfile } from '@/lib/db/comunidad'
+import { getSessionMember, updateMemberProfile, ensureMemberProfile } from '@/lib/db/comunidad'
 
 export interface MagicLinkResult {
   ok: boolean
@@ -14,8 +15,10 @@ export interface MagicLinkResult {
 
 /**
  * Envía un magic link al email para entrar en la comunidad.
- * El code verifier PKCE se guarda en cookies (cliente servidor) y se
- * consume en /auth/callback.
+ * El enlace apunta a /comunidad/confirmar (no a una API que canjea el
+ * código en el GET automático) para que un escáner de seguridad de email
+ * que previsita el enlace no consuma el código de un solo uso antes de
+ * que el usuario haga clic de verdad.
  */
 export async function requestMagicLink(
   _prev: MagicLinkResult | null,
@@ -45,19 +48,22 @@ export async function requestMagicLink(
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${origin}/auth/callback`,
+        emailRedirectTo: `${origin}/comunidad/confirmar`,
         shouldCreateUser: true,
       },
     })
 
     if (error) {
       console.error('[comunidad:magicLink]', error.message)
+      const cooldown = error.message.match(/after (\d+) seconds?/i)
       const esRate = /rate limit|too many|429/i.test(error.message)
       return {
         ok: false,
-        error: esRate
-          ? 'Demasiados envíos: has alcanzado el límite de emails de Supabase. Espera un rato o configura SMTP propio (Resend).'
-          : `No se pudo enviar el enlace: ${error.message}`,
+        error: cooldown
+          ? `Por seguridad, espera ${cooldown[1]} segundos antes de pedir otro enlace.`
+          : esRate
+            ? 'Demasiados envíos: has alcanzado el límite de emails de Supabase. Espera un rato o configura SMTP propio (Resend).'
+            : `No se pudo enviar el enlace: ${error.message}`,
       }
     }
 
@@ -66,6 +72,71 @@ export async function requestMagicLink(
     console.error('[comunidad:magicLink:throw]', err)
     return { ok: false, error: 'Error al enviar el enlace. Inténtalo en un momento.' }
   }
+}
+
+export interface ConfirmResult {
+  ok: boolean
+  error?: string
+}
+
+/**
+ * Canjea el code/token_hash del magic link por una sesión. Se dispara solo
+ * con un clic explícito del usuario en /comunidad/confirmar (ver comentario
+ * en requestMagicLink) — nunca en el GET que abre la página.
+ */
+export async function confirmMagicLink(
+  _prev: ConfirmResult | null,
+  formData: FormData
+): Promise<ConfirmResult> {
+  const code = String(formData.get('code') ?? '')
+  const tokenHash = String(formData.get('token_hash') ?? '')
+  const type = String(formData.get('type') ?? '') as EmailOtpType | ''
+  const next = String(formData.get('next') ?? '') || '/comunidad'
+
+  if (!code && !(tokenHash && type)) {
+    return { ok: false, error: 'Enlace inválido o incompleto. Pide uno nuevo.' }
+  }
+
+  const supabase = await createServerSupabase()
+
+  let userId: string | null = null
+  let authError: string | null = null
+
+  try {
+    if (code) {
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      userId = data?.user?.id ?? null
+      authError = error?.message ?? null
+      if (data?.user) {
+        await ensureMemberProfile(data.user).catch((err) =>
+          console.error('[comunidad:confirmMagicLink:ensureMemberProfile]', err)
+        )
+      }
+    } else {
+      const { data, error } = await supabase.auth.verifyOtp({ type: type as EmailOtpType, token_hash: tokenHash })
+      userId = data?.user?.id ?? null
+      authError = error?.message ?? null
+      if (data?.user) {
+        await ensureMemberProfile(data.user).catch((err) =>
+          console.error('[comunidad:confirmMagicLink:ensureMemberProfile]', err)
+        )
+      }
+    }
+  } catch (err) {
+    console.error('[comunidad:confirmMagicLink:throw]', err)
+    return { ok: false, error: 'No se pudo confirmar el acceso. Inténtalo de nuevo en un momento.' }
+  }
+
+  if (authError || !userId) {
+    console.error('[comunidad:confirmMagicLink]', authError)
+    return {
+      ok: false,
+      error: 'El enlace ha caducado o ya se ha usado. Pide uno nuevo desde "Enviar enlace de acceso".',
+    }
+  }
+
+  revalidatePath('/comunidad')
+  redirect(next)
 }
 
 /** Actualiza el perfil del miembro logueado. */

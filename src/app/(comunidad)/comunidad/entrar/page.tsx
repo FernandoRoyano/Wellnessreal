@@ -10,9 +10,22 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function EntrarPage() {
+const ERROR_MESSAGES: Record<string, string> = {
+  missing_code: 'El enlace no es válido o está incompleto. Pide uno nuevo.',
+  auth: 'El enlace ha caducado o ya se ha usado. Pide uno nuevo.',
+  callback: 'Algo falló al confirmar el acceso. Inténtalo de nuevo en un momento.',
+}
+
+export default async function EntrarPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>
+}) {
   const member = await getSessionMember()
   if (member) redirect('/comunidad')
+
+  const { error } = await searchParams
+  const errorMessage = error ? (ERROR_MESSAGES[error] ?? ERROR_MESSAGES.callback) : undefined
 
   const cfg = supabaseConfigStatus()
 
@@ -25,7 +38,7 @@ export default async function EntrarPage() {
         </p>
       </div>
       {cfg.ok ? (
-        <EntrarForm />
+        <EntrarForm errorMessage={errorMessage} />
       ) : (
         <div className="surface-card rounded-3xl p-8 text-center">
           <h2 className="headline mb-2 text-xl text-white">Configuración pendiente</h2>
