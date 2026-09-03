@@ -1,9 +1,9 @@
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: 'Guía gratis: entrenar y adelgazar con hipotiroidismo',
+  title: 'Entrenamiento y hábitos con hipotiroidismo | Test gratis',
   description:
-    'Descarga gratis la guía sin milagros para entender tu tiroides y tu peso. Qué funciona de verdad con hipotiroidismo y Hashimoto, sin dietas extremas.',
+    'Descubre qué priorizar en fuerza, hábitos y seguimiento si tienes hipotiroidismo o Hashimoto. Test orientativo gratuito, sin milagros ni promesas médicas.',
   path: '/tiroides',
   keywords: [
     'hipotiroidismo adelgazar',

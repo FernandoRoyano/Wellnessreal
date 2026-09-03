@@ -21,6 +21,20 @@ export function trackSignUp(method: string): void {
   fireEvent('sign_up', { method })
 }
 
+export type ThyroidFunnelEvent =
+  | 'thyroid_test_start'
+  | 'thyroid_test_question'
+  | 'thyroid_test_complete'
+  | 'thyroid_result_view'
+  | 'thyroid_result_cta_click'
+
+export function trackThyroidFunnel(
+  event: ThyroidFunnelEvent,
+  params?: Record<string, string | number | boolean>,
+): void {
+  fireEvent(event, params)
+}
+
 /** Contact form submitted */
 export function trackContact(): void {
   fireEvent('contact')
