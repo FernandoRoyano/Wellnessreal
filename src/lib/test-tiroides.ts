@@ -265,7 +265,7 @@ export function buildTestResult(answers: TestAnswers): TestResult {
     profile, intent, requiresMedicalReview, ...copy, priorities,
     nextStep: wantsGuidance ? 'Por tu objetivo, tiene sentido valorar un plan adaptado y comprobar si WellnessReal encaja contigo.' : 'Empieza aplicando estas prioridades y utiliza la comunidad para resolver dudas y ganar consistencia.',
     cta: wantsGuidance
-      ? { label: 'Solicitar una valoración', href: `/valoracion?source=test-tiroides&profile=${profile}&intent=${intent}`, description: 'Sin compromiso: revisamos tu situación y te decimos con honestidad si podemos ayudarte.' }
+      ? { label: 'Ver el Método BASE Tiroides', href: `/metodo-tiroides?source=test-tiroides&profile=${profile}&intent=${intent}#solicitud`, description: 'Programa acompañado de 12 semanas. Primero revisamos tu solicitud; no pagarás nada ahora.' }
       : { label: 'Entrar en la comunidad gratis', href: '/comunidad/entrar', description: 'Contenido y apoyo para poner en práctica tu siguiente paso.' },
   }
 }

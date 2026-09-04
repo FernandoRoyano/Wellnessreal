@@ -148,6 +148,23 @@ export async function POST(request: NextRequest) {
             }
           }
         }
+
+        if (session.metadata?.kind === 'metodo_tiroides') {
+          const applicationId = session.metadata.asesoria_id
+          if (applicationId) {
+            await supabase
+              .from('asesoria_solicitudes')
+              .update({ estado: 'pagada' })
+              .eq('id', applicationId)
+          }
+          await recordThyroidRevenue({
+            email: session.customer_details?.email ?? session.customer_email,
+            eventName: 'thyroid_sale',
+            value: (session.amount_total ?? 0) / 100,
+            externalId: `stripe:${event.id}`,
+            metadata: { product: 'metodo_tiroides', payment_type: 'one_time' },
+          })
+        }
         break
       }
 

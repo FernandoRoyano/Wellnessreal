@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import { getSessionMember, yaSolicitoAsesoria } from '@/lib/db/comunidad'
 import { SolicitudForm } from './SolicitudForm'
 import { Check, X, Users, Video, ClipboardCheck, MessageCircle } from 'lucide-react'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Grupo Tiroides · Comunidad WellnessReal',
@@ -48,6 +49,9 @@ export default async function AsesoriaPage() {
         12 semanas trabajando conmigo y con un grupo pequeño de mujeres que están exactamente
         donde tú.
       </p>
+      <Link href="/metodo-tiroides" className="mt-4 inline-flex text-sm font-semibold text-[var(--color-accent)] hover:underline">
+        Ver la página completa del Método BASE Tiroides →
+      </Link>
 
       {/* El problema que resuelve */}
       <div className="surface-card mt-8 rounded-2xl p-6">

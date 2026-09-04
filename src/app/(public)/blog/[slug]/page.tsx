@@ -207,19 +207,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {isThyroid ? (
               <>
                 <h2 className="headline text-fluid-4xl text-white">
-                  No hagas esto <span className="text-gradient-brand">sola.</span>
+                  Convierte lo aprendido <span className="text-gradient-brand">en un plan.</span>
                 </h2>
                 <p className="text-fluid-lg text-muted leading-relaxed">
-                  Tienes una comunidad gratuita de mujeres con tiroides: contenido paso a paso, un foro
-                  para preguntar sin miedo y gente que entiende por lo que pasas.
+                  Método BASE Tiroides son 12 semanas para organizar fuerza, alimentación y descanso
+                  con seguimiento profesional y ajustes alrededor de tu vida real.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                  <Link href="/comunidad/entrar" className="btn-brand text-fluid-base px-8">
-                    Entrar en la comunidad gratis
+                  <Link href="/metodo-tiroides" className="btn-brand text-fluid-base px-8">
+                    Ver Método BASE Tiroides
                     <ArrowRight className="w-4 h-4" />
                   </Link>
-                  <Link href="/blog" className="btn-ghost text-fluid-base px-8">
-                    Ver más artículos
+                  <Link href="/comunidad/entrar" className="btn-ghost text-fluid-base px-8">
+                    Prefiero empezar gratis
                   </Link>
                 </div>
               </>

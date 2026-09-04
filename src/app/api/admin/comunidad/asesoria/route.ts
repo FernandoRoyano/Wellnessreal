@@ -8,7 +8,7 @@ import {
 
 export const dynamic = 'force-dynamic'
 
-const VALID = ['nueva', 'contactada', 'aceptada', 'descartada'] as const
+const VALID = ['nueva', 'contactada', 'aceptada', 'pagada', 'descartada'] as const
 
 export async function GET() {
   if (!(await isAdminAuthenticated())) {

@@ -147,6 +147,9 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
             if (result.cta.href.startsWith('/valoracion')) {
               trackThyroidFunnel('thyroid_valuation_click', { profile: result.profile, intent: result.intent })
             }
+            if (result.cta.href.startsWith('/metodo-tiroides')) {
+              trackThyroidFunnel('thyroid_valuation_click', { profile: result.profile, intent: result.intent, product: 'metodo_tiroides' })
+            }
           }}
           className="btn-brand w-full mt-5 text-fluid-base py-4"
         >

@@ -56,16 +56,16 @@ function GuideCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
   )
 }
 
-/** Segundo CTA (~70%): dar el siguiente paso (comunidad para tiroides, valoración si no). */
+/** Segundo CTA (~70%): presentar la oferta cuando ya existe suficiente contexto. */
 function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
   const cfg = isThyroid
     ? {
-        eyebrow: 'No estás sola',
-        title: 'Hay una comunidad de mujeres como tú',
-        desc: 'Gratis: contenido paso a paso y un foro para preguntar sin miedo.',
-        href: '/comunidad/entrar',
-        cta: 'Entrar gratis',
-        track: 'blog_inline_tiroides_comunidad',
+        eyebrow: 'Programa acompañado',
+        title: '¿Quieres convertirlo en un plan para tu semana?',
+        desc: 'Conoce Método BASE Tiroides: 12 semanas de fuerza, organización y seguimiento.',
+        href: '/metodo-tiroides',
+        cta: 'Ver el programa',
+        track: 'blog_inline_metodo_tiroides',
       }
     : {
         eyebrow: 'Plan personalizado',

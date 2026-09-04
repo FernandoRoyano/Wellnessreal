@@ -319,7 +319,7 @@ export interface AsesoriaSolicitud {
   dias_semana: string | null
   lesiones: string | null
   disponibilidad_directo: string | null
-  estado: 'nueva' | 'contactada' | 'aceptada' | 'descartada'
+  estado: 'nueva' | 'contactada' | 'aceptada' | 'pagada' | 'descartada'
   notas: string | null
 }
 

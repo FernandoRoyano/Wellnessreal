@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { ArrowLeft, Users, Check, X, Phone, Mail, Trash2 } from 'lucide-react'
+import { ArrowLeft, Users, Check, X, Phone, Mail, Trash2, CreditCard, Copy } from 'lucide-react'
 import type { AsesoriaSolicitud } from '@/lib/db/comunidad'
 
 // Primer contacto ya redactado: abrir conversación y proponer hablar.
@@ -34,6 +34,7 @@ const estadoStyle: Record<string, { label: string; color: string; bg: string }> 
   nueva: { label: 'Nueva', color: '#FCEE21', bg: 'rgba(252,238,33,0.15)' },
   contactada: { label: 'Contactada', color: '#60a5fa', bg: 'rgba(96,165,250,0.15)' },
   aceptada: { label: 'Aceptada', color: '#4ade80', bg: 'rgba(74,222,128,0.15)' },
+  pagada: { label: 'Pagada', color: '#22d3ee', bg: 'rgba(34,211,238,0.15)' },
   descartada: { label: 'Descartada', color: '#9ca3af', bg: 'rgba(156,163,175,0.15)' },
 }
 
@@ -42,6 +43,7 @@ export default function AdminAsesoriaPage() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [paymentLinks, setPaymentLinks] = useState<Record<string, string>>({})
 
   const load = useCallback(() => {
     setError(null)
@@ -83,8 +85,27 @@ export default function AdminAsesoriaPage() {
     }
   }
 
+  const crearCobro = async (id: string) => {
+    setSaving(id)
+    try {
+      const response = await fetch('/api/admin/comunidad/asesoria/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      const data = (await response.json()) as { url?: string; error?: string }
+      if (!response.ok || !data.url) throw new Error(data.error || 'No se pudo crear el cobro')
+      setPaymentLinks((current) => ({ ...current, [id]: data.url! }))
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : 'No se pudo crear el cobro')
+    } finally {
+      setSaving(null)
+    }
+  }
+
   const nuevas = items.filter((i) => i.estado === 'nueva').length
   const aceptadas = items.filter((i) => i.estado === 'aceptada').length
+  const pagadas = items.filter((i) => i.estado === 'pagada').length
 
   return (
     <div className="flex min-h-screen">
@@ -104,7 +125,7 @@ export default function AdminAsesoriaPage() {
             </h1>
             <p className="mt-1 text-sm text-gray-400">
               {items.length} solicitudes · {nuevas} sin contactar ·{' '}
-              <span style={{ color: '#4ade80' }}>{aceptadas} aceptadas</span> (plazas: 8-12)
+              <span style={{ color: '#4ade80' }}>{aceptadas} aceptadas · {pagadas} pagadas</span> (plazas: 8-12)
             </p>
           </div>
           <Users size={28} className="text-gray-600" />
@@ -216,7 +237,7 @@ export default function AdminAsesoriaPage() {
                         Marcar contactada
                       </button>
                     )}
-                    {s.estado !== 'aceptada' && (
+                    {!['aceptada', 'pagada'].includes(s.estado) && (
                       <button
                         onClick={() => cambiar(s.id, 'aceptada')}
                         disabled={saving === s.id}
@@ -224,6 +245,23 @@ export default function AdminAsesoriaPage() {
                         style={{ backgroundColor: '#4ade80', color: '#16122B' }}
                       >
                         <Check size={13} /> Aceptar en el grupo
+                      </button>
+                    )}
+                    {['aceptada', 'pagada'].includes(s.estado) && !paymentLinks[s.id] && (
+                      <button
+                        onClick={() => crearCobro(s.id)}
+                        disabled={saving === s.id || s.estado === 'pagada'}
+                        className="inline-flex items-center gap-1 rounded bg-cyan-300 px-3 py-1.5 text-xs font-bold text-[#16122B] disabled:opacity-50"
+                      >
+                        <CreditCard size={13} /> {s.estado === 'pagada' ? 'Pago recibido' : 'Crear enlace de 249 €'}
+                      </button>
+                    )}
+                    {paymentLinks[s.id] && (
+                      <button
+                        onClick={() => void navigator.clipboard.writeText(paymentLinks[s.id])}
+                        className="inline-flex items-center gap-1 rounded border border-cyan-300/50 px-3 py-1.5 text-xs font-bold text-cyan-300"
+                      >
+                        <Copy size={13} /> Copiar enlace de pago
                       </button>
                     )}
                     {s.estado !== 'descartada' && (
