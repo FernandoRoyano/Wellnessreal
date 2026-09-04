@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import {
-  Link2, Copy, Check, ExternalLink, Sparkles, ClipboardList, Users,
+  Link2, Copy, Check, ExternalLink, Sparkles, ClipboardList, Users, ImageIcon,
   Gift, MessageCircle, FileText, Home, Heart, Star, BookOpen, Dumbbell, Shield,
 } from 'lucide-react'
 
@@ -21,6 +21,7 @@ const GRUPOS: Grupo[] = [
       { title: 'Página Tiroides', description: 'Página nicho principal. Educa, presenta el enfoque y conduce al test de tiroides.', path: '/tiroides', highlight: true, rol: 'Paso 1 · Entrada' },
       { title: 'Artículo principal', description: 'Entrada SEO para quien no consigue adelgazar con hipotiroidismo.', path: '/blog/por-que-no-adelgazo-con-hipotiroidismo', rol: 'Paso 1 · SEO' },
       { title: 'Método BASE Tiroides', description: 'Página de venta del programa de 12 semanas y formulario para solicitar plaza.', path: '/metodo-tiroides', highlight: true, rol: 'Paso 2 · Venta' },
+      { title: 'Infografía del recorrido', description: 'Mapa visual del proceso completo, desde el descubrimiento hasta el inicio del programa.', path: '/images/recorrido-cliente-metodo-tiroides.png', highlight: true, rol: 'Guía visual' },
       { title: 'Comunidad Tiroides', description: 'Alternativa gratuita para contactos que aún no están preparados para solicitar plaza.', path: '/comunidad', rol: 'Nutrición' },
       { title: 'Pago confirmado', description: 'Confirmación que ve el cliente después de pagar en Stripe. No se envía manualmente.', path: '/metodo-tiroides/pago-confirmado', rol: 'Postpago' },
     ],
@@ -72,6 +73,7 @@ const GRUPOS: Grupo[] = [
 
 const ICONO_PAGINA: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
   '/tiroides': Heart, '/metodo-tiroides': Sparkles, '/metodo-tiroides/pago-confirmado': Check,
+  '/images/recorrido-cliente-metodo-tiroides.png': ImageIcon,
   '/blog/por-que-no-adelgazo-con-hipotiroidismo': BookOpen, '/comunidad': Users,
   '/valoracion': ClipboardList, '/recurso-gratis': Gift, '/contacto': MessageCircle,
   '/tarifas': FileText, '/servicios': Dumbbell, '/': Home, '/filosofia': Heart, '/caso-real': Star, '/blog': BookOpen,
