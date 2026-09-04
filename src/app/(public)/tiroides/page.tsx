@@ -1,12 +1,13 @@
 'use client'
 
 import Container from '@/components/common/Container'
+import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { CheckCircle, X, ArrowRight, Sparkles } from 'lucide-react'
+import { CheckCircle, X, ArrowRight, Sparkles, ShieldCheck, Clock3, BadgeCheck } from 'lucide-react'
 import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
 import TestTiroides from '@/components/tiroides/TestTiroides'
 
@@ -18,10 +19,9 @@ const newsletterSchema = z.object({
 type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 const WHATS_INSIDE = [
-  'Qué estás haciendo ya bien y dónde tienes margen de mejora.',
-  'Qué conviene priorizar entre fuerza, alimentación, descanso y seguimiento.',
-  'Qué mitos sobre hipotiroidismo y Hashimoto puedes dejar de perseguir.',
-  'Un siguiente paso realista según tus respuestas y tu objetivo.',
+  'Tu prioridad real entre fuerza, alimentación, descanso y seguimiento.',
+  'Los frenos que pueden estar dispersando tu esfuerzo.',
+  'Un siguiente paso concreto según tu situación y objetivo.',
 ] as const
 
 const IS_FOR = [
@@ -99,11 +99,12 @@ export default function TiroidesPage() {
   return (
     <>
       {/* ═══════════════ HERO + TEST ═══════════════ */}
-      <section className="relative py-fluid-xl overflow-hidden bg-brand-deep">
+      <section className="relative overflow-hidden bg-brand-deep py-[clamp(3.5rem,7vw,6.5rem)]">
         <div className="absolute inset-0 bg-radial-accent opacity-60" />
         <div className="absolute inset-0 bg-grid-soft opacity-40" />
+        <div className="absolute -right-24 top-16 h-96 w-96 rounded-full bg-accent/10 blur-[100px]" />
         <Container>
-          <div className="relative grid md:grid-cols-2 gap-fluid-md items-center">
+          <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.06fr_0.94fr]">
             {/* Copy */}
             <div className="space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
@@ -119,7 +120,7 @@ export default function TiroidesPage() {
                 <span className="text-gradient-brand">Necesitas saber qué priorizar.</span>
               </h1>
 
-              <p className="text-fluid-lg text-muted leading-relaxed">
+              <p className="max-w-2xl text-fluid-lg text-muted leading-relaxed">
                 Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más confusión.{' '}
                 <span className="text-white font-semibold">Haz el test</span> y descubre qué merece la pena priorizar
                 ahora en tu fuerza, hábitos y seguimiento.
@@ -135,10 +136,26 @@ export default function TiroidesPage() {
                   </li>
                 ))}
               </ul>
+
+              <div className="flex items-center gap-3 border-t border-white/10 pt-5">
+                <Image
+                  src="/images/fernando-royano-about.jpg"
+                  alt="Fernando Royano, entrenador de WellnessReal"
+                  width={56}
+                  height={56}
+                  className="h-14 w-14 rounded-full border-2 border-accent/50 object-cover object-top"
+                />
+                <div>
+                  <p className="text-fluid-sm font-semibold text-white">Diseñado por Fernando Royano</p>
+                  <p className="text-fluid-xs text-subtle">Graduado en CAFYD · 14 años de experiencia · +100 clientes</p>
+                </div>
+              </div>
             </div>
 
             {/* Test (o formulario de la guía como fallback) */}
-            <div id="test">
+            <div id="test" className="relative scroll-mt-28">
+              <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/20 via-transparent to-brand-purple/20 blur-xl" />
+              <div className="relative">
               {showGuideForm ? (
                 <div className="surface-card-accent rounded-2xl p-fluid-md">
                   <button
@@ -193,7 +210,24 @@ export default function TiroidesPage() {
               ) : (
                 <TestTiroides onWantGuide={() => setShowGuideForm(true)} />
               )}
+              </div>
             </div>
+          </div>
+
+          <div className="relative mt-fluid-md grid grid-cols-1 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.035] px-5 py-4 backdrop-blur-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+            {[
+              { icon: Clock3, label: '1 minuto', detail: 'Recorrido breve y adaptativo' },
+              { icon: BadgeCheck, label: 'Resultado personal', detail: 'Prioridades según tus respuestas' },
+              { icon: ShieldCheck, label: 'Criterio profesional', detail: 'Sin milagros ni promesas médicas' },
+            ].map(({ icon: Icon, label, detail }) => (
+              <div key={label} className="flex items-center gap-3 px-3 py-3 sm:py-0 sm:not-first:pl-6">
+                <Icon className="h-5 w-5 shrink-0 text-accent" />
+                <div>
+                  <p className="text-fluid-sm font-semibold text-white">{label}</p>
+                  <p className="text-fluid-xs text-subtle">{detail}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </Container>
       </section>
@@ -212,9 +246,11 @@ export default function TiroidesPage() {
                 para construir un proceso realista.
               </p>
             </div>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] sm:grid-cols-2 lg:grid-cols-4">
               {PRIORIDADES.map((p, i) => (
-                <div key={i} className="surface-card rounded-2xl p-6 border-t-2 border-t-accent/40">
+                <div key={i} className="relative min-h-52 border-b border-white/10 p-6 last:border-b-0 sm:odd:border-r lg:border-b-0 lg:not-last:border-r">
+                  <span className="absolute right-5 top-3 headline text-5xl text-white/[0.035]">0{i + 1}</span>
+                  <p className="mb-8 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">Prioridad 0{i + 1}</p>
                   <p className="headline text-fluid-xl text-accent">{p.t}</p>
                   <p className="text-fluid-sm text-white/85 leading-relaxed mt-2">{p.d}</p>
                 </div>
@@ -237,35 +273,21 @@ export default function TiroidesPage() {
                 de nuestro ámbito profesional.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <article className="surface-card rounded-2xl p-8 border-l-4 border-l-danger">
-                <h3 className="text-fluid-lg font-semibold text-white mb-6 flex items-center gap-2">
-                  <X className="w-5 h-5 text-danger" />
-                  Lo que te han dicho
-                </h3>
-                <ul className="space-y-4">
-                  {CONSEJO_VS.map((c, i) => (
-                    <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/75 leading-relaxed">
-                      <X className="w-4 h-4 text-danger mt-0.5 shrink-0" />
-                      {c.mal}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-              <article className="surface-card rounded-2xl p-8 border-l-4 border-l-success">
-                <h3 className="text-fluid-lg font-semibold text-white mb-6 flex items-center gap-2">
-                  <CheckCircle className="w-5 h-5 text-success" />
-                  Un enfoque más útil
-                </h3>
-                <ul className="space-y-4">
-                  {CONSEJO_VS.map((c, i) => (
-                    <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/90 leading-relaxed">
-                      <CheckCircle className="w-4 h-4 text-success mt-0.5 shrink-0" />
-                      {c.bien}
-                    </li>
-                  ))}
-                </ul>
-              </article>
+            <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025]">
+              <div className="hidden grid-cols-2 border-b border-white/10 bg-white/[0.025] px-6 py-4 md:grid">
+                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-danger">Ruido que te frena</p>
+                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-success">Una dirección más útil</p>
+              </div>
+              {CONSEJO_VS.map((c, i) => (
+                <div key={i} className="grid gap-4 border-b border-white/10 p-6 last:border-b-0 md:grid-cols-2 md:gap-8">
+                  <div className="flex items-start gap-3 text-fluid-sm leading-relaxed text-white/65">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-danger" />{c.mal}
+                  </div>
+                  <div className="flex items-start gap-3 text-fluid-sm leading-relaxed text-white/90">
+                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success" />{c.bien}
+                  </div>
+                </div>
+              ))}
             </div>
 
             {/* Mantra */}

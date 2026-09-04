@@ -23,6 +23,9 @@ const inputClass =
   'w-full px-4 py-3.5 rounded-xl bg-brand-night text-white border border-border-subtle text-fluid-base ' +
   'placeholder:text-dim focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all'
 
+const cardClass =
+  'relative overflow-hidden rounded-[1.75rem] border border-accent/25 bg-brand-dusk/95 p-fluid-md shadow-[0_24px_80px_rgba(5,4,20,0.45)]'
+
 export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void }) {
   const [phase, setPhase] = useState<Phase>('intro')
   const [currentId, setCurrentId] = useState<QuestionId>('situacion')
@@ -117,7 +120,8 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
   if (phase === 'result' && result) {
     return (
-      <div className="surface-card-accent rounded-2xl p-fluid-md animate-[fadeUp_500ms_ease-out_both]">
+      <div className={`${cardClass} animate-[fadeUp_500ms_ease-out_both]`}>
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
         <p className="text-fluid-xs font-semibold uppercase tracking-widest text-subtle">Tu resultado personalizado</p>
         <h2 className="headline text-fluid-2xl text-white mt-1">{result.emoji} {result.title}</h2>
         <p className="text-fluid-base text-muted leading-relaxed mt-4">{result.summary}</p>
@@ -159,7 +163,8 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
   if (phase === 'email') {
     const preview = buildTestResult(answers)
     return (
-      <div className="surface-card-accent rounded-2xl p-fluid-md">
+      <div className={cardClass}>
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
         <button type="button" onClick={back} className="inline-flex items-center gap-1.5 text-fluid-xs text-subtle hover:text-white mb-4">
           <ArrowLeft className="w-3.5 h-3.5" /> Atrás
         </button>
@@ -170,8 +175,14 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
         </p>
         <form onSubmit={submit} className="space-y-3">
           {error && <div className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">⚠ {error}</div>}
-          <input value={name} onChange={(event) => setName(event.target.value)} placeholder="Tu nombre (opcional)" className={inputClass} />
-          <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" required placeholder="tu@email.com" className={inputClass} />
+          <label className="block">
+            <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Nombre <span className="text-subtle">(opcional)</span></span>
+            <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder="Tu nombre" className={inputClass} />
+          </label>
+          <label className="block">
+            <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Email</span>
+            <input value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" type="email" required placeholder="tu@email.com" className={inputClass} />
+          </label>
           <button type="submit" disabled={sending} className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60">
             {sending ? <><Loader2 className="w-5 h-5 animate-spin" /> Guardando…</> : <>Ver mis prioridades <ArrowRight className="w-4 h-4" /></>}
           </button>
@@ -185,11 +196,18 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
   if (phase === 'intro') {
     return (
-      <div className="surface-card-accent rounded-2xl p-fluid-md text-center">
+      <div className={`${cardClass} text-center`}>
+        <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
+        <p className="mb-4 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">Evaluación inicial</p>
         <h2 className="headline text-fluid-2xl text-white">¿Qué necesitas <span className="text-gradient-brand">priorizar</span> ahora?</h2>
-        <p className="text-fluid-sm text-muted mt-3 mb-6 max-w-sm mx-auto">
+        <p className="text-fluid-sm text-muted mt-3 mb-6 max-w-sm mx-auto leading-relaxed">
           Tus respuestas cambiarán el recorrido. En aproximadamente un minuto tendrás prioridades adaptadas a tu objetivo.
         </p>
+        <div className="mb-5 grid grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-white/[0.025] py-3">
+          <div><strong className="block text-fluid-base text-white">8</strong><span className="text-[0.68rem] text-subtle">preguntas</span></div>
+          <div><strong className="block text-fluid-base text-white">1 min</strong><span className="text-[0.68rem] text-subtle">duración</span></div>
+          <div><strong className="block text-fluid-base text-white">Gratis</strong><span className="text-[0.68rem] text-subtle">resultado</span></div>
+        </div>
         <button type="button" onClick={start} className="btn-brand w-full text-fluid-base py-4">
           Empezar mi test <ArrowRight className="w-4 h-4" />
         </button>
@@ -203,7 +221,8 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
   }
 
   return (
-    <div className="surface-card-accent rounded-2xl p-fluid-md">
+    <div className={cardClass}>
+      <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
       <div className="flex items-center gap-3 mb-5">
         <button type="button" onClick={back} disabled={history.length === 0} className="text-subtle hover:text-white disabled:opacity-30 transition" aria-label="Volver a la pregunta anterior">
           <ArrowLeft className="w-4 h-4" />
@@ -211,21 +230,24 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
         <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
           <div className="h-full rounded-full bg-accent transition-all duration-300" style={{ width: `${(step / total) * 100}%` }} />
         </div>
-        <span className="text-fluid-xs text-subtle tabular-nums shrink-0">{step}/{total}</span>
+        <span className="text-fluid-xs text-subtle tabular-nums shrink-0">Pregunta {step} de {total}</span>
       </div>
 
       {step > 2 && <p className="text-fluid-xs font-semibold uppercase tracking-wider text-accent mb-2">Recorrido adaptado a ti</p>}
       <h2 className="headline text-fluid-xl text-white leading-tight">{question.question}</h2>
       {question.hint && <p className="text-fluid-xs text-subtle mt-2">{question.hint}</p>}
       <div className="mt-5 space-y-2.5">
-        {question.options.map((option) => (
+        {question.options.map((option, index) => (
           <button
             key={option.value}
             type="button"
             onClick={() => pick(option.value)}
-            className={`w-full text-left px-4 py-3.5 rounded-xl border text-fluid-sm transition-all ${answers[currentId] === option.value ? 'border-accent bg-accent-muted text-white' : 'border-border-subtle bg-brand-night text-white/85 hover:border-accent/50 hover:bg-white/5'}`}
+            className={`group flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-fluid-sm transition-all hover:translate-x-1 ${answers[currentId] === option.value ? 'border-accent bg-accent-muted text-white' : 'border-border-subtle bg-brand-night text-white/85 hover:border-accent/50 hover:bg-white/5'}`}
           >
-            {option.label}
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-fluid-xs font-semibold text-subtle group-hover:border-accent/40 group-hover:text-accent">
+              {String.fromCharCode(65 + index)}
+            </span>
+            <span>{option.label}</span>
           </button>
         ))}
       </div>
