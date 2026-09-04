@@ -10,8 +10,8 @@ import { trackSignUp } from '@/lib/analytics'
 const NAV_LINKS = [
   { href: '/filosofia', label: 'Filosofía' },
   { href: '/servicios', label: 'Servicios' },
-  { href: '/tarifas',   label: 'Tarifas' },
-  { href: '/blog',      label: 'Blog' },
+  { href: '/tarifas', label: 'Tarifas' },
+  { href: '/blog', label: 'Blog' },
   { href: '/caso-real', label: 'Caso real' },
 ] as const
 
@@ -34,14 +34,18 @@ const LinkedinIcon = () => (
 )
 
 const SOCIALS = [
-  { href: 'https://www.instagram.com/wellnessrealoficial', label: 'Instagram', Icon: InstagramIcon },
-  { href: 'https://www.youtube.com/@wellnessreal',         label: 'YouTube',   Icon: YoutubeIcon },
-  { href: 'https://www.linkedin.com/in/fernando-royano/',  label: 'LinkedIn',  Icon: LinkedinIcon },
+  {
+    href: 'https://www.instagram.com/wellnessrealoficial',
+    label: 'Instagram',
+    Icon: InstagramIcon,
+  },
+  { href: 'https://www.youtube.com/@wellnessreal', label: 'YouTube', Icon: YoutubeIcon },
+  { href: 'https://www.linkedin.com/in/fernando-royano/', label: 'LinkedIn', Icon: LinkedinIcon },
 ] as const
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
-  const [email, setEmail]   = useState('')
+  const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
@@ -79,10 +83,12 @@ export default function Footer() {
           <div className="max-w-2xl mx-auto text-center space-y-4">
             <span className="eyebrow justify-center">Newsletter</span>
             <h3 className="headline text-fluid-3xl text-white">
-              Lo que aplico con mis clientes, <span className="text-gradient-brand">cada semana en tu email.</span>
+              Lo que aplico con mis clientes,{' '}
+              <span className="text-gradient-brand">cada semana en tu email.</span>
             </h3>
             <p className="text-fluid-base text-muted max-w-xl mx-auto leading-relaxed">
-              Estrategias reales de entrenamiento y nutrición, escritas por alguien que ha acompañado a clientes a perder 35 kg en 9 meses o ganar 8 kg de músculo a los 50.
+              Estrategias reales de entrenamiento y nutrición, escritas por alguien que ha
+              acompañado a clientes a perder 35 kg en 9 meses o ganar 8 kg de músculo a los 50.
             </p>
 
             <form
@@ -90,6 +96,7 @@ export default function Footer() {
               className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2"
             >
               <input
+                aria-label="Email para la newsletter"
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -106,9 +113,19 @@ export default function Footer() {
                 disabled={status === 'loading' || status === 'success'}
                 className="btn-brand px-6 py-3 shrink-0 disabled:opacity-70"
               >
-                {status === 'loading'  && 'Enviando…'}
-                {status === 'success'  && <> <Check className="w-4 h-4" /> Suscrito </>}
-                {(status === 'idle' || status === 'error') && <> Suscribirme <Send className="w-4 h-4" /> </>}
+                {status === 'loading' && 'Enviando…'}
+                {status === 'success' && (
+                  <>
+                    {' '}
+                    <Check className="w-4 h-4" /> Suscrito{' '}
+                  </>
+                )}
+                {(status === 'idle' || status === 'error') && (
+                  <>
+                    {' '}
+                    Suscribirme <Send className="w-4 h-4" />{' '}
+                  </>
+                )}
               </button>
             </form>
 
@@ -145,7 +162,8 @@ export default function Footer() {
               />
             </Link>
             <p className="text-fluid-base text-muted max-w-md leading-relaxed">
-              Entrenamiento y nutrición para gente con vida real. Sin extremos, sin perfección. Solo lo que funciona.
+              Entrenamiento y nutrición para gente con vida real. Sin extremos, sin perfección. Solo
+              lo que funciona.
             </p>
             <Link
               href="/recurso-gratis"
@@ -209,7 +227,10 @@ export default function Footer() {
                 <span className="shrink-0 w-8 h-8 rounded-lg bg-accent-muted border border-border-subtle flex items-center justify-center">
                   <Mail className="w-4 h-4 text-accent" />
                 </span>
-                <a href="mailto:info@wellnessreal.es" className="hover:text-accent transition-colors">
+                <a
+                  href="mailto:info@wellnessreal.es"
+                  className="hover:text-accent transition-colors"
+                >
                   info@wellnessreal.es
                 </a>
               </li>

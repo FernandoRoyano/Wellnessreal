@@ -5,10 +5,9 @@ import { usePathname } from 'next/navigation'
 import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
 
-const HIDDEN_PATHS = ['/admin', '/studio', '/cliente']
+const HIDDEN_PATHS = ['/admin', '/studio', '/cliente', '/valoracion', '/recurso-gratis', '/gracias']
 const SESSION_KEY = 'wr_popup_shown'
 const LOCAL_KEY = 'wr_lead_submitted'
-const SCROLL_THRESHOLD = 0.55
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -20,27 +19,24 @@ const FIELD_CLASS =
 export default function LeadMagnetPopup() {
   const pathname = usePathname()
   const [visible, setVisible] = useState(false)
-  const [name, setName]       = useState('')
-  const [email, setEmail]     = useState('')
-  const [status, setStatus]   = useState<Status>('idle')
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState<Status>('idle')
 
   useEffect(() => {
     if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return
-    if (localStorage.getItem(LOCAL_KEY))   return
+    if (localStorage.getItem(LOCAL_KEY)) return
     if (sessionStorage.getItem(SESSION_KEY)) return
 
-    const handleScroll = () => {
-      const scrolled = window.scrollY + window.innerHeight
-      const total    = document.documentElement.scrollHeight
-      if (scrolled / total >= SCROLL_THRESHOLD) {
+    const handleExitIntent = (event: MouseEvent) => {
+      if (event.clientY <= 8 && window.matchMedia('(pointer: fine)').matches) {
         setVisible(true)
         sessionStorage.setItem(SESSION_KEY, '1')
-        window.removeEventListener('scroll', handleScroll)
+        document.removeEventListener('mouseout', handleExitIntent)
       }
     }
 
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    document.addEventListener('mouseout', handleExitIntent)
+    return () => document.removeEventListener('mouseout', handleExitIntent)
   }, [pathname])
 
   useEffect(() => {
@@ -60,7 +56,7 @@ export default function LeadMagnetPopup() {
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, name, _source: 'popup', _attribution: getAttributionForSubmit() }),
+        body: JSON.stringify({ email, _source: 'popup', _attribution: getAttributionForSubmit() }),
       })
       if (!res.ok) throw new Error()
       localStorage.setItem(LOCAL_KEY, '1')
@@ -102,9 +98,7 @@ export default function LeadMagnetPopup() {
           <div className="text-center py-4 space-y-3">
             <CheckCircle className="w-10 h-10 text-success mx-auto" />
             <p className="text-fluid-xl font-bold text-white">¡Perfecto!</p>
-            <p className="text-fluid-sm text-muted">
-              Revisa tu email — la guía está en camino.
-            </p>
+            <p className="text-fluid-sm text-muted">Revisa tu email — la guía está en camino.</p>
           </div>
         ) : (
           <>
@@ -119,15 +113,11 @@ export default function LeadMagnetPopup() {
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3">
+              <label htmlFor="leadmagnet-email" className="sr-only">
+                Tu email
+              </label>
               <input
-                type="text"
-                placeholder="Tu nombre"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-                className={FIELD_CLASS}
-              />
-              <input
+                id="leadmagnet-email"
                 type="email"
                 placeholder="tu@email.com"
                 value={email}
@@ -145,7 +135,13 @@ export default function LeadMagnetPopup() {
                 disabled={status === 'loading'}
                 className="btn-brand w-full text-fluid-base py-3 disabled:opacity-60"
               >
-                {status === 'loading' ? 'Enviando…' : (<>Quiero la guía gratis <ArrowRight className="w-4 h-4" /></>)}
+                {status === 'loading' ? (
+                  'Enviando…'
+                ) : (
+                  <>
+                    Quiero la guía gratis <ArrowRight className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
 

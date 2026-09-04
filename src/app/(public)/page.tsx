@@ -1,9 +1,24 @@
 import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import { Smartphone, Target, BarChart3, Flame, Clock, TrendingUp, Check, ArrowRight, Sparkles } from 'lucide-react'
+import {
+  Smartphone,
+  Target,
+  BarChart3,
+  Check,
+  ArrowRight,
+  Sparkles,
+  GraduationCap,
+  MessageCircle,
+  UserRound,
+} from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
-import JsonLd, { localBusinessSchema, webSiteSchema, reviewSchema, personSchema } from '@/components/seo/JsonLd'
+import JsonLd, {
+  localBusinessSchema,
+  webSiteSchema,
+  reviewSchema,
+  personSchema,
+} from '@/components/seo/JsonLd'
 import HeroAnimation from '@/components/animations/HeroAnimation'
 import ParallaxImage from '@/components/animations/ParallaxImage'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -27,19 +42,50 @@ export const metadata = buildMetadata({
 })
 
 const BENEFITS = [
-  { icon: Smartphone, title: 'App profesional exclusiva', desc: 'Tu plan en una app móvil intuitiva. Vídeos, tracking automático y soporte directo desde el móvil.' },
-  { icon: Target,     title: '100% personalizado',        desc: 'Adaptado a TU espacio, TU material, TU nivel y TUS objetivos. Nada de rutinas genéricas.' },
-  { icon: BarChart3,  title: 'Seguimiento cada semana',   desc: 'Análisis de tu progreso, ajustes constantes y feedback profesional. No estás solo.' },
-  { icon: Flame,      title: 'Resultados comprobados',    desc: 'Método basado en ciencia, +100 clientes reales y transformaciones documentadas.' },
-  { icon: Clock,      title: 'Entrena a tu ritmo',        desc: 'Sin horarios fijos ni citas obligatorias. Tú decides cuándo y dónde. Yo te guío siempre.' },
-  { icon: TrendingUp, title: 'Mejor precio que presencial', desc: 'Servicio profesional por una fracción del coste del entrenamiento presencial tradicional.' },
+  {
+    icon: Smartphone,
+    title: 'App profesional exclusiva',
+    desc: 'Tu plan en una app móvil intuitiva. Vídeos, tracking automático y soporte directo desde el móvil.',
+  },
+  {
+    icon: Target,
+    title: '100% personalizado',
+    desc: 'Adaptado a TU espacio, TU material, TU nivel y TUS objetivos. Nada de rutinas genéricas.',
+  },
+  {
+    icon: BarChart3,
+    title: 'Seguimiento cada semana',
+    desc: 'Análisis de tu progreso, ajustes constantes y feedback profesional. No estás solo.',
+  },
+] as const
+
+const SUPPORTING_BENEFITS = [
+  'Entrena cuando y donde puedas',
+  'Método basado en evidencia',
+  'Mejor precio que el formato presencial',
 ] as const
 
 const STEPS = [
-  { step: '01', title: 'Solicita tu valoración gratis', desc: 'Valoración profesional 100% online. Analizamos tu situación, objetivos y diseñamos tu plan personalizado.' },
-  { step: '02', title: 'Recibes acceso a tu app',       desc: 'Te envío invitación a la app móvil (iOS/Android). Descargas, entras y ya tienes tu plan esperándote.' },
-  { step: '03', title: 'Empiezas tu transformación',    desc: 'Sigues tu plan desde el móvil. Vídeos explicativos, ejercicios personalizados, tracking automático.' },
-  { step: '04', title: 'Seguimiento constante',         desc: 'Cada semana revisamos tu evolución. Ajusto el plan según tus resultados y te doy feedback profesional.' },
+  {
+    step: '01',
+    title: 'Solicita tu valoración gratis',
+    desc: 'Valoración profesional 100% online. Analizamos tu situación, objetivos y diseñamos tu plan personalizado.',
+  },
+  {
+    step: '02',
+    title: 'Recibes acceso a tu app',
+    desc: 'Te envío invitación a la app móvil (iOS/Android). Descargas, entras y ya tienes tu plan esperándote.',
+  },
+  {
+    step: '03',
+    title: 'Empiezas tu transformación',
+    desc: 'Sigues tu plan desde el móvil. Vídeos explicativos, ejercicios personalizados, tracking automático.',
+  },
+  {
+    step: '04',
+    title: 'Seguimiento constante',
+    desc: 'Cada semana revisamos tu evolución. Ajusto el plan según tus resultados y te doy feedback profesional.',
+  },
 ] as const
 
 const APP_FEATURES = [
@@ -52,34 +98,63 @@ const APP_FEATURES = [
 
 const TESTIMONIALS = [
   {
-    text: 'Llegué con 92kg, varios intentos fallidos a mis espaldas y sin creerme que esto fuera a funcionar. En 14 meses bajé 21kg. Pero lo que más me sorprendió no fue la báscula — fue darme cuenta de que por primera vez en años no estaba a dieta. Estaba viviendo.',
+    text: 'Llegué con varios intentos fallidos y sin creer que esto funcionara. En 14 meses bajé 21 kg, pero lo mejor fue sentir que, por primera vez en años, no estaba a dieta: estaba viviendo.',
+    initials: 'PF',
     name: 'Padre de familia, 41 años',
     result: '-21kg en 14 meses',
   },
   {
-    text: 'No quería perder peso, quería verme diferente. Empecé en 88kg y terminé en 86kg — casi igual en la báscula. Pero la ropa me queda completamente distinta. Tengo músculo donde antes no había nada. Nadie se cree que no haya adelgazado más.',
+    text: 'No quería perder peso, quería verme diferente. La báscula apenas cambió, pero la ropa me queda completamente distinta y ahora tengo músculo donde antes no había.',
+    initials: 'M34',
     name: 'Mujer, 34 años',
     result: 'Recomposición corporal',
   },
   {
-    text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. Mi médico me recomendó cambiar hábitos. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva que me habían recetado. Mi médico no se lo creía.',
+    text: 'Mi médico me recomendó cambiar hábitos. En 12 meses perdí 19 kg y mejoré mis marcadores de salud con seguimiento profesional. Volví a sentir que tenía el control.',
+    initials: 'H45',
     name: 'Hombre, 45 años',
-    result: '-19kg y sin medicación',
+    result: '-19 kg en 12 meses',
   },
   {
-    text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Empecé a ir a sitios que antes evitaba, a ponerme ropa que tenía guardada, a sentirme cómoda en mi propio cuerpo por primera vez desde que era adolescente. Eso no te lo da ninguna báscula.',
+    text: 'No cambió solo mi cuerpo. Volví a ponerme ropa que tenía guardada y a sentirme cómoda conmigo misma. Ese cambio no aparece en ninguna báscula.',
+    initials: 'M29',
     name: 'Mujer, 29 años',
     result: 'Cambio de vida',
   },
 ] as const
 
 const PLANS = [
-  { name: 'Pack 3 meses',  price: '450', period: '3 meses · 150 €/mes',  desc: 'Entrada estándar',          popular: false },
-  { name: 'Pack 6 meses',  price: '750', period: '6 meses · 125 €/mes',  desc: 'El más elegido',            popular: true  },
-  { name: 'Premium',       price: '990', period: '3 meses · 330 €/mes',  desc: 'Acompañamiento 1-a-1',      popular: false },
+  {
+    name: 'Pack 3 meses',
+    price: '450',
+    period: '3 meses · 150 €/mes',
+    desc: 'Para empezar con una base clara',
+    features: [
+      'Plan 100% personalizado',
+      'Acceso completo a la app',
+      'Revisión y ajustes semanales',
+    ],
+    popular: false,
+  },
+  {
+    name: 'Pack 6 meses',
+    price: '750',
+    period: '6 meses · 125 €/mes',
+    desc: 'Tiempo real para consolidar el cambio',
+    features: ['Todo lo incluido en 3 meses', 'Ahorro de 150 €', 'Seguimiento a medio plazo'],
+    popular: true,
+  },
+  {
+    name: 'Premium',
+    price: '990',
+    period: '3 meses · 330 €/mes',
+    desc: 'Máxima cercanía y disponibilidad',
+    features: ['Acompañamiento 1 a 1', 'Contacto prioritario', 'Ajustes con mayor frecuencia'],
+    popular: false,
+  },
 ] as const
 
-const REVIEW_SCHEMA_DATA = TESTIMONIALS.map(t => ({
+const REVIEW_SCHEMA_DATA = TESTIMONIALS.map((t) => ({
   text: t.text.split('.')[0] + '.',
   author: t.name,
   result: t.result,
@@ -94,15 +169,20 @@ export default function HomePage() {
       <JsonLd data={reviewSchema(REVIEW_SCHEMA_DATA)} />
 
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden pt-8">
-        <ParallaxImage src="/images/portada-WR.jpg" alt="Entrenamiento Online WellnessReal" speed={0.2} priority />
+      <section className="relative min-h-[calc(100svh-4.5rem)] md:min-h-[calc(100svh-5rem)] flex items-center justify-center overflow-hidden py-12">
+        <ParallaxImage
+          src="/images/portada-WR.jpg"
+          alt="Entrenamiento Online WellnessReal"
+          speed={0.2}
+          priority
+        />
         {/* Capas de fondo: imagen → gradient de marca → viñeta */}
         <div className="absolute inset-0 bg-gradient-to-b from-brand-deep/80 via-brand-deep/70 to-brand-deep z-[1]" />
         <div className="absolute inset-0 bg-radial-accent z-[2]" />
         <div className="absolute inset-0 bg-grid-soft z-[3] opacity-40" />
 
         <HeroAnimation>
-          <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-8">
+          <div className="relative z-10 max-w-5xl mx-auto px-6 text-center space-y-7">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
@@ -116,13 +196,12 @@ export default function HomePage() {
               <span className="text-gradient-brand"> vivir en el gimnasio.</span>
             </h1>
 
-            <p className="text-fluid-xl text-white/80 max-w-3xl mx-auto font-medium animate-fade-up [animation-delay:100ms]">
+            <p className="text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
               Entrenamiento online para gente con trabajo, familia y poco tiempo.
-              <span className="text-accent font-semibold"> Sin dietas extremas. Sin perfección. Solo resultados.</span>
-            </p>
-
-            <p className="text-fluid-base text-white/55 max-w-xl mx-auto animate-fade-up [animation-delay:200ms]">
-              Plan personalizado + app profesional + seguimiento semanal. Adaptado a tu vida real.
+              <span className="text-accent font-semibold">
+                {' '}
+                Plan personalizado, app profesional y seguimiento semanal.
+              </span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2 animate-fade-up [animation-delay:300ms]">
@@ -132,35 +211,41 @@ export default function HomePage() {
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </MagneticButton>
-              <Link href="/recurso-gratis" className="btn-ghost text-fluid-sm">
-                Descargar guía gratis
+              <Link
+                href="/recurso-gratis"
+                className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
+              >
+                Prefiero empezar con la guía <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
             {/* Micro-prueba social */}
-            <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 pt-8 text-fluid-xs text-white/40 animate-fade-up [animation-delay:400ms]">
-              <span className="flex items-center gap-1.5">
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-5 text-fluid-xs text-white/70 animate-fade-up [animation-delay:400ms]">
+              <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
                 Valoración gratuita
               </span>
-              <span>·</span>
-              <span>+100 clientes transformados</span>
-              <span>·</span>
-              <span>14 años de experiencia</span>
+              <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
+                +100 clientes transformados
+              </span>
+              <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
+                14 años de experiencia
+              </span>
             </div>
           </div>
         </HeroAnimation>
       </section>
 
       {/* ═══════════════ BENEFICIOS ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-dusk">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-dusk">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
               <span className="eyebrow">Por qué funciona</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Entrenamiento online que <span className="text-gradient-brand">sí da resultados</span>
+                Entrenamiento online que{' '}
+                <span className="text-gradient-brand">sí da resultados</span>
               </h2>
               <p className="text-fluid-lg text-muted">
                 Porque está diseñado para tu vida real, no para la vida que te venden en Instagram.
@@ -168,7 +253,7 @@ export default function HomePage() {
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <StaggerChildren className="grid md:grid-cols-3 gap-5">
             {BENEFITS.map(({ icon: Icon, title, desc }, i) => (
               <article
                 key={i}
@@ -185,11 +270,21 @@ export default function HomePage() {
               </article>
             ))}
           </StaggerChildren>
+          <div className="mt-5 grid sm:grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border-subtle bg-border-subtle">
+            {SUPPORTING_BENEFITS.map((benefit) => (
+              <div
+                key={benefit}
+                className="flex items-center justify-center gap-2 bg-brand-deep px-5 py-4 text-center text-fluid-sm text-white/75"
+              >
+                <Check className="w-4 h-4 shrink-0 text-accent" /> {benefit}
+              </div>
+            ))}
+          </div>
         </Container>
       </section>
 
       {/* ═══════════════ CÓMO FUNCIONA ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-deep">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-deep">
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
@@ -230,7 +325,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ TECNOLOGÍA ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-dusk overflow-x-clip">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-dusk overflow-x-clip">
         <div className="absolute inset-0 bg-radial-violet opacity-60" />
         <Container>
           <AnimatedSection>
@@ -262,7 +357,8 @@ export default function HomePage() {
                   <span className="text-gradient-brand"> en tu bolsillo.</span>
                 </h2>
                 <p className="text-fluid-lg text-muted">
-                  Trabajo con software profesional — no con PDFs ni hojas de Excel. Así te doy la mejor experiencia.
+                  Trabajo con software profesional — no con PDFs ni hojas de Excel. Así te doy la
+                  mejor experiencia.
                 </p>
                 <ul className="space-y-3 pt-2">
                   {APP_FEATURES.map((feature, i) => (
@@ -281,50 +377,71 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ QUIÉN ESTÁ DETRÁS ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-deep">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-deep overflow-hidden">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <AnimatedSection>
-            <div className="max-w-3xl mx-auto space-y-6">
-              <div className="text-center space-y-4 mb-fluid-sm">
-                <span className="eyebrow justify-center">Quién está detrás</span>
+            <div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-fluid-md items-center max-w-6xl mx-auto">
+              <div className="relative min-h-[28rem] rounded-[2rem] overflow-hidden surface-card-accent flex items-end p-7">
+                <Image
+                  src="/images/fernando-royano-about.jpg"
+                  alt="Fernando Royano, entrenador y fundador de WellnessReal"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 42vw"
+                  className="object-cover object-[center_18%]"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/95 via-transparent to-transparent" />
+                <div className="relative w-full rounded-2xl border border-white/10 bg-brand-ink/75 p-5 backdrop-blur-md">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-accent-fg">
+                      <UserRound className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <p className="font-display font-bold text-white">Fernando Royano</p>
+                      <p className="text-fluid-xs text-muted">
+                        Entrenador y graduado en Ciencias del Deporte
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <span className="eyebrow">Quién está detrás</span>
                 <h2 className="headline text-fluid-4xl text-white">
                   No es una app. <span className="text-gradient-brand">Soy yo.</span>
                 </h2>
-              </div>
+                <div className="space-y-4 text-fluid-base text-white/80 leading-relaxed">
+                  <p>
+                    Llevo <strong className="text-white">14 años</strong> entrenando a personas con
+                    trabajo, familia, lesiones antiguas y poco tiempo. No creo en extremos ni en la
+                    culpa: creo en planes que siguen funcionando cuando la semana se complica.
+                  </p>
+                  <p className="text-white font-semibold">
+                    Yo diseño tu plan, leo cómo respondes y lo ajusto contigo cada semana. No hablas
+                    con un bot ni recibes una rutina genérica.
+                  </p>
+                </div>
 
-              <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
-                <p>
-                  Me llamo <strong className="text-white">Fernando Royano</strong> y llevo{' '}
-                  <strong className="text-white">14 años</strong> dedicándome a entrenar personas de verdad: con
-                  trabajo, familia, lesiones antiguas y poco tiempo. Soy graduado en{' '}
-                  <strong className="text-white">Ciencias del Deporte</strong> y he acompañado a más de 100 personas a
-                  cambiar su cuerpo y, sobre todo, su relación con el ejercicio.
-                </p>
-                <p>
-                  No creo en las dietas extremas, ni en entrenar hasta vomitar, ni en la culpa como motor. Creo en
-                  planes sensatos, adaptados a tu vida real, que puedas sostener cuando se complica la semana —que es
-                  cuando casi todo el mundo lo deja. Mi trabajo no es contarte repeticiones: es diseñar tu plan, leer
-                  cómo respondes y ajustarlo contigo cada semana hasta que entrenar deje de ser un esfuerzo y se vuelva
-                  un hábito.
-                </p>
-                <p>
-                  Cuando entrenas conmigo no hablas con un bot ni recibes una rutina genérica. Hablas conmigo. Esa es
-                  toda la diferencia.
-                </p>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4 pt-4">
-                {[
-                  { figure: '14', label: 'años de experiencia' },
-                  { figure: '+100', label: 'clientes transformados' },
-                  { figure: 'Cc. Deporte', label: 'formación universitaria' },
-                ].map(({ figure, label }, i) => (
-                  <div key={i} className="surface-card rounded-2xl p-5 text-center">
-                    <div className="stat-figure text-fluid-3xl text-accent">{figure}</div>
-                    <p className="text-fluid-xs text-muted mt-1 leading-snug">{label}</p>
-                  </div>
-                ))}
+                <div className="grid sm:grid-cols-3 gap-3 pt-2">
+                  {[
+                    { icon: GraduationCap, figure: '14 años', label: 'de experiencia' },
+                    { icon: UserRound, figure: '+100', label: 'clientes' },
+                    { icon: MessageCircle, figure: 'Semanal', label: 'seguimiento real' },
+                  ].map(({ icon: Icon, figure, label }) => (
+                    <div key={figure} className="surface-card rounded-xl p-4">
+                      <Icon className="w-4 h-4 text-accent mb-3" />
+                      <div className="font-display font-bold text-white">{figure}</div>
+                      <p className="text-fluid-xs text-muted mt-1">{label}</p>
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href="/valoracion"
+                  className="inline-flex items-center gap-2 text-fluid-sm font-bold text-accent hover:gap-3 transition-all"
+                >
+                  Cuéntame tu caso <ArrowRight className="h-4 w-4" />
+                </Link>
               </div>
             </div>
           </AnimatedSection>
@@ -332,7 +449,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ TESTIMONIOS ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-dusk">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-dusk">
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
@@ -341,17 +458,15 @@ export default function HomePage() {
                 Lo que <span className="text-gradient-brand">cambió</span> para ellos
               </h2>
               <p className="text-fluid-lg text-muted">
-                Personas normales con vidas ocupadas. Resultados que duran porque el proceso funciona.
+                Personas normales con vidas ocupadas. Resultados que duran porque el proceso
+                funciona.
               </p>
             </div>
           </AnimatedSection>
 
           <StaggerChildren className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            {TESTIMONIALS.map(({ text, name, result }, i) => (
-              <figure
-                key={i}
-                className="surface-card rounded-2xl p-8 relative hover-lift"
-              >
+            {TESTIMONIALS.map(({ text, name, result, initials }, i) => (
+              <figure key={i} className="surface-card rounded-2xl p-8 relative hover-lift">
                 {/* Comilla decorativa */}
                 <span
                   aria-hidden
@@ -363,7 +478,12 @@ export default function HomePage() {
                   {text}
                 </blockquote>
                 <figcaption className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-5 border-t border-border-subtle">
-                  <span className="text-fluid-sm font-semibold text-white">{name}</span>
+                  <span className="flex items-center gap-3">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border-strong bg-accent-muted text-[0.65rem] font-bold text-accent">
+                      {initials}
+                    </span>
+                    <span className="text-fluid-sm font-semibold text-white">{name}</span>
+                  </span>
                   <span className="shrink-0 px-3 py-1 rounded-full text-fluid-xs font-bold bg-accent text-accent-fg">
                     {result}
                   </span>
@@ -375,7 +495,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ PRICING ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-deep">
+      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-deep">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <AnimatedSection>
@@ -391,7 +511,7 @@ export default function HomePage() {
           </AnimatedSection>
 
           <StaggerChildren className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
-            {PLANS.map(({ name, price, period, desc, popular }, i) => (
+            {PLANS.map(({ name, price, period, desc, features, popular }, i) => (
               <article
                 key={i}
                 className={
@@ -417,6 +537,17 @@ export default function HomePage() {
                   </div>
                   <p className="text-fluid-xs text-subtle mt-1">{period}</p>
                 </div>
+                <ul className="space-y-3 mb-7">
+                  {features.map((feature) => (
+                    <li
+                      key={feature}
+                      className="flex items-start gap-2.5 text-fluid-sm text-white/80"
+                    >
+                      <Check className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
                 <Link
                   href="/tarifas"
                   className={
@@ -426,7 +557,7 @@ export default function HomePage() {
                       : 'border border-border text-white hover:bg-accent-muted hover:border-border-strong')
                   }
                 >
-                  Ver detalles
+                  {popular ? 'Elegir este plan' : 'Ver este plan'}
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </article>
@@ -436,7 +567,7 @@ export default function HomePage() {
       </section>
 
       {/* ═══════════════ CTA FINAL ═══════════════ */}
-      <section className="relative py-fluid-xl overflow-hidden">
+      <section className="relative py-[clamp(4.5rem,8vw,7rem)] overflow-hidden">
         <ParallaxImage src="/images/lifestyle.jpg" alt="Transforma tu vida" speed={0.15} />
         <div className="absolute inset-0 bg-gradient-to-br from-brand-deep/95 via-brand-deep/90 to-brand-violet-soft/70 z-[1]" />
         <div className="absolute inset-0 bg-grid-soft z-[2] opacity-40" />
@@ -450,7 +581,8 @@ export default function HomePage() {
               <span className="text-gradient-brand">Necesitas empezar.</span>
             </h2>
             <p className="text-fluid-xl text-white/80 font-medium">
-              Valoración profesional <span className="text-accent font-bold">gratis</span>. Analizamos tu caso y te digo si puedo ayudarte.
+              Valoración profesional <span className="text-accent font-bold">gratis</span>.
+              Analizamos tu caso y te digo si puedo ayudarte.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-2">
               <MagneticButton strength={0.25}>
@@ -459,11 +591,14 @@ export default function HomePage() {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </MagneticButton>
-              <Link href="/recurso-gratis" className="btn-ghost text-fluid-sm">
-                Primero quiero la guía gratis
+              <Link
+                href="/recurso-gratis"
+                className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
+              >
+                Primero quiero la guía <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-            <p className="text-fluid-xs text-white/35 pt-4">
+            <p className="text-fluid-xs text-white/65 pt-4">
               Sin compromiso. Sin letra pequeña. Respondo personalmente en 24h.
             </p>
           </div>

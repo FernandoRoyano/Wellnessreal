@@ -3,20 +3,22 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
 import Container from './Container'
 import { Menu, X } from 'lucide-react'
 
 const navigationItems = [
   { href: '/filosofia', label: 'Filosofía' },
   { href: '/servicios', label: 'Servicios' },
-  { href: '/tarifas',   label: 'Tarifas' },
-  { href: '/blog',      label: 'Blog' },
-  { href: '/contacto',  label: 'Contacto' },
+  { href: '/tarifas', label: 'Tarifas' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/contacto', label: 'Contacto' },
 ]
 
 export default function Header() {
+  const pathname = usePathname()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrolled, setScrolled]     = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16)
@@ -24,6 +26,19 @@ export default function Header() {
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    setIsMenuOpen(false)
+  }, [pathname])
+
+  useEffect(() => {
+    if (!isMenuOpen) return
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false)
+    }
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [isMenuOpen])
 
   return (
     <header
@@ -35,7 +50,7 @@ export default function Header() {
       }
     >
       <Container>
-        <div className="flex items-center justify-between gap-4 h-20 md:h-24 min-w-0">
+        <div className="flex items-center justify-between gap-4 h-[4.5rem] md:h-20 min-w-0">
           <Link
             href="/"
             className="flex items-center shrink min-w-0"
@@ -47,7 +62,7 @@ export default function Header() {
               width={220}
               height={66}
               priority
-              className="h-11 md:h-14 w-auto max-w-[180px] md:max-w-[220px] object-contain"
+              className="h-10 md:h-12 w-auto max-w-[180px] md:max-w-[210px] object-contain"
               style={{ width: 'auto' }}
             />
           </Link>
@@ -59,10 +74,19 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="relative text-fluid-sm font-medium text-white/75 hover:text-white transition-colors group"
+                  aria-current={pathname === item.href ? 'page' : undefined}
+                  className={
+                    'relative text-fluid-sm font-medium transition-colors group ' +
+                    (pathname === item.href ? 'text-white' : 'text-white/75 hover:text-white')
+                  }
                 >
                   {item.label}
-                  <span className="absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300" />
+                  <span
+                    className={
+                      'absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left transition-transform duration-300 ' +
+                      (pathname === item.href ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100')
+                    }
+                  />
                 </Link>
               ))}
             </nav>
@@ -90,7 +114,13 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className="py-3 px-2 text-fluid-base font-medium text-white/80 hover:text-accent hover:bg-accent-muted rounded-lg transition-colors"
+                  aria-current={pathname === item.href ? 'page' : undefined}
+                  className={
+                    'py-3 px-3 text-fluid-base font-medium rounded-lg transition-colors ' +
+                    (pathname === item.href
+                      ? 'text-accent bg-accent-muted'
+                      : 'text-white/80 hover:text-accent hover:bg-accent-muted')
+                  }
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.label}
