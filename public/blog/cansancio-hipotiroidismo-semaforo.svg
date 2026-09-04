@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Semáforo para adaptar el movimiento a la energía</title>
+  <desc id="desc">Tres niveles para decidir si mantener, reducir o detener la actividad y consultar.</desc>
+  <rect width="1200" height="720" rx="32" fill="#16122b"/>
+  <text x="600" y="72" text-anchor="middle" fill="#fcee21" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">AJUSTAR NO ES RENDIRSE</text>
+  <text x="600" y="122" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="40" font-weight="800">Muévete según tu energía de hoy</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(54 188)">
+      <rect width="338" height="398" rx="24" fill="#241d43" stroke="#6fd6a7" stroke-width="3"/>
+      <circle cx="169" cy="86" r="50" fill="#6fd6a7"/>
+      <text x="169" y="165" text-anchor="middle" fill="#6fd6a7" font-size="27" font-weight="900">VERDE</text>
+      <text x="169" y="211" text-anchor="middle" fill="#fff" font-size="21" font-weight="800">Energía estable</text>
+      <text x="169" y="254" text-anchor="middle" fill="#c7c2d9" font-size="18">Mantén la sesión prevista</text>
+      <text x="169" y="284" text-anchor="middle" fill="#c7c2d9" font-size="18">sin buscar agotarte.</text>
+      <rect x="38" y="326" width="262" height="48" rx="14" fill="#6fd6a7"/>
+      <text x="169" y="357" text-anchor="middle" fill="#16122b" font-size="18" font-weight="900">MANTENER</text>
+    </g>
+    <g transform="translate(431 188)">
+      <rect width="338" height="398" rx="24" fill="#241d43" stroke="#fcee21" stroke-width="3"/>
+      <circle cx="169" cy="86" r="50" fill="#fcee21"/>
+      <text x="169" y="165" text-anchor="middle" fill="#fcee21" font-size="27" font-weight="900">AMARILLO</text>
+      <text x="169" y="211" text-anchor="middle" fill="#fff" font-size="21" font-weight="800">Más cansancio de lo habitual</text>
+      <text x="169" y="254" text-anchor="middle" fill="#c7c2d9" font-size="18">Reduce tiempo o carga</text>
+      <text x="169" y="284" text-anchor="middle" fill="#c7c2d9" font-size="18">y observa la recuperación.</text>
+      <rect x="38" y="326" width="262" height="48" rx="14" fill="#fcee21"/>
+      <text x="169" y="357" text-anchor="middle" fill="#16122b" font-size="18" font-weight="900">ADAPTAR</text>
+    </g>
+    <g transform="translate(808 188)">
+      <rect width="338" height="398" rx="24" fill="#241d43" stroke="#ff7474" stroke-width="3"/>
+      <circle cx="169" cy="86" r="50" fill="#ff7474"/>
+      <text x="169" y="165" text-anchor="middle" fill="#ff9b9b" font-size="27" font-weight="900">ROJO</text>
+      <text x="169" y="211" text-anchor="middle" fill="#fff" font-size="21" font-weight="800">Síntomas intensos o nuevos</text>
+      <text x="169" y="254" text-anchor="middle" fill="#c7c2d9" font-size="18">Detén la actividad y valora</text>
+      <text x="169" y="284" text-anchor="middle" fill="#c7c2d9" font-size="18">si necesitas atención médica.</text>
+      <rect x="38" y="326" width="262" height="48" rx="14" fill="#ff7474"/>
+      <text x="169" y="357" text-anchor="middle" fill="#16122b" font-size="18" font-weight="900">PARAR Y REVISAR</text>
+    </g>
+  </g>
+  <text x="600" y="650" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="22" font-weight="700">La respuesta de mañana también forma parte de la sesión de hoy.</text>
+</svg>

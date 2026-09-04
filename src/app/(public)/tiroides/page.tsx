@@ -4,10 +4,10 @@ import Container from '@/components/common/Container'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, X, ArrowRight, Sparkles } from 'lucide-react'
-import { trackSignUp } from '@/lib/analytics'
+import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
 import TestTiroides from '@/components/tiroides/TestTiroides'
 
 const newsletterSchema = z.object({
@@ -65,6 +65,10 @@ export default function TiroidesPage() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NewsletterFormData>({
     resolver: zodResolver(newsletterSchema),
   })
+
+  useEffect(() => {
+    trackThyroidFunnel('thyroid_landing_view')
+  }, [])
 
   const onSubmit = async (data: NewsletterFormData) => {
     try {

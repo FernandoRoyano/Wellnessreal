@@ -4,8 +4,29 @@ import { updateProposalByToken } from '@/lib/db/proposals'
 import { supabase } from '@/lib/supabase'
 import { getPlanOpcion, PERMANENCIA_MESES } from '@/lib/precios-plan'
 import type Stripe from 'stripe'
+import { markThyroidLeadAsCustomer, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 
 export const runtime = 'nodejs'
+
+async function recordThyroidRevenue(input: {
+  email: string | null
+  eventName: 'thyroid_sale' | 'thyroid_continuity'
+  value: number | null
+  externalId: string
+  metadata?: Record<string, unknown>
+}) {
+  if (!input.email) return
+  const leadId = await markThyroidLeadAsCustomer(input.email)
+  if (!leadId) return
+  await recordThyroidFunnelEvent({
+    eventName: input.eventName,
+    leadId,
+    email: input.email,
+    value: input.value,
+    externalId: input.externalId,
+    metadata: input.metadata,
+  })
+}
 
 // Fin del periodo mensual ya pagado. En algunas versiones de la API el campo
 // vive en la suscripción y en otras en el item; probamos ambos.
@@ -61,11 +82,18 @@ export async function POST(request: NextRequest) {
         // Flujo antiguo: propuestas + contrato (pago único).
         const proposalToken = session.metadata?.proposalToken
         if (proposalToken) {
-          await updateProposalByToken(proposalToken, {
+          const proposal = await updateProposalByToken(proposalToken, {
             status: 'paid',
             paid_at: new Date().toISOString(),
             confirmed_by: 'stripe_webhook',
             stripe_payment_intent_id: session.payment_intent as string,
+          })
+          await recordThyroidRevenue({
+            email: proposal.client_email,
+            eventName: 'thyroid_sale',
+            value: Number(proposal.price),
+            externalId: `stripe:${event.id}`,
+            metadata: { product: proposal.service_label, payment_type: 'proposal' },
           })
         }
 
@@ -87,6 +115,19 @@ export async function POST(request: NextRequest) {
                 plan_tier: opcion?.tier ?? tier,
               })
               .eq('id', clienteId)
+
+            const { data: cliente } = await supabase
+              .from('cliente_perfil')
+              .select('email')
+              .eq('id', clienteId)
+              .maybeSingle()
+            await recordThyroidRevenue({
+              email: cliente?.email ?? null,
+              eventName: 'thyroid_sale',
+              value: opcion?.precio ?? null,
+              externalId: `stripe:${event.id}`,
+              metadata: { tier: opcion?.tier ?? tier, payment_type: 'subscription' },
+            })
 
             await supabase.from('eventos_cliente').insert({
               cliente_id: clienteId,
@@ -116,7 +157,22 @@ export async function POST(request: NextRequest) {
         const subId = (invoice as unknown as { subscription?: string }).subscription
         if (subId) {
           const sub = await stripe.subscriptions.retrieve(subId)
-          await sincronizarSuscripcion(sub)
+          const { clienteId, tier } = await sincronizarSuscripcion(sub)
+          const billingReason = (invoice as unknown as { billing_reason?: string }).billing_reason
+          if (clienteId && billingReason === 'subscription_cycle') {
+            const { data: cliente } = await supabase
+              .from('cliente_perfil')
+              .select('email')
+              .eq('id', clienteId)
+              .maybeSingle()
+            await recordThyroidRevenue({
+              email: cliente?.email ?? null,
+              eventName: 'thyroid_continuity',
+              value: invoice.amount_paid / 100,
+              externalId: `stripe:${event.id}`,
+              metadata: { tier, subscription_id: subId },
+            })
+          }
         }
         break
       }

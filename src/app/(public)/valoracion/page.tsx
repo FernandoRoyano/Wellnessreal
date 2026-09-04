@@ -6,7 +6,20 @@ import { useRouter } from 'next/navigation'
 import {
   ChevronRight, ChevronLeft, User, Target, Dumbbell, Calendar, Heart, Send, AlertCircle, Sparkles,
 } from 'lucide-react'
-import { trackGenerateLead } from '@/lib/analytics'
+import { trackGenerateLead, trackThyroidFunnel } from '@/lib/analytics'
+
+interface ThyroidFunnelContext {
+  leadId: string
+  profile: string
+  intent: string
+}
+
+const THYROID_PROFILE_LABELS: Record<string, string> = {
+  buena_base: 'ya tienes una buena base y necesitas afinar',
+  falta_estructura: 'necesitas ordenar las piezas que ya tienes',
+  mucho_esfuerzo: 'estás haciendo mucho y necesitas dirigir mejor ese esfuerzo',
+  construir_base: 'te conviene construir una base progresiva',
+}
 
 const PLAN_LABELS: Record<string, string> = {
   pack_3meses: 'Pack 3 meses',
@@ -95,6 +108,7 @@ export default function ValoracionPage() {
   const [error, setError]         = useState('')
   const [submitting, setSubmitting] = useState(false)
   const [interestedPlan, setInterestedPlan] = useState<string>('')
+  const [thyroidContext, setThyroidContext] = useState<ThyroidFunnelContext | null>(null)
 
   // Leer ?plan=... de la URL al cargar y pre-seleccionar budget cuando aplique
   useEffect(() => {
@@ -106,6 +120,13 @@ export default function ValoracionPage() {
       if (suggestedBudget) {
         setData((prev) => ({ ...prev, budget: prev.budget || suggestedBudget }))
       }
+    }
+    const params = new URLSearchParams(window.location.search)
+    const leadId = params.get('lead_id') || ''
+    const profile = params.get('profile') || ''
+    const intent = params.get('intent') || ''
+    if (/^[0-9a-f-]{36}$/i.test(leadId) && THYROID_PROFILE_LABELS[profile] && intent) {
+      setThyroidContext({ leadId, profile, intent })
     }
   }, [])
 
@@ -139,11 +160,18 @@ export default function ValoracionPage() {
         body: JSON.stringify({
           ...data,
           interestedPlan: interestedPlan || undefined,
+          thyroidContext: thyroidContext || undefined,
           _attribution: getAttributionForSubmit(),
         }),
       })
       if (!res.ok) throw new Error('Error al enviar')
       trackGenerateLead()
+      if (thyroidContext) {
+        trackThyroidFunnel('thyroid_valuation_submit', {
+          profile: thyroidContext.profile,
+          intent: thyroidContext.intent,
+        }, false)
+      }
       router.push('/gracias-valoracion')
     } catch {
       setError('Hubo un error al enviar. Inténtalo de nuevo o escríbenos por WhatsApp.')
@@ -207,6 +235,12 @@ export default function ValoracionPage() {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-accent/40 bg-accent-soft text-accent text-fluid-sm font-semibold">
                 <Target className="w-4 h-4" />
                 <span>Vienes del <strong>{PLAN_LABELS[interestedPlan]}</strong> — lo ajustamos a tu caso real</span>
+              </div>
+            )}
+            {thyroidContext && (
+              <div className="mx-auto max-w-xl rounded-xl border border-accent/40 bg-accent-soft px-4 py-3 text-left text-fluid-sm text-white/85">
+                <span className="font-semibold text-accent">Continuamos desde tu test:</span>{' '}
+                {THYROID_PROFILE_LABELS[thyroidContext.profile]}. Usaré tus respuestas para no empezar de cero.
               </div>
             )}
           </div>

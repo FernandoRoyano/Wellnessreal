@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
+import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 
 const objectiveLabels: Record<string, string> = {
   'perder-grasa': 'Perder grasa',
@@ -45,6 +46,7 @@ export async function POST(request: NextRequest) {
       injuries, medicalConditions, diet,
       expectations, budget, source,
       interestedPlan,
+      thyroidContext,
       _attribution,
     } = body
 
@@ -52,23 +54,48 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
     }
 
-    // Guardar lead en Supabase (no bloqueante)
-    await captureLead({
+    const validProfiles = ['buena_base', 'falta_estructura', 'mucho_esfuerzo', 'construir_base']
+    const validIntents = ['entender', 'recomponer', 'energia', 'guia']
+    const safeThyroidContext = thyroidContext &&
+      validProfiles.includes(thyroidContext.profile) &&
+      validIntents.includes(thyroidContext.intent)
+      ? { profile: thyroidContext.profile as string, intent: thyroidContext.intent as string }
+      : null
+
+    // Guardar lead en Supabase y conservar el contexto del test.
+    const lead = await captureLead({
       request,
       email,
       name,
       phone,
       source: 'valoracion',
       attribution: _attribution,
-      tags: interestedPlan ? [`plan:${interestedPlan}`] : [],
+      tags: [
+        ...(interestedPlan ? [`plan:${interestedPlan}`] : []),
+        ...(safeThyroidContext ? [`perfil:${safeThyroidContext.profile}`, `intencion:${safeThyroidContext.intent}`] : []),
+      ],
       form_data: {
         age, objective, objectiveDetail, level, currentlyTraining, trainingDetail,
         daysPerWeek, sessionDuration, schedule, modality,
         injuries, medicalConditions, diet,
         expectations, budget, knownFrom: source,
         interestedPlan: interestedPlan || null,
+        thyroidProfile: safeThyroidContext?.profile ?? null,
+        thyroidIntent: safeThyroidContext?.intent ?? null,
       },
     })
+
+    if (lead && safeThyroidContext) {
+      await recordThyroidFunnelEvent({
+        eventName: 'thyroid_valuation_submit',
+        leadId: lead.id,
+        profile: safeThyroidContext.profile,
+        intent: safeThyroidContext.intent,
+        source: _attribution?.utm_source ?? 'test-tiroides',
+        medium: _attribution?.utm_medium,
+        campaign: _attribution?.utm_campaign,
+      })
+    }
 
     // Email to business owner
     const businessHtml = `

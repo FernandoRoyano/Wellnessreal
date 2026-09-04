@@ -8,6 +8,7 @@ import {
   type TestAnswers,
   type TestResult,
 } from '@/lib/test-tiroides'
+import { attachAnonymousEventsToLead, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'
 
@@ -16,6 +17,10 @@ const SubmissionSchema = z.object({
   email: z.email(),
   answers: z.record(z.string(), z.string()),
   _attribution: z.record(z.string(), z.string()).optional(),
+  _funnel: z.object({
+    anonymousId: z.string().min(8).max(100),
+    sessionId: z.string().min(8).max(100),
+  }).nullable().optional(),
 })
 
 function escapeHtml(value: string): string {
@@ -63,14 +68,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Revisa el email y completa el test' }, { status: 400 })
     }
 
-    const { name, email, _attribution } = parsed.data
+    const { name, email, _attribution, _funnel } = parsed.data
     const answers = validateAndSanitizeAnswers(parsed.data.answers as TestAnswers)
     if (!answers) {
       return NextResponse.json({ error: 'El recorrido del test está incompleto' }, { status: 400 })
     }
 
     const result = buildTestResult(answers)
-    await captureLead({
+    const lead = await captureLead({
       request,
       email,
       name: name || null,
@@ -90,11 +95,32 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    if (lead) {
+      if (_funnel?.anonymousId) {
+        await attachAnonymousEventsToLead(_funnel.anonymousId, lead.id)
+      }
+      await recordThyroidFunnelEvent({
+        eventName: 'thyroid_lead_capture',
+        leadId: lead.id,
+        anonymousId: _funnel?.anonymousId,
+        sessionId: _funnel?.sessionId,
+        profile: result.profile,
+        intent: result.intent,
+        source: _attribution?.utm_source ?? 'direct',
+        medium: _attribution?.utm_medium,
+        campaign: _attribution?.utm_campaign,
+      })
+    }
+
+    const resultForLead: TestResult = lead && result.cta.href.startsWith('/valoracion')
+      ? { ...result, cta: { ...result.cta, href: `${result.cta.href}&lead_id=${lead.id}` } }
+      : result
+
     try {
       await sendEmail({
         to: email,
-        subject: `Tus prioridades: ${result.title}`,
-        html: resultEmailHTML(name, result),
+        subject: `Tus prioridades: ${resultForLead.title}`,
+        html: resultEmailHTML(name, resultForLead),
       })
     } catch (mailError) {
       console.error('[TestTiroides:sendResultEmail] No se pudo enviar el resultado:', mailError)
@@ -119,7 +145,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ success: true, result })
+    return NextResponse.json({ success: true, result: resultForLead, leadId: lead?.id ?? null })
   } catch (error) {
     console.error('[TestTiroides:POST] Error al procesar el test:', error)
     return NextResponse.json({ error: 'Error al procesar el test' }, { status: 500 })

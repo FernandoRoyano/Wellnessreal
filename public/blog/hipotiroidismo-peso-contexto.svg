@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Hipotiroidismo y peso: dos escenarios distintos</title>
+  <desc id="desc">Compara una tiroides sin controlar con una tiroides tratada y explica qué revisar en cada caso.</desc>
+  <rect width="1200" height="720" rx="32" fill="#16122b"/>
+  <text x="64" y="74" fill="#fcee21" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">ANTES DE CAMBIAR LA DIETA</text>
+  <text x="64" y="124" fill="#fff" font-family="Arial, sans-serif" font-size="40" font-weight="800">¿Cómo está tu tiroides ahora?</text>
+  <g font-family="Arial, sans-serif">
+    <g transform="translate(64 176)">
+      <rect width="512" height="398" rx="24" fill="#241d43" stroke="#ff9b6b" stroke-width="3"/>
+      <circle cx="56" cy="58" r="28" fill="#ff9b6b"/><text x="56" y="67" text-anchor="middle" fill="#16122b" font-size="28" font-weight="900">1</text>
+      <text x="104" y="54" fill="#fff" font-size="27" font-weight="800">Sin controlar o con síntomas</text>
+      <text x="104" y="84" fill="#c7c2d9" font-size="18">La prioridad es revisar el contexto clínico.</text>
+      <line x1="38" y1="118" x2="474" y2="118" stroke="#5b527e"/>
+      <text x="42" y="162" fill="#fcee21" font-size="19" font-weight="700">PUEDE APARECER</text>
+      <text x="42" y="205" fill="#fff" font-size="20">• Cansancio y menor tolerancia al esfuerzo</text>
+      <text x="42" y="243" fill="#fff" font-size="20">• Retención de sal y agua</text>
+      <text x="42" y="281" fill="#fff" font-size="20">• Menor gasto energético</text>
+      <rect x="38" y="322" width="436" height="52" rx="14" fill="#ff9b6b"/>
+      <text x="256" y="355" text-anchor="middle" fill="#16122b" font-size="18" font-weight="800">Analítica y revisión médica primero</text>
+    </g>
+    <g transform="translate(624 176)">
+      <rect width="512" height="398" rx="24" fill="#241d43" stroke="#6fd6a7" stroke-width="3"/>
+      <circle cx="56" cy="58" r="28" fill="#6fd6a7"/><text x="56" y="67" text-anchor="middle" fill="#16122b" font-size="28" font-weight="900">2</text>
+      <text x="104" y="54" fill="#fff" font-size="27" font-weight="800">Tratada y dentro de objetivo</text>
+      <text x="104" y="84" fill="#c7c2d9" font-size="18">Mira el cuadro completo, sin culparte.</text>
+      <line x1="38" y1="118" x2="474" y2="118" stroke="#5b527e"/>
+      <text x="42" y="162" fill="#fcee21" font-size="19" font-weight="700">CONVIENE REVISAR</text>
+      <text x="42" y="205" fill="#fff" font-size="20">• Alimentación y cantidades</text>
+      <text x="42" y="243" fill="#fff" font-size="20">• Fuerza y movimiento diario</text>
+      <text x="42" y="281" fill="#fff" font-size="20">• Sueño, estrés y otras causas</text>
+      <rect x="38" y="322" width="436" height="52" rx="14" fill="#6fd6a7"/>
+      <text x="256" y="355" text-anchor="middle" fill="#16122b" font-size="18" font-weight="800">Hábitos adaptados y seguimiento</text>
+    </g>
+  </g>
+  <text x="600" y="644" text-anchor="middle" fill="#fcee21" font-family="Arial, sans-serif" font-size="22" font-weight="800">No son explicaciones rivales: ambas piezas pueden importar.</text>
+</svg>
+

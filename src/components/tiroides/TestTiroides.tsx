@@ -10,7 +10,12 @@ import {
   type TestAnswers,
   type TestResult,
 } from '@/lib/test-tiroides'
-import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
+import {
+  getThyroidTrackingContext,
+  identifyThyroidLead,
+  trackSignUp,
+  trackThyroidFunnel,
+} from '@/lib/analytics'
 
 type Phase = 'intro' | 'questions' | 'email' | 'result'
 
@@ -46,7 +51,6 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
     trackThyroidFunnel('thyroid_test_question', {
       question_id: currentId,
-      answer: value,
       step,
       intent: nextAnswers.objetivo || 'unknown',
     })
@@ -85,10 +89,17 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
       const response = await fetch('/api/test-tiroides', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, answers, _attribution: getAttributionForSubmit() }),
+        body: JSON.stringify({
+          name,
+          email,
+          answers,
+          _attribution: getAttributionForSubmit(),
+          _funnel: getThyroidTrackingContext(),
+        }),
       })
-      const data = (await response.json()) as { error?: string; result?: TestResult }
+      const data = (await response.json()) as { error?: string; result?: TestResult; leadId?: string }
       if (!response.ok || !data.result) throw new Error(data.error || 'No se pudo calcular el resultado')
+      if (data.leadId) identifyThyroidLead(data.leadId)
       trackSignUp('test_tiroides')
       trackThyroidFunnel('thyroid_result_view', {
         profile: data.result.profile,
@@ -128,7 +139,11 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
         <a
           href={result.cta.href}
-          onClick={() => trackThyroidFunnel('thyroid_result_cta_click', { profile: result.profile, intent: result.intent })}
+          onClick={() => {
+            if (result.cta.href.startsWith('/valoracion')) {
+              trackThyroidFunnel('thyroid_valuation_click', { profile: result.profile, intent: result.intent })
+            }
+          }}
           className="btn-brand w-full mt-5 text-fluid-base py-4"
         >
           {result.cta.label}<ArrowRight className="w-4 h-4" />

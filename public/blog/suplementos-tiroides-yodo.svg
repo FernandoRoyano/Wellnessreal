@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 620" role="img" aria-labelledby="title desc">
+  <title id="title">El equilibrio del yodo</title>
+  <desc id="desc">El yodo es necesario para producir hormonas tiroideas, pero tanto su déficit como su exceso pueden causar problemas.</desc>
+  <rect width="1200" height="620" rx="32" fill="#16122b"/>
+  <text x="600" y="76" text-anchor="middle" fill="#fcee21" font-family="Arial, sans-serif" font-size="22" font-weight="700" letter-spacing="3">YODO Y TIROIDES</text>
+  <text x="600" y="126" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="38" font-weight="800">Necesario no significa “cuanto más, mejor”</text>
+  <line x1="220" y1="330" x2="980" y2="330" stroke="#5b527e" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="220" cy="330" r="62" fill="#2b234d" stroke="#ff7474" stroke-width="5"/>
+  <circle cx="600" cy="330" r="78" fill="#fcee21"/>
+  <circle cx="980" cy="330" r="62" fill="#2b234d" stroke="#ff7474" stroke-width="5"/>
+  <g font-family="Arial, sans-serif" text-anchor="middle">
+    <text x="220" y="338" fill="#fff" font-size="23" font-weight="800">DÉFICIT</text>
+    <text x="600" y="319" fill="#16122b" font-size="27" font-weight="900">APORTE</text><text x="600" y="352" fill="#16122b" font-size="27" font-weight="900">ADECUADO</text>
+    <text x="980" y="338" fill="#fff" font-size="23" font-weight="800">EXCESO</text>
+    <text x="220" y="450" fill="#ff9b9b" font-size="18" font-weight="700">Puede causar problemas</text>
+    <text x="600" y="450" fill="#fcee21" font-size="18" font-weight="700">La tiroides fabrica hormonas</text>
+    <text x="980" y="450" fill="#ff9b9b" font-size="18" font-weight="700">También puede alterar la tiroides</text>
+  </g>
+  <rect x="170" y="500" width="860" height="70" rx="18" fill="#211b3e" stroke="#5b527e"/>
+  <text x="600" y="543" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="21" font-weight="700">No elimines alimentos por tu cuenta. No suplementes sin indicación.</text>
+</svg>

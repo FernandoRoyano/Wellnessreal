@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="800" viewBox="0 0 1400 800">
+  <rect width="1400" height="800" rx="36" fill="#17142d"/>
+  <text x="90" y="104" fill="#f4ea4d" font-family="Arial,sans-serif" font-size="24" font-weight="700" letter-spacing="4">UNA COMBINACIÓN, TRES FUNCIONES</text>
+  <text x="90" y="168" fill="#fff" font-family="Arial,sans-serif" font-size="48" font-weight="800">No compiten. Se complementan.</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="90" y="238" width="380" height="390" rx="26" fill="#24203f"/>
+    <circle cx="150" cy="304" r="28" fill="#f4ea4d"/><text x="141" y="314" fill="#17142d" font-size="30" font-weight="800">1</text>
+    <text x="120" y="382" fill="#fff" font-size="34" font-weight="800">FUERZA</text>
+    <text x="120" y="440" fill="#c9c6d8" font-size="25"><tspan x="120" dy="0">Músculo y capacidad</tspan><tspan x="120" dy="38">para las tareas del día.</tspan></text>
+    <text x="120" y="566" fill="#f4ea4d" font-size="22" font-weight="700">≈ 2 DÍAS / SEMANA</text>
+    <rect x="510" y="238" width="380" height="390" rx="26" fill="#24203f"/>
+    <circle cx="570" cy="304" r="28" fill="#f4ea4d"/><text x="561" y="314" fill="#17142d" font-size="30" font-weight="800">2</text>
+    <text x="540" y="382" fill="#fff" font-size="34" font-weight="800">AERÓBICO</text>
+    <text x="540" y="440" fill="#c9c6d8" font-size="25"><tspan x="540" dy="0">Resistencia y salud</tspan><tspan x="540" dy="38">cardiovascular.</tspan></text>
+    <text x="540" y="566" fill="#f4ea4d" font-size="22" font-weight="700">HABLAR CON FRASES</text>
+    <rect x="930" y="238" width="380" height="390" rx="26" fill="#24203f"/>
+    <circle cx="990" cy="304" r="28" fill="#f4ea4d"/><text x="981" y="314" fill="#17142d" font-size="30" font-weight="800">3</text>
+    <text x="960" y="382" fill="#fff" font-size="32" font-weight="800">MOVIMIENTO DIARIO</text>
+    <text x="960" y="440" fill="#c9c6d8" font-size="25"><tspan x="960" dy="0">Menos tiempo sentada,</tspan><tspan x="960" dy="38">sin añadir gran fatiga.</tspan></text>
+    <text x="960" y="566" fill="#f4ea4d" font-size="22" font-weight="700">TODO MOVIMIENTO CUENTA</text>
+  </g>
+  <text x="700" y="712" text-anchor="middle" fill="#a9a5bc" font-family="Arial,sans-serif" font-size="23">La dosis adecuada es la que puedes recuperar y repetir.</text>
+</svg>
