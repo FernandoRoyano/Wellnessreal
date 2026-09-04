@@ -46,6 +46,7 @@ skills/
 MEMORIA_PARCHES.md
 
 # Temp files
+/tmp/
 nul
 repomix-output.txt
 temp_*.png
