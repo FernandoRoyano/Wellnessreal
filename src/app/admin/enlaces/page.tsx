@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import {
-  Link2, Copy, Check, ExternalLink, Target, PlayCircle, Sparkles, ClipboardList,
+  Link2, Copy, Check, ExternalLink, Sparkles, ClipboardList, Users,
   Gift, MessageCircle, FileText, Home, Heart, Star, BookOpen, Dumbbell, Shield,
 } from 'lucide-react'
 
@@ -14,21 +14,15 @@ type Grupo = { titulo: string; nota?: string; icon: React.ComponentType<{ size?:
 
 const GRUPOS: Grupo[] = [
   {
-    titulo: 'Embudo del Programa BASE · ACTIVO',
-    nota: 'En el que te estás centrando. Flujo: anuncio → reservar plaza → clase (vídeo de venta) → cuestionario → te escriben.',
+    titulo: 'Embudo Tiroides · ACTIVO',
+    nota: 'Flujo principal: contenido o anuncio → página nicho y test → programa → solicitud de plaza → aceptación y pago.',
     icon: Sparkles,
     paginas: [
-      { title: 'Webinar (reserva + clase)', description: 'Aquí aterriza tu anuncio. Reservan plaza y, tras hacerlo, ven la clase/vídeo de venta.', path: '/webinar', highlight: true, rol: 'Paso 1 · Entrada' },
-      { title: 'Cuestionario (plan IA)', description: 'El final del embudo: rellenan, la IA genera su plan y ven el adelanto (teaser) → te escriben por WhatsApp.', path: '/cuestionario', highlight: true, rol: 'Paso 2 · Conversión' },
-    ],
-  },
-  {
-    titulo: 'Embudo VSL · EN PAUSA',
-    nota: 'Lo aparcaste. Si algún día lo retomas, es el otro camino (anuncio → vídeo directo). No lo uses ahora.',
-    icon: Target,
-    paginas: [
-      { title: 'VSL — Opt-in', description: 'Página de registro del VSL.', path: '/metodo', rol: 'En pausa' },
-      { title: 'VSL — Vídeo', description: 'Vídeo de 15 min + CTA.', path: '/metodo/video', rol: 'En pausa' },
+      { title: 'Página Tiroides', description: 'Página nicho principal. Educa, presenta el enfoque y conduce al test de tiroides.', path: '/tiroides', highlight: true, rol: 'Paso 1 · Entrada' },
+      { title: 'Artículo principal', description: 'Entrada SEO para quien no consigue adelgazar con hipotiroidismo.', path: '/blog/por-que-no-adelgazo-con-hipotiroidismo', rol: 'Paso 1 · SEO' },
+      { title: 'Método BASE Tiroides', description: 'Página de venta del programa de 12 semanas y formulario para solicitar plaza.', path: '/metodo-tiroides', highlight: true, rol: 'Paso 2 · Venta' },
+      { title: 'Comunidad Tiroides', description: 'Alternativa gratuita para contactos que aún no están preparados para solicitar plaza.', path: '/comunidad', rol: 'Nutrición' },
+      { title: 'Pago confirmado', description: 'Confirmación que ve el cliente después de pagar en Stripe. No se envía manualmente.', path: '/metodo-tiroides/pago-confirmado', rol: 'Postpago' },
     ],
   },
   {
@@ -77,7 +71,8 @@ const GRUPOS: Grupo[] = [
 ]
 
 const ICONO_PAGINA: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
-  '/metodo': Target, '/metodo/video': PlayCircle, '/webinar': PlayCircle, '/cuestionario': ClipboardList,
+  '/tiroides': Heart, '/metodo-tiroides': Sparkles, '/metodo-tiroides/pago-confirmado': Check,
+  '/blog/por-que-no-adelgazo-con-hipotiroidismo': BookOpen, '/comunidad': Users,
   '/valoracion': ClipboardList, '/recurso-gratis': Gift, '/contacto': MessageCircle,
   '/tarifas': FileText, '/servicios': Dumbbell, '/': Home, '/filosofia': Heart, '/caso-real': Star, '/blog': BookOpen,
   '/privacidad': Shield, '/terminos': Shield,
