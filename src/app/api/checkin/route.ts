@@ -12,9 +12,6 @@ import { generarAjuste, SinPlanVigenteError } from '@/lib/ajustar-programa'
 export const runtime = 'nodejs'
 export const maxDuration = 60
 
-const SEMANAS_CICLO = 4
-const DIAS_CICLO = SEMANAS_CICLO * 7
-
 interface Respuestas {
   cumplimiento?: string // todos | mayoria | medias | casi_ninguno
   cargas?: string // cortas | justas | demasiado
@@ -63,11 +60,21 @@ export async function POST(req: NextRequest) {
 
     const { data: cliente } = await supabase
       .from('cliente_perfil')
-      .select('id, plan_tier, estado_suscripcion, acceso_hasta, acceso_manual, semana_actual, pagado_en')
+      .select('id, email, plan_tier, estado_suscripcion, acceso_hasta, acceso_manual, semana_actual, pagado_en')
       .eq('token', token)
       .maybeSingle()
 
     if (!cliente) return NextResponse.json({ error: 'Cliente no encontrado.' }, { status: 404 })
+
+    const { data: thyroidPayment } = await supabase
+      .from('asesoria_solicitudes')
+      .select('id')
+      .ilike('email', cliente.email)
+      .eq('estado', 'pagada')
+      .limit(1)
+      .maybeSingle()
+    const semanasCiclo = thyroidPayment ? 3 : 4
+    const diasCiclo = semanasCiclo * 7
 
     // --- Acceso: suscripción activa/gracia o acceso manual ---
     const estadoOk = ['active', 'trialing', 'past_due'].includes(cliente.estado_suscripcion ?? '')
@@ -96,8 +103,8 @@ export async function POST(req: NextRequest) {
       cliente.pagado_en ? new Date(cliente.pagado_en).getTime() : 0,
     )
     const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
-    if (diasDesde < DIAS_CICLO) {
-      const faltan = Math.ceil(DIAS_CICLO - diasDesde)
+    if (diasDesde < diasCiclo) {
+      const faltan = Math.ceil(diasCiclo - diasDesde)
       return NextResponse.json(
         { error: `Tu plan actual aún está en marcha. Podrás actualizarlo en ${faltan} día${faltan === 1 ? '' : 's'}.` },
         { status: 425 },
@@ -110,7 +117,7 @@ export async function POST(req: NextRequest) {
     }
 
     const entregarYa = cliente.plan_tier === 'auto'
-    const nuevaSemana = (cliente.semana_actual ?? 0) + SEMANAS_CICLO
+    const nuevaSemana = (cliente.semana_actual ?? 0) + semanasCiclo
 
     const res = await generarAjuste({
       cliente_id: cliente.id,

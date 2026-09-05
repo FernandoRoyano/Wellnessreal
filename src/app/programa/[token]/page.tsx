@@ -31,7 +31,7 @@ export default async function ProgramaPublicoPage({
 
   const { data: perfil } = await supabase
     .from('cliente_perfil')
-    .select('id, nombre, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual, pagado_en')
+    .select('id, nombre, email, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual, pagado_en')
     .eq('token', token)
     .maybeSingle()
 
@@ -61,9 +61,18 @@ export default async function ProgramaPublicoPage({
     perfil.pagado_en ? new Date(perfil.pagado_en).getTime() : 0,
   )
   const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
+  const { data: thyroidPayment } = await supabase
+    .from('asesoria_solicitudes')
+    .select('id')
+    .ilike('email', perfil.email)
+    .eq('estado', 'pagada')
+    .limit(1)
+    .maybeSingle()
+  const cycleWeeks = thyroidPayment ? 3 : 4
+  const cycleDays = cycleWeeks * 7
   const enRevision = vigenteRow?.revisado === false
-  const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= 28
-  const disponibleEnDias = Math.max(0, Math.ceil(28 - diasDesde))
+  const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= cycleDays
+  const disponibleEnDias = Math.max(0, Math.ceil(cycleDays - diasDesde))
 
   // Valor de la conversión 'purchase' (según el plan contratado).
   const purchaseValue =
@@ -132,6 +141,7 @@ export default async function ProgramaPublicoPage({
         puedeActualizar={puedeActualizar}
         enRevision={enRevision}
         disponibleEnDias={disponibleEnDias}
+        cycleWeeks={cycleWeeks}
       />
       {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
     </Shell>

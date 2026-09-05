@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function Page() {
-  return <Cuestionario />;
+export default async function Page({ searchParams }: { searchParams: Promise<{ origen?: string }> }) {
+  const { origen } = await searchParams;
+  return <Cuestionario paidThyroidProgram={origen === "metodo-tiroides"} />;
 }

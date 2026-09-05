@@ -65,7 +65,7 @@ const DIGESTION = ["Todo bien", "Estreñimiento", "Digestiones pesadas", "Hincha
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TOTAL = 8;
 
-export default function Cuestionario() {
+export default function Cuestionario({ paidThyroidProgram = false }: { paidThyroidProgram?: boolean }) {
   const [form, setForm] = useState<FormState>(VACIO);
   const [step, setStep] = useState(0);
   const [sending, setSending] = useState(false);
@@ -73,6 +73,7 @@ export default function Cuestionario() {
   const [done, setDone] = useState(false);
   const [programa, setPrograma] = useState<Programa | null>(null);
   const [clienteId, setClienteId] = useState<string | null>(null);
+  const [clientToken, setClientToken] = useState<string | null>(null);
   const [verTeaser, setVerTeaser] = useState(false);
 
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
@@ -104,6 +105,7 @@ export default function Cuestionario() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          origen: paidThyroidProgram ? "metodo-tiroides" : "general",
           nombre: form.nombre.trim(),
           email: form.email.trim(),
           edad: num(form.edad),
@@ -152,6 +154,7 @@ export default function Cuestionario() {
       if (!res.ok) throw new Error(data.error || "No se pudo procesar tu cuestionario.");
       if (data.programa) setPrograma(data.programa as Programa);
       if (data.cliente_id) setClienteId(data.cliente_id as string);
+      if (data.token) setClientToken(data.token as string);
       setDone(true);
     } catch (e) {
       setError(e instanceof Error ? e.message : "Error al enviar el cuestionario.");
@@ -184,6 +187,21 @@ export default function Cuestionario() {
   // --- Pantalla: teaser del plan (tras pulsar "ver adelanto") ---
   if (done && programa && verTeaser) {
     return <ProgramaTeaser programa={programa} nombre={form.nombre} clienteId={clienteId ?? undefined} />;
+  }
+
+  if (done && paidThyroidProgram) {
+    return (
+      <div className="wrq">
+        <div className="wrq-center"><div className="wrq-center-inner">
+          <div className="wrq-badge">✓</div>
+          <h1>Evaluación <span className="hl">recibida</span></h1>
+          <p>Tu plan ya está generado y ha quedado en revisión para que Fernando lo adapte antes de entregártelo.</p>
+          <a href={clientToken ? `/programa/${clientToken}` : "/comunidad"} className="wrq-btn primary">
+            {clientToken ? "Ver el estado de mi plan →" : "Entrar en la comunidad →"}
+          </a>
+        </div></div>
+      </div>
+    );
   }
 
   // --- Pantalla: gracias ---

@@ -10,12 +10,14 @@ export default function CheckinProgreso({
   puedeActualizar,
   enRevision,
   disponibleEnDias,
+  cycleWeeks,
 }: {
   token: string
   tier: string | null
   puedeActualizar: boolean
   enRevision: boolean
   disponibleEnDias: number
+  cycleWeeks: number
 }) {
   const [abierto, setAbierto] = useState(false)
   const [enviando, setEnviando] = useState(false)
@@ -103,7 +105,7 @@ export default function CheckinProgreso({
     <Wrap>
       <h3 style={h3}>Toca progresar tu plan 🚀</h3>
       <p style={p}>
-        Han pasado 4 semanas. Cuéntanos cómo te ha ido y{' '}
+        Han pasado {cycleWeeks} semanas. Cuéntanos cómo te ha ido y{' '}
         {tier === 'auto' ? 'te generamos tu nueva versión al instante' : 'Fernando ajustará tu plan a mano'}.
       </p>
 

@@ -37,6 +37,19 @@ export async function POST(req: NextRequest) {
 
     const email = String(datos.email).toLowerCase().trim()
 
+    if (datos.origen === 'metodo-tiroides') {
+      const { data: paidApplication } = await supabase
+        .from('asesoria_solicitudes')
+        .select('id')
+        .ilike('email', email)
+        .eq('estado', 'pagada')
+        .limit(1)
+        .maybeSingle()
+      if (!paidApplication) {
+        return NextResponse.json({ error: 'No encontramos un pago confirmado con este correo.' }, { status: 403 })
+      }
+    }
+
     // --- 1) Guardar respuestas del onboarding ---
     const { data: onboarding, error: errOnboarding } = await supabase
       .from('onboarding_respuestas')
@@ -110,6 +123,13 @@ export async function POST(req: NextRequest) {
       .single()
 
     if (errPerfil) throw new Error('Supabase (perfil): ' + errPerfil.message)
+
+    if (datos.origen === 'metodo-tiroides') {
+      await supabase
+        .from('cliente_perfil')
+        .update({ acceso_manual: true, plan_tier: 'revisado', pagado_en: new Date().toISOString() })
+        .eq('id', perfil.id)
+    }
 
     // --- 3) Construir el mensaje con los datos del cliente ---
     const mensajeCliente = `

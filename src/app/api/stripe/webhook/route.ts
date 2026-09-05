@@ -152,10 +152,19 @@ export async function POST(request: NextRequest) {
         if (session.metadata?.kind === 'metodo_tiroides') {
           const applicationId = session.metadata.asesoria_id
           if (applicationId) {
-            await supabase
+            const { data: application } = await supabase
               .from('asesoria_solicitudes')
               .update({ estado: 'pagada' })
               .eq('id', applicationId)
+              .select('email')
+              .maybeSingle()
+
+            if (application?.email) {
+              await supabase
+                .from('cliente_perfil')
+                .update({ acceso_manual: true, plan_tier: 'revisado', pagado_en: new Date().toISOString() })
+                .ilike('email', application.email)
+            }
           }
           await recordThyroidRevenue({
             email: session.customer_details?.email ?? session.customer_email,

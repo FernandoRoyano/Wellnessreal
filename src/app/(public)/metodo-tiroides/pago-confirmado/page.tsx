@@ -18,9 +18,10 @@ export default function ThyroidPaymentConfirmedPage() {
           <span className="mt-5 inline-block text-fluid-xs font-semibold uppercase tracking-[0.18em] text-accent">Pago confirmado</span>
           <h1 className="headline mt-3 text-fluid-4xl text-white">Tu plaza está confirmada.</h1>
           <p className="mx-auto mt-4 max-w-lg text-fluid-base leading-relaxed text-muted">
-            Te escribiré con los siguientes pasos para completar la evaluación inicial y preparar tu plan antes de empezar.
+            El siguiente paso es completar la evaluación inicial con el mismo correo que utilizaste al pagar. Así podré preparar y revisar tu plan.
           </p>
-          <Link href="/comunidad/entrar" className="btn-brand mt-7 px-7 py-4">Entrar en la comunidad <ArrowRight className="h-4 w-4" /></Link>
+          <Link href="/cuestionario?origen=metodo-tiroides" className="btn-brand mt-7 px-7 py-4">Completar mi evaluación <ArrowRight className="h-4 w-4" /></Link>
+          <p className="mt-4 text-sm text-muted"><Link href="/comunidad/entrar" className="underline hover:text-white">Ya la completé: entrar en la comunidad</Link></p>
         </div>
       </Container>
     </section>
