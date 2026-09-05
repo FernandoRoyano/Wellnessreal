@@ -23,7 +23,7 @@ export async function createThreadAction(spaceSlug: string, formData: FormData) 
   const body = String(formData.get('body') ?? '').trim()
   if (!title) return
 
-  const space = await getSpace(spaceSlug)
+  const space = await getSpace(spaceSlug, member)
   if (!space || space.type !== 'forum') return
 
   const { id } = await createThread({ spaceId: space.id, authorId: member.id, title, body })

@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 export default async function SpacePage({ params }: { params: Promise<{ space: string }> }) {
   const { space: spaceSlug } = await params
   const member = await getSessionMember()
-  const space = await getSpace(spaceSlug)
+  const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
   return (

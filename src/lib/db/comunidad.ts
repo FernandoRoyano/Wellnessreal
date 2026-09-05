@@ -447,18 +447,38 @@ const DAY_MS = 24 * 60 * 60 * 1000
  * Por ahora todos los miembros son tier 'free'. Cuando exista premium, aquí
  * se comprobará el tier real del miembro (Stripe / campo en member_profiles).
  */
-function memberHasTier(_member: MemberProfile | null, tier: string): boolean {
-  return tier === 'free'
+async function memberHasTier(member: MemberProfile | null, tier: string): Promise<boolean> {
+  if (tier === 'free') return true
+  if (!member) return false
+  if (member.role === 'admin' || member.role === 'mod') return true
+
+  const { data, error } = await supabase
+    .from('asesoria_solicitudes')
+    .select('id')
+    .ilike('email', member.email)
+    .eq('estado', 'pagada')
+    .limit(1)
+
+  if (error) {
+    console.error('[comunidad:memberHasTier]', error.message)
+    return false
+  }
+  return (data?.length ?? 0) > 0
 }
 
 /** Resuelve el bloqueo de una lección (drip + tier) para un miembro. */
-function resolveLock(lesson: Lesson, member: MemberProfile | null): LessonWithLock {
+function resolveLock(lesson: Lesson, hasTier: boolean): LessonWithLock {
   // Gate por nivel de acceso (premium en el futuro).
-  if (!memberHasTier(member, lesson.access_tier)) {
+  if (!hasTier) {
     return { ...lesson, locked: true, lockReason: 'tier', daysUntilUnlock: 0 }
   }
 
   // Gate por drip: desbloqueo N días tras el registro del miembro.
+  return { ...lesson, locked: false, lockReason: null, daysUntilUnlock: 0 }
+}
+
+function resolveDrip(lesson: LessonWithLock, member: MemberProfile | null): LessonWithLock {
+  if (lesson.locked) return lesson
   if (lesson.drip_days > 0 && member) {
     const unlockAt = new Date(member.creado_en).getTime() + lesson.drip_days * DAY_MS
     const now = Date.now()
@@ -471,7 +491,7 @@ function resolveLock(lesson: Lesson, member: MemberProfile | null): LessonWithLo
   return { ...lesson, locked: false, lockReason: null, daysUntilUnlock: 0 }
 }
 
-export async function getSpaces(): Promise<Space[]> {
+export async function getSpaces(member?: MemberProfile | null): Promise<Space[]> {
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
@@ -479,7 +499,10 @@ export async function getSpaces(): Promise<Space[]> {
     .order('sort_order', { ascending: true })
 
   if (error) throw new Error(`[comunidad:getSpaces] ${error.message}`)
-  return (data ?? []) as Space[]
+  const spaces = (data ?? []) as Space[]
+  if (!spaces.some((space) => space.access_tier !== 'free')) return spaces
+  const hasPremium = await memberHasTier(member ?? null, 'premium')
+  return spaces.filter((space) => space.access_tier === 'free' || hasPremium)
 }
 
 export interface SpaceOverview extends Space {
@@ -487,8 +510,8 @@ export interface SpaceOverview extends Space {
 }
 
 /** Espacios publicados + nº de elementos (lecciones si content, hilos si forum). */
-export async function getSpacesOverview(): Promise<SpaceOverview[]> {
-  const spaces = await getSpaces()
+export async function getSpacesOverview(member?: MemberProfile | null): Promise<SpaceOverview[]> {
+  const spaces = await getSpaces(member)
   if (spaces.length === 0) return []
 
   const [{ data: lessonsRows }, { data: threadsRows }] = await Promise.all([
@@ -509,7 +532,7 @@ export async function getSpacesOverview(): Promise<SpaceOverview[]> {
   }))
 }
 
-export async function getSpace(slug: string): Promise<Space | null> {
+export async function getSpace(slug: string, member?: MemberProfile | null): Promise<Space | null> {
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
@@ -518,7 +541,9 @@ export async function getSpace(slug: string): Promise<Space | null> {
     .maybeSingle()
 
   if (error) throw new Error(`[comunidad:getSpace] ${error.message}`)
-  return (data as Space) ?? null
+  const space = (data as Space) ?? null
+  if (!space || space.access_tier === 'free') return space
+  return await memberHasTier(member ?? null, space.access_tier) ? space : null
 }
 
 /** Lecciones publicadas de un espacio, con el bloqueo resuelto para el miembro. */
@@ -534,7 +559,10 @@ export async function getLessons(
     .order('sort_order', { ascending: true })
 
   if (error) throw new Error(`[comunidad:getLessons] ${error.message}`)
-  return (data ?? []).map((l) => resolveLock(l as Lesson, member))
+  return Promise.all((data ?? []).map(async (row) => {
+    const lesson = row as Lesson
+    return resolveDrip(resolveLock(lesson, await memberHasTier(member, lesson.access_tier)), member)
+  }))
 }
 
 /** Una lección por slug dentro de un espacio, con bloqueo resuelto. */
@@ -553,7 +581,8 @@ export async function getLesson(
 
   if (error) throw new Error(`[comunidad:getLesson] ${error.message}`)
   if (!data) return null
-  return resolveLock(data as Lesson, member)
+  const lesson = data as Lesson
+  return resolveDrip(resolveLock(lesson, await memberHasTier(member, lesson.access_tier)), member)
 }
 
 // ============================================================

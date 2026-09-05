@@ -23,7 +23,7 @@ export default async function ThreadPage({
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const space = await getSpace(spaceSlug)
+  const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
   const thread = await getThread(threadId, member)

@@ -16,7 +16,7 @@ export default async function LessonPage({
 }) {
   const { space: spaceSlug, slug } = await params
   const member = await getSessionMember()
-  const space = await getSpace(spaceSlug)
+  const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
   const lessons = await getLessons(space.id, member)

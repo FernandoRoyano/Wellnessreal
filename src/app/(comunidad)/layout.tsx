@@ -25,7 +25,7 @@ export default async function ComunidadLayout({ children }: { children: React.Re
   // Marca actividad para "en línea" (activo < 5 min).
   await touchMember(member.id)
 
-  const spaces = await getSpaces()
+  const spaces = await getSpaces(member)
 
   return (
     <div className="min-h-screen bg-[var(--color-brand-deep)]">

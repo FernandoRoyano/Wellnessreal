@@ -54,6 +54,25 @@ const premiumLessons = [
   ['directos-y-revisiones', 'Directos y revisiones', '<h2>Seguimiento del grupo</h2><p>Aquí se publicarán el horario y acceso a los directos, además de las instrucciones para las revisiones de las semanas 3, 6, 9 y 12.</p>'],
 ]
 
+const weeklyProgram = [
+  ['Semana 1 · Punto de partida', 'Aprender la técnica y completar dos sesiones sin buscar agotamiento.', 'Reserva dos huecos reales, registra energía antes y después y anota cualquier ejercicio que necesite adaptación.'],
+  ['Semana 2 · Repetir antes de cambiar', 'Consolidar la rutina y reducir decisiones.', 'Repite la estructura, prepara el material con antelación y utiliza la versión amarilla si llegas cansada.'],
+  ['Semana 3 · Primera revisión', 'Revisar adherencia, molestias y recuperación.', 'Completa el check-in: sesiones realizadas, energía, sueño, hambre, molestias y principal obstáculo.'],
+  ['Semana 4 · Construir una comida ancla', 'Organizar una comida completa que puedas repetir.', 'Elige una comida diaria con proteína, vegetal, carbohidrato y grasa; no cambies todo el día a la vez.'],
+  ['Semana 5 · Progresar con margen', 'Empezar a progresar sin perder técnica.', 'Añade una repetición cuando mantengas buena ejecución y termines con dos o tres repeticiones posibles.'],
+  ['Semana 6 · Segunda revisión', 'Ajustar volumen y organización a tu respuesta.', 'Compara las dos primeras semanas con las dos últimas y completa el check-in antes del directo.'],
+  ['Semana 7 · Movimiento fuera del entrenamiento', 'Aumentar actividad cotidiana sin convertirla en castigo.', 'Añade un paseo breve ligado a una rutina que ya exista y mide cumplimiento, no calorías.'],
+  ['Semana 8 · Preparar una semana difícil', 'Crear una versión mínima del plan.', 'Define qué harás si solo dispones de veinte minutos y deja escrita tu sesión mínima.'],
+  ['Semana 9 · Tercera revisión', 'Detectar estancamientos sin reaccionar por impulso.', 'Revisa tendencia, rendimiento, medidas y adherencia; no cambies el plan por un único peso.'],
+  ['Semana 10 · Más autonomía', 'Aprender a escoger cargas y alternativas.', 'Usa el margen de repeticiones para elegir carga y registra qué variante te permite entrenar sin dolor.'],
+  ['Semana 11 · Tu manual personal', 'Identificar lo que mejor funciona en tu contexto.', 'Escribe tus horarios, ejercicios, comidas ancla y señales para reducir o aumentar carga.'],
+  ['Semana 12 · Revisión final y continuidad', 'Cerrar el proceso con un plan para las siguientes semanas.', 'Completa la revisión final, compara el punto de partida y define el siguiente bloque con Fernando.'],
+].map(([title, objective, action], index) => ({
+  slug: `semana-${index + 1}`,
+  title,
+  content: `<h2>${objective}</h2><p>Esta semana trabajamos una prioridad. Mantén el resto estable para poder saber qué te ayuda y qué necesita ajuste.</p><h3>Qué tienes que hacer</h3><p>${action}</p><h3>Qué registrar</h3><ul><li>Sesiones completadas.</li><li>Energía antes y después.</li><li>Molestias o ejercicios que no encajan.</li><li>La dificultad principal de la semana.</li></ul><div class="lesson-note"><p><strong>No ajustes medicación ni interpretes síntomas clínicos desde aquí.</strong> Si aparece un cambio de salud, consulta con el profesional sanitario que lleva tu caso y avisa a Fernando para adaptar el entrenamiento.</p></div>`,
+}))
+
 async function run() {
   const backupData = await Promise.all([
     must('backup-spaces', db.from('spaces').select('*').order('sort_order')),
@@ -61,7 +80,8 @@ async function run() {
     must('backup-threads', db.from('threads').select('*').order('creado_en')),
   ])
   fs.mkdirSync('tmp', { recursive: true })
-  fs.writeFileSync(path.join('tmp', 'community-backup-before-v2.json'), JSON.stringify({ spaces: backupData[0], lessons: backupData[1], threads: backupData[2] }, null, 2))
+  const backupPath = path.join('tmp', 'community-backup-before-v2.json')
+  if (!fs.existsSync(backupPath)) fs.writeFileSync(backupPath, JSON.stringify({ spaces: backupData[0], lessons: backupData[1], threads: backupData[2] }, null, 2))
 
   const spaces = await must('get-spaces', db.from('spaces').select('id,slug'))
   const bySlug = new Map(spaces.map((space) => [space.slug, space.id]))
@@ -101,10 +121,13 @@ async function run() {
   const salesLesson = lessons.find((lesson) => lesson.slug === 'ir-mas-rapido')
   if (salesLesson) await must('remove-old-sales-lesson', db.from('lessons').delete().eq('id', salesLesson.id))
 
-  const premiumSpaceRows = await must('upsert-premium-space', db.from('spaces').upsert({ slug: 'metodo-base-tiroides', name: 'Método BASE Tiroides', description: 'Zona privada del programa de 12 semanas.', icon: 'sparkles', type: 'content', sort_order: 4, access_tier: 'premium', published: false }, { onConflict: 'slug' }).select('id'))
+  const premiumSpaceRows = await must('upsert-premium-space', db.from('spaces').upsert({ slug: 'metodo-base-tiroides', name: 'Método BASE Tiroides', description: 'Tu programa, seguimiento y recursos durante 12 semanas.', icon: 'sparkles', type: 'content', sort_order: 4, access_tier: 'premium', published: true }, { onConflict: 'slug' }).select('id'))
   const premiumId = premiumSpaceRows[0].id
   for (const [index, [slug, title, content]] of premiumLessons.entries()) {
-    await must(`premium-${slug}`, db.from('lessons').upsert({ space_id: premiumId, slug, title, content, sort_order: index, drip_days: 0, access_tier: 'premium', published: false }, { onConflict: 'space_id,slug' }))
+    await must(`premium-${slug}`, db.from('lessons').upsert({ space_id: premiumId, slug, title, content, sort_order: index, drip_days: 0, access_tier: 'premium', published: true }, { onConflict: 'space_id,slug' }))
+  }
+  for (const [index, lesson] of weeklyProgram.entries()) {
+    await must(`premium-${lesson.slug}`, db.from('lessons').upsert({ ...lesson, space_id: premiumId, sort_order: premiumLessons.length + index, drip_days: index * 7, access_tier: 'premium', published: true }, { onConflict: 'space_id,slug' }))
   }
 
   const author = await must('find-author', db.from('member_profiles').select('id').ilike('display_name', 'fernandoroyano').limit(1).maybeSingle())
@@ -121,7 +144,7 @@ async function run() {
     }
   }
 
-  process.stdout.write(JSON.stringify({ ok: true, backup: 'tmp/community-backup-before-v2.json', trainingLessons: trainingLessons.length, premiumDraftLessons: premiumLessons.length }, null, 2))
+  process.stdout.write(JSON.stringify({ ok: true, backup: 'tmp/community-backup-before-v2.json', trainingLessons: trainingLessons.length, premiumLessons: premiumLessons.length + weeklyProgram.length }, null, 2))
 }
 
 run().catch((error) => {

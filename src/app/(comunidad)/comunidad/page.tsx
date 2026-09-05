@@ -21,7 +21,7 @@ export default async function ComunidadHome() {
   if (!member) redirect('/comunidad/entrar')
 
   const [spaces, recent, online] = await Promise.all([
-    getSpacesOverview(),
+    getSpacesOverview(member),
     getRecentThreads(5),
     getOnlineMembers(),
   ])
