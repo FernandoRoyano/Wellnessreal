@@ -15,6 +15,7 @@ import { anthropic, MODELO_IA } from '@/lib/anthropic'
 import { supabase } from '@/lib/supabase'
 import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
+import { getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
@@ -132,6 +133,8 @@ export async function POST(req: NextRequest) {
     }
 
     // --- 3) Construir el mensaje con los datos del cliente ---
+    const isThyroidProgram = datos.origen === 'metodo-tiroides'
+    const baseProgram = isThyroidProgram ? getThyroidBaseProgram(Number(datos.dias_semana) || 3) : null
     const mensajeCliente = `
 Genera el programa completo del Método BASE para este cliente:
 
@@ -165,7 +168,9 @@ entorno y material. Respeta cómo le gusta entrenar siempre que sea compatible c
 si no ha indicado preferencia, elige tú el enfoque más eficaz. En la nutrición: respeta alergias, lo que NO comerá y sus gustos; estructura
 las comidas según las que prefiera al día y refuerza la saciedad en sus momentos de más hambre o
 ansiedad; ten en cuenta el sueño, la medicación y las digestiones para la recuperación y los
-ajustes. Encaja el plan en su franja horaria de entrenamiento. Devuelve el resultado llamando a
+ajustes. Encaja el plan en su franja horaria de entrenamiento.
+${baseProgram ? `\nREGLAS DE ADAPTACIÓN:\n${THYROID_ADAPTATION_RULES}\n\nPLANTILLA MAESTRA A ADAPTAR:\n${JSON.stringify(baseProgram)}` : ''}
+Devuelve el resultado llamando a
 la herramienta 'entregar_programa'.
 `.trim()
 
@@ -201,12 +206,13 @@ la herramienta 'entregar_programa'.
         version: 1,
         vigente: true,
         programa,
-        origen: 'generacion',
+        origen: isThyroidProgram ? 'plantilla-tiroides' : 'generacion',
         modelo: MODELO_IA,
         meta: {
           input_tokens: respuesta.usage?.input_tokens,
           output_tokens: respuesta.usage?.output_tokens,
           cache_read: respuesta.usage?.cache_read_input_tokens,
+          plantilla: isThyroidProgram ? THYROID_TEMPLATE_VERSION : undefined,
         },
         revisado: false,
       })

@@ -195,7 +195,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
           <div className="flex-1 min-w-[180px]">
             <p className="text-white text-sm font-medium leading-tight">{c?.nombre || '—'}</p>
             <p className="text-gray-500 text-xs">
-              {c?.email} · v{reg.version} · {reg.modelo}{reg.origen === 'ajuste' ? ' · ajuste' : ''}
+              {c?.email} · v{reg.version} · {reg.modelo}{reg.origen === 'ajuste' ? ' · ajuste' : reg.origen === 'plantilla-tiroides' ? ' · BASE-T12' : ''}
               {!reg.vigente && ' · (archivada)'}
             </p>
           </div>
@@ -360,7 +360,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
                   style={{ backgroundColor: v.id === reg.id ? 'rgba(252,238,33,0.1)' : '#16122B', border: '1px solid rgba(102,45,145,0.3)' }}
                 >
                   <span style={{ color: v.id === reg.id ? '#FCEE21' : '#d1d5db' }}>
-                    v{v.version} {v.origen === 'ajuste' ? '· ajuste' : '· inicial'}
+                    v{v.version} {v.origen === 'ajuste' ? '· ajuste' : v.origen === 'plantilla-tiroides' ? '· BASE-T12' : '· inicial'}
                     {v.vigente && ' · vigente'}
                   </span>
                   {v.revisado ? <CheckCircle2 size={13} className="text-green-400" /> : <Clock size={13} className="text-yellow-300" />}

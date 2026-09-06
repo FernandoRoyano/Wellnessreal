@@ -175,7 +175,7 @@ export default function ProgramasAdminPage() {
                     </td>
                     <td className="px-4 py-3 text-gray-300 text-sm">
                       v{p.version}
-                      <span className="text-gray-600 text-xs ml-1">{p.origen === 'ajuste' ? '(ajuste)' : ''}</span>
+                      <span className="text-gray-600 text-xs ml-1">{p.origen === 'ajuste' ? '(ajuste)' : p.origen === 'plantilla-tiroides' ? '(BASE-T12)' : ''}</span>
                     </td>
                     <td className="px-4 py-3 text-gray-400 text-xs">{p.modelo || '—'}</td>
                     <td className="px-4 py-3 text-gray-400 text-xs">
