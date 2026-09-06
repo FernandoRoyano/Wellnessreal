@@ -847,10 +847,13 @@
 }
 
 @media (min-width: 1024px) {
-  .lesson-shell { width: min(70rem, calc(100vw - 18.5rem)); }
+  .lesson-shell {
+    width: min(70rem, calc(100vw - 18.5rem));
+    margin-left: calc(50% - clamp(0rem, calc((100vw - 88rem) / 2), 8rem));
+  }
 }
 
-@media (max-width: 1535px) {
+@media (max-width: 1791px) {
   .lesson-reading-layout { display: block; margin-top: 1.25rem; }
   .lesson-toc { display: none; }
   .lesson-toc-mobile { display: block; }
