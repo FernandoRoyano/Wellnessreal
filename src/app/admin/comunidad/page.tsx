@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import { PlusCircle, MessagesSquare, BookOpen, ChevronRight, Eye, EyeOff, Users, Sparkles } from 'lucide-react'
-import type { Space } from '@/lib/db/comunidad'
+import type { SpaceOverview } from '@/lib/db/comunidad'
 
 export default function AdminComunidadPage() {
-  const [spaces, setSpaces] = useState<Space[]>([])
+  const [spaces, setSpaces] = useState<SpaceOverview[]>([])
   const [loading, setLoading] = useState(true)
   const [creating, setCreating] = useState(false)
   const [name, setName] = useState('')
@@ -128,12 +128,18 @@ export default function AdminComunidadPage() {
                     )}
                   </div>
                   <div>
-                    <p className="text-white text-sm font-bold group-hover:text-[#FCEE21] transition">
-                      {s.name}
-                    </p>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <p className="text-white text-sm font-bold group-hover:text-[#FCEE21] transition">{s.name}</p>
+                      {s.access_tier !== 'free' && (
+                        <span className="rounded-full border border-[#FCEE21]/30 bg-[#FCEE21]/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-[#FCEE21]">Premium</span>
+                      )}
+                    </div>
                     <p className="text-gray-500 text-xs">
-                      /{s.slug} · {s.type === 'forum' ? 'Foro' : 'Contenido'}
+                      /{s.slug} · {s.type === 'forum' ? `${s.itemCount} hilos` : `${s.itemCount} lecciones`}
                     </p>
+                    {s.slug === 'metodo-base-tiroides' && (
+                      <p className="mt-1 text-xs font-medium text-gray-300">Programa maestro · 12 semanas · bloques y recursos editables</p>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-3">

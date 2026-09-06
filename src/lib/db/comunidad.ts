@@ -599,13 +599,28 @@ export function slugify(text: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-export async function getSpacesAdmin(): Promise<Space[]> {
+export async function getSpacesAdmin(): Promise<SpaceOverview[]> {
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
     .order('sort_order', { ascending: true })
   if (error) throw new Error(`[comunidad:getSpacesAdmin] ${error.message}`)
-  return (data ?? []) as Space[]
+  const spaces = (data ?? []) as Space[]
+  if (spaces.length === 0) return []
+
+  const [{ data: lessonsRows }, { data: threadsRows }] = await Promise.all([
+    supabase.from('lessons').select('space_id'),
+    supabase.from('threads').select('space_id'),
+  ])
+  const lessonCount = new Map<string, number>()
+  const threadCount = new Map<string, number>()
+  for (const row of lessonsRows ?? []) lessonCount.set(row.space_id as string, (lessonCount.get(row.space_id as string) ?? 0) + 1)
+  for (const row of threadsRows ?? []) threadCount.set(row.space_id as string, (threadCount.get(row.space_id as string) ?? 0) + 1)
+
+  return spaces.map((space) => ({
+    ...space,
+    itemCount: space.type === 'forum' ? (threadCount.get(space.id) ?? 0) : (lessonCount.get(space.id) ?? 0),
+  }))
 }
 
 export async function getSpaceByIdAdmin(id: string): Promise<Space | null> {
