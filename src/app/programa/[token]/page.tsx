@@ -10,6 +10,7 @@ import CheckinProgreso from '@/components/programa/CheckinProgreso'
 import PurchaseTracker from '@/components/programa/PurchaseTracker'
 import { PLAN_OPCIONES } from '@/lib/precios-plan'
 import type { Programa } from '@/lib/programa-schema'
+import { Download } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Tu plan · WellnessReal',
@@ -134,6 +135,11 @@ export default async function ProgramaPublicoPage({
     <Shell>
       {tracker}
       {pago === 'ok' && <Banner tipo="ok" />}
+      <div className="mx-auto flex max-w-[760px] justify-end px-5 pt-5">
+        <a href={`/api/programa/${token}/pdf`} className="inline-flex items-center gap-2 rounded-lg bg-[#FCEE21] px-4 py-2.5 text-sm font-bold text-[#16122B] transition hover:brightness-105">
+          <Download size={17} /> Descargar plan en PDF
+        </a>
+      </div>
       <ProgramaDocumento programa={aprobadoRow.programa as Programa} nombre={perfil.nombre} />
       <CheckinProgreso
         token={token}

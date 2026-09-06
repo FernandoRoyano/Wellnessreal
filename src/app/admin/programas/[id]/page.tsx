@@ -3,7 +3,7 @@
 import { useEffect, useState, use } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock, Link2, Copy, ExternalLink, Pencil } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, RotateCcw, Mail, Loader2, History, Wand2, Clock, Link2, Copy, ExternalLink, Pencil, Download } from 'lucide-react'
 import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
 import ProgramaEditor from '@/components/programa/ProgramaEditor'
 import type { Programa } from '@/lib/programa-schema'
@@ -246,6 +246,9 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
               <Pencil size={15} /> Editar
             </button>
           )}
+          <a href={`/api/admin/programas/${id}/pdf`} className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-gray-300 hover:text-white" style={{ border: '1px solid #662D91' }}>
+            <Download size={15} /> PDF
+          </a>
           {reg.revisado ? (
             <>
               <a href={mailto} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
