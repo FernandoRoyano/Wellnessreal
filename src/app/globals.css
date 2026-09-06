@@ -586,11 +586,17 @@
 .lesson-cover img { width: 100%; height: 100%; object-fit: cover; }
 
 .lesson-reading-layout {
-  display: grid;
-  grid-template-columns: 13.5rem minmax(0, 1fr);
-  align-items: start;
-  gap: clamp(1.5rem, 4vw, 3.75rem);
+  position: relative;
+  display: block;
+  width: min(100%, 48rem);
+  margin-inline: auto;
   margin-top: clamp(2rem, 5vw, 4.5rem);
+}
+.lesson-toc {
+  position: absolute;
+  top: 0;
+  right: calc(100% + 1.5rem);
+  width: 13.5rem;
 }
 .lesson-toc-inner { position: sticky; top: 2.5rem; }
 .lesson-toc-label {
@@ -844,10 +850,13 @@
   .lesson-shell { width: min(70rem, calc(100vw - 18.5rem)); }
 }
 
-@media (max-width: 800px) {
+@media (max-width: 1535px) {
   .lesson-reading-layout { display: block; margin-top: 1.25rem; }
   .lesson-toc { display: none; }
   .lesson-toc-mobile { display: block; }
+}
+
+@media (max-width: 800px) {
   .lesson-related-heading { display: block; }
   .lesson-related-heading h2 { margin-top: 0.55rem; }
   .lesson-related-grid { grid-template-columns: 1fr; }
