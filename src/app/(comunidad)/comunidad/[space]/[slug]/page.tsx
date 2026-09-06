@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { ArrowLeft, ArrowRight, Clock, Lock } from 'lucide-react'
+import { LessonReader, type RelatedArticle } from '@/components/comunidad/LessonReader'
 import { getSessionMember, getSpace, getLessons } from '@/lib/db/comunidad'
-import { ArrowLeft, ArrowRight, Lock, Clock } from 'lucide-react'
+import { getAllPosts } from '@/lib/db/posts'
 
 export const metadata: Metadata = {
   title: 'Comunidad Tiroides · WellnessReal',
@@ -20,64 +22,60 @@ export default async function LessonPage({
   if (!space) notFound()
 
   const lessons = await getLessons(space.id, member)
-  const idx = lessons.findIndex((l) => l.slug === slug)
+  const idx = lessons.findIndex((lesson) => lesson.slug === slug)
   if (idx === -1) notFound()
 
   const lesson = lessons[idx]
   const prev = idx > 0 ? lessons[idx - 1] : null
   const next = idx < lessons.length - 1 ? lessons[idx + 1] : null
+  const relatedArticles = lesson.locked
+    ? []
+    : await getLessonRelatedArticles(lesson.title, lesson.content)
 
   return (
-    <article className="animate-[fadeUp_500ms_var(--ease-out)_both]">
+    <article className="lesson-shell animate-[fadeUp_500ms_var(--ease-out)_both]">
       <Link
         href={`/comunidad/${spaceSlug}`}
-        className="mb-6 inline-flex items-center gap-2 text-sm text-white/50 transition hover:text-white"
+        className="mb-8 inline-flex items-center gap-2 text-sm text-white/50 transition hover:text-white"
       >
         <ArrowLeft className="h-4 w-4" /> {space.name}
       </Link>
 
-      <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)]">
-        Lección {idx + 1} de {lessons.length}
-      </p>
-      <h1 className="headline text-3xl text-white sm:text-4xl">{lesson.title}</h1>
-
       {lesson.locked ? (
-        <div className="surface-card mt-8 rounded-2xl p-10 text-center">
-          <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/5">
-            <Lock className="h-7 w-7 text-white/40" />
-          </div>
-          <p className="inline-flex items-center gap-2 font-medium text-amber-300">
-            <Clock className="h-4 w-4" />
-            {lesson.lockReason === 'drip'
-              ? `Se desbloquea en ${lesson.daysUntilUnlock} ${
-                  lesson.daysUntilUnlock === 1 ? 'día' : 'días'
-                }`
-              : 'Contenido premium'}
-          </p>
-          <p className="mx-auto mt-2 max-w-sm text-sm text-white/50">
-            Vamos paso a paso: el contenido se libera poco a poco para que lo asimiles sin agobios.
-          </p>
-        </div>
-      ) : (
         <>
-          {lesson.cover_url && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={lesson.cover_url}
-              alt=""
-              className="mt-8 max-h-96 w-full rounded-2xl object-cover"
-            />
-          )}
-          <div
-            className="tiptap lesson-prose mt-8 text-white/80"
-            dangerouslySetInnerHTML={{ __html: lesson.content }}
-          />
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-[var(--color-accent)]">
+            Lección {idx + 1} de {lessons.length}
+          </p>
+          <h1 className="headline text-3xl text-white sm:text-4xl">{lesson.title}</h1>
+          <div className="surface-card mt-8 rounded-2xl p-10 text-center">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/5">
+              <Lock className="h-7 w-7 text-white/40" />
+            </div>
+            <p className="inline-flex items-center gap-2 font-medium text-amber-300">
+              <Clock className="h-4 w-4" />
+              {lesson.lockReason === 'drip'
+                ? `Se desbloquea en ${lesson.daysUntilUnlock} ${lesson.daysUntilUnlock === 1 ? 'día' : 'días'}`
+                : 'Contenido premium'}
+            </p>
+            <p className="mx-auto mt-2 max-w-sm text-sm text-white/50">
+              Vamos paso a paso: el contenido se libera poco a poco para que lo asimiles sin agobios.
+            </p>
+          </div>
         </>
+      ) : (
+        <LessonReader
+          content={lesson.content}
+          title={lesson.title}
+          lessonNumber={idx + 1}
+          lessonCount={lessons.length}
+          memberLabel={member?.display_name || member?.email || 'Miembro'}
+          coverUrl={lesson.cover_url}
+          relatedArticles={relatedArticles}
+        />
       )}
 
-      {/* Navegación anterior / siguiente */}
       {(prev || next) && (
-        <nav className="mt-12 grid gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-2">
+        <nav className="mt-14 grid gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-2">
           {prev ? (
             <Link
               href={`/comunidad/${spaceSlug}/${prev.slug}`}
@@ -108,4 +106,38 @@ export default async function LessonPage({
       )}
     </article>
   )
+}
+
+async function getLessonRelatedArticles(title: string, content: string): Promise<RelatedArticle[]> {
+  try {
+    const posts = await getAllPosts()
+    const lessonText = `${title} ${content.replace(/<[^>]*>/g, ' ')}`.toLocaleLowerCase('es')
+    const topicTerms = [
+      'hipotiroidismo', 'tiroides', 'ejercicio', 'entrenar', 'fuerza', 'cardio', 'cansancio',
+      'fatiga', 'gluten', 'proteína', 'suplementos', 'hábitos', 'dormir', 'peso', 'adelgazar',
+    ]
+
+    return posts
+      .map((post, originalIndex) => {
+        const postText = `${post.title} ${post.excerpt} ${post.slug}`.toLocaleLowerCase('es')
+        const score = topicTerms.reduce(
+          (total, term) => total + (lessonText.includes(term) && postText.includes(term) ? 3 : 0),
+          /tiroides|hipotiroidismo/.test(postText) ? 1 : 0,
+        )
+        return { post, score, originalIndex }
+      })
+      .sort((a, b) => b.score - a.score || a.originalIndex - b.originalIndex)
+      .slice(0, 3)
+      .map(({ post }) => ({
+        slug: post.slug,
+        title: post.title,
+        excerpt: post.excerpt,
+        imageUrl: post.main_image_url,
+        category: post.category?.title ?? null,
+        readTime: post.read_time,
+      }))
+  } catch (error) {
+    console.error('[Comunidad:getLessonRelatedArticles] No se pudieron cargar los artículos', error)
+    return []
+  }
 }
