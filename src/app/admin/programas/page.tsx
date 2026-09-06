@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { FileText, Clock, CheckCircle2, ChevronRight } from 'lucide-react'
+import { FileText, Clock, CheckCircle2, ChevronRight, Layers3 } from 'lucide-react'
 
 interface ProgramaRow {
   id: string
@@ -70,11 +70,16 @@ export default function ProgramasAdminPage() {
     <div className="flex min-h-screen">
       <AdminSidebar />
       <main className="flex-1 p-8 overflow-auto" style={{ backgroundColor: '#16122B' }}>
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white">Programas IA</h1>
-          <p className="text-gray-500 text-sm mt-1">
+        <div className="mb-8 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div>
+            <h1 className="text-3xl font-bold text-white">Programas IA</h1>
+            <p className="text-gray-500 text-sm mt-1">
             Planes generados con el Método BASE · revísalos antes de enviarlos al cliente
-          </p>
+            </p>
+          </div>
+          <Link href="/admin/programas/plantilla-base-t12" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#FCEE21]/30 bg-[#FCEE21]/10 px-4 py-3 text-sm font-bold text-[#FCEE21] transition hover:bg-[#FCEE21]/15">
+            <Layers3 size={17} /> Ver plantilla BASE‑T12
+          </Link>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
