@@ -9,6 +9,8 @@ export default function CookieBanner() {
 
   useEffect(() => {
     const consent = localStorage.getItem('wr_cookie_consent')
+    // Se lee tras hidratar porque localStorage no existe durante el render del servidor.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!consent) setVisible(true)
   }, [])
 

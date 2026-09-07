@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthenticated } from '@/lib/auth'
-import { getGroups, createGroup, deleteGroup } from '@/lib/mailerlite'
+import { getGroups, createGroup } from '@/lib/mailerlite'
 
 export async function GET(request: NextRequest) {
   try {

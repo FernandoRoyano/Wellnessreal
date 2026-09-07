@@ -61,6 +61,8 @@ export default async function ProgramaPublicoPage({
     vigenteRow?.creado_en ? new Date(vigenteRow.creado_en).getTime() : 0,
     perfil.pagado_en ? new Date(perfil.pagado_en).getTime() : 0,
   )
+  // Es una página dinámica: el cálculo debe usar el momento real de cada petición.
+  // eslint-disable-next-line react-hooks/purity
   const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
   const { data: thyroidPayment } = await supabase
     .from('asesoria_solicitudes')

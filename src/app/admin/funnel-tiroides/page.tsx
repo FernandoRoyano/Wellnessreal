@@ -44,6 +44,8 @@ export default function ThyroidFunnelPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // La carga se reinicia cuando cambia el rango solicitado.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true)
     setError('')
     fetch(`/api/admin/funnel-tiroides?days=${days}`)

@@ -10,8 +10,9 @@ export function Avatar({
   size?: number
 }) {
   if (url) {
-    // eslint-disable-next-line @next/next/no-img-element
     return (
+      // La URL puede proceder de cualquier proveedor elegido por el miembro.
+      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={url}
         alt={name}

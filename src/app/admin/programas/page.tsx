@@ -55,6 +55,8 @@ export default function ProgramasAdminPage() {
   }
 
   useEffect(() => {
+    // La carga se reinicia cuando cambia el filtro solicitado.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true)
     const params = filtro ? `?filtro=${filtro}` : ''
     fetch(`/api/admin/programas${params}`)

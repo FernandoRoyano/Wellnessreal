@@ -85,6 +85,8 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
       .finally(() => setLoading(false))
   }
 
+  // La petición inicial sincroniza la vista con el identificador de la ruta.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(cargar, [id])
 
   const toggleRevisado = async (revisado: boolean) => {

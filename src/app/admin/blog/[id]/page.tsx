@@ -243,6 +243,8 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           <label className="block text-sm font-medium text-gray-300 mb-2">Imagen destacada</label>
           {form.main_image_url ? (
             <div className="relative rounded-lg overflow-hidden" style={{ maxHeight: '200px' }}>
+              {/* Vista previa administrativa de una URL que todavía puede estar editándose. */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={form.main_image_url} alt={form.main_image_alt} className="w-full object-cover" style={{ maxHeight: '200px' }} />
               <button
                 type="button"

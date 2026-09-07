@@ -21,6 +21,32 @@ interface BlogEditorProps {
   onChange: (html: string) => void
 }
 
+interface ToolButtonProps {
+  onClick: () => void
+  active?: boolean
+  disabled?: boolean
+  children: React.ReactNode
+  title: string
+}
+
+function ToolButton({ onClick, active, disabled, children, title }: ToolButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      title={title}
+      className="p-2 rounded transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+      style={{
+        backgroundColor: active ? 'rgba(252, 238, 33, 0.2)' : 'transparent',
+        color: active ? '#FCEE21' : '#9ca3af',
+      }}
+    >
+      {children}
+    </button>
+  )
+}
+
 export default function BlogEditor({ content, onChange }: BlogEditorProps) {
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [importModalOpen, setImportModalOpen] = useState(false)
@@ -116,22 +142,6 @@ export default function BlogEditor({ content, onChange }: BlogEditorProps) {
   }, [editor, importValue, importMode])
 
   if (!editor) return null
-
-  const ToolButton = ({ onClick, active, disabled, children, title }: { onClick: () => void; active?: boolean; disabled?: boolean; children: React.ReactNode; title: string }) => (
-    <button
-      type="button"
-      onClick={onClick}
-      disabled={disabled}
-      title={title}
-      className="p-2 rounded transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
-      style={{
-        backgroundColor: active ? 'rgba(252, 238, 33, 0.2)' : 'transparent',
-        color: active ? '#FCEE21' : '#9ca3af',
-      }}
-    >
-      {children}
-    </button>
-  )
 
   const inTable = editor.isActive('table')
 

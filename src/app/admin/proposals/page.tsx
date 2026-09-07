@@ -48,6 +48,8 @@ export default function AdminProposalsPage() {
     const params = new URLSearchParams(window.location.search)
     const status = params.get('status')
     const filter = params.get('filter')
+    // Los filtros iniciales proceden de una fuente externa: la URL del navegador.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (status) setStatusFilter(status)
     if (filter) {
       const idx = SHORTCUT_FILTERS.findIndex((f) => f.label.toLowerCase().includes(filter.toLowerCase()))

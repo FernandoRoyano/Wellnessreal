@@ -14,7 +14,6 @@ import {
   UserMinus,
   ArrowRight,
   Trash2,
-  BarChart3,
 } from 'lucide-react'
 import type { MLCampaign } from '@/lib/types/mailerlite'
 
