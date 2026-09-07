@@ -93,10 +93,11 @@ export default function ServiciosPage() {
                 </span>
               </div>
 
-              <h1 className="headline text-fluid-7xl text-white animate-fade-up">
+              <h1
+                className="headline text-[clamp(2.55rem,11.5vw,7rem)] leading-[0.94] text-white animate-fade-up"
+              >
                 Entrenamiento y nutrición
-                <br className="hidden sm:block" />
-                <span className="text-gradient-brand">para tu vida real.</span>
+                <span className="mt-2 block text-gradient-brand">para tu vida real.</span>
               </h1>
 
               <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
