@@ -5,7 +5,15 @@ import { usePathname } from 'next/navigation'
 import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
 
-const HIDDEN_PATHS = ['/admin', '/studio', '/cliente', '/valoracion', '/recurso-gratis', '/gracias']
+const HIDDEN_PATHS = [
+  '/admin',
+  '/studio',
+  '/cliente',
+  '/valoracion',
+  '/recurso-gratis',
+  '/gracias',
+  '/metodo-tiroides',
+]
 const SESSION_KEY = 'wr_popup_shown'
 const LOCAL_KEY = 'wr_lead_submitted'
 
