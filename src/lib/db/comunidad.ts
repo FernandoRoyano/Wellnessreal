@@ -492,6 +492,8 @@ function resolveDrip(lesson: LessonWithLock, member: MemberProfile | null): Less
 }
 
 export async function getSpaces(member?: MemberProfile | null): Promise<Space[]> {
+  if (!isApproved(member ?? null)) return []
+
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
@@ -533,6 +535,8 @@ export async function getSpacesOverview(member?: MemberProfile | null): Promise<
 }
 
 export async function getSpace(slug: string, member?: MemberProfile | null): Promise<Space | null> {
+  if (!isApproved(member ?? null)) return null
+
   const { data, error } = await supabase
     .from('spaces')
     .select('*')
@@ -551,6 +555,8 @@ export async function getLessons(
   spaceId: string,
   member: MemberProfile | null
 ): Promise<LessonWithLock[]> {
+  if (!isApproved(member)) return []
+
   const { data, error } = await supabase
     .from('lessons')
     .select('*')
@@ -571,6 +577,8 @@ export async function getLesson(
   slug: string,
   member: MemberProfile | null
 ): Promise<LessonWithLock | null> {
+  if (!isApproved(member)) return null
+
   const { data, error } = await supabase
     .from('lessons')
     .select('*')
@@ -795,6 +803,8 @@ export async function getThreads(
   spaceId: string,
   member: MemberProfile | null
 ): Promise<ThreadListItem[]> {
+  if (!isApproved(member)) return []
+
   const { data, error } = await supabase
     .from('threads')
     .select('*, author:member_profiles(display_name, avatar_url)')
@@ -834,7 +844,12 @@ export interface RecentThread {
 }
 
 /** Últimos hilos del foro (para la "actividad reciente" de la home). */
-export async function getRecentThreads(limit = 5): Promise<RecentThread[]> {
+export async function getRecentThreads(
+  member: MemberProfile | null,
+  limit = 5
+): Promise<RecentThread[]> {
+  if (!isApproved(member)) return []
+
   const { data, error } = await supabase
     .from('threads')
     .select('id, title, creado_en, author:member_profiles(display_name, avatar_url), space:spaces(slug)')
@@ -864,6 +879,8 @@ export async function getThread(
   threadId: string,
   member: MemberProfile | null
 ): Promise<ThreadDetail | null> {
+  if (!isApproved(member)) return null
+
   const { data: thread, error } = await supabase
     .from('threads')
     .select('*, author:member_profiles(display_name, avatar_url)')

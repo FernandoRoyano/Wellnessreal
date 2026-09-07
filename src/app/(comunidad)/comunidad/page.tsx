@@ -22,7 +22,7 @@ export default async function ComunidadHome() {
 
   const [spaces, recent, online] = await Promise.all([
     getSpacesOverview(member),
-    getRecentThreads(5),
+    getRecentThreads(member, 5),
     getOnlineMembers(),
   ])
 

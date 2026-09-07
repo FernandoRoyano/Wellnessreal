@@ -1,22 +1,29 @@
 import { cookies } from 'next/headers'
+import {
+  ADMIN_COOKIE_NAME,
+  getAdminSessionSecret,
+  verifyAdminSessionToken,
+} from '@/lib/admin-session'
 
-const ADMIN_COOKIE_NAME = 'wr_admin_session'
-const ADMIN_COOKIE_VALUE = 'authenticated'
+export { ADMIN_COOKIE_NAME } from '@/lib/admin-session'
 
 export async function isAdminAuthenticated(): Promise<boolean> {
   const cookieStore = await cookies()
-  const sessionCookie = cookieStore.get(ADMIN_COOKIE_NAME)
-  return sessionCookie?.value === ADMIN_COOKIE_VALUE
+  const token = cookieStore.get(ADMIN_COOKIE_NAME)?.value
+  const secret = getAdminSessionSecret()
+
+  if (!token || !secret) return false
+  return verifyAdminSessionToken(token, secret)
 }
 
-export function getAdminCookieConfig() {
+export function getAdminCookieConfig(value: string) {
   return {
     name: ADMIN_COOKIE_NAME,
-    value: ADMIN_COOKIE_VALUE,
+    value,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax' as const,
+    sameSite: 'strict' as const,
     path: '/',
-    maxAge: 60 * 60 * 24, // 24 hours
+    maxAge: 60 * 60 * 24,
   }
 }
