@@ -33,7 +33,8 @@ export default async function LessonPage({
     : await getLessonRelatedArticles(lesson.title, lesson.content)
 
   return (
-    <article className="lesson-shell animate-[fadeUp_500ms_var(--ease-out)_both]">
+    <div className="lesson-shell">
+      <article className="animate-[fadeUp_500ms_var(--ease-out)_both]">
       <Link
         href={`/comunidad/${spaceSlug}`}
         className="mb-8 inline-flex items-center gap-2 text-sm text-white/50 transition hover:text-white"
@@ -104,7 +105,8 @@ export default async function LessonPage({
           )}
         </nav>
       )}
-    </article>
+      </article>
+    </div>
   )
 }
 

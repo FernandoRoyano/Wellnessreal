@@ -514,10 +514,9 @@
    Comunidad · lector editorial premium
    ============================================================ */
 .lesson-shell {
-  --lesson-shell-width: min(70rem, calc(100vw - 2.5rem));
-
-  width: var(--lesson-shell-width);
-  margin-left: calc((100% - var(--lesson-shell-width)) / 2);
+  width: min(70rem, calc(100vw - 2.5rem));
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .lesson-progress {
@@ -848,9 +847,7 @@
 }
 
 @media (min-width: 1024px) {
-  .lesson-shell {
-    --lesson-shell-width: min(70rem, calc(100vw - 18.5rem));
-  }
+  .lesson-shell { width: min(70rem, calc(100vw - 18.5rem)); }
 }
 
 @media (max-width: 1791px) {
