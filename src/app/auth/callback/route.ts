@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import type { EmailOtpType, User } from '@supabase/supabase-js'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { ensureMemberProfile } from '@/lib/db/comunidad'
+import { safeInternalPath } from '@/lib/safe-redirect'
 
 /**
  * Callback del magic link / confirmación de registro.
@@ -16,7 +17,7 @@ export async function GET(request: Request) {
   const code = searchParams.get('code')
   const token_hash = searchParams.get('token_hash')
   const type = searchParams.get('type') as EmailOtpType | null
-  const next = searchParams.get('next') ?? '/comunidad'
+  const next = safeInternalPath(searchParams.get('next'), '/comunidad')
 
   try {
     const supabase = await createServerSupabase()
@@ -33,12 +34,12 @@ export async function GET(request: Request) {
       user = data?.user ?? null
       authError = error?.message ?? null
     } else {
-      console.error('[auth:callback] sin code ni token_hash. params:', searchParams.toString())
+      console.error('[auth:callback] Falta code o token_hash')
       return NextResponse.redirect(`${origin}/comunidad/entrar?error=missing_code`)
     }
 
     if (authError || !user) {
-      console.error('[auth:callback] verify:', authError, '| params:', searchParams.toString())
+      console.error('[auth:callback:verify]', authError)
       return NextResponse.redirect(`${origin}/comunidad/entrar?error=auth`)
     }
 

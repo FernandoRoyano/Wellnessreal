@@ -7,6 +7,7 @@ import type { EmailOtpType } from '@supabase/supabase-js'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { getSessionMember, updateMemberProfile, ensureMemberProfile } from '@/lib/db/comunidad'
+import { safeInternalPath } from '@/lib/safe-redirect'
 
 export interface MagicLinkResult {
   ok: boolean
@@ -91,7 +92,7 @@ export async function confirmMagicLink(
   const code = String(formData.get('code') ?? '')
   const tokenHash = String(formData.get('token_hash') ?? '')
   const type = String(formData.get('type') ?? '') as EmailOtpType | ''
-  const next = String(formData.get('next') ?? '') || '/comunidad'
+  const next = safeInternalPath(String(formData.get('next') ?? ''), '/comunidad')
 
   if (!code && !(tokenHash && type)) {
     return { ok: false, error: 'Enlace inválido o incompleto. Pide uno nuevo.' }

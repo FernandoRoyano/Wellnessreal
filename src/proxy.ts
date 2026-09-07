@@ -14,7 +14,7 @@ function redirectToCommunityLogin(request: NextRequest): NextResponse {
   return NextResponse.redirect(loginUrl)
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
 
   // La pantalla de entrada es pública; el resto del admin exige sesión firmada.
@@ -68,7 +68,7 @@ export async function middleware(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error('[middleware:community-auth]', error)
+    console.error('[proxy:community-auth]', error)
     return publicCommunityRoute ? NextResponse.next() : redirectToCommunityLogin(request)
   }
 }
