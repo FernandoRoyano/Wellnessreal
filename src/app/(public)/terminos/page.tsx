@@ -1,10 +1,11 @@
 import Container from '@/components/common/Container'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Términos y Condiciones | WellnessReal',
+export const metadata = buildMetadata({
+  title: 'Términos y condiciones',
   description: 'Términos y condiciones de uso de los servicios de WellnessReal.',
-}
+  path: '/terminos',
+})
 
 function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (

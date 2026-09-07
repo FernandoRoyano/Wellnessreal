@@ -13,8 +13,13 @@ import '../markdown.css'
 export const revalidate = 60
 
 export async function generateStaticParams() {
-  const slugs = await getAllPostSlugs()
-  return slugs.map((item) => ({ slug: item.slug }))
+  try {
+    const slugs = await getAllPostSlugs()
+    return slugs.map((item) => ({ slug: item.slug }))
+  } catch (error) {
+    console.error('[blog:generateStaticParams]', error)
+    return []
+  }
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
@@ -23,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!post) return { title: 'Post no encontrado | WellnessReal' }
 
-  const ogImage = post.main_image_url || undefined
+  const ogImage = post.main_image_url || '/portada-WR.jpg'
 
   return {
     title: post.title,
@@ -36,17 +41,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description: post.excerpt,
       type: 'article',
       publishedTime: post.published_at,
+      modifiedTime: post.updated_at,
       authors: [post.author],
       url: `https://wellnessreal.es/blog/${slug}`,
       siteName: 'WellnessReal',
       locale: 'es_ES',
-      images: ogImage ? [{ url: ogImage, width: 1200, height: 630, alt: post.title }] : [],
+      images: [{ url: ogImage, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.title,
       description: post.excerpt,
-      images: ogImage ? [ogImage] : [],
+      images: [ogImage],
     },
   }
 }

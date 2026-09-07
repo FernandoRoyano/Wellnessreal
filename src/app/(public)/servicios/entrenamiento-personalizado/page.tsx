@@ -8,7 +8,7 @@ import FaqSection from '@/components/sections/FaqSection'
 export const metadata = buildMetadata({
   title: 'Entrenamiento Personalizado Presencial en Madrid',
   description:
-    'Entrenamiento personal 1 a 1 en Madrid. Sesiones adaptadas a tu nivel, objetivos y disponibilidad. Técnica perfecta y resultados garantizados.',
+    'Entrenamiento personal 1 a 1 en Madrid. Sesiones adaptadas a tu nivel, objetivos y disponibilidad, con atención a la técnica y una progresión realista.',
   path: '/servicios/entrenamiento-personalizado',
   keywords: [
     'entrenador personal Madrid',

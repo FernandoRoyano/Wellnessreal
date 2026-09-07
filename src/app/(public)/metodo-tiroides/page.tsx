@@ -1,22 +1,22 @@
-import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowDown, ArrowRight, Check, ShieldCheck, X } from 'lucide-react'
 import Container from '@/components/common/Container'
 import ApplicationForm from './ApplicationForm'
 import { THYROID_PROGRAM, THYROID_PROGRAM_INCLUDES, THYROID_PROGRAM_PHASES } from '@/lib/metodo-tiroides'
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Método BASE Tiroides | Programa de entrenamiento de 12 semanas',
+export const metadata = buildMetadata({
+  title: 'Método BASE Tiroides | Programa de 12 semanas',
   description: 'Programa acompañado para organizar fuerza, alimentación y descanso cuando tienes hipotiroidismo o Hashimoto. 12 semanas, grupo reducido y plan adaptado.',
-  alternates: { canonical: 'https://wellnessreal.es/metodo-tiroides' },
-  openGraph: {
-    title: 'Método BASE Tiroides · 12 semanas con un plan que encaja en tu vida',
-    description: 'Entrenamiento, organización y seguimiento profesional. Sin milagros ni promesas médicas.',
-    url: 'https://wellnessreal.es/metodo-tiroides',
-    type: 'website',
-  },
-}
+  path: '/metodo-tiroides',
+  keywords: [
+    'programa entrenamiento hipotiroidismo',
+    'entrenar con Hashimoto',
+    'Método BASE Tiroides',
+    'plan de fuerza hipotiroidismo',
+  ],
+})
 
 const FITS = [
   'Tienes hipotiroidismo o Hashimoto diagnosticado y seguimiento sanitario.',

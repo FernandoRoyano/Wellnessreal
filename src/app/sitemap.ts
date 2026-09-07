@@ -2,98 +2,111 @@ import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/db/posts'
 
 const SITE_URL = 'https://wellnessreal.es'
+const STATIC_PAGES_UPDATED_AT = new Date('2026-09-07')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: SITE_URL,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${SITE_URL}/servicios`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/servicios/entrenamiento-online`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/servicios/entrenamiento-personalizado`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/servicios/nutricion`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/servicios/osteopatia`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/tarifas`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/filosofia`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.6,
     },
     {
       url: `${SITE_URL}/valoracion`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/contacto`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/recurso-gratis`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/tiroides`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/metodo-tiroides`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${SITE_URL}/caso-real`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${SITE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'weekly',
       priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/privacidad`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'yearly',
+      priority: 0.2,
+    },
+    {
+      url: `${SITE_URL}/terminos`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'yearly',
+      priority: 0.2,
     },
   ]
 
@@ -103,7 +116,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const posts = await getAllPosts()
     blogPages = posts.map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,
-      lastModified: new Date(post.published_at),
+      lastModified: new Date(post.updated_at || post.published_at),
       changeFrequency: 'monthly' as const,
       priority: 0.6,
     }))

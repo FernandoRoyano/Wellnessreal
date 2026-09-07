@@ -1,10 +1,11 @@
 import Container from '@/components/common/Container'
-import type { Metadata } from 'next'
+import { buildMetadata } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Política de Privacidad | WellnessReal',
+export const metadata = buildMetadata({
+  title: 'Política de privacidad',
   description: 'Política de privacidad y protección de datos de WellnessReal.',
-}
+  path: '/privacidad',
+})
 
 function LegalSection({ title, children }: { title: string; children: React.ReactNode }) {
   return (

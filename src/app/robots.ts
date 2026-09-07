@@ -6,7 +6,17 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/admin/', '/api/', '/cliente/', '/studio/', '/gracias', '/gracias-recurso', '/gracias-valoracion'],
+        disallow: [
+          '/admin/',
+          '/api/',
+          '/cliente/',
+          '/comunidad/',
+          '/programa/',
+          '/studio/',
+          '/gracias',
+          '/metodo/video',
+          '/webinar/clase',
+        ],
       },
     ],
     sitemap: 'https://wellnessreal.es/sitemap.xml',
