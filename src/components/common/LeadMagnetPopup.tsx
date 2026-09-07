@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
@@ -29,6 +29,7 @@ export default function LeadMagnetPopup() {
   const [visible, setVisible] = useState(false)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<Status>('idle')
+  const dialogRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return
@@ -49,9 +50,34 @@ export default function LeadMagnetPopup() {
 
   useEffect(() => {
     if (!visible) return
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setVisible(false)
+    const dialog = dialogRef.current
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const focusable = dialog?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+    )
+    const first = focusable?.[0]
+    const last = focusable?.[focusable.length - 1]
+    first?.focus()
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setVisible(false)
+        return
+      }
+      if (event.key !== 'Tab' || !first || !last) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first.focus()
+      }
+    }
     document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      previousFocus?.focus()
+    }
   }, [visible])
 
   const close = () => setVisible(false)
@@ -83,17 +109,19 @@ export default function LeadMagnetPopup() {
       role="dialog"
       aria-modal="true"
       aria-labelledby="leadmagnet-title"
-      className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in"
+      aria-describedby="leadmagnet-description"
+      className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-4 bg-black/70 sm:backdrop-blur-sm animate-fade-in"
       onClick={close}
     >
       <div
+        ref={dialogRef}
         className="relative w-full max-w-md surface-card-accent rounded-2xl p-7 md:p-8 animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={close}
           aria-label="Cerrar"
-          className="absolute top-4 right-4 p-1.5 rounded-lg text-muted hover:text-accent hover:bg-accent-muted transition-colors"
+          className="absolute top-3 right-3 flex min-h-11 min-w-11 items-center justify-center rounded-lg text-muted hover:text-accent hover:bg-accent-muted transition-colors"
         >
           <X size={18} />
         </button>
@@ -106,14 +134,14 @@ export default function LeadMagnetPopup() {
           <div className="text-center py-4 space-y-3">
             <CheckCircle className="w-10 h-10 text-success mx-auto" />
             <p className="text-fluid-xl font-bold text-white">¡Perfecto!</p>
-            <p className="text-fluid-sm text-muted">Revisa tu email — la guía está en camino.</p>
+            <p id="leadmagnet-description" className="text-fluid-sm text-muted">Revisa tu email — la guía está en camino.</p>
           </div>
         ) : (
           <>
             <h2 id="leadmagnet-title" className="headline text-fluid-xl text-white mb-1">
               Antes de irte, llévate esto.
             </h2>
-            <p className="text-fluid-sm text-muted mb-1">
+            <p id="leadmagnet-description" className="text-fluid-sm text-muted mb-1">
               La guía base que doy a todos mis clientes antes de empezar:
             </p>
             <p className="text-fluid-base font-bold text-accent mb-5">

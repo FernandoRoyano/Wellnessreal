@@ -1,11 +1,8 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import Container from './Container'
-import { Mail, MapPin, Phone, Send, Check, AlertCircle } from 'lucide-react'
-import { useState } from 'react'
-import { trackSignUp } from '@/lib/analytics'
+import { Mail, MapPin, Phone } from 'lucide-react'
+import FooterNewsletterForm from './FooterNewsletterForm'
 
 const NAV_LINKS = [
   { href: '/filosofia', label: 'Filosofía' },
@@ -45,31 +42,6 @@ const SOCIALS = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!email) return
-
-    setStatus('loading')
-    try {
-      const { getAttributionForSubmit } = await import('@/lib/tracking')
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, _source: 'footer', _attribution: getAttributionForSubmit() }),
-      })
-      if (!response.ok) throw new Error()
-      setStatus('success')
-      trackSignUp('footer')
-      setEmail('')
-      setTimeout(() => setStatus('idle'), 4000)
-    } catch {
-      setStatus('error')
-      setTimeout(() => setStatus('idle'), 4000)
-    }
-  }
 
   return (
     <footer className="relative bg-brand-deep text-white border-t border-border-subtle overflow-hidden">
@@ -91,56 +63,7 @@ export default function Footer() {
               acompañado a clientes a perder 35 kg en 9 meses o ganar 8 kg de músculo a los 50.
             </p>
 
-            <form
-              onSubmit={handleNewsletterSubmit}
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-2"
-            >
-              <input
-                aria-label="Email para la newsletter"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="tu@email.com"
-                required
-                disabled={status === 'loading'}
-                className="flex-1 min-w-0 px-4 py-3 rounded-xl text-white bg-brand-night border border-border-subtle
-                           placeholder:text-dim
-                           focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30
-                           transition-all disabled:opacity-60"
-              />
-              <button
-                type="submit"
-                disabled={status === 'loading' || status === 'success'}
-                className="btn-brand px-6 py-3 shrink-0 disabled:opacity-70"
-              >
-                {status === 'loading' && 'Enviando…'}
-                {status === 'success' && (
-                  <>
-                    {' '}
-                    <Check className="w-4 h-4" /> Suscrito{' '}
-                  </>
-                )}
-                {(status === 'idle' || status === 'error') && (
-                  <>
-                    {' '}
-                    Suscribirme <Send className="w-4 h-4" />{' '}
-                  </>
-                )}
-              </button>
-            </form>
-
-            <div className="min-h-[1.5rem] pt-1" aria-live="polite">
-              {status === 'success' && (
-                <p className="text-fluid-sm text-success inline-flex items-center gap-1.5">
-                  <Check className="w-4 h-4" /> ¡Listo! Revisa tu email.
-                </p>
-              )}
-              {status === 'error' && (
-                <p className="text-fluid-sm text-danger inline-flex items-center gap-1.5">
-                  <AlertCircle className="w-4 h-4" /> Algo falló. Inténtalo de nuevo.
-                </p>
-              )}
-            </div>
+            <FooterNewsletterForm />
 
             <p className="text-fluid-xs text-subtle">
               Puedes darte de baja cuando quieras. Cero spam, lo prometo.
@@ -180,7 +103,7 @@ export default function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="w-10 h-10 rounded-lg bg-accent-muted border border-border-subtle flex items-center justify-center text-muted hover:text-accent hover:border-border-strong transition-colors"
+                  className="w-11 h-11 rounded-lg bg-accent-muted border border-border-subtle flex items-center justify-center text-muted hover:text-accent hover:border-border-strong transition-colors"
                 >
                   <Icon />
                 </a>

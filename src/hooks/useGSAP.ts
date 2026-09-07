@@ -63,6 +63,7 @@ export function useReveal<T extends HTMLElement>(options?: {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let tween: ReturnType<GsapModule['to']> | null = null
     let cancelled = false
 
@@ -108,6 +109,7 @@ export function useStagger<T extends HTMLElement>(options?: {
   useEffect(() => {
     const container = ref.current
     if (!container) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let tween: ReturnType<GsapModule['to']> | null = null
     let cancelled = false
 
@@ -153,6 +155,7 @@ export function useParallax<T extends HTMLElement>(speed = 0.3) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let tween: ReturnType<GsapModule['to']> | null = null
     let cancelled = false
 
@@ -193,6 +196,10 @@ export function useCounter<T extends HTMLElement>(
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      el.textContent = `${prefix}${end}${suffix}`
+      return
+    }
     let tween: ReturnType<GsapModule['to']> | null = null
     let cancelled = false
 
@@ -238,6 +245,7 @@ export function useTextReveal<T extends HTMLElement>(options?: {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let tween: ReturnType<GsapModule['to']> | null = null
     let cancelled = false
 
@@ -278,7 +286,7 @@ export function useMagnetic<T extends HTMLElement>(strength = 0.3) {
     const el = ref.current
     if (!el) return
     // Solo activar en dispositivos con puntero fino (desktop) — skip en táctil
-    if (window.matchMedia('(hover: none) or (pointer: coarse)').matches) return
+    if (window.matchMedia('(hover: none), (pointer: coarse), (prefers-reduced-motion: reduce)').matches) return
 
     let cancelled = false
     let gsapRef: GsapModule | null = null

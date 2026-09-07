@@ -11,14 +11,14 @@ const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-montserrat',
   display: 'swap',
-  weight: ['400', '500', '600', '700', '800'],
+  weight: 'variable',
 })
 
 const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
   variable: '--font-bricolage',
   display: 'swap',
-  weight: ['500', '600', '700', '800'],
+  weight: 'variable',
 })
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID

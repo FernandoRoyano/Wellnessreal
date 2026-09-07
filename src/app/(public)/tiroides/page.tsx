@@ -1,22 +1,7 @@
-'use client'
-
 import Container from '@/components/common/Container'
 import Image from 'next/image'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { CheckCircle, X, ArrowRight, Sparkles, ShieldCheck, Clock3, BadgeCheck } from 'lucide-react'
-import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
-import TestTiroides from '@/components/tiroides/TestTiroides'
-
-const newsletterSchema = z.object({
-  email: z.email({ message: 'Email inválido' }),
-  name:  z.string().min(2, 'Nombre requerido'),
-})
-
-type NewsletterFormData = z.infer<typeof newsletterSchema>
+import TiroidesConversionPanel from '@/components/tiroides/TiroidesConversionPanel'
 
 const WHATS_INSIDE = [
   'Tu prioridad real entre fuerza, alimentación, descanso y seguimiento.',
@@ -52,50 +37,7 @@ const CONSEJO_VS = [
   { mal: 'Juzgarlo todo por el peso diario.', bien: 'Observar también fuerza, adherencia, medidas y cómo te sientes.' },
 ] as const
 
-const FIELD_CLASS =
-  'w-full px-4 py-4 rounded-xl bg-brand-night text-white border text-fluid-base ' +
-  'placeholder:text-dim ' +
-  'focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all'
-
 export default function TiroidesPage() {
-  const router = useRouter()
-  const [error, setError] = useState('')
-  // Fallback: el formulario clásico del PDF solo aparece si pide "solo la guía".
-  const [showGuideForm, setShowGuideForm] = useState(false)
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NewsletterFormData>({
-    resolver: zodResolver(newsletterSchema),
-  })
-
-  useEffect(() => {
-    trackThyroidFunnel('thyroid_landing_view')
-  }, [])
-
-  const onSubmit = async (data: NewsletterFormData) => {
-    try {
-      setError('')
-      const { getAttributionForSubmit } = await import('@/lib/tracking')
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...data,
-          resource: 'tiroides',
-          _source: 'tiroides',
-          _attribution: getAttributionForSubmit(),
-        }),
-      })
-      if (!response.ok) throw new Error('Error al suscribir')
-
-      trackSignUp('tiroides')
-      router.push('/gracias-tiroides')
-    } catch {
-      setError('Hubo un problema. Inténtalo de nuevo.')
-    }
-  }
-
-  const borderClass = (hasError: boolean) =>
-    hasError ? 'border-danger focus:border-danger' : 'border-border-subtle focus:border-accent'
-
   return (
     <>
       {/* ═══════════════ HERO + TEST ═══════════════ */}
@@ -156,60 +98,7 @@ export default function TiroidesPage() {
             <div id="test" className="relative scroll-mt-28">
               <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/20 via-transparent to-brand-purple/20 blur-xl" />
               <div className="relative">
-              {showGuideForm ? (
-                <div className="surface-card-accent rounded-2xl p-fluid-md">
-                  <button
-                    onClick={() => setShowGuideForm(false)}
-                    className="inline-flex items-center gap-1.5 text-fluid-xs text-subtle hover:text-white mb-4"
-                  >
-                    ← Volver al test
-                  </button>
-                  <div className="text-center mb-6 space-y-2">
-                    <h2 className="headline text-fluid-2xl text-white">Llévate la guía gratis</h2>
-                    <p className="text-fluid-sm text-muted">
-                      Entrena y mejora tus hábitos con criterios claros, sin milagros ni promesas médicas.
-                    </p>
-                  </div>
-
-                  <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    {error && (
-                      <div className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">
-                        ⚠ {error}
-                      </div>
-                    )}
-
-                    <div>
-                      <input
-                        {...register('name')}
-                        type="text"
-                        placeholder="Tu nombre"
-                        className={`${FIELD_CLASS} ${borderClass(!!errors.name)}`}
-                      />
-                      {errors.name && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.name.message}</p>}
-                    </div>
-
-                    <div>
-                      <input
-                        {...register('email')}
-                        type="email"
-                        placeholder="tu@email.com"
-                        className={`${FIELD_CLASS} ${borderClass(!!errors.email)}`}
-                      />
-                      {errors.email && <p className="text-fluid-xs text-danger mt-1.5">⚠ {errors.email.message}</p>}
-                    </div>
-
-                    <button type="submit" disabled={isSubmitting} className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60">
-                      {isSubmitting ? 'Enviando…' : (<>Descargar la guía gratis <ArrowRight className="w-4 h-4" /></>)}
-                    </button>
-
-                    <p className="text-fluid-xs text-subtle text-center">
-                      Sin spam. Solo contenido útil. Puedes darte de baja cuando quieras.
-                    </p>
-                  </form>
-                </div>
-              ) : (
-                <TestTiroides onWantGuide={() => setShowGuideForm(true)} />
-              )}
+                <TiroidesConversionPanel />
               </div>
             </div>
           </div>
@@ -350,17 +239,13 @@ export default function TiroidesPage() {
             <p className="text-fluid-base text-muted">
               Haz el test en 1 minuto e identifica qué merece la pena priorizar en tu situación.
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setShowGuideForm(false)
-                document.getElementById('test')?.scrollIntoView({ behavior: 'smooth' })
-              }}
+            <a
+              href="#test"
               className="btn-brand text-fluid-base px-8 py-4"
             >
               Hacer el test gratis
-              <ArrowRight className="w-4 h-4" />
-            </button>
+              <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </a>
           </div>
 
           {/* Aviso legal */}

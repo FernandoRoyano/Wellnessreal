@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, CheckCircle, Loader2, ShieldCheck } from 'lucide-react'
 import {
   buildTestResult,
@@ -36,10 +36,15 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [result, setResult] = useState<TestResult | null>(null)
+  const questionHeadingRef = useRef<HTMLHeadingElement>(null)
 
   const question = getQuestion(currentId, answers)
   const step = history.length + 1
   const total = 8
+
+  useEffect(() => {
+    if (phase === 'questions') questionHeadingRef.current?.focus()
+  }, [currentId, phase])
 
   const start = () => {
     trackThyroidFunnel('thyroid_test_start')
@@ -120,7 +125,7 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
   if (phase === 'result' && result) {
     return (
-      <div className={`${cardClass} animate-[fadeUp_500ms_ease-out_both]`}>
+      <div className={`${cardClass} animate-[fadeUp_500ms_ease-out_both]`} role="status" aria-live="polite">
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
         <p className="text-fluid-xs font-semibold uppercase tracking-widest text-subtle">Tu resultado personalizado</p>
         <h2 className="headline text-fluid-2xl text-white mt-1">{result.emoji} {result.title}</h2>
@@ -168,8 +173,8 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     return (
       <div className={cardClass}>
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
-        <button type="button" onClick={back} className="inline-flex items-center gap-1.5 text-fluid-xs text-subtle hover:text-white mb-4">
-          <ArrowLeft className="w-3.5 h-3.5" /> Atrás
+        <button type="button" onClick={back} className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-fluid-xs text-subtle hover:text-white">
+          <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" /> Atrás
         </button>
         <p className="text-fluid-xs font-semibold uppercase tracking-widest text-accent">Perfil preparado</p>
         <h2 className="headline text-fluid-2xl text-white mt-1">{preview.emoji} {preview.title}</h2>
@@ -177,17 +182,17 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           Déjanos tu email para guardar tus respuestas y ver tus tres prioridades y el siguiente paso recomendado.
         </p>
         <form onSubmit={submit} className="space-y-3">
-          {error && <div className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">⚠ {error}</div>}
+          {error && <div role="alert" id="thyroid-test-email-error" className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">{error}</div>}
           <label className="block">
             <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Nombre <span className="text-subtle">(opcional)</span></span>
             <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder="Tu nombre" className={inputClass} />
           </label>
           <label className="block">
             <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Email</span>
-            <input value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" type="email" required placeholder="tu@email.com" className={inputClass} />
+            <input value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" inputMode="email" type="email" required aria-invalid={Boolean(error)} aria-describedby={error ? 'thyroid-test-email-error' : undefined} placeholder="tu@email.com" className={inputClass} />
           </label>
           <button type="submit" disabled={sending} className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60">
-            {sending ? <><Loader2 className="w-5 h-5 animate-spin" /> Guardando…</> : <>Ver mis prioridades <ArrowRight className="w-4 h-4" /></>}
+            {sending ? <><Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Guardando…</> : <>Ver mis prioridades <ArrowRight className="w-4 h-4" aria-hidden="true" /></>}
           </button>
           <p className="text-fluid-xs text-subtle text-center inline-flex items-center justify-center gap-1.5 w-full">
             <ShieldCheck className="w-3.5 h-3.5" /> Sin spam. Podrás darte de baja cuando quieras.
@@ -212,10 +217,10 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           <div><strong className="block text-fluid-base text-white">Gratis</strong><span className="text-[0.68rem] text-subtle">resultado</span></div>
         </div>
         <button type="button" onClick={start} className="btn-brand w-full text-fluid-base py-4">
-          Empezar mi test <ArrowRight className="w-4 h-4" />
+          Empezar mi test <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
         {onWantGuide && (
-          <button type="button" onClick={onWantGuide} className="mt-4 text-fluid-xs text-subtle hover:text-white underline underline-offset-2">
+          <button type="button" onClick={onWantGuide} className="mt-2 min-h-11 text-fluid-xs text-subtle hover:text-white underline underline-offset-2">
             ¿Solo quieres la guía? Descárgala aquí
           </button>
         )}
@@ -227,17 +232,24 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     <div className={cardClass}>
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
       <div className="flex items-center gap-3 mb-5">
-        <button type="button" onClick={back} disabled={history.length === 0} className="text-subtle hover:text-white disabled:opacity-30 transition" aria-label="Volver a la pregunta anterior">
-          <ArrowLeft className="w-4 h-4" />
+        <button type="button" onClick={back} disabled={history.length === 0} className="flex min-h-11 min-w-11 items-center justify-center text-subtle hover:text-white disabled:opacity-30 transition" aria-label="Volver a la pregunta anterior">
+          <ArrowLeft className="w-4 h-4" aria-hidden="true" />
         </button>
-        <div className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden">
+        <div
+          className="flex-1 h-1.5 rounded-full bg-white/10 overflow-hidden"
+          role="progressbar"
+          aria-label="Progreso del test"
+          aria-valuemin={1}
+          aria-valuemax={total}
+          aria-valuenow={step}
+        >
           <div className="h-full rounded-full bg-accent transition-all duration-300" style={{ width: `${(step / total) * 100}%` }} />
         </div>
         <span className="text-fluid-xs text-subtle tabular-nums shrink-0">Pregunta {step} de {total}</span>
       </div>
 
       {step > 2 && <p className="text-fluid-xs font-semibold uppercase tracking-wider text-accent mb-2">Recorrido adaptado a ti</p>}
-      <h2 className="headline text-fluid-xl text-white leading-tight">{question.question}</h2>
+      <h2 ref={questionHeadingRef} tabIndex={-1} className="headline text-fluid-xl text-white leading-tight">{question.question}</h2>
       {question.hint && <p className="text-fluid-xs text-subtle mt-2">{question.hint}</p>}
       <div className="mt-5 space-y-2.5">
         {question.options.map((option, index) => (

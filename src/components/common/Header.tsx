@@ -42,8 +42,8 @@ export default function Header() {
       className={
         'sticky top-0 z-50 transition-all duration-300 ' +
         (scrolled
-          ? 'bg-brand-deep/85 backdrop-blur-xl border-b border-border-subtle shadow-lg'
-          : 'bg-brand-deep/60 backdrop-blur-sm border-b border-transparent')
+          ? 'bg-brand-deep/95 border-b border-border-subtle shadow-lg md:bg-brand-deep/85 md:backdrop-blur-xl'
+          : 'bg-brand-deep/95 border-b border-transparent md:bg-brand-deep/60 md:backdrop-blur-sm')
       }
     >
       <Container>
@@ -87,6 +87,7 @@ export default function Header() {
                     >
                       {item.label}
                       <span
+                        aria-hidden="true"
                         className={
                           'absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left transition-transform duration-300 ' +
                           (pathname === item.href
@@ -104,9 +105,10 @@ export default function Header() {
 
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden shrink-0 p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
-                aria-label="Abrir menú"
+                className="min-h-11 min-w-11 lg:hidden shrink-0 p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
+                aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isMenuOpen}
+                aria-controls="mobile-navigation"
               >
                 {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
               </button>
@@ -116,7 +118,7 @@ export default function Header() {
 
         {/* Mobile nav */}
         {!isThyroidSalesPage && isMenuOpen && (
-          <nav className="lg:hidden py-5 border-t border-border-subtle animate-fade-in">
+          <nav id="mobile-navigation" aria-label="Navegación principal" className="lg:hidden py-5 border-t border-border-subtle animate-fade-in">
             <div className="flex flex-col gap-1">
               {navigationItems.map((item) => (
                 <Link

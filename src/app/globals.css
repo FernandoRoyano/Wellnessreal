@@ -36,7 +36,7 @@
   --color-ink:              #ffffff;    /* text-ink → blanco puro (ratio 15+) */
   --color-muted:            #c0b9dd;    /* text-muted → body sobre dark (ratio 8+) */
   --color-subtle:           #9a93ba;    /* text-subtle → apoyo/meta (ratio 4.7 → WCAG AA) */
-  --color-dim:              #706b8f;    /* text-dim → casi disabled (ratio 3.1 → AA large text) */
+  --color-dim:              #a7a0c5;    /* placeholders y apoyo: contraste AA sobre fondos oscuros */
 
   --color-success: #34d399;
   --color-warning: #fbbf24;
@@ -127,6 +127,11 @@
   50%      { box-shadow: 0 0 56px -4px rgba(252, 238, 33, 0.65); }
 }
 
+@keyframes scrollProgress {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
 /* ============================================================
    BASE
    ============================================================ */
@@ -172,6 +177,36 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 300;
+  transform: translateY(-200%);
+  border-radius: 0.75rem;
+  background: var(--color-accent);
+  color: var(--color-accent-fg);
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline-color: #ffffff;
+}
+
+.scroll-progress {
+  background: linear-gradient(90deg, var(--color-accent), var(--color-brand-violet));
+  transform: scaleX(0);
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    animation: scrollProgress linear;
+    animation-timeline: scroll(root block);
   }
 }
 

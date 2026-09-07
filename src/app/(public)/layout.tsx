@@ -2,7 +2,6 @@ import Header from '@/components/common/Header'
 import Footer from '@/components/common/Footer'
 import CookieBanner from '@/components/common/CookieBanner'
 import LeadMagnetPopup from '@/components/common/LeadMagnetPopup'
-import GSAPProvider from '@/components/animations/GSAPProvider'
 import ScrollProgressBar from '@/components/animations/ScrollProgressBar'
 
 export default function PublicLayout({
@@ -11,13 +10,14 @@ export default function PublicLayout({
   children: React.ReactNode
 }) {
   return (
-    <GSAPProvider>
+    <>
+      <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
       <ScrollProgressBar />
       <Header />
-      <main className="min-h-screen">{children}</main>
+      <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
       <Footer />
       <CookieBanner />
       <LeadMagnetPopup />
-    </GSAPProvider>
+    </>
   )
 }

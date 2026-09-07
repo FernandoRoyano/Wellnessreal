@@ -42,30 +42,30 @@ export default function ApplicationForm() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Nombre" error={fieldError('name')}><input name="name" autoComplete="name" className={FIELD_CLASS} placeholder="Tu nombre" /></Field>
-        <Field label="Email" error={fieldError('email')}><input name="email" type="email" autoComplete="email" className={FIELD_CLASS} placeholder="tu@email.com" /></Field>
+        <Field label="Nombre" error={fieldError('name')} errorId="application-name-error"><input name="name" autoComplete="name" required aria-invalid={Boolean(fieldError('name'))} aria-describedby={fieldError('name') ? 'application-name-error' : undefined} className={FIELD_CLASS} placeholder="Tu nombre" /></Field>
+        <Field label="Email" error={fieldError('email')} errorId="application-email-error"><input name="email" type="email" inputMode="email" autoComplete="email" required aria-invalid={Boolean(fieldError('email'))} aria-describedby={fieldError('email') ? 'application-email-error' : undefined} className={FIELD_CLASS} placeholder="tu@email.com" /></Field>
       </div>
-      <Field label="Teléfono" error={fieldError('phone')}><input name="phone" type="tel" autoComplete="tel" className={FIELD_CLASS} placeholder="+34 600 000 000" /></Field>
-      <Field label="¿Qué quieres conseguir en estas 12 semanas?" error={fieldError('goal')}>
-        <textarea name="goal" rows={4} className={`${FIELD_CLASS} resize-y`} placeholder="Cuéntamelo con tus palabras…" />
+      <Field label="Teléfono" error={fieldError('phone')} errorId="application-phone-error"><input name="phone" type="tel" inputMode="tel" autoComplete="tel" required aria-invalid={Boolean(fieldError('phone'))} aria-describedby={fieldError('phone') ? 'application-phone-error' : undefined} className={FIELD_CLASS} placeholder="+34 600 000 000" /></Field>
+      <Field label="¿Qué quieres conseguir en estas 12 semanas?" error={fieldError('goal')} errorId="application-goal-error">
+        <textarea name="goal" rows={4} required aria-invalid={Boolean(fieldError('goal'))} aria-describedby={fieldError('goal') ? 'application-goal-error' : undefined} className={`${FIELD_CLASS} resize-y`} placeholder="Cuéntamelo con tus palabras…" />
       </Field>
       <div className="grid gap-4 sm:grid-cols-2">
-        <Field label="Días que puedes entrenar" error={fieldError('days')}>
-          <select name="days" defaultValue="" className={FIELD_CLASS}>
+        <Field label="Días que puedes entrenar" error={fieldError('days')} errorId="application-days-error">
+          <select name="days" defaultValue="" required aria-invalid={Boolean(fieldError('days'))} aria-describedby={fieldError('days') ? 'application-days-error' : undefined} className={FIELD_CLASS}>
             <option value="" disabled>Elige una opción</option><option value="1">1 día</option><option value="2">2 días</option><option value="3">3 días</option><option value="4+">4 o más días</option>
           </select>
         </Field>
-        <Field label="Directo semanal" error={fieldError('liveAvailability')}>
-          <select name="liveAvailability" defaultValue="" className={FIELD_CLASS}>
+        <Field label="Directo semanal" error={fieldError('liveAvailability')} errorId="application-live-error">
+          <select name="liveAvailability" defaultValue="" required aria-invalid={Boolean(fieldError('liveAvailability'))} aria-describedby={fieldError('liveAvailability') ? 'application-live-error' : undefined} className={FIELD_CLASS}>
             <option value="" disabled>Elige una opción</option><option value="si">Puedo asistir</option><option value="algunas">Algunas semanas</option><option value="diferido">Lo vería en diferido</option>
           </select>
         </Field>
       </div>
-      <Field label="Lesiones o limitaciones que deba conocer (opcional)" error={fieldError('limitations')}>
-        <textarea name="limitations" rows={3} className={`${FIELD_CLASS} resize-y`} placeholder="No hace falta compartir analíticas ni medicación." />
+      <Field label="Lesiones o limitaciones que deba conocer (opcional)" error={fieldError('limitations')} errorId="application-limitations-error">
+        <textarea name="limitations" rows={3} aria-invalid={Boolean(fieldError('limitations'))} aria-describedby={fieldError('limitations') ? 'application-limitations-error' : undefined} className={`${FIELD_CLASS} resize-y`} placeholder="No hace falta compartir analíticas ni medicación." />
       </Field>
 
-      {state.error && <p className="rounded-xl border border-danger/30 bg-danger/10 p-3 text-fluid-sm text-danger">{state.error}</p>}
+      {state.error && <p role="alert" className="rounded-xl border border-danger/30 bg-danger/10 p-3 text-fluid-sm text-danger">{state.error}</p>}
       <button type="submit" disabled={pending} className="btn-brand w-full py-4 text-fluid-base disabled:opacity-60">
         {pending ? <><Loader2 className="h-5 w-5 animate-spin" /> Enviando…</> : <>Solicitar mi plaza <ArrowRight className="h-4 w-4" /></>}
       </button>
@@ -76,6 +76,6 @@ export default function ApplicationForm() {
   )
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
-  return <label className="block"><span className="mb-1.5 block text-fluid-xs font-semibold text-white/80">{label}</span>{children}{error && <span className="mt-1 block text-fluid-xs text-danger">{error}</span>}</label>
+function Field({ label, error, errorId, children }: { label: string; error?: string; errorId: string; children: React.ReactNode }) {
+  return <label className="block"><span className="mb-1.5 block text-fluid-xs font-semibold text-white/80">{label}</span>{children}{error && <span id={errorId} className="mt-1 block text-fluid-xs text-danger">{error}</span>}</label>
 }
