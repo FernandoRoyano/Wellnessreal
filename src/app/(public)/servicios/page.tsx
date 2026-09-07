@@ -85,7 +85,7 @@ export default function ServiciosPage() {
 
         <Container>
           <HeroAnimation>
-            <div className="relative max-w-4xl space-y-6">
+            <div className="relative w-full min-w-0 max-w-4xl space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
@@ -94,13 +94,14 @@ export default function ServiciosPage() {
               </div>
 
               <h1
-                className="headline text-[clamp(2.55rem,11.5vw,7rem)] leading-[0.94] text-white animate-fade-up"
+                className="headline max-w-full text-[clamp(2.25rem,9.5vw,7rem)] leading-[0.94] text-white animate-fade-up"
               >
-                Entrenamiento y nutrición
+                <span className="block sm:inline">Entrenamiento</span>{' '}
+                <span className="block sm:inline">y nutrición</span>
                 <span className="mt-2 block text-gradient-brand">para tu vida real.</span>
               </h1>
 
-              <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
+              <p className="max-w-2xl text-fluid-xl font-medium leading-relaxed text-white/85 animate-fade-up [animation-delay:100ms]">
                 Sin excusas de tiempo. Sin planes imposibles.{' '}
                 <span className="text-accent font-semibold">Solo lo que funciona para ti.</span>
               </p>
