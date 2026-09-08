@@ -23,18 +23,36 @@ const IS_NOT_FOR = [
 ] as const
 
 const PRIORIDADES = [
-  { t: 'Fuerza', d: 'Una progresión adaptada a tu punto de partida, no más ejercicio por castigo.' },
+  {
+    t: 'Fuerza',
+    d: 'Una progresión adaptada a tu punto de partida, no más ejercicio por castigo.',
+  },
   { t: 'Hábitos', d: 'Alimentación y descanso que puedas sostener sin perseguir la perfección.' },
   { t: 'Seguimiento', d: 'Revisar qué funciona y ajustar el plan según tu evolución real.' },
-  { t: 'Contexto médico', d: 'Tu diagnóstico, medicación y analíticas siempre con tu profesional sanitario.' },
+  {
+    t: 'Contexto médico',
+    d: 'Tu diagnóstico, medicación y analíticas siempre con tu profesional sanitario.',
+  },
 ] as const
 
 // "Enemigo sin enemigos": el consejo de siempre vs lo que de verdad mueve la aguja.
 const CONSEJO_VS = [
-  { mal: 'Hacer cada vez más para compensar.', bien: 'Elegir una dosis de entrenamiento que puedas recuperar y sostener.' },
-  { mal: 'Usar el cardio como único plan.', bien: 'Entrenar fuerza con una progresión adaptada a ti.' },
-  { mal: 'Perseguir detox y suplementos milagro.', bien: 'Construir hábitos y consultar la parte médica con tu profesional sanitario.' },
-  { mal: 'Juzgarlo todo por el peso diario.', bien: 'Observar también fuerza, adherencia, medidas y cómo te sientes.' },
+  {
+    mal: 'Hacer cada vez más para compensar.',
+    bien: 'Elegir una dosis de entrenamiento que puedas recuperar y sostener.',
+  },
+  {
+    mal: 'Usar el cardio como único plan.',
+    bien: 'Entrenar fuerza con una progresión adaptada a ti.',
+  },
+  {
+    mal: 'Perseguir detox y suplementos milagro.',
+    bien: 'Construir hábitos y consultar la parte médica con tu profesional sanitario.',
+  },
+  {
+    mal: 'Juzgarlo todo por el peso diario.',
+    bien: 'Observar también fuerza, adherencia, medidas y cómo te sientes.',
+  },
 ] as const
 
 export default function TiroidesPage() {
@@ -63,9 +81,9 @@ export default function TiroidesPage() {
               </h1>
 
               <p className="max-w-2xl text-fluid-lg text-muted leading-relaxed">
-                Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más confusión.{' '}
-                <span className="text-white font-semibold">Haz el test</span> y descubre qué merece la pena priorizar
-                ahora en tu fuerza, hábitos y seguimiento.
+                Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más
+                confusión. <span className="text-white font-semibold">Haz el test</span> y descubre
+                qué merece la pena priorizar ahora en tu fuerza, hábitos y seguimiento.
               </p>
 
               <ul className="space-y-3">
@@ -81,15 +99,19 @@ export default function TiroidesPage() {
 
               <div className="flex items-center gap-3 border-t border-white/10 pt-5">
                 <Image
-                  src="/images/fernando-royano-about.jpg"
+                  src="/images/fernando-royano-avatar.webp"
                   alt="Fernando Royano, entrenador de WellnessReal"
                   width={56}
                   height={56}
                   className="h-14 w-14 rounded-full border-2 border-accent/50 object-cover object-top"
                 />
                 <div>
-                  <p className="text-fluid-sm font-semibold text-white">Diseñado por Fernando Royano</p>
-                  <p className="text-fluid-xs text-subtle">Graduado en CAFYD · 14 años de experiencia · +100 clientes</p>
+                  <p className="text-fluid-sm font-semibold text-white">
+                    Diseñado por Fernando Royano
+                  </p>
+                  <p className="text-fluid-xs text-subtle">
+                    Graduado en CAFYD · 14 años de experiencia · +100 clientes
+                  </p>
                 </div>
               </div>
             </div>
@@ -106,10 +128,21 @@ export default function TiroidesPage() {
           <div className="relative mt-fluid-md grid grid-cols-1 divide-y divide-white/10 rounded-2xl border border-white/10 bg-white/[0.035] px-5 py-4 backdrop-blur-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
             {[
               { icon: Clock3, label: '1 minuto', detail: 'Recorrido breve y adaptativo' },
-              { icon: BadgeCheck, label: 'Resultado personal', detail: 'Prioridades según tus respuestas' },
-              { icon: ShieldCheck, label: 'Criterio profesional', detail: 'Sin milagros ni promesas médicas' },
+              {
+                icon: BadgeCheck,
+                label: 'Resultado personal',
+                detail: 'Prioridades según tus respuestas',
+              },
+              {
+                icon: ShieldCheck,
+                label: 'Criterio profesional',
+                detail: 'Sin milagros ni promesas médicas',
+              },
             ].map(({ icon: Icon, label, detail }) => (
-              <div key={label} className="flex items-center gap-3 px-3 py-3 sm:py-0 sm:not-first:pl-6">
+              <div
+                key={label}
+                className="flex items-center gap-3 px-3 py-3 sm:py-0 sm:not-first:pl-6"
+              >
                 <Icon className="h-5 w-5 shrink-0 text-accent" />
                 <div>
                   <p className="text-fluid-sm font-semibold text-white">{label}</p>
@@ -128,18 +161,26 @@ export default function TiroidesPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10 space-y-3">
               <h2 className="headline text-fluid-3xl text-white">
-                Trabajamos sobre lo que <span className="text-gradient-brand">sí puedes cambiar.</span>
+                Trabajamos sobre lo que{' '}
+                <span className="text-gradient-brand">sí puedes cambiar.</span>
               </h2>
               <p className="text-fluid-base text-muted max-w-2xl mx-auto">
-                Sin diagnosticar ni prometer resultados hormonales: ordenamos entrenamiento, hábitos y seguimiento
-                para construir un proceso realista.
+                Sin diagnosticar ni prometer resultados hormonales: ordenamos entrenamiento, hábitos
+                y seguimiento para construir un proceso realista.
               </p>
             </div>
             <div className="grid overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] sm:grid-cols-2 lg:grid-cols-4">
               {PRIORIDADES.map((p, i) => (
-                <div key={i} className="relative min-h-52 border-b border-white/10 p-6 last:border-b-0 sm:odd:border-r lg:border-b-0 lg:not-last:border-r">
-                  <span className="absolute right-5 top-3 headline text-5xl text-white/[0.035]">0{i + 1}</span>
-                  <p className="mb-8 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">Prioridad 0{i + 1}</p>
+                <div
+                  key={i}
+                  className="relative min-h-52 border-b border-white/10 p-6 last:border-b-0 sm:odd:border-r lg:border-b-0 lg:not-last:border-r"
+                >
+                  <span aria-hidden="true" className="absolute right-5 top-3 headline text-5xl text-white/35">
+                    0{i + 1}
+                  </span>
+                  <p className="mb-8 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                    Prioridad 0{i + 1}
+                  </p>
                   <p className="headline text-fluid-xl text-accent">{p.t}</p>
                   <p className="text-fluid-sm text-white/85 leading-relaxed mt-2">{p.d}</p>
                 </div>
@@ -155,25 +196,35 @@ export default function TiroidesPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10 space-y-3">
               <h2 className="headline text-fluid-3xl text-white">
-                Puede que no te falte esfuerzo. <span className="text-gradient-brand">Puede faltarte estructura.</span>
+                Puede que no te falte esfuerzo.{' '}
+                <span className="text-gradient-brand">Puede faltarte estructura.</span>
               </h2>
               <p className="text-fluid-base text-muted max-w-2xl mx-auto">
-                El test no diagnostica ni mide tu tiroides. Te ayuda a ordenar las decisiones que sí están dentro
-                de nuestro ámbito profesional.
+                El test no diagnostica ni mide tu tiroides. Te ayuda a ordenar las decisiones que sí
+                están dentro de nuestro ámbito profesional.
               </p>
             </div>
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025]">
               <div className="hidden grid-cols-2 border-b border-white/10 bg-white/[0.025] px-6 py-4 md:grid">
-                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-danger">Ruido que te frena</p>
-                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-success">Una dirección más útil</p>
+                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-danger">
+                  Ruido que te frena
+                </p>
+                <p className="text-fluid-xs font-semibold uppercase tracking-widest text-success">
+                  Una dirección más útil
+                </p>
               </div>
               {CONSEJO_VS.map((c, i) => (
-                <div key={i} className="grid gap-4 border-b border-white/10 p-6 last:border-b-0 md:grid-cols-2 md:gap-8">
+                <div
+                  key={i}
+                  className="grid gap-4 border-b border-white/10 p-6 last:border-b-0 md:grid-cols-2 md:gap-8"
+                >
                   <div className="flex items-start gap-3 text-fluid-sm leading-relaxed text-white/65">
-                    <X className="mt-0.5 h-4 w-4 shrink-0 text-danger" />{c.mal}
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-danger" />
+                    {c.mal}
                   </div>
                   <div className="flex items-start gap-3 text-fluid-sm leading-relaxed text-white/90">
-                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success" />{c.bien}
+                    <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    {c.bien}
                   </div>
                 </div>
               ))}
@@ -184,7 +235,9 @@ export default function TiroidesPage() {
               <p className="headline text-fluid-2xl text-white leading-snug">
                 “No entrenamos para mover un número en la analítica.
                 <br />
-                <span className="text-gradient-brand">Entrenamos para recuperar fuerza, capacidad y confianza.”</span>
+                <span className="text-gradient-brand">
+                  Entrenamos para recuperar fuerza, capacidad y confianza.”
+                </span>
               </p>
             </blockquote>
           </div>
@@ -203,7 +256,10 @@ export default function TiroidesPage() {
               </h3>
               <ul className="space-y-3">
                 {IS_FOR.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/85 leading-relaxed">
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 text-fluid-sm text-white/85 leading-relaxed"
+                  >
                     <CheckCircle className="w-4 h-4 text-success mt-0.5 shrink-0" />
                     {item}
                   </li>
@@ -218,7 +274,10 @@ export default function TiroidesPage() {
               </h3>
               <ul className="space-y-3">
                 {IS_NOT_FOR.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-fluid-sm text-white/85 leading-relaxed">
+                  <li
+                    key={i}
+                    className="flex items-start gap-3 text-fluid-sm text-white/85 leading-relaxed"
+                  >
                     <X className="w-4 h-4 text-danger mt-0.5 shrink-0" />
                     {item}
                   </li>
@@ -239,10 +298,7 @@ export default function TiroidesPage() {
             <p className="text-fluid-base text-muted">
               Haz el test en 1 minuto e identifica qué merece la pena priorizar en tu situación.
             </p>
-            <a
-              href="#test"
-              className="btn-brand text-fluid-base px-8 py-4"
-            >
+            <a href="#test" className="btn-brand text-fluid-base px-8 py-4">
               Hacer el test gratis
               <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </a>
@@ -250,9 +306,10 @@ export default function TiroidesPage() {
 
           {/* Aviso legal */}
           <p className="max-w-2xl mx-auto mt-8 text-fluid-xs text-subtle text-center leading-relaxed">
-            Este test y esta guía son información general y no sustituyen el consejo de tu médico ni son un
-            diagnóstico. El seguimiento de tu tiroides, medicación y analíticas corresponde a tu equipo sanitario;
-            WellnessReal trabaja entrenamiento, hábitos y composición corporal dentro de su ámbito profesional.
+            Este test y esta guía son información general y no sustituyen el consejo de tu médico ni
+            son un diagnóstico. El seguimiento de tu tiroides, medicación y analíticas corresponde a
+            tu equipo sanitario; WellnessReal trabaja entrenamiento, hábitos y composición corporal
+            dentro de su ámbito profesional.
           </p>
         </Container>
       </section>

@@ -1,7 +1,9 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Suspense } from 'react'
 import { Montserrat, Bricolage_Grotesque } from 'next/font/google'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import JsonLd, { organizationSchema } from '@/components/seo/JsonLd'
 import WhatsAppBubble from '@/components/common/WhatsAppBubble'
 import TrackingScripts from '@/components/analytics/TrackingScripts'
@@ -78,13 +80,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  themeColor: '#16122b',
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={`${montserrat.variable} ${bricolage.variable}`}>
+    <html lang="es" data-scroll-behavior="smooth" className={`${montserrat.variable} ${bricolage.variable}`}>
       <head>
         <JsonLd data={organizationSchema()} />
         {GA_ID && (
@@ -110,6 +113,8 @@ export default function RootLayout({
         </Suspense>
         {children}
         <WhatsAppBubble />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

@@ -1,4 +1,20 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "form-action 'self'",
+  "frame-ancestors 'self'",
+  "object-src 'none'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://connect.facebook.net https://analytics.tiktok.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "img-src 'self' data: blob: https:",
+  "media-src 'self' https:",
+  "frame-src 'self' https://www.youtube.com https://player.vimeo.com https://js.stripe.com https://hooks.stripe.com",
+  "connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://*.vercel-insights.com https://www.facebook.com https://analytics.tiktok.com",
+  "worker-src 'self' blob:",
+].join('; ')
 
 const nextConfig: NextConfig = {
   images: {
@@ -18,6 +34,9 @@ const nextConfig: NextConfig = {
       {
         source: '/(.*)',
         headers: [
+          ...(process.env.NODE_ENV === 'production'
+            ? [{ key: 'Content-Security-Policy', value: contentSecurityPolicy }]
+            : []),
           {
             key: 'X-Content-Type-Options',
             value: 'nosniff',
@@ -260,7 +279,8 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
-        source: '/proteccion-solar-inteligente-equilibrando-la-exposicion-natural-y-el-uso-de-crema-solar-para-una-piel-saludable',
+        source:
+          '/proteccion-solar-inteligente-equilibrando-la-exposicion-natural-y-el-uso-de-crema-solar-para-una-piel-saludable',
         destination: '/blog',
         permanent: true,
       },
@@ -535,6 +555,6 @@ const nextConfig: NextConfig = {
       },
     ]
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

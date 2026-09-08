@@ -33,20 +33,26 @@ export default function FooterNewsletterForm() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="mx-auto flex max-w-md flex-col gap-3 pt-2 sm:flex-row">
-        <label htmlFor="footer-newsletter-email" className="sr-only">Email para la newsletter</label>
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto flex max-w-md flex-col gap-3 pt-2 sm:flex-row"
+      >
+        <label htmlFor="footer-newsletter-email" className="sr-only">
+          Email para la newsletter
+        </label>
         <input
           id="footer-newsletter-email"
           type="email"
           inputMode="email"
           autoComplete="email"
+          spellCheck={false}
           value={email}
           onChange={(event) => setEmail(event.target.value)}
           placeholder="tu@email.com"
           required
           disabled={status === 'loading'}
           aria-describedby="footer-newsletter-status"
-          className="min-h-11 min-w-0 flex-1 rounded-xl border border-border-subtle bg-brand-night px-4 py-3 text-white placeholder:text-dim transition-all focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-60"
+          className="min-h-11 min-w-0 flex-1 rounded-xl border border-border-subtle bg-brand-night px-4 py-3 text-white placeholder:text-dim transition-[border-color,box-shadow,opacity] focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 disabled:opacity-60"
         />
         <button
           type="submit"
@@ -54,8 +60,16 @@ export default function FooterNewsletterForm() {
           className="btn-brand min-h-11 shrink-0 px-6 py-3 disabled:opacity-70"
         >
           {status === 'loading' && 'Enviando…'}
-          {status === 'success' && <><Check className="h-4 w-4" aria-hidden="true" /> Suscrito</>}
-          {(status === 'idle' || status === 'error') && <>Suscribirme <Send className="h-4 w-4" aria-hidden="true" /></>}
+          {status === 'success' && (
+            <>
+              <Check className="h-4 w-4" aria-hidden="true" /> Suscrito
+            </>
+          )}
+          {(status === 'idle' || status === 'error') && (
+            <>
+              Suscribirme <Send className="h-4 w-4" aria-hidden="true" />
+            </>
+          )}
         </button>
       </form>
 

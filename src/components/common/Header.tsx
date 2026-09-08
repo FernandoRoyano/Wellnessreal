@@ -58,11 +58,10 @@ export default function Header() {
             <Image
               src="/images/logos/WR_AUX_normal_bg.png"
               alt="WellnessReal"
-              width={220}
-              height={66}
+              width={4167}
+              height={507}
               priority
-              className="h-10 md:h-12 w-auto max-w-[180px] md:max-w-[210px] object-contain"
-              style={{ width: 'auto' }}
+              className="h-auto w-[180px] md:w-[210px] object-contain"
             />
           </Link>
 

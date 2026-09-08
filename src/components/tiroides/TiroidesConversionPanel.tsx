@@ -8,7 +8,7 @@ import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
 
 const FIELD_CLASS =
   'w-full rounded-xl border border-border-subtle bg-brand-night px-4 py-4 text-fluid-base text-white ' +
-  'placeholder:text-dim focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all'
+  'placeholder:text-dim focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow]'
 
 export default function TiroidesConversionPanel() {
   const router = useRouter()
@@ -25,7 +25,9 @@ export default function TiroidesConversionPanel() {
     const formData = new FormData(event.currentTarget)
     const data = {
       name: String(formData.get('name') ?? '').trim(),
-      email: String(formData.get('email') ?? '').trim().toLowerCase(),
+      email: String(formData.get('email') ?? '')
+        .trim()
+        .toLowerCase(),
     }
 
     try {
@@ -76,13 +78,19 @@ export default function TiroidesConversionPanel() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         {submitError && (
-          <div role="alert" className="rounded-xl border border-danger/30 bg-danger/10 p-3 text-fluid-sm text-danger">
+          <div
+            role="alert"
+            className="rounded-xl border border-danger/30 bg-danger/10 p-3 text-fluid-sm text-danger"
+          >
             {submitError}
           </div>
         )}
 
         <div>
-          <label htmlFor="thyroid-guide-name" className="mb-1.5 block text-fluid-xs font-semibold text-white/80">
+          <label
+            htmlFor="thyroid-guide-name"
+            className="mb-1.5 block text-fluid-xs font-semibold text-white/80"
+          >
             Nombre
           </label>
           <input
@@ -98,7 +106,10 @@ export default function TiroidesConversionPanel() {
         </div>
 
         <div>
-          <label htmlFor="thyroid-guide-email" className="mb-1.5 block text-fluid-xs font-semibold text-white/80">
+          <label
+            htmlFor="thyroid-guide-email"
+            className="mb-1.5 block text-fluid-xs font-semibold text-white/80"
+          >
             Email
           </label>
           <input
@@ -107,14 +118,25 @@ export default function TiroidesConversionPanel() {
             type="email"
             autoComplete="email"
             inputMode="email"
+            spellCheck={false}
             required
             placeholder="tu@email.com"
             className={FIELD_CLASS}
           />
         </div>
 
-        <button type="submit" disabled={isSubmitting} className="btn-brand w-full py-4 text-fluid-base disabled:opacity-60">
-          {isSubmitting ? 'Enviando…' : <>Descargar la guía gratis <ArrowRight className="h-4 w-4" aria-hidden="true" /></>}
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="btn-brand w-full py-4 text-fluid-base disabled:opacity-60"
+        >
+          {isSubmitting ? (
+            'Enviando…'
+          ) : (
+            <>
+              Descargar la guía gratis <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </>
+          )}
         </button>
 
         <p className="text-center text-fluid-xs text-subtle">

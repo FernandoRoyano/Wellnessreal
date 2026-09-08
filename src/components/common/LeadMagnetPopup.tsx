@@ -22,7 +22,7 @@ type Status = 'idle' | 'loading' | 'success' | 'error'
 const FIELD_CLASS =
   'w-full px-4 py-3 rounded-xl bg-brand-night text-white border border-border-subtle ' +
   'placeholder:text-dim ' +
-  'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all'
+  'focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow]'
 
 export default function LeadMagnetPopup() {
   const pathname = usePathname()
@@ -51,12 +51,15 @@ export default function LeadMagnetPopup() {
   useEffect(() => {
     if (!visible) return
     const dialog = dialogRef.current
-    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null
+    const previousFocus =
+      document.activeElement instanceof HTMLElement ? document.activeElement : null
     const focusable = dialog?.querySelectorAll<HTMLElement>(
       'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
     )
     const first = focusable?.[0]
     const last = focusable?.[focusable.length - 1]
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     first?.focus()
 
     const onKey = (event: KeyboardEvent) => {
@@ -76,6 +79,7 @@ export default function LeadMagnetPopup() {
     document.addEventListener('keydown', onKey)
     return () => {
       document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = previousOverflow
       previousFocus?.focus()
     }
   }, [visible])
@@ -96,7 +100,6 @@ export default function LeadMagnetPopup() {
       localStorage.setItem(LOCAL_KEY, '1')
       trackSignUp('popup')
       setStatus('success')
-      setTimeout(() => setVisible(false), 3000)
     } catch {
       setStatus('error')
     }
@@ -110,7 +113,7 @@ export default function LeadMagnetPopup() {
       aria-modal="true"
       aria-labelledby="leadmagnet-title"
       aria-describedby="leadmagnet-description"
-      className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center p-4 bg-black/70 sm:backdrop-blur-sm animate-fade-in"
+      className="fixed inset-0 z-[250] flex items-end sm:items-center justify-center px-4 pt-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-black/70 sm:p-4 sm:backdrop-blur-sm animate-fade-in overscroll-contain"
       onClick={close}
     >
       <div
@@ -131,10 +134,14 @@ export default function LeadMagnetPopup() {
         </div>
 
         {status === 'success' ? (
-          <div className="text-center py-4 space-y-3">
-            <CheckCircle className="w-10 h-10 text-success mx-auto" />
-            <p className="text-fluid-xl font-bold text-white">¡Perfecto!</p>
-            <p id="leadmagnet-description" className="text-fluid-sm text-muted">Revisa tu email — la guía está en camino.</p>
+          <div className="text-center py-4 space-y-3" role="status" aria-live="polite">
+            <CheckCircle className="w-10 h-10 text-success mx-auto" aria-hidden="true" />
+            <p id="leadmagnet-title" className="text-fluid-xl font-bold text-white">
+              ¡Perfecto!
+            </p>
+            <p id="leadmagnet-description" className="text-fluid-sm text-muted">
+              Revisa tu email — la guía está en camino.
+            </p>
           </div>
         ) : (
           <>
@@ -154,16 +161,27 @@ export default function LeadMagnetPopup() {
               </label>
               <input
                 id="leadmagnet-email"
+                name="email"
                 type="email"
+                inputMode="email"
+                autoComplete="email"
+                spellCheck={false}
                 placeholder="tu@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                aria-invalid={status === 'error'}
+                aria-describedby={status === 'error' ? 'leadmagnet-error' : undefined}
                 className={FIELD_CLASS}
               />
               {status === 'error' && (
-                <p className="text-fluid-sm text-danger flex items-center gap-1.5">
-                  <AlertCircle className="w-4 h-4" /> Algo falló. Inténtalo de nuevo.
+                <p
+                  id="leadmagnet-error"
+                  role="alert"
+                  className="text-fluid-sm text-danger flex items-center gap-1.5"
+                >
+                  <AlertCircle className="w-4 h-4" aria-hidden="true" /> Algo falló. Inténtalo de
+                  nuevo.
                 </p>
               )}
               <button
@@ -175,7 +193,7 @@ export default function LeadMagnetPopup() {
                   'Enviando…'
                 ) : (
                   <>
-                    Quiero la guía gratis <ArrowRight className="w-4 h-4" />
+                    Quiero la guía gratis <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </>
                 )}
               </button>

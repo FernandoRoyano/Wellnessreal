@@ -21,7 +21,7 @@ type Phase = 'intro' | 'questions' | 'email' | 'result'
 
 const inputClass =
   'w-full px-4 py-3.5 rounded-xl bg-brand-night text-white border border-border-subtle text-fluid-base ' +
-  'placeholder:text-dim focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-all'
+  'placeholder:text-dim focus:outline-none focus:border-accent focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow]'
 
 const cardClass =
   'relative overflow-hidden rounded-[1.75rem] border border-accent/25 bg-brand-dusk/95 p-fluid-md shadow-[0_24px_80px_rgba(5,4,20,0.45)]'
@@ -53,7 +53,9 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
   const pick = (value: string) => {
     const activeIds = new Set([...history, currentId])
-    const cleanAnswers = Object.fromEntries(Object.entries(answers).filter(([id]) => activeIds.has(id as QuestionId)))
+    const cleanAnswers = Object.fromEntries(
+      Object.entries(answers).filter(([id]) => activeIds.has(id as QuestionId))
+    )
     const nextAnswers = { ...cleanAnswers, [currentId]: value }
     const nextId = getNextQuestionId(currentId, nextAnswers)
 
@@ -105,8 +107,13 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           _funnel: getThyroidTrackingContext(),
         }),
       })
-      const data = (await response.json()) as { error?: string; result?: TestResult; leadId?: string }
-      if (!response.ok || !data.result) throw new Error(data.error || 'No se pudo calcular el resultado')
+      const data = (await response.json()) as {
+        error?: string
+        result?: TestResult
+        leadId?: string
+      }
+      if (!response.ok || !data.result)
+        throw new Error(data.error || 'No se pudo calcular el resultado')
       if (data.leadId) identifyThyroidLead(data.leadId)
       trackSignUp('test_tiroides')
       trackThyroidFunnel('thyroid_result_view', {
@@ -125,14 +132,24 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
 
   if (phase === 'result' && result) {
     return (
-      <div className={`${cardClass} animate-[fadeUp_500ms_ease-out_both]`} role="status" aria-live="polite">
+      <div
+        className={`${cardClass} animate-[fadeUp_500ms_ease-out_both]`}
+        role="status"
+        aria-live="polite"
+      >
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
-        <p className="text-fluid-xs font-semibold uppercase tracking-widest text-subtle">Tu resultado personalizado</p>
-        <h2 className="headline text-fluid-2xl text-white mt-1">{result.emoji} {result.title}</h2>
+        <p className="text-fluid-xs font-semibold uppercase tracking-widest text-subtle">
+          Tu resultado personalizado
+        </p>
+        <h2 className="headline text-fluid-2xl text-white mt-1">
+          {result.emoji} {result.title}
+        </h2>
         <p className="text-fluid-base text-muted leading-relaxed mt-4">{result.summary}</p>
 
         <div className="mt-5 space-y-3">
-          <p className="text-fluid-xs font-bold uppercase tracking-wider text-accent">Tus prioridades</p>
+          <p className="text-fluid-xs font-bold uppercase tracking-wider text-accent">
+            Tus prioridades
+          </p>
           {result.priorities.map((priority) => (
             <div key={priority} className="flex items-start gap-2.5 text-fluid-sm text-white/85">
               <CheckCircle className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -142,7 +159,9 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
         </div>
 
         <div className="mt-5 rounded-xl border border-accent/25 bg-accent/5 p-4">
-          <p className="text-fluid-xs font-bold uppercase tracking-wider text-accent mb-1">Tu siguiente paso</p>
+          <p className="text-fluid-xs font-bold uppercase tracking-wider text-accent mb-1">
+            Tu siguiente paso
+          </p>
           <p className="text-fluid-sm text-white/85 leading-relaxed">{result.nextStep}</p>
         </div>
 
@@ -150,19 +169,28 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           href={result.cta.href}
           onClick={() => {
             if (result.cta.href.startsWith('/valoracion')) {
-              trackThyroidFunnel('thyroid_valuation_click', { profile: result.profile, intent: result.intent })
+              trackThyroidFunnel('thyroid_valuation_click', {
+                profile: result.profile,
+                intent: result.intent,
+              })
             }
             if (result.cta.href.startsWith('/metodo-tiroides')) {
-              trackThyroidFunnel('thyroid_valuation_click', { profile: result.profile, intent: result.intent, product: 'metodo_tiroides' })
+              trackThyroidFunnel('thyroid_valuation_click', {
+                profile: result.profile,
+                intent: result.intent,
+                product: 'metodo_tiroides',
+              })
             }
           }}
           className="btn-brand w-full mt-5 text-fluid-base py-4"
         >
-          {result.cta.label}<ArrowRight className="w-4 h-4" />
+          {result.cta.label}
+          <ArrowRight className="w-4 h-4" />
         </a>
         <p className="text-fluid-xs text-subtle text-center mt-3">{result.cta.description}</p>
         <p className="text-fluid-xs text-subtle text-center mt-4 leading-relaxed">
-          Te hemos enviado este resultado y la guía al email. El test es orientativo: no diagnostica ni interpreta analíticas.
+          Te hemos enviado este resultado y la guía al email. El test es orientativo: no diagnostica
+          ni interpreta analíticas.
         </p>
       </div>
     )
@@ -173,26 +201,75 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     return (
       <div className={cardClass}>
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
-        <button type="button" onClick={back} className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-fluid-xs text-subtle hover:text-white">
+        <button
+          type="button"
+          onClick={back}
+          className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-fluid-xs text-subtle hover:text-white"
+        >
           <ArrowLeft className="w-3.5 h-3.5" aria-hidden="true" /> Atrás
         </button>
-        <p className="text-fluid-xs font-semibold uppercase tracking-widest text-accent">Perfil preparado</p>
-        <h2 className="headline text-fluid-2xl text-white mt-1">{preview.emoji} {preview.title}</h2>
+        <p className="text-fluid-xs font-semibold uppercase tracking-widest text-accent">
+          Perfil preparado
+        </p>
+        <h2 className="headline text-fluid-2xl text-white mt-1">
+          {preview.emoji} {preview.title}
+        </h2>
         <p className="text-fluid-sm text-muted mt-2 mb-5">
-          Déjanos tu email para guardar tus respuestas y ver tus tres prioridades y el siguiente paso recomendado.
+          Déjanos tu email para guardar tus respuestas y ver tus tres prioridades y el siguiente
+          paso recomendado.
         </p>
         <form onSubmit={submit} className="space-y-3">
-          {error && <div role="alert" id="thyroid-test-email-error" className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">{error}</div>}
+          {error && (
+            <div
+              role="alert"
+              id="thyroid-test-email-error"
+              className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30"
+            >
+              {error}
+            </div>
+          )}
           <label className="block">
-            <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Nombre <span className="text-subtle">(opcional)</span></span>
-            <input value={name} onChange={(event) => setName(event.target.value)} autoComplete="name" placeholder="Tu nombre" className={inputClass} />
+            <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">
+              Nombre <span className="text-subtle">(opcional)</span>
+            </span>
+            <input
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              autoComplete="name"
+              placeholder="Tu nombre"
+              className={inputClass}
+            />
           </label>
           <label className="block">
             <span className="mb-1.5 block text-fluid-xs font-medium text-white/75">Email</span>
-            <input value={email} onChange={(event) => setEmail(event.target.value)} autoComplete="email" inputMode="email" type="email" required aria-invalid={Boolean(error)} aria-describedby={error ? 'thyroid-test-email-error' : undefined} placeholder="tu@email.com" className={inputClass} />
+            <input
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              autoComplete="email"
+              inputMode="email"
+              spellCheck={false}
+              type="email"
+              required
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? 'thyroid-test-email-error' : undefined}
+              placeholder="tu@email.com"
+              className={inputClass}
+            />
           </label>
-          <button type="submit" disabled={sending} className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60">
-            {sending ? <><Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Guardando…</> : <>Ver mis prioridades <ArrowRight className="w-4 h-4" aria-hidden="true" /></>}
+          <button
+            type="submit"
+            disabled={sending}
+            className="btn-brand w-full text-fluid-base py-4 disabled:opacity-60"
+          >
+            {sending ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" aria-hidden="true" /> Guardando…
+              </>
+            ) : (
+              <>
+                Ver mis prioridades <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </>
+            )}
           </button>
           <p className="text-fluid-xs text-subtle text-center inline-flex items-center justify-center gap-1.5 w-full">
             <ShieldCheck className="w-3.5 h-3.5" /> Sin spam. Podrás darte de baja cuando quieras.
@@ -206,21 +283,39 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     return (
       <div className={`${cardClass} text-center`}>
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
-        <p className="mb-4 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">Evaluación inicial</p>
-        <h2 className="headline text-fluid-2xl text-white">¿Qué necesitas <span className="text-gradient-brand">priorizar</span> ahora?</h2>
+        <p className="mb-4 text-fluid-xs font-semibold uppercase tracking-[0.2em] text-accent">
+          Evaluación inicial
+        </p>
+        <h2 className="headline text-fluid-2xl text-white">
+          ¿Qué necesitas <span className="text-gradient-brand">priorizar</span> ahora?
+        </h2>
         <p className="text-fluid-sm text-muted mt-3 mb-6 max-w-sm mx-auto leading-relaxed">
-          Tus respuestas cambiarán el recorrido. En aproximadamente un minuto tendrás prioridades adaptadas a tu objetivo.
+          Tus respuestas cambiarán el recorrido. En aproximadamente un minuto tendrás prioridades
+          adaptadas a tu objetivo.
         </p>
         <div className="mb-5 grid grid-cols-3 divide-x divide-white/10 rounded-xl border border-white/10 bg-white/[0.025] py-3">
-          <div><strong className="block text-fluid-base text-white">8</strong><span className="text-[0.68rem] text-subtle">preguntas</span></div>
-          <div><strong className="block text-fluid-base text-white">1 min</strong><span className="text-[0.68rem] text-subtle">duración</span></div>
-          <div><strong className="block text-fluid-base text-white">Gratis</strong><span className="text-[0.68rem] text-subtle">resultado</span></div>
+          <div>
+            <strong className="block text-fluid-base text-white">8</strong>
+            <span className="text-[0.68rem] text-subtle">preguntas</span>
+          </div>
+          <div>
+            <strong className="block text-fluid-base text-white">1 min</strong>
+            <span className="text-[0.68rem] text-subtle">duración</span>
+          </div>
+          <div>
+            <strong className="block text-fluid-base text-white">Gratis</strong>
+            <span className="text-[0.68rem] text-subtle">resultado</span>
+          </div>
         </div>
         <button type="button" onClick={start} className="btn-brand w-full text-fluid-base py-4">
           Empezar mi test <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
         {onWantGuide && (
-          <button type="button" onClick={onWantGuide} className="mt-2 min-h-11 text-fluid-xs text-subtle hover:text-white underline underline-offset-2">
+          <button
+            type="button"
+            onClick={onWantGuide}
+            className="mt-2 min-h-11 text-fluid-xs text-subtle hover:text-white underline underline-offset-2"
+          >
             ¿Solo quieres la guía? Descárgala aquí
           </button>
         )}
@@ -232,7 +327,13 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     <div className={cardClass}>
       <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
       <div className="flex items-center gap-3 mb-5">
-        <button type="button" onClick={back} disabled={history.length === 0} className="flex min-h-11 min-w-11 items-center justify-center text-subtle hover:text-white disabled:opacity-30 transition" aria-label="Volver a la pregunta anterior">
+        <button
+          type="button"
+          onClick={back}
+          disabled={history.length === 0}
+          className="flex min-h-11 min-w-11 items-center justify-center text-subtle hover:text-white disabled:opacity-30 transition"
+          aria-label="Volver a la pregunta anterior"
+        >
           <ArrowLeft className="w-4 h-4" aria-hidden="true" />
         </button>
         <div
@@ -243,21 +344,37 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           aria-valuemax={total}
           aria-valuenow={step}
         >
-          <div className="h-full rounded-full bg-accent transition-all duration-300" style={{ width: `${(step / total) * 100}%` }} />
+          <div
+            className="h-full rounded-full bg-accent transition-[width] duration-300"
+            style={{ width: `${(step / total) * 100}%` }}
+          />
         </div>
-        <span className="text-fluid-xs text-subtle tabular-nums shrink-0">Pregunta {step} de {total}</span>
+        <span className="text-fluid-xs text-subtle tabular-nums shrink-0">
+          Pregunta {step} de {total}
+        </span>
       </div>
 
-      {step > 2 && <p className="text-fluid-xs font-semibold uppercase tracking-wider text-accent mb-2">Recorrido adaptado a ti</p>}
-      <h2 ref={questionHeadingRef} tabIndex={-1} className="headline text-fluid-xl text-white leading-tight">{question.question}</h2>
+      {step > 2 && (
+        <p className="text-fluid-xs font-semibold uppercase tracking-wider text-accent mb-2">
+          Recorrido adaptado a ti
+        </p>
+      )}
+      <h2
+        ref={questionHeadingRef}
+        tabIndex={-1}
+        className="headline text-fluid-xl text-white leading-tight"
+      >
+        {question.question}
+      </h2>
       {question.hint && <p className="text-fluid-xs text-subtle mt-2">{question.hint}</p>}
       <div className="mt-5 space-y-2.5">
         {question.options.map((option, index) => (
           <button
             key={option.value}
             type="button"
+            data-testid="thyroid-option"
             onClick={() => pick(option.value)}
-            className={`group flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-fluid-sm transition-all hover:translate-x-1 ${answers[currentId] === option.value ? 'border-accent bg-accent-muted text-white' : 'border-border-subtle bg-brand-night text-white/85 hover:border-accent/50 hover:bg-white/5'}`}
+            className={`group flex w-full items-center gap-3 rounded-xl border px-4 py-3.5 text-left text-fluid-sm transition-[border-color,background-color,color,transform] hover:translate-x-1 ${answers[currentId] === option.value ? 'border-accent bg-accent-muted text-white' : 'border-border-subtle bg-brand-night text-white/85 hover:border-accent/50 hover:bg-white/5'}`}
           >
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-fluid-xs font-semibold text-subtle group-hover:border-accent/40 group-hover:text-accent">
               {String.fromCharCode(65 + index)}

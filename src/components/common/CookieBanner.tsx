@@ -40,20 +40,28 @@ export default function CookieBanner() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="fixed bottom-0 left-0 right-0 z-[220] p-3 md:p-5 animate-fade-in"
+      className="fixed bottom-0 left-0 right-0 z-[220] px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:p-5 animate-fade-in"
     >
       <div className="max-w-5xl mx-auto surface-card-accent rounded-2xl p-5 md:p-6 shadow-xl md:backdrop-blur-xl">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
           <div className="flex items-start md:items-center gap-3 flex-1 min-w-0">
-            <span aria-hidden="true" className="shrink-0 w-10 h-10 rounded-xl bg-accent-muted border border-border-strong flex items-center justify-center">
+            <span
+              aria-hidden="true"
+              className="shrink-0 w-10 h-10 rounded-xl bg-accent-muted border border-border-strong flex items-center justify-center"
+            >
               <Cookie className="w-5 h-5 text-accent" />
             </span>
             <p className="text-fluid-sm text-muted leading-relaxed">
-              Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico y personalizar
-              contenido. Puedes aceptar todas, rechazar las no esenciales o consultar la{' '}
-              <Link href="/privacidad" className="text-accent underline underline-offset-2 hover:opacity-80 transition">
+              Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
+              y personalizar contenido. Puedes aceptar todas, rechazar las no esenciales o consultar
+              la{' '}
+              <Link
+                href="/privacidad"
+                className="text-accent underline underline-offset-2 hover:opacity-80 transition"
+              >
                 política de privacidad
-              </Link>.
+              </Link>
+              .
             </p>
           </div>
 
@@ -61,7 +69,7 @@ export default function CookieBanner() {
             <button
               type="button"
               onClick={reject}
-              className="min-h-11 flex-1 md:flex-none px-5 py-2.5 rounded-xl text-fluid-sm font-semibold border border-border-subtle text-muted hover:text-white hover:border-border-strong transition-all"
+              className="min-h-11 flex-1 md:flex-none px-5 py-2.5 rounded-xl text-fluid-sm font-semibold border border-border-subtle text-muted hover:text-white hover:border-border-strong transition-[border-color,color,background-color]"
             >
               Solo esenciales
             </button>

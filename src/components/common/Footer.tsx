@@ -79,9 +79,9 @@ export default function Footer() {
               <Image
                 src="/images/logos/WR_AUX_normal_bg.png"
                 alt="WellnessReal"
-                width={220}
-                height={66}
-                className="h-14 md:h-16 w-auto max-w-[200px] md:max-w-[220px] object-contain"
+                width={4167}
+                height={507}
+                className="h-auto w-[200px] md:w-[220px] object-contain"
               />
             </Link>
             <p className="text-fluid-base text-muted max-w-md leading-relaxed">
