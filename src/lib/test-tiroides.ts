@@ -177,6 +177,54 @@ const QUESTIONS: Record<QuestionId, TestQuestion> = {
   },
 }
 
+export const THYROID_TEST_FIELD_ORDER: readonly string[] = [
+  'situacion', 'objetivo', 'esfuerzo_actual', 'bloqueo_recomposicion',
+  'energia', 'sueno', 'confianza', 'confusion', 'tipo_apoyo',
+  'disponibilidad', 'fuerza', 'proteina', 'revision', 'barrera',
+  'profile', 'requires_medical_review',
+]
+
+const RESULT_FIELD_LABELS: Record<string, string> = {
+  profile: 'Perfil resultante',
+  requires_medical_review: 'Revisión médica recomendada',
+}
+
+const PROFILE_LABELS: Record<ProfileId, string> = {
+  buena_base: 'Buena base: toca afinar',
+  falta_estructura: 'Tiene piezas sueltas: necesita estructura',
+  mucho_esfuerzo: 'Mucho esfuerzo: necesita dirigirlo mejor',
+  construir_base: 'Necesita construir una base',
+}
+
+export function getReadableThyroidTestField(key: string, value: unknown): {
+  label: string
+  value: string
+} {
+  if (key === 'profile') {
+    return {
+      label: RESULT_FIELD_LABELS[key],
+      value: PROFILE_LABELS[value as ProfileId] ?? String(value),
+    }
+  }
+
+  if (key === 'requires_medical_review') {
+    return {
+      label: RESULT_FIELD_LABELS[key],
+      value: value === true || value === 'true' ? 'Sí' : 'No',
+    }
+  }
+
+  const question = QUESTIONS[key as QuestionId]
+  if (!question) {
+    return { label: key.replaceAll('_', ' '), value: String(value) }
+  }
+
+  return {
+    label: question.question,
+    value: question.options.find((option) => option.value === value)?.label ?? String(value),
+  }
+}
+
 const BRANCHES: Record<IntentId, QuestionId[]> = {
   recomponer: ['esfuerzo_actual', 'bloqueo_recomposicion'],
   energia: ['energia', 'sueno'],

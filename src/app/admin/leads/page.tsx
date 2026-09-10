@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from 'react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import { Users, TrendingUp, Calendar, Search, X, ExternalLink, Trash2 } from 'lucide-react'
+import { getReadableThyroidTestField, THYROID_TEST_FIELD_ORDER } from '@/lib/test-tiroides'
 
 interface Lead {
   id: string
@@ -32,6 +33,30 @@ interface Stats {
   descartado: number
   last_7_days: number
   last_30_days: number
+}
+
+function getReadableFormData(lead: Lead): { key: string; label: string; value: string }[] {
+  if (!lead.form_data) return []
+
+  const entries = Object.entries(lead.form_data).filter(([key, value]) =>
+    value !== null && value !== undefined && value !== '' &&
+    !(lead.source === 'tiroides' && key === 'intent')
+  )
+
+  if (lead.source !== 'tiroides') {
+    return entries.map(([key, value]) => ({
+      key,
+      label: key.replaceAll('_', ' '),
+      value: String(value),
+    }))
+  }
+
+  const order = new Map(THYROID_TEST_FIELD_ORDER.map((key, index) => [key, index]))
+  return entries
+    .sort(([keyA], [keyB]) =>
+      (order.get(keyA) ?? Number.MAX_SAFE_INTEGER) - (order.get(keyB) ?? Number.MAX_SAFE_INTEGER)
+    )
+    .map(([key, value]) => ({ key, ...getReadableThyroidTestField(key, value) }))
 }
 
 const STATUS_OPTIONS = [
@@ -273,6 +298,7 @@ function StatusBadge({ status }: { status: string }) {
 function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
   lead: Lead; onClose: () => void; onSaved: () => void; onDeleted: () => void
 }) {
+  const readableFormData = getReadableFormData(lead)
   const [status, setStatus] = useState(lead.status)
   const [notes, setNotes] = useState(lead.notes || '')
   const [saving, setSaving] = useState(false)
@@ -348,12 +374,17 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
           )}
         </div>
 
-        {lead.form_data && Object.keys(lead.form_data).length > 0 && (
+        {readableFormData.length > 0 && (
           <div className="mb-6 pt-4 border-t" style={{ borderColor: 'rgba(102,45,145,0.3)' }}>
-            <p className="text-xs text-gray-500 mb-2 uppercase">Datos del formulario</p>
-            <div className="text-xs text-gray-300 space-y-1">
-              {Object.entries(lead.form_data).map(([k, v]) => (
-                v ? <div key={k}><span className="text-gray-500">{k}:</span> {String(v)}</div> : null
+            <p className="text-xs text-gray-500 mb-3 uppercase">
+              {lead.source === 'tiroides' ? 'Respuestas del test' : 'Datos del formulario'}
+            </p>
+            <div className="space-y-3">
+              {readableFormData.map((field) => (
+                <div key={field.key} className="rounded-lg bg-white/[0.035] px-3 py-2.5">
+                  <p className="text-xs leading-snug text-gray-500">{field.label}</p>
+                  <p className="mt-1 text-sm leading-snug text-gray-200">{field.value}</p>
+                </div>
               ))}
             </div>
           </div>
