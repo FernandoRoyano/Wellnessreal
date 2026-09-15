@@ -2,7 +2,7 @@ import Container from '@/components/common/Container'
 import Image from 'next/image'
 import { CheckCircle, X, ArrowRight, Sparkles, ShieldCheck, Clock3, BadgeCheck } from 'lucide-react'
 import TiroidesConversionPanel from '@/components/tiroides/TiroidesConversionPanel'
-import MobileTestShortcut, { MobileTestLink } from '@/components/tiroides/MobileTestShortcut'
+import MobileTestShortcut from '@/components/tiroides/MobileTestShortcut'
 
 const WHATS_INSIDE = [
   'Tu prioridad real entre fuerza, alimentación, descanso y seguimiento.',
@@ -85,8 +85,6 @@ export default function TiroidesPage() {
                 Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más
                 confusión. Descubre qué merece la pena priorizar ahora.
               </p>
-
-              <MobileTestLink />
 
               <ul className="hidden space-y-3 lg:block">
                 {WHATS_INSIDE.map((item, i) => (

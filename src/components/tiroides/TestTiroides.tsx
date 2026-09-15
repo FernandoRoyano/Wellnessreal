@@ -307,7 +307,7 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
             <span className="text-[0.68rem] text-subtle">resultado</span>
           </div>
         </div>
-        <button type="button" onClick={start} className="btn-brand w-full text-fluid-base py-4">
+        <button id="thyroid-test-start" type="button" onClick={start} className="btn-brand w-full text-fluid-base py-4">
           Empezar mi test <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </button>
         {onWantGuide && (
