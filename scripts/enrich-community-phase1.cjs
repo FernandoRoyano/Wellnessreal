@@ -30,9 +30,7 @@ const covers = {
 }
 
 const richerLessons = {
-  'quien-soy': `<p>Antes de seguir, ponme cara. Son dos minutos:</p>
-<div data-video-embed="" class="video-embed is-vertical"><iframe src="https://www.youtube.com/embed/48tqytciSS8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div>
-<h2>Esta comunidad existe para hacer aplicables los consejos</h2>
+  'quien-soy': `<h2>Esta comunidad existe para hacer aplicables los consejos</h2>
 <p><em>Come mejor. Haz fuerza. Descansa más.</em> Suena bien, pero no resuelve las preguntas importantes: cuánto, cómo empezar y qué hacer el día que no puedes con el plan completo.</p>
 <p>Soy Fernando Royano, graduado en Ciencias del Deporte, y llevo <strong>14 años</strong> ayudando a personas a entrenar y organizar sus hábitos.</p>
 <div class="lesson-note"><p><strong>El límite está claro:</strong> no tengo hipotiroidismo y no voy a fingir que sé exactamente cómo te sientes. Tampoco soy tu endocrino. Tu diagnóstico, tu medicación y tus analíticas los lleva el profesional sanitario que conoce tu caso.</p></div>
