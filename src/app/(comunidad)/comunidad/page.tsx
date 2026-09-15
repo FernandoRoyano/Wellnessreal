@@ -1,146 +1,132 @@
+import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import {
-  getSessionMember,
-  getSpacesOverview,
-  getRecentThreads,
-  getOnlineMembers,
-} from '@/lib/db/comunidad'
+import { ArrowRight, BookOpen, Check, Download, FileText, MessageCircle, Route } from 'lucide-react'
 import { Avatar } from '@/components/comunidad/Avatar'
 import { timeAgo } from '@/lib/comunidad-format'
-import { BookOpen, MessagesSquare, ArrowRight, Sparkles } from 'lucide-react'
+import {
+  getLessons,
+  getOnlineMembers,
+  getRecentThreads,
+  getSessionMember,
+  getSpacesOverview,
+} from '@/lib/db/comunidad'
+import { getCompletedLessonIds } from '@/lib/community-progress'
 
 export const metadata: Metadata = {
   title: 'Comunidad Tiroides · WellnessReal',
   robots: { index: false, follow: false },
 }
 
+const resources = [
+  { title: 'Planificador semanal', description: 'Convierte dos entrenamientos en citas reales.', href: '/community/resources/planificador-semanal-tiroides.pdf' },
+  { title: 'Semáforo de energía', description: 'Adapta el día sin culpa ni improvisación.', href: '/community/resources/semaforo-energia-tiroides.pdf' },
+  { title: 'Registro semanal', description: 'Observa energía, fuerza y recuperación con contexto.', href: '/community/resources/registro-semanal-tiroides.pdf' },
+  { title: 'Primera rutina de fuerza', description: 'Una sesión clara, imprimible y fácil de repetir.', href: '/community/resources/primera-rutina-fuerza-tiroides.pdf' },
+]
+
 export default async function ComunidadHome() {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const [spaces, recent, online] = await Promise.all([
+  const [spaces, recent, online, completedIds] = await Promise.all([
     getSpacesOverview(member),
-    getRecentThreads(member, 5),
+    getRecentThreads(member, 4),
     getOnlineMembers(),
+    getCompletedLessonIds(),
   ])
+  const contentSpaces = spaces.filter((space) => space.type === 'content')
+  const lessonGroups = await Promise.all(contentSpaces.map((space) => getLessons(space.id, member)))
+  const unlockedLessons = lessonGroups.flat().filter((lesson) => !lesson.locked)
+  const completedCount = unlockedLessons.filter((lesson) => completedIds.has(lesson.id)).length
+  const nextLesson = unlockedLessons.find((lesson) => !completedIds.has(lesson.id)) ?? unlockedLessons[0]
+  const nextSpace = nextLesson
+    ? contentSpaces[lessonGroups.findIndex((lessons) => lessons.some((lesson) => lesson.id === nextLesson.id))]
+    : null
+  const progress = unlockedLessons.length ? Math.round((completedCount / unlockedLessons.length) * 100) : 0
 
   return (
-    <div className="animate-[fadeUp_500ms_var(--ease-out)_both]">
-      {/* Saludo */}
-      <div className="flex items-center gap-4">
-        <Avatar name={member.display_name} url={member.avatar_url} size={56} />
-        <div>
-          <h1 className="headline text-2xl text-white sm:text-3xl">
-            Hola, {member.display_name.split(' ')[0]} 👋
-          </h1>
-          <p className="mt-1 text-sm text-white/55">
-            Aprende a tu ritmo y comparte con gente que entiende por lo que pasas.
-          </p>
+    <div className="community-home animate-[fadeUp_500ms_var(--ease-out)_both]">
+      <header className="community-journey">
+        <div className="community-journey-copy">
+          <p className="community-eyebrow"><Route className="h-4 w-4" /> Tu recorrido</p>
+          <h1 className="headline">Hola, {member.display_name.split(' ')[0]}.<br />Una cosa cada vez.</h1>
+          <p>No necesitas hacerlo perfecto. Necesitas entender qué te pasa, elegir una acción posible y repetirla.</p>
+          {nextLesson && nextSpace && (
+            <Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="community-primary-action">
+              Continuar por aquí <ArrowRight className="h-4 w-4" />
+            </Link>
+          )}
         </div>
-      </div>
-
-      {/* En línea ahora */}
-      {online.length > 0 && (
-        <div className="surface-card mt-8 flex items-center gap-4 rounded-2xl px-5 py-4">
-          <span className="inline-flex items-center gap-2 text-sm font-semibold text-white">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[var(--color-success)] opacity-75" />
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[var(--color-success)]" />
-            </span>
-            {online.length} en línea
-          </span>
-          <div className="flex -space-x-2">
-            {online.slice(0, 10).map((m) => (
-              <span
-                key={m.id}
-                title={m.display_name}
-                className="ring-2 ring-[var(--color-brand-night)]"
-                style={{ borderRadius: '9999px' }}
-              >
-                <Avatar name={m.display_name} url={m.avatar_url} size={30} />
-              </span>
-            ))}
-            {online.length > 10 && (
-              <span className="flex h-[30px] w-[30px] items-center justify-center rounded-full bg-white/10 text-[11px] font-semibold text-white ring-2 ring-[var(--color-brand-night)]">
-                +{online.length - 10}
-              </span>
-            )}
-          </div>
+        <div className="community-score" style={{ '--journey-progress': `${progress * 3.6}deg` } as CSSProperties}>
+          <div><strong>{progress}%</strong><span>completado</span></div>
+          <p>{completedCount} de {unlockedLessons.length} lecciones disponibles</p>
         </div>
-      )}
+      </header>
 
-      {/* Espacios */}
-      <section className="mt-10">
-        <h2 className="mb-4 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-white/40">
-          <Sparkles className="h-3.5 w-3.5 text-[var(--color-accent)]" /> Explora la comunidad
-        </h2>
-
-        {spaces.length === 0 ? (
-          <div className="surface-card rounded-3xl p-10 text-center">
-            <p className="text-white/70">Estamos preparando el contenido. Vuelve muy pronto.</p>
-          </div>
-        ) : (
-          <div className="grid gap-4 sm:grid-cols-2">
-            {spaces.map((s) => (
-              <Link
-                key={s.id}
-                href={`/comunidad/${s.slug}`}
-                className="hover-lift surface-card group flex flex-col gap-3 rounded-2xl p-6"
-              >
-                <div className="flex items-center justify-between">
-                  <div className="rounded-xl bg-[var(--color-accent-muted)] p-3">
-                    {s.type === 'forum' ? (
-                      <MessagesSquare className="h-6 w-6 text-[var(--color-accent)]" />
-                    ) : (
-                      <BookOpen className="h-6 w-6 text-[var(--color-accent)]" />
-                    )}
-                  </div>
-                  <ArrowRight className="h-5 w-5 text-white/25 transition group-hover:translate-x-1 group-hover:text-[var(--color-accent)]" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-white group-hover:text-[var(--color-accent)]">
-                    {s.name}
-                  </h3>
-                  {s.description && (
-                    <p className="mt-1 line-clamp-2 text-sm text-white/50">{s.description}</p>
-                  )}
-                </div>
-                <p className="mt-auto text-xs text-white/35">
-                  {s.itemCount} {s.type === 'forum' ? 'temas' : 'lecciones'}
-                </p>
-              </Link>
-            ))}
-          </div>
-        )}
-      </section>
-
-      {/* Actividad reciente */}
-      {recent.length > 0 && (
-        <section className="mt-10">
-          <h2 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/40">
-            Actividad reciente
-          </h2>
-          <div className="surface-card divide-y divide-[var(--color-border)] rounded-2xl">
-            {recent.map((t) => (
-              <Link
-                key={t.id}
-                href={`/comunidad/${t.space_slug}/hilo/${t.id}`}
-                className="flex items-center gap-3 p-4 transition first:rounded-t-2xl last:rounded-b-2xl hover:bg-white/5"
-              >
-                <Avatar name={t.author?.display_name ?? 'Miembro'} url={t.author?.avatar_url} size={34} />
-                <div className="min-w-0 flex-1">
-                  <p className="truncate text-sm font-medium text-white">{t.title}</p>
-                  <p className="text-xs text-white/40">
-                    {t.author?.display_name ?? 'Miembro'} · {timeAgo(t.creado_en)}
-                  </p>
-                </div>
-              </Link>
-            ))}
-          </div>
+      {nextLesson && nextSpace && (
+        <section className="community-next">
+          <SectionTitle number="01" eyebrow="Tu siguiente paso" title="Hoy solo necesitas esto" />
+          <Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="community-feature-card">
+            {nextLesson.cover_url && <Image src={nextLesson.cover_url} alt="" width={900} height={520} />}
+            <div>
+              <p>{nextSpace.name} · {Math.max(1, Math.ceil(nextLesson.content.replace(/<[^>]*>/g, ' ').split(/\s+/).length / 210))} min</p>
+              <h3>{nextLesson.title}</h3>
+              <span>Empezar la lección <ArrowRight className="h-4 w-4" /></span>
+            </div>
+          </Link>
         </section>
       )}
+
+      <section className="community-map">
+        <SectionTitle number="02" eyebrow="Mapa de aprendizaje" title="Un sistema, no una colección de consejos" />
+        <div className="community-map-grid">
+          {contentSpaces.map((space, index) => {
+            const available = lessonGroups[index].filter((lesson) => !lesson.locked)
+            const done = available.filter((lesson) => completedIds.has(lesson.id)).length
+            const percentage = available.length ? Math.round((done / available.length) * 100) : 0
+            return (
+              <Link href={`/comunidad/${space.slug}`} key={space.id} className="community-map-card">
+                <div><span>0{index + 1}</span><BookOpen className="h-5 w-5" /></div>
+                <h3>{space.name}</h3><p>{space.description}</p>
+                <div className="community-map-progress"><span style={{ width: `${percentage}%` }} /></div>
+                <small>{done}/{available.length} completadas</small>
+              </Link>
+            )
+          })}
+        </div>
+      </section>
+
+      <section className="community-library">
+        <SectionTitle number="03" eyebrow="Biblioteca práctica" title="Herramientas que puedes usar hoy" />
+        <div className="community-resource-grid">
+          {resources.map((resource) => (
+            <a key={resource.href} href={resource.href} target="_blank" rel="noreferrer" className="community-resource-card">
+              <FileText className="h-6 w-6" /><div><h3>{resource.title}</h3><p>{resource.description}</p></div><Download className="h-4 w-4" />
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <section className="community-bottom-grid">
+        <div>
+          <SectionTitle number="04" eyebrow="La parte humana" title="La comunidad sigue contigo" />
+          <Link href="/comunidad/preguntas-apoyo" className="community-forum-cta"><MessageCircle className="h-6 w-6" /><div><h3>Pregunta, comparte, vuelve</h3><p>No hace falta llegar con la pregunta perfecta.</p></div><ArrowRight className="h-4 w-4" /></Link>
+          {recent.map((thread) => <Link key={thread.id} href={`/comunidad/${thread.space_slug}/hilo/${thread.id}`} className="community-thread"><Avatar name={thread.author?.display_name ?? 'Miembro'} url={thread.author?.avatar_url} size={34} /><div><p>{thread.title}</p><span>{thread.author?.display_name ?? 'Miembro'} · {timeAgo(thread.creado_en)}</span></div></Link>)}
+        </div>
+        <aside className="community-presence">
+          <p><span /> Ahora en la comunidad</p>
+          <div>{online.slice(0, 7).map((person) => <Avatar key={person.id} name={person.display_name} url={person.avatar_url} size={36} />)}</div>
+          <strong>{online.length > 0 ? `${online.length} ${online.length === 1 ? 'persona conectada' : 'personas conectadas'}` : 'La conversación te espera'}</strong>
+          <span><Check className="h-4 w-4" /> Sin ruido. Sin juicios. Sin promesas mágicas.</span>
+        </aside>
+      </section>
     </div>
   )
+}
+
+function SectionTitle({ number, eyebrow, title }: { number: string; eyebrow: string; title: string }) {
+  return <div className="community-section-title"><span>{number}</span><div><p>{eyebrow}</p><h2>{title}</h2></div></div>
 }

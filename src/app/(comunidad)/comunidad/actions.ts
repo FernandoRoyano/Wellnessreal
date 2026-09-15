@@ -6,7 +6,12 @@ import { revalidatePath } from 'next/cache'
 import type { EmailOtpType } from '@supabase/supabase-js'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
-import { getSessionMember, updateMemberProfile, ensureMemberProfile } from '@/lib/db/comunidad'
+import {
+  getSessionMember,
+  updateMemberProfile,
+  ensureMemberProfile,
+} from '@/lib/db/comunidad'
+import { setLessonCompletion } from '@/lib/community-progress'
 import { safeInternalPath } from '@/lib/safe-redirect'
 
 export interface MagicLinkResult {
@@ -178,4 +183,17 @@ export async function signOut() {
   const supabase = await createServerSupabase()
   await supabase.auth.signOut()
   redirect('/comunidad/entrar')
+}
+
+/** Marca o desmarca una lección como completada. */
+export async function setLessonCompletionAction(formData: FormData) {
+  const member = await getSessionMember()
+  if (!member) redirect('/comunidad/entrar')
+
+  const lessonId = String(formData.get('lesson_id') ?? '')
+  const completed = String(formData.get('completed') ?? '') === 'true'
+  if (!/^[0-9a-f-]{36}$/i.test(lessonId)) return
+
+  await setLessonCompletion(lessonId, completed)
+  revalidatePath('/comunidad')
 }

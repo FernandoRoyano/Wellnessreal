@@ -31,7 +31,7 @@ export default async function ComunidadLayout({ children }: { children: React.Re
     <div className="min-h-screen bg-[var(--color-brand-deep)]">
       <Sidebar spaces={spaces} member={member} />
       <div className="lg:pl-64">
-        <div className="mx-auto min-h-screen max-w-3xl px-5 py-8 sm:px-8 sm:py-12">{children}</div>
+        <div className="mx-auto min-h-screen max-w-6xl px-5 py-8 sm:px-8 sm:py-12">{children}</div>
       </div>
     </div>
   )

@@ -8,6 +8,7 @@ import {
   getThreads,
   type MemberProfile,
 } from '@/lib/db/comunidad'
+import { getCompletedLessonIds } from '@/lib/community-progress'
 import { Avatar } from '@/components/comunidad/Avatar'
 import { NuevoHilo } from '@/components/comunidad/NuevoHilo'
 import { timeAgo } from '@/lib/comunidad-format'
@@ -59,6 +60,9 @@ async function LessonList({
   member: MemberProfile | null
 }) {
   const lessons = await getLessons(spaceId, member)
+  const completedIds = member ? await getCompletedLessonIds() : new Set<string>()
+  const availableCount = lessons.filter((lesson) => !lesson.locked).length
+  const completedCount = lessons.filter((lesson) => completedIds.has(lesson.id)).length
 
   if (lessons.length === 0) {
     return (
@@ -69,7 +73,12 @@ async function LessonList({
   }
 
   return (
-    <ol className="space-y-3">
+    <>
+      <div className="mb-6 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.035] p-4">
+        <div className="flex-1"><div className="h-1.5 overflow-hidden rounded-full bg-white/10"><span className="block h-full bg-[var(--color-accent)]" style={{ width: `${availableCount ? Math.round((completedCount / availableCount) * 100) : 0}%` }} /></div></div>
+        <p className="shrink-0 text-xs font-semibold text-white/55">{completedCount}/{availableCount} completadas</p>
+      </div>
+      <ol className="space-y-3">
       {lessons.map((l, i) =>
         l.locked ? (
           <li
@@ -94,7 +103,7 @@ async function LessonList({
               href={`/comunidad/${spaceSlug}/${l.slug}`}
               className="hover-lift surface-card group flex items-center gap-4 rounded-2xl p-4"
             >
-              <NumberBadge n={i + 1} />
+              <NumberBadge n={i + 1} completed={completedIds.has(l.id)} />
               {l.cover_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -111,20 +120,23 @@ async function LessonList({
           </li>
         )
       )}
-    </ol>
+      </ol>
+    </>
   )
 }
 
-function NumberBadge({ n, locked }: { n: number; locked?: boolean }) {
+function NumberBadge({ n, locked, completed }: { n: number; locked?: boolean; completed?: boolean }) {
   return (
     <span
       className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-        locked
+        completed
+          ? 'bg-[var(--color-accent)] text-[var(--color-brand-ink)]'
+          : locked
           ? 'bg-white/5 text-white/40'
           : 'bg-[var(--color-accent-muted)] text-[var(--color-accent)]'
       }`}
     >
-      {n}
+      {completed ? '✓' : n}
     </span>
   )
 }

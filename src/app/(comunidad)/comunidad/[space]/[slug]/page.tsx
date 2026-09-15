@@ -3,7 +3,9 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Clock, Lock } from 'lucide-react'
 import { LessonReader, type RelatedArticle } from '@/components/comunidad/LessonReader'
+import { LessonCompletionButton } from '@/components/comunidad/LessonCompletionButton'
 import { getSessionMember, getSpace, getLessons } from '@/lib/db/comunidad'
+import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getAllPosts } from '@/lib/db/posts'
 
 export const metadata: Metadata = {
@@ -31,6 +33,7 @@ export default async function LessonPage({
   const relatedArticles = lesson.locked
     ? []
     : await getLessonRelatedArticles(lesson.title, lesson.content)
+  const completedLessonIds = member ? await getCompletedLessonIds() : new Set<string>()
 
   return (
     <div className="lesson-shell">
@@ -72,6 +75,13 @@ export default async function LessonPage({
           memberLabel={member?.display_name || member?.email || 'Miembro'}
           coverUrl={lesson.cover_url}
           relatedArticles={relatedArticles}
+        />
+      )}
+
+      {!lesson.locked && member && (
+        <LessonCompletionButton
+          lessonId={lesson.id}
+          isCompleted={completedLessonIds.has(lesson.id)}
         />
       )}
 
