@@ -59,27 +59,25 @@ on conflict (space_id, slug) do update set
 
 -- ── 1. Quién soy (honestidad + precisión como diferencial) · VÍDEO ──
 insert into lessons (space_id, slug, title, content, sort_order, drip_days, published)
-select id, 'quien-soy', 'Quién soy y qué puedo hacer por ti',
-'<p>Antes de nada, ponme cara. Son dos minutos:</p>
+select id, 'quien-soy', 'Bienvenida: qué vas a encontrar aquí',
+'<p>Antes de seguir, ponme cara. Son dos minutos:</p>
 <div data-video-embed="" class="video-embed is-vertical"><iframe src="https://www.youtube.com/embed/48tqytciSS8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div>
-<h2>Empiezo por lo que no soy</h2>
-<p>No tengo hipotiroidismo. No he pasado por lo que estás pasando tú, y no te voy a decir <em>"sé cómo te sientes"</em>, porque sería mentira y bastante gente te ha mentido ya.</p>
-<p>Tampoco soy tu endocrino. No voy a opinar sobre tu medicación ni sobre tu analítica.</p>
-<h2>Y ahora, lo que sí</h2>
-<p>Soy Fernando Royano, graduado en Ciencias del Deporte. Llevo <strong>14 años</strong> entrenando gente y han pasado por mis manos más de cien personas. Muchas de ellas, mujeres con la tiroides lenta que llegaban repitiendo la misma frase: <em>"ya no sé qué más probar"</em>.</p>
-<p>Lo que yo aporto no es empatía de haberlo vivido. Es otra cosa, y creo que es la que te falta: <strong>precisión</strong>.</p>
-<h3>Qué quiere decir precisión</h3>
-<p>Internet está lleno de consejos que no se pueden ejecutar. <em>"Come más proteína."</em> ¿Cuánta? <em>"Haz fuerza."</em> ¿Cuántos días, cuántas series, con cuánto peso, y qué hago si me duele el hombro? <em>"Descansa mejor."</em> Ya, ¿y cómo?</p>
-<p>Eso no son consejos. Son titulares. Y con titulares no se cambia un cuerpo.</p>
-<p>Mi trabajo es convertir eso en instrucciones que puedas ejecutar mañana por la mañana sin pensar: qué comida, qué cantidad, qué ejercicio, cuántas repeticiones, qué hacer el día que no llegas y qué cambiar cuando lleves tres semanas sin ver nada.</p>
-<h3>En qué creo</h3>
+<h2>Esta comunidad existe para hacer aplicables los consejos</h2>
+<p><em>Come mejor. Haz fuerza. Descansa más.</em> Suena bien, pero no resuelve las preguntas importantes: cuánto, cómo empezar y qué hacer el día que no puedes con el plan completo.</p>
+<p>Soy Fernando Royano, graduado en Ciencias del Deporte, y llevo <strong>14 años</strong> ayudando a personas a entrenar y organizar sus hábitos.</p>
+<div class="lesson-note"><p><strong>El límite está claro:</strong> no tengo hipotiroidismo y no voy a fingir que sé exactamente cómo te sientes. Tampoco soy tu endocrino. Tu diagnóstico, tu medicación y tus analíticas los lleva el profesional sanitario que conoce tu caso.</p></div>
+<h2>Lo que sí voy a hacer contigo</h2>
+<p>Mi trabajo aquí es ayudarte a entender el entrenamiento y convertir consejos generales en decisiones que puedas aplicar en tu vida real.</p>
+<h3>Dentro vas a encontrar tres cosas</h3>
 <ul>
-<li><strong>La adherencia manda.</strong> El mejor plan del mundo no sirve si no lo puedes sostener tres meses.</li>
-<li><strong>Nada de sufrir.</strong> Ni 1200 calorías, ni alimentos prohibidos, ni rutinas de dos horas.</li>
-<li><strong>Sin promesas de kilos.</strong> No te voy a decir "-10kg en 8 semanas". No conozco tu cuerpo, y quien te lo promete, tampoco.</li>
+<li><strong>Explicaciones sencillas</strong> para entender mejor la tiroides sin perderte entre siglas y promesas.</li>
+<li><strong>Una forma práctica de empezar a entrenar fuerza</strong>, incluso si ahora tienes poca energía.</li>
+<li><strong>Un espacio donde preguntar</strong> y compartir lo que te está costando sin sentirte juzgada.</li>
 </ul>
-<p>Monté esta comunidad porque cuando busqué información decente para mis clientas con tiroides me encontré un pantano: suplementos milagro, dietas sin gluten "para curar Hashimoto" y gurús vendiendo humo a gente que lo está pasando mal.</p>
-<p>Aquí la información va a ser honesta y concreta. Aunque a veces la respuesta honesta sea más aburrida que la del vendedor de milagros.</p>',
+<h3>Tu primer paso</h3>
+<p>El contenido se irá desbloqueando poco a poco para que puedas aplicar una cosa antes de pasar a la siguiente. No necesitas hacerlo todo hoy.</p>
+<p>Continúa con la primera acción y después preséntate en el foro: cuánto tiempo llevas con hipotiroidismo o Hashimoto, qué es lo que más te cuesta ahora y qué te gustaría recuperar.</p>
+<p><a class="lesson-cta" href="/comunidad/preguntas-apoyo">Presentarme en la comunidad →</a></p>',
 1, 0, true
 from spaces where slug = 'empieza-aqui'
 on conflict (space_id, slug) do update set

@@ -30,6 +30,20 @@ const covers = {
 }
 
 const richerLessons = {
+  'quien-soy': `<p>Antes de seguir, ponme cara. Son dos minutos:</p>
+<div data-video-embed="" class="video-embed is-vertical"><iframe src="https://www.youtube.com/embed/48tqytciSS8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="true"></iframe></div>
+<h2>Esta comunidad existe para hacer aplicables los consejos</h2>
+<p><em>Come mejor. Haz fuerza. Descansa más.</em> Suena bien, pero no resuelve las preguntas importantes: cuánto, cómo empezar y qué hacer el día que no puedes con el plan completo.</p>
+<p>Soy Fernando Royano, graduado en Ciencias del Deporte, y llevo <strong>14 años</strong> ayudando a personas a entrenar y organizar sus hábitos.</p>
+<div class="lesson-note"><p><strong>El límite está claro:</strong> no tengo hipotiroidismo y no voy a fingir que sé exactamente cómo te sientes. Tampoco soy tu endocrino. Tu diagnóstico, tu medicación y tus analíticas los lleva el profesional sanitario que conoce tu caso.</p></div>
+<h2>Lo que sí voy a hacer contigo</h2>
+<p>Mi trabajo aquí es ayudarte a entender el entrenamiento y convertir consejos generales en decisiones que puedas aplicar en tu vida real.</p>
+<h3>Dentro vas a encontrar tres cosas</h3>
+<ul><li><strong>Explicaciones sencillas</strong> para entender mejor la tiroides sin perderte entre siglas y promesas.</li><li><strong>Una forma práctica de empezar a entrenar fuerza</strong>, incluso si ahora tienes poca energía.</li><li><strong>Un espacio donde preguntar</strong> y compartir lo que te está costando sin sentirte juzgada.</li></ul>
+<h3>Tu primer paso</h3>
+<p>El contenido se irá desbloqueando poco a poco para que puedas aplicar una cosa antes de pasar a la siguiente. No necesitas hacerlo todo hoy.</p>
+<p>Continúa con la primera acción y después preséntate en el foro: cuánto tiempo llevas con hipotiroidismo o Hashimoto, qué es lo que más te cuesta ahora y qué te gustaría recuperar.</p>
+<p><a class="lesson-cta" href="/comunidad/preguntas-apoyo">Presentarme en la comunidad →</a></p>`,
   'entrenar-cuando-estas-cansada': `<h2>No todos los días necesitan la misma versión de ti</h2>
 <p>Hay días en los que entrenar te sienta bien y días en los que intentar cumplir el plan tal como estaba escrito solo añade más cansancio. La solución no es elegir entre hacerlo todo o no hacer nada. Es tener preparadas varias versiones de la misma sesión.</p>
 <img src="/blog/cansancio-hipotiroidismo-semaforo.png" alt="Semáforo para adaptar el movimiento al nivel de energía del día" />
@@ -76,6 +90,7 @@ async function run() {
   for (const lesson of lessons) {
     const update = { cover_url: covers[lesson.slug] }
     if (richerLessons[lesson.slug]) update.content = richerLessons[lesson.slug]
+    if (lesson.slug === 'quien-soy') update.title = 'Bienvenida: qué vas a encontrar aquí'
     await must(`update-${lesson.slug}`, db.from('lessons').update(update).eq('id', lesson.id))
   }
 
