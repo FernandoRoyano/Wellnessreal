@@ -13,95 +13,56 @@ export interface Guion {
 export const guiones: Guion[] = [
   {
     slug: 'comunidad-tiroides-quien-soy',
-    title: 'Comunidad Tiroides — Quién soy',
-    subtitle: 'Vídeo de bienvenida de la lección 2 de "Empieza aquí". Construye la confianza personal que hace posible que después alguien pague por el plan revisado a mano.',
-    duration: '2:30 — 3:00 min',
-    wordCount: 420,
-    purpose: 'Que la miembro nueva te ponga cara y te crea. Angulo honesto: NO tienes tiroides y lo dices de frente; tu diferencial es la PRECISION (instrucciones ejecutables) frente a los titulares de internet. No se vende nada en este video.',
-    status: 'draft',
-    lastUpdated: '2026-07-20',
-    content: `# 🎬 Guion — Comunidad Tiroides · "Quién soy"
+    title: 'Comunidad Tiroides — Vídeo de bienvenida',
+    subtitle: 'Presentación breve de la comunidad: quién eres, qué encontrará dentro y cuál es el primer paso.',
+    duration: '1:40 — 2:00 min',
+    wordCount: 280,
+    purpose: 'Que la nueva miembro entienda el alcance de la comunidad, te ponga cara y empiece con una acción concreta. Sin vender ni sustituir el seguimiento sanitario.',
+    status: 'ready',
+    lastUpdated: '2026-09-15',
+    content: `# 🎬 Vídeo de bienvenida · Comunidad Tiroides
 
-**~2:30-3:00 min · ~420 palabras · 150 palabras/min**
+**Duración objetivo: 1:40–2:00 · Formato principal: 16:9**
 
-## Notas de lectura
-- // = pausa corta (respirar)
-- /// = pausa larga (dejar calar)
-- **negrita** = énfasis al hablar
-- *cursiva* = tono más bajo, confidente
+## Guion hablado
 
-## Objetivo
-Que te ponga cara y te crea. Nada más. **No se vende nada aquí.**
-La venta llega tres días después, en otra lección. Si intentas vender en este vídeo, quemas la confianza.
+Si has llegado hasta aquí, probablemente llevas tiempo escuchando consejos que suenan bien, pero que nadie te explica cómo aplicar. //
 
-## Tono
-Mirando a cámara, sentado, sin música. Como si se lo contaras a una clienta en la primera sesión.
-Natural. Si te trabas, mejor: parece humano.
+Come mejor. Haz fuerza. Descansa más. // Vale. ¿Pero cuánto? ¿Cómo empiezas? ¿Y qué haces el día que estás cansada y no puedes con el plan que habías preparado? ///
 
----
+Esta comunidad existe para responder precisamente a eso. //
 
-## 🎬 00:00 — Lo que NO soy (40 seg)
+Soy Fernando Royano, graduado en Ciencias del Deporte, y llevo catorce años ayudando a personas a entrenar y organizar sus hábitos. // No tengo hipotiroidismo y no voy a fingir que sé exactamente cómo te sientes. // Tampoco soy tu endocrino: tu diagnóstico, tu medicación y tus analíticas los lleva el profesional sanitario que conoce tu caso. ///
 
-Hola. // Soy Fernando. ///
+Mi trabajo aquí es otro: // ayudarte a entender el entrenamiento y convertir consejos generales en decisiones que puedas aplicar en tu vida real. ///
 
-Y voy a empezar por donde casi nadie empieza: // por lo que **no** soy.
+Dentro vas a encontrar tres cosas. // Primero, explicaciones sencillas para entender mejor la tiroides sin perderte entre siglas y promesas. // Segundo, una forma práctica de empezar a entrenar fuerza, incluso si ahora tienes poca energía. // Y tercero, un espacio donde preguntar y compartir lo que te está costando sin sentirte juzgada. ///
 
-*Yo no tengo hipotiroidismo.* // No he pasado por lo que estás pasando tú. // Y no te voy a decir eso de "sé cómo te sientes" // porque sería mentira. // Y creo que ya te han mentido bastante. ///
+El contenido se irá desbloqueando poco a poco. // No para tenerte esperando, sino para que puedas aplicar una cosa antes de pasar a la siguiente. ///
 
-Tampoco soy tu endocrino. // De tu medicación y de tu analítica no te voy a decir ni una palabra. // Eso es de tu médico. // Punto.
+Empieza por la primera lección. // Después elige una acción pequeña y preséntate en el foro. // Cuéntame cuánto tiempo llevas con hipotiroidismo o Hashimoto, qué es lo que más te cuesta ahora y qué te gustaría recuperar. ///
 
----
+No necesitas hacerlo todo hoy. // Solo necesitas saber cuál es el siguiente paso. // Y ese paso empieza aquí.
 
-## 🎬 00:40 — Lo que sí (40 seg)
+## Planos de apoyo
 
-¿Y entonces qué hago yo aquí? ///
+| Tiempo | Imagen |
+|---|---|
+| 0:00–0:12 | Fernando a cámara. Plano medio, mirada directa. |
+| 0:12–0:27 | Recursos de la comunidad en pantalla: fuerza, descanso y alimentación. |
+| 0:27–0:52 | Fernando a cámara. Rótulo: “Ciencias del Deporte · 14 años de experiencia”. |
+| 0:52–1:12 | B-roll preparando material, revisando una planificación y explicando un ejercicio. |
+| 1:12–1:32 | Recorrido breve por los tres espacios de la comunidad. |
+| 1:32–final | Fernando a cámara y cierre con “Empieza por la primera lección”. |
 
-Soy graduado en Ciencias del Deporte // y llevo **catorce años** entrenando a gente. // Han pasado por mis manos más de cien personas. // Y muchas de ellas // mujeres con la tiroides lenta // que llegaban diciéndome exactamente la misma frase: ///
+## Checklist de grabación
 
-*"Ya no sé qué más probar."* ///
-
-Lo que yo aporto no es empatía de haberlo vivido. // Es otra cosa. // Y creo que es justo la que te falta.
-
-**Precisión.**
-
----
-
-## 🎬 01:20 — Qué es precisión (60 seg)
-
-Te explico a qué me refiero. ///
-
-Internet está lleno de consejos que **no se pueden ejecutar**. //
-
-"Come más proteína." // ¿Cuánta? ¿En qué comida? ¿Cómo lo mido sin volverme loca pesando? //
-
-"Haz fuerza." // ¿Cuántos días? ¿Cuántas series? ¿Con cuánto peso? // ¿Y qué hago el día que me duele el hombro? //
-
-"Descansa mejor." // Ya. // *¿Cómo?* ///
-
-Eso no son consejos. // Son **titulares**. // Y con titulares no se cambia un cuerpo. ///
-
-Mi trabajo es coger todo eso // y convertirlo en instrucciones que puedas ejecutar mañana por la mañana sin pensar. // Qué comes. // Cuánto. // Qué ejercicio. // Cuántas repeticiones. // Qué haces el día que no llegas. // Y qué cambiamos cuando llevas tres semanas sin ver nada.
-
----
-
-## 🎬 02:20 — Por qué esta comunidad (30 seg)
-
-Monté esto por una razón muy concreta. //
-
-Cuando busqué información decente para mis clientas con tiroides // me encontré un pantano. // Suplementos milagro. // Dietas sin gluten "para curar el Hashimoto". // Gente vendiendo humo a personas que lo están pasando mal. ///
-
-Aquí no va a haber nada de eso. // La información va a ser honesta // y va a ser concreta. // Aunque a veces la respuesta honesta // sea bastante más aburrida que la del vendedor de milagros. ///
-
-Nos vemos dentro.
-
----
-
-## ✅ Checklist antes de grabar
-- [ ] Luz de frente (ventana), no a la espalda.
-- [ ] Móvil a la altura de los ojos, horizontal.
-- [ ] Micro de auriculares mejor que el del móvil.
-- [ ] **No leas de corrido**: mírate el guion por bloques y cuéntalo.
-- [ ] Al terminar: subir a YouTube como **"No listado"** y pegar el enlace en la lección con el botón ▶️.`,
+- [ ] Grabar en horizontal 4K, de pecho hacia arriba y con espacio lateral para rótulos.
+- [ ] Utilizar luz suave frontal o lateral y un fondo real relacionado con entrenamiento.
+- [ ] Grabar con micrófono externo y añadir subtítulos completos.
+- [ ] Hacer una pausa breve después de cada pregunta.
+- [ ] Utilizar una fotografía real de Fernando para la miniatura.
+- [ ] Subir a YouTube como “No listado” y sustituir el enlace de la lección.`,
   },
   {
     slug: 'metodo-base-explicativo',
