@@ -8,6 +8,7 @@ interface FunnelData {
   days: number
   counts: Record<string, number>
   rates: Record<string, number>
+  landingSignals: { engagedViews: number; landingCtaClicks: number }
   revenue: number
   recurringRevenue: number
   revenuePer100Leads: number
@@ -93,6 +94,11 @@ export default function ThyroidFunnelPage() {
               <Metric icon={<Users />} label="Lead → venta" value={`${data.rates.leadToSale}%`} />
               <Metric icon={<CircleDollarSign />} label="Ingresos atribuibles" value={`${data.revenue.toFixed(0)} €`} sub={`+ ${data.recurringRevenue.toFixed(0)} € en continuidad`} />
               <Metric icon={<Activity />} label="Ingresos / 100 leads" value={`${data.revenuePer100Leads.toFixed(0)} €`} sub="No es beneficio: margen pendiente" />
+            </section>
+
+            <section className="mt-4 grid gap-4 sm:grid-cols-2">
+              <Metric icon={<Activity />} label="Visitas con 5 s reales" value={String(data.landingSignals.engagedViews)} sub={`${data.rates.landingToEngaged}% de las aperturas`} />
+              <Metric icon={<ArrowRight />} label="Clics para empezar" value={String(data.landingSignals.landingCtaClicks)} sub="CTA superior o fijo en móvil" />
             </section>
 
             <section className="mt-6 grid gap-5 xl:grid-cols-2">

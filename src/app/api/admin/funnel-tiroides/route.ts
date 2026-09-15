@@ -12,6 +12,7 @@ interface EventRow {
   source: string | null
   value: number | null
   created_at: string
+  metadata: Record<string, unknown> | null
 }
 
 interface LeadContext {
@@ -36,7 +37,7 @@ export async function GET(request: NextRequest) {
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
     const { data, error } = await supabase
       .from('thyroid_funnel_events')
-      .select('event_name,lead_id,profile,intent,question_id,source,value,created_at')
+      .select('event_name,lead_id,profile,intent,question_id,source,value,created_at,metadata')
       .gte('created_at', since)
       .order('created_at', { ascending: false })
       .limit(10000)
@@ -64,9 +65,16 @@ export async function GET(request: NextRequest) {
     const byQuestion: Record<string, number> = {}
     let revenue = 0
     let recurringRevenue = 0
+    let engagedViews = 0
+    let landingCtaClicks = 0
 
     for (const event of events) {
-      increment(counts, event.event_name)
+      const viewType = event.event_name === 'thyroid_landing_view'
+        ? String(event.metadata?.view_type ?? 'initial')
+        : null
+      if (viewType === 'engaged') engagedViews += 1
+      if (viewType === 'cta_click') landingCtaClicks += 1
+      if (!viewType || viewType === 'initial') increment(counts, event.event_name)
       const lead = event.lead_id ? leadsById.get(event.lead_id) : undefined
       const formData = lead?.form_data ?? {}
       const profile = event.profile || String(formData.profile || formData.thyroidProfile || 'desconocido')
@@ -97,6 +105,9 @@ export async function GET(request: NextRequest) {
       days,
       counts,
       rates: {
+        landingToEngaged: counts.thyroid_landing_view > 0
+          ? Math.round((engagedViews / counts.thyroid_landing_view) * 1000) / 10
+          : 0,
         landingToStart: rate('thyroid_landing_view', 'thyroid_test_start'),
         startToComplete: rate('thyroid_test_start', 'thyroid_test_complete'),
         completeToLead: rate('thyroid_test_complete', 'thyroid_lead_capture'),
@@ -104,6 +115,7 @@ export async function GET(request: NextRequest) {
         valuationToSale: rate('thyroid_valuation_submit', 'thyroid_sale'),
         leadToSale: rate('thyroid_lead_capture', 'thyroid_sale'),
       },
+      landingSignals: { engagedViews, landingCtaClicks },
       revenue,
       recurringRevenue,
       revenuePer100Leads: counts.thyroid_lead_capture > 0

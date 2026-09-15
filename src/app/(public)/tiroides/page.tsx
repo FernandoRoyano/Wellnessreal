@@ -2,6 +2,7 @@ import Container from '@/components/common/Container'
 import Image from 'next/image'
 import { CheckCircle, X, ArrowRight, Sparkles, ShieldCheck, Clock3, BadgeCheck } from 'lucide-react'
 import TiroidesConversionPanel from '@/components/tiroides/TiroidesConversionPanel'
+import MobileTestShortcut, { MobileTestLink } from '@/components/tiroides/MobileTestShortcut'
 
 const WHATS_INSIDE = [
   'Tu prioridad real entre fuerza, alimentación, descanso y seguimiento.',
@@ -59,14 +60,14 @@ export default function TiroidesPage() {
   return (
     <>
       {/* ═══════════════ HERO + TEST ═══════════════ */}
-      <section className="relative overflow-hidden bg-brand-deep py-[clamp(3.5rem,7vw,6.5rem)]">
+      <section className="relative overflow-hidden bg-brand-deep py-8 lg:py-[clamp(3.5rem,7vw,6.5rem)]">
         <div className="absolute inset-0 bg-radial-accent opacity-60" />
         <div className="absolute inset-0 bg-grid-soft opacity-40" />
         <div className="absolute -right-24 top-16 h-96 w-96 rounded-full bg-accent/10 blur-[100px]" />
         <Container>
           <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.06fr_0.94fr]">
             {/* Copy */}
-            <div className="space-y-6">
+            <div className="space-y-4 lg:space-y-6">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
@@ -74,19 +75,20 @@ export default function TiroidesPage() {
                 </span>
               </div>
 
-              <h1 className="headline text-fluid-5xl text-white animate-fade-up">
+              <h1 className="headline text-[clamp(2.7rem,13vw,3.5rem)] leading-[0.98] text-white animate-fade-up lg:text-fluid-5xl lg:leading-[1.1]">
                 No necesitas hacer más.
                 <br />
                 <span className="text-gradient-brand">Necesitas saber qué priorizar.</span>
               </h1>
 
-              <p className="max-w-2xl text-fluid-lg text-muted leading-relaxed">
+              <p className="max-w-2xl text-sm text-muted leading-relaxed lg:text-fluid-lg">
                 Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más
-                confusión. <span className="text-white font-semibold">Haz el test</span> y descubre
-                qué merece la pena priorizar ahora en tu fuerza, hábitos y seguimiento.
+                confusión. Descubre qué merece la pena priorizar ahora.
               </p>
 
-              <ul className="space-y-3">
+              <MobileTestLink />
+
+              <ul className="hidden space-y-3 lg:block">
                 {WHATS_INSIDE.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-fluid-base text-white/85">
                     <span className="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
@@ -97,7 +99,7 @@ export default function TiroidesPage() {
                 ))}
               </ul>
 
-              <div className="flex items-center gap-3 border-t border-white/10 pt-5">
+              <div className="hidden items-center gap-3 border-t border-white/10 pt-5 lg:flex">
                 <Image
                   src="/images/fernando-royano-avatar.webp"
                   alt="Fernando Royano, entrenador de WellnessReal"
@@ -151,8 +153,24 @@ export default function TiroidesPage() {
               </div>
             ))}
           </div>
+
+          <div className="relative mt-5 flex items-center gap-3 border-t border-white/10 pt-5 lg:hidden">
+            <Image
+              src="/images/fernando-royano-avatar.webp"
+              alt="Fernando Royano, entrenador de WellnessReal"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full border-2 border-accent/50 object-cover object-top"
+            />
+            <div>
+              <p className="text-fluid-sm font-semibold text-white">Diseñado por Fernando Royano</p>
+              <p className="text-fluid-xs text-subtle">Graduado en CAFYD · 14 años de experiencia</p>
+            </div>
+          </div>
         </Container>
       </section>
+
+      <MobileTestShortcut />
 
       {/* ═══════════════ PRIORIDADES ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-dusk">

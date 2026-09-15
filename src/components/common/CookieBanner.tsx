@@ -40,43 +40,46 @@ export default function CookieBanner() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="fixed bottom-0 left-0 right-0 z-[220] px-3 pt-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:p-5 animate-fade-in"
+      className="fixed bottom-0 left-0 right-0 z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:p-5 animate-fade-in"
     >
-      <div className="max-w-5xl mx-auto surface-card-accent rounded-2xl p-5 md:p-6 shadow-xl md:backdrop-blur-xl">
-        <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
-          <div className="flex items-start md:items-center gap-3 flex-1 min-w-0">
+      <div className="max-w-5xl mx-auto surface-card-accent rounded-xl p-3 shadow-xl md:rounded-2xl md:p-6 md:backdrop-blur-xl">
+        <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:gap-5">
+          <div className="flex min-w-0 flex-1 items-start gap-3 md:items-center">
             <span
               aria-hidden="true"
-              className="shrink-0 w-10 h-10 rounded-xl bg-accent-muted border border-border-strong flex items-center justify-center"
+              className="hidden h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border-strong bg-accent-muted md:flex"
             >
               <Cookie className="w-5 h-5 text-accent" />
             </span>
-            <p className="text-fluid-sm text-muted leading-relaxed">
-              Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
-              y personalizar contenido. Puedes aceptar todas, rechazar las no esenciales o consultar
-              la{' '}
+            <p className="text-[11px] leading-4 text-muted md:text-fluid-sm md:leading-relaxed">
+              <span className="md:hidden">Cookies para analítica y mejora de la experiencia. </span>
+              <span className="hidden md:inline">
+                Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
+                y personalizar contenido. Puedes aceptar todas, rechazar las no esenciales o consultar
+                la{' '}
+              </span>
               <Link
                 href="/privacidad"
                 className="text-accent underline underline-offset-2 hover:opacity-80 transition"
               >
                 política de privacidad
               </Link>
-              .
+              <span className="hidden md:inline">.</span>
             </p>
           </div>
 
-          <div className="flex gap-3 shrink-0 w-full md:w-auto">
+          <div className="flex w-full shrink-0 gap-2 md:w-auto md:gap-3">
             <button
               type="button"
               onClick={reject}
-              className="min-h-11 flex-1 md:flex-none px-5 py-2.5 rounded-xl text-fluid-sm font-semibold border border-border-subtle text-muted hover:text-white hover:border-border-strong transition-[border-color,color,background-color]"
+              className="min-h-10 flex-1 rounded-lg border border-border-subtle px-3 py-2 text-xs font-semibold text-muted transition-[border-color,color,background-color] hover:border-border-strong hover:text-white md:min-h-11 md:flex-none md:rounded-xl md:px-5 md:py-2.5 md:text-fluid-sm"
             >
               Solo esenciales
             </button>
             <button
               type="button"
               onClick={accept}
-              className="btn-brand min-h-11 flex-1 md:flex-none px-5 py-2.5 text-fluid-sm"
+              className="btn-brand min-h-10 flex-1 rounded-lg px-3 py-2 text-xs md:min-h-11 md:flex-none md:rounded-xl md:px-5 md:py-2.5 md:text-fluid-sm"
             >
               Aceptar todas
             </button>

@@ -1,3 +1,5 @@
+import { getStoredAttribution } from '@/lib/tracking'
+
 declare global {
   interface Window {
     // Firma amplia: cubre 'event'/'config'/'js' y también 'consent' (Consent Mode v2).
@@ -67,6 +69,7 @@ export function trackThyroidFunnel(
   if (typeof window === 'undefined' || !persist) return
 
   const attribution = new URLSearchParams(window.location.search)
+  const storedAttribution = getStoredAttribution()
   const payload = {
     eventName: event,
     leadId: window.localStorage.getItem(THYROID_LEAD_KEY),
@@ -75,9 +78,9 @@ export function trackThyroidFunnel(
     profile: typeof params?.profile === 'string' ? params.profile : null,
     intent: typeof params?.intent === 'string' ? params.intent : null,
     questionId: typeof params?.question_id === 'string' ? params.question_id : null,
-    source: attribution.get('utm_source'),
-    medium: attribution.get('utm_medium'),
-    campaign: attribution.get('utm_campaign'),
+    source: attribution.get('utm_source') || storedAttribution.utm_source || null,
+    medium: attribution.get('utm_medium') || storedAttribution.utm_medium || null,
+    campaign: attribution.get('utm_campaign') || storedAttribution.utm_campaign || null,
     metadata: params ?? {},
   }
   void fetch('/api/funnel/tiroides/event', {

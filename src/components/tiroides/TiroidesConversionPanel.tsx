@@ -17,7 +17,13 @@ export default function TiroidesConversionPanel() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
-    trackThyroidFunnel('thyroid_landing_view')
+    trackThyroidFunnel('thyroid_landing_view', { view_type: 'initial' })
+    const engagedViewTimer = window.setTimeout(() => {
+      if (document.visibilityState === 'visible') {
+        trackThyroidFunnel('thyroid_landing_view', { view_type: 'engaged' })
+      }
+    }, 5000)
+    return () => window.clearTimeout(engagedViewTimer)
   }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
