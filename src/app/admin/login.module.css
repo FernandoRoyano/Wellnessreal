@@ -1,0 +1,98 @@
+.page {
+  --login-bg: #100d24;
+  --login-surface: #18142e;
+  --login-text: #f7f4ff;
+  --login-muted: #a49db8;
+  --login-accent: #fcee21;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(28rem, .85fr);
+  min-height: 100svh;
+  overflow: hidden;
+  color: var(--login-text);
+  background: var(--login-bg);
+}
+
+.brandPanel {
+  position: relative;
+  display: flex;
+  min-height: 100svh;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 5rem);
+  border-right: 1px solid rgba(255,255,255,.08);
+  background:
+    radial-gradient(circle at 20% 15%, rgba(102,45,145,.26), transparent 35%),
+    #0d0a1d;
+}
+
+.brandPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .22;
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 5rem 5rem;
+  mask-image: linear-gradient(to bottom right, black, transparent 70%);
+}
+
+.brandContent { position: relative; z-index: 1; }
+.logo { width: min(25rem, 68%); height: auto; object-fit: contain; object-position: left center; }
+.statement { margin-top: clamp(5rem, 14vh, 9rem); }
+.statement > p { margin-bottom: 1rem; color: var(--login-accent); font-size: .68rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; }
+.statement h1 { max-width: 12ch; font-family: var(--font-display); font-size: clamp(3rem, 6vw, 6.5rem); font-weight: 600; letter-spacing: -.065em; line-height: .92; }
+.statement h1 span { color: var(--login-accent); }
+.brandNote { position: relative; z-index: 1; max-width: 33rem; color: var(--login-muted); font-size: clamp(.82rem, 1.1vw, 1rem); line-height: 1.7; }
+.brandFooter { position: relative; z-index: 1; color: #6f687f; font-size: .65rem; letter-spacing: .08em; }
+
+.pulseLine { position: absolute; right: -1px; bottom: 21%; left: 0; height: 3rem; color: var(--login-accent); opacity: .8; }
+.pulseLine::before { content: ''; position: absolute; top: 50%; right: 0; left: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(252,238,33,.18) 30%, var(--login-accent)); }
+.pulseLine span { position: absolute; top: calc(50% - .3rem); right: 13%; width: .65rem; height: .65rem; border-radius: 50%; background: var(--login-accent); box-shadow: 0 0 0 8px rgba(252,238,33,.08), 0 0 2rem rgba(252,238,33,.2); }
+
+.accessPanel { display: grid; min-height: 100svh; place-items: center; padding: clamp(2rem, 6vw, 6rem); background: #15112c; }
+.loginBox { width: min(100%, 26rem); }
+.accessLabel { display: inline-flex; align-items: center; gap: .45rem; margin-bottom: 1.8rem; color: var(--login-accent); font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+.loginBox h2 { font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3.25rem); font-weight: 600; letter-spacing: -.05em; line-height: 1; }
+.intro { max-width: 24rem; margin-top: .85rem; color: var(--login-muted); font-size: .83rem; line-height: 1.65; }
+.form { margin-top: 2.5rem; }
+.field label { display: block; margin-bottom: .65rem; color: #d8d3e2; font-size: .72rem; font-weight: 650; }
+.inputWrap { position: relative; }
+.inputWrap input { width: 100%; min-height: 3.4rem; padding: .85rem 3rem .85rem 1rem; border: 1px solid rgba(255,255,255,.13); border-radius: .8rem; outline: none; color: white; background: rgba(255,255,255,.035); font-size: .88rem; transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease; }
+.inputWrap input::placeholder { color: #6f687f; }
+.inputWrap input:hover { border-color: rgba(255,255,255,.23); }
+.inputWrap input:focus-visible { border-color: var(--login-accent); background: rgba(255,255,255,.05); box-shadow: 0 0 0 4px rgba(252,238,33,.09); }
+.inputWrap input[aria-invalid='true'] { border-color: #ff8079; }
+.inputWrap > button { position: absolute; top: 50%; right: .7rem; display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border-radius: .6rem; color: #8f889f; transform: translateY(-50%); transition: color 150ms ease, background 150ms ease; }
+.inputWrap > button:hover { color: white; background: rgba(255,255,255,.06); }
+.error { margin-top: .7rem; color: #ff9a94; font-size: .72rem; line-height: 1.5; }
+.submit { display: flex; width: 100%; min-height: 3.4rem; align-items: center; justify-content: space-between; margin-top: 1.15rem; padding: .85rem 1rem .85rem 1.2rem; border-radius: .8rem; color: var(--login-bg); background: var(--login-accent); font-size: .82rem; font-weight: 800; transition: transform 170ms ease, box-shadow 170ms ease, opacity 170ms ease; }
+.submit:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 14px 35px rgba(252,238,33,.14); }
+.submit:disabled { cursor: wait; opacity: .65; }
+.security { display: flex; align-items: center; justify-content: center; gap: .5rem; margin-top: 1.5rem; color: #777084; font-size: .64rem; }
+.security span { width: .4rem; height: .4rem; border-radius: 50%; background: #5fd596; box-shadow: 0 0 0 4px rgba(95,213,150,.08); }
+.mobileBrand { display: none; }
+.spinner { animation: spin .9s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 900px) {
+  .page { display: block; min-height: 100svh; overflow: auto; }
+  .brandPanel { display: none; }
+  .accessPanel { min-height: 100svh; align-content: center; padding: 2rem 1.25rem 3rem; background: radial-gradient(circle at 50% 5%, rgba(102,45,145,.22), transparent 32%), var(--login-bg); }
+  .accessPanel::before { content: ''; position: fixed; top: 0; left: 50%; width: 1px; height: 19%; background: linear-gradient(transparent, var(--login-accent)); opacity: .55; }
+  .mobileBrand { display: block; width: min(18rem, 70vw); margin: 0 auto clamp(4rem, 13vh, 7rem); }
+  .mobileBrand img { width: 100%; height: auto; }
+  .loginBox { margin: 0 auto; }
+  .accessLabel { margin-bottom: 1.35rem; }
+}
+
+@media (max-width: 420px) {
+  .mobileBrand { width: min(16rem, 74vw); margin-bottom: 4rem; }
+  .loginBox h2 { font-size: 2.25rem; }
+  .form { margin-top: 2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .submit, .inputWrap input { transition: none; }
+  .spinner { animation-duration: 1.8s; }
+}

@@ -1,17 +1,20 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { Lock } from 'lucide-react'
+import { ArrowRight, Eye, EyeOff, LoaderCircle, ShieldCheck } from 'lucide-react'
+import styles from './login.module.css'
 
 export default function AdminLoginPage() {
   const router = useRouter()
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault()
     setError('')
     setLoading(true)
 
@@ -23,67 +26,86 @@ export default function AdminLoginPage() {
       })
 
       if (!response.ok) {
-        setError('Contraseña incorrecta')
+        setError('La contraseña no es correcta. Revísala y vuelve a intentarlo.')
         return
       }
 
       router.push('/admin/dashboard')
     } catch {
-      setError('Error de conexión')
+      setError('No se ha podido conectar. Comprueba tu conexión y vuelve a intentarlo.')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4" style={{ backgroundColor: '#16122B' }}>
-      <div
-        className="w-full max-w-sm p-8 rounded-2xl"
-        style={{ backgroundColor: '#1a1535', border: '2px solid #662D91' }}
-      >
-        <div className="text-center mb-8">
-          <div
-            className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4"
-            style={{ backgroundColor: 'rgba(252, 238, 33, 0.1)' }}
-          >
-            <Lock size={32} style={{ color: '#FCEE21' }} />
+    <main className={styles.page}>
+      <section className={styles.brandPanel} aria-label="WellnessReal">
+        <div className={styles.brandContent}>
+          <Image
+            src="/images/logos/WR_AUX_normal_bg.png"
+            alt="WellnessReal"
+            width={4167}
+            height={507}
+            priority
+            className={styles.logo}
+          />
+          <div className={styles.statement}>
+            <p>Centro de control</p>
+            <h1>Todo el negocio.<br /><span>Un solo pulso.</span></h1>
           </div>
-          <h1 className="text-2xl font-bold" style={{ color: '#FCEE21' }}>
-            WR Admin
-          </h1>
-          <p className="text-gray-500 text-sm mt-1">Panel de gestión de clientes</p>
+          <p className={styles.brandNote}>Contenido, comunidad, clientes y crecimiento conectados en un mismo lugar.</p>
+        </div>
+        <div className={styles.pulseLine} aria-hidden="true"><span /></div>
+        <p className={styles.brandFooter}>WellnessReal · Área privada</p>
+      </section>
+
+      <section className={styles.accessPanel}>
+        <div className={styles.mobileBrand}>
+          <Image src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" width={4167} height={507} priority />
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {error && (
-            <p className="text-red-400 text-sm text-center">{error}</p>
-          )}
+        <div className={styles.loginBox}>
+          <div className={styles.accessLabel}><ShieldCheck size={15} aria-hidden="true" /> Acceso privado</div>
+          <h2>Bienvenido de nuevo.</h2>
+          <p className={styles.intro}>Introduce tu contraseña para entrar al centro de control.</p>
 
-          <div>
-            <label className="block text-sm font-bold text-gray-300 mb-2">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Introduce la contraseña"
-              required
-              style={{ backgroundColor: '#16122B', borderColor: '#662D91' }}
-              className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none transition"
-            />
-          </div>
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.field}>
+              <label htmlFor="admin-password">Contraseña</label>
+              <div className={styles.inputWrap}>
+                <input
+                  id="admin-password"
+                  type={showPassword ? 'text' : 'password'}
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                  placeholder="Tu contraseña"
+                  autoComplete="current-password"
+                  autoFocus
+                  required
+                  aria-invalid={Boolean(error)}
+                  aria-describedby={error ? 'login-error' : undefined}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(current => !current)}
+                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
+              {error && <p id="login-error" className={styles.error} role="alert">{error}</p>}
+            </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-lg font-bold transition-all disabled:opacity-50"
-            style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
-          >
-            {loading ? 'Accediendo...' : 'Entrar'}
-          </button>
-        </form>
-      </div>
-    </div>
+            <button type="submit" disabled={loading} className={styles.submit}>
+              <span>{loading ? 'Accediendo…' : 'Entrar al panel'}</span>
+              {loading ? <LoaderCircle size={18} className={styles.spinner} /> : <ArrowRight size={18} />}
+            </button>
+          </form>
+
+          <p className={styles.security}><span /> Conexión protegida · Acceso restringido</p>
+        </div>
+      </section>
+    </main>
   )
 }
