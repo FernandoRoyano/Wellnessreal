@@ -450,8 +450,6 @@ const DAY_MS = 24 * 60 * 60 * 1000
 async function memberHasTier(member: MemberProfile | null, tier: string): Promise<boolean> {
   if (tier === 'free') return true
   if (!member) return false
-  if (member.role === 'admin' || member.role === 'mod') return true
-
   const { data, error } = await supabase
     .from('asesoria_solicitudes')
     .select('id')
