@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { BookOpen, FileText, LayoutDashboard, Link2, LogOut, Mail, Menu, MessageCircle, Plus, Sparkles, Users, Workflow, type LucideIcon } from 'lucide-react'
 
@@ -40,7 +41,9 @@ export default function AdminSidebar() {
   return <>
     <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col border-r border-white/[.08] bg-[#0d0a1d] px-4 py-6 lg:flex">
       <Link href="/admin/dashboard" className="mb-9 flex items-center gap-3 px-2">
-        <span className="grid h-9 w-9 place-items-center rounded-full bg-[#FCEE21] font-display text-sm font-bold text-[#100D24]">WR</span>
+        <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full bg-white p-0.5 shadow-[0_0_0_1px_rgba(252,238,33,.22)]">
+          <Image src="/icon.png" alt="" width={40} height={40} className="h-full w-full" />
+        </span>
         <span><strong className="block font-display text-sm text-white">WellnessReal</strong><small className="text-[10px] text-[#817a94]">Centro de control</small></span>
       </Link>
       <nav className="flex-1 overflow-y-auto" aria-label="Administración">
