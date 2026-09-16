@@ -2,115 +2,66 @@
 
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import { LayoutDashboard, PlusCircle, LogOut, Mail, BookOpen, FileText, Users, ClipboardList, Sparkles, Link2, MessagesSquare, Workflow } from 'lucide-react'
+import { BookOpen, FileText, LayoutDashboard, Link2, LogOut, Mail, Menu, MessageCircle, Plus, Sparkles, Users, Workflow, type LucideIcon } from 'lucide-react'
 
-const navItems = [
-  { href: '/admin/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { href: '/admin/leads', label: 'Leads', icon: Users },
-  { href: '/admin/funnel-tiroides', label: 'Funnel Tiroides', icon: Workflow },
-  { href: '/admin/programas', label: 'Programas IA', icon: Sparkles },
-  { href: '/admin/comunidad', label: 'Comunidad', icon: MessagesSquare },
-  { href: '/admin/enlaces', label: 'Enlaces', icon: Link2 },
-  { href: '/admin/proposals', label: 'Propuestas', icon: ClipboardList },
-  { href: '/admin/proposals/new', label: 'Nueva propuesta', icon: PlusCircle },
-  { href: '/admin/guiones', label: 'Guiones', icon: FileText },
-  { href: '/admin/blog', label: 'Blog', icon: BookOpen },
+interface NavItem { href: string; label: string; icon: LucideIcon }
+
+const sections: { label: string; items: NavItem[] }[] = [
+  { label: 'Principal', items: [
+    { href: '/admin/dashboard', label: 'Inicio', icon: LayoutDashboard },
+    { href: '/admin/leads', label: 'Leads', icon: Users },
+    { href: '/admin/proposals', label: 'Propuestas', icon: FileText },
+  ] },
+  { label: 'Producto', items: [
+    { href: '/admin/comunidad', label: 'Comunidad', icon: MessageCircle },
+    { href: '/admin/funnel-tiroides', label: 'Funnel tiroides', icon: Workflow },
+    { href: '/admin/programas', label: 'Programas IA', icon: Sparkles },
+  ] },
+  { label: 'Contenido', items: [
+    { href: '/admin/blog', label: 'Blog', icon: BookOpen },
+    { href: '/admin/guiones', label: 'Guiones', icon: FileText },
+    { href: '/admin/email', label: 'Email', icon: Mail },
+    { href: '/admin/enlaces', label: 'Enlaces', icon: Link2 },
+  ] },
 ]
 
-const emailSubItems = [
-  { href: '/admin/email', label: 'Overview', exact: true },
-  { href: '/admin/email/subscribers', label: 'Suscriptores' },
-  { href: '/admin/email/groups', label: 'Grupos' },
-  { href: '/admin/email/campaigns', label: 'Campañas' },
+const mobileItems: NavItem[] = [
+  { href: '/admin/dashboard', label: 'Inicio', icon: LayoutDashboard },
+  { href: '/admin/leads', label: 'Leads', icon: Users },
+  { href: '/admin/comunidad', label: 'Comunidad', icon: MessageCircle },
 ]
 
 export default function AdminSidebar() {
   const pathname = usePathname()
   const router = useRouter()
-  const isEmailSection = pathname.startsWith('/admin/email')
+  const active = (href: string) => href === '/admin/dashboard' ? pathname === href : pathname.startsWith(href)
+  const logout = async () => { await fetch('/api/admin/auth', { method: 'DELETE' }); router.push('/admin') }
 
-  const handleLogout = async () => {
-    await fetch('/api/admin/auth', { method: 'DELETE' })
-    router.push('/admin')
-  }
-
-  return (
-    <aside
-      className="w-64 min-h-screen p-6 flex flex-col border-r"
-      style={{ backgroundColor: '#0f0c20', borderRightColor: '#662D91' }}
-    >
-      <div className="mb-10">
-        <h1 className="text-xl font-bold" style={{ color: '#FCEE21' }}>
-          WR Admin
-        </h1>
-        <p className="text-xs text-gray-500 mt-1">Panel de gestión</p>
-      </div>
-
-      <nav className="flex-1 space-y-1">
-        {navItems.map((item) => {
-          const isActive = pathname.startsWith(item.href)
-          const Icon = item.icon
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all"
-              style={{
-                backgroundColor: isActive ? 'rgba(252, 238, 33, 0.1)' : 'transparent',
-                color: isActive ? '#FCEE21' : '#9ca3af',
-              }}
-            >
-              <Icon size={20} />
-              {item.label}
-            </Link>
-          )
-        })}
-
-        {/* Email Marketing section */}
-        <Link
-          href="/admin/email"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-all"
-          style={{
-            backgroundColor: isEmailSection ? 'rgba(252, 238, 33, 0.1)' : 'transparent',
-            color: isEmailSection ? '#FCEE21' : '#9ca3af',
-          }}
-        >
-          <Mail size={20} />
-          Email Marketing
-        </Link>
-
-        {/* Email sub-navigation */}
-        {isEmailSection && (
-          <div className="ml-4 pl-4 space-y-0.5" style={{ borderLeft: '1px solid rgba(102, 45, 145, 0.3)' }}>
-            {emailSubItems.map((sub) => {
-              const isSubActive = sub.exact
-                ? pathname === sub.href
-                : pathname.startsWith(sub.href)
-              return (
-                <Link
-                  key={sub.href}
-                  href={sub.href}
-                  className="block px-3 py-2 rounded-md text-xs font-medium transition-all"
-                  style={{
-                    color: isSubActive ? '#FCEE21' : '#6b7280',
-                    backgroundColor: isSubActive ? 'rgba(252, 238, 33, 0.05)' : 'transparent',
-                  }}
-                >
-                  {sub.label}
-                </Link>
-              )
-            })}
-          </div>
-        )}
+  return <>
+    <aside className="sticky top-0 hidden h-screen w-[228px] shrink-0 flex-col border-r border-white/[.08] bg-[#0d0a1d] px-4 py-6 lg:flex">
+      <Link href="/admin/dashboard" className="mb-9 flex items-center gap-3 px-2">
+        <span className="grid h-9 w-9 place-items-center rounded-full bg-[#FCEE21] font-display text-sm font-bold text-[#100D24]">WR</span>
+        <span><strong className="block font-display text-sm text-white">WellnessReal</strong><small className="text-[10px] text-[#817a94]">Centro de control</small></span>
+      </Link>
+      <nav className="flex-1 overflow-y-auto" aria-label="Administración">
+        {sections.map(section => <div className="mb-6" key={section.label}>
+          <p className="mb-2 px-3 text-[9px] font-bold uppercase tracking-[.16em] text-[#696277]">{section.label}</p>
+          <div className="grid gap-0.5">{section.items.map(item => { const Icon = item.icon; const selected = active(item.href); return <Link key={item.href} href={item.href} aria-current={selected ? 'page' : undefined} className={`flex min-h-10 items-center gap-3 rounded-lg px-3 text-xs font-medium transition-colors ${selected ? 'bg-white/[.07] text-[#FCEE21]' : 'text-[#9f98b0] hover:bg-white/[.035] hover:text-white'}`}><Icon size={16}/>{item.label}</Link> })}</div>
+        </div>)}
       </nav>
-
-      <button
-        onClick={handleLogout}
-        className="flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-500 hover:text-red-400 transition-all mt-auto"
-      >
-        <LogOut size={20} />
-        Cerrar sesión
-      </button>
+      <Link href="/admin/proposals/new" className="mb-2 flex min-h-10 items-center justify-center gap-2 rounded-full bg-[#FCEE21] px-3 text-xs font-bold text-[#100D24]"><Plus size={15}/> Crear propuesta</Link>
+      <button type="button" onClick={logout} className="flex min-h-10 items-center gap-3 rounded-lg px-3 text-xs text-[#746d84] transition-colors hover:bg-red-400/5 hover:text-red-300"><LogOut size={16}/> Cerrar sesión</button>
     </aside>
-  )
+
+    <nav className="fixed inset-x-3 bottom-3 z-[200] grid h-16 grid-cols-4 rounded-2xl border border-white/10 bg-[#17132F]/95 p-1.5 shadow-2xl backdrop-blur-xl lg:hidden" aria-label="Navegación móvil">
+      {mobileItems.map(item => { const Icon = item.icon; const selected = active(item.href); return <Link key={item.href} href={item.href} aria-current={selected ? 'page' : undefined} className={`flex min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[9px] font-semibold ${selected ? 'bg-white/[.06] text-[#FCEE21]' : 'text-[#9f98b0]'}`}><Icon size={18}/><span className="max-w-full truncate">{item.label}</span></Link> })}
+      <details className="group relative">
+        <summary className="flex h-full cursor-pointer list-none flex-col items-center justify-center gap-1 rounded-xl text-[9px] font-semibold text-[#9f98b0]"><Menu size={18}/><span>Más</span></summary>
+        <div className="absolute bottom-[4.25rem] right-0 w-56 rounded-2xl border border-white/10 bg-[#17132F] p-2 shadow-2xl">
+          {sections.flatMap(section => section.items).filter(item => !mobileItems.some(mobile => mobile.href === item.href)).map(item => { const Icon = item.icon; return <Link key={item.href} href={item.href} className="flex min-h-11 items-center gap-3 rounded-xl px-3 text-xs text-[#b7b0c7] hover:bg-white/[.05] hover:text-white"><Icon size={16}/>{item.label}</Link> })}
+          <button type="button" onClick={logout} className="flex min-h-11 w-full items-center gap-3 border-t border-white/[.07] px-3 text-xs text-red-300"><LogOut size={16}/> Cerrar sesión</button>
+        </div>
+      </details>
+    </nav>
+  </>
 }
