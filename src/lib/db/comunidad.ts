@@ -467,6 +467,20 @@ async function memberHasTier(member: MemberProfile | null, tier: string): Promis
   return (data?.length ?? 0) > 0
 }
 
+/** Verifica en servidor que una lección pertenece a un espacio visible y a un nivel autorizado. */
+export async function memberCanAccessLesson(member: MemberProfile, lessonId: string): Promise<boolean> {
+  if (!isApproved(member)) return false
+  const { data, error } = await supabase
+    .from('lessons')
+    .select('space_id, access_tier, published')
+    .eq('id', lessonId)
+    .maybeSingle()
+  if (error || !data || !data.published) return false
+  const spaces = await getSpaces(member)
+  if (!spaces.some((space) => space.id === data.space_id)) return false
+  return memberHasTier(member, data.access_tier as string)
+}
+
 /** Resuelve el bloqueo de una lección (drip + tier) para un miembro. */
 function resolveLock(lesson: Lesson, hasTier: boolean): LessonWithLock {
   // Gate por nivel de acceso (premium en el futuro).

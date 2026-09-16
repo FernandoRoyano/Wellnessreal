@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Avatar } from './Avatar'
 import { signOut } from '@/app/(comunidad)/comunidad/actions'
-import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search } from 'lucide-react'
+import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search, CalendarDays } from 'lucide-react'
 import type { Space, MemberProfile } from '@/lib/db/comunidad'
 
 export function Sidebar({ spaces, member }: { spaces: Space[]; member: MemberProfile }) {
@@ -93,6 +93,13 @@ function SidebarBody({
           label="Tu recorrido"
           icon={<Map className="h-[18px] w-[18px]" />}
           active={isActive('/comunidad/recorrido')}
+          onNavigate={onNavigate}
+        />
+        <NavItem
+          href="/comunidad/mi-semana"
+          label="Mi semana"
+          icon={<CalendarDays className="h-[18px] w-[18px]" />}
+          active={isActive('/comunidad/mi-semana')}
           onNavigate={onNavigate}
         />
         <NavItem

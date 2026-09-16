@@ -48,9 +48,10 @@ Los referentes actuales concentran su valor en cuatro capacidades: aprendizaje i
 
 ### P1 — utilidad recurrente
 
-- Check-in semanal breve de energía, fuerza, sueño y adherencia.
-- Vista «Mi semana» con dos o tres acciones prioritarias.
-- Guardados y búsqueda transversal de lecciones y recursos.
+- [Implementado] Check-in semanal breve de energía, sueño, confianza y sesiones realistas.
+- [Implementado] Vista «Mi semana» con tres acciones prioritarias.
+- [Implementado] Guardados y búsqueda transversal de lecciones.
+- [Implementado] Valoración de utilidad por lección.
 - Recordatorios configurables sin saturación.
 
 ### P2 — experiencia premium

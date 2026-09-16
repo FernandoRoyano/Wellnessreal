@@ -4,15 +4,36 @@ import { headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import type { EmailOtpType } from '@supabase/supabase-js'
+import { z } from 'zod'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import {
   getSessionMember,
   updateMemberProfile,
   ensureMemberProfile,
+  memberCanAccessLesson,
 } from '@/lib/db/comunidad'
 import { setLessonCompletion } from '@/lib/community-progress'
 import { safeInternalPath } from '@/lib/safe-redirect'
+import { currentWeekStart, saveWeeklyCheckin, setLessonFavorite, setLessonFeedback } from '@/lib/community-tools'
+
+export interface CommunityToolResult {
+  ok: boolean
+  message: string
+}
+
+const CheckinSchema = z.object({
+  energy: z.coerce.number().int().min(1).max(5),
+  sleep: z.coerce.number().int().min(1).max(5),
+  confidence: z.coerce.number().int().min(1).max(5),
+  training_sessions: z.coerce.number().int().min(0).max(7),
+  note: z.string().trim().max(600).optional(),
+})
+
+const LessonToolSchema = z.object({
+  lesson_id: z.string().uuid(),
+  value: z.enum(['true', 'false']),
+})
 
 export interface MagicLinkResult {
   ok: boolean
@@ -196,4 +217,53 @@ export async function setLessonCompletionAction(formData: FormData) {
 
   await setLessonCompletion(lessonId, completed)
   revalidatePath('/comunidad')
+}
+
+export async function saveWeeklyCheckinAction(_previous: CommunityToolResult | null, formData: FormData): Promise<CommunityToolResult> {
+  const member = await getSessionMember()
+  if (!member) return { ok: false, message: 'Tu sesión ha caducado. Vuelve a entrar.' }
+
+  const parsed = CheckinSchema.safeParse(Object.fromEntries(formData))
+  if (!parsed.success) return { ok: false, message: 'Revisa los valores antes de guardar.' }
+
+  try {
+    await saveWeeklyCheckin({ member_id: member.id, week_start: currentWeekStart(), ...parsed.data, note: parsed.data.note || null })
+    revalidatePath('/comunidad/mi-semana')
+    return { ok: true, message: 'Semana guardada. Ya tienes un punto de partida para decidir.' }
+  } catch (error) {
+    console.error('[comunidad:saveWeeklyCheckinAction]', error)
+    return { ok: false, message: 'No se ha podido guardar. Inténtalo de nuevo en un momento.' }
+  }
+}
+
+export async function setLessonFavoriteAction(_previous: CommunityToolResult | null, formData: FormData): Promise<CommunityToolResult> {
+  const member = await getSessionMember()
+  if (!member) return { ok: false, message: 'Tu sesión ha caducado.' }
+  const parsed = LessonToolSchema.safeParse(Object.fromEntries(formData))
+  if (!parsed.success) return { ok: false, message: 'No se ha podido identificar la lección.' }
+  if (!(await memberCanAccessLesson(member, parsed.data.lesson_id))) return { ok: false, message: 'No tienes acceso a esta lección.' }
+  try {
+    await setLessonFavorite(member.id, parsed.data.lesson_id, parsed.data.value === 'true')
+    revalidatePath('/comunidad', 'layout')
+    return { ok: true, message: parsed.data.value === 'true' ? 'Guardada para volver después.' : 'Eliminada de tus guardados.' }
+  } catch (error) {
+    console.error('[comunidad:setLessonFavoriteAction]', error)
+    return { ok: false, message: 'No se ha podido actualizar el guardado.' }
+  }
+}
+
+export async function setLessonFeedbackAction(_previous: CommunityToolResult | null, formData: FormData): Promise<CommunityToolResult> {
+  const member = await getSessionMember()
+  if (!member) return { ok: false, message: 'Tu sesión ha caducado.' }
+  const parsed = LessonToolSchema.safeParse(Object.fromEntries(formData))
+  if (!parsed.success) return { ok: false, message: 'No se ha podido identificar la lección.' }
+  if (!(await memberCanAccessLesson(member, parsed.data.lesson_id))) return { ok: false, message: 'No tienes acceso a esta lección.' }
+  try {
+    await setLessonFeedback(member.id, parsed.data.lesson_id, parsed.data.value === 'true')
+    revalidatePath('/comunidad/[space]/[slug]', 'page')
+    return { ok: true, message: 'Gracias. Esta respuesta servirá para mejorar la lección.' }
+  } catch (error) {
+    console.error('[comunidad:setLessonFeedbackAction]', error)
+    return { ok: false, message: 'No se ha podido guardar tu respuesta.' }
+  }
 }

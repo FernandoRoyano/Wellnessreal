@@ -5,9 +5,11 @@ import { ArrowLeft, ArrowRight, Clock, Lock } from 'lucide-react'
 import { LessonReader, type RelatedArticle } from '@/components/comunidad/LessonReader'
 import { LessonCompletionButton } from '@/components/comunidad/LessonCompletionButton'
 import { LessonEngagement } from '@/components/comunidad/CommunityEngagement'
+import { LessonFavorite, LessonFeedback } from '@/components/comunidad/LessonTools'
 import { getSessionMember, getSpace, getLessons } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getAllPosts } from '@/lib/db/posts'
+import { getFavoriteLessonIds, getLessonFeedback } from '@/lib/community-tools'
 
 export const metadata: Metadata = {
   title: 'Comunidad Tiroides · WellnessReal',
@@ -36,6 +38,9 @@ export default async function LessonPage({
     : await getLessonRelatedArticles(lesson.title, lesson.content)
   const completedLessonIds = member ? await getCompletedLessonIds() : new Set<string>()
   const resource = getLessonResource(lesson.slug, lesson.title)
+  const [favoriteIds, lessonFeedback] = member && !lesson.locked
+    ? await Promise.all([getFavoriteLessonIds(member.id), getLessonFeedback(member.id, lesson.id)])
+    : [new Set<string>(), null]
 
   return (
     <div className="lesson-shell">
@@ -82,11 +87,13 @@ export default async function LessonPage({
 
       {!lesson.locked && member && (
         <>
+          <LessonFavorite lessonId={lesson.id} initialFavorite={favoriteIds.has(lesson.id)} />
           <LessonCompletionButton
             lessonId={lesson.id}
             isCompleted={completedLessonIds.has(lesson.id)}
           />
           <LessonEngagement resource={resource} />
+          <LessonFeedback lessonId={lesson.id} initialFeedback={lessonFeedback} />
         </>
       )}
 
