@@ -60,6 +60,9 @@ export default async function ComunidadHome() {
               Continuar por aquí <ArrowRight className="h-4 w-4" />
             </Link>
           )}
+          <Link href="/comunidad/recorrido" className="community-journey-link">
+            Ver qué incluye la comunidad y el Método BASE <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
         <div className="community-score" style={{ '--journey-progress': `${progress * 3.6}deg` } as CSSProperties}>
           <div><strong>{progress}%</strong><span>completado</span></div>
