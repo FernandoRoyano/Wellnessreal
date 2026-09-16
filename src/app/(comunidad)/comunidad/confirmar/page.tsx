@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { ConfirmarForm } from './ConfirmarForm'
+import styles from '../entrar/entrar.module.css'
 
 export const metadata: Metadata = {
   title: 'Confirmar acceso · Comunidad Tiroides · WellnessReal',
@@ -19,15 +21,13 @@ export default async function ConfirmarPage({
   }
 
   return (
-    <main className="mx-auto flex min-h-screen max-w-md flex-col justify-center px-6 py-16">
-      <div className="mb-8 text-center">
-        <h1 className="headline text-4xl text-white">Confirmar acceso</h1>
-        <p className="mt-3 text-white/60">
-          Por tu seguridad, confirma que quieres entrar en la Comunidad Tiroides desde este
-          dispositivo.
-        </p>
+    <main className={styles.confirmPage}>
+      <div className={styles.confirmCard}>
+        <Image className={styles.confirmLogo} src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" width={4167} height={507} priority />
+        <h1>Ya casi estás dentro.</h1>
+        <p>Confirma que quieres acceder a la Comunidad Tiroides desde este dispositivo.</p>
+        <ConfirmarForm code={code} tokenHash={token_hash} type={type} next={next} />
       </div>
-      <ConfirmarForm code={code} tokenHash={token_hash} type={type} next={next} />
     </main>
   )
 }

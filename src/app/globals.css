@@ -1008,6 +1008,133 @@
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
+
+.lesson-prose .lesson-review {
+  display: inline-flex;
+  margin: 0 0 1.25rem;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid rgba(252, 238, 33, 0.18);
+  border-radius: 999px;
+  background: rgba(252, 238, 33, 0.055);
+  color: #d8d1e4;
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+}
+
+.lesson-prose .lesson-visual {
+  margin: 2.25rem 0;
+}
+
+.lesson-prose .lesson-visual img {
+  width: 100%;
+  margin: 0;
+}
+
+.lesson-prose .lesson-visual figcaption {
+  max-width: 44rem;
+  margin: 0.75rem auto 0;
+  color: rgba(255, 255, 255, 0.46);
+  font-size: 0.72rem;
+  line-height: 1.55;
+  text-align: center;
+}
+
+.lesson-prose .lesson-references {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lesson-prose .lesson-references h2 {
+  margin-top: 0;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.lesson-prose .lesson-references li,
+.lesson-prose .lesson-references p {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.78rem;
+  line-height: 1.65;
+}
+
+.community-engagement {
+  margin-top: 1.25rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  background: #17132f;
+}
+
+.community-engagement-heading > p {
+  color: var(--color-accent);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.community-engagement-heading h2 {
+  max-width: 34rem;
+  margin-top: 0.4rem;
+  color: white;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2.4vw, 1.85rem);
+  line-height: 1.15;
+}
+
+.community-engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1px;
+  margin-top: 1.5rem;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.community-engagement-action {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+  padding: 1.15rem;
+  background: #17132f;
+  transition: background 180ms ease;
+}
+
+.community-engagement-action:hover { background: rgba(255, 255, 255, 0.035); }
+.community-engagement-action > span { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border-radius: 50%; color: var(--color-accent); background: rgba(252, 238, 33, 0.08); }
+.community-engagement-action > div { display: grid; min-width: 0; gap: 0.25rem; }
+.community-engagement-action small { color: var(--color-accent); font-size: 0.62rem; font-weight: 700; text-transform: uppercase; }
+.community-engagement-action strong { color: white; font-size: 0.82rem; }
+.community-engagement-action p { color: rgba(255, 255, 255, 0.5); font-size: 0.7rem; line-height: 1.45; }
+.community-engagement-action > svg { color: rgba(255, 255, 255, 0.35); }
+
+.community-share {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+  border: 1px solid rgba(252, 238, 33, 0.2);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(120deg, rgba(252, 238, 33, 0.065), transparent 60%);
+}
+
+.community-share.is-compact { margin-top: 1.5rem; padding: 1.2rem; border-radius: var(--radius-md); }
+.community-share > div { display: grid; gap: 0.35rem; }
+.community-share small { color: var(--color-accent); font-size: 0.64rem; font-weight: 750; letter-spacing: 0.07em; text-transform: uppercase; }
+.community-share strong { color: white; font-family: var(--font-display); font-size: clamp(1rem, 1.8vw, 1.35rem); }
+.community-share p { max-width: 42rem; color: rgba(255, 255, 255, 0.5); font-size: 0.74rem; line-height: 1.55; }
+.community-share button { display: inline-flex; min-height: 2.8rem; align-items: center; justify-content: center; gap: 0.5rem; padding: 0.75rem 1rem; border-radius: 999px; color: var(--color-brand-ink); background: var(--color-accent); font-size: 0.72rem; font-weight: 800; white-space: nowrap; }
+.community-invite { margin-top: clamp(3rem, 7vw, 6rem); }
+
+@media (max-width: 720px) {
+  .community-engagement-grid { grid-template-columns: 1fr; }
+  .community-share { grid-template-columns: 1fr; }
+  .community-share button { width: 100%; }
+}
 .lesson-prose table {
   display: block;
   overflow-x: auto;

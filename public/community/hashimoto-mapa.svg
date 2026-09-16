@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Qué es Hashimoto y qué aborda cada profesional</title>
+  <desc id="desc">Diagrama que separa la enfermedad tiroidea autoinmune, su valoración y tratamiento sanitario, y el apoyo complementario del entrenamiento y los hábitos.</desc>
+  <rect width="1200" height="720" rx="42" fill="#15112f"/>
+  <text x="72" y="88" fill="#fcee21" font-family="Arial,sans-serif" font-size="22" font-weight="700" letter-spacing="3">SEPARAR PARA TOMAR MEJORES DECISIONES</text>
+  <g font-family="Arial,sans-serif">
+    <rect x="72" y="150" width="1056" height="120" rx="28" fill="#211b3d" stroke="#fcee21" stroke-opacity=".42"/><text x="112" y="202" fill="#fff" font-size="28" font-weight="700">Hashimoto</text><text x="112" y="241" fill="#bdb5ca" font-size="20">Enfermedad autoinmune que puede dañar la tiroides y conducir a hipotiroidismo.</text>
+    <path d="M600 270V332M600 332H305V374M600 332H895V374" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="4"/>
+    <rect x="72" y="374" width="466" height="220" rx="28" fill="#211b3d"/><text x="112" y="426" fill="#fcee21" font-size="19" font-weight="700">ÁMBITO SANITARIO</text><text x="112" y="471" fill="#fff" font-size="25" font-weight="700">Diagnóstico, medicación</text><text x="112" y="505" fill="#fff" font-size="25" font-weight="700">y seguimiento</text><text x="112" y="550" fill="#aaa2bd" font-size="18">Historia clínica + analítica + criterio profesional</text>
+    <rect x="662" y="374" width="466" height="220" rx="28" fill="#211b3d"/><text x="702" y="426" fill="#fcee21" font-size="19" font-weight="700">APOYO COMPLEMENTARIO</text><text x="702" y="471" fill="#fff" font-size="25" font-weight="700">Entrenamiento, actividad</text><text x="702" y="505" fill="#fff" font-size="25" font-weight="700">y hábitos sostenibles</text><text x="702" y="550" fill="#aaa2bd" font-size="18">Se adaptan; no sustituyen el tratamiento</text>
+    <text x="72" y="666" fill="#81798f" font-size="17">La presencia de anticuerpos no se interpreta aislada del resto del caso.</text>
+  </g>
+</svg>

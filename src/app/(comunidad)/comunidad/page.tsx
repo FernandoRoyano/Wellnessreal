@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ArrowRight, BookOpen, Check, Download, FileText, MessageCircle, Route } from 'lucide-react'
 import { Avatar } from '@/components/comunidad/Avatar'
+import { CommunityShare } from '@/components/comunidad/CommunityEngagement'
 import { timeAgo } from '@/lib/comunidad-format'
 import {
   getLessons,
@@ -122,6 +123,11 @@ export default async function ComunidadHome() {
           <strong>{online.length > 0 ? `${online.length} ${online.length === 1 ? 'persona conectada' : 'personas conectadas'}` : 'La conversación te espera'}</strong>
           <span><Check className="h-4 w-4" /> Sin ruido. Sin juicios. Sin promesas mágicas.</span>
         </aside>
+      </section>
+
+      <section className="community-invite" aria-labelledby="community-invite-title">
+        <div className="community-section-title"><span>05</span><div><p>Hazla crecer con criterio</p><h2 id="community-invite-title">Una recomendación personal vale más que otro anuncio</h2></div></div>
+        <CommunityShare />
       </section>
     </div>
   )

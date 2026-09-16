@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 import { confirmMagicLink, type ConfirmResult } from '../actions'
 import { ShieldCheck, Loader2 } from 'lucide-react'
+import styles from '../entrar/entrar.module.css'
 
 export function ConfirmarForm({
   code,
@@ -21,20 +22,20 @@ export function ConfirmarForm({
   )
 
   return (
-    <form action={action} className="surface-card rounded-3xl p-8 text-center">
+    <form action={action} className={styles.confirmForm}>
       <input type="hidden" name="code" value={code ?? ''} />
       <input type="hidden" name="token_hash" value={tokenHash ?? ''} />
       <input type="hidden" name="type" value={type ?? ''} />
       <input type="hidden" name="next" value={next ?? ''} />
 
-      <ShieldCheck className="mx-auto mb-4 h-12 w-12 text-[var(--color-accent)]" />
+      <ShieldCheck className={styles.confirmIcon} aria-hidden="true" />
 
-      {state?.error && <p className="mb-4 text-sm text-red-400">{state.error}</p>}
+      {state?.error && <p className={styles.error} role="alert">{state.error}</p>}
 
-      <button type="submit" disabled={pending} className="btn-brand w-full disabled:opacity-60">
+      <button type="submit" disabled={pending}>
         {pending ? (
           <>
-            <Loader2 className="h-5 w-5 animate-spin" /> Entrando…
+            <Loader2 size={18} className={styles.spinner} /> Entrando…
           </>
         ) : (
           'Confirmar acceso'

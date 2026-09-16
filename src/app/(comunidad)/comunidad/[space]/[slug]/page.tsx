@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Clock, Lock } from 'lucide-react'
 import { LessonReader, type RelatedArticle } from '@/components/comunidad/LessonReader'
 import { LessonCompletionButton } from '@/components/comunidad/LessonCompletionButton'
+import { LessonEngagement } from '@/components/comunidad/CommunityEngagement'
 import { getSessionMember, getSpace, getLessons } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getAllPosts } from '@/lib/db/posts'
@@ -34,6 +35,7 @@ export default async function LessonPage({
     ? []
     : await getLessonRelatedArticles(lesson.title, lesson.content)
   const completedLessonIds = member ? await getCompletedLessonIds() : new Set<string>()
+  const resource = getLessonResource(lesson.slug, lesson.title)
 
   return (
     <div className="lesson-shell">
@@ -79,10 +81,13 @@ export default async function LessonPage({
       )}
 
       {!lesson.locked && member && (
-        <LessonCompletionButton
-          lessonId={lesson.id}
-          isCompleted={completedLessonIds.has(lesson.id)}
-        />
+        <>
+          <LessonCompletionButton
+            lessonId={lesson.id}
+            isCompleted={completedLessonIds.has(lesson.id)}
+          />
+          <LessonEngagement resource={resource} />
+        </>
       )}
 
       {(prev || next) && (
@@ -118,6 +123,30 @@ export default async function LessonPage({
       </article>
     </div>
   )
+}
+
+function getLessonResource(slug: string, title: string) {
+  const value = `${slug} ${title}`.toLocaleLowerCase('es')
+  if (/fuerza|entren|músculo|musculo/.test(value)) return {
+    title: 'Primera rutina de fuerza',
+    description: 'Una sesión imprimible para empezar con una estructura clara.',
+    href: '/community/resources/primera-rutina-fuerza-tiroides.pdf',
+  }
+  if (/energ|cansancio|fatiga|hashimoto/.test(value)) return {
+    title: 'Semáforo de energía',
+    description: 'Decide si hoy conviene avanzar, adaptar o recuperar.',
+    href: '/community/resources/semaforo-energia-tiroides.pdf',
+  }
+  if (/comida|proteína|proteina|palma|peso|metabolismo/.test(value)) return {
+    title: 'Registro semanal',
+    description: 'Observa hábitos, energía y recuperación sin juzgar un solo día.',
+    href: '/community/resources/registro-semanal-tiroides.pdf',
+  }
+  return {
+    title: 'Planificador semanal',
+    description: 'Convierte lo aprendido en una acción con día y hora.',
+    href: '/community/resources/planificador-semanal-tiroides.pdf',
+  }
 }
 
 async function getLessonRelatedArticles(title: string, content: string): Promise<RelatedArticle[]> {
