@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import AdminSidebar from '@/components/admin/AdminSidebar'
+import { marked } from 'marked'
 import { getGuion, guiones } from '@/lib/guiones/data'
 import { ChevronLeft, Clock, Hash } from 'lucide-react'
 import GuionActions from './GuionActions'
@@ -17,6 +18,9 @@ export default async function GuionDetailPage({
   const { slug } = await params
   const guion = getGuion(slug)
   if (!guion) notFound()
+
+  // Los guiones se escriben en Markdown: sin convertirlos se leen con los ## y los ** en crudo.
+  const html = await marked.parse(guion.content, { breaks: true, gfm: true })
 
   return (
     <div className="flex min-h-screen">
@@ -73,9 +77,7 @@ export default async function GuionDetailPage({
           className="rounded-xl p-6 md:p-8 mt-6 guion-content"
           style={{ backgroundColor: '#1a1535', border: '1px solid rgba(102,45,145,0.3)' }}
         >
-          <pre className="whitespace-pre-wrap font-sans text-gray-200 leading-relaxed text-[15px]">
-            {guion.content}
-          </pre>
+          <div dangerouslySetInnerHTML={{ __html: html }} />
         </article>
       </main>
     </div>

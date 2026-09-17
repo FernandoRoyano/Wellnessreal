@@ -1484,3 +1484,25 @@
   .community-feature-card img { min-height: 14rem; max-height: 18rem; }
   .community-map-grid, .community-resource-grid { grid-template-columns: 1fr; }
 }
+
+/* Guiones del panel: se escriben en Markdown y se leen en voz alta, así que priman jerarquía y ancho de lectura */
+.guion-content { color: #d4cfea; font-size: clamp(.95rem, .9rem + .25vw, 1.06rem); line-height: 1.8; }
+.guion-content > *:first-child { margin-top: 0; }
+.guion-content h1 { margin: 0 0 1.5rem; color: white; font-size: clamp(1.5rem, 1.3rem + 1vw, 2rem); font-weight: 800; line-height: 1.25; }
+.guion-content h2 { margin: 2.4rem 0 .9rem; padding-bottom: .5rem; border-bottom: 1px solid rgba(102,45,145,.45); color: var(--color-accent); font-size: clamp(1.15rem, 1.05rem + .5vw, 1.4rem); font-weight: 800; }
+.guion-content h3 { margin: 1.8rem 0 .6rem; color: white; font-size: 1.05rem; font-weight: 700; }
+.guion-content p { margin: 0 0 1.05rem; max-width: 62ch; }
+.guion-content strong { color: white; font-weight: 700; }
+.guion-content em { color: #b9b1d6; }
+.guion-content a { color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+.guion-content ul, .guion-content ol { margin: 0 0 1.05rem; padding-left: 1.3rem; max-width: 62ch; }
+.guion-content li { margin: .35rem 0; }
+.guion-content li::marker { color: var(--color-accent); }
+.guion-content hr { margin: 2.2rem 0; border: 0; border-top: 1px solid rgba(102,45,145,.4); }
+.guion-content code { padding: .12rem .35rem; border-radius: .3rem; background: rgba(0,0,0,.35); color: var(--color-accent); font-size: .88em; }
+.guion-content blockquote { margin: 1.2rem 0; padding: .2rem 0 .2rem 1rem; border-left: 3px solid var(--color-accent); color: #bcb4d8; }
+.guion-content table { width: 100%; margin: 1.3rem 0; border-collapse: collapse; font-size: .9rem; }
+.guion-content th, .guion-content td { padding: .6rem .75rem; border: 1px solid rgba(102,45,145,.4); text-align: left; vertical-align: top; }
+.guion-content th { background: rgba(102,45,145,.25); color: white; font-weight: 700; }
+.guion-content input[type="checkbox"] { margin-right: .5rem; accent-color: var(--color-accent); }
+.guion-content ul:has(input[type="checkbox"]) { padding-left: 0; list-style: none; }

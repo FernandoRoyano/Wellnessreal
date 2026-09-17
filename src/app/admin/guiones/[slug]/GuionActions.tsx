@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { marked } from 'marked'
 import { Copy, Check, Download, Printer } from 'lucide-react'
 
 interface GuionActionsProps {
@@ -35,16 +36,25 @@ export default function GuionActions({ content, title, slug }: GuionActionsProps
   const handlePrint = () => {
     const w = window.open('', '_blank')
     if (!w) return
-    w.document.write(`<!DOCTYPE html><html><head><title>${title}</title>
-    <style>
-      body { font-family: Georgia, serif; max-width: 700px; margin: 40px auto; padding: 20px; line-height: 1.7; color: #111; }
-      h1,h2,h3 { color: #222; }
-      pre { white-space: pre-wrap; font-family: inherit; font-size: 16px; }
-      strong { background: #fff3b0; padding: 0 2px; }
-      em { color: #666; }
-    </style></head><body><pre>${content.replace(/</g, '&lt;')}</pre></body></html>`)
-    w.document.close()
-    setTimeout(() => w.print(), 250)
+    // Mismo criterio que en la vista: el guion es Markdown y en papel también debe leerse como documento.
+    void Promise.resolve(marked.parse(content, { breaks: true, gfm: true })).then((html) => {
+      w.document.write(`<!DOCTYPE html><html><head><title>${title}</title>
+      <style>
+        body { font-family: Georgia, serif; max-width: 720px; margin: 40px auto; padding: 20px; line-height: 1.75; color: #111; }
+        h1 { font-size: 26px; }
+        h2 { margin-top: 34px; padding-bottom: 6px; border-bottom: 1px solid #ddd; font-size: 19px; }
+        h3 { margin-top: 22px; font-size: 16px; }
+        p { max-width: 62ch; }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14px; }
+        th, td { border: 1px solid #ccc; padding: 6px 8px; text-align: left; vertical-align: top; }
+        th { background: #f2f2f2; }
+        strong { background: #fff3b0; padding: 0 2px; }
+        em { color: #666; }
+        hr { border: 0; border-top: 1px solid #ddd; margin: 28px 0; }
+      </style></head><body>${html}</body></html>`)
+      w.document.close()
+      setTimeout(() => w.print(), 250)
+    })
   }
 
   return (
