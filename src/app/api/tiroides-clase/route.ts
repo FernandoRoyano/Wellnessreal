@@ -53,15 +53,21 @@ export async function POST(request: NextRequest) {
       tags: ['via:tiroides', 'form:thyroid-vsl'],
     })
 
-    await recordThyroidFunnelEvent({
-      eventName: 'thyroid_vsl_registration',
-      leadId: lead?.id ?? null,
-      email,
-      source: _attribution?.utm_source ?? null,
-      medium: _attribution?.utm_medium ?? null,
-      campaign: _attribution?.utm_campaign ?? null,
-      metadata: { landing_page: _attribution?.landing_page ?? '/tiroides/clase' },
-    })
+    // La medición no puede tumbar el registro: si falla, el usuario debe
+    // recibir igualmente el email con la clase.
+    try {
+      await recordThyroidFunnelEvent({
+        eventName: 'thyroid_vsl_registration',
+        leadId: lead?.id ?? null,
+        email,
+        source: _attribution?.utm_source ?? null,
+        medium: _attribution?.utm_medium ?? null,
+        campaign: _attribution?.utm_campaign ?? null,
+        metadata: { landing_page: _attribution?.landing_page ?? '/tiroides/clase' },
+      })
+    } catch (eventError) {
+      console.error('[ThyroidClass:event]', eventError)
+    }
 
     const safeName = escapeHtml(name)
     const safeEmail = escapeHtml(email)
