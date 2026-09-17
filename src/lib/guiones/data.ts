@@ -1,3 +1,5 @@
+import { THYROID_ADS_SCRIPT, THYROID_VSL_SCRIPT } from './thyroid-vsl-script'
+
 export interface Guion {
   slug: string
   title: string
@@ -63,6 +65,28 @@ No necesitas hacerlo todo hoy. // Solo necesitas saber cuál es el siguiente pas
 - [ ] Hacer una pausa breve después de cada pregunta.
 - [ ] Utilizar una fotografía real de Fernando para la miniatura.
 - [ ] Subir a YouTube como “No listado” y sustituir el enlace de la lección.`,
+  },
+  {
+    slug: 'clase-metodo-base-tiroides',
+    title: 'Método BASE Tiroides — Clase de venta',
+    subtitle: 'Miniwebinar de 15–17 minutos para convertir tráfico frío en solicitudes de valoración sin promesas clínicas.',
+    duration: '15:00 — 17:00 min',
+    wordCount: 1810,
+    purpose: 'Explicar el cambio de enfoque, presentar las 12 semanas y llevar a una solicitud de valoración cualificada desde la nueva landing /tiroides/clase.',
+    status: 'ready',
+    lastUpdated: '2026-09-17',
+    content: THYROID_VSL_SCRIPT,
+  },
+  {
+    slug: 'ads-clase-metodo-base-tiroides',
+    title: 'Ads — Clase Método BASE Tiroides',
+    subtitle: 'Tres anuncios verticales para vender el clic hacia la nueva clase, con hooks medibles y sin promesas clínicas.',
+    duration: '25 — 50 seg',
+    wordCount: 430,
+    purpose: 'Atraer tráfico frío desde Meta hacia /tiroides/clase y probar tres ángulos: semana perfecta, exceso de consejos y errores de adaptación.',
+    status: 'ready',
+    lastUpdated: '2026-09-17',
+    content: THYROID_ADS_SCRIPT,
   },
   {
     slug: 'metodo-base-explicativo',
