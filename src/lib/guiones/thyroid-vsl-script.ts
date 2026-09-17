@@ -162,45 +162,75 @@ Pulsa el botón que aparece debajo de este vídeo y solicita tu valoración. // 
 
 export const THYROID_ADS_SCRIPT = `# 🎬 Anuncios · Clase Método BASE Tiroides
 
-**Objetivo:** vender el clic hacia /tiroides/clase, no explicar ni vender el programa completo.
+**Objetivo:** vender el clic hacia /tiroides/clase. El anuncio abre la pregunta; la clase la responde.
 
-## Anuncio A · El plan de la semana perfecta (35–45 s)
+## Regla de oro: el anuncio no adelanta la clase
 
-**Plano 1 · Fernando a cámara**
+Cada pieza entra por un ángulo distinto y **ninguna repite el arranque del miniwebinar**. Si el anuncio ya suelta la idea de la "semana perfecta", la clase empieza contando algo que la persona acaba de oír y pierde los primeros treinta segundos, que son justo los que deciden si se queda.
 
-Si tienes hipotiroidismo y cada pocas semanas vuelves a empezar de cero, puede que no te falte disciplina. // Puede que estés siguiendo un plan que solo funciona cuando tienes una semana perfecta.
+- El anuncio **nombra el síntoma**. La clase explica la causa y el sistema.
+- Ninguna frase del anuncio aparece literal en el guion de la clase.
+- El anuncio no explica el mecanismo: lo promete. Quien quiera el "cómo", hace clic.
 
-**Plano 2 · Agenda, sesión larga, cambio a una versión breve**
+---
 
-La misma rutina aunque cambie tu energía. // Todo o nada. // Y cualquier semana difícil se convierte en abandono.
+## Anuncio A · El lunes que se aplaza (35–45 s)
 
-**Plano 3 · Fernando entrenando y revisando un plan**
+**Ángulo:** la cuenta de las veces que has vuelto a empezar.
 
-He preparado una clase gratuita donde te explico cómo organizar fuerza, alimentación y descanso con un sistema que también sabe adaptarse. // Sin promesas sobre curar tu tiroides y sin planes extremos.
+**Plano 1 · Fernando a cámara, plano corto**
+
+¿Cuántas veces has dicho "el lunes empiezo"? ///
+
+**Plano 2 · B-roll: calendario, notas del móvil, ropa de entrenar sin usar**
+
+Empezar no es tu problema. // Has empezado muchas veces. // El problema llega la semana en la que no puedes sostenerlo, porque nadie te ha explicado qué hacer exactamente esos días. ///
+
+**Plano 3 · Fernando entrenando y revisando una planificación**
+
+He grabado una clase gratuita de quince minutos sobre cómo entrenar con hipotiroidismo o Hashimoto sin que un mal mes borre todo lo anterior. //
 
 **Plano 4 · Fernando a cámara**
 
-Pulsa y mira la clase. // Son quince minutos y puedes decidir después si este enfoque tiene sentido para ti.
+Está aquí debajo. // Mírala y decides después.
 
-**Texto de anuncio:** Un plan no debería desaparecer cuando cambia tu semana. Mira la clase gratuita y conoce el enfoque BASE aplicado al entrenamiento con hipotiroidismo o Hashimoto.
+**Texto de anuncio:** Si llevas años empezando de nuevo, el fallo no está en tus ganas. Clase gratuita de 15 minutos sobre entrenamiento con hipotiroidismo o Hashimoto.
 
-## Anuncio B · No necesitas más consejos (25–30 s)
+## Anuncio B · Lo que no se resuelve en la consulta (30–40 s)
 
-Probablemente ya sabes que deberías hacer fuerza, comer bien y descansar. // El problema es que nadie te explica qué hacer el día que no puedes cumplir el plan completo. ///
+**Ángulo:** el hueco entre el seguimiento médico y la práctica diaria. Respetuoso con el sanitario, nunca en su contra.
 
-En esta clase gratuita te enseño a trabajar con una sesión completa, una versión mínima y criterios claros para saber cuándo mantener o ajustar. //
+**Plano 1 · Fernando a cámara**
 
-No es un tratamiento médico. // Es una forma más realista de organizar el entrenamiento y tus hábitos. // Pulsa para verla.
+Tu endocrino ajusta tu medicación y revisa tus analíticas. // Ese es su trabajo y hace falta. ///
 
-## Anuncio C · Tres errores (40–50 s)
+**Plano 2 · B-roll: salir de una consulta, calle, móvil en la mano**
 
-Tres errores que hacen que muchas personas con hipotiroidismo abandonen su entrenamiento. //
+Pero sales de la consulta y sigues sin saber cuántos días entrenar, con qué intensidad, ni qué haces el día que llegas sin fuerzas. // Esa parte no es médica. // Es de entrenamiento. ///
 
-Uno: utilizar siempre la misma carga aunque cambie la semana. // Dos: medir todo con la báscula. // Tres: no tener una versión mínima del plan. ///
+**Plano 3 · Fernando a cámara**
 
-No significa que debas entrenar menos para siempre. // Significa que necesitas saber qué ajustar para poder continuar y progresar. //
+Y es la que te explico en una clase gratuita de quince minutos. // Sin tocar tu tratamiento y sin prometerte que va a desaparecer ningún síntoma. // Pulsa para verla.
 
-Te lo explico paso a paso en una clase gratuita de quince minutos. // Pulsa aquí y te envío el acceso.
+**Texto de anuncio:** Tu tratamiento lo lleva tu médico. El entrenamiento, no. Clase gratuita sobre la parte que sí depende de cómo te organizas.
+
+## Anuncio C · "No tengo energía para entrenar" (25–35 s)
+
+**Ángulo:** la objeción número uno, dicha en voz alta y tomada en serio.
+
+**Plano 1 · Fernando a cámara, directo**
+
+"No tengo energía para entrenar." // Es lo primero que me dice casi todo el mundo que llega con hipotiroidismo. ///
+
+**Plano 2 · Fernando entrenando a intensidad normal, sin épica**
+
+Y tienen razón: hay semanas en las que no la hay. // El error no es descansar esas semanas. // El error es que tu plan solo tenga una versión, la de los días buenos. ///
+
+**Plano 3 · Fernando a cámara**
+
+En una clase gratuita de quince minutos te enseño qué hacer en esas semanas para no perder lo que ya llevas construido. // Pulsa y te doy el acceso.
+
+**Texto de anuncio:** Hay semanas sin energía, y no son un fallo tuyo. Clase gratuita: qué hacer esos días para no volver a empezar de cero.
 
 ## Grabación y montaje
 
