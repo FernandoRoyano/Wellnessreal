@@ -96,7 +96,8 @@ export async function POST(request: NextRequest) {
     ])
 
     const mailerLiteKey = process.env.MAILERLITE_API_KEY
-    const mailerLiteGroupId = process.env.MAILERLITE_THYROID_VSL_GROUP_ID
+    const mailerLiteGroupId =
+      process.env.MAILERLITE_THYROID_VSL_GROUP_ID || process.env.MAILERLITE_GROUP_ID
     if (mailerLiteKey && mailerLiteGroupId) {
       try {
         await fetch('https://connect.mailerlite.com/api/subscribers', {
