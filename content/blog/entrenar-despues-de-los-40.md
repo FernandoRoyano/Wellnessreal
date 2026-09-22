@@ -3,6 +3,7 @@ título: "Entrenar después de los 40: tres ajustes que cambian todo"
 slug: entrenar-despues-de-los-40
 categoría: Entrenamiento
 fecha: 2026-05-18
+estado: borrador_revisado
 tiempo_lectura: 7 min
 palabras: 1140
 meta_título: "Entrenar después de los 40: 3 ajustes clave | WellnessReal"
@@ -25,7 +26,7 @@ Vamos con los tres ajustes que cambian más las cosas.
 
 Tres realidades fisiológicas que no son opinión:
 
-- **La masa muscular empieza a perderse**: a partir de los 30 se pierde aproximadamente un 1% al año si no entrenas fuerza. A los 60 has perdido el 30%.
+- **La masa muscular puede disminuir con la edad**, sobre todo con inactividad, pero la trayectoria no es lineal ni idéntica para todos.
 - **La recuperación se ralentiza**: tarda más en repararse el músculo, las articulaciones y el sistema nervioso central tras una sesión exigente.
 - **La sensibilidad anabólica baja**: necesitas más estímulo y más proteína para conseguir la misma respuesta que antes.
 
@@ -68,13 +69,13 @@ A los 25 podías saltarte la movilidad, dormir 5 horas y comer cualquier cosa. A
 
 ### Movilidad articular
 
-10 minutos al día de trabajo de movilidad cambia más cosas de lo que te imaginas. Caderas, hombros, columna torácica y tobillos pierden recorrido con los años de oficina. Recuperar ese recorrido **te permite entrenar mejor** y reduce dramáticamente las lesiones.
+10 minutos al día de trabajo de movilidad cambia más cosas de lo que te imaginas. Caderas, hombros, columna torácica y tobillos pierden recorrido con los años de oficina. Recuperar ese recorrido **te permite entrenar mejor** y puede facilitar una técnica más cómoda cuando existe una limitación relevante.
 
 No hace falta ser yogui. Rotaciones, sentadilla profunda sin peso, pasos del oso, gato-vaca, dislocaciones de hombro con palo. 10 minutos. Todos los días.
 
 ### Sueño
 
-Lo cubrí en otro post pero merece repetirse: a los 40+ dormir mal cuesta el doble. Bajan testosterona, hormona del crecimiento y capacidad de recuperación. **Si no duermes 7+ horas, no hay plan que progrese.** Y no, "ya tengo edad para dormir poco" es un mito que se ha cargado a mucha gente.
+Lo cubrí en otro post pero merece repetirse: a los 40+ dormir mal cuesta el doble. Bajan testosterona, hormona del crecimiento y capacidad de recuperación. **Dormir suficiente favorece la recuperación, aunque una noche corta no invalida todo el plan.** Y no, "ya tengo edad para dormir poco" es un mito que se ha cargado a mucha gente.
 
 ### Proteína
 
@@ -93,20 +94,29 @@ El segundo error es el opuesto: tirar la toalla. "Yo es que ya tengo una edad". 
 3. **Mide tu proteína 3 días**: probablemente vas corto. Sube en desayuno y merienda.
 4. **Acuéstate 30 minutos antes** durante 2 semanas. Mide en tu cuerpo si las sesiones rinden distinto.
 
+## Qué cambia de verdad después de los 40
+
+Cumplir 40 no activa un interruptor biológico. Influyen el historial de entrenamiento, el sueño, la menopausia, las lesiones y la vida diaria. Lo bien respaldado es que el entrenamiento de fuerza sigue mejorando fuerza y función con la edad; no que todo el mundo deba entrenar menos o recuperarse peor. Las [guías de actividad física de la OMS](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations) recomiendan combinar trabajo aeróbico y fuerza, adaptando la dosis a la persona.
+
+### Si además tienes hipotiroidismo o Hashimoto
+
+La fatiga y el dolor muscular pueden aparecer en el hipotiroidismo, pero son síntomas poco específicos. Si tu energía ha cambiado de forma marcada, conviene revisar el tratamiento con tu equipo sanitario antes de atribuirlo a la edad. El ejercicio puede mejorar capacidad física y bienestar, pero no sustituye la levotiroxina ni ha demostrado normalizar por sí solo la función tiroidea ([revisión sistemática](https://pubmed.ncbi.nlm.nih.gov/37999992/)). Puedes continuar con [qué ejercicio elegir con hipotiroidismo](/blog/mejor-ejercicio-hipotiroidismo).
+
+
 ## La idea que quiero que te lleves
 
 Después de los 40 no se trata de bajar el listón. Se trata de **subirlo en otros sitios**: en técnica, en recuperación, en consistencia. La gente que llega fuerte a los 60 no es la que entrenó más a los 40. Es la que ajustó a tiempo.
 
 Tienes décadas por delante de progresar. Solo necesitas el plan adecuado para esta etapa.
 
+
+## Fuentes principales
+
+- [OMS: actividad física en adultos](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations)
+- [Revisión sobre ejercicio e hipotiroidismo](https://pubmed.ncbi.nlm.nih.gov/37999992/)
+
 ---
 
-## ¿Quieres un plan diseñado para tu edad y tu vida actual?
+[**Ver la clase gratuita**](/tiroides/clase)
 
-Hago coaching online personalizado desde 2014. Tengo clientes de 35, de 50 y de 65 años progresando con planes muy distintos. La edad cambia el método, no el resultado.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

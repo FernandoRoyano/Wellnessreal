@@ -3,11 +3,12 @@ título: "Las agujetas no son lo que te contaron (y el agua con azúcar nunca si
 slug: agujetas-mito-acido-lactico
 categoría: Recuperación
 fecha: 2026-06-04
+estado: borrador_revisado
 tiempo_lectura: 8 min
 palabras: 1450
 meta_título: "Las agujetas no son ácido láctico: la ciencia actual | WellnessReal"
 meta_descripción: "El mito del ácido láctico y el agua con azúcar cae solo cuando miras los datos. Qué son realmente las agujetas y por qué la segunda vez duelen la mitad."
-imagen_destacada: ""
+imagen_destacada: "/blog/agujetas-mito-acido-lactico.jpg"
 imagen_alt: "Persona estirando los cuádriceps tras una sesión de entrenamiento"
 ---
 
@@ -15,11 +16,7 @@ imagen_alt: "Persona estirando los cuádriceps tras una sesión de entrenamiento
 
 *8 min de lectura · Categoría: Recuperación*
 
-Una médica le dijo a un conocido hace poco que las agujetas se deben a la falta de glucosa, y que por eso en las unidades del dolor inyectan glucosa.
-
-Es una persona con bata, con carrera, con autoridad. Y se equivocaba.
-
-No por mala fe. Se equivocaba porque repitió algo que llevamos sesenta años repitiendo en gimnasios, vestuarios y consultas sin que nadie lo comprobara. La masa casi siempre se equivoca, y en esto de las agujetas la masa incluye a mucha gente con título.
+Quizá te recomendaron agua con azúcar porque las agujetas se atribuían al ácido láctico. La explicación se repitió durante años, pero no encaja con lo que hoy sabemos sobre el dolor muscular tardío.
 
 Vamos a aclararlo de una vez, con la ciencia que hay hoy encima de la mesa y en un idioma que se entienda.
 
@@ -31,19 +28,9 @@ Y como esos cristales venían supuestamente de un problema con el azúcar, algui
 
 Suena coherente. Es completamente falso.
 
-## La prueba que tira toda la teoría abajo
+## Por qué el lactato no explica las agujetas
 
-Hay una enfermedad rara que se llama enfermedad de McArdle. Las personas que la tienen no pueden producir ácido láctico. Su cuerpo, físicamente, es incapaz de fabricarlo.
-
-Pues bien: cuando estas personas hacen un sobreesfuerzo, también tienen agujetas.
-
-Léelo otra vez. **Gente que no puede producir lactato tiene agujetas igual que tú.**
-
-Si pudieras tener agujetas sin fabricar lactato, entonces el lactato no es la causa. Punto. Y si el lactato no es la causa, la glucosa que lo originaría tampoco. Toda la cadena —ácido láctico, cristales, agua con azúcar— se cae sola.
-
-A esto se suma otro detalle incómodo para la vieja teoría: **nunca nadie ha visto esos famosos cristales**. Se han hecho biopsias musculares a deportistas con agujetas y no aparecen. Y por física básica, el ácido láctico cristalizaría a temperaturas bajo cero, algo que tu músculo, afortunadamente, nunca alcanza.
-
-Hay un tercer detalle que cierra el caso: el lactato que produces entrenando desaparece de tu sangre en 30 o 60 minutos. Las agujetas aparecen a las 24-48 horas. Para cuando te duele, el lactato hace un día que se fue. La cronología sola ya lo descartaba.
+El lactato aumenta durante esfuerzos intensos y se procesa mucho antes de que aparezca el dolor muscular tardío. Las agujetas suelen hacerse más evidentes entre el día siguiente y los días posteriores, sobre todo después de un estímulo nuevo o con contracciones excéntricas. Esa diferencia temporal, junto con la investigación sobre daño muscular inducido por ejercicio, descarta la vieja historia de los cristales. El agua con azúcar no previene el proceso.
 
 ## Entonces, ¿por qué duelen de verdad?
 
@@ -110,22 +97,14 @@ Las agujetas no son cristales, no son ácido láctico y no se arreglan con azúc
 
 Que te lo diga alguien con bata no lo convierte en verdad. Que lo digan los datos, sí.
 
----
 
-## Referencias
+## Fuentes principales
 
-- Mizumura K, Taguchi T. *Neurochemical mechanism of muscular pain: Insight from the study on delayed onset muscle soreness.* The Journal of Physiological Sciences. 2024. DOI: 10.1186/s12576-023-00896-y
-- Schroeter S, Bloch W, Hirschmüller A, et al. *Update: Delayed Onset Muscle Soreness (DOMS) – Muscle Biomechanics, Pathophysiology and Therapeutic Approaches.* Deutsche Zeitschrift für Sportmedizin. 2024;75:189-194. DOI: 10.5960/dzsm.2024.608
-- Hauser RA, Lackner JB, Steilen-Matias D, Harris DK. *A Systematic Review of Dextrose Prolotherapy for Chronic Musculoskeletal Pain.* Clinical Medicine Insights: Arthritis and Musculoskeletal Disorders. 2016. DOI: 10.4137/CMAMD.S39160
+- [Revisión sobre mecanismos de las agujetas](https://pubmed.ncbi.nlm.nih.gov/30537791/)
+- [Metaanálisis sobre estiramiento y agujetas](https://pubmed.ncbi.nlm.nih.gov/34025459/)
 
 ---
 
-## ¿Quieres entrenar con criterio, no con mitos?
+[**Explorar la comunidad gratuita**](/tiroides)
 
-Hago coaching online personalizado desde 2014. Diseño planes que progresan sin reventarte la primera semana ni venderte humo nutricional. Solo ciencia bien aplicada y ajustada a tu vida real.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

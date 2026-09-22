@@ -3,6 +3,7 @@ título: "Suelo pélvico: lo que nadie te cuenta y deberías saber"
 slug: suelo-pelvico-lo-que-no-te-cuentan
 categoría: Mujer
 fecha: 2026-05-21
+estado: borrador_revisado
 serie: "Mujer y entrenamiento (3/3)"
 tiempo_lectura: 7 min
 palabras: 1160
@@ -108,20 +109,30 @@ Tres errores típicos:
 3. **Empieza con respiración diafragmática** 5 minutos al día. Es la base.
 4. **Cambia un hábito**: exhala al levantar peso, al toser, al estornudar.
 
+## Fuerza sí, pero con síntomas en el centro
+
+El suelo pélvico necesita contraerse y también relajarse. Por eso “haz Kegels” no es una solución universal: una valoración permite saber si falta fuerza, coordinación, relajación o si hay otro problema.
+
+Para incontinencia urinaria de esfuerzo o mixta, NICE recomienda un programa supervisado de entrenamiento del suelo pélvico durante al menos tres meses ([guía clínica](https://www.nice.org.uk/guidance/ng210/chapter/Recommendations)). Esto no obliga a abandonar la fuerza. Sí conviene ajustar carga, respiración y ejercicio según los síntomas con una fisioterapeuta especializada.
+
+Consulta si hay escapes, sensación de peso o bulto vaginal, dolor pélvico, dolor con penetración, dificultad para vaciar vejiga o intestino, o síntomas que condicionan el entrenamiento. No incluyo un bloque de tiroides aquí porque la relación no es lo bastante directa para aportar valor.
+
+
 ## La idea que quiero que te lleves
 
 El suelo pélvico es uno de los músculos más importantes de tu cuerpo y el que peor entrenamos. No por falta de interés. Por falta de información seria, no contaminada por el "pierde barriga en 7 días con esta tabla".
 
 Hablar de él rompe estigmas. Atenderlo bien cambia tu vida diaria — la fuerza con la que entrenas, las cosas que dejas de evitar, la calidad de tus relaciones. **No es un tema secundario. Es un tema central, mal contado.**
 
+
+## Fuentes principales
+
+- [NICE: disfunción del suelo pélvico](https://www.nice.org.uk/guidance/ng210/chapter/Recommendations)
+- [Cochrane: entrenamiento del suelo pélvico e incontinencia](https://pubmed.ncbi.nlm.nih.gov/25408383/)
+- [NHS: síntomas de prolapso](https://www.nhs.uk/conditions/pelvic-organ-prolapse/)
+
 ---
 
-## ¿Quieres un plan que tenga en cuenta tu suelo pélvico, no que lo ignore?
+[**Explorar la comunidad gratuita**](/tiroides)
 
-Hago coaching online personalizado desde 2014. Trabajo con tu fisio especializada cuando hace falta, ajusto cargas, ejercicios y respiración para que entrenes seguro. Nada de "haz lo que puedas y aguanta".
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

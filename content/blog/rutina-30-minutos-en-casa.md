@@ -3,6 +3,7 @@ título: "La rutina de 30 minutos que sí funciona en casa"
 slug: rutina-30-minutos-en-casa
 categoría: Entrenamiento
 fecha: 2026-04-29
+estado: borrador_revisado
 tiempo_lectura: 7 min
 palabras: 1180
 meta_título: "La rutina de 30 minutos que sí funciona en casa | WellnessReal"
@@ -109,20 +110,29 @@ El segundo error: tratar el entrenamiento en casa como si fuera "menos serio". C
 3. **Sigue la plantilla 4 semanas** sin cambiar los ejercicios. Lo único que cambia es el peso o las repeticiones.
 4. **Al cabo de 4 semanas, evalúa**: ¿has subido peso o reps en algún movimiento? Si sí, vas bien. Si no, el plan necesita revisión.
 
+## Versión mínima para una semana con poca energía
+
+Haz dos vueltas, descansando lo necesario: 8 sentadillas a una silla, 8 remos por lado, 8 flexiones en pared o mesa y 20-30 segundos de paseo rápido por casa. Puede durar 10-12 minutos. La versión mínima mantiene el hábito; cuando recuperes energía, vuelve al plan completo y progresa una variable cada vez.
+
+La rutina de casa puede cubrir fuerza y capacidad cardiovascular si eliges variantes que puedas ejecutar con control. Las [guías de la OMS](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations) recomiendan fuerza al menos dos días, sin exigir un gimnasio.
+
+Si tienes hipotiroidismo o Hashimoto y la fatiga cambia de forma llamativa, no la conviertas automáticamente en falta de voluntad. Ajusta la sesión y consulta si persiste; el entrenamiento acompaña, pero no sustituye el seguimiento médico.
+
+
 ## La idea que quiero que te lleves
 
 Entrenar en casa funciona. Pero no funciona seguir rutinas genéricas en bucle. Funciona aplicar los mismos principios que cualquier programa serio: pocos ejercicios bien elegidos, progresión semanal y ejecución consciente.
 
 30 minutos son suficientes — si esos 30 minutos están bien diseñados.
 
+
+## Fuentes principales
+
+- [OMS: actividad física y fuerza](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations)
+- [NIDDK: síntomas y tratamiento del hipotiroidismo](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)
+
 ---
 
-## ¿Quieres un plan ajustado a tu material y tu nivel?
+[**Explorar la comunidad gratuita**](/tiroides)
 
-Hago coaching online personalizado desde 2014. Diseño planes que progresan semana a semana en función de tu equipamiento, tu nivel actual y tus objetivos — no plantillas genéricas que valen para todo el mundo y no funcionan para nadie.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

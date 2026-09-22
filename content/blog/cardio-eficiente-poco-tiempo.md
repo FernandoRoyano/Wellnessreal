@@ -3,6 +3,7 @@ título: "El cardio que sí sirve cuando vas justo de tiempo"
 slug: cardio-eficiente-poco-tiempo
 categoría: Entrenamiento
 fecha: 2026-05-25
+estado: borrador_revisado
 tiempo_lectura: 6 min
 palabras: 1100
 meta_título: "El cardio que sí sirve con poco tiempo | WellnessReal"
@@ -118,20 +119,31 @@ Tres errores típicos:
 3. **Si quieres añadir HIIT**, máximo 1 sesión corta semanal. No interfieras con tus días de fuerza.
 4. **Olvídate de las clases largas** que aborreces. Sustitúyelas por algo más corto y disfrutable.
 
+## Qué opción elegir cuando el tiempo es el límite
+
+La OMS sitúa la referencia semanal en 150-300 minutos de actividad aeróbica moderada o 75-150 de vigorosa, además de fuerza dos días; también recuerda que cualquier cantidad es mejor que ninguna ([guía](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations)). No tienes que completar todo desde la primera semana.
+
+El HIIT puede mejorar la capacidad cardiorrespiratoria con poco tiempo, pero no es automáticamente superior ni adecuado para todo el mundo ([revisión paraguas](https://pubmed.ncbi.nlm.nih.gov/38760916/)). Dos o tres bloques de 10 minutos de caminata rápida también cuentan.
+
+### Si tu energía es limitada
+
+Con hipotiroidismo tratado puedes combinar fuerza y cardio. Coloca primero la sesión que responda a tu prioridad y evita convertir cada día en alta intensidad. Si la fatiga es nueva o desproporcionada, revisa el contexto clínico: entrenar más fuerte no corrige una dosis de medicación inadecuada.
+
+
 ## La idea que quiero que te lleves
 
 No necesitas correr 10 km ni meterte en spinning una hora. Necesitas **mantener un mínimo de movimiento diario, intensidades moderadas constantes y algo de alta intensidad ocasional**. Eso, combinado con fuerza, es la receta cardiovascular para alguien con vida normal y poco tiempo.
 
 El mejor cardio es **el que haces semana tras semana, año tras año**. No el más espectacular para Instagram.
 
+
+## Fuentes principales
+
+- [OMS: recomendaciones de actividad física](https://www.who.int/europe/news-room/fact-sheets/item/everyday-actions-for-better-health-who-recommendations)
+- [Revisión paraguas sobre HIIT](https://pubmed.ncbi.nlm.nih.gov/38760916/)
+
 ---
 
-## ¿Quieres un plan que combine fuerza, cardio y vida real sin pasarte horas?
+[**Explorar la comunidad gratuita**](/tiroides)
 
-Hago coaching online personalizado desde 2014. Diseño planes donde el cardio está al servicio del objetivo — no como castigo ni como obsesión.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

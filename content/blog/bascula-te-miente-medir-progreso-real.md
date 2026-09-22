@@ -1,16 +1,20 @@
 ---
-título: "La báscula te está mintiendo (y te lo demuestro)"
+título: "Qué mide la báscula y cómo evaluar tu progreso real"
 slug: "bascula-te-miente-medir-progreso-real"
-meta_descripción: "La báscula sube y baja por mil motivos que no son grasa. Te explico por qué te miente y las 5 formas de medir tu progreso de verdad a partir de los 35."
+categoría: "Composición corporal"
+meta_título: "Cómo medir tu progreso más allá de la báscula | WellnessReal"
+meta_descripción: "El peso diario mezcla grasa, músculo, agua y contenido digestivo. Aprende a leer la tendencia y a combinarla con cintura, ropa y rendimiento."
 pilar: "Medición honesta"
 manychat_keyword: "BASCULA"
 fecha: "2026-07-02"
-estado: "borrador"
-tiempo_lectura: "5 min"
+estado: borrador_revisado
+tiempo_lectura: "6 min"
+imagen_destacada: "/blog/bascula-te-miente-medir-progreso-real.jpg"
+imagen_alt: "Persona comparando cinta métrica, registro de entrenamiento y báscula"
 autor: "Fernando Royano"
 ---
 
-# La báscula te está mintiendo (y te lo demuestro)
+# Qué mide la báscula y cómo evaluar tu progreso real
 
 Te subes en ayunas. Aguantas la respiración como si eso cambiara algo.
 
@@ -26,7 +30,7 @@ La báscula no mide tu grasa. Mide cuánto pesas tú con todo lo que llevas dent
 
 Y eso sube y baja por motivos que no tienen nada que ver con que estés progresando 🟢:
 
-- El agua que retienes (cambia hasta 2 kg de un día para otro).
+- El agua corporal, que puede variar de un día a otro.
 - La sal de lo que cenaste anoche.
 - Los carbohidratos, que arrastran agua al músculo.
 - Las hormonas y, en mujeres, el momento del ciclo.
@@ -66,16 +70,27 @@ Deja de pesarte cada mañana como quien reza. Mide esto:
 
 La báscula es una herramienta más, no tu juez. Y desde luego no la primera que deberías mirar.
 
-## Deja de darle ese poder
+## Cómo leer el dato sin pelearte con él
+
+La báscula no miente: mide tu masa total en ese momento. Lo que falla es pedirle que distinga grasa, músculo, agua y contenido digestivo. Si decides usarla, compara promedios semanales tomados en condiciones parecidas y añade cintura, rendimiento y cómo te queda la ropa. El auto-pesaje funciona mejor como parte de una estrategia más amplia, no como diagnóstico aislado ([revisión sistemática](https://pubmed.ncbi.nlm.nih.gov/25521523/)).
+
+### Peso e hipotiroidismo
+
+El hipotiroidismo puede acompañarse de aumento de peso, pero una subida puntual no demuestra que la tiroides esté peor. Tampoco permite ajustar medicación. Si hay una tendencia persistente junto con síntomas nuevos, coméntalo con tu profesional sanitario y continúa con [por qué no adelgazo con hipotiroidismo](/blog/por-que-no-adelgazo-con-hipotiroidismo).
+
+## Qué hacer desde hoy
 
 Un número que cambia por la sal de una cena no merece arruinarte la mañana ni hacerte tirar la toalla.
 
 Mide lo que importa. Y mídelo bien.
 
+## Fuentes principales
+
+- [Revisión sobre auto-pesaje y control del peso](https://pubmed.ncbi.nlm.nih.gov/25521523/)
+- [NIDDK: hipotiroidismo](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)
+
 ---
 
-**En la clase gratuita te enseño el sistema completo de medición honesta** que uso con mis clientes: qué mirar, cada cuánto y cómo leerlo para saber que avanzas de verdad, sin obsesionarte con un número.
+[**Ver la clase gratuita**](/tiroides/clase)
 
-👉 Comenta **BASCULA** o entra en [wellnessreal.es/webinar](https://wellnessreal.es/webinar) y reserva tu plaza.
-
-La báscula no manda. Mandas tú.
+*Contenido divulgativo. No sustituye una evaluación médica o nutricional individual.*

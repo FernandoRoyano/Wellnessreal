@@ -3,6 +3,7 @@ título: "El mito del 'no pain no gain': cuándo el dolor es señal de que la ca
 slug: dolor-entrenando-cuando-es-problema
 categoría: Entrenamiento
 fecha: 2026-05-11
+estado: borrador_revisado
 tiempo_lectura: 7 min
 palabras: 1130
 meta_título: "Cuándo el dolor entrenando es señal de problema | WellnessReal"
@@ -74,7 +75,7 @@ Si te duele la rodilla en sentadilla profunda, prueba sentadilla a media altura 
 
 ### 2. Trabaja la zona alrededor
 
-El dolor en una articulación casi siempre tiene origen en debilidad o falta de control en zonas adyacentes. Rodilla → glúteos y core. Hombro → escápula y rotadores. Lumbar → core y cadera. **Lo que más te lesiona no es lo que duele, es lo que no se está haciendo cargo.**
+El dolor articular puede tener muchas causas. Cambiar carga, técnica o rango puede ayudar de forma temporal, pero la elección depende de una valoración, no de una receta universal.
 
 ### 3. Pide ayuda antes que paracetamol
 
@@ -93,20 +94,31 @@ El segundo error: usar el dolor como medida de progreso. **Las agujetas no son u
 3. **Si el dolor persiste 7-10 días pese a modificar**, busca ayuda profesional. No esperes a que "se pase solo".
 4. **Cambia el termómetro de éxito**: en lugar de "hoy he sudado mucho", pregúntate "hoy he progresado en algo que pueda medir". Repeticiones, peso, calidad técnica.
 
+## Un semáforo más útil que “aguanta o para”
+
+- **Verde:** esfuerzo, quemazón muscular pasajera y técnica estable.
+- **Ámbar:** molestia localizada que cambia el movimiento o aumenta serie a serie. Reduce carga o rango y reevalúa.
+- **Rojo:** dolor súbito intenso, deformidad, pérdida de fuerza o sensibilidad, incapacidad para apoyar, dolor torácico, desmayo, palpitaciones o falta de aire desproporcionada. Detén la sesión y solicita atención; ante síntomas graves, urgente.
+
+No existe una regla doméstica que diagnostique el origen del dolor. “Fortalecer alrededor” puede formar parte de una rehabilitación, pero no sustituye una exploración. Si una molestia persiste, reaparece o limita tu vida diaria, consulta con medicina o fisioterapia.
+
+Si tienes hipotiroidismo, recuerda que puede coexistir dolor muscular o articular ([NIDDK](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)), pero eso no permite atribuirle cualquier dolor ni cambiar medicación por tu cuenta.
+
+
 ## La idea que quiero que te lleves
 
 Entrenar bien es entrenar exigente, pero **no a cualquier precio**. El cuerpo te avisa antes de romperse. Si sabes diferenciar el ardor del trabajo del pinchazo del problema, ahorras meses de frustración.
 
 El "no pain no gain" se diseñó para vender camisetas, no para construir cuerpos sanos. Compromiso sí. Daño no.
 
+
+## Fuentes principales
+
+- [NIDDK: síntomas musculares del hipotiroidismo](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)
+- [NHS: señales para detener el ejercicio](https://www.ouh.nhs.uk/media/mj3bzf3g/106308exercise.pdf)
+
 ---
 
-## ¿Quieres entrenar exigente sin lesionarte por el camino?
+[**Explorar la comunidad gratuita**](/tiroides)
 
-Hago coaching online personalizado desde 2014. Te ajusto la carga, la técnica y el volumen en función de tus señales reales — no en función de cuánto sudas. Llevamos años progresando sin lesiones a personas que antes se rompían cada 3 meses.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

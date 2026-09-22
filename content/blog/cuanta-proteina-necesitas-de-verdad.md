@@ -3,6 +3,7 @@ título: "Cuánta proteína necesitas de verdad: olvida los 2g/kg si no compites
 slug: cuanta-proteina-necesitas-de-verdad
 categoría: Nutrición
 fecha: 2026-05-07
+estado: borrador_revisado
 tiempo_lectura: 7 min
 palabras: 1140
 meta_título: "Cuánta proteína necesitas de verdad | WellnessReal"
@@ -97,7 +98,7 @@ La síntesis proteica funciona mejor cuando repartes la proteína a lo largo del
 Tres errores típicos que veo todas las semanas:
 
 1. **Subestimar lo que ya comen.** Mucha gente cree que come "poca proteína" y al hacer las cuentas reales descubre que ya está en 1,4 g/kg. El problema no era la cantidad, era el reparto.
-2. **Sobreestimar lo que necesitan.** Dejarse llevar por el "más es mejor" y meterse 200 g/día sin necesitarlos. No te va a pasar nada (salvo problemas con cifras extremas y patología renal previa), pero estás gastando dinero y digestión sin beneficio adicional.
+2. **Sobreestimar lo que necesitan.** Dejarse llevar por el "más es mejor" y subir la proteína sin un motivo claro. Puede desplazar otros alimentos y, si existe enfermedad renal, requiere una pauta individual.
 3. **Olvidarse del resto.** La proteína es importante, pero no es lo único. Si comes 180 g de proteína al día y casi nada de fibra, vegetales o grasas saludables, no es una buena dieta. Es una dieta desequilibrada con mucha proteína.
 
 ## Cómo ajustarlo esta semana
@@ -107,20 +108,31 @@ Tres errores típicos que veo todas las semanas:
 3. **Anota durante 3 días** lo que comes. Ojo: la mayoría de apps sobreestiman, pero te da una orientación.
 4. **Compara**: ¿estás cerca, lejos? Ajusta sin obsesionarte. Si te falta proteína, sube en desayuno y merienda (donde casi siempre falla la gente).
 
+## Un rango útil, no una cifra mágica
+
+Para adultos que entrenan fuerza, alrededor de 1,6 g/kg/día es una referencia razonable, no una obligación. En el metaanálisis de Morton y colaboradores, superar aproximadamente esa cantidad no produjo ganancias adicionales claras de masa libre de grasa ([revisión y metaanálisis](https://pubmed.ncbi.nlm.nih.gov/28698222/)). El punto de partida cambia con la edad, la energía total, el objetivo y la situación clínica.
+
+Repartir proteína entre varias comidas puede ser práctico, pero no convierte una distribución concreta en imprescindible. Y un batido es comodidad, no un requisito.
+
+### Riñón y tiroides: dos límites importantes
+
+Si tienes enfermedad renal, la cantidad de proteína debe individualizarse con el equipo sanitario; no apliques una tabla general ([National Kidney Foundation](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount)). En hipotiroidismo, la proteína puede ayudar a la saciedad y al mantenimiento muscular dentro de una alimentación suficiente, pero no “activa” la tiroides ni sustituye el tratamiento.
+
+
 ## La idea que quiero que te lleves
 
 No necesitas 2 g/kg. No necesitas batidos. No necesitas un Excel. Necesitas **comer suficiente proteína repartida durante el día, de fuentes reales, según tu objetivo**.
 
 La diferencia entre 1,6 y 2 g/kg, para la mayoría de personas, no se nota en el espejo. La diferencia entre 0,8 y 1,6, sí.
 
+
+## Fuentes principales
+
+- [Morton et al.: proteína y entrenamiento de fuerza](https://pubmed.ncbi.nlm.nih.gov/28698222/)
+- [National Kidney Foundation: proteína y enfermedad renal](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount)
+
 ---
 
-## ¿Quieres ajustar tu alimentación sin obsesionarte con números?
+[**Ver la clase gratuita**](/tiroides/clase)
 
-Hago coaching online personalizado desde 2014. Diseño pautas nutricionales sencillas, basadas en comida real y ajustadas a tu nivel de actividad — no plantillas con 47 alimentos prohibidos y 12 tuppers semanales.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*

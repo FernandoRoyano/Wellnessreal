@@ -3,6 +3,7 @@ título: "Cómo perder grasa sin contar calorías (lo que sí mido yo con mis cl
 slug: perder-grasa-sin-contar-calorias
 categoría: Nutrición
 fecha: 2026-05-14
+estado: borrador_revisado
 tiempo_lectura: 7 min
 palabras: 1170
 meta_título: "Cómo perder grasa sin contar calorías | WellnessReal"
@@ -41,7 +42,7 @@ Cuando un cliente quiere perder grasa, esto es lo que reviso cada semana. Ningun
 
 ### 1. La estructura del plato
 
-La mayoría de personas que comen mal no es porque cuenten mal calorías. Es porque sus platos están desequilibrados. La regla del **plato de Harvard** funciona casi siempre:
+La mayoría de personas que comen mal no es porque cuenten mal calorías. Es porque sus platos están desequilibrados. Una estructura visual del plato puede ayudar a ajustar raciones sin contar:
 
 - **½ del plato** verduras y hortalizas.
 - **¼ del plato** proteína (pollo, pescado, huevos, legumbres).
@@ -107,20 +108,31 @@ No intentes cambiarlo todo. Cuatro pasos en orden:
 
 Sin báscula de cocina. Sin app. Sin Excel. **Y sin abandonar a la tercera semana.**
 
+## Sin contar no significa sin ajustar
+
+Perder grasa requiere que, de media, la energía ingerida sea menor que la gastada. No es necesario registrar cada caloría para conseguirlo: puedes modificar porciones, bebidas, frecuencia de picoteo y densidad energética. El [NIDDK](https://www.niddk.nih.gov/health-information/weight-management/just-enough-food-portions) señala que la cantidad importa tanto como la elección de alimentos y propone aprender porciones sin medir para siempre.
+
+Usa durante dos semanas tres indicadores: estructura de los platos, hambre entre comidas y promedio de peso o cintura. Si no hay tendencia después de varias semanas, cambia una sola palanca.
+
+### Cuando hay hipotiroidismo
+
+El hipotiroidismo puede asociarse a aumento de peso, pero el cansancio y el peso también tienen muchas otras causas ([NIDDK](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)). Primero debe estar revisado el tratamiento; después, la pérdida de grasa sigue necesitando un plan sostenible. Amplía en [adelgazar con hipotiroidismo](/blog/adelgazar-con-hipotiroidismo) y [por qué no adelgazo con hipotiroidismo](/blog/por-que-no-adelgazo-con-hipotiroidismo).
+
+
 ## La idea que quiero que te lleves
 
 Perder grasa no requiere precisión. Requiere **dirección**. Si la mayoría de tus comidas tienen estructura, si reduces los puntos donde se cuelan calorías invisibles, y si proteges la proteína, vas a perder grasa. No el mismo ritmo que con un plan calculado al gramo, pero **a un ritmo sostenible que no abandonas en mes y medio**.
 
 Y eso, a la larga, es lo único que importa.
 
+
+## Fuentes principales
+
+- [NIDDK: porciones y control del peso](https://www.niddk.nih.gov/health-information/weight-management/just-enough-food-portions)
+- [NIDDK: hipotiroidismo](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)
+
 ---
 
-## ¿Quieres un plan de alimentación realista, sin pesar todo lo que comes?
+[**Ver la clase gratuita**](/tiroides/clase)
 
-Hago coaching online personalizado desde 2014. Diseño pautas adaptadas a tu vida, tu rutina laboral y tus comidas habituales — no menús con 14 alimentos imposibles de combinar con tu familia.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*
