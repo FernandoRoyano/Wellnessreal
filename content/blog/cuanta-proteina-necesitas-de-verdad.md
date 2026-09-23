@@ -1,138 +1,81 @@
 ---
-título: "Cuánta proteína necesitas de verdad: olvida los 2g/kg si no compites"
+título: "Cuánta proteína necesitas: un rango útil según tu objetivo"
 slug: cuanta-proteina-necesitas-de-verdad
 categoría: Nutrición
 fecha: 2026-05-07
 estado: borrador_revisado
 tiempo_lectura: 7 min
-palabras: 1140
-meta_título: "Cuánta proteína necesitas de verdad | WellnessReal"
-meta_descripción: "Olvida los 2g/kg si no compites. La cantidad real de proteína que necesitas según tu edad, tu objetivo y tu nivel — sin marketing fitness."
+palabras: 1100
+meta_título: "Cuánta proteína necesitas | WellnessReal"
+meta_descripción: "Cómo estimar una cantidad de proteína según actividad, edad y objetivo, sin convertir un rango poblacional en una obligación."
 imagen_destacada: "/blog/cuanta-proteina-necesitas-de-verdad.jpg"
 imagen_alt: "Plato con pollo a la plancha, garbanzos y verduras sobre mesa de madera"
 ---
 
-# Cuánta proteína necesitas de verdad: olvida los 2g/kg si no compites
+# Cuánta proteína necesitas: un rango útil según tu objetivo
 
-*7 min de lectura · Categoría: Nutrición*
+No existe una cifra universal de proteína. La cantidad adecuada depende de actividad, edad, objetivo, energía total, preferencias y situación clínica.
 
-Abres Instagram. El primero te dice 2,2 g/kg de peso corporal. El segundo, 1,6. El tercero te recomienda un batido en cada comida porque "sin proteína no hay músculo". El cuarto te vende su programa de "alta proteína para mujeres" como si fuera otra galaxia.
+Los gramos por kilo sirven para orientarse. No son una frontera exacta entre comer bien y hacerlo mal.
 
-Y tú, que no compites en nada, no sabes si estás comiendo poco, demasiado, o si te estás gastando 60€ al mes en suero en polvo sin necesidad.
+## Un punto de partida
 
-Vamos a ordenarlo. Sin marketing.
+La ingesta de referencia para un adulto sano sedentario se sitúa alrededor de 0,8 g/kg/día. Esa cantidad está pensada para cubrir necesidades básicas de la mayoría de la población, no para optimizar todas las adaptaciones deportivas.
 
-## La pregunta correcta no es "cuánta", sino "para qué"
+En personas activas o que entrenan fuerza, un rango aproximado de 1,2-1,6 g/kg/día suele ser una referencia práctica. El [metaanálisis de Morton y colaboradores](https://pubmed.ncbi.nlm.nih.gov/28698222/) estimó que el beneficio medio adicional para aumentar masa libre de grasa se estabilizaba cerca de 1,6 g/kg/día, con un intervalo de incertidumbre más amplio.
 
-La cantidad de proteína no es un número universal. Depende de:
+Eso no significa que 1,59 sea insuficiente, que 1,61 sea perfecto ni que consumir más resulte automáticamente inútil.
 
-- Tu objetivo (mantener, ganar masa, perder grasa).
-- Tu edad.
-- Tu nivel de actividad.
-- Si entrenas fuerza o solo cardio.
+## ¿Hace falta llegar a 2 g/kg?
 
-No tiene sentido decir "todo el mundo necesita 2g/kg". Es como decir que todo el mundo debe entrenar 5 días a la semana. Depende.
+No para todo el mundo. Cantidades más altas pueden tener sentido en determinados deportistas, durante restricciones energéticas exigentes o cuando ayudan a organizar la alimentación. Pero el rango de 1,8-2,4 g/kg procede en gran parte de contextos deportivos específicos y no debe trasladarse como recomendación general para cualquier persona que quiera perder grasa.
 
-## Las cifras que la evidencia respalda
+Durante una pérdida de peso importan también la magnitud del déficit, el entrenamiento de fuerza, la cantidad de grasa corporal y la velocidad de pérdida.
 
-La literatura científica seria (revisiones de Phillips, Helms, Morton) coincide en rangos bastante claros:
+## Un ejemplo, no una prescripción
 
-| Perfil | Proteína recomendada |
-|---|---|
-| Persona sedentaria | 0,8 - 1,2 g/kg |
-| Persona activa, no entrena fuerza | 1,2 - 1,6 g/kg |
-| Entrena fuerza para mantener músculo | 1,4 - 1,8 g/kg |
-| Entrena fuerza buscando ganar músculo | 1,6 - 2,2 g/kg |
-| Persona en déficit calórico (perdiendo grasa) | 1,8 - 2,4 g/kg |
-| Persona mayor (>60 años) | 1,2 - 1,6 g/kg |
+Una persona de 65 kg que entrena fuerza podría probar con unos 90-105 g al día, observar si la alimentación resulta sostenible y ajustar. No necesita acertar cada jornada ni pesar todos los alimentos indefinidamente.
 
-Algunas notas clave:
+Puede repartirlos entre huevos, lácteos, pescado, carne, tofu, soja, legumbres, cereales y frutos secos. Las fuentes vegetales cuentan. Combinar variedad a lo largo del día ayuda a cubrir aminoácidos sin necesidad de completar cada plato de forma perfecta.
 
-- A partir de **1,6 g/kg** los beneficios para hipertrofia son cada vez más pequeños.
-- En déficit calórico la proteína sube porque protege la masa muscular cuando comes menos.
-- En mayores sube porque la respuesta anabólica es más débil con la edad.
+## ¿Hay que repartirla en cuatro comidas?
 
-Si no compites en culturismo ni eres atleta de élite, **rara vez necesitas pasar de 2 g/kg**. La inmensa mayoría de la gente progresa perfectamente entre 1,6 y 1,8.
+Distribuir la proteína entre varias comidas puede facilitar que cada una aporte una cantidad útil y evitar concentrarla toda al final del día. Sin embargo, 25-40 gramos por comida no es una regla universal.
 
-> "Más proteína no es siempre más músculo. Pasado un punto, es solo más comida."
+Una persona pequeña, una comida ligera o una dieta con más ingestas pueden requerir otra distribución. El total diario, la calidad general de la alimentación y el entrenamiento tienen más importancia que acertar una ventana exacta.
 
-## Lo que esto significa en plato real
+Comer una cantidad grande en una comida no significa que “no se absorba”. El organismo la digiere y utiliza; otra cuestión es si esa distribución maximiza una respuesta muscular concreta.
 
-Una mujer de 65 kg, activa, entrena fuerza 3 veces por semana y quiere ganar algo de masa muscular: ~110 g de proteína al día (1,7 g/kg). Algo así:
+## Cuándo puede ayudar un batido
 
-- **Desayuno:** 2 huevos + un yogur griego (~25 g)
-- **Comida:** 130 g de pollo + legumbres (~40 g)
-- **Merienda:** 1 yogur + un puñado de almendras (~12 g)
-- **Cena:** 130 g de pescado + verduras (~30 g)
+La proteína en polvo es una fuente cómoda, no una categoría especial. Puede servir cuando cuesta cubrir la ingesta con comida, falta tiempo o se necesita una opción fácil de transportar.
 
-**Total: ~107 g.** Sin batidos. Sin obsesión. Sin pesar todo en la báscula.
+Si ya cubres una cantidad adecuada, añadir un batido no garantiza más músculo. Tampoco aporta “exactamente cero”: puede ofrecer comodidad, saciedad o una alternativa alimentaria que encaje mejor en tu día.
 
-Un hombre de 80 kg en la misma situación: ~140 g/día. Mismo esquema, raciones algo más grandes y un par de huevos extra en la merienda o tostada de queso.
+No es obligatorio tomarla justo al terminar. Una comida próxima al entrenamiento suele ser suficiente para la mayoría de personas.
 
-## Cuándo sí tiene sentido un batido
+## Edad, riñón y tiroides
 
-Los batidos de proteína no son magia ni veneno. Son **comida en polvo**. Útiles cuando:
+Con la edad puede resultar útil prestar atención a la proteína, especialmente si existe poco apetito o riesgo de pérdida muscular. No toda persona mayor necesita automáticamente el mismo rango ni suplementación.
 
-- Has terminado de entrenar y no vas a comer hasta dos horas después.
-- Llegas con prisa y no has alcanzado tu cuota del día.
-- Viajas y no tienes acceso a comida real decente.
+Si existe enfermedad renal, la cantidad debe individualizarse con el equipo sanitario. No apliques una tabla general. [National Kidney Foundation](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount).
 
-Lo que **no** son los batidos:
+En hipotiroidismo, una alimentación con proteína suficiente puede ayudar a conservar músculo y gestionar saciedad, pero no activa la tiroides ni sustituye el tratamiento.
 
-- Una sustitución sistemática de la comida real.
-- Una vía rápida para "ponerte fuerte sin entrenar".
-- Necesarios si ya cubres con comida.
+## Cómo calcular sin obsesionarte
 
-Si llegas a tus gramos con comida normal, el batido te aporta exactamente cero ventaja extra. Te aporta comodidad, no resultados.
+1. Elige un rango de partida acorde con tu actividad.
+2. Observa durante unos días cuánto aportan tus comidas habituales.
+3. Ajusta primero con alimentos que te gusten y toleres.
+4. Valora rendimiento, hambre, digestión y sostenibilidad.
+5. Revisa la pauta si cambia tu objetivo o situación clínica.
 
-## El error más común con la proteína
+## Bibliografía
 
-No es comer poca. Es **distribuirla mal**.
-
-Muchas personas comen casi nada en el desayuno (un café y una tostada con mermelada), poco al mediodía y se ponen las botas en la cena. Resultado: una sola comida con 60 g de proteína y otras dos casi vacías.
-
-La síntesis proteica funciona mejor cuando repartes la proteína a lo largo del día. **3-4 ingestas con 25-40 g cada una** es el patrón que mejor evidencia tiene. Comer 100 g de pechuga de una sentada no te aporta más que comer 30 g cuatro veces.
-
-## Lo que casi todos hacen mal
-
-Tres errores típicos que veo todas las semanas:
-
-1. **Subestimar lo que ya comen.** Mucha gente cree que come "poca proteína" y al hacer las cuentas reales descubre que ya está en 1,4 g/kg. El problema no era la cantidad, era el reparto.
-2. **Sobreestimar lo que necesitan.** Dejarse llevar por el "más es mejor" y subir la proteína sin un motivo claro. Puede desplazar otros alimentos y, si existe enfermedad renal, requiere una pauta individual.
-3. **Olvidarse del resto.** La proteína es importante, pero no es lo único. Si comes 180 g de proteína al día y casi nada de fibra, vegetales o grasas saludables, no es una buena dieta. Es una dieta desequilibrada con mucha proteína.
-
-## Cómo ajustarlo esta semana
-
-1. **Pesa tu peso real** en ayunas un día normal.
-2. **Multiplica por 1,6** si entrenas fuerza para mantener / ganar músculo. Por 1,2 si solo te mueves un poco.
-3. **Anota durante 3 días** lo que comes. Ojo: la mayoría de apps sobreestiman, pero te da una orientación.
-4. **Compara**: ¿estás cerca, lejos? Ajusta sin obsesionarte. Si te falta proteína, sube en desayuno y merienda (donde casi siempre falla la gente).
-
-## Un rango útil, no una cifra mágica
-
-Para adultos que entrenan fuerza, alrededor de 1,6 g/kg/día es una referencia razonable, no una obligación. En el metaanálisis de Morton y colaboradores, superar aproximadamente esa cantidad no produjo ganancias adicionales claras de masa libre de grasa ([revisión y metaanálisis](https://pubmed.ncbi.nlm.nih.gov/28698222/)). El punto de partida cambia con la edad, la energía total, el objetivo y la situación clínica.
-
-Repartir proteína entre varias comidas puede ser práctico, pero no convierte una distribución concreta en imprescindible. Y un batido es comodidad, no un requisito.
-
-### Riñón y tiroides: dos límites importantes
-
-Si tienes enfermedad renal, la cantidad de proteína debe individualizarse con el equipo sanitario; no apliques una tabla general ([National Kidney Foundation](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount)). En hipotiroidismo, la proteína puede ayudar a la saciedad y al mantenimiento muscular dentro de una alimentación suficiente, pero no “activa” la tiroides ni sustituye el tratamiento.
-
-
-## La idea que quiero que te lleves
-
-No necesitas 2 g/kg. No necesitas batidos. No necesitas un Excel. Necesitas **comer suficiente proteína repartida durante el día, de fuentes reales, según tu objetivo**.
-
-La diferencia entre 1,6 y 2 g/kg, para la mayoría de personas, no se nota en el espejo. La diferencia entre 0,8 y 1,6, sí.
-
-
-## Fuentes principales
-
-- [Morton et al.: proteína y entrenamiento de fuerza](https://pubmed.ncbi.nlm.nih.gov/28698222/)
-- [National Kidney Foundation: proteína y enfermedad renal](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount)
-
----
+- Morton RW et al. [Protein supplementation and resistance training: systematic review and meta-analysis](https://pubmed.ncbi.nlm.nih.gov/28698222/). 2018.
+- Jäger R et al. [ISSN Position Stand: protein and exercise](https://pubmed.ncbi.nlm.nih.gov/28642676/). 2017.
+- National Kidney Foundation. [CKD diet: how much protein is the right amount?](https://www.kidney.org/kidney-topics/ckd-diet-how-much-protein-right-amount).
 
 [**Ver la clase gratuita**](/tiroides/clase)
 
-*Contenido divulgativo. No sustituye una evaluación médica, fisioterapéutica o nutricional individual.*
+*Contenido divulgativo. No sustituye una evaluación nutricional o médica individual.*
