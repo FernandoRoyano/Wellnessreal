@@ -6,7 +6,7 @@ fecha: 2026-05-28
 tiempo_lectura: 7 min
 meta_título: "Rutina de 30 minutos en casa | WellnessReal"
 meta_descripción: "Una plantilla de fuerza de 30 minutos para entrenar en casa con progresión flexible, sin afirmar que exista una única rutina válida."
-imagen_destacada: "/blog/rutina-30-minutos-en-casa.jpg"
+imagen_destacada: "/blog/rutina-30-minutos-en-casa-editorial.png"
 imagen_alt: "Persona entrenando fuerza en casa con mancuernas"
 ---
 
