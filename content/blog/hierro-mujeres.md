@@ -118,3 +118,11 @@ Si hay déficit y tu médico lo indica, sácale el máximo partido:
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**
 
 *Esta guía tiene fines informativos y no sustituye el consejo de un profesional sanitario. No tomes suplementos de hierro sin una analítica previa que confirme el déficit y, preferiblemente, sin supervisión médica.*
+
+## Bibliografía
+
+- NIH Office of Dietary Supplements. [Iron: Fact Sheet for Health Professionals](https://ods.od.nih.gov/factsheets/Iron-HealthProfessional/).
+- World Health Organization. [Anaemia](https://www.who.int/health-topics/anaemia).
+- Stoffel NU et al. [Iron absorption from oral iron supplements given on consecutive versus alternate days](https://pubmed.ncbi.nlm.nih.gov/29032957/). *The Lancet Haematology*. 2017.
+
+**Si tomas levotiroxina:** el hierro puede reducir su absorción. La ficha del medicamento suele indicar separar ambas tomas al menos cuatro horas; confirma la pauta con tu médico o farmacéutico.

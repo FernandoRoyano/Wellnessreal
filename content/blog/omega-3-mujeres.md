@@ -34,8 +34,8 @@ Cuando hablamos del suplemento útil, hablamos de **EPA + DHA**. Grábate esas d
 
 ## Para qué sirve de verdad
 
-- **Salud cardiovascular:** es su terreno mejor respaldado. Ayuda a bajar los triglicéridos y tiene efectos favorables sobre el sistema cardiovascular, sobre todo en quien parte de niveles altos.
-- **Estado de ánimo:** hay evidencia de que el EPA, en particular, puede apoyar el ánimo, especialmente en personas con síntomas depresivos. No es un antidepresivo, pero el efecto es real.
+- **Triglicéridos:** dosis farmacológicas de omega 3 pueden reducirlos, bajo indicación y seguimiento profesional. Esto no equivale a que cualquier suplemento comercial prevenga infartos.
+- **Estado de ánimo:** algunos metaanálisis encuentran un posible beneficio como complemento en determinados cuadros depresivos, pero los resultados son heterogéneos. No sustituye un tratamiento de salud mental.
 - **Embarazo y lactancia:** el DHA es importante para el desarrollo del bebé. Si estás embarazada o buscándolo, es un caso donde suele tener sentido (coméntalo con tu matrona/médico).
 - **Salud general si no comes pescado:** si el pescado azul brilla por su ausencia en tu dieta, el suplemento es una forma sensata de cubrir el hueco.
 
@@ -87,10 +87,10 @@ Aquí te timan a diario. Un bote pone en grande **"Aceite de pescado 1.000 mg"**
 
 - **Lo que importa es el EPA + DHA**, no el "aceite de pescado total" de la etiqueta.
 - **Para qué sirve (🟡):** corazón (triglicéridos), ánimo (sobre todo EPA), desarrollo del bebé en embarazo, y cubrir el hueco si no comes pescado azul.
-- **Dosis:** ~1-2 g de EPA+DHA al día. Si comes pescado azul varias veces por semana, igual ni lo necesitas.
-- **Más NO es mejor:** las megadosis no aportan extra y a dosis muy altas pueden subir el riesgo de arritmias.
+- **Dosis:** no existe una cifra universal para todos los objetivos. La alimentación, el diagnóstico y el producto importan.
+- **Más no es necesariamente mejor:** ensayos con 4 g diarios en personas con enfermedad cardiovascular o alto riesgo observaron un pequeño aumento de fibrilación auricular.
 - **Calidad:** forma de triglicérido, concentrado, fresco (no oxidado), purificado. Algas si eres vegana.
-- **La comida primero:** dos o tres raciones de pescado azul a la semana es la mejor versión de este suplemento.
+- **La comida primero:** las recomendaciones alimentarias priorizan consumir pescado dentro de una dieta variada; la cantidad adecuada depende también de embarazo, especie y exposición a mercurio.
 
 ---
 
@@ -101,3 +101,9 @@ Aquí te timan a diario. Un bote pone en grande **"Aceite de pescado 1.000 mg"**
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**
 
 *Esta guía tiene fines informativos y no sustituye el consejo de un profesional sanitario. Si tomas anticoagulantes, tienes una condición cardíaca o estás embarazada, consulta con tu médico antes de suplementar omega 3.*
+
+## Bibliografía
+
+- NIH Office of Dietary Supplements. [Omega-3 Fatty Acids: Fact Sheet for Health Professionals](https://ods.od.nih.gov/factsheets/Omega3FattyAcids-HealthProfessional/).
+- Cochrane. [Omega-3 fatty acids for the primary and secondary prevention of cardiovascular disease](https://www.cochrane.org/evidence/CD003177_omega-3-intake-cardiovascular-disease).
+- European Food Safety Authority. [Mercury in food](https://www.efsa.europa.eu/en/topics/topic/mercury).

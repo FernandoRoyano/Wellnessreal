@@ -1,7 +1,7 @@
 ---
 título: "Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing)"
 slug: vitamina-d-mujeres
-meta_descripción: "La vitamina D no es el seguro universal que te han vendido. Te explico qué dice la evidencia reciente, cuándo suplementar tiene sentido de verdad, qué dosis y por qué deberías medirte antes de comprar el bote."
+meta_descripción: "Qué dice la evidencia sobre vitamina D, cuándo puede estar indicada una analítica o suplementación y por qué no existe una pauta universal."
 fecha: 2026-06-16
 autor: "Fernando Royano"
 categoría: "Suplementación"
@@ -15,7 +15,7 @@ imagen_alt: "Cápsulas de vitamina D junto a una ventana con luz de sol, estéti
 
 Pocos suplementos han pasado de "milagro para todo" a "depende" tan rápido como la vitamina D. Durante años te la vendieron como un seguro universal: para los huesos, las defensas, el ánimo, la energía... Toma el bote y a correr. La evidencia reciente ha puesto las cosas en su sitio, y conviene que lo sepas antes de gastarte el dinero.
 
-Spoiler: la vitamina D importa, y el déficit es más común de lo que parece. Pero suplementar **a ciegas, sin saber tus niveles, no es cuidarse**. Es tirar el dinero en el mejor de los casos.
+La vitamina D importa, pero suplementar sin una indicación clara no garantiza beneficios adicionales y las dosis altas pueden causar daño.
 
 > **Calificación de evidencia: 🟡 Útil con matices.** Funciona y es importante cuando hay déficit. Como "seguro" para todo el mundo tomado sin más, la evidencia reciente la ha enfriado bastante.
 
@@ -57,7 +57,7 @@ Si no estás en ninguno de estos grupos y haces vida al aire libre, es muy posib
 
 ## El mensaje clave: mídete antes de suplementar
 
-Aquí está la diferencia entre hacerlo bien y hacerlo a lo loco. La vitamina D se mide con un análisis de sangre sencillo (**25-hidroxivitamina D**, o 25(OH)D). Pídelo en tu próxima analítica.
+La vitamina D se valora mediante la **25-hidroxivitamina D** o 25(OH)D. Eso no significa que toda persona sana necesite solicitarla: las guías actuales no recomiendan un cribado rutinario universal. La decisión depende de síntomas, factores de riesgo y criterio clínico.
 
 - Si estás **por debajo del rango**, corregirlo merece la pena y el médico te indicará la dosis.
 - Si estás **bien**, el bote no te va a dar un extra de energía ni de defensas. Ahórratelo.
@@ -104,7 +104,7 @@ La vitamina D es **barata**. No es un suplemento donde tenga sentido gastar much
 
 - **Importa**, pero no es el seguro universal que te vendieron. Su valor está en **corregir déficit**, no en sumar de más.
 - **El sol por la ventana no cuenta**, y en invierno la síntesis cae aunque haya sol.
-- **Mídete antes** (análisis de 25(OH)D). Si estás baja, corrígelo; si estás bien, ahórrate el bote.
+- **No existe una regla universal de análisis o suplemento.** Valóralo según tus factores de riesgo y la recomendación profesional.
 - **Forma:** D3, con una comida con grasa. Dosis según tu analítica y tu médico.
 - **Es liposoluble:** se acumula. Nada de megadosis "por si acaso".
 - **Barata:** no pagues de más por fórmulas "premium".
@@ -118,3 +118,9 @@ La vitamina D es **barata**. No es un suplemento donde tenga sentido gastar much
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**
 
 *Esta guía tiene fines informativos y no sustituye el consejo de un profesional sanitario. No empieces a suplementar vitamina D en dosis altas sin una analítica y la supervisión de tu médico.*
+
+## Bibliografía
+
+- NIH Office of Dietary Supplements. [Vitamin D: Fact Sheet for Health Professionals](https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/).
+- Endocrine Society. [Vitamin D for the Prevention of Disease: Clinical Practice Guideline](https://www.endocrine.org/clinical-practice-guidelines/vitamin-d-for-prevention-of-disease). 2024.
+- LeBoff MS et al. [Supplemental Vitamin D and Incident Fractures in Midlife and Older Adults](https://pubmed.ncbi.nlm.nih.gov/35939577/). *New England Journal of Medicine*. 2022.

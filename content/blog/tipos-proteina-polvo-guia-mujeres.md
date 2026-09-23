@@ -25,7 +25,7 @@ Eso es lo que vamos a arreglar aquí.
 
 ## Primero, lo único que de verdad importa
 
-Antes de comparar tipos, grábate esto: **lo que más mueve la aguja es tu proteína total del día**, no qué polvo concreto eliges. Una mujer activa que quiere mantener o ganar músculo necesita en torno a **1,6-2,2 g de proteína por kilo de peso al día**, repartida en varias comidas.
+Antes de comparar tipos, quédate con esto: **lo que más influye es la proteína total del día**, no el polvo concreto. Las necesidades dependen del objetivo, la actividad, la edad, la ingesta energética y el contexto clínico. En personas sanas que entrenan fuerza, alrededor de 1,6 g/kg/día cubre el beneficio medio observado para ganar masa muscular; no es una obligación ni una frontera exacta.
 
 Si llegas a esa cifra, el tipo de batido que tomes es un detalle menor. Si NO llegas, ahí es donde el polvo te salva la vida.
 
@@ -37,7 +37,7 @@ Aquí va la tabla de referencia, basada en valor biológico y PDCAAS:
 
 | Fuente | Valor biológico | PDCAAS | Traducción simple |
 |---|---|---|---|
-| Suero (whey): hidrolizado/aislado/concentrado | 100-104 | 1.00 | Top absoluto |
+| Suero (whey): hidrolizado/aislado/concentrado | 100-104 | 1.00 | Buena digestibilidad y perfil de aminoácidos |
 | Huevo entero | 97-100 | 1.00 | Excelente |
 | Leche / caseína | 71-91 | 1.00 | Muy buena, digestión lenta |
 | Soja | 74 | 0.91-1.00 | La mejor vegetal individual |
@@ -52,7 +52,7 @@ Aquí va la tabla de referencia, basada en valor biológico y PDCAAS:
 Es la más popular y, para la mayoría, la mejor opción por defecto. Se digiere rápido, tiene un perfil de aminoácidos excelente y es muy rica en leucina. Viene en tres formatos según cuánto se ha "filtrado":
 
 **Concentrado de whey.**
-El más común y el más barato. Entre un 70-80% de proteína, con algo de lactosa y grasa. **Para el 90% de las mujeres, es más que suficiente.** No pagues de más buscando algo "más puro" si tu estómago tolera bien la lactosa.
+El más común y normalmente el más barato. Suele contener alrededor de un 70-80% de proteína, además de algo de lactosa y grasa. Puede ser suficiente si toleras bien la lactosa y encaja en tu alimentación.
 
 **Aislado de whey (isolate).**
 Más filtrado: ~90% de proteína, casi sin lactosa ni grasa. Tiene sentido si **eres intolerante a la lactosa**, si quieres minimizar al máximo grasas e hidratos, o si buscas una textura más ligera. Cuesta más. Para mucha gente, ese sobrecoste no se justifica.
@@ -143,8 +143,8 @@ Cálculo rápido: a una dosis de ~30 g, un kilo te da unas **33 tomas**. Un conc
 
 ## El resumen para no liarte
 
-- **Lo que más importa:** tu proteína total del día (1,6-2,2 g/kg). El tipo de polvo es secundario.
-- **Si toleras la leche →** **whey concentrado**. Barato, completo, cómodo. Para el 90% de los casos, no necesitas más.
+- **Lo que más importa:** cubrir una cantidad adecuada de proteína total. El rango depende de la persona; el tipo de polvo es secundario.
+- **Si toleras la leche →** el **whey concentrado** suele ser una opción cómoda y económica; el aislado no aporta automáticamente mejores resultados.
 - **Intolerante a la lactosa →** aislado de whey, proteína de huevo, o una buena mezcla vegetal.
 - **Vegana/vegetariana →** mezcla vegetal (guisante + arroz o soja). La evidencia reciente la respalda: bien formulada, iguala al whey.
 - **Caseína e hidrolizado →** opcionales, casos concretos. No los necesitas "porque sí".
@@ -158,3 +158,9 @@ Cálculo rápido: a una dosis de ~30 g, un kilo te da unas **33 tomas**. Un conc
 *¿No sabes cuánta proteína necesitas tú ni cómo encajarla en tu día sin volverte loca contando? Eso es exactamente lo que monto en WellnessReal: estructura real para tu vida real, sin gramos imposibles ni dietas que abandonas en dos semanas.*
 
 **📲 WhatsApp: 633 261 963 · wellnessreal.es**
+
+## Bibliografía
+
+- Morton RW et al. [Protein supplementation and resistance training: systematic review and meta-analysis](https://pubmed.ncbi.nlm.nih.gov/28698222/). *British Journal of Sports Medicine*. 2018.
+- Jäger R et al. [ISSN Position Stand: protein and exercise](https://pubmed.ncbi.nlm.nih.gov/28642676/). 2017.
+- FAO. [Dietary protein quality evaluation in human nutrition](https://www.fao.org/4/i3124e/i3124e.pdf). 2013.

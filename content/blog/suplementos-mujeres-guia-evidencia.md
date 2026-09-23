@@ -19,7 +19,7 @@ La realidad es más aburrida y más barata: **la mayoría de lo que se vende esp
 
 Esta es la guía que me gustaría que leyeras antes de gastarte un euro. Sin promesas mágicas y sin demonizar todo por sistema. Solo lo que dice la ciencia a día de hoy, ordenado para que sepas en qué merece la pena invertir y de qué puedes pasar tranquilamente.
 
-> **Antes de nada:** ningún suplemento sustituye a comer suficiente proteína, entrenar fuerza, dormir y moverte. Un suplemento *complementa*; nunca arregla una base que no existe. Si tu alimentación y tu entrenamiento no están en orden, ningún bote va a cambiar nada.
+> **Antes de nada:** un suplemento puede corregir una carencia o apoyar un objetivo concreto, pero no sustituye una alimentación suficiente, el movimiento, el descanso ni un tratamiento sanitario cuando hace falta.
 
 ## Cómo leer esta guía: el semáforo de la evidencia
 
@@ -36,11 +36,11 @@ Para que no te pierdas, he clasificado cada suplemento según la calidad de la e
 
 | Suplemento | Evidencia | Veredicto rápido |
 |------------|:---------:|------------------|
-| Creatina monohidrato | 🟢 | El mejor suplemento que existe, y el que más miedo te da sin motivo. |
+| Creatina monohidrato | 🟢 | Puede aportar una mejora adicional en rendimiento y fuerza; no es necesaria para todo el mundo. |
 | Proteína en polvo | 🟢 | No es obligatoria, pero es la herramienta más útil para llegar a tu proteína diaria. |
 | Vitamina D3 | 🟡 | Solo si tienes déficit. No es un seguro óseo universal. |
 | Omega 3 (EPA/DHA) | 🟡 | Sí a dosis moderada. Las megadosis no aportan más y pueden restar. |
-| Hierro | 🟡 | Relevante en muchas mujeres, pero **nunca sin analítica**. |
+| Hierro | 🟡 | Puede estar indicado ante un déficit confirmado y tras valorar su causa. |
 | Magnesio | 🟠 | Útil si hay déficit; flojo para "sueño y estrés". |
 | Multivitamínico | 🟠 | Inútil para tu rendimiento; quizá interesante a partir de los 60. |
 | Vitamina C | 🔴 | Sobrevalorada para inmunidad y rendimiento en gente sana. |
@@ -84,7 +84,7 @@ Aquí toca matizar el discurso de toda la vida. Durante años se ha vendido como
 
 El mensaje sensato: **mídete antes de suplementar.** Si estás baja, corregirlo merece la pena. Si estás bien, el bote no te va a dar un extra.
 
-👉 **Amplía aquí:** [Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing)](/blog/vitamina-d-mujeres) — qué dice la evidencia reciente (VITAL, D-Health), por qué solo merece la pena si hay déficit, qué dosis tiene sentido y por qué deberías medirte antes de comprar el bote.
+👉 **Amplía aquí:** [Vitamina D: cuándo de verdad la necesitas (y cuándo es marketing)](/blog/vitamina-d-mujeres) — qué dicen los grandes ensayos, cuándo puede estar indicada una analítica y por qué no existe una pauta universal.
 
 ### 🟡 Omega 3 (EPA y DHA)
 
@@ -122,7 +122,7 @@ El clásico "para las defensas". En personas sanas y bien alimentadas, suplement
 
 El producto estrella vendido a mujeres "para la piel y las articulaciones". Y aquí está el dato que nadie te cuenta: un metaanálisis reciente analizó los estudios separándolos por **quién los financiaba**. ¿El resultado? Los estudios **independientes** y los de **alta calidad** no encontraron efecto sobre la piel. Los que sí lo encontraban estaban, en su mayoría, **financiados por la industria** que vende el producto.
 
-Para ser justos: el debate sigue abierto y hay metaanálisis que sí ven mejoras en hidratación y elasticidad. Pero el titular es difícil de ignorar: *casi todo lo bueno que has leído del colágeno lo paga quien te lo vende.* Si quieres cuidar tu piel, el dinero rinde más en protección solar, no fumar, dormir y suficiente proteína total (de la que el colágeno no es, ni de lejos, la mejor fuente).
+Hay metaanálisis que observan posibles mejoras en hidratación o elasticidad, pero muchos estudios tienen financiación industrial y emplean productos y dosis diferentes. La conclusión prudente es que el beneficio, si aparece, suele ser modesto y no convierte el colágeno en una prioridad universal.
 
 ### 🔴 Quemagrasas, L-carnitina, CLA y "detox"
 
@@ -134,10 +134,10 @@ Lo diré claro para que no haya dudas: **no existe ninguna pastilla que queme gr
 
 Si tuviera que quedarme con lo esencial para una mujer que entrena y quiere verse y sentirse bien:
 
-1. **Lo gratis primero:** proteína suficiente en la comida, fuerza, sueño y movimiento. Esto es el 90% del resultado.
-2. **Si vas a suplementar algo, que sea creatina** (monohidrato, 3-5 g/día) y, si te cuesta llegar a la proteína, **proteína en polvo**.
-3. **Mídete antes de tocar vitamina D o hierro.** Suplementar a ciegas no es "cuidarse", es jugar a la lotería con tu salud.
-4. **Olvídate del colágeno, los quemagrasas y los detox.** Es donde más dinero se tira con menos retorno.
+1. **La base primero:** una alimentación suficiente, entrenamiento adaptado, sueño y movimiento habitual.
+2. **Suplementa para un objetivo concreto**, no porque exista una lista universal para mujeres.
+3. **Hierro y vitamina D requieren contexto.** El hierro no debe tomarse sin evaluar un posible déficit; el cribado de vitamina D tampoco es necesario para toda persona sana.
+4. **Desconfía de quemagrasas y detox.** En colágeno existen resultados mixtos y posibles aplicaciones concretas, pero no debe presentarse como imprescindible.
 
 El resto es ruido. Y ahorrarte ese ruido —en dinero y en cabeza— ya es ganar.
 
@@ -148,3 +148,9 @@ El resto es ruido. Y ahorrarte ese ruido —en dinero y en cabeza— ya es ganar
 > ¿Tienes dudas con algún suplemento concreto? Escríbeme la palabra **VERDAD** por Instagram y te paso la guía completa.
 
 *Esta guía tiene fines informativos y no sustituye el consejo de un profesional sanitario. Antes de iniciar cualquier suplementación, especialmente si tienes alguna condición médica o tomas medicación, consulta con tu médico.*
+
+## Bibliografía
+
+- NIH Office of Dietary Supplements. [Dietary Supplement Fact Sheets](https://ods.od.nih.gov/factsheets/list-all/).
+- Australian Institute of Sport. [Sports Supplement Framework](https://www.ais.gov.au/nutrition/supplements).
+- Maughan RJ et al. [IOC consensus statement: dietary supplements and the high-performance athlete](https://pubmed.ncbi.nlm.nih.gov/29540367/). *British Journal of Sports Medicine*. 2018.

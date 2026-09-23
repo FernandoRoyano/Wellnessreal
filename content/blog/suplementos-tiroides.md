@@ -5,7 +5,7 @@ excerpt: "Yodo, selenio, vitamina D, hierro y aceleradores del metabolismo: qué
 author: "Fernando Royano"
 ---
 
-Con la tiroides hay un negocio enorme montado alrededor del miedo: pastillas, polvos y goteros que prometen “activar” el metabolismo, curar el Hashimoto o hacerte adelgazar sin esfuerzo. Algunas cosas no sirven, otras solo tienen sentido si existe una carencia y alguna puede ser contraproducente.
+Alrededor de la tiroides se comercializan pastillas, polvos y goteros que prometen “activar” el metabolismo, curar el Hashimoto o facilitar la pérdida de peso. Algunas sustancias solo tienen sentido si existe una carencia; otras no han demostrado el beneficio anunciado y alguna puede ser contraproducente.
 
 Antes de seguir, una línea roja: **esto no es una recomendación para que te suplementes por tu cuenta**. La tiroides es sensible tanto a la falta como al exceso de ciertos nutrientes. Si tienes hipotiroidismo, Hashimoto, estás embarazada o tomas levotiroxina, cualquier suplemento debe valorarse con el profesional que conoce tus analíticas y tu tratamiento.
 

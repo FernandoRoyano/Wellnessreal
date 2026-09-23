@@ -98,7 +98,7 @@ Interrumpe el ejercicio y busca valoración si aparece dolor en el pecho, desmay
 
 ## Lo que dice la evidencia, sin vender milagros
 
-Una [revisión sistemática y metaanálisis sobre ejercicio e hipotiroidismo](https://pubmed.ncbi.nlm.nih.gov/37999992/) encontró estudios de calidad baja a moderada, sobre todo en mujeres con hipotiroidismo subclínico. El ejercicio aeróbico y de fuerza pareció seguro y mostró mejoras en resultados físicos y mentales, pero **no produjo cambios significativos en la función tiroidea**.
+Una [revisión sistemática y metaanálisis sobre ejercicio e hipotiroidismo](https://pubmed.ncbi.nlm.nih.gov/37999992/) encontró estudios de calidad baja a moderada, sobre todo en mujeres con hipotiroidismo subclínico. El ejercicio aeróbico y de fuerza pareció seguro y mostró mejoras físicas y mentales, pero no produjo cambios significativos en la función tiroidea. Una [revisión de 2025](https://pubmed.ncbi.nlm.nih.gov/40446861/) encontró posibles cambios en TSH y T4, aunque con pocos ensayos, heterogeneidad y certeza muy baja para algunos resultados. En conjunto, la evidencia hormonal sigue siendo limitada e inconsistente.
 
 La [Organización Mundial de la Salud](https://www.who.int/news-room/fact-sheets/detail/physical-activity) recomienda combinar actividad aeróbica y fortalecimiento muscular, recuerda que toda actividad cuenta y que algo de movimiento es mejor que nada.
 
