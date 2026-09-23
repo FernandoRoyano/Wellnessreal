@@ -2,7 +2,7 @@
 titulo: "Dormir poco y entrenar: qué puede cambiar y qué no"
 slug: dormir-mal-arruina-tu-progreso
 categoria: Recuperación
-fecha: 2026-09-23
+fecha: 2026-08-05
 tiempo_lectura: 6 min
 meta_descripcion: "Dormir poco puede empeorar el rendimiento y la recuperación. Qué dice la evidencia y cómo ajustar el entrenamiento."
 imagen_destacada: "/blog/dormir-mal-arruina-tu-progreso.jpg"

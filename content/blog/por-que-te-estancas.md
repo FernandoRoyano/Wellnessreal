@@ -2,7 +2,7 @@
 titulo: "Estancamiento: qué revisar antes de cambiarlo todo"
 slug: por-que-te-estancas
 categoria: Composición corporal
-fecha: 2026-09-23
+fecha: 2026-09-02
 tiempo_lectura: 7 min
 meta_descripcion: "Distingue fluctuaciones normales de un estancamiento real y revisa el plan sin recurrir a explicaciones mágicas."
 imagen_destacada: "/blog/por-que-te-estancas.jpg"

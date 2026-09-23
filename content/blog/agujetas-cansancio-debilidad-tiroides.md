@@ -2,7 +2,7 @@
 titulo: "Agujetas persistentes, cansancio y debilidad: qué revisar"
 slug: agujetas-cansancio-debilidad-tiroides
 categoria: Tiroides y entrenamiento
-fecha: 2026-09-23
+fecha: 2026-07-29
 tiempo_lectura: 7 min
 meta_descripcion: "Dolor muscular, fatiga y debilidad no significan automáticamente hipotiroidismo. Aprende a diferenciarlos y cuándo consultar."
 imagen_destacada: "/blog/agujetas-cansancio-debilidad-tiroides.jpg"

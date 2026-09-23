@@ -2,7 +2,7 @@
 titulo: "No siempre falta voluntad: cómo diseñar un plan posible"
 slug: no-te-falta-fuerza-de-voluntad-te-falta-metodo
 categoria: Hábitos y mentalidad
-fecha: 2026-09-23
+fecha: 2026-08-19
 tiempo_lectura: 6 min
 meta_descripcion: "La constancia no depende solo de quererlo mucho. Convierte una intención en un plan que sobreviva a los días complicados."
 imagen_destacada: "/blog/no-te-falta-fuerza-de-voluntad-te-falta-metodo.jpg"

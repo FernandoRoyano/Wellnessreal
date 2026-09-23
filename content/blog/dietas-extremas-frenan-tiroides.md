@@ -2,7 +2,7 @@
 titulo: "Dietas extremas, metabolismo y tiroides: qué sabemos"
 slug: dietas-extremas-frenan-tiroides
 categoria: Tiroides y nutrición
-fecha: 2026-09-23
+fecha: 2026-08-12
 tiempo_lectura: 7 min
 meta_descripcion: "Una restricción energética agresiva puede provocar adaptaciones, pero no equivale a causar hipotiroidismo. Qué sabemos y cómo actuar."
 imagen_destacada: "/blog/dietas-extremas-frenan-tiroides.jpg"

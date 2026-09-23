@@ -2,7 +2,7 @@
 titulo: "Menopausia e hipotiroidismo: síntomas que pueden solaparse"
 slug: menopausia-y-tiroides
 categoria: Tiroides y salud
-fecha: 2026-09-23
+fecha: 2026-08-26
 tiempo_lectura: 7 min
 meta_descripcion: "Fatiga, cambios de ánimo o peso pueden aparecer en la transición menopáusica y en el hipotiroidismo. Cómo evitar atribuciones precipitadas."
 imagen_destacada: "/blog/menopausia-y-tiroides.jpg"
