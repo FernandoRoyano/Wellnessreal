@@ -1,136 +1,54 @@
 ---
-título: "Por qué te estancas (y casi nunca es lo que crees)"
+titulo: "Estancamiento: qué revisar antes de cambiarlo todo"
 slug: por-que-te-estancas
-categoría: Hábitos y Mentalidad
-fecha: 2026-05-28
+categoria: Composición corporal
+fecha: 2026-09-23
 tiempo_lectura: 7 min
-palabras: 1130
-meta_título: "Por qué te estancas y no es lo que crees | WellnessReal"
-meta_descripción: "Llevas meses sin progresar y no sabes por qué. Las 5 causas reales del estancamiento — y cuál es casi siempre la verdadera."
+meta_descripcion: "Distingue fluctuaciones normales de un estancamiento real y revisa el plan sin recurrir a explicaciones mágicas."
 imagen_destacada: "/blog/por-que-te-estancas.jpg"
-imagen_alt: "Persona sentada en banco mirando libreta con apuntes de entrenamiento"
+imagen_alt: "Persona revisando sus registros de entrenamiento"
 ---
 
-# Por qué te estancas (y casi nunca es lo que crees)
+# Estancamiento: qué revisar antes de cambiarlo todo
 
-*7 min de lectura · Categoría: Hábitos y Mentalidad*
+El peso lleva dos semanas igual y parece que nada funciona. Antes de reducir drásticamente la comida, añadir cardio o culpar al metabolismo, hay que responder una pregunta: **¿estamos viendo una tendencia o solo ruido?**
 
-Llevas tres meses entrenando duro. Comes mejor que hace un año. La báscula no se mueve. El espejo no cambia. Las pesas en el gimnasio son las mismas que en febrero. Y empiezas a pensar lo que casi todos: "es que mi cuerpo es así", "es genético", "ya tengo una edad", "necesito un suplemento nuevo".
+## Dos semanas no siempre forman una tendencia
 
-Casi nunca es eso. **El estancamiento real tiene 5 causas posibles**, y la verdadera no es la que sueles asumir.
+El peso cambia por agua, glucógeno, contenido intestinal, sal, alcohol, entrenamiento y, en quienes menstrúan, por variaciones relacionadas con el ciclo. Una medición aislada no distingue estos cambios de una variación de grasa corporal.
 
-Vamos a verlas en orden, de la más rara a la más probable.
+Usa condiciones parecidas y observa promedios semanales. Combínalos con perímetros, ropa, fotografías comparables y rendimiento. Si varias medidas no cambian durante unas semanas y el plan se ha aplicado de forma consistente, entonces sí merece una revisión.
 
-## Causa 1 (poco frecuente): el plan es el problema
+## El gasto cambia durante la pérdida de peso
 
-Sí, a veces tu rutina es mala o tu dieta está mal calculada. Pero **es la causa menos común**. Si entrenas con criterio, comes con cabeza y duermes razonablemente, el plan rara vez es lo que falla.
+Al perder peso suele disminuir el gasto energético: un cuerpo más ligero necesita menos energía y también pueden aparecer adaptaciones adicionales. La termogénesis adaptativa es real, pero no significa que el metabolismo esté “roto” ni que perder grasa se vuelva físicamente imposible [1,2]. Significa que el déficit inicial puede hacerse menor y que el hambre o la fatiga pueden dificultar mantenerlo.
 
-El error de la gente es **cambiar el plan al primer estancamiento**. Saltan de programa de Instagram en programa de YouTube cada 4 semanas. Si cambias el plan cada vez que sospechas, **nunca llegas a saber si el plan funcionaba**, porque no le das tiempo.
+La respuesta no debe ser automáticamente comer cada vez menos. Primero conviene comprobar la adherencia, la actividad cotidiana, el sueño, la carga de entrenamiento y si el objetivo sigue siendo razonable.
 
-> "Antes de cambiar el plan, descarta que el problema esté en cómo lo aplicas."
+## Revisión en cinco pasos
 
-## Causa 2 (frecuente): no estás comiendo lo que crees
+1. **Define el objetivo.** Perder peso, reducir cintura y ganar fuerza no siempre avanzan al mismo ritmo.
+2. **Comprueba la tendencia.** Usa varias semanas y más de una medida.
+3. **Audita la aplicación sin juicio.** Fines de semana, bebidas, aceites y cambios de porción pueden modificar el promedio.
+4. **Revisa la actividad.** Cuando hay fatiga, a veces disminuyen pasos y movimiento espontáneo.
+5. **Cambia una variable.** Ajusta una pequeña parte y vuelve a observar, en lugar de modificar dieta y entrenamiento a la vez.
 
-Cuando alguien me dice "como muy bien", lo primero que le pido es que apunte 3 días lo que come. Sin filtros. Sin trampas. Resultado típico:
+Registrar durante unos días puede ser útil para investigar, pero no todo el mundo necesita contar calorías. Si ese registro genera ansiedad, rigidez o conductas compensatorias, debe evitarse y conviene buscar apoyo profesional.
 
-- "Como muy poco" → 2.400 kcal/día.
-- "Estoy en déficit" → ingiere igual o más que su mantenimiento.
-- "Ceno ligero" → cena 800 kcal de pasta.
-- "Casi no pico" → 4 cafés con leche y galletas al día.
+## Cuándo ampliar la mirada
 
-No es mala fe. Es que **comer es una actividad casi inconsciente** para la mayoría. Las calorías que se cuelan invisibles son las que más rompen progreso:
+Fatiga marcada, intolerancia al frío, cambios menstruales, debilidad, caída del cabello u otros síntomas persistentes no diagnostican una enfermedad, pero justifican consulta. El hipotiroidismo no puede diagnosticarse por sensaciones ni por dificultad para perder peso: requiere valoración clínica y pruebas de laboratorio [3].
 
-- Aceite al cocinar (10 ml = 90 kcal).
-- Bebidas con azúcar o vino con la cena.
-- Picoteos sin sentarse: cuchara que prueba la comida, frutos secos sin medir.
-- Salsas, panes, postres "porque es fin de semana".
+## La idea importante
 
-Si llevas meses sin progresar y crees que comes bien, **apunta 3 días reales**. La sorpresa es la norma, no la excepción.
+Un estancamiento no demuestra falta de disciplina ni un metabolismo averiado. Puede ser una fluctuación, una adaptación esperable, una aplicación irregular o un objetivo mal medido. Antes de apretar más, mejora la información; después realiza el cambio mínimo que permita aprender algo.
 
-## Causa 3 (muy frecuente): no estás progresando en serio en el entrenamiento
+## Bibliografía
 
-Pregunta clave: ¿llevas progresión registrada? ¿Apuntas qué peso, qué reps, qué sensación tuviste la semana pasada?
-
-Si la respuesta es no, **no estás entrenando con progresión**. Estás repitiendo. Y repetir mantiene, no progresa. Los músculos se adaptan a lo que les exiges. Si esta semana exiges lo mismo que el mes pasado, no hay razón para que cambien.
-
-Para progresar de verdad necesitas que **una variable** mejore cada 1-3 semanas:
-
-- Un kilo más en la barra.
-- Una repetición más con el mismo peso.
-- Una serie más a un ejercicio.
-- Mejor técnica o más rango.
-
-Sin una de las cuatro, vas en círculos. Y a veces lo que parece "estancamiento" es simplemente "no he progresado nunca, solo he repetido".
-
-## Causa 4 (muy frecuente): duermes y/o vives demasiado mal para que tu cuerpo cambie
-
-Tu cuerpo no decide cambiar en función del plan. Decide cambiar en función de las **señales de seguridad** que recibe del entorno. Si vives con:
-
-- Sueño crónicamente corto.
-- Estrés alto sostenido (trabajo, problemas personales).
-- Cansancio acumulado.
-- Cortisol disparado.
-
-Tu cuerpo entra en modo "esto no es momento de gastar energía construyendo músculo o liberando grasa". Y se mantiene como está. Aunque entrenes perfecto y comas perfecto.
-
-Esto es muy importante: **a veces no necesitas un plan más duro. Necesitas dormir 7 horas, bajar el estrés laboral o eliminar una preocupación grande**. Y tu cuerpo, que llevaba meses bloqueado, se desbloquea solo.
-
-He tenido clientes que avanzaron más cambiando de trabajo que cambiando de rutina.
-
-## Causa 5 (la más frecuente y la que casi nadie acepta): estás impaciente
-
-Ésta es la incómoda. La mayoría de "estancamientos" no son estancamientos. Son **expectativas mal calibradas sobre el tiempo**.
-
-Hechos reales:
-
-- Perder 0,3-0,7 kg/semana es ya buen ritmo sostenible.
-- Ganar 1-2 kg de músculo limpio al año en una persona ya entrenada es buen ritmo.
-- Cambios visibles en el espejo suelen aparecer cada 6-8 semanas, no cada 7 días.
-- La progresión en el peso muerto puede ser de 5 kg cada 2-3 meses tras los primeros 6 meses, no cada semana.
-
-Si llevas 3-4 semanas sin ver cambios, **probablemente no estás estancado**. Estás dentro del ritmo normal y todavía no se nota.
-
-El problema es que **medimos progresión con la intensidad equivocada**: cada día en la báscula, cada semana en el espejo, cada sesión esperando un PR. Esa frecuencia destroza la paciencia. Si cambias el termómetro a **cada 4 semanas con foto + ropa + algún registro de fuerza**, la gran mayoría de "estancamientos" desaparecen.
-
-## El check que sí ordena las cosas
-
-Cuando alguien viene con sensación de estancamiento, hago este check en orden:
-
-1. **¿Cuánto llevas con esta sensación?** Si menos de 4 semanas, probablemente no estás estancado, solo impaciente.
-2. **¿Apuntas la progresión de tus pesos y reps?** Si no, el problema es que no estás progresando, no que estés estancado.
-3. **¿Has apuntado tu comida 3 días reales en el último mes?** Si no, aquí está casi siempre la fuga.
-4. **¿Cuántas horas duermes y cómo está tu estrés?** Si duermes <6,5 h o vives con estrés crónico, puede ser la causa principal.
-5. **Si todo lo anterior está bien**, entonces sí: revisa el plan. Pero esto solo después.
-
-En los 4 primeros puntos suele estar la respuesta. El plan es el último sospechoso, no el primero.
-
-## Lo que casi todos hacen mal
-
-El error más caro es **cambiar lo que sí funciona porque crees que no funciona**. Tiras un plan bueno a las 4 semanas, cambias la dieta a las 6 semanas, dejas el gimnasio a las 8. Y entonces sí: no progresas, porque nunca le diste tiempo a nada para ver resultados.
-
-El segundo error: pensar que estancamiento es **falta de plan** cuando muchas veces es **exceso de cambio**. La constancia en lo correcto, durante meses, es lo que más resultados da. No el plan más sofisticado.
-
-## Cómo aplicarlo esta semana
-
-1. **Pasa por el check de las 5 preguntas**. Honesto contigo mismo.
-2. **Identifica qué punto está fallando** y trabaja solo en ese durante 4 semanas.
-3. **Cambia tu termómetro**: deja de mirar la báscula a diario. Mide cada 4 semanas con foto y ropa.
-4. **Si no encuentras la causa**, pide opinión externa. La perspectiva de fuera detecta lo que tú ya no ves.
-
-## La idea que quiero que te lleves
-
-El estancamiento real existe, pero es la causa menos común. La mayoría de las veces lo que crees que es estancamiento es **expectativas, falta de progresión real, o variables que no estás contando**.
-
-Antes de cambiar el plan, **revisa cómo estás aplicando el plan**. Es la diferencia entre un año dando vueltas y un año de progreso real.
+1. Müller MJ, et al. *Changes in body composition and homeostatic control of resting energy expenditure during dietary weight loss*. Obesity. 2023. [PubMed](https://pubmed.ncbi.nlm.nih.gov/36863769/)
+2. Nymo S, et al. *Timeline of changes in adaptive physiological responses, at the level of energy expenditure, with progressive weight loss*. Br J Nutr. 2018. [PubMed](https://pubmed.ncbi.nlm.nih.gov/29733003/)
+3. NIDDK. *Hypothyroidism (Underactive Thyroid)*. [NIDDK](https://www.niddk.nih.gov/health-information/endocrine-diseases/hypothyroidism)
 
 ---
 
-## ¿Quieres una mirada externa que detecte qué está fallando en tu caso?
-
-Hago coaching online personalizado desde 2014. Llevo más de una década viendo qué estanca a la gente. Y casi nunca es lo que la persona piensa al principio. Una sesión bien hecha ahorra meses de dar vueltas.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+Si quieres revisar tu caso con datos y sin castigos, puedes [solicitar una valoración gratuita](https://wellnessreal.es/valoracion).

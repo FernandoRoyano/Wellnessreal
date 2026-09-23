@@ -1,136 +1,54 @@
 ---
-título: "Por qué dormir mal arruina tu progreso (aunque entrenes perfecto)"
+titulo: "Dormir poco y entrenar: qué puede cambiar y qué no"
 slug: dormir-mal-arruina-tu-progreso
-categoría: Recuperación
-fecha: 2026-05-04
-tiempo_lectura: 7 min
-palabras: 1150
-meta_título: "Dormir mal arruina tu progreso aunque entrenes perfecto | WellnessReal"
-meta_descripción: "El sueño es la variable invisible que decide si progresas o te estancas. Qué hace dormir mal a tu fuerza, tu grasa y tus ganas de entrenar."
+categoria: Recuperación
+fecha: 2026-09-23
+tiempo_lectura: 6 min
+meta_descripcion: "Dormir poco puede empeorar el rendimiento y la recuperación. Qué dice la evidencia y cómo ajustar el entrenamiento."
 imagen_destacada: "/blog/dormir-mal-arruina-tu-progreso.jpg"
-imagen_alt: "Cama deshecha con luz natural de mañana entrando por la ventana"
+imagen_alt: "Cama deshecha con luz natural de mañana"
 ---
 
-# Por qué dormir mal arruina tu progreso (aunque entrenes perfecto)
+# Dormir poco y entrenar: qué puede cambiar y qué no
 
-*7 min de lectura · Categoría: Recuperación*
+Una mala noche no borra tu progreso. Tampoco convierte automáticamente una sesión en inútil. El problema aparece cuando dormir poco deja de ser una excepción y se convierte en el contexto habitual en el que intentas entrenar, recuperarte y comer con cierta coherencia.
 
-Entrenas cuatro días a la semana. Has ajustado la dieta. Tomas creatina. Llevas el cuaderno de progresión. Y aun así, llevas dos meses estancado, con menos fuerza que antes y con la sensación de que el cuerpo no responde igual.
+## Lo que sí podemos afirmar
 
-Antes de cambiar la rutina o subir las proteínas, pregúntate algo más básico: **¿cuántas horas dormiste anoche?**
+Las revisiones disponibles relacionan la pérdida aguda de sueño con un peor rendimiento físico medio. El efecto no es idéntico en todas las personas ni en todas las tareas. En resistencia, una revisión con 31 estudios encontró un deterioro moderado, especialmente en pruebas de más de 30 minutos [1]. Otra revisión de 69 estudios observó un efecto negativo global, aunque con mucha variabilidad entre resultados [2].
 
-Y la de antes. Y la de antes.
+Esto permite decir que dormir poco **puede hacer que una sesión se sienta más dura o rinda menos**. No permite afirmar que una noche corta “guarda más grasa”, “dispara el cortisol” de forma clínicamente relevante en todo el mundo o arruina por sí sola semanas de trabajo.
 
-Porque hay una variable que decide más que el plan, más que la dieta y más que la suplementación junta. Y casi nadie la mira.
+## Cuánto sueño usar como referencia
 
-## El sueño es donde realmente cambias
+Para la mayoría de las personas adultas, la recomendación general es dormir al menos siete horas de forma regular [3]. Es una referencia poblacional, no una puntuación que haya que aprobar cada noche. También importan la continuidad del sueño, los horarios y cómo funcionas durante el día.
 
-Entrenar no te hace más fuerte. Entrenar te rompe. Lo que te hace más fuerte es **lo que pasa después**: la reparación, la adaptación, la consolidación. Y todo eso ocurre, fundamentalmente, mientras duermes.
+Conviene revisar el sueño si durante varias semanas aparecen somnolencia diurna, irritabilidad, dificultad para concentrarte, necesidad constante de estimulantes o una recuperación peor de lo habitual. Ronquidos intensos, pausas respiratorias observadas o sueño no reparador persistente justifican hablar con un profesional sanitario.
 
-Cuando duermes mal:
+## Cómo ajustar el entrenamiento después de dormir mal
 
-- Reduces la síntesis de proteínas musculares.
-- Aumentas el cortisol (la hormona del estrés crónico).
-- Bajas la testosterona y la hormona del crecimiento.
-- Disminuye la sensibilidad a la insulina.
-- Se desregula el apetito (más ganas de azúcar y procesados).
+- **Te notas razonablemente funcional:** mantén la sesión, pero evita buscar récords.
+- **Te cuesta concentrarte o la técnica empeora:** reduce carga, series o duración.
+- **Hay somnolencia intensa, mareo o riesgo al conducir o usar material:** prioriza la seguridad y cambia la sesión por actividad suave o descanso.
 
-Es decir: con poco sueño, **entrenas peor, te recuperas peor, comes peor y guardas más grasa**. Aunque hagas exactamente lo mismo que la semana pasada.
+La decisión se toma por tu estado real, no por una cifra aislada del reloj o la pulsera.
 
-> "Puedes compensar una mala dieta con buen sueño. No puedes compensar mal sueño con nada."
+## Ajustes con mejor relación esfuerzo-beneficio
 
-## Qué cuenta como "dormir mal"
+Prueba durante dos semanas una hora de despertar bastante estable, una franja suficiente para dormir y menos luz y actividad estimulante al final del día. Si la cafeína te afecta, adelanta la última toma; no existe una hora universal porque su efecto y su metabolismo varían entre personas.
 
-No hace falta tener insomnio clínico. Dormir mal de forma crónica es bastante más común de lo que parece:
+No necesitas una habitación a una temperatura exacta ni expulsar siempre el móvil. Necesitas identificar qué interrumpe tu sueño y cambiar una o dos variables que puedas mantener.
 
-- Dormir menos de 7 horas la mayoría de noches.
-- Acostarte muy tarde y despertarte cansado aunque hayas dormido 8h (calidad mala).
-- Despertar varias veces durante la noche.
-- Sentirte espeso por la mañana hasta el segundo café.
+## La idea importante
 
-Si te identificas con dos o más, tu sueño está afectando tu progreso aunque entrenes como un reloj.
+El sueño es una parte relevante de la recuperación, pero no es un interruptor. Una noche mala pide ajustar expectativas. Varias semanas malas piden revisar el contexto y, si el problema persiste, buscar ayuda. El objetivo no es dormir perfecto: es dejar de exigir al entrenamiento que compense un descanso insuficiente.
 
-## Lo que se ve en consulta cuando alguien duerme mal
+## Bibliografía
 
-Llevo más de una década entrenando gente. Y los patrones se repiten:
-
-1. **El peso en barra estanca.** Llevas semanas sin progresar y no entiendes por qué.
-2. **Las sesiones se sienten más duras.** Lo que ayer era fácil hoy te cuesta.
-3. **Aumenta el hambre por la tarde.** Especialmente ganas de dulce o snacks salados.
-4. **Bajan las ganas de entrenar.** No porque seas vago: tu sistema nervioso está sobrecargado.
-5. **El estado de ánimo cae.** Más irritabilidad, menos paciencia, menos chispa.
-
-Cuando alguien me cuenta esos cinco síntomas, lo primero que reviso no es el plan. Es el sueño.
-
-## Por qué cuesta tanto dormir bien (y no es por vagancia)
-
-La mayoría de gente que duerme mal no es por falta de disciplina. Es por una combinación de hábitos que se acumulan:
-
-- Pantallas hasta el momento de apagar la luz.
-- Cenas tardías y abundantes.
-- Café o té después de las 17h.
-- Trabajar o discutir hasta minutos antes de meterse en cama.
-- Habitación con luz, ruido o temperatura inadecuada.
-
-Cada uno de esos factores parece pequeño. Juntos son la diferencia entre dormir 7 horas reparadoras o 8 horas de sueño superficial.
-
-## 5 ajustes que cambian la calidad del sueño
-
-No vas a arreglar tu sueño con un ajuste mágico. Lo arreglas reduciendo fricciones, igual que arreglas la constancia en el entrenamiento.
-
-### 1. Última cafeína a las 14:00
-
-La cafeína tiene una vida media de 5-6 horas. El café de las 17h sigue trabajando en tu cuerpo a las 23h. Si te cuesta dormir, prueba una semana sin cafeína después del mediodía y juzga.
-
-### 2. Cena más ligera y más temprana
-
-Cenar 2-3 horas antes de acostarte mejora la calidad del sueño profundo. Cenar a las 22:30 y meterte en cama a las 23:30 es una receta para sueño superficial. Si trabajas hasta tarde, cena temprano aunque cenes poco — luego ya tomas algo ligero antes de dormir si tienes hambre.
-
-### 3. Pantallas fuera 30 min antes de dormir
-
-No es solo la luz azul. Es el contenido. Mirar redes sociales o trabajar en el portátil mantiene tu cerebro activo cuando debería estar bajando revoluciones. Lectura, conversación o nada son mejores rutinas pre-sueño que el móvil.
-
-### 4. Habitación oscura y fresca
-
-Temperatura ideal: 17-19°C. Persianas que tapen luz exterior. Sin notificaciones del móvil iluminando la mesilla. Tu habitación debería parecer una cueva, no una sala de control.
-
-### 5. Hora fija de despertar
-
-Más importante que la hora de acostarse. Despertarte siempre a la misma hora (incluso fines de semana) regula tu reloj interno. Trasnochar el sábado y dormir hasta las 12 el domingo te deja un "jet lag" que te paga el lunes.
-
-## El test de los 7 días
-
-Si crees que tu sueño puede estar saboteándote pero no estás seguro, prueba esto durante una semana:
-
-- Acostarte y levantarte a la misma hora todos los días (incluido fin de semana).
-- Sin cafeína después de las 14h.
-- Cena ligera 2h antes de dormir.
-- Móvil fuera de la habitación o en modo avión.
-
-Anota cómo te sientes en las sesiones de entrenamiento, en el trabajo y en el ánimo general. La mayoría nota cambios reales en 5-7 días.
-
-## Lo que casi todos hacen mal
-
-El error más común es **tratar el sueño como lo que sobra**. La gente sacrifica una hora de sueño para entrenar más, comer mejor o trabajar más. Y luego se pregunta por qué no avanza.
-
-Si tienes que elegir entre entrenar 60 minutos durmiendo 6 horas, o entrenar 30 minutos durmiendo 7,5 horas, **la segunda opción te llevará más lejos**. Casi siempre.
-
-El segundo error es asumir que "tu cuerpo se acostumbra" a dormir poco. No se acostumbra. Aprende a funcionar en modo supervivencia. Y mientras lo hace, te roba progreso, salud y años de vida útil.
-
-## La idea que quiero que te lleves
-
-El sueño no es la guinda. Es la base. Sin sueño, tu plan de entrenamiento es un castillo de naipes. Con sueño, hasta un plan mediocre da resultados.
-
-Antes de cambiar de rutina, suplemento o dieta — pregúntate cuántas horas duermes y cómo es esa calidad. La respuesta probablemente explica más que ninguna otra variable.
+1. Lopes TR, et al. *How much does sleep deprivation impair endurance performance? A systematic review and meta-analysis*. Eur J Sport Sci. 2023. [PubMed](https://pubmed.ncbi.nlm.nih.gov/36472094/)
+2. Craven J, et al. *Effects of Acute Sleep Loss on Physical Performance: A Systematic and Meta-Analytical Review*. Sports Med. 2022. [PubMed](https://pubmed.ncbi.nlm.nih.gov/35708888/)
+3. Watson NF, et al. *Recommended Amount of Sleep for a Healthy Adult*. Sleep. 2015. [CDC](https://stacks.cdc.gov/view/cdc/49875)
 
 ---
 
-## ¿Quieres un plan que tenga en cuenta tu vida real, incluyendo tu sueño?
-
-Hago coaching online personalizado desde 2014. Cuando diseño un plan, miro la persona entera — no solo el entrenamiento. Tu sueño, tu trabajo, tu energía y tu vida familiar son parte del plan.
-
-**Reserva una sesión inicial gratuita de 30 minutos** y te cuento cómo lo hacemos. Sin compromiso.
-
-[👉 Solicitar mi valoración gratis](https://wellnessreal.es/valoracion)
-
-*WhatsApp: 633 261 963 · wellnessreal.es*
+Si quieres un plan que pueda adaptarse también a tus semanas difíciles, puedes [solicitar una valoración gratuita](https://wellnessreal.es/valoracion).
