@@ -15,6 +15,14 @@ type Grupo = { titulo: string; nota?: string; icon: React.ComponentType<{ size?:
 
 const GRUPOS: Grupo[] = [
   {
+    titulo: 'Clientes · uso privado',
+    nota: 'Enlaces que envías tú directamente. No aparecen en la navegación pública ni se indexan.',
+    icon: ClipboardList,
+    paginas: [
+      { title: 'Ficha 360 del cliente', description: 'Cuestionario profundo de contexto, alimentación, entrenamiento, sueño, estrés y preferencias. Guarda borrador y respuestas.', path: '/ficha-360', highlight: true, rol: 'Onboarding' },
+    ],
+  },
+  {
     titulo: 'Embudo Tiroides · ACTIVO',
     nota: 'Flujo principal: contenido o anuncio → página nicho y test → programa → solicitud de plaza → aceptación y pago.',
     icon: Sparkles,
@@ -80,6 +88,7 @@ const ICONO_PAGINA: Record<string, React.ComponentType<{ size?: number; style?: 
   '/images/recorrido-cliente-metodo-tiroides.png': ImageIcon,
   '/blog/por-que-no-adelgazo-con-hipotiroidismo': BookOpen, '/comunidad': Users,
   '/valoracion': ClipboardList, '/recurso-gratis': Gift, '/contacto': MessageCircle,
+  '/ficha-360': ClipboardList,
   '/tarifas': FileText, '/servicios': Dumbbell, '/': Home, '/filosofia': Heart, '/caso-real': Star, '/blog': BookOpen,
   '/privacidad': Shield, '/terminos': Shield,
 }
