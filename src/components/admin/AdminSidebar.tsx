@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
-import { BookOpen, FileText, LayoutDashboard, Link2, LogOut, Mail, Menu, MessageCircle, Plus, Sparkles, Users, Workflow, type LucideIcon } from 'lucide-react'
+import { BookOpen, ClipboardList, FileText, LayoutDashboard, Link2, LogOut, Mail, Menu, MessageCircle, Plus, Sparkles, Users, Workflow, type LucideIcon } from 'lucide-react'
 
 interface NavItem { href: string; label: string; icon: LucideIcon }
 
@@ -11,6 +11,7 @@ const sections: { label: string; items: NavItem[] }[] = [
   { label: 'Principal', items: [
     { href: '/admin/dashboard', label: 'Inicio', icon: LayoutDashboard },
     { href: '/admin/leads', label: 'Leads', icon: Users },
+    { href: '/admin/fichas-360', label: 'Fichas 360', icon: ClipboardList },
     { href: '/admin/proposals', label: 'Propuestas', icon: FileText },
   ] },
   { label: 'Producto', items: [
