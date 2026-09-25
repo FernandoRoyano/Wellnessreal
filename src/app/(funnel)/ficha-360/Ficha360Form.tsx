@@ -2,11 +2,14 @@
 
 import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, ArrowRight, Check, LoaderCircle, ShieldCheck } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, Clock3, LoaderCircle, ShieldCheck } from 'lucide-react'
 import { MEAL_OPTIONS, MEAL_ROWS, SECTIONS, getVisibleQuestions, type AnswerValue, type FormAnswers, type Question } from './questions'
 
 const STORAGE_KEY = 'wellnessreal-ficha-360-draft'
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const SECTION_LABELS = ['Datos', 'Tu semana', 'Alimentación', 'Ejercicio', 'Bienestar', 'Objetivo']
+const SECTION_MINUTES = [1, 2, 3, 1, 1, 1]
+const TOTAL_MINUTES = SECTION_MINUTES.reduce((total, minutes) => total + minutes, 0)
 
 function OptionButton({ selected, children, onClick }: { selected: boolean; children: React.ReactNode; onClick: () => void }) {
   return (
@@ -75,6 +78,7 @@ export default function Ficha360Form() {
   const section = SECTIONS[sectionIndex]
   const visibleQuestions = useMemo(() => getVisibleQuestions(section, answers), [section, answers])
   const progress = ((sectionIndex + 1) / SECTIONS.length) * 100
+  const remainingMinutes = SECTION_MINUTES.slice(sectionIndex).reduce((total, minutes) => total + minutes, 0)
 
   const updateAnswer = (id: string, value: AnswerValue) => setAnswers((current) => ({ ...current, [id]: value }))
   const isSectionValid = visibleQuestions.every((question) => {
@@ -116,7 +120,24 @@ export default function Ficha360Form() {
   return (
     <main className="min-h-screen bg-brand-deep text-white">
       <header className="sticky top-0 z-20 border-b border-white/10 bg-brand-deep/90 backdrop-blur-xl">
-        <div className="mx-auto flex max-w-4xl items-center gap-5 px-5 py-4"><Image src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" width={150} height={42} priority className="h-8 w-auto" /><div className="ml-auto text-right"><p className="text-xs font-semibold text-white/55">Bloque {sectionIndex + 1} de {SECTIONS.length}</p><p className="text-xs text-white/35">Tu progreso se guarda automáticamente</p></div></div>
+        <div className="mx-auto flex max-w-4xl items-center gap-5 px-5 py-3"><Image src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" width={150} height={42} priority className="h-8 w-auto" /><div className="ml-auto flex items-center gap-2 rounded-full border border-accent/20 bg-accent/[0.07] px-3 py-1.5 text-xs font-semibold text-accent"><Clock3 size={14} aria-hidden="true" /><span>{sectionIndex === 0 ? `Aprox. ${TOTAL_MINUTES} min` : `${remainingMinutes} min restantes`}</span></div></div>
+        <nav aria-label="Progreso del cuestionario" className="mx-auto max-w-4xl px-5 pb-3">
+          <ol className="grid grid-cols-6 gap-1.5 sm:gap-3">
+            {SECTION_LABELS.map((label, index) => {
+              const isCurrent = index === sectionIndex
+              const isCompleted = index < sectionIndex
+              return (
+                <li key={label} aria-current={isCurrent ? 'step' : undefined} className="min-w-0">
+                  <button type="button" disabled={!isCompleted} onClick={() => { setError(''); setSectionIndex(index); window.scrollTo({ top: 0, behavior: 'smooth' }) }} className={`group flex w-full flex-col items-center gap-1.5 text-center disabled:cursor-default ${isCurrent ? 'text-accent' : isCompleted ? 'text-white/70' : 'text-white/30'}`}>
+                    <span className={`flex size-7 items-center justify-center rounded-full border text-[11px] font-bold transition-colors sm:size-8 ${isCurrent ? 'border-accent bg-accent text-brand-deep shadow-[0_0_18px_rgba(252,238,33,0.2)]' : isCompleted ? 'border-accent/50 bg-accent/10 text-accent group-hover:bg-accent/20' : 'border-white/10 bg-white/[0.03]'}`}>{isCompleted ? <Check size={14} aria-hidden="true" /> : index + 1}</span>
+                    <span className="hidden truncate text-[10px] font-semibold sm:block">{label}</span>
+                  </button>
+                </li>
+              )
+            })}
+          </ol>
+          <div className="mt-2 flex items-center justify-between sm:hidden"><span className="text-[11px] font-semibold text-accent">{SECTION_LABELS[sectionIndex]}</span><span className="text-[11px] text-white/35">Paso {sectionIndex + 1} de {SECTIONS.length}</span></div>
+        </nav>
         <div className="h-1 bg-white/5"><div className="h-full bg-accent transition-[width] duration-500" style={{ width: `${progress}%` }} /></div>
       </header>
 
