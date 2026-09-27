@@ -5,7 +5,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar'
 import {
   Link2, Copy, Check, ExternalLink, Sparkles, ClipboardList, Users, ImageIcon,
   Gift, MessageCircle, FileText, Home, Heart, Star, BookOpen, Dumbbell, Shield,
-  Play, Video,
+  Play, Video, Mail, CalendarDays, Workflow,
 } from 'lucide-react'
 
 const BASE_URL = 'https://wellnessreal.es'
@@ -14,6 +14,21 @@ type Pagina = { title: string; description: string; path: string; highlight?: bo
 type Grupo = { titulo: string; nota?: string; icon: React.ComponentType<{ size?: number; style?: React.CSSProperties }>; paginas: Pagina[] }
 
 const GRUPOS: Grupo[] = [
+  {
+    titulo: 'Campaña y operaciones · OCTUBRE',
+    nota: 'Punto de entrada para ver todo lo preparado y operar el lanzamiento. Los textos no se envían por estar visibles aquí.',
+    icon: CalendarDays,
+    paginas: [
+      { title: 'Centro de campaña', description: 'Calendario completo, cinco emails, seis publicaciones sociales, estrategia y checklist en una sola pantalla.', path: '/admin/lanzamiento', highlight: true, rol: 'Ver todo' },
+      { title: 'Campañas de email', description: 'Campañas creadas en MailerLite. Ahora mismo no hay campañas cargadas ni programadas.', path: '/admin/email/campaigns', highlight: true, rol: 'MailerLite' },
+      { title: 'Suscriptores', description: 'Contactos y estado de las listas antes de programar cualquier envío.', path: '/admin/email/subscribers', rol: 'Audiencia' },
+      { title: 'Grupos de email', description: 'Grupos Tiroides, WellnessReal General y VSL Leads.', path: '/admin/email/groups', rol: 'Segmentación' },
+      { title: 'Artículos en borrador', description: 'Revisión y publicación de los artículos científicos preparados.', path: '/admin/blog', rol: 'Contenido' },
+      { title: 'Embudo Tiroides', description: 'Métricas desde captación hasta solicitud, pago e incorporación.', path: '/admin/funnel-tiroides', rol: 'Medición' },
+      { title: 'Guiones', description: 'Clase, vídeos y anuncios preparados para la campaña.', path: '/admin/guiones', rol: 'Vídeo' },
+      { title: 'Solicitudes y pagos', description: 'Candidatos, valoraciones y generación de enlaces de pago.', path: '/admin/comunidad/asesoria', rol: 'Ventas' },
+    ],
+  },
   {
     titulo: 'Clientes · uso privado',
     nota: 'Enlaces que envías tú directamente. No aparecen en la navegación pública ni se indexan.',
@@ -66,6 +81,7 @@ const GRUPOS: Grupo[] = [
     icon: Home,
     paginas: [
       { title: 'Home', description: 'Página principal de la web.', path: '/', rol: 'Marca' },
+      { title: 'Sobre mí', description: 'Presentación de Fernando, experiencia, principios y forma de trabajo.', path: '/sobre-mi', rol: 'Autoridad' },
       { title: 'Filosofía', description: 'Tu enfoque y valores.', path: '/filosofia', rol: 'Marca' },
       { title: 'Caso real', description: 'Caso de éxito / prueba social.', path: '/caso-real', rol: 'Prueba social' },
       { title: 'Blog', description: 'Artículos y SEO.', path: '/blog', rol: 'SEO' },
@@ -83,13 +99,17 @@ const GRUPOS: Grupo[] = [
 ]
 
 const ICONO_PAGINA: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
+  '/admin/lanzamiento': CalendarDays, '/admin/email/campaigns': Mail,
+  '/admin/email/subscribers': Users, '/admin/email/groups': Users,
+  '/admin/blog': BookOpen, '/admin/funnel-tiroides': Workflow,
+  '/admin/guiones': Video, '/admin/comunidad/asesoria': ClipboardList,
   '/tiroides': Heart, '/tiroides/clase': Video, '/tiroides/clase/video': Play,
   '/metodo-tiroides': Sparkles, '/metodo-tiroides/pago-confirmado': Check,
   '/images/recorrido-cliente-metodo-tiroides.png': ImageIcon,
   '/blog/por-que-no-adelgazo-con-hipotiroidismo': BookOpen, '/comunidad': Users,
   '/valoracion': ClipboardList, '/recurso-gratis': Gift, '/contacto': MessageCircle,
   '/ficha-360': ClipboardList,
-  '/tarifas': FileText, '/servicios': Dumbbell, '/': Home, '/filosofia': Heart, '/caso-real': Star, '/blog': BookOpen,
+  '/tarifas': FileText, '/servicios': Dumbbell, '/': Home, '/sobre-mi': Users, '/filosofia': Heart, '/caso-real': Star, '/blog': BookOpen,
   '/privacidad': Shield, '/terminos': Shield,
 }
 
