@@ -5,7 +5,7 @@ import AdminSidebar from '@/components/admin/AdminSidebar'
 import {
   Link2, Copy, Check, ExternalLink, Sparkles, ClipboardList, Users, ImageIcon,
   Gift, MessageCircle, FileText, Home, Heart, Star, BookOpen, Dumbbell, Shield,
-  Play, Video, Mail, CalendarDays, Workflow,
+  Play, Video, Mail, CalendarDays, Workflow, Megaphone,
 } from 'lucide-react'
 
 const BASE_URL = 'https://wellnessreal.es'
@@ -16,17 +16,19 @@ type Grupo = { titulo: string; nota?: string; icon: React.ComponentType<{ size?:
 const GRUPOS: Grupo[] = [
   {
     titulo: 'Campaña y operaciones · OCTUBRE',
-    nota: 'Punto de entrada para ver todo lo preparado y operar el lanzamiento. Los textos no se envían por estar visibles aquí.',
+    nota: 'Los 10 accesos del lanzamiento. Los textos no se envían ni se programan por estar visibles aquí.',
     icon: CalendarDays,
     paginas: [
-      { title: 'Centro de campaña', description: 'Calendario completo, cinco emails, seis publicaciones sociales, estrategia y checklist en una sola pantalla.', path: '/admin/lanzamiento', highlight: true, rol: 'Ver todo' },
-      { title: 'Campañas de email', description: 'Campañas creadas en MailerLite. Ahora mismo no hay campañas cargadas ni programadas.', path: '/admin/email/campaigns', highlight: true, rol: 'MailerLite' },
-      { title: 'Suscriptores', description: 'Contactos y estado de las listas antes de programar cualquier envío.', path: '/admin/email/subscribers', rol: 'Audiencia' },
-      { title: 'Grupos de email', description: 'Grupos Tiroides, WellnessReal General y VSL Leads.', path: '/admin/email/groups', rol: 'Segmentación' },
-      { title: 'Artículos en borrador', description: 'Revisión y publicación de los artículos científicos preparados.', path: '/admin/blog', rol: 'Contenido' },
-      { title: 'Embudo Tiroides', description: 'Métricas desde captación hasta solicitud, pago e incorporación.', path: '/admin/funnel-tiroides', rol: 'Medición' },
-      { title: 'Guiones', description: 'Clase, vídeos y anuncios preparados para la campaña.', path: '/admin/guiones', rol: 'Vídeo' },
-      { title: 'Solicitudes y pagos', description: 'Candidatos, valoraciones y generación de enlaces de pago.', path: '/admin/comunidad/asesoria', rol: 'Ventas' },
+      { title: '1. Los 5 emails completos', description: 'Lee asuntos, previsualizaciones, cuerpo y CTA de los cinco envíos de octubre.', path: '/admin/lanzamiento#emails', highlight: true, rol: 'Redactados' },
+      { title: '2. Las 6 publicaciones para redes', description: 'Textos completos y fechas de las seis publicaciones orgánicas.', path: '/admin/lanzamiento#redes', highlight: true, rol: 'Redactadas' },
+      { title: '3. Calendario con fechas', description: 'Vista de todas las piezas del 1 al 25 de octubre.', path: '/admin/lanzamiento#calendario', highlight: true, rol: 'Calendario' },
+      { title: '4. Modelo de negocio y checklist', description: 'Decisiones, avances marcados y tareas comerciales pendientes.', path: '/admin/lanzamiento#modelo', rol: 'Estrategia' },
+      { title: '5. Secuencia histórica', description: 'Versión anterior conservada como referencia y marcada para no programar.', path: '/admin/lanzamiento#historica', rol: 'No programar' },
+      { title: '6. MailerLite, suscriptores y grupos', description: 'Panel de email con acceso a campañas, contactos y segmentación.', path: '/admin/email', rol: 'Email' },
+      { title: '7. Artículos en borrador', description: 'Revisión y publicación de los artículos científicos preparados.', path: '/admin/blog', rol: 'Contenido' },
+      { title: '8. Embudo de Tiroides', description: 'Métricas desde captación hasta solicitud, pago e incorporación.', path: '/admin/funnel-tiroides', rol: 'Medición' },
+      { title: '9. Guiones', description: 'Clase, vídeos y anuncios preparados para la campaña.', path: '/admin/guiones', rol: 'Vídeo' },
+      { title: '10. Solicitudes y pagos', description: 'Candidatos, valoraciones y generación de enlaces de pago.', path: '/admin/comunidad/asesoria', rol: 'Ventas' },
     ],
   },
   {
@@ -99,7 +101,9 @@ const GRUPOS: Grupo[] = [
 ]
 
 const ICONO_PAGINA: Record<string, React.ComponentType<{ size?: number; style?: React.CSSProperties }>> = {
-  '/admin/lanzamiento': CalendarDays, '/admin/email/campaigns': Mail,
+  '/admin/lanzamiento#emails': Mail, '/admin/lanzamiento#redes': Megaphone,
+  '/admin/lanzamiento#calendario': CalendarDays, '/admin/lanzamiento#modelo': FileText,
+  '/admin/lanzamiento#historica': BookOpen, '/admin/email': Mail,
   '/admin/email/subscribers': Users, '/admin/email/groups': Users,
   '/admin/blog': BookOpen, '/admin/funnel-tiroides': Workflow,
   '/admin/guiones': Video, '/admin/comunidad/asesoria': ClipboardList,

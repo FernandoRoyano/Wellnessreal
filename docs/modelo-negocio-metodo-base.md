@@ -315,6 +315,7 @@ Leyenda: `[x]` completado · `[~]` en curso o completado parcialmente · `[ ]` p
 - **27/09/2026 — Fraccionamiento cerrado sin suscripción:** el panel permite crear un pago único de 349 € o el primer pago de 185 €. Treinta días después, una tarea diaria genera y envía automáticamente el segundo y último enlace de 185 €. Ambos son pagos únicos, quedan registrados de forma idempotente y nunca crean una renovación indefinida.
 - **27/09/2026 — Página Sobre mí completada:** creada `/sobre-mi` para resolver el enlace roto de cabecera, pie y home. Presenta a Fernando Royano con fotografía y credenciales ya verificadas en el proyecto, explica principios, forma de trabajo y límites profesionales, conecta con ambas ofertas y añade metadatos, datos estructurados y entrada en el sitemap.
 - **27/09/2026 — Centro de campaña visible:** añadido `/admin/lanzamiento` y un bloque prioritario en `/admin/enlaces` para consultar en una sola pantalla los cinco emails, las seis publicaciones sociales, el calendario, el modelo de negocio, el checklist y la secuencia histórica. Incluye accesos directos a campañas, suscriptores, grupos, artículos, embudo, guiones y solicitudes.
+- **27/09/2026 — Enlaces de campaña desglosados:** el bloque de campaña en `/admin/enlaces` muestra ahora los diez recursos como accesos independientes y numerados. Los emails, redes, calendario, modelo y secuencia histórica enlazan directamente a su sección dentro del Centro de campaña.
 
 ### Calendario de la primera edición
 

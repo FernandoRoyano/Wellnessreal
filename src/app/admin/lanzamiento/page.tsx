@@ -115,6 +115,16 @@ export default async function LaunchCenterPage() {
     ),
   ])
 
+  const calendarStart = launchPlan.indexOf('## Calendario')
+  const emailsStart = launchPlan.indexOf('## Email 1')
+  const socialStart = launchPlan.indexOf('## Publicaciones orgánicas')
+  const reviewStart = launchPlan.indexOf('## Revisión antes de programar')
+  const campaignIntro = launchPlan.slice(0, calendarStart)
+  const calendar = launchPlan.slice(calendarStart, emailsStart)
+  const emails = launchPlan.slice(emailsStart, socialStart)
+  const socialPosts = launchPlan.slice(socialStart, reviewStart)
+  const launchReview = launchPlan.slice(reviewStart)
+
   return (
     <div className="flex min-h-screen bg-[#16122B]">
       <AdminSidebar />
@@ -132,7 +142,7 @@ export default async function LaunchCenterPage() {
           </p>
         </header>
 
-        <section className="mb-8 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        <nav aria-label="Índice del centro de campaña" className="mb-8 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
           {quickLinks.map(({ href, label, description, icon: Icon }) => (
             <Link
               key={href}
@@ -146,7 +156,7 @@ export default async function LaunchCenterPage() {
               <p className="mt-1 text-xs leading-5 text-gray-400">{description}</p>
             </Link>
           ))}
-        </section>
+        </nav>
 
         <section className="mb-6 rounded-2xl border border-[#FCEE21]/35 bg-[#1a1535] p-5 md:p-8">
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-5">
@@ -158,10 +168,24 @@ export default async function LaunchCenterPage() {
               Redactado · pendiente de cargar y programar
             </span>
           </div>
-          <ReactMarkdown components={markdownComponents}>{launchPlan}</ReactMarkdown>
+          <ReactMarkdown components={markdownComponents}>{campaignIntro}</ReactMarkdown>
+
+          <div id="calendario" className="scroll-mt-6">
+            <ReactMarkdown components={markdownComponents}>{calendar}</ReactMarkdown>
+          </div>
+
+          <div id="emails" className="scroll-mt-6">
+            <ReactMarkdown components={markdownComponents}>{emails}</ReactMarkdown>
+          </div>
+
+          <div id="redes" className="scroll-mt-6">
+            <ReactMarkdown components={markdownComponents}>{socialPosts}</ReactMarkdown>
+          </div>
+
+          <ReactMarkdown components={markdownComponents}>{launchReview}</ReactMarkdown>
         </section>
 
-        <details className="mb-4 rounded-2xl border border-white/10 bg-[#1a1535] p-5 md:p-8">
+        <details id="modelo" className="mb-4 scroll-mt-6 rounded-2xl border border-white/10 bg-[#1a1535] p-5 md:p-8">
           <summary className="cursor-pointer text-lg font-bold text-white">
             Modelo de negocio, avances y checklist
           </summary>
@@ -170,7 +194,7 @@ export default async function LaunchCenterPage() {
           </div>
         </details>
 
-        <details className="rounded-2xl border border-amber-400/20 bg-[#1a1535] p-5 md:p-8">
+        <details id="historica" className="scroll-mt-6 rounded-2xl border border-amber-400/20 bg-[#1a1535] p-5 md:p-8">
           <summary className="cursor-pointer text-lg font-bold text-white">
             Secuencia histórica de MailerLite · no programar sin revisar
           </summary>
