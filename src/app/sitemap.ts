@@ -67,6 +67,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/sobre-mi`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/recurso-gratis`,
       lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',

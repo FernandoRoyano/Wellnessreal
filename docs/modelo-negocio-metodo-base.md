@@ -313,6 +313,7 @@ Leyenda: `[x]` completado · `[~]` en curso o completado parcialmente · `[ ]` p
 - **27/09/2026 — Campaña de apertura preparada:** creada la secuencia orgánica con cinco emails y seis publicaciones entre el 1 y el 25 de octubre. Cada pieza utiliza un único CTA hacia la solicitud, explica alcance y límites sin afirmaciones clínicas ni testimonios inventados y contempla excluir a quienes ya hayan solicitado. Los textos y la revisión previa al envío quedan guardados en `docs/marketing/lanzamiento-metodo-base-tiroides-2026.md`.
 - **27/09/2026 — Lista prioritaria y apertura automática:** antes del 5 de octubre la página comercial muestra el registro prioritario y envía la clase gratuita; durante la ventana muestra la solicitud, y después del 25 de octubre bloquea nuevas solicitudes. El servidor aplica las mismas fechas para impedir envíos fuera de plazo. Los contactos se guardan como leads, conservan su atribución y entran en el grupo específico de MailerLite cuando está configurado.
 - **27/09/2026 — Fraccionamiento cerrado sin suscripción:** el panel permite crear un pago único de 349 € o el primer pago de 185 €. Treinta días después, una tarea diaria genera y envía automáticamente el segundo y último enlace de 185 €. Ambos son pagos únicos, quedan registrados de forma idempotente y nunca crean una renovación indefinida.
+- **27/09/2026 — Página Sobre mí completada:** creada `/sobre-mi` para resolver el enlace roto de cabecera, pie y home. Presenta a Fernando Royano con fotografía y credenciales ya verificadas en el proyecto, explica principios, forma de trabajo y límites profesionales, conecta con ambas ofertas y añade metadatos, datos estructurados y entrada en el sitemap.
 
 ### Calendario de la primera edición
 
@@ -349,6 +350,7 @@ Los porcentajes del panel son indicadores del periodo seleccionado, no cohortes 
 ### Fase 2 — Mensajes y páginas
 
 - [x] Ordenar la home.
+- [x] Crear la página Sobre mí y conectarla con la navegación, el SEO y las ofertas.
 - [x] Diferenciar página educativa de Tiroides y página comercial de Método BASE Tiroides.
 - [x] Simplificar la página de entrenamiento personalizado y alinearla con la oferta de 750 € por 12 semanas.
 - [x] Unificar CTA y navegación en las superficies públicas principales.

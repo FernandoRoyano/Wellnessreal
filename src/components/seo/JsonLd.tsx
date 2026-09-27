@@ -20,7 +20,7 @@ export function organizationSchema() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'WellnessReal',
-    url: 'https://wellnessreal.es',
+    url: 'https://wellnessreal.es/sobre-mi',
     logo: 'https://wellnessreal.es/images/logos/WR_AUX_normal_bg.png',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
@@ -241,7 +241,12 @@ export function personSchema() {
       name: 'WellnessReal',
       url: 'https://wellnessreal.es',
     },
-    knowsAbout: ['Entrenamiento personal', 'Nutrición deportiva', 'Osteopatía', 'Fitness online'],
+    knowsAbout: [
+      'Entrenamiento de fuerza',
+      'Entrenamiento personal',
+      'Planificación del entrenamiento',
+      'Fitness online',
+    ],
     sameAs: [LINKEDIN, INSTAGRAM, YOUTUBE, GOOGLE_BUSINESS],
   }
 }
