@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   if (!post) return { title: 'Post no encontrado | WellnessReal' }
 
-  const ogImage = post.main_image_url || '/portada-WR.jpg'
+  const ogImage = post.main_image_url || '/images/portada-WR.jpg'
 
   return {
     title: post.title,

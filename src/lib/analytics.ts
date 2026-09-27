@@ -25,6 +25,7 @@ export function trackSignUp(method: string): void {
 
 export type ThyroidFunnelEvent =
   | 'thyroid_landing_view'
+  | 'thyroid_landing_cta_click'
   | 'thyroid_test_start'
   | 'thyroid_test_question'
   | 'thyroid_test_complete'
@@ -37,7 +38,9 @@ export type ThyroidFunnelEvent =
   | 'thyroid_vsl_cta_click'
   | 'thyroid_valuation_click'
   | 'thyroid_valuation_submit'
+  | 'thyroid_offer_view'
   | 'thyroid_sale'
+  | 'thyroid_onboarding_complete'
   | 'thyroid_continuity'
 
 const THYROID_ANONYMOUS_KEY = 'wr_thyroid_anonymous_id'
@@ -70,23 +73,26 @@ export function trackThyroidFunnel(
   params?: Record<string, string | number | boolean>,
   persist = true,
 ): void {
-  fireEvent(event, params)
+  const safeMetadata = Object.fromEntries(
+    Object.entries(params ?? {}).filter(([key]) => [
+      'view_type', 'cta_position', 'page', 'percent', 'action', 'position', 'source', 'product', 'value',
+    ].includes(key)),
+  )
+  fireEvent(event, safeMetadata)
   if (typeof window === 'undefined' || !persist) return
 
   const attribution = new URLSearchParams(window.location.search)
   const storedAttribution = getStoredAttribution()
+  const context = getThyroidTrackingContext()
   const payload = {
     eventName: event,
     leadId: window.localStorage.getItem(THYROID_LEAD_KEY),
-    anonymousId: getThyroidTrackingContext()?.anonymousId,
-    sessionId: getThyroidTrackingContext()?.sessionId,
-    profile: typeof params?.profile === 'string' ? params.profile : null,
-    intent: typeof params?.intent === 'string' ? params.intent : null,
-    questionId: typeof params?.question_id === 'string' ? params.question_id : null,
+    anonymousId: context?.anonymousId,
+    sessionId: context?.sessionId,
     source: attribution.get('utm_source') || storedAttribution.utm_source || null,
     medium: attribution.get('utm_medium') || storedAttribution.utm_medium || null,
     campaign: attribution.get('utm_campaign') || storedAttribution.utm_campaign || null,
-    metadata: params ?? {},
+    metadata: safeMetadata,
   }
   void fetch('/api/funnel/tiroides/event', {
     method: 'POST',

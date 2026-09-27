@@ -18,6 +18,21 @@ const PILLARS = [
   { icon: RotateCcw, number: '03', title: 'Continuidad real', text: 'Una versión mínima evita que una semana difícil borre todo lo que ya habías construido.' },
 ]
 
+const SESSION_DECISIONS = [
+  {
+    signal: 'Energía parecida a la habitual',
+    decision: 'Mantén la sesión prevista y regula el esfuerzo sin buscar el fallo en cada serie.',
+  },
+  {
+    signal: 'Energía más baja, pero puedes moverte con normalidad',
+    decision: 'Usa la versión mínima: menos series o ejercicios, conservando los movimientos principales.',
+  },
+  {
+    signal: 'Síntomas nuevos, intensos o preocupantes',
+    decision: 'No uses el entrenamiento para comprobar qué ocurre. Pausa y consulta con el profesional sanitario que conoce tu caso.',
+  },
+] as const
+
 export default function ThyroidClassVideoPage() {
   return (
     <main className="min-h-screen bg-brand-night text-white">
@@ -35,7 +50,35 @@ export default function ThyroidClassVideoPage() {
           <h1 className="headline mx-auto mt-4 max-w-4xl text-[clamp(2.1rem,6vw,4.7rem)] leading-[1] tracking-[-0.04em]">Cómo dejar de empezar de cero cuando tu energía cambia</h1>
           <p className="mx-auto mt-5 max-w-2xl text-fluid-base leading-relaxed text-white/58">Una explicación práctica del enfoque BASE aplicado al entrenamiento con hipotiroidismo o Hashimoto.</p>
           <div className="mt-9"><ThyroidClassVideo url={VIDEO_URL} /></div>
-          <p className="mt-4 text-fluid-xs text-white/35">Puedes pausar y continuar cuando quieras · Duración prevista: 15–17 minutos</p>
+          <p className="mt-4 text-fluid-xs text-white/35">
+            {VIDEO_URL
+              ? 'Puedes pausar y continuar cuando quieras · Duración: 15–17 minutos'
+              : 'Lee la guía práctica que aparece debajo · Puedes volver a ella cuando la necesites'}
+          </p>
+        </div>
+      </section>
+
+      <section className="border-t border-white/[0.07] px-5 py-16 sm:px-8 md:py-20">
+        <div className="mx-auto max-w-5xl">
+          <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-accent">Una decisión para aplicar hoy</p>
+          <h2 className="headline mt-4 max-w-3xl text-fluid-4xl leading-tight">No decidas entre hacerlo todo o no hacer nada.</h2>
+          <p className="mt-5 max-w-3xl text-fluid-base leading-relaxed text-white/58">
+            Antes de empezar una sesión, ubica tu situación. Esta referencia no diagnostica la causa de tu energía: solo te ayuda a elegir una respuesta proporcionada.
+          </p>
+          <div className="mt-9 overflow-hidden rounded-2xl border border-white/10">
+            {SESSION_DECISIONS.map(({ signal, decision }, index) => (
+              <article key={signal} className="grid gap-3 border-b border-white/10 bg-white/[0.025] p-6 last:border-b-0 md:grid-cols-[0.7fr_1.3fr] md:gap-8 md:p-7">
+                <div className="flex items-start gap-3">
+                  <span className="font-mono text-[0.68rem] text-accent">0{index + 1}</span>
+                  <h3 className="text-fluid-base font-semibold text-white">{signal}</h3>
+                </div>
+                <p className="text-fluid-sm leading-relaxed text-white/65">{decision}</p>
+              </article>
+            ))}
+          </div>
+          <p className="mt-5 text-fluid-xs leading-relaxed text-white/38">
+            Si esta decisión se repite durante varias semanas, registra el patrón y revisa la carga del plan. No atribuyas automáticamente cualquier cambio a la tiroides.
+          </p>
         </div>
       </section>
 
@@ -64,10 +107,10 @@ export default function ThyroidClassVideoPage() {
         <div className="mx-auto grid max-w-5xl items-center gap-10 rounded-[2rem] border border-accent/20 bg-accent/[0.055] p-7 sm:p-10 md:grid-cols-[1fr_auto] md:p-12">
           <div>
             <p className="text-[0.7rem] font-bold uppercase tracking-[0.2em] text-accent">Siguiente paso</p>
-            <h2 className="headline mt-3 text-fluid-3xl">¿Quieres que revise si este método encaja contigo?</h2>
-            <p className="mt-4 max-w-2xl text-fluid-sm leading-relaxed text-white/58">Cuéntame tu punto de partida. Revisaré personalmente la solicitud antes de hablar de pago o reservar una plaza.</p>
+            <h2 className="headline mt-3 text-fluid-3xl">¿Quieres ver cómo convertimos este criterio en 12 semanas?</h2>
+            <p className="mt-4 max-w-2xl text-fluid-sm leading-relaxed text-white/58">Revisa primero el contenido, los límites y el precio de Método BASE Tiroides. Si encaja contigo, allí podrás solicitar una plaza.</p>
             <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-2 text-fluid-xs text-white/65">
-              {['Solicitud de 2 minutos', 'Sin pago ahora', 'Respuesta personal'].map((item) => <li key={item} className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-accent" />{item}</li>)}
+              {['Programa de 12 semanas', 'Alcance y límites claros', 'Precio visible antes de solicitar'].map((item) => <li key={item} className="flex items-center gap-2"><Check className="h-3.5 w-3.5 text-accent" />{item}</li>)}
             </ul>
           </div>
           <ThyroidVslCta position="primary" />

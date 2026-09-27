@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { Play } from 'lucide-react'
+import { BookOpen } from 'lucide-react'
 import { trackThyroidFunnel } from '@/lib/analytics'
 
 const MILESTONES = [25, 50, 75, 90] as const
@@ -47,9 +47,9 @@ export default function ThyroidClassVideo({ url }: { url: string }) {
       {url && !isYouTube && !isVimeo && !isNativeVideo && <div className="absolute inset-0 grid place-items-center p-6 text-center text-white/60">El formato configurado no es compatible.</div>}
       {!url && (
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-[radial-gradient(circle_at_50%_20%,rgba(102,45,145,.35),transparent_58%)] p-6 text-center">
-          <span className="grid h-16 w-16 place-items-center rounded-full border border-accent/35 bg-accent/10 text-accent"><Play className="ml-1 h-7 w-7 fill-current" /></span>
-          <p className="mt-5 text-fluid-xl font-semibold text-white">Vídeo pendiente de grabación</p>
-          <p className="mt-2 max-w-md text-fluid-sm leading-relaxed text-white/50">El guion ya está preparado. Cuando subas el vídeo, esta página lo mostrará sin cambiar el diseño.</p>
+          <span className="grid h-16 w-16 place-items-center rounded-full border border-accent/35 bg-accent/10 text-accent"><BookOpen className="h-7 w-7" /></span>
+          <p className="mt-5 text-fluid-xl font-semibold text-white">Clase disponible en formato práctico</p>
+          <p className="mt-2 max-w-md text-fluid-sm leading-relaxed text-white/50">Empieza por la guía de decisión que encontrarás justo debajo. Podrás aplicar la idea principal aunque ahora no haya un vídeo configurado.</p>
         </div>
       )}
     </div>

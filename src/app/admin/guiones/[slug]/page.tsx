@@ -6,6 +6,24 @@ import { getGuion, guiones } from '@/lib/guiones/data'
 import { ChevronLeft, Clock, Hash } from 'lucide-react'
 import GuionActions from './GuionActions'
 
+const RECORDING_SCRIPT_SLUGS = new Set([
+  'clase-metodo-base-tiroides',
+  'ads-clase-metodo-base-tiroides',
+])
+
+function formatRecordingScript(content: string) {
+  const dividerIndex = content.indexOf('\n---\n')
+  if (dividerIndex === -1) return content
+
+  const instructions = content.slice(0, dividerIndex + 5)
+  const script = content.slice(dividerIndex + 5).replace(/\s*\/{2,3}\s*/g, (pause, offset, source) => {
+    const previousCharacter = source.slice(0, offset).trimEnd().at(-1)
+    return previousCharacter && '.?!…»”'.includes(previousCharacter) ? '\n\n' : ' '
+  })
+
+  return `${instructions}${script}`
+}
+
 export function generateStaticParams() {
   return guiones.map((g) => ({ slug: g.slug }))
 }
@@ -19,8 +37,9 @@ export default async function GuionDetailPage({
   const guion = getGuion(slug)
   if (!guion) notFound()
 
-  // Los guiones se escriben en Markdown: sin convertirlos se leen con los ## y los ** en crudo.
-  const html = await marked.parse(guion.content, { breaks: true, gfm: true })
+  const isRecordingScript = RECORDING_SCRIPT_SLUGS.has(guion.slug)
+  const displayContent = isRecordingScript ? formatRecordingScript(guion.content) : guion.content
+  const html = await marked.parse(displayContent, { breaks: true, gfm: true })
 
   return (
     <div className="flex min-h-screen">
@@ -72,9 +91,16 @@ export default async function GuionDetailPage({
         {/* Actions (client component) */}
         <GuionActions content={guion.content} title={guion.title} slug={guion.slug} />
 
+        {isRecordingScript && (
+          <div className="guion-recording-help" role="note">
+            <strong>Modo grabación por tomas</strong>
+            <span>Cada tarjeta contiene una frase completa o un tramo corto. Graba una tarjeta, para y continúa con la siguiente.</span>
+          </div>
+        )}
+
         {/* Script content */}
         <article
-          className="rounded-xl p-6 md:p-8 mt-6 guion-content"
+          className={`rounded-xl p-4 md:p-8 mt-6 guion-content${isRecordingScript ? ' guion-content-recording' : ''}`}
           style={{ backgroundColor: '#1a1535', border: '1px solid rgba(102,45,145,0.3)' }}
         >
           <div dangerouslySetInnerHTML={{ __html: html }} />

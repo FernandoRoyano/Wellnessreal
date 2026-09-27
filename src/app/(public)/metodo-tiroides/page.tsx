@@ -1,9 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowDown, ArrowRight, Check, ShieldCheck, X } from 'lucide-react'
+import { connection } from 'next/server'
+import { ArrowDown, ArrowRight, Check, HelpCircle, ShieldCheck, X } from 'lucide-react'
 import Container from '@/components/common/Container'
 import ApplicationForm from './ApplicationForm'
+import OfferViewTracker from './OfferViewTracker'
+import PriorityListForm from './PriorityListForm'
 import {
+  getThyroidLaunchPhase,
   THYROID_PROGRAM,
   THYROID_PROGRAM_INCLUDES,
   THYROID_PROGRAM_PHASES,
@@ -36,20 +40,62 @@ const DOES_NOT_FIT = [
   'Necesitas atención sanitaria urgente o tratamiento de una patología.',
 ] as const
 
-export default function MetodoTiroidesPage() {
+const NOT_INCLUDED = [
+  'Atención ilimitada o respuesta inmediata por WhatsApp.',
+  'Cambios diarios del plan o videollamadas individuales cada semana.',
+  'Dieta clínica, interpretación de analíticas o modificación de tratamientos.',
+  'Promesas de pérdida de peso, energía o resultados médicos concretos.',
+] as const
+
+const FAQ = [
+  {
+    question: '¿Necesito estar en buena forma para empezar?',
+    answer:
+      'No. El punto de partida se adapta a tu experiencia, disponibilidad y energía. Sí necesitas poder reservar al menos dos momentos semanales para trabajar sobre el plan.',
+  },
+  {
+    question: '¿Qué ocurre si una semana tengo menos energía?',
+    answer:
+      'El plan contempla alternativas y una versión mínima. El check-in sirve para decidir si conviene mantener, reducir o progresar sin rehacer todo por un mal día.',
+  },
+  {
+    question: '¿Tengo que asistir a todos los directos?',
+    answer:
+      'Es recomendable participar, pero podrás utilizar la grabación cuando una semana no puedas asistir. Las dos revisiones individuales sí se acuerdan contigo.',
+  },
+  {
+    question: '¿El programa trata el hipotiroidismo?',
+    answer:
+      'No. Método BASE Tiroides organiza entrenamiento y hábitos. El diagnóstico, la medicación, las analíticas y el tratamiento corresponden a tu equipo sanitario.',
+  },
+] as const
+
+export default async function MetodoTiroidesPage() {
+  await connection()
+  const launchPhase = getThyroidLaunchPhase()
+  const primaryCta = launchPhase === 'priority'
+    ? 'Entrar en la lista prioritaria'
+    : launchPhase === 'applications'
+      ? 'Solicitar una plaza'
+      : 'Ver la clase gratuita'
+  const primaryHref = launchPhase === 'closed' ? '/tiroides/clase' : '#solicitud'
+
   return (
     <>
+      <OfferViewTracker />
       <section className="relative overflow-hidden bg-brand-deep py-[clamp(4rem,8vw,7.5rem)]">
         <div className="absolute inset-0 bg-grid-soft opacity-35" />
         <div className="absolute -right-32 top-12 h-[34rem] w-[34rem] rounded-full bg-accent/10 blur-[120px]" />
         <Container>
           <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.08fr_0.92fr]">
             <div>
-              <span className="eyebrow">Programa acompañado · 12 semanas</span>
+              <span className="eyebrow">
+                {THYROID_PROGRAM.edition} · comienza el {THYROID_PROGRAM.startDateLabel}
+              </span>
               <h1 className="headline mt-5 text-fluid-5xl leading-[1.02] text-white">
-                Tu tiroides no necesita otra promesa.
+                Doce semanas para construir una rutina que puedas sostener.
                 <span className="mt-2 block text-gradient-brand">
-                  Tú necesitas un plan que se pueda ajustar.
+                  Incluso cuando tu energía cambia.
                 </span>
               </h1>
               <p className="mt-6 max-w-2xl text-fluid-lg leading-relaxed text-muted">
@@ -58,8 +104,8 @@ export default function MetodoTiroidesPage() {
                 entrenar.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <a href="#solicitud" className="btn-brand px-7 py-4 text-fluid-base">
-                  Solicitar una plaza <ArrowRight className="h-4 w-4" />
+                <a href={primaryHref} className="btn-brand px-7 py-4 text-fluid-base">
+                  {primaryCta} <ArrowRight className="h-4 w-4" />
                 </a>
                 <a
                   href="#programa"
@@ -68,10 +114,20 @@ export default function MetodoTiroidesPage() {
                   Ver cómo funciona <ArrowDown className="h-4 w-4" />
                 </a>
               </div>
-              <p className="mt-4 flex items-center gap-2 text-fluid-xs text-subtle">
-                <ShieldCheck className="h-4 w-4 text-accent" /> Solicitar no es pagar. Primero
-                comprobamos si encaja contigo.
-              </p>
+              {launchPhase === 'priority' ? (
+                <p className="mt-4 flex items-center gap-2 text-fluid-xs text-subtle">
+                  <ShieldCheck className="h-4 w-4 text-accent" /> La lista prioritaria recibe el aviso antes de la apertura del 5 de octubre.
+                </p>
+              ) : launchPhase === 'applications' ? (
+                <>
+                  <p className="mt-4 flex items-center gap-2 text-fluid-xs text-subtle">
+                    <ShieldCheck className="h-4 w-4 text-accent" /> Solicitar no es pagar. Primero comprobamos si encaja contigo.
+                  </p>
+                  <p className="mt-2 text-fluid-xs text-subtle">Solicitudes abiertas hasta el {THYROID_PROGRAM.applicationCloseLabel} o hasta completar las {THYROID_PROGRAM.capacity} plazas.</p>
+                </>
+              ) : (
+                <p className="mt-4 text-fluid-xs text-subtle">Las solicitudes de esta edición están cerradas.</p>
+              )}
             </div>
 
             <div className="relative mx-auto w-full max-w-md">
@@ -98,8 +154,8 @@ export default function MetodoTiroidesPage() {
                   </p>
                   <div className="mt-5 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-5 text-center">
                     <Stat value="12" label="semanas" />
-                    <Stat value="8–12" label="personas" />
-                    <Stat value="249 €" label="pago único" />
+                    <Stat value={String(THYROID_PROGRAM.capacity)} label="plazas máximas" />
+                    <Stat value={`${THYROID_PROGRAM.price} €`} label="primera edición" />
                   </div>
                 </div>
               </div>
@@ -191,6 +247,54 @@ export default function MetodoTiroidesPage() {
         </Container>
       </section>
 
+      <section className="bg-brand-dusk py-fluid-xl">
+        <Container>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-fluid-lg lg:grid-cols-[0.9fr_1.1fr]">
+              <div>
+                <span className="eyebrow">Límites claros</span>
+                <h2 className="headline mt-4 text-fluid-4xl text-white">
+                  Acompañamiento no significa disponibilidad ilimitada.
+                </h2>
+                <p className="mt-4 text-fluid-base leading-relaxed text-muted">
+                  Definir lo que no incluye el programa protege tu experiencia y permite dedicar
+                  tiempo a las decisiones que realmente necesitan revisión.
+                </p>
+              </div>
+              <ul className="grid gap-3">
+                {NOT_INCLUDED.map((item) => (
+                  <li key={item} className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.025] p-4 text-fluid-sm leading-relaxed text-white/80">
+                    <X className="mt-0.5 h-4 w-4 shrink-0 text-white/35" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-brand-deep py-fluid-xl" aria-labelledby="preguntas-programa">
+        <Container>
+          <div className="mx-auto max-w-5xl">
+            <div className="max-w-3xl">
+              <span className="eyebrow"><HelpCircle className="h-4 w-4" /> Antes de solicitar</span>
+              <h2 id="preguntas-programa" className="headline mt-4 text-fluid-4xl text-white">
+                Preguntas frecuentes.
+              </h2>
+            </div>
+            <div className="mt-9 grid gap-4 md:grid-cols-2">
+              {FAQ.map(({ question, answer }) => (
+                <article key={question} className="surface-card rounded-2xl p-6">
+                  <h3 className="text-fluid-lg font-semibold text-white">{question}</h3>
+                  <p className="mt-3 text-fluid-sm leading-relaxed text-muted">{answer}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </Container>
+      </section>
+
       <section
         id="solicitud"
         className="relative overflow-hidden bg-brand-dusk py-fluid-xl scroll-mt-20"
@@ -201,13 +305,25 @@ export default function MetodoTiroidesPage() {
             <div className="lg:sticky lg:top-28">
               <span className="eyebrow">Primera edición</span>
               <h2 className="headline mt-4 text-fluid-4xl text-white">
-                {THYROID_PROGRAM.duration}. {THYROID_PROGRAM.price} €.
+                {launchPhase === 'priority'
+                  ? 'Apúntate antes de la apertura.'
+                  : launchPhase === 'applications'
+                    ? `${THYROID_PROGRAM.duration}. ${THYROID_PROGRAM.price} €.`
+                    : 'Solicitudes cerradas.'}
               </h2>
-              <p className="mt-5 text-fluid-base leading-relaxed text-muted">
-                Pago único después de hablar contigo y confirmar que el programa encaja. No hay
-                cobro en este formulario.
+              {launchPhase === 'priority' ? (
+                <p className="mt-5 text-fluid-base leading-relaxed text-muted">Recibirás la clase gratuita ahora y el aviso prioritario cuando se abran las solicitudes. Apuntarte no reserva una plaza ni implica ningún pago.</p>
+              ) : launchPhase === 'applications' ? (
+                <p className="mt-5 text-fluid-base leading-relaxed text-muted">Puedes realizar un pago único o {THYROID_PROGRAM.installmentCount} pagos de {THYROID_PROGRAM.installmentPrice} €. El pago solo se realiza después de hablar contigo y confirmar que el programa encaja. No hay ningún cobro en este formulario.</p>
+              ) : (
+                <p className="mt-5 text-fluid-base leading-relaxed text-muted">Ya no acepto nuevas solicitudes para este grupo. Puedes ver la clase gratuita y recibir contenidos para futuras ediciones.</p>
+              )}
+              <p className="mt-4 rounded-xl border border-accent/20 bg-accent/5 px-4 py-3 text-fluid-sm text-white/80">
+                Solicitudes {THYROID_PROGRAM.applicationWindow}. El programa comienza el{' '}
+                <strong className="text-white">{THYROID_PROGRAM.startDateLabel}</strong> y termina el{' '}
+                {THYROID_PROGRAM.endDateLabel}.
               </p>
-              <ol className="mt-7 space-y-4">
+              {launchPhase === 'applications' && <ol className="mt-7 space-y-4">
                 {[
                   'Envías tu solicitud.',
                   'La reviso personalmente.',
@@ -221,9 +337,19 @@ export default function MetodoTiroidesPage() {
                     {step}
                   </li>
                 ))}
-              </ol>
+              </ol>}
             </div>
-            <ApplicationForm />
+            {launchPhase === 'priority' ? (
+              <PriorityListForm />
+            ) : launchPhase === 'applications' ? (
+              <ApplicationForm />
+            ) : (
+              <div className="rounded-[1.75rem] border border-white/10 bg-brand-dusk p-8 text-center shadow-2xl">
+                <h3 className="headline text-fluid-2xl text-white">Continúa con la clase gratuita</h3>
+                <p className="mt-3 text-fluid-sm leading-relaxed text-muted">Te avisaré cuando haya una nueva edición disponible.</p>
+                <Link href="/tiroides/clase" className="btn-brand mt-6 px-7 py-4">Ver la clase gratuita <ArrowRight className="h-4 w-4" /></Link>
+              </div>
+            )}
           </div>
         </Container>
       </section>

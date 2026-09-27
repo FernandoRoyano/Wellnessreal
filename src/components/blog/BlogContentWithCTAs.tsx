@@ -68,12 +68,12 @@ function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
         track: 'blog_inline_metodo_tiroides',
       }
     : {
-        eyebrow: 'Plan personalizado',
-        title: 'Esto es contenido general. Tu caso es único.',
-        desc: 'Solicita una valoración gratuita y recibe un plan diseñado para tu vida real.',
-        href: '/valoracion',
-        cta: 'Valoración gratuita',
-        track: 'blog_inline_valoracion',
+        eyebrow: 'Entrenamiento individual',
+        title: '¿Necesitas adaptar estas ideas a tu caso?',
+        desc: 'Conoce el proceso de entrenamiento personalizado de 12 semanas y valora si encaja contigo.',
+        href: '/servicios/entrenamiento-online',
+        cta: 'Ver el acompañamiento',
+        track: 'blog_inline_entrenamiento_personalizado',
       }
   return (
     <div className="my-10 p-6 md:p-8 rounded-xl" style={{ backgroundColor: '#1a1535', border: '2px solid #662D91' }}>

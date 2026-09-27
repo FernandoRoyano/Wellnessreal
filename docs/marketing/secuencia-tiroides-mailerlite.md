@@ -1,6 +1,8 @@
 # Secuencia de bienvenida — Lead de tiroides
 ### WellnessReal · para **MailerLite**
 
+> **Archivo histórico — no utilizar para el lanzamiento de octubre de 2026.** La oferta, los CTA y varias afirmaciones necesitan revisión antes de reactivar esta automatización. La campaña vigente está en `docs/marketing/lanzamiento-metodo-base-tiroides-2026.md`.
+
 > Adaptación del borrador original (escrito "para Mailrelay"): la plataforma real es MailerLite.
 > El grupo **tiroides** ya existe (id `192432978790450886`) y la landing `/tiroides` mete ahí a cada suscriptor automáticamente.
 

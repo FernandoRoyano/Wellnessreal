@@ -32,7 +32,7 @@ export default function MobileTestShortcut() {
   return (
     <a
       href="#test"
-      onClick={() => trackThyroidFunnel('thyroid_landing_view', { view_type: 'cta_click', cta_position: 'sticky' })}
+      onClick={() => trackThyroidFunnel('thyroid_landing_cta_click', { cta_position: 'sticky' })}
       className="fixed inset-x-4 bottom-4 z-40 flex min-h-12 items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-extrabold text-accent-fg shadow-[0_12px_40px_rgba(5,4,20,0.55)] lg:hidden"
     >
       Empezar el test · 1 minuto <ArrowRight className="h-4 w-4" />

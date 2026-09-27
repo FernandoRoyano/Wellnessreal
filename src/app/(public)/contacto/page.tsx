@@ -282,8 +282,8 @@ export default function ContactoPage() {
                 Solicitar valoración gratis
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <Link href="/tarifas" className="btn-ghost text-fluid-base px-8">
-                Ver tarifas
+              <Link href="/metodo-tiroides" className="btn-ghost text-fluid-base px-8">
+                Conocer Método BASE Tiroides
               </Link>
             </div>
           </div>

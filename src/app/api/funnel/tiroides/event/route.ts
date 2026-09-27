@@ -2,18 +2,27 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { recordThyroidFunnelEvent, THYROID_FUNNEL_EVENTS } from '@/lib/db/thyroid-funnel'
 
+const MetadataSchema = z.object({
+  view_type: z.enum(['initial', 'engaged', 'cta_click']).optional(),
+  cta_position: z.string().max(50).optional(),
+  page: z.string().max(100).optional(),
+  percent: z.number().min(0).max(100).optional(),
+  action: z.string().max(50).optional(),
+  position: z.string().max(50).optional(),
+  source: z.string().max(100).optional(),
+  product: z.string().max(100).optional(),
+  value: z.number().nonnegative().max(100000).optional(),
+})
+
 const EventSchema = z.object({
   eventName: z.enum(THYROID_FUNNEL_EVENTS),
   leadId: z.uuid().nullable().optional(),
   anonymousId: z.string().min(8).max(100).nullable().optional(),
   sessionId: z.string().min(8).max(100).nullable().optional(),
-  profile: z.string().max(50).nullable().optional(),
-  intent: z.string().max(50).nullable().optional(),
-  questionId: z.string().max(80).nullable().optional(),
   source: z.string().max(120).nullable().optional(),
   medium: z.string().max(120).nullable().optional(),
   campaign: z.string().max(200).nullable().optional(),
-  metadata: z.record(z.string(), z.union([z.string(), z.number(), z.boolean(), z.null()])).optional(),
+  metadata: MetadataSchema.optional(),
 })
 
 export async function POST(request: NextRequest) {

@@ -3,12 +3,7 @@ import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
-import ProgramaTeaser from '@/components/programa/ProgramaTeaser'
-import ConfirmandoPago from '@/components/programa/ConfirmandoPago'
-import GestionSuscripcion from '@/components/programa/GestionSuscripcion'
 import CheckinProgreso from '@/components/programa/CheckinProgreso'
-import PurchaseTracker from '@/components/programa/PurchaseTracker'
-import { PLAN_OPCIONES } from '@/lib/precios-plan'
 import type { Programa } from '@/lib/programa-schema'
 import { Download } from 'lucide-react'
 
@@ -22,27 +17,20 @@ export const runtime = 'nodejs'
 
 export default async function ProgramaPublicoPage({
   params,
-  searchParams,
 }: {
   params: Promise<{ token: string }>
-  searchParams: Promise<{ pago?: string }>
 }) {
   const { token } = await params
-  const { pago } = await searchParams
 
   const { data: perfil } = await supabase
     .from('cliente_perfil')
-    .select('id, nombre, email, plan_tier, estado_suscripcion, acceso_hasta, cancela_en, acceso_manual, pagado_en')
+    .select('id, nombre, email, plan_tier, acceso_manual, pagado_en')
     .eq('token', token)
     .maybeSingle()
 
   if (!perfil) notFound()
 
-  // Acceso por ventana de suscripción: estado válido (incluye past_due = gracia)
-  // y dentro del periodo ya pagado. O acceso manual concedido por admin (pruebas).
-  const estadoOk = ['active', 'trialing', 'past_due'].includes(perfil.estado_suscripcion ?? '')
-  const enVentana = perfil.acceso_hasta ? new Date(perfil.acceso_hasta) > new Date() : false
-  const pagado = (estadoOk && enVentana) || perfil.acceso_manual === true
+  const tieneAcceso = perfil.acceso_manual === true
 
   // Plan vigente (revisado o no) — para el teaser de pago y el check-in.
   const { data: vigenteRow } = await supabase
@@ -77,17 +65,6 @@ export default async function ProgramaPublicoPage({
   const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= cycleDays
   const disponibleEnDias = Math.max(0, Math.ceil(cycleDays - diasDesde))
 
-  // Valor de la conversión 'purchase' (según el plan contratado).
-  const purchaseValue =
-    perfil.plan_tier === 'auto'
-      ? PLAN_OPCIONES.auto.precio
-      : perfil.plan_tier === 'revisado'
-        ? PLAN_OPCIONES.revisado.precio
-        : undefined
-  const tracker = pago === 'ok' && (
-    <PurchaseTracker value={purchaseValue} tier={perfil.plan_tier} dedupeKey={perfil.id} />
-  )
-
   // Último plan APROBADO (revisado) — lo que ve el cliente una vez pagado/entregado.
   const { data: aprobadoRow } = await supabase
     .from('programas_generados')
@@ -98,36 +75,13 @@ export default async function ProgramaPublicoPage({
     .limit(1)
     .maybeSingle()
 
-  // --- No ha pagado: muro de pago con el adelanto ---
-  if (!pagado) {
-    // Acaba de pagar pero el webhook aún no ha confirmado: pantalla de espera
-    // en vez del muro (evita mostrar el paywall justo tras pagar).
-    if (pago === 'ok') {
-      return <Shell>{tracker}<ConfirmandoPago nombre={perfil.nombre} /></Shell>
-    }
-    if (!vigenteRow) {
-      return <Shell><EnPreparacion nombre={perfil.nombre} /></Shell>
-    }
-    return (
-      <>
-        {pago === 'cancelado' && <Banner tipo="cancelado" />}
-        <ProgramaTeaser
-          programa={vigenteRow.programa as Programa}
-          nombre={perfil.nombre}
-          clienteId={perfil.id}
-        />
-      </>
-    )
-  }
+  if (!tieneAcceso) return <Shell><EnPreparacion nombre={perfil.nombre} /></Shell>
 
   // --- Ha pagado pero el plan revisado aún no está listo (tier 'revisado') ---
   if (!aprobadoRow) {
     return (
       <Shell>
-        {tracker}
-        {pago === 'ok' && <Banner tipo="ok" />}
         <EnPreparacion nombre={perfil.nombre} pagado />
-        {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
       </Shell>
     )
   }
@@ -135,8 +89,6 @@ export default async function ProgramaPublicoPage({
   // --- Pagado y entregado: plan completo ---
   return (
     <Shell>
-      {tracker}
-      {pago === 'ok' && <Banner tipo="ok" />}
       <div className="mx-auto flex max-w-[760px] justify-end px-5 pt-5">
         <a href={`/api/programa/${token}/pdf`} className="inline-flex items-center gap-2 rounded-lg bg-[#FCEE21] px-4 py-2.5 text-sm font-bold text-[#16122B] transition hover:brightness-105">
           <Download size={17} /> Descargar plan en PDF
@@ -151,7 +103,6 @@ export default async function ProgramaPublicoPage({
         disponibleEnDias={disponibleEnDias}
         cycleWeeks={cycleWeeks}
       />
-      {estadoOk && <GestionSuscripcion token={token} cancelaEn={perfil.cancela_en} />}
     </Shell>
   )
 }
@@ -177,30 +128,6 @@ function Shell({ children }: { children: React.ReactNode }) {
         />
       </header>
       {children}
-    </div>
-  )
-}
-
-function Banner({ tipo }: { tipo: 'ok' | 'cancelado' }) {
-  const ok = tipo === 'ok'
-  return (
-    <div
-      style={{
-        maxWidth: 760,
-        margin: '18px auto 0',
-        padding: '14px 18px',
-        borderRadius: 12,
-        textAlign: 'center',
-        fontFamily: "'DM Sans', sans-serif",
-        fontSize: '.95rem',
-        color: ok ? '#bbf7d0' : '#fed7aa',
-        background: ok ? 'rgba(74,222,128,.12)' : 'rgba(251,146,60,.12)',
-        border: `1px solid ${ok ? 'rgba(74,222,128,.4)' : 'rgba(251,146,60,.4)'}`,
-      }}
-    >
-      {ok
-        ? '¡Pago confirmado! Si aún no ves tu plan completo, recarga la página en unos segundos.'
-        : 'Has cancelado el pago. Cuando quieras, puedes desbloquear tu plan desde las opciones de abajo.'}
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Sparkles } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Activity } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -80,24 +80,24 @@ export default function GraciasRecursoPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            {/* Autoservicio: plan con IA (surfacea la oferta oculta 19/49€) */}
+            {/* Especialización prioritaria: tiroides */}
             <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
               <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
-                <Sparkles className="w-6 h-6 text-accent" strokeWidth={2} />
+                <Activity className="w-6 h-6 text-accent" strokeWidth={2} />
               </span>
-              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Empieza hoy, por tu cuenta</h3>
+              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Tengo hipotiroidismo o Hashimoto</h3>
               <p className="text-fluid-sm text-muted leading-relaxed mb-5">
-                Responde unas preguntas y te monto tu plan personalizado con mi método,{' '}
-                <span className="text-white font-semibold">al instante</span>. Ves el primer día gratis.
+                Haz el test gratuito y descubre qué parte de tu entrenamiento y tus hábitos merece
+                atención primero. <span className="text-white font-semibold">No es un diagnóstico</span>.
               </p>
-              <Link href="/cuestionario" className="btn-brand text-fluid-base px-6 mt-auto">
-                Crear mi plan
+              <Link href="/tiroides#test" className="btn-brand text-fluid-base px-6 mt-auto">
+                Hacer el test gratuito
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <p className="text-fluid-xs text-subtle mt-3">Desde 19 €/mes · Acceso inmediato</p>
+              <p className="text-fluid-xs text-subtle mt-3">Orientación inicial · 2 minutos</p>
             </article>
 
-            {/* Alto contacto: valoración → packs */}
+            {/* Alternativa de alto contacto: entrenamiento individual */}
             <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
               <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
                 <MessageCircle className="w-6 h-6 text-accent" strokeWidth={2} />
@@ -107,11 +107,11 @@ export default function GraciasRecursoPage() {
                 Cuéntame tu caso y te digo honestamente si puedo ayudarte y cómo. Una conversación,{' '}
                 <span className="text-white font-semibold">sin compromiso</span>.
               </p>
-              <Link href="/valoracion" className="btn-ghost text-fluid-base px-6 mt-auto">
-                Valoración gratuita
+              <Link href="/servicios/entrenamiento-online" className="btn-ghost text-fluid-base px-6 mt-auto">
+                Ver entrenamiento personalizado
                 <ArrowRight className="w-4 h-4" />
               </Link>
-              <p className="text-fluid-xs text-subtle mt-3">Sin compromiso · Respuesta en 24h</p>
+              <p className="text-fluid-xs text-subtle mt-3">Proceso individual · 12 semanas</p>
             </article>
           </div>
         </Container>

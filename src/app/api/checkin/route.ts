@@ -1,8 +1,7 @@
 // ============================================================
 //  Método BASE · Check-in de progreso del cliente (cada 4 semanas)
 //  El cliente reporta cómo le fue el mes; el motor progresa su plan.
-//  auto (19€) → se entrega al instante · revisado (49€) → a la cola
-//  de Fernando para aprobarlo.
+//  Cada ajuste queda en la cola de Fernando para revisarlo antes de entregarlo.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server'
@@ -60,7 +59,7 @@ export async function POST(req: NextRequest) {
 
     const { data: cliente } = await supabase
       .from('cliente_perfil')
-      .select('id, email, plan_tier, estado_suscripcion, acceso_hasta, acceso_manual, semana_actual, pagado_en')
+      .select('id, email, acceso_manual, semana_actual, pagado_en')
       .eq('token', token)
       .maybeSingle()
 
@@ -76,12 +75,8 @@ export async function POST(req: NextRequest) {
     const semanasCiclo = thyroidPayment ? 3 : 4
     const diasCiclo = semanasCiclo * 7
 
-    // --- Acceso: suscripción activa/gracia o acceso manual ---
-    const estadoOk = ['active', 'trialing', 'past_due'].includes(cliente.estado_suscripcion ?? '')
-    const enVentana = cliente.acceso_hasta ? new Date(cliente.acceso_hasta) > new Date() : false
-    const tieneAcceso = (estadoOk && enVentana) || cliente.acceso_manual === true
-    if (!tieneAcceso) {
-      return NextResponse.json({ error: 'Necesitas una suscripción activa para actualizar tu plan.' }, { status: 403 })
+    if (cliente.acceso_manual !== true) {
+      return NextResponse.json({ error: 'Tu programa no tiene acceso activo.' }, { status: 403 })
     }
 
     // --- Elegibilidad: plan vigente con ≥4 semanas y sin ajuste pendiente ---
@@ -116,19 +111,18 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Cuéntanos algo sobre cómo te ha ido.' }, { status: 400 })
     }
 
-    const entregarYa = cliente.plan_tier === 'auto'
     const nuevaSemana = (cliente.semana_actual ?? 0) + semanasCiclo
 
     const res = await generarAjuste({
       cliente_id: cliente.id,
       cambio: parte,
       semana: nuevaSemana,
-      entregarYa,
+      entregarYa: false,
     })
 
     return NextResponse.json({
       ok: true,
-      entregado: entregarYa, // true = ya visible; false = pendiente de revisión de Fernando
+      entregado: false,
       version: res.version,
     })
   } catch (e) {

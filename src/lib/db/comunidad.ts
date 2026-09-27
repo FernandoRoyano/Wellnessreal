@@ -3,6 +3,7 @@ import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
 import { createSubscriber } from '@/lib/mailerlite'
+import { escapeHtml } from '@/lib/utils/escapeHtml'
 import type { User } from '@supabase/supabase-js'
 
 // ============================================================
@@ -347,17 +348,24 @@ export async function createAsesoriaSolicitud(input: {
   if (error) throw new Error(`[comunidad:createAsesoriaSolicitud] ${error.message}`)
 
   try {
+    const safeName = escapeHtml(input.nombre)
+    const safeEmail = escapeHtml(input.email)
+    const safePhone = escapeHtml(input.telefono)
+    const safeGoal = escapeHtml(input.objetivo)
+    const safeDays = escapeHtml(input.diasSemana)
+    const safeLiveAvailability = escapeHtml(input.disponibilidadDirecto)
+    const safeLimitations = escapeHtml(input.lesiones)
     await sendEmail({
       to: process.env.MAIL_FROM || 'info@wellnessreal.es',
       replyTo: input.email,
       subject: `Nueva solicitud · Grupo Tiroides — ${input.nombre}`,
       html: emailShell(`
         <h1 style="font-size:20px">Nueva solicitud de plaza</h1>
-        <p><strong>${input.nombre}</strong> — ${input.email}${input.telefono ? ` · ${input.telefono}` : ''}</p>
-        <p><strong>Objetivo:</strong> ${input.objetivo || '—'}</p>
-        <p><strong>Días que puede entrenar:</strong> ${input.diasSemana || '—'}</p>
-        <p><strong>Puede asistir al directo:</strong> ${input.disponibilidadDirecto || '—'}</p>
-        <p><strong>Lesiones / a tener en cuenta:</strong> ${input.lesiones || '—'}</p>
+        <p><strong>${safeName}</strong> — ${safeEmail}${safePhone ? ` · ${safePhone}` : ''}</p>
+        <p><strong>Objetivo:</strong> ${safeGoal || '—'}</p>
+        <p><strong>Días que puede entrenar:</strong> ${safeDays || '—'}</p>
+        <p><strong>Puede asistir al directo:</strong> ${safeLiveAvailability || 'No preguntado en la solicitud'}</p>
+        <p><strong>Limitaciones para entrenar:</strong> ${safeLimitations || '—'}</p>
         <p style="margin-top:24px">Gestiónalas en <a href="${BASE_URL()}/admin/comunidad/asesoria">Admin → Asesoría grupal</a>.</p>
       `),
     })

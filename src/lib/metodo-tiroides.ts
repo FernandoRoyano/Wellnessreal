@@ -1,18 +1,39 @@
 import { CalendarCheck, ClipboardCheck, Dumbbell, MessageCircle, Users, Video } from 'lucide-react'
 
+export type ThyroidLaunchPhase = 'priority' | 'applications' | 'closed'
+
 export const THYROID_PROGRAM = {
   name: 'Método BASE Tiroides',
+  edition: 'Primera edición',
   duration: '12 semanas',
-  price: 249,
-  groupSize: '8–12 personas',
+  applicationWindow: 'del 5 al 25 de octubre de 2026',
+  applicationsOpenAt: '2026-10-05T00:00:00+02:00',
+  applicationsCloseAt: '2026-10-26T00:00:00+01:00',
+  applicationCloseLabel: '25 de octubre de 2026',
+  startDate: '2026-11-02',
+  startDateLabel: '2 de noviembre de 2026',
+  endDate: '2027-01-24',
+  endDateLabel: '24 de enero de 2027',
+  price: 349,
+  installmentPrice: 185,
+  installmentCount: 2,
+  minimumParticipants: 8,
+  capacity: 10,
+  groupSize: '8–10 personas',
 } as const
+
+export function getThyroidLaunchPhase(now = new Date()): ThyroidLaunchPhase {
+  if (now < new Date(THYROID_PROGRAM.applicationsOpenAt)) return 'priority'
+  if (now < new Date(THYROID_PROGRAM.applicationsCloseAt)) return 'applications'
+  return 'closed'
+}
 
 export const THYROID_PROGRAM_INCLUDES = [
   { icon: ClipboardCheck, title: 'Evaluación inicial', description: 'Punto de partida, horarios, experiencia, material y limitaciones.' },
   { icon: Dumbbell, title: 'Plan de fuerza adaptado', description: 'Dos o tres días, con alternativas según tu energía y tu semana real.' },
   { icon: CalendarCheck, title: 'Organización sencilla', description: 'Comidas por raciones, descanso y movimiento sin dietas clínicas.' },
-  { icon: Video, title: 'Directo semanal', description: '45 minutos para aprender, preguntar y resolver lo que te está frenando.' },
-  { icon: MessageCircle, title: 'Revisión cada 3 semanas', description: 'Ajustamos el plan con datos, no por intuición ni por culpa.' },
+  { icon: Video, title: 'Directo semanal', description: '60 minutos para aprender, preguntar y resolver lo que te está frenando.' },
+  { icon: MessageCircle, title: 'Seguimiento y dos revisiones', description: 'Check-in semanal y dos encuentros individuales para decidir qué mantener y qué ajustar.' },
   { icon: Users, title: 'Grupo privado', description: 'Acompañamiento con personas que están trabajando sobre el mismo contexto.' },
 ] as const
 

@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
 
     let query = supabase
       .from('programas_generados')
-      .select('id, version, vigente, revisado, revisado_en, modelo, origen, creado_en, cliente:cliente_perfil(id, nombre, email, acceso_manual, estado_suscripcion, acceso_hasta)')
+      .select('id, version, vigente, revisado, revisado_en, modelo, origen, creado_en, cliente:cliente_perfil(id, nombre, email, acceso_manual)')
       .eq('vigente', true)
       .order('creado_en', { ascending: false })
 

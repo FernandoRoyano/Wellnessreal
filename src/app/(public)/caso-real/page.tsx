@@ -287,8 +287,8 @@ export default function CasoRealPage() {
                     <ArrowRight className="w-4 h-4" />
                   </Link>
                 </MagneticButton>
-                <Link href="/tarifas" className="btn-ghost text-fluid-base px-8">
-                  Ver tarifas
+                <Link href="/servicios/entrenamiento-online" className="btn-ghost text-fluid-base px-8">
+                  Ver entrenamiento personalizado
                 </Link>
               </div>
             </div>

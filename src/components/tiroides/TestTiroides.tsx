@@ -59,11 +59,6 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
     const nextAnswers = { ...cleanAnswers, [currentId]: value }
     const nextId = getNextQuestionId(currentId, nextAnswers)
 
-    trackThyroidFunnel('thyroid_test_question', {
-      question_id: currentId,
-      step,
-      intent: nextAnswers.objetivo || 'unknown',
-    })
     setAnswers(nextAnswers)
 
     if (!nextId) {
@@ -119,7 +114,6 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
       trackThyroidFunnel('thyroid_result_view', {
         profile: data.result.profile,
         intent: data.result.intent,
-        medical_review: data.result.requiresMedicalReview,
       })
       setResult(data.result)
       setPhase('result')
@@ -139,7 +133,7 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
       >
         <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-accent via-brand-purple to-accent" />
         <p className="text-fluid-xs font-semibold uppercase tracking-widest text-subtle">
-          Tu resultado personalizado
+          Orientación según tus respuestas
         </p>
         <h2 className="headline text-fluid-2xl text-white mt-1">
           {result.emoji} {result.title}
@@ -215,8 +209,8 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           {preview.emoji} {preview.title}
         </h2>
         <p className="text-fluid-sm text-muted mt-2 mb-5">
-          Déjanos tu email para guardar tus respuestas y ver tus tres prioridades y el siguiente
-          paso recomendado.
+          Déjanos tu email para recibir la guía y ver tus tres prioridades y el siguiente paso
+          orientativo.
         </p>
         <form onSubmit={submit} className="space-y-3">
           {error && (
@@ -267,12 +261,18 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
               </>
             ) : (
               <>
-                Ver mis prioridades <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                Ver mis prioridades y recibir la guía <ArrowRight className="w-4 h-4" aria-hidden="true" />
               </>
             )}
           </button>
-          <p className="text-fluid-xs text-subtle text-center inline-flex items-center justify-center gap-1.5 w-full">
-            <ShieldCheck className="w-3.5 h-3.5" /> Sin spam. Podrás darte de baja cuando quieras.
+          <p className="text-fluid-xs text-subtle text-center leading-relaxed">
+            <ShieldCheck className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
+            Al continuar recibirás la guía y contenidos de WellnessReal. Podrás darte de baja cuando
+            quieras. Consulta la{' '}
+            <a href="/privacidad" className="underline underline-offset-2 hover:text-white">
+              política de privacidad
+            </a>
+            .
           </p>
         </form>
       </div>

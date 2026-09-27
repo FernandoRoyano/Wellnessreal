@@ -43,19 +43,76 @@ test('el test conduce desde la portada hasta un resultado accionable', async ({ 
 
   await page.getByLabel('Nombre').fill('Prueba WellnessReal')
   await page.getByLabel('Email', { exact: true }).fill('prueba@example.com')
-  await page.getByRole('button', { name: 'Ver mis prioridades' }).click()
+  await page.getByRole('button', { name: 'Ver mis prioridades y recibir la guía' }).click()
 
-  await expect(page.getByText('Tu resultado personalizado')).toBeVisible()
+  await expect(page.getByText('Orientación según tus respuestas')).toBeVisible()
   await expect(page.getByRole('heading', { name: /Tienes piezas sueltas/ })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Entrar en la comunidad gratis' })).toBeVisible()
 })
 
-test('la solicitud obliga a completar los campos esenciales', async ({ page }) => {
+test('antes de abrir solicitudes se muestra la lista prioritaria', async ({ page }) => {
+  await page.route('**/api/tiroides-priority', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ success: true, leadId: 'lead-priority-e2e' }),
+    })
+  )
   await page.goto('/metodo-tiroides#solicitud')
-  await page.getByRole('button', { name: 'Solicitar mi plaza' }).click()
+  await expect(page.getByRole('heading', { name: 'Recibe primero la apertura' })).toBeVisible()
+  await page.getByLabel('Nombre').fill('Prueba WellnessReal')
+  await page.getByLabel('Email', { exact: true }).fill('prueba@example.com')
+  await page.getByRole('button', { name: 'Entrar en la lista prioritaria' }).click()
 
-  await expect(page.getByLabel('Nombre')).toBeFocused()
-  await expect(page.getByLabel('Nombre')).toHaveAttribute('required', '')
-  await expect(page.getByLabel('Email', { exact: true })).toHaveAttribute('type', 'email')
-  await expect(page.getByLabel('Teléfono')).toHaveAttribute('type', 'tel')
+  await expect(page.getByRole('heading', { name: 'Estás en la lista prioritaria' })).toBeVisible()
+})
+
+test('la clase gratuita conserva contenido útil cuando no hay vídeo configurado', async ({ page }) => {
+  await page.route('**/api/tiroides-clase', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ success: true, leadId: 'lead-clase-e2e' }),
+    })
+  )
+
+  await page.goto('/tiroides/clase')
+  await page.getByLabel('Tu nombre').fill('Prueba WellnessReal')
+  await page.getByLabel('Tu mejor email').fill('prueba@example.com')
+  await page.getByRole('button', { name: 'Ver la clase gratuita' }).click()
+
+  await expect(page).toHaveURL(/\/tiroides\/clase\/video$/)
+  await expect(page.getByText('Clase disponible en formato práctico')).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'No decidas entre hacerlo todo o no hacer nada.' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Conocer Método BASE Tiroides' }).first()).toBeVisible()
+})
+
+test('la valoración individual se completa en un único formulario', async ({ page }) => {
+  await page.route('**/api/valoracion', (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: 'application/json',
+      body: JSON.stringify({ success: true }),
+    })
+  )
+
+  await page.goto('/valoracion')
+  await page.getByLabel('Nombre').fill('Prueba WellnessReal')
+  await page.getByLabel('Email', { exact: true }).fill('prueba@example.com')
+  await page.getByLabel('Teléfono').fill('600000000')
+  await page.getByLabel('Objetivo principal').selectOption('mejorar-salud')
+  await page.getByLabel('Experiencia entrenando').selectOption('principiante')
+  await page.getByLabel('¿Qué quieres conseguir?').fill('Quiero ganar fuerza y construir una rutina que pueda mantener cada semana.')
+  await page.getByLabel('Días por semana').selectOption('2 días')
+  await page.getByLabel('Tiempo por sesión').selectOption('45 min')
+  await page.getByRole('button', { name: 'Enviar solicitud de valoración' }).click()
+
+  await expect(page).toHaveURL(/\/gracias-valoracion$/)
+})
+
+test('la confirmación de pago no se muestra sin una sesión de Stripe', async ({ page }) => {
+  await page.goto('/metodo-tiroides/pago-confirmado')
+
+  await expect(page).toHaveURL(/\/metodo-tiroides\?payment=unverified$/)
+  await expect(page.getByText('Pago verificado. Empezamos.')).toHaveCount(0)
 })

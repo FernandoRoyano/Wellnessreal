@@ -1,9 +1,10 @@
 'use client'
 
-import { useActionState, useEffect, useRef } from 'react'
+import { useActionState, useEffect, useRef, useState } from 'react'
 import { ArrowRight, CheckCircle2, Loader2, ShieldCheck } from 'lucide-react'
 import { applyToThyroidProgram, type ThyroidApplicationState } from './actions'
-import { trackThyroidFunnel } from '@/lib/analytics'
+import { getThyroidTrackingContext, trackGenerateLead } from '@/lib/analytics'
+import { getAttributionForSubmit } from '@/lib/tracking'
 
 const INITIAL_STATE: ThyroidApplicationState = { success: false }
 const FIELD_CLASS =
@@ -12,13 +13,23 @@ const FIELD_CLASS =
 export default function ApplicationForm() {
   const [state, action, pending] = useActionState(applyToThyroidProgram, INITIAL_STATE)
   const trackedSuccess = useRef(false)
+  const [attribution, setAttribution] = useState('{}')
+  const [funnel, setFunnel] = useState('{}')
   const formRef = useRef<HTMLFormElement>(null)
   const successRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Estos valores solo existen en el navegador y viajan ocultos para enlazar
+    // la solicitud con la visita, sin incluir respuestas de salud.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setAttribution(JSON.stringify(getAttributionForSubmit()))
+    setFunnel(JSON.stringify(getThyroidTrackingContext()))
+  }, [])
+
+  useEffect(() => {
     if (state.success && !trackedSuccess.current) {
       trackedSuccess.current = true
-      trackThyroidFunnel('thyroid_valuation_submit', { product: 'metodo_tiroides', value: 249 })
+      trackGenerateLead('metodo_tiroides_application')
     }
   }, [state.success])
 
@@ -61,13 +72,15 @@ export default function ApplicationForm() {
       aria-describedby={state.error ? 'application-form-error' : undefined}
       className="space-y-4 rounded-[1.75rem] border border-accent/25 bg-brand-dusk p-6 shadow-2xl md:p-8"
     >
+      <input type="hidden" name="_attribution" value={attribution} />
+      <input type="hidden" name="_funnel" value={funnel} />
       <div>
         <p className="text-fluid-xs font-semibold uppercase tracking-[0.18em] text-accent">
           Solicitud de plaza
         </p>
         <h2 className="headline mt-2 text-fluid-2xl text-white">Cuéntame desde dónde empiezas</h2>
         <p className="mt-2 text-fluid-sm text-muted">
-          Tardarás unos dos minutos. Yo leo cada solicitud.
+          Nombre, email y tres preguntas breves. Yo leo cada solicitud.
         </p>
       </div>
 
@@ -98,19 +111,6 @@ export default function ApplicationForm() {
           />
         </Field>
       </div>
-      <Field label="Teléfono" error={fieldError('phone')} errorId="application-phone-error">
-        <input
-          name="phone"
-          type="tel"
-          inputMode="tel"
-          autoComplete="tel"
-          required
-          aria-invalid={Boolean(fieldError('phone'))}
-          aria-describedby={fieldError('phone') ? 'application-phone-error' : undefined}
-          className={FIELD_CLASS}
-          placeholder="+34 600 000 000"
-        />
-      </Field>
       <Field
         label="¿Qué quieres conseguir en estas 12 semanas?"
         error={fieldError('goal')}
@@ -126,51 +126,26 @@ export default function ApplicationForm() {
           placeholder="Cuéntamelo con tus palabras…"
         />
       </Field>
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field
-          label="Días que puedes entrenar"
-          error={fieldError('days')}
-          errorId="application-days-error"
+      <Field
+        label="Días que puedes entrenar"
+        error={fieldError('days')}
+        errorId="application-days-error"
+      >
+        <select
+          name="days"
+          defaultValue=""
+          required
+          aria-invalid={Boolean(fieldError('days'))}
+          aria-describedby={fieldError('days') ? 'application-days-error' : undefined}
+          className={FIELD_CLASS}
         >
-          <select
-            name="days"
-            defaultValue=""
-            required
-            aria-invalid={Boolean(fieldError('days'))}
-            aria-describedby={fieldError('days') ? 'application-days-error' : undefined}
-            className={FIELD_CLASS}
-          >
-            <option value="" disabled>
-              Elige una opción
-            </option>
-            <option value="1">1 día</option>
-            <option value="2">2 días</option>
-            <option value="3">3 días</option>
-            <option value="4+">4 o más días</option>
-          </select>
-        </Field>
-        <Field
-          label="Directo semanal"
-          error={fieldError('liveAvailability')}
-          errorId="application-live-error"
-        >
-          <select
-            name="liveAvailability"
-            defaultValue=""
-            required
-            aria-invalid={Boolean(fieldError('liveAvailability'))}
-            aria-describedby={fieldError('liveAvailability') ? 'application-live-error' : undefined}
-            className={FIELD_CLASS}
-          >
-            <option value="" disabled>
-              Elige una opción
-            </option>
-            <option value="si">Puedo asistir</option>
-            <option value="algunas">Algunas semanas</option>
-            <option value="diferido">Lo vería en diferido</option>
-          </select>
-        </Field>
-      </div>
+          <option value="" disabled>Elige una opción</option>
+          <option value="1">1 día</option>
+          <option value="2">2 días</option>
+          <option value="3">3 días</option>
+          <option value="4+">4 o más días</option>
+        </select>
+      </Field>
       <Field
         label="Lesiones o limitaciones que deba conocer (opcional)"
         error={fieldError('limitations')}
@@ -212,7 +187,7 @@ export default function ApplicationForm() {
       </button>
       <p className="flex items-center justify-center gap-1.5 text-center text-fluid-xs text-subtle">
         <ShieldCheck className="h-3.5 w-3.5" aria-hidden="true" /> Solicitar no es pagar. Hablamos
-        antes y decides después.
+        antes y decides después. No compartas analíticas ni medicación.
       </p>
     </form>
   )

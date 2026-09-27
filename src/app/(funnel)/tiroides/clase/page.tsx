@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 }
 
 const LEARNINGS = [
-  'Por qué un plan genérico deja de servirte cuando tu energía cambia.',
-  'Cómo adaptar la fuerza sin confundir adaptación con dejar de avanzar.',
-  'Qué sistema usar para no empezar de cero después de una semana difícil.',
+  'Cómo distinguir entre mantener, reducir o pausar una sesión.',
+  'Cómo crear una versión mínima sin convertirla en una rutina de castigo.',
+  'Qué observar antes de cambiar todo el plan por una semana difícil.',
 ]
 
 export default function ThyroidClassPage() {
@@ -29,14 +29,14 @@ export default function ThyroidClassPage() {
         <section className="grid flex-1 items-center gap-10 py-10 lg:grid-cols-[1.12fr_.88fr] lg:gap-16 lg:py-14">
           <div>
             <div className="mb-6 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-accent"><Clock3 className="h-3.5 w-3.5" /> Clase de 15 minutos</span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.16em] text-accent"><Clock3 className="h-3.5 w-3.5" /> Clase práctica gratuita</span>
               <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[0.7rem] font-semibold text-white/65"><ShieldCheck className="h-3.5 w-3.5" /> Sin promesas milagro</span>
             </div>
             <h1 className="headline max-w-3xl text-[clamp(2.5rem,7vw,5.7rem)] leading-[0.97] tracking-[-0.045em] text-white">
               Tu tiroides no necesita otro plan <span className="text-accent">imposible de mantener.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-fluid-lg leading-relaxed text-white/68">
-              Te explico cómo organizar entrenamiento, alimentación y descanso cuando tienes hipotiroidismo o Hashimoto, incluso si tu energía no se comporta igual todas las semanas.
+              Te explico un sistema sencillo para adaptar el entrenamiento cuando tienes hipotiroidismo o Hashimoto, sin confundir un ajuste puntual con volver a empezar de cero.
             </p>
 
             <ul className="mt-8 grid gap-4 sm:grid-cols-3 lg:grid-cols-1">
@@ -55,8 +55,8 @@ export default function ThyroidClassPage() {
 
           <aside className="mx-auto w-full max-w-md lg:mx-0 lg:ml-auto">
             <div className="mb-4 px-2 text-center">
-              <p className="font-semibold text-white">Recibe acceso inmediato</p>
-              <p className="mt-1 text-fluid-sm text-white/50">Sin teléfono. Sin tarjeta. Sin compromiso.</p>
+              <p className="font-semibold text-white">Recibe la clase y el resumen práctico</p>
+              <p className="mt-1 text-fluid-sm text-white/50">Sin teléfono ni tarjeta. Acceso gratuito.</p>
             </div>
             <ThyroidClassForm />
           </aside>

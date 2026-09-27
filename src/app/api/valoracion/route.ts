@@ -1,236 +1,121 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { z } from 'zod'
 import { sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
-import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { escapeHtml } from '@/lib/utils/escapeHtml'
 
-const objectiveLabels: Record<string, string> = {
+const OBJECTIVES = {
   'perder-grasa': 'Perder grasa',
   'ganar-musculo': 'Ganar músculo',
-  'mejorar-salud': 'Mejorar salud general',
-  'rendimiento': 'Rendimiento deportivo',
-  'recuperacion': 'Recuperación de lesión',
-  'habito': 'Crear hábito de ejercicio',
-}
+  'mejorar-salud': 'Mejorar fuerza y salud general',
+  rendimiento: 'Mejorar el rendimiento',
+  recuperacion: 'Volver a entrenar tras una lesión',
+  habito: 'Crear un hábito de ejercicio',
+} as const
 
-const levelLabels: Record<string, string> = {
-  'nunca': 'Nunca ha entrenado',
-  'principiante': 'Principiante (< 1 año)',
-  'intermedio': 'Intermedio (1-3 años)',
-  'avanzado': 'Avanzado (3+ años)',
-}
+const LEVELS = {
+  nunca: 'No ha entrenado',
+  principiante: 'Menos de un año',
+  intermedio: 'Entre uno y tres años',
+  avanzado: 'Más de tres años',
+} as const
 
-const budgetLabels: Record<string, string> = {
-  'menos-100': 'Menos de 100€/mes',
-  '100-200': '100 - 200€/mes',
-  '200-300': '200 - 300€/mes',
-  'mas-300': 'Más de 300€/mes',
-  'no-seguro': 'Aún no lo tiene claro',
-}
+const attributionSchema = z
+  .record(z.string(), z.union([z.string(), z.null(), z.undefined()]))
+  .optional()
 
-function row(label: string, value: string | undefined) {
-  if (!value) return ''
-  return `<tr>
-    <td style="padding:8px 12px;font-weight:bold;color:#662D91;vertical-align:top;white-space:nowrap;">${label}</td>
-    <td style="padding:8px 12px;color:#333;">${value}</td>
-  </tr>`
+const valuationSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  email: z.email().transform((value) => value.toLowerCase().trim()),
+  phone: z.string().trim().min(9).max(30),
+  objective: z.enum(Object.keys(OBJECTIVES) as [keyof typeof OBJECTIVES, ...(keyof typeof OBJECTIVES)[]]),
+  objectiveDetail: z.string().trim().min(20).max(1000),
+  level: z.enum(Object.keys(LEVELS) as [keyof typeof LEVELS, ...(keyof typeof LEVELS)[]]),
+  daysPerWeek: z.enum(['1 día', '2 días', '3 días', '4 días', '5+ días']),
+  sessionDuration: z.enum(['30 min', '45 min', '60 min', '90 min']),
+  limitations: z.string().trim().max(1000).optional().default(''),
+  interestedPlan: z.literal('personal_12_semanas').optional(),
+  _attribution: attributionSchema,
+})
+
+function row(label: string, value: string): string {
+  return `<tr><td style="padding:8px 12px;font-weight:bold;color:#662D91;vertical-align:top;">${label}</td><td style="padding:8px 12px;color:#333;">${escapeHtml(value)}</td></tr>`
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const {
-      name, email, phone, age,
-      objective, objectiveDetail,
-      level, currentlyTraining, trainingDetail,
-      daysPerWeek, sessionDuration, schedule, modality,
-      injuries, medicalConditions, diet,
-      expectations, budget, source,
-      interestedPlan,
-      thyroidContext,
-      _attribution,
-    } = body
-
-    if (!name || !email || !phone || !objective || !level) {
-      return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
+    const parsed = valuationSchema.safeParse(await request.json())
+    if (!parsed.success) {
+      return NextResponse.json(
+        { error: 'Revisa los campos obligatorios antes de enviar.' },
+        { status: 400 }
+      )
     }
 
-    const validProfiles = ['buena_base', 'falta_estructura', 'mucho_esfuerzo', 'construir_base']
-    const validIntents = ['entender', 'recomponer', 'energia', 'guia']
-    const safeThyroidContext = thyroidContext &&
-      validProfiles.includes(thyroidContext.profile) &&
-      validIntents.includes(thyroidContext.intent)
-      ? { profile: thyroidContext.profile as string, intent: thyroidContext.intent as string }
-      : null
-
-    // Guardar lead en Supabase y conservar el contexto del test.
-    const lead = await captureLead({
+    const data = parsed.data
+    await captureLead({
       request,
-      email,
-      name,
-      phone,
+      email: data.email,
+      name: data.name,
+      phone: data.phone,
       source: 'valoracion',
-      attribution: _attribution,
-      tags: [
-        ...(interestedPlan ? [`plan:${interestedPlan}`] : []),
-        ...(safeThyroidContext ? [`perfil:${safeThyroidContext.profile}`, `intencion:${safeThyroidContext.intent}`] : []),
-      ],
+      attribution: data._attribution,
+      tags: ['plan:personal_12_semanas'],
       form_data: {
-        age, objective, objectiveDetail, level, currentlyTraining, trainingDetail,
-        daysPerWeek, sessionDuration, schedule, modality,
-        injuries, medicalConditions, diet,
-        expectations, budget, knownFrom: source,
-        interestedPlan: interestedPlan || null,
-        thyroidProfile: safeThyroidContext?.profile ?? null,
-        thyroidIntent: safeThyroidContext?.intent ?? null,
+        objective: data.objective,
+        objectiveDetail: data.objectiveDetail,
+        level: data.level,
+        daysPerWeek: data.daysPerWeek,
+        sessionDuration: data.sessionDuration,
+        limitations: data.limitations || null,
+        interestedPlan: 'personal_12_semanas',
       },
     })
 
-    if (lead && safeThyroidContext) {
-      await recordThyroidFunnelEvent({
-        eventName: 'thyroid_valuation_submit',
-        leadId: lead.id,
-        profile: safeThyroidContext.profile,
-        intent: safeThyroidContext.intent,
-        source: _attribution?.utm_source ?? 'test-tiroides',
-        medium: _attribution?.utm_medium,
-        campaign: _attribution?.utm_campaign,
-      })
-    }
-
-    // Email to business owner
+    const safeName = escapeHtml(data.name)
+    const safeEmail = escapeHtml(data.email)
+    const phoneDigits = data.phone.replace(/[^0-9]/g, '')
     const businessHtml = `
-<!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;font-family:Arial,sans-serif;background:#f4f4f4;">
-<div style="max-width:600px;margin:0 auto;background:#fff;">
-  <div style="background:#16122B;padding:24px;text-align:center;">
-    <h1 style="color:#FCEE21;margin:0;font-size:22px;">Nueva Valoración Recibida</h1>
-  </div>
-  <div style="padding:24px;">
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;">Datos personales</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Nombre', name)}
-      ${row('Email', `<a href="mailto:${email}">${email}</a>`)}
-      ${row('Teléfono', `<a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}">${phone}</a>`)}
-      ${row('Edad', age)}
-    </table>
+      <div style="max-width:640px;margin:auto;padding:28px;font-family:Arial,sans-serif;color:#16122B">
+        <h1>Nueva solicitud de entrenamiento individual</h1>
+        <table style="width:100%;border-collapse:collapse">
+          ${row('Nombre', data.name)}
+          ${row('Email', data.email)}
+          ${row('Teléfono', data.phone)}
+          ${row('Objetivo', OBJECTIVES[data.objective])}
+          ${row('Detalle', data.objectiveDetail)}
+          ${row('Experiencia', LEVELS[data.level])}
+          ${row('Disponibilidad', `${data.daysPerWeek} · ${data.sessionDuration}`)}
+          ${row('Limitaciones', data.limitations || 'No indicadas')}
+        </table>
+        <p style="margin-top:24px"><a href="https://wa.me/${phoneDigits}">Responder por WhatsApp</a> · <a href="mailto:${safeEmail}">Responder por email</a></p>
+      </div>`
 
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Objetivo</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Objetivo principal', objectiveLabels[objective] || objective)}
-      ${row('Detalle', objectiveDetail)}
-    </table>
-
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Experiencia</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Nivel', levelLabels[level] || level)}
-      ${row('Entrena actualmente', currentlyTraining)}
-      ${row('Qué hace', trainingDetail)}
-    </table>
-
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Disponibilidad</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Días/semana', daysPerWeek)}
-      ${row('Duración sesión', sessionDuration)}
-      ${row('Horario', schedule)}
-      ${row('Modalidad', modality)}
-    </table>
-
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Salud</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Lesiones', injuries || 'Ninguna indicada')}
-      ${row('Condiciones médicas', medicalConditions || 'Ninguna indicada')}
-      ${row('Alimentación', diet || 'No indicada')}
-    </table>
-
-    <h2 style="color:#16122B;border-bottom:2px solid #662D91;padding-bottom:8px;font-size:18px;margin-top:24px;">Otros</h2>
-    <table style="width:100%;border-collapse:collapse;">
-      ${row('Presupuesto mensual', budgetLabels[budget] || budget)}
-      ${row('Expectativas', expectations)}
-      ${row('Nos conoció por', source)}
-    </table>
-
-    <div style="margin-top:24px;padding:16px;background:#f0f0f0;border-radius:8px;text-align:center;">
-      <a href="https://wa.me/${phone.replace(/[^0-9]/g, '')}" style="display:inline-block;padding:12px 24px;background:#25D366;color:white;text-decoration:none;border-radius:8px;font-weight:bold;">
-        Responder por WhatsApp
-      </a>
-      <a href="mailto:${email}" style="display:inline-block;padding:12px 24px;background:#662D91;color:white;text-decoration:none;border-radius:8px;font-weight:bold;margin-left:8px;">
-        Responder por Email
-      </a>
-    </div>
-  </div>
-  <div style="background:#16122B;padding:16px;text-align:center;">
-    <p style="color:#888;margin:0;font-size:12px;">Valoración enviada desde wellnessreal.es</p>
-  </div>
-</div>
-</body></html>`
-
-    // Confirmation email to user
     const userHtml = `
-<!DOCTYPE html>
-<html><head><meta charset="utf-8"></head>
-<body style="margin:0;padding:0;font-family:Arial,sans-serif;background:#f4f4f4;">
-<div style="max-width:600px;margin:0 auto;background:#16122B;">
-  <div style="padding:40px 30px;text-align:center;">
-    <h1 style="color:#FCEE21;font-size:24px;margin:0 0 8px;">WellnessReal</h1>
-    <div style="height:2px;background:linear-gradient(90deg,#662D91,#FCEE21,#662D91);margin:16px 0;"></div>
-    <h2 style="color:#fff;font-size:22px;margin:16px 0 8px;">¡Valoración recibida, ${name}!</h2>
-    <p style="color:#ccc;font-size:16px;line-height:1.6;margin:0 0 24px;">
-      He recibido tu información y voy a analizarla con detalle.
-      En menos de 24 horas te contacto con mi análisis y una propuesta personalizada.
-    </p>
-    <div style="background:rgba(252,238,33,0.1);padding:20px;border-radius:12px;border-left:4px solid #FCEE21;text-align:left;margin:0 0 24px;">
-      <p style="color:#FCEE21;font-weight:bold;margin:0 0 8px;">Tu objetivo: ${objectiveLabels[objective] || objective}</p>
-      <p style="color:#ccc;margin:0;">Nivel: ${levelLabels[level] || level} · ${daysPerWeek} · ${sessionDuration}</p>
-    </div>
-    <p style="color:#999;font-size:14px;margin:0;">
-      Si tienes cualquier duda, escríbeme directamente por WhatsApp.
-    </p>
-  </div>
-  <div style="padding:16px;text-align:center;border-top:1px solid rgba(102,45,145,0.3);">
-    <p style="color:#666;font-size:12px;margin:0;">WellnessReal · wellnessreal.es</p>
-  </div>
-</div>
-</body></html>`
+      <div style="max-width:600px;margin:auto;padding:32px;background:#16122B;color:#fff;font-family:Arial,sans-serif">
+        <p style="color:#FCEE21;font-weight:700;letter-spacing:.08em">WELLNESSREAL</p>
+        <h1 style="font-size:25px">Solicitud recibida, ${safeName}</h1>
+        <p style="color:#d5d0df;line-height:1.7">Revisaré la información y te escribiré para decirte si el acompañamiento individual encaja con tu objetivo. Enviar la solicitud no implica pagar ni reservar una plaza.</p>
+        <p style="color:#8f889e;font-size:13px;line-height:1.6">No necesitas responder a este mensaje con información médica. Si avanzamos, te explicaré qué datos son necesarios para adaptar el entrenamiento.</p>
+      </div>`
 
-    // Send emails via Gmail SMTP
-    await sendEmail({
-      to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
-      replyTo: email,
-      subject: `[Valoración] ${name} — ${objectiveLabels[objective] || objective}`,
-      html: businessHtml,
-    })
-
-    await sendEmail({
-      to: email,
-      subject: 'Tu valoración en WellnessReal — La hemos recibido',
-      html: userHtml,
-    })
-
-    // Subscribe to MailerLite
-    const mlKey = process.env.MAILERLITE_API_KEY
-    if (mlKey) {
-      try {
-        await fetch('https://connect.mailerlite.com/api/subscribers', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${mlKey}`,
-          },
-          body: JSON.stringify({
-            email,
-            fields: { name, phone, city: modality || '' },
-            groups: process.env.MAILERLITE_GROUP_ID ? [process.env.MAILERLITE_GROUP_ID] : [],
-          }),
-        })
-      } catch (e) {
-        console.error('Error subscribing to MailerLite:', e)
-      }
-    }
+    await Promise.all([
+      sendEmail({
+        to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
+        replyTo: data.email,
+        subject: `[Entrenamiento individual] ${safeName} — ${OBJECTIVES[data.objective]}`,
+        html: businessHtml,
+      }),
+      sendEmail({
+        to: data.email,
+        subject: 'He recibido tu solicitud — WellnessReal',
+        html: userHtml,
+      }),
+    ])
 
     return NextResponse.json({ success: true })
   } catch (error) {
-    console.error('Error en API de valoración:', error)
-    return NextResponse.json({ error: 'Error al procesar la valoración' }, { status: 500 })
+    console.error('[Valoracion:POST] No se pudo procesar la solicitud:', error)
+    return NextResponse.json({ error: 'No se pudo procesar la solicitud.' }, { status: 500 })
   }
 }

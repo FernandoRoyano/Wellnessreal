@@ -4,8 +4,12 @@ import { supabase } from '@/lib/supabase'
 import { THYROID_FUNNEL_EVENTS } from '@/lib/db/thyroid-funnel'
 
 interface EventRow {
+  id: string
   event_name: string
   lead_id: string | null
+  anonymous_id: string | null
+  session_id: string | null
+  external_id: string | null
   profile: string | null
   intent: string | null
   question_id: string | null
@@ -37,7 +41,7 @@ export async function GET(request: NextRequest) {
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
     const { data, error } = await supabase
       .from('thyroid_funnel_events')
-      .select('event_name,lead_id,profile,intent,question_id,source,value,created_at,metadata')
+      .select('id,event_name,lead_id,anonymous_id,session_id,external_id,profile,intent,question_id,source,value,created_at,metadata')
       .gte('created_at', since)
       .order('created_at', { ascending: false })
       .limit(10000)
@@ -56,7 +60,9 @@ export async function GET(request: NextRequest) {
     }
     const leadsById = new Map(leads.map((lead) => [lead.id, lead]))
 
-    const counts = Object.fromEntries(THYROID_FUNNEL_EVENTS.map((name) => [name, 0])) as Record<string, number>
+    const identitiesByEvent = new Map<string, Set<string>>(
+      THYROID_FUNNEL_EVENTS.map((name) => [name, new Set<string>()]),
+    )
     const byProfile: Record<string, number> = {}
     const salesByProfile: Record<string, number> = {}
     const byIntent: Record<string, number> = {}
@@ -65,16 +71,27 @@ export async function GET(request: NextRequest) {
     const byQuestion: Record<string, number> = {}
     let revenue = 0
     let recurringRevenue = 0
-    let engagedViews = 0
-    let landingCtaClicks = 0
+    const engagedIdentities = new Set<string>()
+    const landingCtaIdentities = new Set<string>()
 
     for (const event of events) {
+      const identity = event.lead_id
+        ? `lead:${event.lead_id}`
+        : event.anonymous_id
+          ? `anonymous:${event.anonymous_id}`
+          : event.session_id
+            ? `session:${event.session_id}`
+            : event.external_id
+              ? `external:${event.external_id}`
+              : `event:${event.id}`
       const viewType = event.event_name === 'thyroid_landing_view'
         ? String(event.metadata?.view_type ?? 'initial')
         : null
-      if (viewType === 'engaged') engagedViews += 1
-      if (viewType === 'cta_click') landingCtaClicks += 1
-      if (!viewType || viewType === 'initial') increment(counts, event.event_name)
+      if (viewType === 'engaged') engagedIdentities.add(identity)
+      if (viewType === 'cta_click' || event.event_name === 'thyroid_landing_cta_click') {
+        landingCtaIdentities.add(identity)
+      }
+      if (!viewType || viewType === 'initial') identitiesByEvent.get(event.event_name)?.add(identity)
       const lead = event.lead_id ? leadsById.get(event.lead_id) : undefined
       const formData = lead?.form_data ?? {}
       const profile = event.profile || String(formData.profile || formData.thyroidProfile || 'desconocido')
@@ -97,6 +114,12 @@ export async function GET(request: NextRequest) {
       if (event.event_name === 'thyroid_continuity') recurringRevenue += Number(event.value || 0)
     }
 
+    const counts = Object.fromEntries(
+      THYROID_FUNNEL_EVENTS.map((name) => [name, identitiesByEvent.get(name)?.size ?? 0]),
+    ) as Record<string, number>
+    const engagedViews = engagedIdentities.size
+    const landingCtaClicks = landingCtaIdentities.size
+
     const rate = (from: string, to: string) => counts[from] > 0
       ? Math.round((counts[to] / counts[from]) * 1000) / 10
       : 0
@@ -114,6 +137,11 @@ export async function GET(request: NextRequest) {
         leadToValuation: rate('thyroid_lead_capture', 'thyroid_valuation_submit'),
         valuationToSale: rate('thyroid_valuation_submit', 'thyroid_sale'),
         leadToSale: rate('thyroid_lead_capture', 'thyroid_sale'),
+        vslLandingToRegistration: rate('thyroid_vsl_landing_view', 'thyroid_vsl_registration'),
+        vslRegistrationToCta: rate('thyroid_vsl_registration', 'thyroid_vsl_cta_click'),
+        offerToApplication: rate('thyroid_offer_view', 'thyroid_valuation_submit'),
+        applicationToSale: rate('thyroid_valuation_submit', 'thyroid_sale'),
+        saleToOnboarding: rate('thyroid_sale', 'thyroid_onboarding_complete'),
       },
       landingSignals: { engagedViews, landingCtaClicks },
       revenue,

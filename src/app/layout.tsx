@@ -59,7 +59,7 @@ export const metadata: Metadata = {
       'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real con app profesional y seguimiento semanal.',
     images: [
       {
-        url: '/portada-WR.jpg',
+        url: '/images/portada-WR.jpg',
         width: 1200,
         height: 630,
         alt: 'WellnessReal - Entrenamiento Online Personalizado',
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     title: 'WellnessReal | Entrenamiento Online Personalizado',
     description:
       'Planes de entrenamiento y nutrición adaptados a tu vida real. App profesional + seguimiento semanal.',
-    images: ['/portada-WR.jpg'],
+    images: ['/images/portada-WR.jpg'],
   },
   verification: {
     ...(process.env.GOOGLE_SITE_VERIFICATION && {

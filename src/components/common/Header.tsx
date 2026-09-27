@@ -8,11 +8,10 @@ import Container from './Container'
 import { Menu, X } from 'lucide-react'
 
 const navigationItems = [
-  { href: '/filosofia', label: 'Filosofía' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/tarifas', label: 'Tarifas' },
+  { href: '/tiroides', label: 'Tiroides' },
+  { href: '/servicios/entrenamiento-online', label: 'Entrenamiento' },
   { href: '/blog', label: 'Blog' },
-  { href: '/contacto', label: 'Contacto' },
+  { href: '/sobre-mi', label: 'Sobre mí' },
 ]
 
 export default function Header() {
@@ -78,10 +77,10 @@ export default function Header() {
                     <Link
                       key={item.href}
                       href={item.href}
-                      aria-current={pathname === item.href ? 'page' : undefined}
+                      aria-current={pathname.startsWith(item.href) ? 'page' : undefined}
                       className={
                         'relative text-fluid-sm font-medium transition-colors group ' +
-                        (pathname === item.href ? 'text-white' : 'text-white/75 hover:text-white')
+                        (pathname.startsWith(item.href) ? 'text-white' : 'text-white/75 hover:text-white')
                       }
                     >
                       {item.label}
@@ -89,7 +88,7 @@ export default function Header() {
                         aria-hidden="true"
                         className={
                           'absolute -bottom-1.5 left-0 right-0 h-px bg-accent origin-left transition-transform duration-300 ' +
-                          (pathname === item.href
+                          (pathname.startsWith(item.href)
                             ? 'scale-x-100'
                             : 'scale-x-0 group-hover:scale-x-100')
                         }
@@ -97,8 +96,8 @@ export default function Header() {
                     </Link>
                   ))}
                 </nav>
-                <Link href="/valoracion" className="btn-brand text-fluid-sm px-5 py-2.5">
-                  Valoración gratis
+                <Link href="/metodo-tiroides" className="btn-brand text-fluid-sm px-5 py-2.5">
+                  Método BASE Tiroides
                 </Link>
               </div>
 
@@ -123,10 +122,10 @@ export default function Header() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  aria-current={pathname === item.href ? 'page' : undefined}
+                  aria-current={pathname.startsWith(item.href) ? 'page' : undefined}
                   className={
                     'py-3 px-3 text-fluid-base font-medium rounded-lg transition-colors ' +
-                    (pathname === item.href
+                    (pathname.startsWith(item.href)
                       ? 'text-accent bg-accent-muted'
                       : 'text-white/80 hover:text-accent hover:bg-accent-muted')
                   }
@@ -136,11 +135,11 @@ export default function Header() {
                 </Link>
               ))}
               <Link
-                href="/valoracion"
+                href="/metodo-tiroides"
                 className="btn-brand mt-3 w-full"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Valoración gratis
+                Conocer Método BASE Tiroides
               </Link>
             </div>
           </nav>

@@ -5,11 +5,12 @@ import { Check, Smartphone, Clock, Target, MessageCircle, ArrowRight, Sparkles }
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 import FaqSection from '@/components/sections/FaqSection'
+import PricingCards from '@/components/sections/PricingCards'
 
 export const metadata = buildMetadata({
-  title: 'Entrenamiento Online Personalizado',
+  title: 'Entrenador Personal Online | Plan y seguimiento',
   description:
-    'Entrenamiento personalizado 100% online con app profesional. Seguimiento semanal, vídeos explicativos y plan adaptado a tu vida real. Sin horarios fijos.',
+    'Entrenamiento personalizado durante 12 semanas con valoración, programación individual, seguimiento semanal y ajustes. Plazas limitadas.',
   path: '/servicios/entrenamiento-online',
   keywords: [
     'entrenamiento online personalizado',
@@ -21,7 +22,7 @@ export const metadata = buildMetadata({
 })
 
 const STEPS = [
-  { step: '01', title: 'Hablamos',       desc: 'Me cuentas tu situación, objetivos y disponibilidad. Sin compromiso.' },
+  { step: '01', title: 'Valoramos',       desc: 'Me cuentas tu situación, objetivos y disponibilidad. Confirmamos si este formato encaja.' },
   { step: '02', title: 'Diseño tu plan', desc: 'Creo un programa 100% personalizado a tu contexto.' },
   { step: '03', title: 'Entrenas',       desc: 'Sigues tu plan desde la app. Vídeos, instrucciones, todo claro.' },
   { step: '04', title: 'Ajustamos',      desc: 'Cada semana revisamos y adaptamos según tu evolución.' },
@@ -31,22 +32,22 @@ const INCLUDED = [
   { icon: Smartphone,    title: 'App profesional',        desc: 'Tu plan en iOS/Android con vídeos explicativos, tracking de progreso y recordatorios.' },
   { icon: Target,        title: 'Plan 100% personalizado', desc: 'Diseñado para tu objetivo, tu nivel, tu material disponible y tu tiempo.' },
   { icon: Clock,         title: 'Flexibilidad total',     desc: 'Sin horarios fijos. Entrenas cuando te venga bien, yo superviso tu progreso.' },
-  { icon: MessageCircle, title: 'Soporte directo',        desc: 'Dudas, ajustes, motivación. Estoy disponible cuando me necesites.' },
+  { icon: MessageCircle, title: 'Contacto directo',        desc: 'Resolvemos dudas y ajustes dentro de los canales y tiempos acordados.' },
 ] as const
 
 const FIT_ITEMS = [
-  'Tienes poco tiempo pero quieres resultados reales',
+  'Necesitas que el plan se adapte a tu disponibilidad real',
   'Prefieres entrenar en casa, en el gimnasio o donde sea',
   'Quieres un plan adaptado a TU situación, no algo genérico',
   'Valoras tener a alguien que te guíe y te ajuste el plan',
-  'Has probado apps o rutinas de internet sin éxito',
+  'Has probado rutinas generales y necesitas decisiones individuales',
 ] as const
 
 const FAQS = [
   {
     question: '¿El entrenamiento online funciona si nunca he entrenado?',
     answer:
-      'Sí, de hecho es donde más diferencia se nota. Empiezo desde tu punto de partida real, con vídeos que explican cada ejercicio paso a paso y progresiones pensadas para que nunca te quedes atascado ni te lesiones. No necesitas saber nada previo: para eso estoy yo al otro lado.',
+      'Sí. Empiezo desde tu punto de partida real, con vídeos que explican los ejercicios y progresiones adaptadas a tu experiencia. La valoración inicial permite detectar también cuándo hace falta una revisión sanitaria previa.',
   },
   {
     question: '¿Qué material necesito para entrenar desde casa?',
@@ -56,17 +57,17 @@ const FAQS = [
   {
     question: '¿Cuánto tiempo a la semana necesito dedicarle?',
     answer:
-      'Con 3 sesiones de 40-50 minutos a la semana hay resultados claros. Si tienes menos tiempo, ajusto la frecuencia y la duración sin sacrificar el progreso. El plan se construye alrededor de tu agenda real: trabajo, familia y descanso incluidos.',
+      'Normalmente trabajamos con dos o tres sesiones, pero la frecuencia y la duración se deciden después de conocer tu agenda, experiencia y recuperación. El plan debe caber en tu semana real.',
   },
   {
     question: '¿En qué se diferencia de una app de rutinas genéricas?',
     answer:
-      'Una app de rutinas te da el mismo plan que a otras 10.000 personas y no sabe quién eres. Aquí el plan es 100% tuyo: lo diseño yo, lo reviso cada semana mirando tus datos y lo ajusto según cómo respondes. Tienes a un profesional detrás, no un algoritmo.',
+      'La app solo es la herramienta. El valor está en la valoración, las decisiones individuales, la revisión semanal y los ajustes según cómo respondes.',
   },
   {
     question: '¿Cuánto tardo en ver resultados?',
     answer:
-      'Las primeras sensaciones (energía, fuerza, adherencia) llegan en 2-3 semanas. Los cambios visibles y medibles aparecen a partir de las 6-8 semanas si el seguimiento es constante. No prometo milagros en 15 días porque lo que dura no funciona así.',
+      'Depende del punto de partida, el objetivo y la adherencia. Durante las 12 semanas observamos ejecución, fuerza, regularidad y las métricas que tengan sentido en tu caso, sin prometer fechas o resultados concretos.',
   },
   {
     question: '¿Y si vivo fuera de Madrid o de España?',
@@ -80,8 +81,8 @@ export default function EntrenamientoOnlinePage() {
     <>
       <JsonLd
         data={serviceSchema({
-          name: 'Entrenamiento Online Personalizado',
-          description: 'Plan de entrenamiento personalizado con app profesional, seguimiento semanal y vídeos explicativos.',
+          name: 'Entrenamiento personalizado · 12 semanas',
+          description: 'Valoración individual, programación personalizada, seguimiento semanal y ajustes durante 12 semanas.',
           url: 'https://wellnessreal.es/servicios/entrenamiento-online',
         })}
       />
@@ -89,7 +90,7 @@ export default function EntrenamientoOnlinePage() {
         data={breadcrumbSchema([
           { name: 'Inicio',               url: 'https://wellnessreal.es' },
           { name: 'Servicios',            url: 'https://wellnessreal.es/servicios' },
-          { name: 'Entrenamiento Online', url: 'https://wellnessreal.es/servicios/entrenamiento-online' },
+          { name: 'Entrenamiento personalizado', url: 'https://wellnessreal.es/servicios/entrenamiento-online' },
         ])}
       />
 
@@ -103,28 +104,25 @@ export default function EntrenamientoOnlinePage() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                  Servicio principal
+                  Servicio individual · Plazas limitadas
                 </span>
               </div>
 
               <h1 className="headline text-fluid-6xl text-white animate-fade-up">
-                Entrenamiento <span className="text-gradient-brand">online.</span>
+                Entrenamiento online <span className="text-gradient-brand">personalizado.</span>
               </h1>
 
               <p className="text-fluid-xl text-white/85 leading-relaxed max-w-xl font-medium animate-fade-up [animation-delay:100ms]">
-                Tu plan personalizado en una app profesional. Entrena cuando puedas, donde quieras, con seguimiento real
-                cada semana.{' '}
+                Doce semanas de programación completamente individual, seguimiento semanal y ajustes.{' '}
                 <span className="text-accent font-semibold">Adaptado a tu vida, no al revés.</span>
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:200ms]">
                 <Link href="/valoracion" className="btn-brand text-fluid-base">
-                  Solicitar valoración gratuita
+                  Solicitar valoración individual
                   <ArrowRight className="w-4 h-4" />
                 </Link>
-                <Link href="/tarifas" className="btn-ghost text-fluid-base">
-                  Ver tarifas
-                </Link>
+                <a href="#precio" className="btn-ghost text-fluid-base">Ver precio y condiciones</a>
               </div>
             </div>
 
@@ -237,7 +235,7 @@ export default function EntrenamientoOnlinePage() {
               <p>
                 Cada semana reviso tu progreso con datos reales —cargas, sensaciones, adherencia— y ajusto lo que haga
                 falta. Esa es la diferencia entre un entrenador personal online y una app de rutinas: aquí hay alguien
-                mirando tu evolución y tomando decisiones por ti. Trabajo con software profesional de seguimiento, con
+                mirando tu evolución y tomando decisiones contigo. Trabajo con software profesional de seguimiento, con
                 vídeos explicativos de cada ejercicio y comunicación directa conmigo desde la propia app, así que nunca
                 te quedas con la duda de si lo estás haciendo bien.
               </p>
@@ -251,6 +249,10 @@ export default function EntrenamientoOnlinePage() {
           </div>
         </Container>
       </section>
+
+      <div id="precio" className="scroll-mt-24">
+        <PricingCards />
+      </div>
 
       {/* ═══════════════ FAQ ═══════════════ */}
       <FaqSection faqs={[...FAQS]} background="dusk" />
@@ -290,7 +292,7 @@ export default function EntrenamientoOnlinePage() {
             </p>
             <div className="pt-2">
               <Link href="/valoracion" className="btn-brand text-fluid-lg px-10 py-5">
-                Solicitar valoración gratuita
+                Solicitar valoración individual
                 <ArrowRight className="w-5 h-5" />
               </Link>
             </div>

@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/db/posts'
 
 const SITE_URL = 'https://wellnessreal.es'
-const STATIC_PAGES_UPDATED_AT = new Date('2026-09-07')
+const STATIC_PAGES_UPDATED_AT = new Date('2026-09-23')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
@@ -101,6 +101,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'yearly',
       priority: 0.2,
+    },
+    {
+      url: `${SITE_URL}/politica-editorial`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'yearly',
+      priority: 0.3,
     },
     {
       url: `${SITE_URL}/terminos`,

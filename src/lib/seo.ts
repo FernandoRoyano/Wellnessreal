@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 const SITE_URL = 'https://wellnessreal.es'
 const SITE_NAME = 'WellnessReal'
-const DEFAULT_OG_IMAGE = '/portada-WR.jpg'
+const DEFAULT_OG_IMAGE = '/images/portada-WR.jpg'
 
 interface BuildMetadataOptions {
   title: string

@@ -42,7 +42,7 @@ function resultEmailHTML(name: string, result: TestResult): string {
     <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
       <tr><td style="text-align:center;padding-bottom:26px;"><h1 style="color:#FCEE21;font-size:26px;margin:0;letter-spacing:2px;">WELLNESS<span style="color:#ffffff;">REAL</span></h1></td></tr>
       <tr><td style="background-color:#1a1535;border-radius:16px;padding:36px 30px;border:1px solid rgba(102,45,145,0.3);">
-        <p style="color:#9ca3af;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;">Tu resultado personalizado</p>
+        <p style="color:#9ca3af;font-size:13px;letter-spacing:2px;text-transform:uppercase;margin:0 0 8px;">OrientaciÃ³n segÃºn tus respuestas</p>
         <h2 style="color:#ffffff;font-size:24px;margin:0 0 16px;">${result.emoji} ${escapeHtml(result.title)}</h2>
         <p style="color:#d1d5db;font-size:15px;line-height:1.7;margin:0 0 20px;">Hola ${displayName}, ${escapeHtml(result.summary)}</p>
         <div style="background-color:#16122B;border-radius:12px;padding:18px 20px;border:1px solid rgba(252,238,33,0.25);margin:0 0 20px;">
@@ -85,13 +85,8 @@ export async function POST(request: NextRequest) {
         'form:test-tiroides',
         `perfil:${result.profile}`,
         `intencion:${result.intent}`,
-        `revision-medica:${result.requiresMedicalReview ? 'recomendada' : 'actualizada'}`,
       ],
       form_data: {
-        ...answers,
-        profile: result.profile,
-        intent: result.intent,
-        requires_medical_review: result.requiresMedicalReview,
       },
     })
 

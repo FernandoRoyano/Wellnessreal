@@ -28,8 +28,8 @@ export default function WebinarClase() {
             <span className="slabel">Clase online gratuita</span>
             <h2 className="title">Tu clase está lista. Dale al play.</h2>
             <p className="lede">
-              Unos 15 minutos. Cuando termines, justo debajo tienes el botón para montar tu plan
-              personalizado gratis.
+              Unos 15 minutos. Cuando termines, justo debajo puedes contarme tu situación para que
+              valoremos si el acompañamiento encaja contigo.
             </p>
             <p
               style={{
@@ -87,13 +87,13 @@ export default function WebinarClase() {
                 <div style={{ fontSize: 40, marginBottom: 12 }}>🎬</div>
                 <p style={{ maxWidth: 360, lineHeight: 1.6 }}>
                   El vídeo de la clase estará disponible aquí muy pronto. Mientras tanto, ya puedes
-                  montar tu plan personalizado abajo.
+                  solicitar una valoración abajo.
                 </p>
               </div>
             )}
           </div>
 
-          {/* CTA al cuestionario */}
+          {/* CTA a valoración */}
           <div
             className="glass"
             style={{
@@ -104,14 +104,14 @@ export default function WebinarClase() {
             }}
           >
             <h3 style={{ fontFamily: "'Syne',sans-serif", fontSize: "clamp(1.3rem,3.5vw,1.7rem)", color: "var(--cream)", marginBottom: 10 }}>
-              ¿Listo para tu plan?
+              ¿Quieres que revisemos tu caso?
             </h3>
             <p style={{ color: "var(--lavender)", marginBottom: 22, lineHeight: 1.6 }}>
-              Cuéntame tu situación en 2 minutos y te monto tu primer plan personalizado con este
-              método. Lo ves al instante; yo lo reviso antes de dártelo entero.
+              Cuéntame tu situación y te diré con sinceridad si puedo ayudarte y qué formato encaja
+              mejor contigo. Solicitar la valoración no implica comprar nada.
             </p>
-            <Link href="/cuestionario" className="btn-primary">
-              Crear mi plan ahora <span className="arr">→</span>
+            <Link href="/valoracion" className="btn-primary">
+              Solicitar valoración <span className="arr">→</span>
             </Link>
           </div>
         </div>

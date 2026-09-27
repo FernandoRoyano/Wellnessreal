@@ -1,8 +1,24 @@
 import Container from '@/components/common/Container'
 import Image from 'next/image'
+import Link from 'next/link'
 import { CheckCircle, X, ArrowRight, Sparkles, ShieldCheck, Clock3, BadgeCheck } from 'lucide-react'
 import TiroidesConversionPanel from '@/components/tiroides/TiroidesConversionPanel'
 import MobileTestShortcut from '@/components/tiroides/MobileTestShortcut'
+import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
+import { buildMetadata } from '@/lib/seo'
+
+export const metadata = buildMetadata({
+  title: 'Hipotiroidismo y entrenamiento | Guías y test gratuito',
+  description:
+    'Información práctica sobre fuerza, energía y hábitos cuando tienes hipotiroidismo o Hashimoto. Haz el test gratuito para ordenar tus prioridades.',
+  path: '/tiroides',
+  keywords: [
+    'entrenamiento hipotiroidismo',
+    'ejercicio Hashimoto',
+    'fuerza hipotiroidismo',
+    'cansancio hipotiroidismo ejercicio',
+  ],
+})
 
 const WHATS_INSIDE = [
   'Tu prioridad real entre fuerza, alimentación, descanso y seguimiento.',
@@ -56,9 +72,48 @@ const CONSEJO_VS = [
   },
 ] as const
 
+const THYROID_GUIDES = [
+  {
+    href: '/blog/mejor-ejercicio-hipotiroidismo',
+    title: 'Ejercicio e hipotiroidismo',
+    description: 'Qué aportan la fuerza y el cardio y cómo ajustar la dosis a tu energía.',
+  },
+  {
+    href: '/blog/por-que-no-adelgazo-con-hipotiroidismo',
+    title: 'Por qué no adelgazo con hipotiroidismo',
+    description: 'Siete piezas para distinguir un estancamiento real del ruido de la báscula.',
+  },
+  {
+    href: '/blog/gluten-e-hipotiroidismo',
+    title: 'Gluten e hipotiroidismo',
+    description: 'Cuándo conviene estudiarlo, cuándo no retirarlo y qué sabemos de verdad.',
+  },
+  {
+    href: '/blog/cansancio-e-hipotiroidismo',
+    title: 'Cansancio e hipotiroidismo',
+    description: 'Qué revisar con tu médico y cómo adaptar sueño, comida y movimiento.',
+  },
+  {
+    href: '/blog/suplementos-tiroides',
+    title: 'Suplementos para la tiroides',
+    description: 'Yodo, selenio, vitamina D y hierro: evidencia frente a promesas.',
+  },
+  {
+    href: '/blog/adelgazar-con-hipotiroidismo',
+    title: 'Adelgazar con hipotiroidismo',
+    description: 'Una guía para organizar comida, fuerza, movimiento y descanso sin extremos.',
+  },
+] as const
+
 export default function TiroidesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: 'Inicio', url: 'https://wellnessreal.es' },
+          { name: 'Hipotiroidismo', url: 'https://wellnessreal.es/tiroides' },
+        ])}
+      />
       {/* ═══════════════ HERO + TEST ═══════════════ */}
       <section className="relative overflow-hidden bg-brand-deep py-8 lg:py-[clamp(3.5rem,7vw,6.5rem)]">
         <div className="absolute inset-0 bg-radial-accent opacity-60" />
@@ -71,7 +126,7 @@ export default function TiroidesPage() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                  Test gratis · 1 minuto
+                  Centro gratuito · Test de 1 minuto
                 </span>
               </div>
 
@@ -83,7 +138,8 @@ export default function TiroidesPage() {
 
               <p className="max-w-2xl text-sm text-muted leading-relaxed lg:text-fluid-lg">
                 Si tienes hipotiroidismo o Hashimoto, el entrenamiento no debería sumar más
-                confusión. Descubre qué merece la pena priorizar ahora.
+                confusión. Aquí puedes entender mejor el contexto y descubrir qué merece la pena
+                priorizar ahora, sin comprar ningún programa.
               </p>
 
               <ul className="hidden space-y-3 lg:block">
@@ -169,6 +225,56 @@ export default function TiroidesPage() {
       </section>
 
       <MobileTestShortcut />
+
+      {/* Centro temático: refuerza el contexto SEO sin competir con el test. */}
+      <section className="relative bg-brand-deep py-fluid-xl" aria-labelledby="guias-tiroides">
+        <Container>
+          <div className="mx-auto max-w-5xl">
+            <div className="mb-10 max-w-3xl space-y-3">
+              <span className="eyebrow">Guías basadas en evidencia</span>
+              <h2 id="guias-tiroides" className="headline text-fluid-3xl text-white">
+                Entiende mejor el hipotiroidismo antes de{' '}
+                <span className="text-gradient-brand">decidir qué hacer.</span>
+              </h2>
+              <p className="text-fluid-base leading-relaxed text-muted">
+                Entrenamiento, composición corporal, cansancio y alimentación explicados sin
+                soluciones milagro. Empieza por la duda que más se parece a tu situación.
+              </p>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {THYROID_GUIDES.map((guide) => (
+                <article key={guide.href} className="surface-card flex h-full flex-col rounded-2xl p-6">
+                  <h3 className="headline text-fluid-xl text-white">{guide.title}</h3>
+                  <p className="mt-3 flex-1 text-fluid-sm leading-relaxed text-muted">
+                    {guide.description}
+                  </p>
+                  <Link
+                    href={guide.href}
+                    className="mt-5 inline-flex min-h-11 items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] hover:gap-3"
+                  >
+                    Leer la guía
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  </Link>
+                </article>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-col items-start justify-between gap-4 rounded-2xl border border-accent/20 bg-accent/5 p-6 sm:flex-row sm:items-center">
+              <div>
+                <p className="font-semibold text-white">Si ya quieres convertirlo en un plan</p>
+                <p className="mt-1 text-fluid-sm text-muted">
+                  Conoce el acompañamiento de 12 semanas de Método BASE Tiroides.
+                </p>
+              </div>
+              <Link href="/metodo-tiroides" className="btn-ghost shrink-0 text-fluid-sm">
+                Ver Método BASE
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
 
       {/* ═══════════════ PRIORIDADES ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-dusk">

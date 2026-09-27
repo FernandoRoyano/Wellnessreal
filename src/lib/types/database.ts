@@ -9,11 +9,7 @@ export type ProposalStatus =
 export type PaymentMethod = 'stripe' | 'transfer'
 
 export type ServiceType =
-  | 'starter_1mes'
-  | 'pack_3meses'
-  | 'pack_6meses_transformacion'
-  | 'premium_3meses'
-  | 'solo_entrenamiento_trimestral'
+  | 'personal_12_semanas'
   | 'entrenamiento_presencial'
   | 'consulta_nutricion'
   | 'analisis_corporal'

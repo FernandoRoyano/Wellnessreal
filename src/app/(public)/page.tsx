@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import {
-  Smartphone,
   Target,
   BarChart3,
   Check,
@@ -26,10 +25,9 @@ import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
-  // El layout raíz añade " | WellnessReal" vía template — no repetir la marca aquí
-  title: 'Entrenamiento Online Personalizado en Madrid',
+  title: 'Entrenamiento basado en ciencia para tu vida real',
   description:
-    'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real con app profesional y seguimiento semanal. Primera valoración gratis.',
+    'Entrenamiento de fuerza y hábitos sostenibles, con especialización en hipotiroidismo y Hashimoto y una alternativa de seguimiento individual.',
   path: '/',
   keywords: [
     'entrenamiento online personalizado',
@@ -43,48 +41,48 @@ export const metadata = buildMetadata({
 
 const BENEFITS = [
   {
-    icon: Smartphone,
-    title: 'App profesional exclusiva',
-    desc: 'Tu plan en una app móvil intuitiva. Vídeos, tracking automático y soporte directo desde el móvil.',
+    icon: GraduationCap,
+    title: 'Criterio basado en evidencia',
+    desc: 'La ciencia se traduce en decisiones útiles, sin promesas mágicas ni reglas imposibles de mantener.',
   },
   {
     icon: Target,
-    title: '100% personalizado',
-    desc: 'Adaptado a TU espacio, TU material, TU nivel y TUS objetivos. Nada de rutinas genéricas.',
+    title: 'Adaptado a tu contexto',
+    desc: 'El punto de partida es tu nivel, tu tiempo, tu energía y el material que tienes disponible.',
   },
   {
     icon: BarChart3,
-    title: 'Seguimiento cada semana',
-    desc: 'Análisis de tu progreso, ajustes constantes y feedback profesional. No estás solo.',
+    title: 'Progreso que se puede ajustar',
+    desc: 'Observamos tu respuesta y modificamos la carga, el volumen o los hábitos cuando hace falta.',
   },
 ] as const
 
 const SUPPORTING_BENEFITS = [
-  'Entrena cuando y donde puedas',
-  'Método basado en evidencia',
-  'Mejor precio que el formato presencial',
+  'Entrenamiento de fuerza',
+  'Hábitos sostenibles',
+  'Límites sanitarios claros',
 ] as const
 
 const STEPS = [
   {
     step: '01',
-    title: 'Solicita tu valoración gratis',
-    desc: 'Valoración profesional 100% online. Analizamos tu situación, objetivos y diseñamos tu plan personalizado.',
+    title: 'Elige tu punto de entrada',
+    desc: 'Método BASE Tiroides si necesitas una estructura específica, o entrenamiento individual si buscas máxima personalización.',
   },
   {
     step: '02',
-    title: 'Recibes acceso a tu app',
-    desc: 'Te envío invitación a la app móvil (iOS/Android). Descargas, entras y ya tienes tu plan esperándote.',
+    title: 'Valoramos tu contexto',
+    desc: 'Revisamos tu punto de partida, experiencia, disponibilidad, limitaciones y objetivo realista.',
   },
   {
     step: '03',
-    title: 'Empiezas tu transformación',
-    desc: 'Sigues tu plan desde el móvil. Vídeos explicativos, ejercicios personalizados, tracking automático.',
+    title: 'Construyes una estructura',
+    desc: 'Aplicas un plan de fuerza y hábitos que puedas integrar en tu semana sin depender de la motivación perfecta.',
   },
   {
     step: '04',
-    title: 'Seguimiento constante',
-    desc: 'Cada semana revisamos tu evolución. Ajusto el plan según tus resultados y te doy feedback profesional.',
+    title: 'Observas y ajustas',
+    desc: 'El progreso se revisa con datos, sensaciones y contexto para decidir qué mantener y qué cambiar.',
   },
 ] as const
 
@@ -125,31 +123,15 @@ const TESTIMONIALS = [
 
 const PLANS = [
   {
-    name: 'Pack 3 meses',
-    price: '450',
-    period: '3 meses · 150 €/mes',
-    desc: 'Para empezar con una base clara',
-    features: [
-      'Plan 100% personalizado',
-      'Acceso completo a la app',
-      'Revisión y ajustes semanales',
-    ],
-    popular: false,
-  },
-  {
-    name: 'Pack 6 meses',
+    name: 'Entrenamiento personalizado',
     price: '750',
-    period: '6 meses · 125 €/mes',
-    desc: 'Tiempo real para consolidar el cambio',
-    features: ['Todo lo incluido en 3 meses', 'Ahorro de 150 €', 'Seguimiento a medio plazo'],
-    popular: true,
-  },
-  {
-    name: 'Premium',
-    price: '990',
-    period: '3 meses · 330 €/mes',
-    desc: 'Máxima cercanía y disponibilidad',
-    features: ['Acompañamiento 1 a 1', 'Contacto prioritario', 'Ajustes con mayor frecuencia'],
+    period: '12 semanas · pago único',
+    desc: 'Programación y seguimiento completamente individuales',
+    features: [
+      'Valoración y plan completamente adaptado',
+      'Seguimiento semanal y ajustes',
+      'Contacto directo con plazas limitadas',
+    ],
     popular: false,
   },
 ] as const
@@ -186,36 +168,36 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                Entrenamiento online · Madrid
+                Entrenamiento y hábitos basados en ciencia
               </span>
             </div>
 
             <h1 className="headline text-fluid-6xl text-white animate-fade-up">
-              Ponte en forma sin
+              Entrenamiento basado en ciencia
               <br className="hidden sm:block" />
-              <span className="text-gradient-brand"> vivir en el gimnasio.</span>
+              <span className="text-gradient-brand"> que se adapta a tu vida real.</span>
             </h1>
 
             <p className="text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
-              Entrenamiento online para gente con trabajo, familia y poco tiempo.
+              Construye fuerza y hábitos sostenibles con una estructura que puedas mantener.
               <span className="text-accent font-semibold">
                 {' '}
-                Plan personalizado, app profesional y seguimiento semanal.
+                Especialización en hipotiroidismo y Hashimoto.
               </span>
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2 animate-fade-up [animation-delay:300ms]">
               <MagneticButton strength={0.25}>
-                <Link href="/valoracion" className="btn-brand text-fluid-base">
-                  Quiero mi plan personalizado
+                <Link href="/metodo-tiroides" className="btn-brand text-fluid-base">
+                  Conocer Método BASE Tiroides
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </MagneticButton>
               <Link
-                href="/recurso-gratis"
+                href="/servicios/entrenamiento-online"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Prefiero empezar con la guía <ArrowRight className="w-4 h-4" />
+                Busco entrenamiento personalizado <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
@@ -223,10 +205,10 @@ export default function HomePage() {
             <div className="flex flex-wrap items-center justify-center gap-2 pt-5 text-fluid-xs text-white/70 animate-fade-up [animation-delay:400ms]">
               <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                Valoración gratuita
+                Método BASE Tiroides · 12 semanas
               </span>
               <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
-                +100 clientes transformados
+                Entrenamiento para la vida real
               </span>
               <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
                 14 años de experiencia
@@ -242,13 +224,13 @@ export default function HomePage() {
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
-              <span className="eyebrow">Por qué funciona</span>
+              <span className="eyebrow">Método BASE</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Entrenamiento online que{' '}
-                <span className="text-gradient-brand">sí da resultados</span>
+                Entender, aplicar y{' '}
+                <span className="text-gradient-brand">ajustar</span>
               </h2>
               <p className="text-fluid-lg text-muted">
-                Porque está diseñado para tu vida real, no para la vida que te venden en Instagram.
+                Una forma práctica de entrenar y cuidarte con criterio, sin convertir el fitness en otra obligación imposible.
               </p>
             </div>
           </AnimatedSection>
@@ -280,6 +262,28 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          <div className="mt-8 grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
+            <Link href="/metodo-tiroides" className="surface-card-accent group rounded-2xl p-6 hover-lift">
+              <span className="eyebrow">Programa principal</span>
+              <h3 className="mt-3 text-fluid-2xl text-white">Método BASE Tiroides</h3>
+              <p className="mt-2 text-fluid-sm leading-relaxed text-muted">
+                Doce semanas para ordenar fuerza, actividad y hábitos cuando convives con hipotiroidismo o Hashimoto.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] group-hover:gap-3">
+                Ver el programa <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+            <Link href="/servicios/entrenamiento-online" className="surface-card group rounded-2xl p-6 hover-lift">
+              <span className="eyebrow">Alternativa individual</span>
+              <h3 className="mt-3 text-fluid-2xl text-white">Entrenamiento personalizado</h3>
+              <p className="mt-2 text-fluid-sm leading-relaxed text-muted">
+                Para otros objetivos o situaciones que necesitan programación y seguimiento completamente individuales.
+              </p>
+              <span className="mt-5 inline-flex items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] group-hover:gap-3">
+                Ver cómo funciona <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </span>
+            </Link>
+          </div>
         </Container>
       </section>
 
@@ -290,7 +294,7 @@ export default function HomePage() {
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
               <span className="eyebrow">Paso a paso</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Cómo funciona <span className="text-gradient-brand">(es muy fácil)</span>
+                Del punto de partida al <span className="text-gradient-brand">ajuste</span>
               </h2>
             </div>
           </AnimatedSection>
@@ -353,12 +357,12 @@ export default function HomePage() {
               <div className="order-1 lg:order-2 space-y-6">
                 <span className="eyebrow">Tecnología</span>
                 <h2 className="headline text-fluid-4xl text-white">
-                  La plataforma líder en entrenamiento online,
-                  <span className="text-gradient-brand"> en tu bolsillo.</span>
+                  La tecnología acompaña.
+                  <span className="text-gradient-brand"> El criterio decide.</span>
                 </h2>
                 <p className="text-fluid-lg text-muted">
-                  Trabajo con software profesional — no con PDFs ni hojas de Excel. Así te doy la
-                  mejor experiencia.
+                  La app organiza el plan, los vídeos y el seguimiento. La parte importante sigue
+                  siendo tomar buenas decisiones según tu respuesta y tu contexto.
                 </p>
                 <ul className="space-y-3 pt-2">
                   {APP_FEATURES.map((feature, i) => (
@@ -437,10 +441,10 @@ export default function HomePage() {
                   ))}
                 </div>
                 <Link
-                  href="/valoracion"
+                  href="/sobre-mi"
                   className="inline-flex items-center gap-2 text-fluid-sm font-bold text-accent hover:gap-3 transition-all"
                 >
-                  Cuéntame tu caso <ArrowRight className="h-4 w-4" />
+                  Conoce mi forma de trabajar <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
             </div>
@@ -500,17 +504,17 @@ export default function HomePage() {
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
-              <span className="eyebrow">Planes</span>
+              <span className="eyebrow">Entrenamiento individual</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Elige <span className="text-gradient-brand">tu plan</span>
+                Un proceso <span className="text-gradient-brand">adaptado a ti</span>
               </h2>
               <p className="text-fluid-lg text-muted">
-                Sin permanencias ocultas. Cancela cuando quieras.
+                Doce semanas con un principio, un seguimiento y un final definidos.
               </p>
             </div>
           </AnimatedSection>
 
-          <StaggerChildren className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto items-stretch">
+          <StaggerChildren className="mx-auto grid max-w-2xl items-stretch gap-6">
             {PLANS.map(({ name, price, period, desc, features, popular }, i) => (
               <article
                 key={i}
@@ -549,7 +553,7 @@ export default function HomePage() {
                   ))}
                 </ul>
                 <Link
-                  href="/tarifas"
+                  href="/servicios/entrenamiento-online"
                   className={
                     'mt-auto inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-fluid-sm transition-all ' +
                     (popular
@@ -557,7 +561,7 @@ export default function HomePage() {
                       : 'border border-border text-white hover:bg-accent-muted hover:border-border-strong')
                   }
                 >
-                  {popular ? 'Elegir este plan' : 'Ver este plan'}
+                  Ver entrenamiento personalizado
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               </article>
@@ -574,32 +578,32 @@ export default function HomePage() {
 
         <AnimatedSection className="relative z-10">
           <div className="max-w-3xl mx-auto px-6 text-center space-y-8">
-            <span className="eyebrow justify-center">Último paso</span>
+            <span className="eyebrow justify-center">Elige tu siguiente paso</span>
             <h2 className="headline text-fluid-5xl text-white">
-              No necesitas más información.
+              Empieza por la opción
               <br />
-              <span className="text-gradient-brand">Necesitas empezar.</span>
+              <span className="text-gradient-brand">que encaja contigo.</span>
             </h2>
             <p className="text-fluid-xl text-white/80 font-medium">
-              Valoración profesional <span className="text-accent font-bold">gratis</span>.
-              Analizamos tu caso y te digo si puedo ayudarte.
+              Si convives con hipotiroidismo o Hashimoto, conoce el programa específico. Para otros
+              objetivos, revisa el acompañamiento individual.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-2">
               <MagneticButton strength={0.25}>
-                <Link href="/valoracion" className="btn-brand text-fluid-lg px-12 py-5">
-                  Quiero empezar
+                <Link href="/metodo-tiroides" className="btn-brand text-fluid-lg px-12 py-5">
+                  Ver Método BASE Tiroides
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </MagneticButton>
               <Link
-                href="/recurso-gratis"
+                href="/servicios/entrenamiento-online"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Primero quiero la guía <ArrowRight className="w-4 h-4" />
+                Ver entrenamiento personalizado <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <p className="text-fluid-xs text-white/65 pt-4">
-              Sin compromiso. Sin letra pequeña. Respondo personalmente en 24h.
+              Información clara, límites sanitarios explícitos y sin promesas rápidas.
             </p>
           </div>
         </AnimatedSection>

@@ -151,8 +151,8 @@ export default function ServiciosPage() {
                   </ul>
 
                   <div className="pt-3">
-                    <Link href="/tarifas" className="btn-brand text-fluid-base">
-                      Ver tarifas
+                    <Link href="/servicios/entrenamiento-online" className="btn-brand text-fluid-base">
+                      Ver entrenamiento personalizado
                       <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>

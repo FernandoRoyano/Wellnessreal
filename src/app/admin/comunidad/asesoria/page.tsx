@@ -5,6 +5,7 @@ import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import { ArrowLeft, Users, Check, X, Phone, Mail, Trash2, CreditCard, Copy } from 'lucide-react'
 import type { AsesoriaSolicitud } from '@/lib/db/comunidad'
+import { THYROID_PROGRAM } from '@/lib/metodo-tiroides'
 
 // Primer contacto ya redactado: abrir conversación y proponer hablar.
 // No se cierra la venta aquí, se abre el diálogo.
@@ -12,11 +13,11 @@ function primerMensaje(nombre: string): string {
   const n = nombre.split(' ')[0]
   return `Hola ${n}, soy Fernando de WellnessReal.
 
-He leído tu solicitud para el Grupo Tiroides y me encaja lo que cuentas.
+He leído tu solicitud para Método BASE Tiroides.
 
-Antes de nada quiero entender bien cómo es tu día a día: cómo te va con el entrenamiento y la comida, qué tal duermes y de energía, y sobre todo qué es lo que más se te atraganta ahora mismo.
+Antes de decidir si encaja contigo, quiero aclarar cualquier duda sobre el programa y entender mejor qué necesitas del entrenamiento durante estas 12 semanas.
 
-Con eso te digo con sinceridad si el grupo es lo que necesitas o si te viene mejor otra cosa.`
+Con eso podré decirte con sinceridad si este acompañamiento tiene sentido para ti o si te conviene otra opción.`
 }
 
 function waLink(nombre: string, telefono: string): string {
@@ -26,7 +27,7 @@ function waLink(nombre: string, telefono: string): string {
 }
 
 function mailLink(nombre: string, email: string): string {
-  const asunto = encodeURIComponent('Tu solicitud para el Grupo Tiroides')
+  const asunto = encodeURIComponent('Tu solicitud para Método BASE Tiroides')
   return `mailto:${email}?subject=${asunto}&body=${encodeURIComponent(primerMensaje(nombre))}`
 }
 
@@ -85,17 +86,17 @@ export default function AdminAsesoriaPage() {
     }
   }
 
-  const crearCobro = async (id: string) => {
+  const crearCobro = async (id: string, paymentPlan: 'one_time' | 'installment_1' | 'installment_2') => {
     setSaving(id)
     try {
       const response = await fetch('/api/admin/comunidad/asesoria/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify({ id, paymentPlan }),
       })
       const data = (await response.json()) as { url?: string; error?: string }
       if (!response.ok || !data.url) throw new Error(data.error || 'No se pudo crear el cobro')
-      setPaymentLinks((current) => ({ ...current, [id]: data.url! }))
+      setPaymentLinks((current) => ({ ...current, [`${id}:${paymentPlan}`]: data.url! }))
     } catch (caught) {
       setError(caught instanceof Error ? caught.message : 'No se pudo crear el cobro')
     } finally {
@@ -121,11 +122,11 @@ export default function AdminAsesoriaPage() {
         <div className="mb-8 flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold" style={{ color: '#FCEE21' }}>
-              Grupo Tiroides — Solicitudes
+              Método BASE Tiroides — Solicitudes
             </h1>
             <p className="mt-1 text-sm text-gray-400">
               {items.length} solicitudes · {nuevas} sin contactar ·{' '}
-              <span style={{ color: '#4ade80' }}>{aceptadas} aceptadas · {pagadas} pagadas</span> (plazas: 8-12)
+              <span style={{ color: '#4ade80' }}>{aceptadas} aceptadas · {pagadas} pagadas</span> (grupo: {THYROID_PROGRAM.groupSize})
             </p>
           </div>
           <Users size={28} className="text-gray-600" />
@@ -247,23 +248,26 @@ export default function AdminAsesoriaPage() {
                         <Check size={13} /> Aceptar en el grupo
                       </button>
                     )}
-                    {['aceptada', 'pagada'].includes(s.estado) && !paymentLinks[s.id] && (
-                      <button
-                        onClick={() => crearCobro(s.id)}
-                        disabled={saving === s.id || s.estado === 'pagada'}
-                        className="inline-flex items-center gap-1 rounded bg-cyan-300 px-3 py-1.5 text-xs font-bold text-[#16122B] disabled:opacity-50"
-                      >
-                        <CreditCard size={13} /> {s.estado === 'pagada' ? 'Pago recibido' : 'Crear enlace de 249 €'}
+                    {s.estado === 'aceptada' && !paymentLinks[`${s.id}:one_time`] && (
+                      <button onClick={() => crearCobro(s.id, 'one_time')} disabled={saving === s.id} className="inline-flex items-center gap-1 rounded bg-cyan-300 px-3 py-1.5 text-xs font-bold text-[#16122B] disabled:opacity-50">
+                        <CreditCard size={13} /> Pago único · {THYROID_PROGRAM.price} €
                       </button>
                     )}
-                    {paymentLinks[s.id] && (
-                      <button
-                        onClick={() => void navigator.clipboard.writeText(paymentLinks[s.id])}
-                        className="inline-flex items-center gap-1 rounded border border-cyan-300/50 px-3 py-1.5 text-xs font-bold text-cyan-300"
-                      >
-                        <Copy size={13} /> Copiar enlace de pago
+                    {s.estado === 'aceptada' && !paymentLinks[`${s.id}:installment_1`] && (
+                      <button onClick={() => crearCobro(s.id, 'installment_1')} disabled={saving === s.id} className="inline-flex items-center gap-1 rounded border border-cyan-300/50 px-3 py-1.5 text-xs font-bold text-cyan-300 disabled:opacity-50">
+                        <CreditCard size={13} /> Primer pago · {THYROID_PROGRAM.installmentPrice} €
                       </button>
                     )}
+                    {s.estado === 'pagada' && s.notas?.includes('[payment:installments:1]') && !s.notas?.includes('[payment:installments:2]') && !paymentLinks[`${s.id}:installment_2`] && (
+                      <button onClick={() => crearCobro(s.id, 'installment_2')} disabled={saving === s.id} className="inline-flex items-center gap-1 rounded border border-cyan-300/50 px-3 py-1.5 text-xs font-bold text-cyan-300 disabled:opacity-50">
+                        <CreditCard size={13} /> Segundo pago · {THYROID_PROGRAM.installmentPrice} €
+                      </button>
+                    )}
+                    {Object.entries(paymentLinks).filter(([key]) => key.startsWith(`${s.id}:`)).map(([key, url]) => (
+                      <button key={key} onClick={() => void navigator.clipboard.writeText(url)} className="inline-flex items-center gap-1 rounded border border-cyan-300/50 px-3 py-1.5 text-xs font-bold text-cyan-300">
+                        <Copy size={13} /> Copiar {key.endsWith('one_time') ? 'pago único' : key.endsWith('installment_1') ? 'primer pago' : 'segundo pago'}
+                      </button>
+                    ))}
                     {s.estado !== 'descartada' && (
                       <button
                         onClick={() => cambiar(s.id, 'descartada')}

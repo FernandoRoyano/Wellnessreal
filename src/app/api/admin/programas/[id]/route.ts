@@ -16,7 +16,7 @@ export async function GET(
 
     const { data, error } = await supabase
       .from('programas_generados')
-      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena, semana_actual, token, pagado_en, plan_tier, estado_suscripcion, acceso_hasta, acceso_manual, cancela_en)')
+      .select('*, cliente:cliente_perfil(id, nombre, email, objetivo_principal, lesiones, donde_entrena, semana_actual, token, pagado_en, acceso_manual)')
       .eq('id', id)
       .single()
 

@@ -4,7 +4,6 @@ import { ArrowRight, Sparkles } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, { offerSchema, faqSchema } from '@/components/seo/JsonLd'
 import PricingCards from '@/components/sections/PricingCards'
-import { PLAN_OPCIONES } from '@/lib/precios-plan'
 import ExitIntentPopup from '@/components/ui/ExitIntentPopup'
 import HeroAnimation from '@/components/animations/HeroAnimation'
 import AnimatedSection from '@/components/animations/AnimatedSection'
@@ -19,9 +18,9 @@ function whatsappUrl(plan: string) {
 }
 
 export const metadata = buildMetadata({
-  title: 'Tarifas | Planes de Entrenamiento Online',
+  title: 'Entrenamiento personalizado | 12 semanas',
   description:
-    'Planes de entrenamiento online personalizados desde €125/mes. Pack 3 meses, Pack 6 meses Transformación y Premium con videollamadas. Valoración gratuita incluida.',
+    'Entrenamiento individual durante 12 semanas: valoración, programación personalizada, seguimiento semanal y ajustes. Desde 750 €.',
   path: '/tarifas',
   keywords: [
     'tarifas entrenamiento online',
@@ -83,20 +82,20 @@ const FAQ_ITEMS = [
     a: 'Es una conversación de 20-30 minutos donde me cuentas tu situación, historial, objetivos y disponibilidad. Analizo tu caso y te digo honestamente si puedo ayudarte y cómo. Si no eres el perfil adecuado para lo que ofrezco, también te lo digo. Sin presión ni ventas agresivas.',
   },
   {
-    q: '¿Puedo cambiar de plan?',
-    a: 'Sí, sin ningún problema. Puedes cambiar, pausar o cancelar en cualquier momento. Sin permanencia, sin penalización, sin letra pequeña.',
+    q: '¿Por qué el servicio dura 12 semanas?',
+    a: 'Porque necesitamos tiempo para valorar, aplicar el plan, observar tu respuesta y ajustar. No es una suscripción indefinida: es un proceso con principio y final.',
   },
   {
     q: '¿Incluye nutrición?',
-    a: 'El Pack 3 meses y el Pack 6 meses Transformación incluyen pautas nutricionales básicas adaptadas a tu objetivo. El plan Premium incluye un plan nutricional completo y seguimiento continuo. Si quieres nutrición más detallada en cualquier plan, puedes añadir una consulta individual de nutrición por 50€.',
+    a: 'Incluye orientación general sobre hábitos y organización dentro del ámbito del entrenamiento. No incluye dieta clínica ni tratamiento nutricional de patologías.',
   },
   {
     q: '¿Qué pasa si no veo resultados?',
-    a: 'Si sigues el plan correctamente y no ves progreso, revisamos todo sin coste adicional y ajustamos hasta que funcione. En más de 100 clientes nunca he tenido que aplicar esta garantía porque el método funciona — pero existe porque confío en el proceso y en que si algo no avanza, hay una razón que encontraremos juntos.',
+    a: 'Revisamos adherencia, cargas, recuperación y contexto para decidir qué ajustar. No garantizo un resultado concreto, porque también depende de tu situación y participación.',
   },
   {
-    q: '¿Hay descuento por pago anual?',
-    a: 'Sí. Si quieres comprometerte a 6 o 12 meses, contacta directamente y te hago una propuesta con descuento adicional. Es la opción más rentable para quien tiene claro que quiere un cambio definitivo.',
+    q: '¿Puedo pagarlo de forma fraccionada?',
+    a: 'Sí. Puedes realizar un pago de 750 € o tres pagos de 270 €. Lo concretamos después de confirmar que el servicio encaja contigo.',
   },
   {
     q: '¿Qué necesito para empezar?',
@@ -117,9 +116,7 @@ export default function TarifasPage() {
     <>
       <JsonLd
         data={offerSchema([
-          { name: 'Pack 3 Meses', price: '450', description: 'Plan personalizado en app, 12 semanas de seguimiento con ajustes semanales, revisión mensual en profundidad y pautas nutricionales básicas.' },
-          { name: 'Pack 6 Meses Transformación', price: '750', description: '26 semanas de seguimiento continuo. El tiempo real para consolidar hábitos. Mejor precio mensual del catálogo (125€/mes).' },
-          { name: 'Premium - 3 Meses', price: '990', description: 'Acompañamiento 1-a-1: sesión inicial de 90 min, videollamada semanal con slot fijo, plan nutricional completo, WhatsApp prioritario con respuesta en menos de 2h y revisión quincenal del plan.' },
+          { name: 'Entrenamiento personalizado · 12 semanas', price: '750', description: 'Valoración individual, programación personalizada, seguimiento semanal y ajustes según la respuesta y el contexto.' },
         ])}
       />
       <JsonLd data={faqSchema(FAQ_ITEMS.map(({ q, a }) => ({ question: q, answer: a })))} />
@@ -136,22 +133,22 @@ export default function TarifasPage() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
                 <Sparkles className="w-3.5 h-3.5 text-accent" />
                 <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                  Planes y tarifas
+                  Entrenamiento personalizado
                 </span>
               </div>
 
               <h1 className="headline text-fluid-7xl text-white animate-fade-up">
-                Planes hechos para <span className="text-gradient-brand">gente con vida real.</span>
+                Un plan hecho para <span className="text-gradient-brand">tu vida real.</span>
               </h1>
 
               <p className="text-fluid-xl text-white/85 leading-relaxed max-w-2xl font-medium animate-fade-up [animation-delay:100ms]">
-                Sin permanencias, sin letra pequeña.{' '}
+                Un proceso de 12 semanas con alcance y condiciones claros.{' '}
                 <span className="text-accent font-semibold">La valoración inicial siempre es gratuita.</span>
               </p>
 
               <p className="text-fluid-base text-muted max-w-2xl leading-relaxed animate-fade-up [animation-delay:200ms]">
-                Elige el plan que mejor encaje con tu momento. Todos incluyen plan personalizado, app profesional y
-                seguimiento semanal. La diferencia está en la intensidad y el acompañamiento.
+                Primero revisamos tu situación. Si el acompañamiento individual no es el formato adecuado,
+                te lo diré antes de contratarlo.
               </p>
             </div>
           </HeroAnimation>
@@ -197,56 +194,6 @@ export default function TarifasPage() {
 
       {/* ═══════════════ PRICING CARDS ═══════════════ */}
       <PricingCards />
-
-      {/* ═══════════════ PELDAÑO DE ENTRADA — plan mensual (puente de escaleras) ═══════════════ */}
-      <section className="relative py-fluid-lg bg-brand-deep">
-        <Container>
-          <AnimatedSection>
-            <div className="max-w-4xl mx-auto">
-              <div className="text-center space-y-3 mb-fluid-md">
-                <span className="eyebrow justify-center">¿Aún no para un pack?</span>
-                <h2 className="headline text-fluid-3xl text-white">
-                  Empieza más ligero, <span className="text-gradient-brand">desde 19 €/mes</span>
-                </h2>
-                <p className="text-fluid-base text-muted max-w-2xl mx-auto leading-relaxed">
-                  Si el acompañamiento completo aún te queda grande, no te vayas: puedes arrancar con tu
-                  plan mensual. Respondes unas preguntas y lo tienes al instante. Luego subes cuando quieras.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-4">
-                {(['auto', 'revisado'] as const).map((tier) => {
-                  const p = PLAN_OPCIONES[tier]
-                  return (
-                    <article
-                      key={tier}
-                      className={`surface-card rounded-2xl p-6 hover-lift ${p.destacado ? 'border-l-4 border-l-accent' : ''}`}
-                    >
-                      <div className="flex items-baseline justify-between gap-3 mb-1">
-                        <h3 className="text-fluid-lg text-white tracking-tight">{p.nombre}</h3>
-                        <span className="font-display font-extrabold text-fluid-2xl text-accent whitespace-nowrap">
-                          {p.precio} €<span className="text-fluid-sm text-muted font-normal">/mes</span>
-                        </span>
-                      </div>
-                      <p className="text-fluid-sm text-muted leading-relaxed">{p.gancho}</p>
-                    </article>
-                  )
-                })}
-              </div>
-
-              <div className="text-center mt-6">
-                <Link href="/cuestionario" className="btn-brand text-fluid-base px-8">
-                  Crear mi plan ahora
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-                <p className="text-fluid-xs text-subtle mt-3">
-                  Ves el primer día gratis · Suscripción mensual, permanencia mínima 3 meses
-                </p>
-              </div>
-            </div>
-          </AnimatedSection>
-        </Container>
-      </section>
 
       {/* ═══════════════ TESTIMONIOS ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-deep">

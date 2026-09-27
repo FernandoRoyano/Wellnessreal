@@ -214,8 +214,33 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: '/entrenamiento-presencial',
+        destination: '/servicios/entrenamiento-personalizado',
+        permanent: true,
+      },
+      {
+        source: '/osteopatia-y-masajes',
+        destination: '/servicios/osteopatia',
+        permanent: true,
+      },
+      {
+        source: '/newsletter',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
         source: '/como-aumentar-tu-motivacion-y-lograr-resultados',
         destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/como-eliminar-las-barreras-mentales',
+        destination: '/blog/la-motivacion-no-es-tu-problema',
+        permanent: true,
+      },
+      {
+        source: '/como-eliminar-la-celulitis-de-las-piernas-y-gluteos',
+        destination: '/blog/celulitis-guia-evidencia-cientifica',
         permanent: true,
       },
       {

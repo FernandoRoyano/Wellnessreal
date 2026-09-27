@@ -21,7 +21,7 @@ export function organizationSchema() {
     '@type': 'Organization',
     name: 'WellnessReal',
     url: 'https://wellnessreal.es',
-    logo: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
+    logo: 'https://wellnessreal.es/images/logos/WR_AUX_normal_bg.png',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
     sameAs: [INSTAGRAM, YOUTUBE, LINKEDIN, GOOGLE_BUSINESS],
@@ -42,8 +42,8 @@ export function localBusinessSchema() {
     description:
       'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real.',
     url: 'https://wellnessreal.es',
-    logo: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
-    image: 'https://wellnessreal.es/portada-WR.jpg',
+    logo: 'https://wellnessreal.es/images/logos/WR_AUX_normal_bg.png',
+    image: 'https://wellnessreal.es/images/portada-WR.jpg',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
     priceRange: '€€',
@@ -171,7 +171,7 @@ export function articleSchema(article: {
       name: 'WellnessReal',
       logo: {
         '@type': 'ImageObject',
-        url: 'https://wellnessreal.es/WR_AUX_normal_bg.png',
+        url: 'https://wellnessreal.es/images/logos/WR_AUX_normal_bg.png',
       },
     },
     mainEntityOfPage: {

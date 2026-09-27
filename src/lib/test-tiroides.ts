@@ -297,6 +297,25 @@ export function buildTestResult(answers: TestAnswers): TestResult {
     answers.barrera === 'tiempo' ? 'Diseñar el plan alrededor del tiempo que realmente tienes.' : 'Elegir una acción pequeña que puedas repetir incluso en semanas difíciles.',
   ]
 
+  if (answers.situacion === 'sin-diagnostico') {
+    const wantsIndividualPlan = intent === 'guia'
+    return {
+      profile,
+      intent,
+      requiresMedicalReview: false,
+      ...copy,
+      title: 'Tu punto de partida no necesita un itinerario tiroideo',
+      summary: 'Has indicado que no tienes un problema tiroideo diagnosticado. Estas prioridades generales pueden ayudarte, pero no hay motivo para enfocar tu entrenamiento alrededor de la tiroides.',
+      priorities,
+      nextStep: wantsIndividualPlan
+        ? 'Si buscas un plan adaptado, revisa cómo funciona el entrenamiento personalizado general antes de solicitar una valoración.'
+        : 'Empieza con los recursos generales de fuerza y hábitos y observa qué puedes sostener durante las próximas semanas.',
+      cta: wantsIndividualPlan
+        ? { label: 'Ver entrenamiento personalizado', href: '/servicios/entrenamiento-online', description: 'Acompañamiento individual para objetivos generales, sin convertir la tiroides en el centro del proceso.' }
+        : { label: 'Ver la guía general gratuita', href: '/recurso-gratis', description: 'Un punto de partida sobre entrenamiento y hábitos para una vida real.' },
+    }
+  }
+
   if (requiresMedicalReview) {
     return {
       profile, intent, requiresMedicalReview, ...copy,
@@ -313,7 +332,7 @@ export function buildTestResult(answers: TestAnswers): TestResult {
     profile, intent, requiresMedicalReview, ...copy, priorities,
     nextStep: wantsGuidance ? 'Por tu objetivo, tiene sentido valorar un plan adaptado y comprobar si WellnessReal encaja contigo.' : 'Empieza aplicando estas prioridades y utiliza la comunidad para resolver dudas y ganar consistencia.',
     cta: wantsGuidance
-      ? { label: 'Ver el Método BASE Tiroides', href: `/metodo-tiroides?source=test-tiroides&profile=${profile}&intent=${intent}#solicitud`, description: 'Programa acompañado de 12 semanas. Primero revisamos tu solicitud; no pagarás nada ahora.' }
+      ? { label: 'Conocer el Método BASE Tiroides', href: `/metodo-tiroides?source=test-tiroides&profile=${profile}&intent=${intent}`, description: 'Programa acompañado de 12 semanas. Revisa primero qué incluye, sus límites y si encaja contigo.' }
       : { label: 'Entrar en la comunidad gratis', href: '/comunidad/entrar', description: 'Contenido y apoyo para poner en práctica tu siguiente paso.' },
   }
 }

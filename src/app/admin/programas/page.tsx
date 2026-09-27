@@ -19,8 +19,6 @@ interface ProgramaRow {
     nombre: string
     email: string
     acceso_manual: boolean | null
-    estado_suscripcion: string | null
-    acceso_hasta: string | null
   } | null
 }
 
@@ -154,24 +152,21 @@ export default function ProgramasAdminPage() {
                     <td className="px-4 py-3">
                       {(() => {
                         const cli = p.cliente
-                        const suscrito = ['active', 'trialing', 'past_due'].includes(cli?.estado_suscripcion ?? '')
                         const manual = cli?.acceso_manual === true
                         return (
                           <div className="flex items-center gap-2">
-                            {suscrito ? (
-                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }}>💳 Suscrito</span>
-                            ) : manual ? (
-                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(96,165,250,0.15)', color: '#60a5fa' }}>🧪 Manual</span>
+                            {manual ? (
+                              <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(74,222,128,0.15)', color: '#4ade80' }}>Acceso activo</span>
                             ) : (
                               <span className="inline-flex items-center text-xs font-medium px-2 py-1 rounded-full" style={{ backgroundColor: 'rgba(148,141,153,0.15)', color: '#958D99' }}>—</span>
                             )}
-                            {cli && !suscrito && (
+                            {cli && (
                               <button
                                 onClick={() => toggleAcceso(p.id, cli.id, !manual)}
                                 disabled={guardandoId === cli.id}
                                 className="text-xs px-2 py-1 rounded-lg text-gray-300 hover:text-white disabled:opacity-50"
                                 style={{ border: '1px solid #662D91' }}
-                                title="Dar o quitar acceso a mano (pruebas), sin pasar por Stripe"
+                                title="Dar o quitar acceso al plan"
                               >
                                 {guardandoId === cli.id ? '…' : manual ? 'Quitar' : 'Dar acceso'}
                               </button>

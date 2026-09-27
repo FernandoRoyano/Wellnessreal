@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
-import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { attachAnonymousEventsToLead, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 
 const registrationSchema = z.object({
   name: z.string().trim().min(2).max(100),
@@ -20,6 +20,10 @@ const registrationSchema = z.object({
       fbp: z.string().optional(),
     })
     .optional(),
+  _funnel: z.object({
+    anonymousId: z.string().min(8).max(100),
+    sessionId: z.string().min(8).max(100),
+  }).nullable().optional(),
 })
 
 function escapeHtml(value: string): string {
@@ -42,7 +46,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Revisa tu nombre y tu email.' }, { status: 400 })
     }
 
-    const { name, email, _attribution } = parsed.data
+    const { name, email, _attribution, _funnel } = parsed.data
     const lead = await captureLead({
       request,
       email,
@@ -56,10 +60,15 @@ export async function POST(request: NextRequest) {
     // La medición no puede tumbar el registro: si falla, el usuario debe
     // recibir igualmente el email con la clase.
     try {
+      if (lead && _funnel?.anonymousId) {
+        await attachAnonymousEventsToLead(_funnel.anonymousId, lead.id)
+      }
       await recordThyroidFunnelEvent({
         eventName: 'thyroid_vsl_registration',
         leadId: lead?.id ?? null,
         email,
+        anonymousId: _funnel?.anonymousId,
+        sessionId: _funnel?.sessionId,
         source: _attribution?.utm_source ?? null,
         medium: _attribution?.utm_medium ?? null,
         campaign: _attribution?.utm_campaign ?? null,

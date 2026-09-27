@@ -16,6 +16,7 @@ import { supabase } from '@/lib/supabase'
 import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
 import { getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
+import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
@@ -128,7 +129,7 @@ export async function POST(req: NextRequest) {
     if (datos.origen === 'metodo-tiroides') {
       await supabase
         .from('cliente_perfil')
-        .update({ acceso_manual: true, plan_tier: 'revisado', pagado_en: new Date().toISOString() })
+        .update({ acceso_manual: true, pagado_en: new Date().toISOString() })
         .eq('id', perfil.id)
     }
 
@@ -233,6 +234,19 @@ la herramienta 'entregar_programa'.
       .from('onboarding_respuestas')
       .update({ estado: 'generado' })
       .eq('id', onboarding.id)
+
+    if (isThyroidProgram) {
+      try {
+        await recordThyroidFunnelEvent({
+          eventName: 'thyroid_onboarding_complete',
+          email,
+          externalId: `onboarding:${onboarding.id}`,
+          metadata: { product: 'metodo_tiroides' },
+        })
+      } catch (trackingError) {
+        console.error('[generar-programa:trackOnboarding]', trackingError)
+      }
+    }
 
     return NextResponse.json({
       ok: true,

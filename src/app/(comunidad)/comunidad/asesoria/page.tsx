@@ -4,6 +4,7 @@ import { getSessionMember, yaSolicitoAsesoria } from '@/lib/db/comunidad'
 import { SolicitudForm } from './SolicitudForm'
 import { Check, X, Users, Video, ClipboardCheck, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
+import { THYROID_PROGRAM } from '@/lib/metodo-tiroides'
 
 export const metadata: Metadata = {
   title: 'Grupo Tiroides · Comunidad WellnessReal',
@@ -18,18 +19,18 @@ const INCLUYE = [
   },
   {
     icon: Video,
-    title: 'Directo conmigo cada semana (45 min)',
+    title: 'Directo conmigo cada semana (60 min)',
     desc: 'Entrenamiento, comida real, descanso, energía… y lo que se te atragante esa semana. En vivo, no grabado.',
   },
   {
     icon: Users,
     title: 'Espacio privado solo para el grupo',
-    desc: 'Dentro de esta misma comunidad. 8-12 mujeres, todas con lo mismo que tú.',
+    desc: `Dentro de esta misma comunidad. ${THYROID_PROGRAM.groupSize}, con un contexto parecido al tuyo.`,
   },
   {
     icon: MessageCircle,
-    title: 'Ajustamos tu día a día, no solo tu rutina',
-    desc: 'Sueño, organización, la comida cuando no tienes tiempo… Reviso cómo vas cada 3 semanas y lo movemos contigo.',
+    title: 'Check-in semanal y dos revisiones individuales',
+    desc: 'Observamos cómo respondes, resolvemos obstáculos y decidimos qué mantener, reducir o progresar.',
   },
 ] as const
 
@@ -46,8 +47,8 @@ export default async function AsesoriaPage() {
       </p>
       <h1 className="headline text-3xl text-white sm:text-4xl">Grupo Tiroides</h1>
       <p className="mt-3 text-lg text-white/70">
-        12 semanas trabajando conmigo y con un grupo pequeño de mujeres que están exactamente
-        donde tú.
+        12 semanas trabajando conmigo y con un grupo pequeño de personas que comparten un contexto
+        parecido al tuyo.
       </p>
       <Link href="/metodo-tiroides" className="mt-4 inline-flex text-sm font-semibold text-[var(--color-accent)] hover:underline">
         Ver la página completa del Método BASE Tiroides →
@@ -84,8 +85,10 @@ export default async function AsesoriaPage() {
       {/* Precio */}
       <div className="surface-card-accent mt-10 rounded-2xl p-7 text-center">
         <p className="text-sm text-white/60">Las 12 semanas completas</p>
-        <p className="headline my-2 text-5xl text-[var(--color-accent)]">249 €</p>
-        <p className="text-sm text-white/60">Pago único. Sin cuotas después, sin permanencia.</p>
+        <p className="headline my-2 text-5xl text-[var(--color-accent)]">{THYROID_PROGRAM.price} €</p>
+        <p className="text-sm text-white/60">
+          Pago único o {THYROID_PROGRAM.installmentCount} pagos de {THYROID_PROGRAM.installmentPrice} €.
+        </p>
         <p className="mx-auto mt-4 max-w-md text-sm text-white/50">
           Lo cobro por trimestre entero porque en menos de tres meses no se ve nada serio. Y
           porque quien se compromete tres meses, aparece.
@@ -98,7 +101,7 @@ export default async function AsesoriaPage() {
           <h3 className="mb-3 font-semibold text-white">Es para ti si…</h3>
           <ul className="space-y-2.5 text-sm text-white/70">
             {[
-              'Tienes hipotiroidismo o Hashimoto y ya estás en tratamiento.',
+              'Tienes hipotiroidismo o Hashimoto diagnosticado y seguimiento sanitario.',
               'Has probado por tu cuenta y te falta que alguien concrete.',
               'Puedes entrenar al menos 2 días por semana.',
               'Te viene bien no hacerlo sola.',
@@ -117,7 +120,7 @@ export default async function AsesoriaPage() {
               'Buscas perder 10 kilos en un mes.',
               'Quieres que te resuelva la medicación: eso es de tu endocrino.',
               'No vas a poder dedicarle nada de tiempo estos 3 meses.',
-              'Prefieres atención 1-a-1 exclusiva (entonces te va mejor el Premium).',
+              'Prefieres atención 1-a-1 exclusiva (entonces te encaja mejor el entrenamiento personalizado).',
             ].map((t) => (
               <li key={t} className="flex gap-2">
                 <X className="mt-0.5 h-4 w-4 shrink-0 text-white/30" />
@@ -131,7 +134,7 @@ export default async function AsesoriaPage() {
       {/* Formulario */}
       <h2 className="headline mt-12 text-2xl text-white">Solicita tu plaza</h2>
       <p className="mb-4 mt-2 text-white/60">
-        Son 8-12 plazas por grupo. Léelo bien: <strong className="text-white">esto no es un
+        Son {THYROID_PROGRAM.groupSize} por grupo. Léelo bien: <strong className="text-white">esto no es un
         pago</strong>. Me cuentas tu caso, te escribo yo, y decides con toda la información.
         Si veo que no encajas, te lo digo — prefiero eso a cobrarte por algo que no te va a servir.
       </p>

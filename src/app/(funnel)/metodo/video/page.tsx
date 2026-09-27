@@ -130,11 +130,11 @@ export default function MetodoVideoPage() {
             {[
               {
                 q: '¿Cuánto cuesta?',
-                a: 'El Pack 3 meses arranca en 450€ (150€/mes). El Pack 6 meses Transformación — el que más eligen — en 750€ (125€/mes). El Premium con acompañamiento 1-a-1 y videollamada semanal en 990€/3 meses (330€/mes). En la valoración te digo cuál encaja mejor contigo.',
+                a: 'El entrenamiento personalizado cuesta 750 € por 12 semanas, o tres pagos de 270 €. Antes de contratarlo hacemos una valoración para comprobar que es el formato adecuado para ti.',
               },
               {
                 q: '¿Puedo cancelar?',
-                a: 'Sí, sin permanencia. Pero no acepto planes de menos de 3 meses porque los cambios reales necesitan tiempo. Si no estás dispuesto a comprometerte 3 meses mínimo, no perdamos el tiempo ninguno de los dos.',
+                a: 'No es una suscripción. Es un proceso cerrado de 12 semanas con valoración, programación, seguimiento y ajustes.',
               },
               {
                 q: '¿Qué necesito para empezar?',
@@ -142,7 +142,7 @@ export default function MetodoVideoPage() {
               },
               {
                 q: '¿Incluye nutrición?',
-                a: 'Pautas nutricionales básicas en todos los planes. Plan nutricional completo y personalizado en el Premium.',
+                a: 'Incluye orientación general sobre hábitos y organización. No incluye dieta clínica ni tratamiento nutricional de patologías.',
               },
               {
                 q: '¿Qué pasa después de enviar la valoración?',

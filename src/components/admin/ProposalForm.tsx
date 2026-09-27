@@ -30,10 +30,10 @@ export default function ProposalForm() {
   const { register, handleSubmit, watch, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      serviceType: 'pack_3meses',
-      price: '450',
-      duration: '3 meses',
-      description: planPresets.pack_3meses.description,
+      serviceType: 'personal_12_semanas',
+      price: '750',
+      duration: '12 semanas',
+      description: planPresets.personal_12_semanas.description,
       contractText: '',
     },
   })
@@ -201,11 +201,7 @@ export default function ProposalForm() {
           className="w-full px-4 py-3 rounded-lg text-white border focus:outline-none transition"
         >
           <optgroup label="Planes de entrenamiento online" style={{ backgroundColor: '#16122B' }}>
-            <option value="pack_3meses" style={{ backgroundColor: '#16122B' }}>Pack 3 Meses — 450€ (150€/mes)</option>
-            <option value="pack_6meses_transformacion" style={{ backgroundColor: '#16122B' }}>Pack 6 Meses Transformación — 750€ (125€/mes)</option>
-            <option value="premium_3meses" style={{ backgroundColor: '#16122B' }}>Premium — 990€/3 meses (330€/mes)</option>
-            <option value="solo_entrenamiento_trimestral" style={{ backgroundColor: '#16122B' }}>Solo Entrenamiento — 180€/trimestre (60€/mes)</option>
-            <option value="starter_1mes" style={{ backgroundColor: '#16122B' }}>Starter — 120€/mes (legacy)</option>
+            <option value="personal_12_semanas" style={{ backgroundColor: '#16122B' }}>Entrenamiento personalizado — 750€/12 semanas</option>
           </optgroup>
           <optgroup label="Servicios individuales" style={{ backgroundColor: '#16122B' }}>
             <option value="entrenamiento_presencial" style={{ backgroundColor: '#16122B' }}>Entrenamiento Presencial</option>

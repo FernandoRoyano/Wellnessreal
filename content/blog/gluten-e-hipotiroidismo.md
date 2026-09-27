@@ -10,6 +10,8 @@ Entiendo la tentación. Cuando no te encuentras bien, eliminar un alimento parec
 
 > **Respuesta corta:** si tienes enfermedad celíaca, retirar el gluten es tratamiento. Si no la tienes, la evidencia actual no permite recomendar una dieta sin gluten a todas las personas con Hashimoto.
 
+Si el gluten es solo una de varias dudas y no sabes qué priorizar entre entrenamiento, alimentación y descanso, empieza por el [test gratuito para personas con hipotiroidismo](/tiroides). Es orientativo y no sustituye una valoración médica.
+
 ## Por qué se relacionan Hashimoto y celiaquía
 
 Hashimoto y la enfermedad celíaca son trastornos autoinmunes y pueden aparecer en la misma persona con más frecuencia de la esperada. Esa asociación importa: justifica valorar pruebas de celiaquía en determinados contextos y algunas guías recomiendan ofrecerlas ante un diagnóstico de enfermedad tiroidea autoinmune.
@@ -88,4 +90,4 @@ La guía [NICE sobre enfermedad celíaca](https://www.nice.org.uk/guidance/ng20/
 
 No retires el gluten solo porque tengas hipotiroidismo. Si hay una sospecha de celiaquía, **primero estudia y después decide**. Si la celiaquía se confirma, la dieta sin gluten sí tiene una indicación clara. Si se descarta, busca con tu profesional otras explicaciones antes de convertir tu alimentación en una lista de prohibiciones.
 
-La alimentación debería darte estructura, no miedo. Para construir esa base, puedes continuar con la guía sobre [cómo adelgazar con hipotiroidismo](/blog/adelgazar-con-hipotiroidismo) y revisar [qué suplementos tienen sentido para la tiroides](/blog/suplementos-tiroides).
+La alimentación debería darte estructura, no miedo. Para construir esa base, puedes continuar con la guía sobre [cómo adelgazar con hipotiroidismo](/blog/adelgazar-con-hipotiroidismo), revisar [qué suplementos tienen sentido para la tiroides](/blog/suplementos-tiroides) o volver al [centro de recursos sobre hipotiroidismo](/tiroides).

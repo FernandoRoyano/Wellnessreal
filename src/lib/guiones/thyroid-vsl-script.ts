@@ -4,7 +4,7 @@ export const THYROID_VSL_SCRIPT = `# 🎬 Clase de venta · Método BASE Tiroide
 
 ## Objetivo
 
-Convertir a una persona que llega desde publicidad y todavía no conoce WellnessReal en una solicitud de valoración cualificada. El vídeo no vende una cura ni sustituye al médico: explica un sistema de entrenamiento y hábitos y presenta el programa de 12 semanas.
+Ayudar a una persona que llega desde publicidad y todavía no conoce WellnessReal a entender una decisión práctica de entrenamiento y, si le encaja, conocer el programa de 12 semanas. El vídeo no vende una cura ni sustituye al médico.
 
 ## Notas de lectura
 
@@ -109,9 +109,9 @@ Y en las semanas diez a doce consolidamos. // El objetivo es que no termines dep
 
 Antes de empezar realizamos una evaluación de tu punto de partida, experiencia, horarios, material y limitaciones. // Con eso preparo un plan de fuerza de dos o tres días, con alternativas y criterios de esfuerzo. ///
 
-También tienes una organización sencilla de alimentación y descanso dentro del alcance educativo del programa. // Cada semana hacemos un directo para aprender, preguntar y resolver obstáculos. // Y cada tres semanas revisamos el plan para decidir qué mantener y qué ajustar. ///
+También tienes una organización sencilla de alimentación y descanso dentro del alcance educativo del programa. // Cada semana completas un check-in y hacemos un directo para aprender, preguntar y resolver obstáculos. // Además, realizamos dos revisiones individuales para decidir qué mantener y qué ajustar. ///
 
-El grupo es reducido, de ocho a doce personas, porque el acompañamiento deja de tener sentido si nadie puede revisar lo que ocurre.
+El grupo es reducido, de ocho a diez personas, porque el acompañamiento deja de tener sentido si nadie puede revisar lo que ocurre.
 
 ## 12:55 — Objeciones honestas
 
@@ -125,13 +125,13 @@ Lo que no puedo prometerte es un resultado concreto, una pérdida de peso determ
 
 ## 14:15 — Oferta y llamada a la acción
 
-El Método BASE Tiroides dura doce semanas. // Incluye la evaluación inicial, el plan adaptado, los directos, las revisiones y el espacio privado del grupo. // El precio actual es de doscientos cuarenta y nueve euros en un único pago. ///
+El Método BASE Tiroides dura doce semanas. // Incluye la evaluación inicial, el plan adaptado, los directos, las revisiones y el espacio privado del grupo. // La primera edición comienza el dos de noviembre, tiene un máximo de diez plazas y cuesta trescientos cuarenta y nueve euros en un único pago, o dos pagos de ciento ochenta y cinco euros. ///
 
-Pero no quiero que pagues sin saber si encaja contigo. // El siguiente paso es una solicitud de valoración de unos dos minutos. // Me cuentas qué quieres conseguir, cuántos días puedes entrenar y qué limitaciones debería conocer. // Yo la reviso personalmente. ///
+Pero no quiero que solicites una plaza sin saber si encaja contigo. // El siguiente paso es revisar la página completa del programa: qué incluye, qué no incluye, cómo se organizan las doce semanas y cuál es el precio. ///
 
-Si creo que puedo ayudarte, te explicaré cómo empezar. // Y si el programa no es adecuado para tu situación, también te lo diré. ///
+Si después de leerla ves que tiene sentido para ti, podrás contarme tu punto de partida mediante una solicitud breve. // Yo la revisaré personalmente antes de hablar de pago o reservar una plaza. ///
 
-Pulsa el botón que aparece debajo de este vídeo y solicita tu valoración. // No implica pagar ni reservar nada ahora. // Solo nos permite comprobar si esta es la estructura que necesitas para dejar de empezar de cero.
+Pulsa el botón que aparece debajo de este vídeo y conoce Método BASE Tiroides. // Lee la información con calma y decide después si quieres solicitar una plaza.
 
 ---
 
@@ -148,7 +148,7 @@ Pulsa el botón que aparece debajo de este vídeo y solicita tu valoración. // 
 | 10:15–11:45 | Línea temporal de 12 semanas | Cuatro fases del programa |
 | 11:45–12:55 | Recursos reales de la plataforma | Plan, directo, revisión y grupo privado |
 | 12:55–14:15 | Plano algo más cerrado | Objeciones en rótulos, una por una |
-| 14:15–final | Fernando a cámara | Precio, alcance y CTA “Solicitar valoración” |
+| 14:15–final | Fernando a cámara | Precio, alcance y CTA “Conocer Método BASE Tiroides” |
 
 ## Material necesario
 
@@ -220,7 +220,7 @@ Y es la que te explico en una clase gratuita de quince minutos. // Sin tocar tu 
 
 **Plano 1 · Fernando a cámara, directo**
 
-"No tengo energía para entrenar." // Es lo primero que me dice casi todo el mundo que llega con hipotiroidismo. ///
+"No tengo energía para entrenar." // Es una preocupación comprensible cuando convives con hipotiroidismo. ///
 
 **Plano 2 · Fernando entrenando a intensidad normal, sin épica**
 

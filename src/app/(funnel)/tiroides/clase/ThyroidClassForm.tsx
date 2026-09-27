@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight, Loader2, LockKeyhole } from 'lucide-react'
 import { getAttributionForSubmit } from '@/lib/tracking'
-import { identifyThyroidLead, trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
+import { getThyroidTrackingContext, identifyThyroidLead, trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
 
 export default function ThyroidClassForm() {
   const router = useRouter()
@@ -26,7 +26,12 @@ export default function ThyroidClassForm() {
       const response = await fetch('/api/tiroides-clase', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, _attribution: getAttributionForSubmit() }),
+        body: JSON.stringify({
+          name,
+          email,
+          _attribution: getAttributionForSubmit(),
+          _funnel: getThyroidTrackingContext(),
+        }),
       })
       const result = (await response.json()) as { error?: string; leadId?: string | null }
       if (!response.ok) throw new Error(result.error || 'No hemos podido completar el registro.')
@@ -59,7 +64,15 @@ export default function ThyroidClassForm() {
         {status === 'loading' ? <><Loader2 className="h-5 w-5 animate-spin" /> Preparando tu acceso…</> : <>Ver la clase gratuita <ArrowRight className="h-4 w-4" /></>}
       </button>
       <p className="mt-4 flex items-start justify-center gap-2 text-center text-[0.7rem] leading-relaxed text-white/45">
-        <LockKeyhole className="mt-0.5 h-3.5 w-3.5 shrink-0" /> Te enviaré el acceso y contenido relacionado. Puedes darte de baja cuando quieras.
+        <LockKeyhole className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+        <span>
+          Te enviaré el acceso y contenidos relacionados de WellnessReal. Puedes darte de baja cuando
+          quieras. Consulta la{' '}
+          <a href="/privacidad" className="underline underline-offset-2 hover:text-white">
+            política de privacidad
+          </a>
+          .
+        </span>
       </p>
     </form>
   )

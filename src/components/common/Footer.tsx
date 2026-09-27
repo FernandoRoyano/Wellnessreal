@@ -5,11 +5,11 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import FooterNewsletterForm from './FooterNewsletterForm'
 
 const NAV_LINKS = [
-  { href: '/filosofia', label: 'Filosofía' },
-  { href: '/servicios', label: 'Servicios' },
-  { href: '/tarifas', label: 'Tarifas' },
+  { href: '/metodo-tiroides', label: 'Método BASE Tiroides' },
+  { href: '/tiroides', label: 'Información sobre tiroides' },
+  { href: '/servicios/entrenamiento-online', label: 'Entrenamiento personalizado' },
   { href: '/blog', label: 'Blog' },
-  { href: '/caso-real', label: 'Caso real' },
+  { href: '/sobre-mi', label: 'Sobre mí' },
 ] as const
 
 // Iconos de marca como SVG inline (lucide deprecó sus iconos de marca por temas de marca registrada)
@@ -55,12 +55,12 @@ export default function Footer() {
           <div className="max-w-2xl mx-auto text-center space-y-4">
             <span className="eyebrow justify-center">Newsletter</span>
             <h3 className="headline text-fluid-3xl text-white">
-              Lo que aplico con mis clientes,{' '}
-              <span className="text-gradient-brand">cada semana en tu email.</span>
+              Entrenamiento explicado con criterio,{' '}
+              <span className="text-gradient-brand">directo en tu email.</span>
             </h3>
             <p className="text-fluid-base text-muted max-w-xl mx-auto leading-relaxed">
-              Estrategias reales de entrenamiento y nutrición, escritas por alguien que ha
-              acompañado a clientes a perder 35 kg en 9 meses o ganar 8 kg de músculo a los 50.
+              Ideas prácticas sobre fuerza, hábitos y progreso para entender qué haces y poder
+              adaptarlo a tu vida real.
             </p>
 
             <FooterNewsletterForm />
@@ -85,8 +85,8 @@ export default function Footer() {
               />
             </Link>
             <p className="text-fluid-base text-muted max-w-md leading-relaxed">
-              Entrenamiento y nutrición para gente con vida real. Sin extremos, sin perfección. Solo
-              lo que funciona.
+              Entrenamiento de fuerza y hábitos basados en ciencia, explicados para poder aplicarlos
+              en una vida real.
             </p>
             <Link
               href="/recurso-gratis"
@@ -173,7 +173,7 @@ export default function Footer() {
         <div className="border-t border-border-subtle py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-fluid-xs text-muted">
             <p>© {currentYear} WellnessReal. Todos los derechos reservados.</p>
-            <div className="flex gap-6">
+            <div className="flex flex-wrap justify-center gap-x-6 gap-y-3">
               {/* Acceso discreto para miembros ya registrados de la comunidad.
                   Si hay sesión entra directo; si no, el middleware lleva al login. */}
               <Link href="/comunidad" className="hover:text-accent transition-colors">
@@ -181,6 +181,9 @@ export default function Footer() {
               </Link>
               <Link href="/privacidad" className="hover:text-accent transition-colors">
                 Privacidad
+              </Link>
+              <Link href="/politica-editorial" className="hover:text-accent transition-colors">
+                Política editorial
               </Link>
               <Link href="/terminos" className="hover:text-accent transition-colors">
                 Términos

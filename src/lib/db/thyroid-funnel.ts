@@ -2,6 +2,7 @@ import { supabase } from '@/lib/supabase'
 
 export const THYROID_FUNNEL_EVENTS = [
   'thyroid_landing_view',
+  'thyroid_landing_cta_click',
   'thyroid_test_start',
   'thyroid_test_question',
   'thyroid_test_complete',
@@ -14,7 +15,9 @@ export const THYROID_FUNNEL_EVENTS = [
   'thyroid_vsl_cta_click',
   'thyroid_valuation_click',
   'thyroid_valuation_submit',
+  'thyroid_offer_view',
   'thyroid_sale',
+  'thyroid_onboarding_complete',
   'thyroid_continuity',
 ] as const
 

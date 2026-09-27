@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 import Cuestionario from "./Cuestionario";
 
 export const metadata: Metadata = {
@@ -11,5 +12,6 @@ export const metadata: Metadata = {
 
 export default async function Page({ searchParams }: { searchParams: Promise<{ origen?: string }> }) {
   const { origen } = await searchParams;
-  return <Cuestionario paidThyroidProgram={origen === "metodo-tiroides"} />;
+  if (origen !== "metodo-tiroides") redirect("/valoracion");
+  return <Cuestionario paidThyroidProgram />;
 }

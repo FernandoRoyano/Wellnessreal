@@ -335,7 +335,7 @@ Sin humo. // Sin extremos. // Con una base // que puedas sostener.
 
 **11:15 Qué recibes** — Mientras enumeras, muestra cada entregable en pantalla: el programa de entreno, la guía de nutrición, el sistema de seguimiento. En "lo reviso yo, persona a persona", CORTA el B-roll y vuelve a tu cara fija a cámara: este momento es de confianza, no de pantallazos.
 
-**12:30 Precio** — **Todo a cámara, sin B-roll, plano más cerrado.** Es el momento de máxima honestidad y los recursos distraen. Único rótulo permitido: "desde 150€/mes" cuando lo dices, discreto. Cuerpo quieto, mirada directa, ritmo lento.
+**12:30 Precio** — **Todo a cámara, sin B-roll, plano más cerrado.** Es el momento de máxima honestidad y los recursos distraen. Único rótulo permitido: "750 € · 12 semanas" cuando lo dices, discreto. Cuerpo quieto, mirada directa, ritmo lento.
 
 **13:30 Cierre** — Vuelve al plano de apertura (cierra el círculo visual). Rótulo final con el CTA: "Rellena el cuestionario" + flecha/botón de marca. Última frase ("una base que puedas sostener") a cámara, pausa, fundido.
 `,

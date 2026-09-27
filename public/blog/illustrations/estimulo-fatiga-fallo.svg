@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Relación conceptual entre estímulo y fatiga al aproximarse al fallo</title>
+  <desc id="desc">El estímulo aumenta gradualmente mientras la fatiga se eleva con mayor rapidez en las últimas repeticiones próximas al fallo.</desc>
+  <rect width="1200" height="720" rx="32" fill="#f7f6fb"/>
+  <text x="70" y="78" fill="#16122b" font-family="Arial, sans-serif" font-size="38" font-weight="700">Acercarte al fallo cambia la factura</text>
+  <text x="70" y="121" fill="#5e5970" font-family="Arial, sans-serif" font-size="22">Modelo conceptual: no representa una dosis universal ni una relación exacta.</text>
+  <line x1="120" y1="570" x2="1100" y2="570" stroke="#716b80" stroke-width="3"/>
+  <line x1="120" y1="570" x2="120" y2="175" stroke="#716b80" stroke-width="3"/>
+  <path d="M120 535 C390 490 650 390 1080 245" fill="none" stroke="#662d91" stroke-width="12" stroke-linecap="round"/>
+  <path d="M120 550 C560 535 820 480 1080 190" fill="none" stroke="#ef715d" stroke-width="12" stroke-linecap="round"/>
+  <line x1="890" y1="170" x2="890" y2="570" stroke="#d6d1dd" stroke-width="3" stroke-dasharray="9 10"/>
+  <rect x="900" y="370" width="190" height="88" rx="16" fill="#fff" stroke="#ded9e6"/>
+  <text x="995" y="405" text-anchor="middle" fill="#ef715d" font-family="Arial, sans-serif" font-size="20" font-weight="700">Últimas repeticiones</text>
+  <text x="995" y="435" text-anchor="middle" fill="#5e5970" font-family="Arial, sans-serif" font-size="18">coste creciente</text>
+  <line x1="105" y1="218" x2="135" y2="218" stroke="#662d91" stroke-width="10" stroke-linecap="round"/>
+  <text x="155" y="225" fill="#16122b" font-family="Arial, sans-serif" font-size="23" font-weight="700">Estímulo</text>
+  <line x1="105" y1="265" x2="135" y2="265" stroke="#ef715d" stroke-width="10" stroke-linecap="round"/>
+  <text x="155" y="272" fill="#16122b" font-family="Arial, sans-serif" font-size="23" font-weight="700">Fatiga</text>
+  <g fill="#5e5970" font-family="Arial, sans-serif" font-size="20" text-anchor="middle">
+    <text x="145" y="615">Lejos del fallo</text>
+    <text x="590" y="615">Serie exigente</text>
+    <text x="1050" y="615">Fallo</text>
+  </g>
+  <text x="610" y="672" text-anchor="middle" fill="#16122b" font-family="Arial, sans-serif" font-size="24" font-weight="700">Proximidad al fallo →</text>
+</svg>

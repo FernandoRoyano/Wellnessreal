@@ -25,8 +25,10 @@ const STAGES = [
   ['Inicios', 'thyroid_test_start'],
   ['Completados', 'thyroid_test_complete'],
   ['Leads', 'thyroid_lead_capture'],
+  ['Oferta', 'thyroid_offer_view'],
   ['Valoraciones', 'thyroid_valuation_submit'],
   ['Ventas', 'thyroid_sale'],
+  ['Incorporados', 'thyroid_onboarding_complete'],
   ['Renovaciones', 'thyroid_continuity'],
 ] as const
 
@@ -80,7 +82,7 @@ export default function ThyroidFunnelPage() {
         {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-5 text-red-300">{error}</div>}
         {data && !loading && (
           <>
-            <section className="grid gap-3 lg:grid-cols-7">
+            <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {STAGES.map(([label, key], index) => (
                 <div key={key} className="relative rounded-xl border border-white/10 bg-[#1a1535] p-4">
                   <p className="text-xs text-white/45">{label}</p>
@@ -108,7 +110,7 @@ export default function ThyroidFunnelPage() {
 
             <section className="mt-6 grid gap-5 xl:grid-cols-2">
               <SimpleBreakdown title="Leads por fuente" values={data.bySource} />
-              <SimpleBreakdown title="Respuestas por pregunta" values={data.byQuestion} />
+              <SimpleBreakdown title="Avances históricos por pregunta" values={data.byQuestion} />
             </section>
 
             <section className="mt-6 rounded-xl border border-white/10 bg-[#1a1535] p-5">
@@ -119,6 +121,10 @@ export default function ThyroidFunnelPage() {
                 <Rate label="Completo → lead" value={data.rates.completeToLead} />
                 <Rate label="Lead → valoración" value={data.rates.leadToValuation} />
                 <Rate label="Valoración → venta" value={data.rates.valuationToSale} />
+                <Rate label="Clase → registro" value={data.rates.vslLandingToRegistration} />
+                <Rate label="Registro → CTA" value={data.rates.vslRegistrationToCta} />
+                <Rate label="Oferta → solicitud" value={data.rates.offerToApplication} />
+                <Rate label="Venta → onboarding" value={data.rates.saleToOnboarding} />
               </div>
             </section>
           </>
