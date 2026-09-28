@@ -316,6 +316,7 @@ Leyenda: `[x]` completado · `[~]` en curso o completado parcialmente · `[ ]` p
 - **27/09/2026 — Página Sobre mí completada:** creada `/sobre-mi` para resolver el enlace roto de cabecera, pie y home. Presenta a Fernando Royano con fotografía y credenciales ya verificadas en el proyecto, explica principios, forma de trabajo y límites profesionales, conecta con ambas ofertas y añade metadatos, datos estructurados y entrada en el sitemap.
 - **27/09/2026 — Centro de campaña visible:** añadido `/admin/lanzamiento` y un bloque prioritario en `/admin/enlaces` para consultar en una sola pantalla los cinco emails, las seis publicaciones sociales, el calendario, el modelo de negocio, el checklist y la secuencia histórica. Incluye accesos directos a campañas, suscriptores, grupos, artículos, embudo, guiones y solicitudes.
 - **27/09/2026 — Enlaces de campaña desglosados:** el bloque de campaña en `/admin/enlaces` muestra ahora los diez recursos como accesos independientes y numerados. Los emails, redes, calendario, modelo y secuencia histórica enlazan directamente a su sección dentro del Centro de campaña.
+- **28/09/2026 — Creatividades sociales terminadas:** generadas seis imágenes verticales 4:5 para las publicaciones del 1, 5, 12, 15, 20 y 25 de octubre. Mantienen una familia visual común, texto principal legible y conceptos de adaptación, apertura, autorregulación, límites, continuidad y cierre. Se guardan en `public/social/metodo-base-tiroides-2026/` y se muestran con descarga directa en el Centro de campaña.
 
 ### Calendario de la primera edición
 
@@ -371,6 +372,7 @@ Los porcentajes del panel son indicadores del periodo seleccionado, no cohortes 
 
 - [x] Definir fecha de inicio y plazas: 2 de noviembre de 2026, objetivo de 8 y máximo de 10 participantes.
 - [x] Preparar emails y contenidos de apertura: cinco emails y seis publicaciones fechadas, listas para programar.
+- [x] Crear las seis imágenes 4:5 de las publicaciones sociales y añadirlas al Centro de campaña.
 - [x] Abrir lista prioritaria: formulario, email con la clase, atribución, MailerLite y cambio automático por fechas.
 - [ ] Realizar valoraciones.
 - [ ] Cerrar plazas e incorporar al grupo.

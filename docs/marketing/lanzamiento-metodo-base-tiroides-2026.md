@@ -239,6 +239,19 @@ Solicitar no implica pagar. Primero reviso tu caso y comprobamos si el programa 
 
 **CTA:** `wellnessreal.es/metodo-tiroides#solicitud`.
 
+### Creatividades preparadas
+
+Las seis imágenes verticales 4:5 están guardadas en `public/social/metodo-base-tiroides-2026/` y pueden revisarse o descargarse desde `Admin → Enlaces → Las 6 publicaciones para redes`.
+
+| Fecha | Archivo |
+|---|---|
+| 1 de octubre | `01-semana-dificil.png` |
+| 5 de octubre | `02-apertura-10-plazas.png` |
+| 12 de octubre | `03-progresar-mantener-reducir.png` |
+| 15 de octubre | `04-entrenamiento-no-tratamiento.png` |
+| 20 de octubre | `05-semanas-diferentes.png` |
+| 25 de octubre | `06-cierre-solicitudes.png` |
+
 ## Revisión antes de programar
 
 - Sustituir `{$name}` por el campo correcto de MailerLite y configurar “Hola” como alternativa.

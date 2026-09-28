@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import Image from 'next/image'
 import Link from 'next/link'
 import ReactMarkdown from 'react-markdown'
 import {
@@ -50,6 +51,15 @@ const quickLinks = [
     description: 'Gestionar candidatos, valoraciones y enlaces de pago.',
     icon: FileText,
   },
+] as const
+
+const socialCreatives = [
+  { date: '1 octubre', title: 'Una semana difícil', file: '01-semana-dificil.png' },
+  { date: '5 octubre', title: 'Apertura · 10 plazas', file: '02-apertura-10-plazas.png' },
+  { date: '12 octubre', title: 'Progresar, mantener o reducir', file: '03-progresar-mantener-reducir.png' },
+  { date: '15 octubre', title: 'Entrenamiento, no tratamiento', file: '04-entrenamiento-no-tratamiento.png' },
+  { date: '20 octubre', title: 'Semanas diferentes', file: '05-semanas-diferentes.png' },
+  { date: '25 octubre', title: 'Cierre de solicitudes', file: '06-cierre-solicitudes.png' },
 ] as const
 
 const markdownComponents = {
@@ -180,6 +190,35 @@ export default async function LaunchCenterPage() {
 
           <div id="redes" className="scroll-mt-6">
             <ReactMarkdown components={markdownComponents}>{socialPosts}</ReactMarkdown>
+            <div className="mt-8 grid gap-5 sm:grid-cols-2 xl:grid-cols-3">
+              {socialCreatives.map((creative) => (
+                <article
+                  key={creative.file}
+                  className="overflow-hidden rounded-2xl border border-white/10 bg-black/20"
+                >
+                  <Image
+                    src={`/social/metodo-base-tiroides-2026/${creative.file}`}
+                    alt={`Creatividad para redes: ${creative.title}`}
+                    width={1122}
+                    height={1402}
+                    className="h-auto w-full"
+                  />
+                  <div className="p-4">
+                    <p className="text-xs font-bold uppercase tracking-[0.14em] text-[#FCEE21]">
+                      {creative.date}
+                    </p>
+                    <h3 className="mt-1 text-sm font-bold text-white">{creative.title}</h3>
+                    <a
+                      href={`/social/metodo-base-tiroides-2026/${creative.file}`}
+                      download
+                      className="mt-3 inline-flex text-xs font-semibold text-gray-300 underline decoration-white/30 underline-offset-4 hover:text-white"
+                    >
+                      Abrir o descargar imagen
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
           </div>
 
           <ReactMarkdown components={markdownComponents}>{launchReview}</ReactMarkdown>
