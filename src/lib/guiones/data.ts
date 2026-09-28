@@ -69,12 +69,12 @@ No necesitas hacerlo todo hoy. // Solo necesitas saber cuál es el siguiente pas
   {
     slug: 'clase-metodo-base-tiroides',
     title: 'Método BASE Tiroides — Clase de venta',
-    subtitle: 'Miniwebinar de 15–17 minutos para convertir tráfico frío en solicitudes de valoración sin promesas clínicas.',
-    duration: '15:00 — 17:00 min',
-    wordCount: 1810,
+    subtitle: 'Miniwebinar de 18–20 minutos para convertir tráfico frío en solicitudes de valoración sin promesas clínicas.',
+    duration: '18:00 — 20:00 min',
+    wordCount: 2140,
     purpose: 'Explicar el cambio de enfoque, presentar las 12 semanas y llevar a una solicitud de valoración cualificada desde la nueva landing /tiroides/clase.',
     status: 'ready',
-    lastUpdated: '2026-09-17',
+    lastUpdated: '2026-09-28',
     content: THYROID_VSL_SCRIPT,
   },
   {

@@ -317,6 +317,8 @@ Leyenda: `[x]` completado · `[~]` en curso o completado parcialmente · `[ ]` p
 - **27/09/2026 — Centro de campaña visible:** añadido `/admin/lanzamiento` y un bloque prioritario en `/admin/enlaces` para consultar en una sola pantalla los cinco emails, las seis publicaciones sociales, el calendario, el modelo de negocio, el checklist y la secuencia histórica. Incluye accesos directos a campañas, suscriptores, grupos, artículos, embudo, guiones y solicitudes.
 - **27/09/2026 — Enlaces de campaña desglosados:** el bloque de campaña en `/admin/enlaces` muestra ahora los diez recursos como accesos independientes y numerados. Los emails, redes, calendario, modelo y secuencia histórica enlazan directamente a su sección dentro del Centro de campaña.
 - **28/09/2026 — Creatividades sociales terminadas:** generadas seis imágenes verticales 4:5 para las publicaciones del 1, 5, 12, 15, 20 y 25 de octubre. Mantienen una familia visual común, texto principal legible y conceptos de adaptación, apertura, autorregulación, límites, continuidad y cierre. Se guardan en `public/social/metodo-base-tiroides-2026/` y se muestran con descarga directa en el Centro de campaña.
+- **28/09/2026 — Clase de venta reforzada:** revisado el guion de Método BASE Tiroides frente a la VSL de Osteofit. El nuevo guion concentra la propuesta en un mecanismo de tres niveles —sesión completa, ajustada y mínima—, aumenta la tensión del problema sin recurrir a promesas clínicas, añade una demostración práctica, refuerza la autoridad profesional y concreta el CTA. Se deja un bloque interno, no grabable, para incorporar un caso real cuando esté documentado y autorizado.
+- **28/09/2026 — Prueba social incorporada:** sustituidos los marcadores provisionales de la clase por tres casos reales anonimizados —Elena, Marta y Antonio— que muestran tres necesidades distintas: recuperar capacidad y seguridad, sostener un proceso de pérdida de peso y reorganizar la carga para volver a progresar. Se indican expresamente el cambio de nombres, el carácter individual de los resultados y la separación entre entrenamiento y tratamiento sanitario.
 
 ### Calendario de la primera edición
 
@@ -364,6 +366,8 @@ Los porcentajes del panel son indicadores del periodo seleccionado, no cohortes 
 
 - [x] Revisar test y resultados.
 - [x] Ajustar la clase gratuita de tiroides.
+- [x] Reforzar la clase frente al referente Osteofit: gancho, mecanismo, demostración, autoridad, objeciones y CTA.
+- [x] Incorporar tres casos reales anonimizados como prueba social, pendientes únicamente de autorización para publicación y uso de imágenes.
 - [x] Simplificar solicitud y valoración.
 - [x] Ordenar pago e incorporación: pago único, dos plazos controlados, confirmación, onboarding y acceso.
 - [x] Verificar atribución y eventos del funnel: eventos operativos sin datos de salud, identidades únicas, atribución de solicitud/venta y medición hasta incorporación.
