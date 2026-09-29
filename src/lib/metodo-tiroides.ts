@@ -59,3 +59,26 @@ export const THYROID_PROGRAM_PHASES = [
     description: 'Consolidamos lo que funciona y te llevas criterios claros para continuar sin depender siempre de una plantilla.',
   },
 ] as const
+
+export const THYROID_WEEKLY_RHYTHM = [
+  {
+    step: '01',
+    title: 'Sabes qué toca',
+    description: 'Empiezas la semana con tu plan, sus alternativas y una versión mínima preparada para los días difíciles.',
+  },
+  {
+    step: '02',
+    title: 'Entrenas y registras',
+    description: 'Realizas dos o tres sesiones y anotas lo necesario: carga, repeticiones, esfuerzo, energía y molestias.',
+  },
+  {
+    step: '03',
+    title: 'Haces un check-in breve',
+    description: 'Compartes qué pudiste cumplir, cómo has recuperado y qué obstáculo merece atención esa semana.',
+  },
+  {
+    step: '04',
+    title: 'Revisamos y decides',
+    description: 'En el directo y las revisiones convertimos esos datos en una decisión: mantener, reducir o progresar.',
+  },
+] as const

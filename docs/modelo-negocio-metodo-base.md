@@ -319,6 +319,7 @@ Leyenda: `[x]` completado · `[~]` en curso o completado parcialmente · `[ ]` p
 - **28/09/2026 — Creatividades sociales terminadas:** generadas seis imágenes verticales 4:5 para las publicaciones del 1, 5, 12, 15, 20 y 25 de octubre. Mantienen una familia visual común, texto principal legible y conceptos de adaptación, apertura, autorregulación, límites, continuidad y cierre. Se guardan en `public/social/metodo-base-tiroides-2026/` y se muestran con descarga directa en el Centro de campaña.
 - **28/09/2026 — Clase de venta reforzada:** revisado el guion de Método BASE Tiroides frente a la VSL de Osteofit. El nuevo guion concentra la propuesta en un mecanismo de tres niveles —sesión completa, ajustada y mínima—, aumenta la tensión del problema sin recurrir a promesas clínicas, añade una demostración práctica, refuerza la autoridad profesional y concreta el CTA. Se deja un bloque interno, no grabable, para incorporar un caso real cuando esté documentado y autorizado.
 - **28/09/2026 — Prueba social incorporada:** sustituidos los marcadores provisionales de la clase por tres casos reales anonimizados —Elena, Marta y Antonio— que muestran tres necesidades distintas: recuperar capacidad y seguridad, sostener un proceso de pérdida de peso y reorganizar la carga para volver a progresar. Se indican expresamente el cambio de nombres, el carácter individual de los resultados y la separación entre entrenamiento y tratamiento sanitario.
+- **29/09/2026 — Oferta operativa cerrada:** concretado el ritmo semanal del programa y añadido a la página comercial. Documentadas las doce semanas, los temas de los directos, las revisiones individuales de las semanas 4 y 9, los entregables, los límites y el proceso previo al inicio en `docs/metodo-base-tiroides-entrega-12-semanas.md`. La oferta queda definida; la siguiente fase es terminar su experiencia premium dentro de la plataforma.
 
 ### Calendario de la primera edición
 
@@ -350,6 +351,7 @@ Los porcentajes del panel son indicadores del periodo seleccionado, no cohortes 
 - [x] Retirar completamente los planes automáticos de 19/49 € del producto y del código activo.
 - [x] Actualizar Método BASE Tiroides a 349 € y ofrecer dos pagos únicos de 185 €, con envío automático del segundo enlace a los 30 días.
 - [x] Alinear inclusiones, tamaño del grupo y límites básicos de la entrega.
+- [x] Cerrar el ritmo semanal, los doce hitos, los directos, las dos revisiones y el plan de continuidad final.
 - [x] Mantener el entrenamiento individual como alternativa secundaria desde 750 €.
 
 ### Fase 2 — Mensajes y páginas

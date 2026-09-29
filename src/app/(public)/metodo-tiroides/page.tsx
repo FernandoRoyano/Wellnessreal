@@ -11,6 +11,7 @@ import {
   THYROID_PROGRAM,
   THYROID_PROGRAM_INCLUDES,
   THYROID_PROGRAM_PHASES,
+  THYROID_WEEKLY_RHYTHM,
 } from '@/lib/metodo-tiroides'
 import { buildMetadata } from '@/lib/seo'
 
@@ -67,6 +68,11 @@ const FAQ = [
     question: '¿El programa trata el hipotiroidismo?',
     answer:
       'No. Método BASE Tiroides organiza entrenamiento y hábitos. El diagnóstico, la medicación, las analíticas y el tratamiento corresponden a tu equipo sanitario.',
+  },
+  {
+    question: '¿Qué ocurre después de pagar?',
+    answer:
+      'Completarás el cuestionario de incorporación. Revisaré tu punto de partida y prepararé el primer bloque antes del inicio. Después recibirás acceso al espacio del grupo, el calendario y las instrucciones de la primera semana.',
   },
 ] as const
 
@@ -200,6 +206,34 @@ export default async function MetodoTiroidesPage() {
                 </article>
               ))}
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="bg-brand-deep py-fluid-xl" aria-labelledby="semana-programa">
+        <Container>
+          <div className="mx-auto max-w-5xl">
+            <div className="grid gap-fluid-lg lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
+              <div>
+                <span className="eyebrow">Una semana dentro</span>
+                <h2 id="semana-programa" className="headline mt-4 text-fluid-4xl text-white">
+                  No tienes que adivinar el siguiente paso.
+                </h2>
+              </div>
+              <p className="max-w-2xl text-fluid-base leading-relaxed text-muted">
+                El valor no está en recibir más información. Está en ejecutar una semana razonable,
+                observar qué ocurre y utilizar ese contexto para tomar la siguiente decisión.
+              </p>
+            </div>
+            <ol className="mt-10 grid overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-4">
+              {THYROID_WEEKLY_RHYTHM.map((item) => (
+                <li key={item.step} className="bg-brand-dusk p-6">
+                  <span className="text-fluid-xs font-semibold tracking-[0.18em] text-accent">{item.step}</span>
+                  <h3 className="mt-4 text-fluid-lg font-semibold text-white">{item.title}</h3>
+                  <p className="mt-2 text-fluid-sm leading-relaxed text-muted">{item.description}</p>
+                </li>
+              ))}
+            </ol>
           </div>
         </Container>
       </section>
