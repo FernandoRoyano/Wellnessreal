@@ -1,4 +1,4 @@
-import { getSessionMember, getSpaces, touchMember, isApproved } from '@/lib/db/comunidad'
+import { getSessionMember, getSpaces, touchMember, isApproved, memberHasPremium } from '@/lib/db/comunidad'
 import { Sidebar } from '@/components/comunidad/Sidebar'
 import { PendingApproval } from '@/components/comunidad/PendingApproval'
 
@@ -25,11 +25,11 @@ export default async function ComunidadLayout({ children }: { children: React.Re
   // Marca actividad para "en línea" (activo < 5 min).
   await touchMember(member.id)
 
-  const spaces = await getSpaces(member)
+  const [spaces, hasPremium] = await Promise.all([getSpaces(member), memberHasPremium(member)])
 
   return (
     <div className="min-h-screen bg-[var(--color-brand-deep)]">
-      <Sidebar spaces={spaces} member={member} />
+      <Sidebar spaces={spaces} member={member} hasPremium={hasPremium} />
       <div className="lg:pl-64">
         <div className="mx-auto min-h-screen max-w-6xl px-5 py-8 sm:px-8 sm:py-12">{children}</div>
       </div>

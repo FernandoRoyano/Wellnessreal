@@ -475,6 +475,11 @@ async function memberHasTier(member: MemberProfile | null, tier: string): Promis
   return (data?.length ?? 0) > 0
 }
 
+/** Indica si el miembro puede entrar en la experiencia de pago de Método BASE. */
+export async function memberHasPremium(member: MemberProfile | null): Promise<boolean> {
+  return memberHasTier(member, 'premium')
+}
+
 /** Verifica en servidor que una lección pertenece a un espacio visible y a un nivel autorizado. */
 export async function memberCanAccessLesson(member: MemberProfile, lessonId: string): Promise<boolean> {
   if (!isApproved(member)) return false

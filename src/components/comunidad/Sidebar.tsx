@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Avatar } from './Avatar'
 import { signOut } from '@/app/(comunidad)/comunidad/actions'
-import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search, CalendarDays } from 'lucide-react'
+import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search, CalendarDays, Sparkles } from 'lucide-react'
 import type { Space, MemberProfile } from '@/lib/db/comunidad'
 
-export function Sidebar({ spaces, member }: { spaces: Space[]; member: MemberProfile }) {
+export function Sidebar({ spaces, member, hasPremium }: { spaces: Space[]; member: MemberProfile; hasPremium: boolean }) {
   const [open, setOpen] = useState(false)
   const pathname = usePathname()
 
@@ -32,7 +32,7 @@ export function Sidebar({ spaces, member }: { spaces: Space[]; member: MemberPro
 
       {/* ── Sidebar escritorio ── */}
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-[var(--color-border)] bg-[var(--color-brand-ink)] lg:flex">
-        <SidebarBody spaces={spaces} member={member} pathname={pathname} onNavigate={close} />
+        <SidebarBody spaces={spaces} member={member} hasPremium={hasPremium} pathname={pathname} onNavigate={close} />
       </aside>
 
       {/* ── Drawer móvil ── */}
@@ -47,7 +47,7 @@ export function Sidebar({ spaces, member }: { spaces: Space[]; member: MemberPro
             >
               <X className="h-5 w-5" />
             </button>
-            <SidebarBody spaces={spaces} member={member} pathname={pathname} onNavigate={close} />
+            <SidebarBody spaces={spaces} member={member} hasPremium={hasPremium} pathname={pathname} onNavigate={close} />
           </aside>
         </div>
       )}
@@ -58,11 +58,13 @@ export function Sidebar({ spaces, member }: { spaces: Space[]; member: MemberPro
 function SidebarBody({
   spaces,
   member,
+  hasPremium,
   pathname,
   onNavigate,
 }: {
   spaces: Space[]
   member: MemberProfile
+  hasPremium: boolean
   pathname: string
   onNavigate: () => void
 }) {
@@ -102,6 +104,15 @@ function SidebarBody({
           active={isActive('/comunidad/mi-semana')}
           onNavigate={onNavigate}
         />
+        {hasPremium && (
+          <NavItem
+            href="/comunidad/metodo-base-tiroides"
+            label="Método BASE"
+            icon={<Sparkles className="h-[18px] w-[18px]" />}
+            active={isActive('/comunidad/metodo-base-tiroides')}
+            onNavigate={onNavigate}
+          />
+        )}
         <NavItem
           href="/comunidad/buscar"
           label="Buscar"

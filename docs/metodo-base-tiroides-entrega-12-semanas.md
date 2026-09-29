@@ -95,9 +95,9 @@ Si una participante no puede asistir, recibe la grabación y la acción principa
 
 ## Preparación operativa pendiente
 
-- [ ] Crear el espacio premium visible para participantes admitidos.
-- [ ] Vincular cada participante con su plan aprobado.
-- [ ] Publicar calendario y enlaces de los doce directos.
-- [ ] Preparar la biblioteca de grabaciones.
-- [ ] Mostrar historial de revisiones y decisiones.
+- [x] Crear el espacio premium visible para participantes admitidos.
+- [x] Vincular cada participante con su plan aprobado.
+- [~] Publicar calendario de las doce semanas; faltan horario y enlaces de los directos.
+- [~] Preparar la biblioteca de grabaciones; la vista está creada y espera contenido real.
+- [x] Mostrar historial de revisiones y decisiones.
 - [ ] Probar pago → cuestionario → plan → acceso con un usuario de prueba.

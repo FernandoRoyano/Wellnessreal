@@ -82,3 +82,18 @@ export const THYROID_WEEKLY_RHYTHM = [
     description: 'En el directo y las revisiones convertimos esos datos en una decisión: mantener, reducir o progresar.',
   },
 ] as const
+
+export const THYROID_PROGRAM_WEEKS = [
+  { week: 1, title: 'Punto de partida', outcome: 'Colocar dos sesiones reales en el calendario.' },
+  { week: 2, title: 'Técnica y esfuerzo', outcome: 'Obtener las primeras cargas de referencia.' },
+  { week: 3, title: 'Semana difícil', outcome: 'Dejar preparada tu sesión mínima.' },
+  { week: 4, title: 'Primera revisión', outcome: 'Aprobar el segundo bloque y su progresión.' },
+  { week: 5, title: 'Comidas que se repiten', outcome: 'Definir dos comidas base aplicables.' },
+  { week: 6, title: 'Recuperación con contexto', outcome: 'Elegir una mejora concreta de recuperación.' },
+  { week: 7, title: 'Volver sin empezar de cero', outcome: 'Crear tu protocolo personal para retomar.' },
+  { week: 8, title: 'Carga bien distribuida', outcome: 'Equilibrar volumen, intensidad y disponibilidad.' },
+  { week: 9, title: 'Segunda revisión', outcome: 'Detectar el límite principal y aprobar el último bloque.' },
+  { week: 10, title: 'Decidir con criterio', outcome: 'Definir cuándo mantener, reducir o progresar.' },
+  { week: 11, title: 'Semanas fuera de rutina', outcome: 'Preparar un plan de contingencia realista.' },
+  { week: 12, title: 'Autonomía', outcome: 'Salir con un plan de continuidad de cuatro semanas.' },
+] as const
