@@ -101,3 +101,4 @@ Si una participante no puede asistir, recibe la grabación y la acción principa
 - [~] Preparar la biblioteca de grabaciones; la vista está creada y espera contenido real.
 - [x] Mostrar historial de revisiones y decisiones.
 - [ ] Probar pago → cuestionario → plan → acceso con un usuario de prueba.
+- [x] Añadir al dashboard accesos a todo lo nuevo y una vista demo administrativa del área premium.

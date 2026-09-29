@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, ArrowUpRight, Check, ChevronRight, CircleAlert, Copy, Euro, ExternalLink, FileText, Link2, LoaderCircle, MessageCircle, Plus, RefreshCw, Sparkles, UserRound } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Check, ChevronRight, CircleAlert, Copy, Euro, ExternalLink, Eye, FileText, Link2, LoaderCircle, MessageCircle, Plus, RefreshCw, Sparkles, UserRound } from 'lucide-react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import ProposalStatusBadge from '@/components/admin/ProposalStatusBadge'
 import styles from './dashboard.module.css'
@@ -30,6 +30,12 @@ const publicLinks = [
   { title: 'Valoración gratuita', path: '/valoracion', note: 'Formulario de precualificación' },
   { title: 'Cuestionario IA', path: '/cuestionario', note: 'Generación del plan personalizado' },
   { title: 'Webinar', path: '/webinar', note: 'Onboarding desde el webinar' },
+] as const
+const thyroidLaunch = [
+  { label: 'Oferta y compra', note: 'Página pública, precio y recorrido de venta', href: '/metodo-tiroides', external: true },
+  { label: 'Área premium', note: 'Vista demo de lo que verá el cliente', href: '/admin/metodo-base-tiroides-preview', external: false },
+  { label: 'Funnel completo', note: 'Piezas, estados y conexiones del embudo', href: '/admin/funnel-tiroides', external: false },
+  { label: 'Entrega de planes', note: 'Clientes, planes revisados y versiones', href: '/admin/programas', external: false },
 ] as const
 
 export default function AdminDashboardPage() {
@@ -60,6 +66,7 @@ function Dashboard({ stats }: { stats: DashboardStats }) {
   return <div className={styles.content}>
     <header className={styles.header}><div><p className={styles.eyebrow}>Pulso WellnessReal · {date}</p><h1>{greeting}, Fernando.</h1></div><Link href="/admin/proposals/new" className={styles.primary}><Plus size={18} /><span>Nueva propuesta</span></Link></header>
     <Brief stats={stats} />
+    <ThyroidLaunch />
     <div className={styles.commandGrid}>
       <div className={styles.primaryColumn}><Funnel stats={stats} /><Activity stats={stats} /></div>
       <aside className={styles.secondaryColumn}><Attention stats={stats} /><Revenue stats={stats} /></aside>
@@ -67,6 +74,22 @@ function Dashboard({ stats }: { stats: DashboardStats }) {
     <section className={styles.tools}><div><p className={styles.label}>Gestión</p><h2>Espacios de trabajo</h2></div><div className={styles.toolGrid}>{tools.map(tool => { const Icon = tool.icon; return <Link key={tool.href} href={tool.href} className={styles.tool}><Icon size={18}/><span><strong>{tool.label}</strong><small>{tool.note}</small></span><ArrowUpRight size={15}/></Link> })}</div></section>
     <Links />
   </div>
+}
+
+function ThyroidLaunch() {
+  return <section className={styles.launch} aria-labelledby="thyroid-launch-title">
+    <div className={styles.launchIntro}>
+      <div><p className={styles.label}>Nuevo · Método BASE Tiroides</p><h2 id="thyroid-launch-title">Mira y prueba lo que ya existe.</h2></div>
+      <p>La oferta, el embudo y la entrega privada están conectados. La vista demo te permite recorrer el área del cliente sin crear un pago ficticio.</p>
+      <div className={styles.launchStatus}><span><Check size={14}/> Publicado</span><small>Pendiente: fijar horario y enlace de los directos</small></div>
+    </div>
+    <div className={styles.launchGrid}>{thyroidLaunch.map(item => {
+      const content = <><span><strong>{item.label}</strong><small>{item.note}</small></span>{item.external ? <ExternalLink size={17}/> : item.href.includes('preview') ? <Eye size={17}/> : <ArrowUpRight size={17}/>}</>
+      return item.external
+        ? <a key={item.href} href={item.href} target="_blank" rel="noopener noreferrer" className={styles.launchCard}>{content}</a>
+        : <Link key={item.href} href={item.href} className={styles.launchCard}>{content}</Link>
+    })}</div>
+  </section>
 }
 
 function Brief({ stats }: { stats: DashboardStats }) {
