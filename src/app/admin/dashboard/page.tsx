@@ -32,10 +32,10 @@ const publicLinks = [
   { title: 'Webinar', path: '/webinar', note: 'Onboarding desde el webinar' },
 ] as const
 const thyroidLaunch = [
-  { label: 'Oferta y compra', note: 'Página pública, precio y recorrido de venta', href: '/metodo-tiroides', external: true },
+  { label: 'Centro operativo', note: 'Participantes, pagos, planes y entrega', href: '/admin/metodo-base-tiroides', external: false },
   { label: 'Área premium', note: 'Vista demo de lo que verá el cliente', href: '/admin/metodo-base-tiroides-preview', external: false },
   { label: 'Funnel completo', note: 'Piezas, estados y conexiones del embudo', href: '/admin/funnel-tiroides', external: false },
-  { label: 'Entrega de planes', note: 'Clientes, planes revisados y versiones', href: '/admin/programas', external: false },
+  { label: 'Oferta y compra', note: 'Página pública, precio y recorrido de venta', href: '/metodo-tiroides', external: true },
 ] as const
 
 export default function AdminDashboardPage() {

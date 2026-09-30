@@ -451,28 +451,46 @@ export interface LessonWithLock extends Lesson {
 
 const DAY_MS = 24 * 60 * 60 * 1000
 
-/**
- * Por ahora todos los miembros son tier 'free'. Cuando exista premium, aquí
- * se comprobará el tier real del miembro (Stripe / campo en member_profiles).
- */
+/** Resuelve el acceso premium desde una única frontera de autorización. */
 async function memberHasTier(member: MemberProfile | null, tier: string): Promise<boolean> {
   if (tier === 'free') return true
   if (!member) return false
   // El equipo puede previsualizar y revisar el contenido premium sin ser cliente.
   if (member.role === 'admin' || member.role === 'mod') return true
 
-  const { data, error } = await supabase
-    .from('asesoria_solicitudes')
-    .select('id')
-    .ilike('email', member.email)
-    .eq('estado', 'pagada')
-    .limit(1)
+  const profileQuery = member.cliente_id
+    ? supabase
+        .from('cliente_perfil')
+        .select('id, acceso_manual, pagado_en')
+        .eq('id', member.cliente_id)
+        .maybeSingle()
+    : supabase
+        .from('cliente_perfil')
+        .select('id, acceso_manual, pagado_en')
+        .ilike('email', member.email)
+        .maybeSingle()
 
-  if (error) {
-    console.error('[comunidad:memberHasTier]', error.message)
-    return false
+  const [profileResult, applicationResult] = await Promise.all([
+    profileQuery,
+    supabase
+      .from('asesoria_solicitudes')
+      .select('id')
+      .ilike('email', member.email)
+      .eq('estado', 'pagada')
+      .limit(1),
+  ])
+
+  if (profileResult.error) {
+    console.error('[comunidad:memberHasTier:profile]', profileResult.error.message)
   }
-  return (data?.length ?? 0) > 0
+  if (applicationResult.error) {
+    console.error('[comunidad:memberHasTier:application]', applicationResult.error.message)
+  }
+
+  const profile = profileResult.data
+  const hasProfileAccess = Boolean(profile?.acceso_manual || profile?.pagado_en)
+  const hasPaidApplication = (applicationResult.data?.length ?? 0) > 0
+  return hasProfileAccess || hasPaidApplication
 }
 
 /** Indica si el miembro puede entrar en la experiencia de pago de Método BASE. */

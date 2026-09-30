@@ -15,9 +15,10 @@ const sections: { label: string; items: NavItem[] }[] = [
     { href: '/admin/proposals', label: 'Propuestas', icon: FileText },
   ] },
   { label: 'Producto', items: [
+    { href: '/admin/metodo-base-tiroides', label: 'Método BASE', icon: Sparkles },
     { href: '/admin/comunidad', label: 'Comunidad', icon: MessageCircle },
     { href: '/admin/funnel-tiroides', label: 'Funnel tiroides', icon: Workflow },
-    { href: '/admin/programas', label: 'Programas IA', icon: Sparkles },
+    { href: '/admin/programas', label: 'Programas IA', icon: ClipboardList },
   ] },
   { label: 'Contenido', items: [
     { href: '/admin/blog', label: 'Blog', icon: BookOpen },

@@ -36,6 +36,9 @@ yarn-error.log*
 # Vercel
 .vercel
 
+# Repositorio de referencia clonado localmente; no forma parte de WellnessReal.
+/ECC/
+
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts

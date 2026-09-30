@@ -126,6 +126,16 @@ export async function POST(req: NextRequest) {
 
     if (errPerfil) throw new Error('Supabase (perfil): ' + errPerfil.message)
 
+    // Vincula la identidad de comunidad con el perfil canónico aunque la persona
+    // se registrase antes de completar el onboarding.
+    const { error: memberLinkError } = await supabase
+      .from('member_profiles')
+      .update({ cliente_id: perfil.id })
+      .ilike('email', email)
+    if (memberLinkError) {
+      throw new Error(`[generar-programa:linkMember] ${memberLinkError.message}`)
+    }
+
     if (datos.origen === 'metodo-tiroides') {
       await supabase
         .from('cliente_perfil')
