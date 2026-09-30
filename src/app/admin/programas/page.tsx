@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import AdminSidebar from '@/components/admin/AdminSidebar'
-import { FileText, Clock, CheckCircle2, ChevronRight, Layers3 } from 'lucide-react'
+import { FileText, Clock, CheckCircle2, ChevronRight, Layers3, Plus } from 'lucide-react'
 
 interface ProgramaRow {
   id: string
@@ -77,9 +77,14 @@ export default function ProgramasAdminPage() {
             Planes generados con el Método BASE · revísalos antes de enviarlos al cliente
             </p>
           </div>
-          <Link href="/admin/programas/plantilla-base-t12" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#FCEE21]/30 bg-[#FCEE21]/10 px-4 py-3 text-sm font-bold text-[#FCEE21] transition hover:bg-[#FCEE21]/15">
-            <Layers3 size={17} /> Ver plantilla BASE‑T12
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/admin/programas/plantilla-base-t12" className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#FCEE21]/30 bg-[#FCEE21]/10 px-4 py-3 text-sm font-bold text-[#FCEE21] transition hover:bg-[#FCEE21]/15">
+              <Layers3 size={17} /> Ver plantilla BASE‑T12
+            </Link>
+            <Link href="/admin/programas/nuevo" className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FCEE21] px-4 py-3 text-sm font-bold text-[#16122B] transition hover:bg-white">
+              <Plus size={17} /> Nuevo plan personalizado
+            </Link>
+          </div>
         </div>
 
         <div className="mb-7 rounded-2xl border border-[#FCEE21]/20 bg-[#FCEE21]/[.06] p-5">

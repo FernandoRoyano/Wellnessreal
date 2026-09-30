@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { getSessionMember, memberHasPremium } from '@/lib/db/comunidad'
 import { supabase } from '@/lib/supabase'
-import { THYROID_PROGRAM, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
+import { THYROID_PROGRAM, THYROID_PROGRAM_PHASES, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
 
 export const metadata: Metadata = {
   title: 'Método BASE Tiroides · Tu programa',
@@ -103,6 +103,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
 
   const reportedWeek = profile?.semana_actual ?? programWeek()
   const currentWeek = Math.min(12, Math.max(0, reportedWeek))
+  const currentPhaseIndex = currentWeek > 0 ? Math.floor((currentWeek - 1) / 3) : 0
   const week = currentWeek > 0 ? THYROID_PROGRAM_WEEKS[currentWeek - 1] : null
   const programReady = Boolean(programResult.data?.revisado && profile?.token)
   const events = (eventsResult.data ?? []) as ClientEvent[]
@@ -169,6 +170,30 @@ export default async function MetodoBaseTiroidesMemberPage() {
           </div>
         </section>
       )}
+
+      <section aria-labelledby="bloques" className="space-y-6">
+        <div>
+          <p className="text-xs font-bold uppercase tracking-[.14em] text-[#FCEE21]">Entrega progresiva</p>
+          <h2 id="bloques" className="headline mt-2 text-3xl">Cuatro bloques, una revisión cada tres semanas.</h2>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/50">No recibes doce rutinas cerradas el primer día. Trabajas un bloque, registras tu respuesta y el siguiente se ajusta con datos reales antes de activarse.</p>
+        </div>
+        <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {THYROID_PROGRAM_PHASES.map((phase, index) => {
+            const isActive = currentWeek > 0 && index === currentPhaseIndex
+            const isComplete = currentWeek > 0 && index < currentPhaseIndex
+            const status = isComplete ? 'Completado' : isActive ? 'Bloque activo' : currentWeek === 0 && index === 0 ? 'Preparación' : 'Pendiente de revisión'
+            return <li key={phase.weeks} className={`relative overflow-hidden rounded-2xl border p-6 ${isActive ? 'border-[#FCEE21]/40 bg-[#FCEE21]/[.08]' : 'border-white/10 bg-[#17132f]'}`}>
+              <div className="flex items-center justify-between gap-3">
+                <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-[#FCEE21]' : 'text-white/35'}`}>{phase.weeks}</span>
+                {isComplete && <CheckCircle2 size={16} className="text-emerald-400" />}
+              </div>
+              <h3 className="mt-5 font-bold text-white">{phase.title}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-white/45">{phase.description}</p>
+              <span className={`mt-5 inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${isComplete ? 'bg-emerald-400/10 text-emerald-300' : isActive ? 'bg-[#FCEE21]/15 text-[#FCEE21]' : 'bg-white/[.05] text-white/35'}`}>{status}</span>
+            </li>
+          })}
+        </ol>
+      </section>
 
       <section id="calendario" aria-labelledby="recorrido" className="space-y-6 scroll-mt-24">
         <div>

@@ -17,6 +17,7 @@ import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
 import { getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
 import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { isAdminAuthenticated } from '@/lib/auth'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
@@ -38,6 +39,11 @@ export async function POST(req: NextRequest) {
     }
 
     const email = String(datos.email).toLowerCase().trim()
+    const isAdminFlow = datos.origen === 'admin-tiroides'
+
+    if (isAdminFlow && !(await isAdminAuthenticated())) {
+      return NextResponse.json({ error: 'No autorizado.' }, { status: 401 })
+    }
 
     if (datos.origen === 'metodo-tiroides') {
       const { data: paidApplication } = await supabase
@@ -144,7 +150,7 @@ export async function POST(req: NextRequest) {
     }
 
     // --- 3) Construir el mensaje con los datos del cliente ---
-    const isThyroidProgram = datos.origen === 'metodo-tiroides'
+    const isThyroidProgram = datos.origen === 'metodo-tiroides' || isAdminFlow
     const baseProgram = isThyroidProgram ? getThyroidBaseProgram(Number(datos.dias_semana) || 3) : null
     const mensajeCliente = `
 Genera el programa completo del Método BASE para este cliente:
@@ -208,16 +214,26 @@ la herramienta 'entregar_programa'.
     }
     const programa = bloque.input as Programa
 
-    // --- 5) Guardar el programa como version 1, vigente, SIN revisar ---
+    // --- 5) Guardar una nueva versiÃ³n vigente y conservar el historial ---
+    const { data: latestProgram, error: latestProgramError } = await supabase
+      .from('programas_generados')
+      .select('version')
+      .eq('cliente_id', perfil.id)
+      .order('version', { ascending: false })
+      .limit(1)
+      .maybeSingle()
+    if (latestProgramError) throw new Error('Supabase (versiÃ³n): ' + latestProgramError.message)
+    const nextVersion = (latestProgram?.version ?? 0) + 1
+
     const { data: guardado, error: errPrograma } = await supabase
       .from('programas_generados')
       .insert({
         cliente_id: perfil.id,
         onboarding_id: onboarding.id,
-        version: 1,
+        version: nextVersion,
         vigente: true,
         programa,
-        origen: isThyroidProgram ? 'plantilla-tiroides' : 'generacion',
+        origen: isAdminFlow ? 'plantilla-tiroides-manual' : isThyroidProgram ? 'plantilla-tiroides' : 'generacion',
         modelo: MODELO_IA,
         meta: {
           input_tokens: respuesta.usage?.input_tokens,
@@ -232,6 +248,14 @@ la herramienta 'entregar_programa'.
 
     if (errPrograma) throw new Error('Supabase (programa): ' + errPrograma.message)
 
+    const { error: archiveError } = await supabase
+      .from('programas_generados')
+      .update({ vigente: false })
+      .eq('cliente_id', perfil.id)
+      .eq('vigente', true)
+      .neq('id', guardado.id)
+    if (archiveError) throw new Error('Supabase (archivar versiones): ' + archiveError.message)
+
     // --- 6) Registrar evento + marcar onboarding como generado ---
     await supabase.from('eventos_cliente').insert({
       cliente_id: perfil.id,
@@ -245,7 +269,7 @@ la herramienta 'entregar_programa'.
       .update({ estado: 'generado' })
       .eq('id', onboarding.id)
 
-    if (isThyroidProgram) {
+    if (datos.origen === 'metodo-tiroides') {
       try {
         await recordThyroidFunnelEvent({
           eventName: 'thyroid_onboarding_complete',
