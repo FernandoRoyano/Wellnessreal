@@ -82,6 +82,12 @@ export default function ProgramasAdminPage() {
           </Link>
         </div>
 
+        <div className="mb-7 rounded-2xl border border-[#FCEE21]/20 bg-[#FCEE21]/[.06] p-5">
+          <p className="text-xs font-bold uppercase tracking-[.12em] text-[#FCEE21]">Cómo nace cada plan</p>
+          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-gray-300">No tienes que duplicar la plantilla. Cuando una participante pagada completa su evaluación, el sistema adapta BASE‑T12 y crea aquí un borrador pendiente. Tu trabajo empieza en <strong className="text-white">Revisar</strong>: validas contexto, ejercicios, alternativas y progresión; solo después lo apruebas.</p>
+          <Link href="/admin/metodo-base-tiroides" className="mt-4 inline-flex items-center gap-2 text-xs font-bold text-[#FCEE21] hover:underline">Ver participantes y siguiente acción <ChevronRight size={14} /></Link>
+        </div>
+
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           <StatCard icon={<Clock size={18} />} label="Por revisar" value={pendientes} accent="#FCEE21" />
           <StatCard icon={<FileText size={18} />} label="Mostrados" value={programas.length} accent="#60a5fa" />

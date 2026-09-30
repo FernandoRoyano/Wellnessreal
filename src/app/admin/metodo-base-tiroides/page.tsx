@@ -8,6 +8,8 @@ import {
   CreditCard,
   Eye,
   FileCheck2,
+  ClipboardList,
+  Mail,
   ListChecks,
   Sparkles,
   Users,
@@ -32,10 +34,17 @@ interface ProgramRow {
   id: string
   revisado: boolean
   cliente_id: string | null
+  creado_en: string
+}
+
+interface ClientProfileRow {
+  id: string
+  email: string
+  token: string
 }
 
 async function getProgramOverview() {
-  const [applicationsResult, programsResult] = await Promise.all([
+  const [applicationsResult, programsResult, profilesResult] = await Promise.all([
     supabase
       .from('asesoria_solicitudes')
       .select('id, nombre, email, estado, creado_en, notas')
@@ -43,8 +52,13 @@ async function getProgramOverview() {
       .limit(100),
     supabase
       .from('programas_generados')
-      .select('id, revisado, cliente_id')
+      .select('id, revisado, cliente_id, creado_en')
       .eq('vigente', true)
+      .order('creado_en', { ascending: false })
+      .limit(100),
+    supabase
+      .from('cliente_perfil')
+      .select('id, email, token')
       .limit(100),
   ])
 
@@ -54,16 +68,20 @@ async function getProgramOverview() {
   if (programsResult.error) {
     throw new Error(`[MetodoBaseAdmin:programs] ${programsResult.error.message}`)
   }
+  if (profilesResult.error) {
+    throw new Error(`[MetodoBaseAdmin:profiles] ${profilesResult.error.message}`)
+  }
 
   const applications = (applicationsResult.data ?? []) as ApplicationRow[]
   const programs = (programsResult.data ?? []) as ProgramRow[]
-  return { applications, programs }
+  const profiles = (profilesResult.data ?? []) as ClientProfileRow[]
+  return { applications, programs, profiles }
 }
 
 export default async function MetodoBaseTiroidesAdminPage() {
   if (!(await isAdminAuthenticated())) redirect('/admin')
 
-  const { applications, programs } = await getProgramOverview()
+  const { applications, programs, profiles } = await getProgramOverview()
   const paid = applications.filter((item) => item.estado === 'pagada')
   const accepted = applications.filter((item) => item.estado === 'aceptada')
   const pendingPrograms = programs.filter((item) => !item.revisado)
@@ -75,6 +93,13 @@ export default async function MetodoBaseTiroidesAdminPage() {
   const confirmedRevenue = oneTimePayments.length * THYROID_PROGRAM.price
     + firstInstallments.length * THYROID_PROGRAM.installmentPrice
     + secondInstallments.length * THYROID_PROGRAM.installmentPrice
+  const profileByEmail = new Map(profiles.map((profile) => [profile.email.toLowerCase(), profile]))
+  const programByClient = new Map<string, ProgramRow>()
+  for (const program of programs) {
+    if (program.cliente_id && !programByClient.has(program.cliente_id)) {
+      programByClient.set(program.cliente_id, program)
+    }
+  }
 
   const workflow = [
     {
@@ -147,6 +172,55 @@ export default async function MetodoBaseTiroidesAdminPage() {
           </section>
 
           <section className="mt-10 rounded-2xl border border-white/10 bg-[#17132f] p-6 sm:p-8">
+            <div className="max-w-3xl">
+              <p className="text-xs font-bold uppercase tracking-[.14em] text-[#FCEE21]">Protocolo de trabajo</p>
+              <h2 className="headline mt-2 text-3xl">Un plan nuevo no parte de cero.</h2>
+              <p className="mt-3 text-sm leading-relaxed text-white/55">Cada petición sigue el mismo sistema. La plantilla BASE‑T12 fija estructura, seguridad y progresión; el cuestionario aporta el contexto individual; tú haces la revisión profesional antes de entregarlo.</p>
+            </div>
+            <ol className="mt-7 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-3 xl:grid-cols-6">
+              {[
+                ['01', 'Admitir', 'Validas que el programa encaja.'],
+                ['02', 'Confirmar pago', 'Activas el onboarding privado.'],
+                ['03', 'Recoger contexto', 'La participante completa la evaluación.'],
+                ['04', 'Adaptar BASE‑T12', 'Se genera un borrador desde el protocolo.'],
+                ['05', 'Revisar', 'Corriges ejercicios, carga y límites.'],
+                ['06', 'Activar', 'Apruebas el plan y aparece en su área.'],
+              ].map(([number, title, copy]) => <li key={number} className="bg-[#100d24] p-5"><span className="text-xs font-bold text-[#FCEE21]">{number}</span><h3 className="mt-6 text-sm font-bold">{title}</h3><p className="mt-2 text-xs leading-relaxed text-white/40">{copy}</p></li>)}
+            </ol>
+            <Link href="/admin/programas/plantilla-base-t12" className="mt-5 inline-flex items-center gap-2 text-xs font-bold text-[#FCEE21] hover:underline">Consultar el protocolo y la plantilla maestra <ArrowUpRight size={14} /></Link>
+          </section>
+
+          <section className="mt-10">
+            <div className="mb-5"><p className="text-xs font-bold uppercase tracking-[.14em] text-[#FCEE21]">Participantes</p><h2 className="headline mt-2 text-3xl">Siguiente acción, persona por persona.</h2></div>
+            {applications.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-white/15 bg-white/[.025] p-8 text-center">
+                <ClipboardList className="mx-auto text-white/25" size={32} />
+                <h3 className="mt-4 font-bold">Aún no hay solicitudes</h3>
+                <p className="mx-auto mt-2 max-w-lg text-sm leading-relaxed text-white/45">Cuando llegue una petición aparecerá aquí con su estado y la acción exacta: aceptar, cobrar, enviar evaluación, revisar o activar.</p>
+                <Link href="/admin/comunidad/asesoria" className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-[#FCEE21]">Abrir solicitudes <ArrowUpRight size={15} /></Link>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {applications.filter((application) => application.estado !== 'descartada').map((application) => {
+                  const profile = profileByEmail.get(application.email.toLowerCase())
+                  const program = profile ? programByClient.get(profile.id) : undefined
+                  const state = resolveParticipantState(application, profile, program)
+                  const mailHref = `mailto:${application.email}?subject=${encodeURIComponent('Evaluación inicial · Método BASE Tiroides')}&body=${encodeURIComponent(`Hola ${application.nombre.split(' ')[0]},\n\nTu plaza está confirmada. El siguiente paso es completar la evaluación inicial con este mismo email:\n\nhttps://wellnessreal.es/cuestionario?origen=metodo-tiroides\n\nCuando la termines prepararé y revisaré personalmente tu primer bloque antes de activarlo.\n\nFernando`)}`
+                  return <article key={application.id} className="grid gap-5 rounded-2xl border border-white/10 bg-white/[.03] p-5 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
+                    <div><div className="flex flex-wrap items-center gap-2"><h3 className="font-bold">{application.nombre}</h3><span className={`rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${state.tone}`}>{state.label}</span></div><p className="mt-1 text-xs text-white/35">{application.email}</p><p className="mt-4 text-sm text-white/60"><strong className="text-white">Siguiente:</strong> {state.next}</p></div>
+                    <div className="flex flex-wrap gap-2 lg:justify-end">
+                      {application.estado !== 'pagada' && <Link href="/admin/comunidad/asesoria" className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/15 px-4 text-xs font-bold hover:border-[#FCEE21]/40">Gestionar solicitud <ArrowUpRight size={14} /></Link>}
+                      {application.estado === 'pagada' && !profile && <a href={mailHref} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#FCEE21] px-4 text-xs font-bold text-[#100d24]"><Mail size={14} /> Enviar evaluación</a>}
+                      {program && !program.revisado && <Link href={`/admin/programas/${program.id}`} className="inline-flex min-h-10 items-center gap-2 rounded-full bg-[#FCEE21] px-4 text-xs font-bold text-[#100d24]">Revisar borrador <ArrowUpRight size={14} /></Link>}
+                      {program?.revisado && profile && <Link href={`/programa/${profile.token}`} className="inline-flex min-h-10 items-center gap-2 rounded-full border border-emerald-400/30 px-4 text-xs font-bold text-emerald-300">Ver plan activo <ArrowUpRight size={14} /></Link>}
+                    </div>
+                  </article>
+                })}
+              </div>
+            )}
+          </section>
+
+          <section className="mt-10 rounded-2xl border border-white/10 bg-[#17132f] p-6 sm:p-8">
             <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
               <div><p className="text-xs font-bold uppercase tracking-[.14em] text-[#FCEE21]">Entrega</p><h2 className="headline mt-2 text-2xl">La experiencia de pago ya tiene una puerta visible.</h2><p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/50">Los clientes con pago confirmado o acceso manual ven Método BASE en su menú de comunidad. El plan aparece cuando está revisado y aprobado.</p></div>
               <Link href="/admin/programas" className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-full border border-white/15 px-5 text-sm font-bold hover:border-[#FCEE21]/40 hover:text-[#FCEE21]">Revisar planes <ArrowUpRight size={15} /></Link>
@@ -156,6 +230,16 @@ export default async function MetodoBaseTiroidesAdminPage() {
       </main>
     </div>
   )
+}
+
+function resolveParticipantState(application: ApplicationRow, profile?: ClientProfileRow, program?: ProgramRow) {
+  if (application.estado === 'nueva') return { label: 'Nueva solicitud', next: 'Revisar el caso y contactar.', tone: 'bg-amber-400/10 text-amber-300' }
+  if (application.estado === 'contactada') return { label: 'En valoración', next: 'Aceptar o descartar después de la conversación.', tone: 'bg-blue-400/10 text-blue-300' }
+  if (application.estado === 'aceptada') return { label: 'Aceptada', next: 'Generar y enviar el enlace de pago.', tone: 'bg-violet-400/10 text-violet-300' }
+  if (!profile) return { label: 'Pago confirmado', next: 'Enviar la evaluación inicial. El email debe coincidir con el pago.', tone: 'bg-cyan-400/10 text-cyan-300' }
+  if (!program) return { label: 'Evaluación recibida', next: 'Comprobar la generación del borrador BASE‑T12.', tone: 'bg-cyan-400/10 text-cyan-300' }
+  if (!program.revisado) return { label: 'Borrador pendiente', next: 'Revisar y aprobar el plan antes de entregarlo.', tone: 'bg-amber-400/10 text-amber-300' }
+  return { label: 'Plan activo', next: 'Seguir check-ins, decisiones y ajustes semanales.', tone: 'bg-emerald-400/10 text-emerald-300' }
 }
 
 function Metric({ icon, label, value, note }: { icon: React.ReactNode; label: string; value: string | number; note: string }) {
