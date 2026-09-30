@@ -8,7 +8,7 @@ tiempo_lectura: 9 min
 palabras: 1900
 meta_título: "Recuperación de tejidos y tiroides | WellnessReal"
 meta_descripción: "Músculo, tendón, ligamento, hueso y cartílago no se recuperan al mismo ritmo. Aprende a ajustar el entrenamiento si tienes hipotiroidismo."
-imagen_destacada: "/blog/recuperacion-tejidos-tiroides-v2.webp"
+imagen_destacada: "/blog/recuperacion-tejidos-tiroides-v3.webp"
 imagen_alt: "Comparación de los ritmos de recuperación del músculo, tendón, ligamento, hueso y cartílago"
 autor: "Fernando Royano"
 ---
