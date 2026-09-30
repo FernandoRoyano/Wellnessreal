@@ -124,6 +124,13 @@ export default async function MetodoBaseTiroidesAdminPage() {
       status: 'ready',
     },
     {
+      title: 'Directos y grabaciones',
+      description: 'Publicar clases por fecha y temática para participantes',
+      href: '/admin/metodo-base-tiroides/directos',
+      icon: CalendarDays,
+      status: 'ready',
+    },
+    {
       title: 'Funnel y conversión',
       description: 'Captación, clase, solicitud, venta e incorporación',
       href: '/admin/funnel-tiroides',

@@ -195,13 +195,14 @@ export default async function MetodoBaseTiroidesMemberPage() {
       </section>
 
       <section className="grid gap-5 lg:grid-cols-2">
-        <article className="rounded-2xl border border-white/10 bg-white/[.03] p-6">
+        <Link href="/comunidad/metodo-base-tiroides/directos" className="group rounded-2xl border border-white/10 bg-white/[.03] p-6 transition hover:-translate-y-1 hover:border-[#FCEE21]/30">
           <div className="flex items-center gap-3"><PlayCircle className="text-[#FCEE21]" /><h2 className="headline text-2xl">Directos y grabaciones</h2></div>
           <div className="mt-8 rounded-xl border border-dashed border-white/15 p-6 text-center">
             <p className="font-semibold text-white">La biblioteca está preparada</p>
-            <p className="mt-2 text-sm leading-relaxed text-white/45">Las grabaciones se añadirán después de cada directo. Hasta entonces no verás contenido de relleno.</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/45">Las grabaciones se clasifican por fecha y temática y solo están disponibles para participantes.</p>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#FCEE21]">Abrir biblioteca <ArrowRight size={15} /></span>
           </div>
-        </article>
+        </Link>
         <article className="rounded-2xl border border-white/10 bg-white/[.03] p-6">
           <div className="flex items-center gap-3"><History className="text-[#FCEE21]" /><h2 className="headline text-2xl">Decisiones y ajustes</h2></div>
           {events.length ? (
