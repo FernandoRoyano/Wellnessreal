@@ -13,7 +13,7 @@ import {
 } from 'lucide-react'
 import { getSessionMember, memberHasPremium } from '@/lib/db/comunidad'
 import { supabase } from '@/lib/supabase'
-import { THYROID_PROGRAM, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
+import { THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
 import { getDefaultThyroidRoadmap } from '@/lib/metodo-tiroides-template'
 import type { Programa } from '@/lib/programa-schema'
 
@@ -35,22 +35,6 @@ interface ClientEvent {
   semana: number | null
   tipo: string
   contenido: Record<string, unknown>
-}
-
-function programWeek(now = new Date()): number {
-  const start = new Date(`${THYROID_PROGRAM.startDate}T00:00:00+01:00`)
-  if (now < start) return 0
-  const elapsed = Math.floor((now.getTime() - start.getTime()) / (7 * 24 * 60 * 60 * 1000)) + 1
-  return Math.min(12, Math.max(1, elapsed))
-}
-
-function weekDates(week: number): string {
-  const start = new Date(`${THYROID_PROGRAM.startDate}T12:00:00+01:00`)
-  start.setDate(start.getDate() + (week - 1) * 7)
-  const end = new Date(start)
-  end.setDate(end.getDate() + 6)
-  const format = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'short' })
-  return `${format.format(start)} – ${format.format(end)}`
 }
 
 function eventSummary(event: ClientEvent): string {
@@ -103,8 +87,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
       ])
     : [{ data: null }, { data: [] }]
 
-  const reportedWeek = profile?.semana_actual ?? programWeek()
-  const currentWeek = Math.min(12, Math.max(0, reportedWeek))
+  const currentWeek = Math.min(12, Math.max(0, profile?.semana_actual ?? 0))
   const currentPhaseIndex = currentWeek > 0 ? Math.floor((currentWeek - 1) / 3) : 0
   const week = currentWeek > 0 ? THYROID_PROGRAM_WEEKS[currentWeek - 1] : null
   const programReady = Boolean(programResult.data?.revisado && profile?.token)
@@ -124,7 +107,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
           <div className="rounded-2xl border border-white/10 bg-black/15 px-6 py-5 lg:min-w-56">
             <small className="text-xs uppercase tracking-wider text-white/40">Estado actual</small>
             <strong className="mt-2 block text-xl text-white">{currentWeek === 0 ? 'Preparación' : `Semana ${currentWeek} de 12`}</strong>
-            <span className="mt-1 block text-sm text-[#FCEE21]">{week?.title ?? `Comienza el ${THYROID_PROGRAM.startDateLabel}`}</span>
+            <span className="mt-1 block text-sm text-[#FCEE21]">{week?.title ?? 'Se activa cuando tu plan esté aprobado'}</span>
           </div>
         </div>
       </header>
@@ -168,7 +151,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
         <section className="grid gap-6 rounded-3xl border border-white/10 bg-[#17132f] p-7 md:grid-cols-[auto_1fr] md:p-9">
           <span className="headline text-6xl text-[#FCEE21]">{String(week.week).padStart(2, '0')}</span>
           <div>
-            <p className="text-xs font-bold uppercase tracking-[.14em] text-white/40">Decisión de esta semana · {weekDates(week.week)}</p>
+            <p className="text-xs font-bold uppercase tracking-[.14em] text-white/40">Decisión de la semana {week.week}</p>
             <h2 className="headline mt-3 text-3xl">{week.title}</h2>
             <p className="mt-3 text-base leading-relaxed text-white/60">{week.outcome}</p>
           </div>
@@ -204,7 +187,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
         <div>
           <p className="text-xs font-bold uppercase tracking-[.14em] text-[#FCEE21]">Calendario del programa</p>
           <h2 id="recorrido" className="headline mt-2 text-3xl">Doce semanas, doce decisiones.</h2>
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/50">El enlace y horario del directo aparecerán en este espacio cuando queden confirmados. Las revisiones individuales se acuerdan contigo.</p>
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/50">El recorrido empieza cuando se activa tu plan. Las clases se desbloquean según tu avance; si se programa un directo, su horario aparecerá aquí.</p>
         </div>
         <ol className="grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-2 lg:grid-cols-3">
           {THYROID_PROGRAM_WEEKS.map((item) => {
@@ -217,7 +200,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
                   {isPast && <CheckCircle2 size={15} className="text-emerald-400" />}
                 </div>
                 <h3 className="mt-4 font-bold text-white">{item.title}</h3>
-                <p className="mt-2 text-xs leading-relaxed text-white/45">{weekDates(item.week)}</p>
+                <p className="mt-2 text-xs leading-relaxed text-white/45">{item.outcome}</p>
               </li>
             )
           })}
@@ -226,10 +209,10 @@ export default async function MetodoBaseTiroidesMemberPage() {
 
       <section className="grid gap-5 lg:grid-cols-2">
         <Link href="/comunidad/metodo-base-tiroides/directos" className="group rounded-2xl border border-white/10 bg-white/[.03] p-6 transition hover:-translate-y-1 hover:border-[#FCEE21]/30">
-          <div className="flex items-center gap-3"><PlayCircle className="text-[#FCEE21]" /><h2 className="headline text-2xl">Directos y grabaciones</h2></div>
+          <div className="flex items-center gap-3"><PlayCircle className="text-[#FCEE21]" /><h2 className="headline text-2xl">Clases y directos</h2></div>
           <div className="mt-8 rounded-xl border border-dashed border-white/15 p-6 text-center">
-            <p className="font-semibold text-white">La biblioteca está preparada</p>
-            <p className="mt-2 text-sm leading-relaxed text-white/45">Las grabaciones se clasifican por fecha y temática y solo están disponibles para participantes.</p>
+            <p className="font-semibold text-white">Tu biblioteca privada</p>
+            <p className="mt-2 text-sm leading-relaxed text-white/45">Las clases se organizan por bloque y temática. Los directos se añaden solo cuando tienen una fecha confirmada.</p>
             <span className="mt-4 inline-flex items-center gap-2 text-sm font-bold text-[#FCEE21]">Abrir biblioteca <ArrowRight size={15} /></span>
           </div>
         </Link>

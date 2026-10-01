@@ -151,7 +151,7 @@ Lo que no puedo prometerte es un resultado concreto, una pérdida de peso determ
 
 ## 17:15 — Oferta y llamada a la acción
 
-El Método BASE Tiroides dura doce semanas. // Incluye la evaluación inicial, el plan adaptado, los directos, las revisiones y el espacio privado del grupo. // La primera edición comienza el dos de noviembre, tiene un máximo de diez plazas y cuesta trescientos cuarenta y nueve euros en un único pago, o dos pagos de ciento ochenta y cinco euros. ///
+El Método BASE Tiroides dura doce semanas. // Incluye la evaluación inicial, el plan adaptado, las clases privadas, los directos que se programen, las revisiones y el espacio privado. // El recorrido comienza cuando confirmamos tu acceso y aprobamos tu plan. No necesitas esperar a que se forme un grupo. El precio es de trescientos cuarenta y nueve euros en un único pago, o dos pagos de ciento ochenta y cinco euros. ///
 
 No quiero que solicites una plaza sin saber si encaja contigo. // Debajo de este vídeo puedes revisar la página completa: qué incluye, qué no incluye, cómo se organizan las doce semanas y cuál es el precio. ///
 

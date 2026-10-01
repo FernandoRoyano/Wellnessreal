@@ -149,7 +149,7 @@ export default async function MetodoBaseTiroidesAdminPage() {
               <div className="max-w-3xl">
                 <p className="flex items-center gap-2 text-xs font-bold uppercase tracking-[.16em] text-[#FCEE21]"><Sparkles size={15} /> Producto de pago</p>
                 <h1 className="headline mt-4 text-[clamp(2.5rem,7vw,5.2rem)] leading-[.94]">Método BASE<br /><em className="text-[#FCEE21]">Tiroides.</em></h1>
-                <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/60">Centro operativo de la primera edición: desde la solicitud hasta la entrega del plan y las doce semanas de seguimiento.</p>
+                <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/60">Centro operativo del programa: desde la solicitud hasta la entrega del plan y las doce semanas de seguimiento individual.</p>
               </div>
               <a href="/metodo-tiroides" target="_blank" rel="noreferrer" className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[#FCEE21] px-6 text-sm font-bold text-[#100d24] transition hover:brightness-105">
                 Ver página de venta <ArrowUpRight size={16} />

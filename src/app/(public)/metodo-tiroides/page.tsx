@@ -96,7 +96,7 @@ export default async function MetodoTiroidesPage() {
           <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.08fr_0.92fr]">
             <div>
               <span className="eyebrow">
-                {THYROID_PROGRAM.edition} · comienza el {THYROID_PROGRAM.startDateLabel}
+                Acceso por solicitud · recorrido individual de 12 semanas
               </span>
               <h1 className="headline mt-5 text-fluid-5xl leading-[1.02] text-white">
                 Doce semanas para construir una rutina que puedas sostener.
@@ -129,7 +129,7 @@ export default async function MetodoTiroidesPage() {
                   <p className="mt-4 flex items-center gap-2 text-fluid-xs text-subtle">
                     <ShieldCheck className="h-4 w-4 text-accent" /> Solicitar no es pagar. Primero comprobamos si encaja contigo.
                   </p>
-                  <p className="mt-2 text-fluid-xs text-subtle">Solicitudes abiertas hasta el {THYROID_PROGRAM.applicationCloseLabel} o hasta completar las {THYROID_PROGRAM.capacity} plazas.</p>
+                  <p className="mt-2 text-fluid-xs text-subtle">Acceso por solicitud y plazas limitadas para poder revisar cada caso personalmente.</p>
                 </>
               ) : (
                 <p className="mt-4 text-fluid-xs text-subtle">Las solicitudes de esta edición están cerradas.</p>
@@ -161,7 +161,7 @@ export default async function MetodoTiroidesPage() {
                   <div className="mt-5 grid grid-cols-3 divide-x divide-white/10 border-t border-white/10 pt-5 text-center">
                     <Stat value="12" label="semanas" />
                     <Stat value={String(THYROID_PROGRAM.capacity)} label="plazas máximas" />
-                    <Stat value={`${THYROID_PROGRAM.price} €`} label="primera edición" />
+                    <Stat value={`${THYROID_PROGRAM.price} €`} label="programa completo" />
                   </div>
                 </div>
               </div>
@@ -337,7 +337,7 @@ export default async function MetodoTiroidesPage() {
         <Container>
           <div className="relative mx-auto grid max-w-5xl items-start gap-fluid-lg lg:grid-cols-[0.82fr_1.18fr]">
             <div className="lg:sticky lg:top-28">
-              <span className="eyebrow">Primera edición</span>
+              <span className="eyebrow">Acceso individual</span>
               <h2 className="headline mt-4 text-fluid-4xl text-white">
                 {launchPhase === 'priority'
                   ? 'Apúntate antes de la apertura.'
@@ -353,9 +353,7 @@ export default async function MetodoTiroidesPage() {
                 <p className="mt-5 text-fluid-base leading-relaxed text-muted">Ya no acepto nuevas solicitudes para este grupo. Puedes ver la clase gratuita y recibir contenidos para futuras ediciones.</p>
               )}
               <p className="mt-4 rounded-xl border border-accent/20 bg-accent/5 px-4 py-3 text-fluid-sm text-white/80">
-                Solicitudes {THYROID_PROGRAM.applicationWindow}. El programa comienza el{' '}
-                <strong className="text-white">{THYROID_PROGRAM.startDateLabel}</strong> y termina el{' '}
-                {THYROID_PROGRAM.endDateLabel}.
+                El recorrido comienza cuando confirmamos tu acceso y aprobamos tu plan. No necesitas esperar a que se forme un grupo.
               </p>
               {launchPhase === 'applications' && <ol className="mt-7 space-y-4">
                 {[
