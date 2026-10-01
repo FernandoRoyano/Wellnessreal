@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Plus, Trash2, Save, X, Loader2, GripVertical } from 'lucide-react'
 import type { Programa, DiaEntrenamiento, Ejercicio } from '@/lib/programa-schema'
+import { getDefaultThyroidRoadmap } from '@/lib/metodo-tiroides-template'
 
 // ============================================================
 //  Editor manual del programa generado por la IA.
@@ -24,7 +25,11 @@ export default function ProgramaEditor({
   onSave: (programa: Programa) => void
   onCancel: () => void
 }) {
-  const [draft, setDraft] = useState<Programa>(() => clone(initial))
+  const [draft, setDraft] = useState<Programa>(() => {
+    const value = clone(initial)
+    value.vision_12_semanas ??= getDefaultThyroidRoadmap()
+    return value
+  })
 
   // Actualiza el borrador de forma inmutable
   const edit = (mut: (d: Programa) => void) =>
@@ -62,6 +67,29 @@ export default function ProgramaEditor({
         {/* Bienvenida */}
         <Block title="Mensaje de bienvenida">
           <Area value={draft.mensaje_bienvenida} onChange={(v) => edit((d) => { d.mensaje_bienvenida = v })} rows={4} />
+        </Block>
+
+        <Block title="VisiÃ³n completa Â· 12 semanas">
+          <p className="text-xs leading-relaxed text-gray-400">Esta es la hoja de ruta que verÃ¡ la participante. El entrenamiento detallado corresponde al bloque vigente y se actualiza tras cada revisiÃ³n.</p>
+          <Field label="TÃ­tulo del recorrido">
+            <Input value={draft.vision_12_semanas?.titulo ?? ''} onChange={(v) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.titulo = v })} />
+          </Field>
+          <Field label="ExplicaciÃ³n general">
+            <Area value={draft.vision_12_semanas?.descripcion ?? ''} onChange={(v) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.descripcion = v })} rows={3} />
+          </Field>
+          <div className="grid gap-4 lg:grid-cols-2">
+            {draft.vision_12_semanas?.bloques.map((bloque, index) => (
+              <div key={index} className="space-y-3 rounded-xl border border-[#662D91]/40 bg-[#0E0B1E] p-4">
+                <div className="flex items-center justify-between gap-3">
+                  <span className="text-[10px] font-bold uppercase tracking-wider text-yellow-300">Bloque {index + 1}</span>
+                  <input value={bloque.semanas} onChange={(event) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.bloques[index].semanas = event.target.value })} className="w-28 rounded-lg border border-[#662D91] bg-[#16122B] px-2.5 py-1.5 text-right text-xs text-white outline-none" aria-label={`Semanas del bloque ${index + 1}`} />
+                </div>
+                <Field label="Nombre del bloque"><Input value={bloque.titulo} onChange={(v) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.bloques[index].titulo = v })} /></Field>
+                <Field label="Objetivo"><Area value={bloque.objetivo} onChange={(v) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.bloques[index].objetivo = v })} rows={3} /></Field>
+                <Field label="Hitos semanales"><StringList items={bloque.hitos} onChange={(items) => edit((d) => { if (d.vision_12_semanas) d.vision_12_semanas.bloques[index].hitos = items })} placeholder="Resultado o decisiÃ³n de la semana" /></Field>
+              </div>
+            ))}
+          </div>
         </Block>
 
         {/* Punto de partida */}

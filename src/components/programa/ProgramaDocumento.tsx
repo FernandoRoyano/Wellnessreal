@@ -1,4 +1,5 @@
 import type { Programa } from '@/lib/programa-schema'
+import { getDefaultThyroidRoadmap } from '@/lib/metodo-tiroides-template'
 import './programa-documento.css'
 
 // ============================================================
@@ -19,6 +20,7 @@ export default function ProgramaDocumento({
   const entrenamiento = programa?.entrenamiento ?? ({} as Programa['entrenamiento'])
   const nutricion = programa?.nutricion ?? ({} as Programa['nutricion'])
   const seguimiento = programa?.seguimiento ?? ({} as Programa['seguimiento'])
+  const vision = programa?.vision_12_semanas ?? getDefaultThyroidRoadmap()
   const dias = entrenamiento?.dias ?? []
 
   return (
@@ -32,8 +34,24 @@ export default function ProgramaDocumento({
           <p className="wrp-welcome">{mensaje_bienvenida}</p>
         </header>
 
-        {/* 1 · Punto de partida */}
-        <Section num={1} title="Tu punto de partida">
+        <Section num={1} title={vision.titulo}>
+          <p className="wrp-lead">{vision.descripcion}</p>
+          <div className="wrp-facts">
+            {vision.bloques.map((bloque, index) => (
+              <div className="wrp-card" key={`${bloque.semanas}-${index}`}>
+                <div className="wrp-fact" style={{ background: 'transparent', border: 'none', padding: 0 }}>
+                  <div className="k">Bloque {index + 1} · {bloque.semanas}</div>
+                  <div className="v" style={{ color: '#FCEE21', fontWeight: 700 }}>{bloque.titulo}</div>
+                  <p className="wrp-lead" style={{ marginTop: 8 }}>{bloque.objetivo}</p>
+                  {bloque.hitos.length > 0 && <ul className="wrp-list">{bloque.hitos.map((hito, hitoIndex) => <li key={hitoIndex}>{hito}</li>)}</ul>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* 2 · Punto de partida */}
+        <Section num={2} title="Tu punto de partida">
           <div className="wrp-facts">
             <Fact k="Objetivo principal" v={punto_partida.objetivo_principal || '—'} />
             <Fact k="Objetivos secundarios" v={punto_partida.objetivos_secundarios?.join(', ') || '—'} />
@@ -48,8 +66,8 @@ export default function ProgramaDocumento({
           </div>
         </Section>
 
-        {/* 2 · Entrenamiento */}
-        <Section num={2} title="Tu entrenamiento">
+        {/* 3 · Entrenamiento */}
+        <Section num={3} title="Tu entrenamiento">
           <p className="wrp-lead">{entrenamiento.introduccion}</p>
 
           <div className="wrp-highlights">
@@ -98,8 +116,8 @@ export default function ProgramaDocumento({
           )}
         </Section>
 
-        {/* 3 · Nutrición */}
-        <Section num={3} title="Tu nutrición">
+        {/* 4 · Nutrición */}
+        <Section num={4} title="Tu nutrición">
           <p className="wrp-lead">{nutricion.introduccion}</p>
 
           {nutricion.reglas?.length > 0 && (
@@ -123,8 +141,8 @@ export default function ProgramaDocumento({
           {nutricion.notas && <p className="wrp-lead" style={{ marginTop: 4 }}>{nutricion.notas}</p>}
         </Section>
 
-        {/* 4 · Seguimiento */}
-        <Section num={4} title="Cómo medimos el progreso">
+        {/* 5 · Seguimiento */}
+        <Section num={5} title="Cómo medimos el progreso">
           <p className="wrp-lead">{seguimiento.introduccion}</p>
           {seguimiento.que_registrar?.length > 0 && (
             <div className="wrp-card">

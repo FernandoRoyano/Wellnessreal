@@ -20,8 +20,22 @@ export interface DiaEntrenamiento {
   ejercicios: Ejercicio[]
 }
 
+export interface BloquePrograma {
+  semanas: string
+  titulo: string
+  objetivo: string
+  hitos: string[]
+}
+
+export interface VisionPrograma {
+  titulo: string
+  descripcion: string
+  bloques: BloquePrograma[]
+}
+
 export interface Programa {
   mensaje_bienvenida: string
+  vision_12_semanas?: VisionPrograma
 
   punto_partida: {
     objetivo_principal: string

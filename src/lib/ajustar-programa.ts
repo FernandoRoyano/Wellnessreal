@@ -84,6 +84,7 @@ junto con 'resumen_cambios': una lista breve de qué has cambiado y por qué, en
     throw new Error('La IA no devolvió el ajuste en el formato esperado.')
   }
   const { programa, resumen_cambios } = bloque.input as Ajuste
+  programa.vision_12_semanas ??= ctx.programaVigente.programa.vision_12_semanas
   const nuevaVersion = ctx.programaVigente.version + 1
 
   // --- 4) Archivar la anterior y guardar la nueva ---

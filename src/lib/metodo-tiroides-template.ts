@@ -1,6 +1,20 @@
 import type { DiaEntrenamiento, Programa } from '@/lib/programa-schema'
+import { THYROID_PROGRAM_PHASES, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
 
 export const THYROID_TEMPLATE_VERSION = 'BASE-T12-v1'
+
+export function getDefaultThyroidRoadmap(): NonNullable<Programa['vision_12_semanas']> {
+  return {
+    titulo: 'Tu recorrido de 12 semanas',
+    descripcion: 'El plan avanza en cuatro bloques. Cada tres semanas revisamos tu respuesta antes de activar la siguiente progresiÃ³n.',
+    bloques: THYROID_PROGRAM_PHASES.map((phase, index) => ({
+      semanas: phase.weeks,
+      titulo: phase.title,
+      objetivo: phase.description,
+      hitos: THYROID_PROGRAM_WEEKS.slice(index * 3, index * 3 + 3).map((week) => `Semana ${week.week}: ${week.outcome}`),
+    })),
+  }
+}
 
 const makeExercise = (nombre: string, series_reps: string, rir: string, alternativa: string, nota?: string) => ({ nombre, series_reps, rir, alternativa, nota })
 
@@ -39,6 +53,7 @@ export function getThyroidBaseProgram(dayCount = 3): Programa {
   const normalizedDays = Math.min(4, Math.max(2, Math.round(dayCount)))
   return {
     mensaje_bienvenida: 'Este es tu punto de partida. No necesitas hacerlo perfecto: necesitas repetir una estructura que puedas sostener y ajustar con datos reales.',
+    vision_12_semanas: getDefaultThyroidRoadmap(),
     punto_partida: {
       objetivo_principal: 'Mejorar fuerza, composición corporal y energía con una rutina sostenible.',
       objetivos_secundarios: ['Crear regularidad', 'Progresar sin agotamiento', 'Ganar autonomía'],

@@ -15,7 +15,7 @@ import { anthropic, MODELO_IA } from '@/lib/anthropic'
 import { supabase } from '@/lib/supabase'
 import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
-import { getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
+import { getDefaultThyroidRoadmap, getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
 import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { isAdminAuthenticated } from '@/lib/auth'
 
@@ -213,6 +213,7 @@ la herramienta 'entregar_programa'.
       throw new Error('La IA no devolvió el programa en el formato esperado.')
     }
     const programa = bloque.input as Programa
+    if (isThyroidProgram) programa.vision_12_semanas = getDefaultThyroidRoadmap()
 
     // --- 5) Guardar una nueva versiÃ³n vigente y conservar el historial ---
     const { data: latestProgram, error: latestProgramError } = await supabase

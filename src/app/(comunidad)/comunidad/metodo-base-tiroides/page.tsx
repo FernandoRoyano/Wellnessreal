@@ -13,7 +13,9 @@ import {
 } from 'lucide-react'
 import { getSessionMember, memberHasPremium } from '@/lib/db/comunidad'
 import { supabase } from '@/lib/supabase'
-import { THYROID_PROGRAM, THYROID_PROGRAM_PHASES, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
+import { THYROID_PROGRAM, THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
+import { getDefaultThyroidRoadmap } from '@/lib/metodo-tiroides-template'
+import type { Programa } from '@/lib/programa-schema'
 
 export const metadata: Metadata = {
   title: 'Método BASE Tiroides · Tu programa',
@@ -86,7 +88,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
     ? await Promise.all([
         supabase
           .from('programas_generados')
-          .select('id, version, revisado, creado_en')
+          .select('id, version, revisado, creado_en, programa')
           .eq('cliente_id', profile.id)
           .eq('vigente', true)
           .order('version', { ascending: false })
@@ -107,6 +109,8 @@ export default async function MetodoBaseTiroidesMemberPage() {
   const week = currentWeek > 0 ? THYROID_PROGRAM_WEEKS[currentWeek - 1] : null
   const programReady = Boolean(programResult.data?.revisado && profile?.token)
   const events = (eventsResult.data ?? []) as ClientEvent[]
+  const program = programResult.data?.programa as Programa | undefined
+  const vision = program?.vision_12_semanas ?? getDefaultThyroidRoadmap()
 
   return (
     <main className="space-y-12 pb-16 text-white animate-[fadeUp_500ms_var(--ease-out)_both]">
@@ -178,17 +182,18 @@ export default async function MetodoBaseTiroidesMemberPage() {
           <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/50">No recibes doce rutinas cerradas el primer día. Trabajas un bloque, registras tu respuesta y el siguiente se ajusta con datos reales antes de activarse.</p>
         </div>
         <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {THYROID_PROGRAM_PHASES.map((phase, index) => {
+          {vision.bloques.map((phase, index) => {
             const isActive = currentWeek > 0 && index === currentPhaseIndex
             const isComplete = currentWeek > 0 && index < currentPhaseIndex
             const status = isComplete ? 'Completado' : isActive ? 'Bloque activo' : currentWeek === 0 && index === 0 ? 'Preparación' : 'Pendiente de revisión'
-            return <li key={phase.weeks} className={`relative overflow-hidden rounded-2xl border p-6 ${isActive ? 'border-[#FCEE21]/40 bg-[#FCEE21]/[.08]' : 'border-white/10 bg-[#17132f]'}`}>
+            return <li key={phase.semanas} className={`relative overflow-hidden rounded-2xl border p-6 ${isActive ? 'border-[#FCEE21]/40 bg-[#FCEE21]/[.08]' : 'border-white/10 bg-[#17132f]'}`}>
               <div className="flex items-center justify-between gap-3">
-                <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-[#FCEE21]' : 'text-white/35'}`}>{phase.weeks}</span>
+                <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-[#FCEE21]' : 'text-white/35'}`}>{phase.semanas}</span>
                 {isComplete && <CheckCircle2 size={16} className="text-emerald-400" />}
               </div>
-              <h3 className="mt-5 font-bold text-white">{phase.title}</h3>
-              <p className="mt-2 text-xs leading-relaxed text-white/45">{phase.description}</p>
+              <h3 className="mt-5 font-bold text-white">{phase.titulo}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-white/45">{phase.objetivo}</p>
+              {phase.hitos.length > 0 && <p className="mt-4 border-l border-white/10 pl-3 text-xs leading-relaxed text-white/55">{phase.hitos[0]}</p>}
               <span className={`mt-5 inline-flex rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide ${isComplete ? 'bg-emerald-400/10 text-emerald-300' : isActive ? 'bg-[#FCEE21]/15 text-[#FCEE21]' : 'bg-white/[.05] text-white/35'}`}>{status}</span>
             </li>
           })}
