@@ -80,12 +80,12 @@ No necesitas hacerlo todo hoy. // Solo necesitas saber cuál es el siguiente pas
   {
     slug: 'ads-clase-metodo-base-tiroides',
     title: 'Ads — Clase Método BASE Tiroides',
-    subtitle: 'Tres anuncios verticales para vender el clic hacia la nueva clase, con hooks medibles y sin promesas clínicas.',
-    duration: '25 — 45 seg',
-    wordCount: 280,
-    purpose: 'Atraer tráfico frío desde Meta hacia /tiroides/clase con tres ángulos que no adelantan el arranque de la clase: el lunes que se aplaza, el hueco que deja la consulta y la objeción de la falta de energía.',
+    subtitle: 'Tres anuncios verticales con ganchos sobre continuidad, cómo empezar y cansancio, listos para grabar y probar en Meta.',
+    duration: '30 — 40 seg por anuncio',
+    wordCount: 239,
+    purpose: 'Despertar interés en la clase gratuita sobre entrenamiento, hipotiroidismo y Hashimoto con tres situaciones reconocibles y una llamada clara a /tiroides/clase.',
     status: 'ready',
-    lastUpdated: '2026-09-17',
+    lastUpdated: '2026-10-02',
     content: THYROID_ADS_SCRIPT,
   },
   {

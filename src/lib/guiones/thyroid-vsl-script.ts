@@ -191,82 +191,115 @@ Pulsa el botón que aparece debajo de este vídeo y conoce Método BASE Tiroides
 
 export const THYROID_ADS_SCRIPT = `# 🎬 Anuncios · Clase Método BASE Tiroides
 
-**Objetivo:** vender el clic hacia /tiroides/clase. El anuncio abre la pregunta; la clase la responde.
+**Objetivo:** despertar interés en la clase gratuita sobre entrenamiento de fuerza, hipotiroidismo y Hashimoto y llevar a /tiroides/clase.
 
-## Regla de oro: el anuncio no adelanta la clase
+## Antes de grabar
 
-Cada pieza entra por un ángulo distinto y **ninguna repite el arranque del miniwebinar**. Si el anuncio ya suelta la idea de la "semana perfecta", la clase empieza contando algo que la persona acaba de oír y pierde los primeros treinta segundos, que son justo los que deciden si se queda.
-
-- El anuncio **nombra el síntoma**. La clase explica la causa y el sistema.
-- Ninguna frase del anuncio aparece literal en el guion de la clase.
-- El anuncio no explica el mecanismo: lo promete. Quien quiera el "cómo", hace clic.
+- Hook desde el primer fotograma. Sin saludo ni presentación previa.
+- Nombrar el hipotiroidismo como temática, sin atribuir un diagnóstico al espectador.
+- Prometer aprendizaje concreto. No prometer cambios en síntomas, peso o tratamiento.
+- La clase desarrolla la respuesta: el anuncio no explica todo el sistema.
+- No anunciar minutos hasta confirmar el montaje final de la clase.
+- Grabar el hook alternativo aparte y mantener idéntico el resto.
 
 ---
 
-## Anuncio A · El lunes que se aplaza (35–45 s)
+## Anuncio A · Otra vez empezar de cero (30–40 s)
 
-**Ángulo:** la cuenta de las veces que has vuelto a empezar.
+**Ángulo:** empezar y no saber cómo continuar cuando la semana se complica.
 
-**Plano 1 · Fernando a cámara, plano corto**
+**Plano 1 · Fernando a cámara, plano corto · Hook**
 
-¿Cuántas veces has dicho "el lunes empiezo"? ///
+Empezar a entrenar por quinta vez no enseña cómo seguir cuando llega una semana difícil. ///
 
-**Plano 2 · B-roll: calendario, notas del móvil, ropa de entrenar sin usar**
+**Plano 2 · Cámara + calendario real con una sesión pendiente**
 
-Empezar no es tu problema. // Has empezado muchas veces. // El problema llega la semana en la que no puedes sostenerlo, porque nadie te ha explicado qué hacer exactamente esos días. ///
+El lunes hay ganas. // El miércoles se complica todo. // Y la rutina se queda a medias. // En el entrenamiento con hipotiroidismo y Hashimoto, merece la pena hablar de qué hacer en esos días. ///
 
-**Plano 3 · Fernando entrenando y revisando una planificación**
+**Plano 3 · Fernando revisando una planificación real**
 
-He grabado una clase gratuita de quince minutos sobre cómo entrenar con hipotiroidismo o Hashimoto sin que un mal mes borre todo lo anterior. //
+He grabado una clase gratuita para explicar cómo empezar con la fuerza y qué tener en cuenta para ajustar el plan cuando la semana no sale como esperabas. ///
 
-**Plano 4 · Fernando a cámara**
+**Plano 4 · Cámara · CTA**
 
-Está aquí debajo. // Mírala y decides después.
+Pulsa en Ver más y accede a la clase gratuita.
 
-**Texto de anuncio:** Si llevas años empezando de nuevo, el fallo no está en tus ganas. Clase gratuita de 15 minutos sobre entrenamiento con hipotiroidismo o Hashimoto.
+**Hook alternativo:** Empezar una rutina es fácil. Lo difícil es saber qué hacer el día que no puedes cumplirla.
 
-## Anuncio B · Lo que no se resuelve en la consulta (30–40 s)
+**Texto principal:** Entrenamiento de fuerza, hipotiroidismo y Hashimoto: una clase gratuita sobre cómo empezar y cómo ajustar el plan cuando la semana se complica.
 
-**Ángulo:** el hueco entre el seguimiento médico y la práctica diaria. Respetuoso con el sanitario, nunca en su contra.
+**Titular:** Aprende a empezar y ajustar tu entrenamiento
 
-**Plano 1 · Fernando a cámara**
+**Rótulo inicial:** ¿Y cuando la semana se complica?
 
-Tu endocrino ajusta tu medicación y revisa tus analíticas. // Ese es su trabajo y hace falta. ///
+## Anuncio B · «Haz ejercicio» no es un plan (30–40 s)
 
-**Plano 2 · B-roll: salir de una consulta, calle, móvil en la mano**
+**Ángulo:** convertir una recomendación general en decisiones concretas.
 
-Pero sales de la consulta y sigues sin saber cuántos días entrenar, con qué intensidad, ni qué haces el día que llegas sin fuerzas. // Esa parte no es médica. // Es de entrenamiento. ///
+**Plano 1 · Fernando a cámara · Hook**
+
+Hipotiroidismo y ejercicio: «haz fuerza» suena bien. // Pero ¿por dónde se empieza? ///
+
+**Plano 2 · Fernando con material sencillo**
+
+¿Qué ejercicios? // ¿Cuántos días? // ¿Con qué esfuerzo? // Una recomendación general deja muchas decisiones pendientes. ///
+
+**Plano 3 · Cámara + detalle de una planificación real**
+
+Soy Fernando Royano, graduado en Ciencias del Deporte. // En una clase gratuita explico cómo organizar el entrenamiento de fuerza en el contexto del hipotiroidismo y Hashimoto, respetando las indicaciones médicas. ///
+
+**Plano 4 · Cámara · CTA**
+
+Para pasar del «haz ejercicio» a saber por dónde empezar, pulsa en Ver más y mira la clase.
+
+**Hook alternativo:** ¿Dos días o cinco? ¿Mucho peso o poco? Hablar de ejercicio e hipotiroidismo necesita algo más que decir «muévete».
+
+**Texto principal:** «Haz fuerza» es una recomendación. Aprender qué ejercicios elegir, cómo organizar la semana y cómo ajustar el esfuerzo es el siguiente paso. Clase gratuita sobre entrenamiento, hipotiroidismo y Hashimoto.
+
+**Titular:** Del «haz ejercicio» a saber cómo empezar
+
+**Rótulo inicial:** «Haz fuerza». Vale, ¿cómo?
+
+## Anuncio C · La preocupación por la energía (30–40 s)
+
+**Ángulo:** tomar en serio el temor a no poder sostener el entrenamiento.
+
+**Plano 1 · Fernando a cámara, tono cercano · Hook**
+
+Hablar de entrenamiento e hipotiroidismo sin hablar de cansancio es dejar fuera una parte importante. ///
+
+**Plano 2 · Fernando preparando una sesión, sin épica**
+
+«¿Y si empiezo y no puedo seguir el ritmo?» // Esa pregunta merece algo mejor que «ponle ganas». ///
 
 **Plano 3 · Fernando a cámara**
 
-Y es la que te explico en una clase gratuita de quince minutos. // Sin tocar tu tratamiento y sin prometerte que va a desaparecer ningún síntoma. // Pulsa para verla.
+He preparado una clase gratuita sobre entrenamiento de fuerza, hipotiroidismo y Hashimoto. // Explico qué tener en cuenta para elegir el esfuerzo, cuándo ajustar una sesión y cuándo parar y consultar. ///
 
-**Texto de anuncio:** Tu tratamiento lo lleva tu médico. El entrenamiento, no. Clase gratuita sobre la parte que sí depende de cómo te organizas.
+**Plano 4 · Cámara · CTA**
 
-## Anuncio C · "No tengo energía para entrenar" (25–35 s)
+Antes de elegir otra rutina, aprende qué mirar. // Pulsa en Ver más y accede a la clase.
 
-**Ángulo:** la objeción número uno, dicha en voz alta y tomada en serio.
+**Hook alternativo:** «Entrena más» no responde a la pregunta: «¿y si no puedo seguir el ritmo?».
 
-**Plano 1 · Fernando a cámara, directo**
+**Texto principal:** El cansancio merece algo más que un mensaje de motivación. Clase gratuita sobre entrenamiento de fuerza, hipotiroidismo y Hashimoto: criterios para elegir el esfuerzo, ajustar una sesión y saber cuándo parar y consultar.
 
-"No tengo energía para entrenar." // Es una preocupación comprensible cuando convives con hipotiroidismo. ///
+**Titular:** Aprende a decidir cuánto esfuerzo hacer
 
-**Plano 2 · Fernando entrenando a intensidad normal, sin épica**
-
-Y tienen razón: hay semanas en las que no la hay. // El error no es descansar esas semanas. // El error es que tu plan solo tenga una versión, la de los días buenos. ///
-
-**Plano 3 · Fernando a cámara**
-
-En una clase gratuita de quince minutos te enseño qué hacer en esas semanas para no perder lo que ya llevas construido. // Pulsa y te doy el acceso.
-
-**Texto de anuncio:** Hay semanas sin energía, y no son un fallo tuyo. Clase gratuita: qué hacer esos días para no volver a empezar de cero.
+**Rótulo inicial:** ¿Y si no puedo seguir el ritmo?
 
 ## Grabación y montaje
 
-- Formato 9:16, subtítulos completos y cortes cada 2–4 segundos.
-- Primer plano durante el hook; B-roll propio durante la explicación; vuelta a cámara para el CTA.
-- No utilizar batas, analíticas, imágenes de glándulas enfermas ni personas simulando pacientes.
-- No decir “equilibra tus hormonas”, “reactiva tu metabolismo”, “elimina síntomas” o “deja la medicación”.
-- Preparar dos aperturas por anuncio y mantener idéntico el resto para poder medir el hook.
-- URL con UTM por pieza: utm_source=meta, utm_medium=paid_social y utm_content=ad_a, ad_b o ad_c.
+- Vertical 9:16. Confirmar la duración leyendo en voz alta con las pausas.
+- Hablar como a una persona, sin tono de mitin ni dramatizar el cansancio.
+- Subtítulos completos. Resaltar una frase por toma.
+- Primer plano para hook y CTA. B-roll propio de entrenamiento y planificación.
+- Mostrar «Clase gratuita · Fuerza, hipotiroidismo y Hashimoto» durante la invitación y «Ver más» al cerrar.
+- No utilizar batas, analíticas, glándulas enfermas ni personas simulando pacientes.
+- No decir «equilibra tus hormonas», «reactiva tu metabolismo», «elimina síntomas» o «deja la medicación».
+- No prometer que entrenar elimina el cansancio ni que nunca se perderá progreso.
+- Probar A y C primero; B aporta un ángulo práctico diferente. Validar con datos.
+- Dos aperturas por anuncio, manteniendo idéntico el resto para comparar el hook.
+- UTM: utm_source=meta, utm_medium=paid_social, utm_content=ad_a, ad_b o ad_c. Añadir _hook_1 o _hook_2 para distinguir aperturas.
+- Revisar clics, consumo de la clase y solicitudes cualificadas antes de elegir ganador.
 `
