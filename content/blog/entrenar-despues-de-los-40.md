@@ -1,7 +1,7 @@
 ---
 título: "Entrenar después de los 40: qué cambia y qué depende de ti"
 slug: entrenar-despues-de-los-40
-categoría: Entrenamiento
+categoría: "Entrenamiento de fuerza"
 fecha: 2026-05-18
 estado: borrador_revisado
 tiempo_lectura: 7 min
@@ -17,6 +17,8 @@ imagen_alt: "Hombre de mediana edad haciendo sentadilla con mancuerna en el gimn
 Cumplir 40 no activa un interruptor biológico. Dos personas de la misma edad pueden tener capacidades muy diferentes según su historial, sueño, estrés, lesiones, menopausia, alimentación y nivel de actividad.
 
 La edad aporta contexto. No dicta por sí sola cuántos días debes entrenar, cuánto tardas en recuperar ni qué ejercicios puedes hacer.
+
+Si te interesa separar las intervenciones útiles de las promesas antienvejecimiento, consulta el [centro de biohacking y longevidad](/biohacking-longevidad).
 
 ## Fuerza y cardio no compiten
 

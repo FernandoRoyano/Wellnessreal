@@ -1,7 +1,7 @@
 ---
 titulo: "Dormir poco y entrenar: qué puede cambiar y qué no"
 slug: dormir-mal-arruina-tu-progreso
-categoria: Recuperación
+categoria: "Hábitos y recuperación"
 fecha: 2026-08-05
 tiempo_lectura: 6 min
 meta_descripcion: "Dormir poco puede empeorar el rendimiento y la recuperación. Qué dice la evidencia y cómo ajustar el entrenamiento."
@@ -12,6 +12,8 @@ imagen_alt: "Cama deshecha con luz natural de mañana"
 # Dormir poco y entrenar: qué puede cambiar y qué no
 
 Una mala noche no borra tu progreso. Tampoco convierte automáticamente una sesión en inútil. El problema aparece cuando dormir poco deja de ser una excepción y se convierte en el contexto habitual en el que intentas entrenar, recuperarte y comer con cierta coherencia.
+
+El sueño es una de las bases del [biohacking y la longevidad con evidencia](/biohacking-longevidad), aunque ningún dispositivo sustituye comprender el contexto completo.
 
 ## Lo que sí podemos afirmar
 

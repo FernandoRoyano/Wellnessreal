@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/db/posts'
 
 const SITE_URL = 'https://wellnessreal.es'
-const STATIC_PAGES_UPDATED_AT = new Date('2026-09-23')
+const STATIC_PAGES_UPDATED_AT = new Date('2026-10-16')
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
@@ -83,6 +83,42 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${SITE_URL}/hipotiroidismo`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/hipotiroidismo/ejercicio`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/hipotiroidismo/perder-peso`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/entrenamiento-fuerza-mujeres`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/entrenamiento-online`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${SITE_URL}/biohacking-longevidad`,
+      lastModified: STATIC_PAGES_UPDATED_AT,
+      changeFrequency: 'weekly',
+      priority: 0.8,
     },
     {
       url: `${SITE_URL}/metodo-tiroides`,
