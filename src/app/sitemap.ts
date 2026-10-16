@@ -4,6 +4,8 @@ import { getAllPosts } from '@/lib/db/posts'
 const SITE_URL = 'https://wellnessreal.es'
 const STATIC_PAGES_UPDATED_AT = new Date('2026-10-16')
 
+export const revalidate = 3600
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPages: MetadataRoute.Sitemap = [
     {
