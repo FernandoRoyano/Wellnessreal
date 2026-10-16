@@ -19,6 +19,7 @@ export async function getPostBySlug(slug: string): Promise<PostWithCategory | nu
     .from('posts')
     .select('*, category:categories(*)')
     .eq('slug', slug)
+    .eq('published', true)
     .single()
 
   if (error && error.code !== 'PGRST116') throw error
