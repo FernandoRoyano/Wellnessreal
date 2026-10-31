@@ -14,8 +14,8 @@ interface AttributionInBody {
 }
 
 /**
- * Captura un lead desde un endpoint público. No bloquea ni rompe
- * si Supabase falla — solo loguea. Devuelve el lead o null.
+ * Confirma el guardado antes de continuar. Si falla, el endpoint debe
+ * devolver error para que el usuario pueda reintentar.
  *
  * Llamar antes de las acciones secundarias (email, MailerLite, etc).
  */
@@ -55,7 +55,7 @@ export async function captureLead(params: {
     })
     return lead
   } catch (err) {
-    console.error('[captureLead] Error guardando lead:', err)
-    return null
+    console.error('[LeadCapture:save] No se pudo guardar el contacto', { source: params.source })
+    throw new Error('[LeadCapture:save] No se pudo guardar el contacto', { cause: err })
   }
 }

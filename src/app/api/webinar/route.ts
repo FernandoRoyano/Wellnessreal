@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from '@/lib/email'
+import { sendLeadEmail as sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
 import { escapeHtml, sanitizeHeader } from '@/lib/utils/escapeHtml'
 import { rateLimit, getClientIp } from '@/lib/rateLimit'
@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Email inválido' }, { status: 400 })
     }
 
-    // Guardar lead (no rompe el flujo si Supabase falla)
+    // Confirmar el guardado antes de enviar correos.
     await captureLead({
       request,
       email,

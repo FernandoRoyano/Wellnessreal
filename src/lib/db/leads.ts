@@ -57,11 +57,13 @@ export interface CreateLeadInput {
  * - Añade el nuevo source al array de tags como `via:<source>`
  */
 export async function upsertLead(input: CreateLeadInput): Promise<Lead> {
-  const { data: existing } = await supabase
+  const { data: existing, error: lookupError } = await supabase
     .from('leads')
     .select('*')
     .eq('email', input.email.toLowerCase().trim())
     .maybeSingle()
+
+  if (lookupError) throw lookupError
 
   const newViaTag = `via:${input.source}`
 

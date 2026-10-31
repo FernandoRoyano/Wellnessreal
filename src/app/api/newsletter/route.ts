@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from '@/lib/email'
+import { sendLeadEmail as sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
 
 // API para suscripción a newsletter + envío de guía gratuita por email
@@ -139,16 +139,11 @@ async function sendGuideEmail(email: string, name: string, resource: Resource) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'
   const downloadUrl = `${baseUrl}${resource.pdf}`
 
-  try {
-    await sendEmail({
-      to: email,
-      subject: resource.subject,
-      html: buildGuideEmailHTML(name, downloadUrl, resource),
-    })
-    console.log('[Newsletter] Email de guía enviado a:', email)
-  } catch (err) {
-    console.error('[Newsletter] Error enviando email de guía:', err)
-  }
+  return sendEmail({
+    to: email,
+    subject: resource.subject,
+    html: buildGuideEmailHTML(name, downloadUrl, resource),
+  })
 }
 
 export async function POST(request: NextRequest) {
@@ -172,7 +167,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Guardar lead en Supabase (no bloqueante: si falla seguimos)
+    // Confirmar el guardado antes de enviar correos.
     await captureLead({
       request,
       email,
@@ -182,14 +177,7 @@ export async function POST(request: NextRequest) {
       tags: _source ? [`form:${_source}`] : [],
     })
 
-    // Enviar guía por email — ESPERAR a que termine. En Vercel serverless
-    // si no se hace await, la función termina y la promesa SMTP se cancela.
-    try {
-      await sendGuideEmail(email, name || '', resource)
-    } catch (mailErr) {
-      console.error('[Newsletter] Error enviando guía:', mailErr)
-      // Aun así no rompemos la respuesta — el lead ya quedó guardado en Supabase
-    }
+    await sendGuideEmail(email, name || '', resource)
 
     // Suscribir en MailerLite si está configurada (best-effort, await para Vercel)
     // Grupo propio del recurso con fallback al general (mismo patrón que metodo-optin)

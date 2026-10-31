@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { sendEmail } from '@/lib/email'
+import { sendLeadEmail as sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
 
 export async function POST(request: NextRequest) {
@@ -11,7 +11,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
     }
 
-    // Guardar lead en Supabase (no bloqueante)
+    // Confirmar el guardado antes de enviar correos.
     await captureLead({
       request,
       email,

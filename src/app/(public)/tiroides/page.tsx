@@ -105,7 +105,10 @@ const THYROID_GUIDES = [
   },
 ] as const
 
-export default function TiroidesPage() {
+export default async function TiroidesPage({ searchParams }: {
+  searchParams: Promise<{ recurso?: string | string[] }>
+}) {
+  const showGuide = (await searchParams).recurso === 'guia'
   return (
     <>
       <JsonLd
@@ -176,7 +179,7 @@ export default function TiroidesPage() {
             <div id="test" className="relative scroll-mt-28">
               <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-accent/20 via-transparent to-brand-purple/20 blur-xl" />
               <div className="relative">
-                <TiroidesConversionPanel />
+                <TiroidesConversionPanel key={showGuide ? 'guide' : 'test'} initialShowGuide={showGuide} />
               </div>
             </div>
           </div>

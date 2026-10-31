@@ -5,6 +5,13 @@ interface SendEmailOptions {
   subject: string
   html: string
   replyTo?: string
+  idempotencyKey?: string
+}
+
+class EmailDeliveryError extends Error {
+  constructor(public status: number) {
+    super(`[Email:send] El proveedor rechazó el envío (${status})`)
+  }
 }
 
 // Remitente visible. Pon MAIL_FROM=info@wellnessreal.es (con el dominio
@@ -15,7 +22,7 @@ function fromAddress(): string {
   return `WellnessReal <${process.env.GMAIL_USER}>`
 }
 
-export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions) {
+export async function sendEmail({ to, subject, html, replyTo, idempotencyKey }: SendEmailOptions) {
   const recipients = Array.isArray(to) ? to : [to]
   const from = fromAddress()
 
@@ -26,6 +33,7 @@ export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions
       headers: {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
+        ...(idempotencyKey ? { 'Idempotency-Key': idempotencyKey } : {}),
       },
       body: JSON.stringify({
         from,
@@ -36,8 +44,7 @@ export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions
       }),
     })
     if (!res.ok) {
-      const detail = await res.text()
-      throw new Error(`[email:resend] ${res.status} ${detail}`)
+      throw new EmailDeliveryError(res.status)
     }
     return
   }
@@ -57,4 +64,28 @@ export async function sendEmail({ to, subject, html, replyTo }: SendEmailOptions
     html,
     replyTo,
   })
+}
+
+/** Solo para correos posteriores a una captura ya guardada. */
+export async function sendLeadEmail(options: SendEmailOptions): Promise<boolean> {
+  const deliveryId = crypto.randomUUID()
+  for (let attempt = 1; attempt <= 3; attempt += 1) {
+    try {
+      await sendEmail({ ...options, idempotencyKey: deliveryId })
+      return true
+    } catch (error) {
+      const smtpStatus = error && typeof error === 'object' && 'responseCode' in error
+        ? Number(error.responseCode) : null
+      const retryable = error instanceof EmailDeliveryError
+        ? error.status === 429 || error.status >= 500
+        : smtpStatus !== null && smtpStatus >= 400 && smtpStatus < 500
+      const retry = retryable && attempt < 3
+      console.error('[LeadEmail:delivery] Envío rechazado o no confirmado', {
+        deliveryId, attempt, retry, status: error instanceof EmailDeliveryError ? error.status : smtpStatus,
+      })
+      if (!retry) return false
+      await new Promise((resolve) => setTimeout(resolve, attempt * 500))
+    }
+  }
+  return false
 }

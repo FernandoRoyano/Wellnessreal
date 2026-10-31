@@ -18,6 +18,22 @@ export function trackGenerateLead(method: string = 'valoracion_form'): void {
   fireEvent('generate_lead', { method })
 }
 
+export function trackBlogCtaClick(
+  articleSlug: string,
+  destination: string,
+  position: 'inline' | 'final',
+): void {
+  fireEvent('blog_cta_click', {
+    article_slug: articleSlug,
+    destination,
+    cta_position: position,
+  })
+}
+
+export function trackLeadFormStart(method: string): void {
+  fireEvent('form_start', { form_name: method })
+}
+
 /** Newsletter/guide form submitted */
 export function trackSignUp(method: string): void {
   fireEvent('sign_up', { method })

@@ -1,11 +1,11 @@
 'use client'
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { AlertCircle, ArrowRight, Loader2, ShieldCheck, Sparkles } from 'lucide-react'
 import Container from '@/components/common/Container'
-import { trackGenerateLead } from '@/lib/analytics'
+import { trackLeadFormStart, trackGenerateLead } from '@/lib/analytics'
 
 const FIELD_CLASS =
   'w-full rounded-xl border border-border-subtle bg-brand-night px-4 py-3.5 text-white ' +
@@ -29,6 +29,7 @@ const LEVELS = [
 
 export default function ValoracionPage() {
   const router = useRouter()
+  const formStarted = useRef(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
 
@@ -88,6 +89,11 @@ export default function ValoracionPage() {
           </header>
 
           <form
+            onFocusCapture={() => {
+              if (formStarted.current) return
+              formStarted.current = true
+              trackLeadFormStart('valoracion_entrenamiento_personalizado')
+            }}
             onSubmit={handleSubmit}
             aria-busy={isSubmitting}
             className="surface-card space-y-6 rounded-2xl p-6 md:p-10"

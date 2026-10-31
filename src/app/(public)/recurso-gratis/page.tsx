@@ -4,10 +4,10 @@ import Container from '@/components/common/Container'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, X, Briefcase, Baby, Utensils, ArrowRight, Sparkles } from 'lucide-react'
-import { trackSignUp } from '@/lib/analytics'
+import { trackLeadFormStart, trackSignUp } from '@/lib/analytics'
 
 const newsletterSchema = z.object({
   email: z.email({ message: 'Email inválido' }),
@@ -52,6 +52,7 @@ const FIELD_CLASS =
 
 export default function RecursoGratisPage() {
   const router = useRouter()
+  const formStarted = useRef(false)
   const [error, setError] = useState('')
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<NewsletterFormData>({
     resolver: zodResolver(newsletterSchema),
@@ -131,7 +132,15 @@ export default function RecursoGratisPage() {
                 <p className="text-fluid-sm text-muted">Los principios que aplico con todos mis clientes antes de personalizar. En tu email en menos de 1 minuto.</p>
               </div>
 
-              <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+              <form
+                onFocusCapture={() => {
+                  if (formStarted.current) return
+                  formStarted.current = true
+                  trackLeadFormStart('recurso_gratis')
+                }}
+                onSubmit={handleSubmit(onSubmit)}
+                className="space-y-4"
+              >
                 {error && (
                   <div className="rounded-xl p-3 text-fluid-sm text-danger bg-danger/10 border border-danger/30">
                     ⚠ {error}

@@ -1,18 +1,19 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import TestTiroides from '@/components/tiroides/TestTiroides'
-import { trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
+import { trackLeadFormStart, trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
 
 const FIELD_CLASS =
   'w-full rounded-xl border border-border-subtle bg-brand-night px-4 py-4 text-fluid-base text-white ' +
   'placeholder:text-dim focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 transition-[border-color,box-shadow]'
 
-export default function TiroidesConversionPanel() {
+export default function TiroidesConversionPanel({ initialShowGuide = false }: { initialShowGuide?: boolean }) {
   const router = useRouter()
-  const [showGuideForm, setShowGuideForm] = useState(false)
+  const formStarted = useRef(false)
+  const [showGuideForm, setShowGuideForm] = useState(initialShowGuide)
   const [submitError, setSubmitError] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -72,7 +73,7 @@ export default function TiroidesConversionPanel() {
         onClick={() => setShowGuideForm(false)}
         className="mb-4 inline-flex min-h-11 items-center gap-1.5 text-fluid-xs text-subtle hover:text-white"
       >
-        <span aria-hidden="true">←</span> Volver al test
+        <span aria-hidden="true">←</span> Prefiero hacer el test
       </button>
 
       <div className="mb-6 space-y-2 text-center">
@@ -82,7 +83,15 @@ export default function TiroidesConversionPanel() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form
+        onFocusCapture={() => {
+          if (formStarted.current) return
+          formStarted.current = true
+          trackLeadFormStart('tiroides')
+        }}
+        onSubmit={handleSubmit}
+        className="space-y-4"
+      >
         {submitError && (
           <div
             role="alert"

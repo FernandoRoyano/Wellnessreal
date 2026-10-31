@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { captureLead } from '@/lib/leadCapture'
-import { sendEmail } from '@/lib/email'
+import { sendLeadEmail as sendEmail } from '@/lib/email'
 import {
   buildTestResult,
   validateAndSanitizeAnswers,
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    if (lead) {
+    try {
       if (_funnel?.anonymousId) {
         await attachAnonymousEventsToLead(_funnel.anonymousId, lead.id)
       }
@@ -105,6 +105,8 @@ export async function POST(request: NextRequest) {
         medium: _attribution?.utm_medium,
         campaign: _attribution?.utm_campaign,
       })
+    } catch (eventError) {
+      console.error('[TestTiroides:tracking] Error registrando el evento', eventError)
     }
 
     const resultForLead: TestResult = lead && result.cta.href.startsWith('/valoracion')

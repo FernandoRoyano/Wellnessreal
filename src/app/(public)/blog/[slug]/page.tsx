@@ -169,7 +169,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
 
-            <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} />
+            <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} sourceSlug={slug} />
           </div>
         </Container>
       </section>

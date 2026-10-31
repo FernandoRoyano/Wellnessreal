@@ -1,12 +1,13 @@
 'use client'
 
 import Link from 'next/link'
-import { trackSignUp, trackGenerateLead } from '@/lib/analytics'
+import { trackBlogCtaClick } from '@/lib/analytics'
 
 interface Props {
   content: string
   /** Artículos de la categoría tiroides funnelizan a su guía + comunidad, no al embudo general. */
   isThyroid?: boolean
+  sourceSlug?: string
 }
 
 function splitIntoParagraphs(html: string): string[] {
@@ -17,21 +18,19 @@ function splitIntoParagraphs(html: string): string[] {
 }
 
 /** Primer CTA (~30%): captar el email con el lead magnet adecuado. */
-function GuideCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
+function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourceSlug: string }) {
   const cfg = isThyroid
     ? {
         eyebrow: 'Guía gratuita',
         title: '¿Tienes hipotiroidismo y esto te suena?',
         desc: 'Descarga la guía gratuita “Entrenar y adelgazar con hipotiroidismo”.',
-        href: '/tiroides',
-        track: 'blog_inline_tiroides_guia',
+        href: '/tiroides?recurso=guia#test',
       }
     : {
         eyebrow: 'Recurso gratuito',
         title: '¿Quieres aplicar esto a tu caso real?',
         desc: 'Descarga la guía gratuita: “Fitness real para gente con vida real”.',
-        href: '/recurso-gratis',
-        track: 'blog_inline_guia',
+        href: '/recurso-gratis#formulario',
       }
   return (
     <div className="my-10 p-6 md:p-8 rounded-xl" style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}>
@@ -45,7 +44,7 @@ function GuideCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
         </div>
         <Link
           href={cfg.href}
-          onClick={() => trackSignUp(cfg.track)}
+          onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105"
           style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
         >
@@ -57,7 +56,7 @@ function GuideCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
 }
 
 /** Segundo CTA (~70%): presentar la oferta cuando ya existe suficiente contexto. */
-function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
+function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourceSlug: string }) {
   const cfg = isThyroid
     ? {
         eyebrow: 'Programa acompañado',
@@ -73,7 +72,6 @@ function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
         desc: 'Conoce el proceso de entrenamiento personalizado de 12 semanas y valora si encaja contigo.',
         href: '/servicios/entrenamiento-online',
         cta: 'Ver el acompañamiento',
-        track: 'blog_inline_entrenamiento_personalizado',
       }
   return (
     <div className="my-10 p-6 md:p-8 rounded-xl" style={{ backgroundColor: '#1a1535', border: '2px solid #662D91' }}>
@@ -87,7 +85,7 @@ function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
         </div>
         <Link
           href={cfg.href}
-          onClick={() => trackGenerateLead(cfg.track)}
+          onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105 border-2 border-[#FCEE21] text-[#FCEE21] hover:bg-[#FCEE21] hover:text-[#16122B]"
         >
           {cfg.cta}
@@ -97,7 +95,7 @@ function SecondCtaBanner({ isThyroid }: { isThyroid?: boolean }) {
   )
 }
 
-export default function BlogContentWithCTAs({ content, isThyroid }: Props) {
+export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = 'unknown' }: Props) {
   const paragraphs = splitIntoParagraphs(content)
   const total = paragraphs.length
 
@@ -121,9 +119,9 @@ export default function BlogContentWithCTAs({ content, isThyroid }: Props) {
             className="prose prose-invert prose-lg max-w-none markdown-content"
             dangerouslySetInnerHTML={{ __html: chunk }}
           />
-          {index === guideIndex - 1 && <GuideCtaBanner isThyroid={isThyroid} />}
+          {index === guideIndex - 1 && <GuideCtaBanner isThyroid={isThyroid} sourceSlug={sourceSlug} />}
           {index === valoracionIndex - 1 && valoracionIndex !== guideIndex && (
-            <SecondCtaBanner isThyroid={isThyroid} />
+            <SecondCtaBanner isThyroid={isThyroid} sourceSlug={sourceSlug} />
           )}
         </div>
       ))}
