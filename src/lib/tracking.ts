@@ -1,3 +1,5 @@
+import { trackMetaEvent } from '@/lib/meta-pixel'
+
 /**
  * Tracking de atribución: captura UTMs y fbc/fbp en el primer landing
  * y los persiste 30 días en cookie para enviarlos con cada formulario.
@@ -102,12 +104,6 @@ export function captureAttribution(): AttributionData {
  */
 export type ConversionEvent = 'lead' | 'complete_registration' | 'begin_checkout' | 'purchase'
 
-const META_EVENT: Record<ConversionEvent, string> = {
-  lead: 'Lead',
-  complete_registration: 'CompleteRegistration',
-  begin_checkout: 'InitiateCheckout',
-  purchase: 'Purchase',
-}
 const TIKTOK_EVENT: Record<ConversionEvent, string> = {
   lead: 'SubmitForm',
   complete_registration: 'CompleteRegistration',
@@ -127,7 +123,7 @@ export function trackConversion(
   }
   try {
     w.gtag?.('event', event, params)
-    w.fbq?.('track', META_EVENT[event], params)
+    if (event === 'lead') trackMetaEvent('Lead')
     w.ttq?.track?.(TIKTOK_EVENT[event], params)
   } catch {
     // Nunca romper la UX por un fallo de tracking.
