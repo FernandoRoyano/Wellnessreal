@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { captureAttribution } from '@/lib/tracking'
-import { META_PIXEL_ID, canTrackMeta, syncMetaConsent, trackMetaEvent } from '@/lib/meta-pixel'
+import { META_PIXEL_ID, THYROID_LANDING_PATHS, canTrackMeta, syncMetaConsent, trackMetaEvent } from '@/lib/meta-pixel'
 
 /**
  * Carga los pixels de Meta y TikTok SOLO tras aceptar cookies (RGPD) y dispara
@@ -51,7 +51,7 @@ export default function TrackingScripts() {
     if (typeof window === 'undefined') return
     syncMetaConsent()
     if (window.fbq) trackMetaEvent('PageView')
-    if (window.ttq) window.ttq.page()
+    if (window.ttq && !THYROID_LANDING_PATHS.has(pathname)) window.ttq.page()
   }, [pathname, searchParams])
 
   return (
@@ -70,7 +70,7 @@ export default function TrackingScripts() {
           `}
         </Script>
       )}
-      {consentido && TIKTOK_PIXEL_ID && (
+      {consentido && !THYROID_LANDING_PATHS.has(pathname) && TIKTOK_PIXEL_ID && (
         <Script id="tiktok-pixel" strategy="afterInteractive">
           {`
             !function (w, d, t) {

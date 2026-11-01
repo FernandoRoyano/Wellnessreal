@@ -59,7 +59,7 @@ export default function CookieBanner() {
               <span className="md:hidden">Cookies de analítica y publicidad (Meta). </span>
               <span className="hidden md:inline">
                 Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
-                y medir publicidad con Meta en páginas generales. Puedes aceptar todas, rechazar las no esenciales o consultar
+                y medir visitas y publicidad con Meta. Puedes aceptar todas, rechazar las no esenciales o consultar
                 la{' '}
               </span>
               <Link

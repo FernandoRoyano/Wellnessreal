@@ -125,7 +125,7 @@ export default function PrivacidadPage() {
             <LegalSection title="9. Cookies">
               <p>
                 Este sitio web utiliza cookies propias y de terceros. Puedes consultar la política de cookies y
-                gestionar tus preferencias a través del banner. Con tu consentimiento, el píxel de Meta (Meta Platforms Ireland) mide visitas en determinadas páginas generales. No se activa en páginas de salud, tests, resultados ni áreas privadas. No enviamos respuestas del test ni datos de formularios a este píxel.
+                gestionar tus preferencias a través del banner. Con tu consentimiento, el píxel de Meta (Meta Platforms Ireland) mide visitas en determinadas páginas generales. También mide visitas genéricas a las landings públicas de tiroides, con las restricciones de Configuración básica de Meta activadas. No enviamos respuestas, resultados del test ni datos de formularios a este píxel. Las áreas privadas y páginas de confirmación quedan excluidas.
               </p>
               <CookieSettingsButton />
             </LegalSection>
