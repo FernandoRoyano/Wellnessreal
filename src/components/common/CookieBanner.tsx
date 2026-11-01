@@ -8,14 +8,17 @@ export default function CookieBanner() {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    const consent = localStorage.getItem('wr_cookie_consent')
+    const consent = localStorage.getItem('wr_cookie_consent_v2')
     // Se lee tras hidratar porque localStorage no existe durante el render del servidor.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     if (!consent) setVisible(true)
+    const open = () => setVisible(true)
+    window.addEventListener('wr-open-cookie-settings', open)
+    return () => window.removeEventListener('wr-open-cookie-settings', open)
   }, [])
 
   const accept = () => {
-    localStorage.setItem('wr_cookie_consent', 'accepted')
+    localStorage.setItem('wr_cookie_consent_v2', 'accepted')
     // Consent Mode v2: concede analítica y publicidad a Google.
     window.gtag?.('consent', 'update', {
       ad_storage: 'granted',
@@ -29,7 +32,8 @@ export default function CookieBanner() {
   }
 
   const reject = () => {
-    localStorage.setItem('wr_cookie_consent', 'rejected')
+    localStorage.setItem('wr_cookie_consent_v2', 'rejected')
+    window.gtag?.('consent', 'update', { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
     window.dispatchEvent(new Event('wr-consent-changed'))
     setVisible(false)
   }
@@ -52,10 +56,10 @@ export default function CookieBanner() {
               <Cookie className="w-5 h-5 text-accent" />
             </span>
             <p className="text-[11px] leading-4 text-muted md:text-fluid-sm md:leading-relaxed">
-              <span className="md:hidden">Cookies para analítica y mejora de la experiencia. </span>
+              <span className="md:hidden">Cookies de analítica y publicidad (Meta). </span>
               <span className="hidden md:inline">
                 Utilizo cookies propias y de terceros para mejorar tu experiencia, analizar el tráfico
-                y personalizar contenido. Puedes aceptar todas, rechazar las no esenciales o consultar
+                y medir publicidad con Meta en páginas generales. Puedes aceptar todas, rechazar las no esenciales o consultar
                 la{' '}
               </span>
               <Link
@@ -88,4 +92,8 @@ export default function CookieBanner() {
       </div>
     </div>
   )
+}
+
+export function CookieSettingsButton() {
+  return <button type="button" className="text-accent underline underline-offset-2" onClick={() => window.dispatchEvent(new Event('wr-open-cookie-settings'))}>Cambiar preferencias de cookies</button>
 }

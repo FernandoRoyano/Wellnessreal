@@ -11,7 +11,7 @@ export default function MobileTestShortcut() {
   useEffect(() => {
     // El acceso fijo no compite visualmente con el aviso legal inicial.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setHasConsentChoice(Boolean(window.localStorage.getItem('wr_cookie_consent')))
+    setHasConsentChoice(Boolean(window.localStorage.getItem('wr_cookie_consent_v2')))
     const handleConsent = () => setHasConsentChoice(true)
     window.addEventListener('wr-consent-changed', handleConsent)
     const startButton = document.getElementById('thyroid-test-start')

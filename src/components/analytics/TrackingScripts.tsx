@@ -4,6 +4,7 @@ import Script from 'next/script'
 import { useEffect, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { captureAttribution } from '@/lib/tracking'
+import { META_PIXEL_ID, canTrackMeta, syncMetaConsent, trackMetaEvent } from '@/lib/meta-pixel'
 
 /**
  * Carga los pixels de Meta y TikTok SOLO tras aceptar cookies (RGPD) y dispara
@@ -11,7 +12,6 @@ import { captureAttribution } from '@/lib/tracking'
  * Consent Mode v2 en el layout.
  *
  * Variables de entorno:
- *   NEXT_PUBLIC_META_PIXEL_ID
  *   NEXT_PUBLIC_TIKTOK_PIXEL_ID
  */
 
@@ -28,7 +28,6 @@ declare global {
   }
 }
 
-const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID
 const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID
 
 export default function TrackingScripts() {
@@ -38,7 +37,9 @@ export default function TrackingScripts() {
   // Meta y TikTok no tienen Consent Mode: solo se cargan si el usuario aceptó.
   const [consentido, setConsentido] = useState(false)
   useEffect(() => {
-    const leer = () => setConsentido(localStorage.getItem('wr_cookie_consent') === 'accepted')
+    const leer = () => {
+      setConsentido(syncMetaConsent())
+    }
     leer()
     window.addEventListener('wr-consent-changed', leer)
     return () => window.removeEventListener('wr-consent-changed', leer)
@@ -48,22 +49,24 @@ export default function TrackingScripts() {
   useEffect(() => {
     captureAttribution()
     if (typeof window === 'undefined') return
-    if (window.fbq) window.fbq('track', 'PageView')
+    syncMetaConsent()
+    if (window.fbq) trackMetaEvent('PageView')
     if (window.ttq) window.ttq.page()
   }, [pathname, searchParams])
 
   return (
     <>
-      {consentido && META_PIXEL_ID && (
-        <Script id="meta-pixel" strategy="afterInteractive">
+      {consentido && canTrackMeta() && (
+        <Script id="meta-pixel" strategy="afterInteractive" onReady={() => trackMetaEvent('PageView')}>
           {`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
             n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
             t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script',
             'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('consent', 'revoke');
+            fbq('set', 'autoConfig', false, '${META_PIXEL_ID}');
             fbq('init','${META_PIXEL_ID}');
-            fbq('track','PageView');
           `}
         </Script>
       )}
