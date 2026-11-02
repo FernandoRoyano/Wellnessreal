@@ -13,10 +13,10 @@ export default function PublicLayout({
     <>
       <a href="#main-content" className="skip-link">Saltar al contenido principal</a>
       <ScrollProgressBar />
+      <CookieBanner />
       <Header />
       <main id="main-content" className="min-h-screen" tabIndex={-1}>{children}</main>
       <Footer />
-      <CookieBanner />
       <LeadMagnetPopup />
     </>
   )

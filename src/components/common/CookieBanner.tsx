@@ -44,7 +44,7 @@ export default function CookieBanner() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="fixed bottom-0 left-0 right-0 z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:p-5 animate-fade-in"
+      className="relative z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:fixed md:bottom-0 md:left-0 md:right-0 md:p-5 animate-fade-in"
     >
       <div className="max-w-5xl mx-auto surface-card-accent rounded-xl p-3 shadow-xl md:rounded-2xl md:p-6 md:backdrop-blur-xl">
         <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:gap-5">
