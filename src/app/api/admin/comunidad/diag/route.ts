@@ -61,6 +61,7 @@ export async function GET() {
       SUPABASE_SERVICE_ROLE_KEY: check('SUPABASE_SERVICE_ROLE_KEY'),
     },
     emailApp,
+    acompanamiento: { cronConfigurado: Boolean(process.env.CRON_SECRET) },
     tablas,
   })
 }

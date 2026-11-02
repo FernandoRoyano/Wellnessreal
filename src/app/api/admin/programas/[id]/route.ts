@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
 import type { Programa } from '@/lib/programa-schema'
+import { applicationNotificationStatus, deliverApplicationMessages, planNotificationStatus, queuePlanApproval, startJourney } from '@/lib/thyroid-lifecycle'
 
 // Detalle de un programa generado (incluye el JSON completo + datos del cliente).
 export async function GET(
@@ -42,7 +43,9 @@ export async function GET(
         : Promise.resolve({ data: [] }),
     ])
 
-    return NextResponse.json({ programa: data, versiones: versiones || [], eventos: eventos || [] })
+    const client = data.cliente as { email: string } | null
+    const notificationStatus = client ? await planNotificationStatus(id, client.email) : null
+    return NextResponse.json({ programa: data, versiones: versiones || [], eventos: eventos || [], notificationStatus })
   } catch (err) {
     console.error('[GET /api/admin/programas/[id]]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })
@@ -75,10 +78,17 @@ export async function PATCH(
       }
     }
 
+    const applicationId = body.revisado === true ? await queuePlanApproval(id) : null
     const update: Record<string, unknown> = {}
     if (typeof body.revisado === 'boolean') {
       update.revisado = body.revisado
-      update.revisado_en = body.revisado ? new Date().toISOString() : null
+      if (!body.revisado) update.revisado_en = null
+      else {
+        const { data: previous, error: previousError } = await supabase.from('programas_generados')
+          .select('revisado,revisado_en').eq('id', id).single()
+        if (previousError) throw new Error('[Programas:approve] No se pudo consultar la revisión')
+        update.revisado_en = previous.revisado && previous.revisado_en ? previous.revisado_en : new Date().toISOString()
+      }
     }
     if (body.programa) {
       update.programa = body.programa as Programa
@@ -96,6 +106,16 @@ export async function PATCH(
 
     if (error) throw new Error(error.message)
 
+    if (applicationId && data.revisado) {
+      // La aprobación persiste aunque el proveedor de correo no esté disponible.
+      try {
+        await startJourney(applicationId, id)
+        await deliverApplicationMessages(applicationId)
+      } catch {
+        console.error('[Programas:approve] Aviso pendiente de reintento', { applicationId, programId: id })
+      }
+    }
+
     // Mantener el estado del onboarding en sincronía cuando se marca como revisado.
     if (data?.onboarding_id && typeof body.revisado === 'boolean') {
       await supabase
@@ -104,7 +124,9 @@ export async function PATCH(
         .eq('id', data.onboarding_id)
     }
 
-    return NextResponse.json({ ok: true, programa: data })
+    const notificationStatus = applicationId
+      ? await applicationNotificationStatus(applicationId, `ready:${id}`) : null
+    return NextResponse.json({ ok: true, programa: data, notificationStatus })
   } catch (err) {
     console.error('[PATCH /api/admin/programas/[id]]', err)
     return NextResponse.json({ error: 'Error en el servidor' }, { status: 500 })

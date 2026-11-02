@@ -4,6 +4,7 @@ import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
 import { createSubscriber } from '@/lib/mailerlite'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
+import { deliverApplicationMessages, enqueueNotice, lifecycleSummary } from '@/lib/thyroid-lifecycle'
 import type { User } from '@supabase/supabase-js'
 
 // ============================================================
@@ -322,6 +323,7 @@ export interface AsesoriaSolicitud {
   disponibilidad_directo: string | null
   estado: 'nueva' | 'contactada' | 'aceptada' | 'pagada' | 'descartada'
   notas: string | null
+  avisos?: ReturnType<typeof lifecycleSummary>
 }
 
 /** Crea la solicitud y avisa a Fernando por email (esperado: serverless). */
@@ -335,7 +337,10 @@ export async function createAsesoriaSolicitud(input: {
   lesiones?: string
   disponibilidadDirecto?: string
 }): Promise<void> {
+  const applicationId = crypto.randomUUID()
   const { error } = await supabase.from('asesoria_solicitudes').insert({
+    id: applicationId,
+    notas: enqueueNotice(null, { key: 'application', kind: 'application', dueAt: new Date().toISOString() }),
     member_id: input.memberId,
     nombre: input.nombre,
     email: input.email,
@@ -346,6 +351,12 @@ export async function createAsesoriaSolicitud(input: {
     disponibilidad_directo: input.disponibilidadDirecto ?? null,
   })
   if (error) throw new Error(`[comunidad:createAsesoriaSolicitud] ${error.message}`)
+
+  try {
+    await deliverApplicationMessages(applicationId)
+  } catch {
+    console.error('[comunidad:createAsesoriaSolicitud] Confirmación pendiente de reintento', { applicationId })
+  }
 
   try {
     const safeName = escapeHtml(input.nombre)
@@ -380,7 +391,7 @@ export async function getAsesoriaSolicitudes(): Promise<AsesoriaSolicitud[]> {
     .select('*')
     .order('creado_en', { ascending: false })
   if (error) throw new Error(`[comunidad:getAsesoriaSolicitudes] ${error.message}`)
-  return (data ?? []) as AsesoriaSolicitud[]
+  return (data ?? []).map((application) => ({ ...application, avisos: lifecycleSummary(application.notas) })) as AsesoriaSolicitud[]
 }
 
 export async function setAsesoriaEstado(

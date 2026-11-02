@@ -60,6 +60,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
   const [eventos, setEventos] = useState<Evento[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [notificationStatus, setNotificationStatus] = useState<string | null>(null)
   const [editando, setEditando] = useState(false)
   const [savingEdit, setSavingEdit] = useState(false)
 
@@ -78,6 +79,7 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
         setReg(d.programa || null)
         setVersiones(d.versiones || [])
         setEventos(d.eventos || [])
+        setNotificationStatus(d.notificationStatus ?? null)
       })
       .finally(() => setLoading(false))
   }
@@ -94,7 +96,13 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ revisado }),
     })
-    if (res.ok) setReg({ ...reg, revisado, revisado_en: revisado ? new Date().toISOString() : null })
+    if (res.ok) {
+      const result = await res.json()
+      setReg({ ...reg, revisado, revisado_en: revisado ? new Date().toISOString() : null })
+      setNotificationStatus(result.notificationStatus ?? null)
+    } else {
+      setErrAjuste('No se pudo guardar la revisión. Inténtalo de nuevo.')
+    }
     setSaving(false)
   }
 
@@ -242,8 +250,11 @@ export default function ProgramaDetallePage({ params }: { params: Promise<{ id: 
           {reg.revisado ? (
             <>
               <a href={mailto} className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold" style={{ backgroundColor: '#FCEE21', color: '#16122B' }}>
-                <Mail size={15} /> Enviar al cliente
+                <Mail size={15} /> Escribir al cliente
               </a>
+              {notificationStatus && <span className="text-xs text-gray-300" role="status">
+                {notificationStatus === 'sent' ? 'Aviso automático enviado' : ['failed', 'uncertain'].includes(notificationStatus) ? 'Revisar envío en Solicitudes' : notificationStatus === 'skipped' ? 'Aviso omitido: versión sustituida' : 'Aviso automático pendiente'}
+              </span>}
               <button onClick={() => toggleRevisado(false)} disabled={saving} className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-white" title="Marcar como pendiente">
                 <RotateCcw size={15} />
               </button>

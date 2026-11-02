@@ -11,7 +11,7 @@ function loadModule(path, dependencies = {}, globals = {}) {
   }).outputText
   const compiled = { exports: {} }
   vm.runInNewContext(source, {
-    module: compiled, exports: compiled.exports, Response,
+    module: compiled, exports: compiled.exports, Response, AbortSignal,
     console: { error() {}, log() {} }, process: { env: {} },
     crypto: { randomUUID: () => 'delivery-test' },
     setTimeout: (callback) => callback(),

@@ -8,7 +8,7 @@ interface SendEmailOptions {
   idempotencyKey?: string
 }
 
-class EmailDeliveryError extends Error {
+export class EmailDeliveryError extends Error {
   constructor(public status: number) {
     super(`[Email:send] El proveedor rechazó el envío (${status})`)
   }
@@ -30,6 +30,7 @@ export async function sendEmail({ to, subject, html, replyTo, idempotencyKey }: 
   if (process.env.RESEND_API_KEY) {
     const res = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      signal: AbortSignal.timeout(15_000),
       headers: {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
@@ -52,6 +53,9 @@ export async function sendEmail({ to, subject, html, replyTo, idempotencyKey }: 
   // --- Fallback: Gmail SMTP (lo que había hasta ahora) ---
   const transporter = nodemailer.createTransport({
     service: 'gmail',
+    connectionTimeout: 15_000,
+    greetingTimeout: 15_000,
+    socketTimeout: 20_000,
     auth: {
       user: process.env.GMAIL_USER,
       pass: process.env.GMAIL_APP_PASSWORD,

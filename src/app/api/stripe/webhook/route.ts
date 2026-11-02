@@ -4,6 +4,8 @@ import { updateProposalByToken } from '@/lib/db/proposals'
 import { supabase } from '@/lib/supabase'
 import type Stripe from 'stripe'
 import { markThyroidLeadAsCustomer, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { mutateApplication } from '@/lib/asesoria-notes'
+import { deliverApplicationMessages, enqueueNotice } from '@/lib/thyroid-lifecycle'
 
 export const runtime = 'nodejs'
 
@@ -63,37 +65,38 @@ export async function POST(request: NextRequest) {
           if (session.payment_status !== 'paid') break
           const applicationId = session.metadata.asesoria_id
           if (applicationId) {
-            const { data: currentApplication } = await supabase
-              .from('asesoria_solicitudes')
-              .select('email,notas')
-              .eq('id', applicationId)
-              .maybeSingle()
-
             const paymentPlan = session.metadata.payment_plan ?? 'one_time'
             const installmentIndex = session.metadata.installment_index ?? '0'
             const paymentMarker = paymentPlan === 'installments'
               ? `[payment:installments:${installmentIndex}]`
               : '[payment:one_time]'
-            const existingNotes = currentApplication?.notas?.trim() ?? ''
-            const firstPaidAtMarker = paymentPlan === 'installments' && installmentIndex === '1'
-              ? `[payment:first_paid_at:${new Date().toISOString()}]`
-              : null
-            const notes = existingNotes.includes(paymentMarker)
-              ? existingNotes
-              : [existingNotes, paymentMarker, firstPaidAtMarker].filter(Boolean).join('\n')
-
-            const { data: application } = await supabase
-              .from('asesoria_solicitudes')
-              .update({ estado: 'pagada', notas: notes })
-              .eq('id', applicationId)
-              .select('email')
-              .maybeSingle()
+            const application = await mutateApplication(applicationId, (current) => {
+              const existingNotes = current.notas?.trim() ?? ''
+              if (existingNotes.includes(paymentMarker)) return null
+              const firstPaidAtMarker = paymentPlan === 'installments' && installmentIndex === '1'
+                ? `[payment:first_paid_at:${new Date().toISOString()}]` : null
+              let notes = [existingNotes, paymentMarker, firstPaidAtMarker].filter(Boolean).join('\n')
+              if (paymentPlan !== 'installments' || installmentIndex === '1') {
+                notes = enqueueNotice(notes, { key: 'welcome', kind: 'welcome', dueAt: new Date().toISOString() })
+              }
+              return { estado: 'pagada', notas: notes }
+            })
 
             if (application?.email) {
-              await supabase
+              const { error: accessError } = await supabase
                 .from('cliente_perfil')
-                .update({ acceso_manual: true, pagado_en: new Date().toISOString() })
-                .ilike('email', application.email)
+                .update({ acceso_manual: true })
+                .ilike('email', application.email.replace(/[\\%_]/g, '\\$&'))
+              if (accessError) throw new Error('[Stripe:access] No se pudo activar el acceso')
+              const { error: dateError } = await supabase.from('cliente_perfil')
+                .update({ pagado_en: new Date().toISOString() })
+                .ilike('email', application.email.replace(/[\\%_]/g, '\\$&')).is('pagado_en', null)
+              if (dateError) throw new Error('[Stripe:access] No se pudo registrar la fecha de pago')
+            }
+            try {
+              await deliverApplicationMessages(applicationId)
+            } catch {
+              console.error('[Stripe:welcome] Confirmación pendiente de reintento', { applicationId })
             }
           }
           await recordThyroidRevenue({

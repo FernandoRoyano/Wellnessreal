@@ -7,9 +7,9 @@ import * as zod from 'zod'
 
 function load(file, dependencies, globals = {}) {
   const code = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
-  const module = { exports: {} }
-  vm.runInNewContext(code, { module, exports: module.exports, require: name => dependencies[name] ?? {}, console: { error() {} }, crypto, Date, Response, ...globals })
-  return module.exports
+  const compiled = { exports: {} }
+  vm.runInNewContext(code, { module: compiled, exports: compiled.exports, require: name => dependencies[name] ?? {}, console: { error() {} }, crypto, Date, Response, ...globals })
+  return compiled.exports
 }
 
 function access({ admin = false, email = null, paid = true } = {}) {

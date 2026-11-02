@@ -3,6 +3,10 @@ import { getStripe } from '@/lib/stripe'
 import { supabase } from '@/lib/supabase'
 import { sendEmail } from '@/lib/email'
 import { THYROID_PROGRAM } from '@/lib/metodo-tiroides'
+import { mutateApplication } from '@/lib/asesoria-notes'
+import { processThyroidLifecycle } from '@/lib/thyroid-lifecycle'
+
+export const maxDuration = 60
 
 const FIRST_PAID_PATTERN = /\[payment:first_paid_at:([^\]]+)\]/
 const SECOND_SENT_MARKER = '[payment:installments:2_sent]'
@@ -19,6 +23,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'No autorizado' }, { status: 401 })
   }
 
+  // Ambos procesos son independientes: un fallo de cobro no detiene el acompañamiento.
+  let lifecycle: { sent: number; errors: number }
+  try {
+    lifecycle = await processThyroidLifecycle()
+  } catch {
+    console.error('[ThyroidLifecycle:cron] No se pudieron procesar los avisos')
+    lifecycle = { sent: 0, errors: 1 }
+  }
   try {
     const { data, error } = await supabase
       .from('asesoria_solicitudes')
@@ -72,20 +84,18 @@ export async function GET(request: NextRequest) {
       if (!session.url) throw new Error(`[ThyroidInstallments:checkout] Sin URL para ${application.id}`)
 
       await sendEmail({
+        idempotencyKey: `thyroid-installment-2-${application.id}`,
         to: application.email,
         subject: 'Segundo y último pago · Método BASE Tiroides',
         html: `<div style="max-width:600px;margin:auto;padding:32px;background:#16122b;color:#fff;font-family:Arial,sans-serif"><p style="color:#fcee21;font-weight:700">WELLNESSREAL</p><h1 style="font-size:24px">Segundo y último pago</h1><p style="color:#d5d0df;line-height:1.7">Hola ${escapeHtml(application.nombre)}. Han pasado 30 días desde el primer pago de tu plaza. Este es el enlace para completar el segundo y último pago de ${THYROID_PROGRAM.installmentPrice} €.</p><a href="${session.url}" style="display:inline-block;margin-top:16px;padding:15px 24px;border-radius:10px;background:#fcee21;color:#16122b;text-decoration:none;font-weight:700">Completar último pago</a><p style="margin-top:24px;color:#8f889e;font-size:12px">No se ha creado ninguna suscripción ni habrá cobros posteriores.</p></div>`,
       })
 
-      const { error: updateError } = await supabase
-        .from('asesoria_solicitudes')
-        .update({ notas: `${notes}\n${SECOND_SENT_MARKER}`.trim() })
-        .eq('id', application.id)
-      if (updateError) throw new Error(`[ThyroidInstallments:markSent] ${updateError.message}`)
+      await mutateApplication(application.id, (current) => current.notas?.includes(SECOND_SENT_MARKER)
+        ? null : { notas: `${current.notas ?? ''}\n${SECOND_SENT_MARKER}`.trim() })
       sent += 1
     }
 
-    return NextResponse.json({ success: true, sent })
+    return NextResponse.json({ success: lifecycle.errors === 0, sent, lifecycle }, { status: lifecycle.errors ? 500 : 200 })
   } catch (error) {
     console.error('[ThyroidInstallments:cron]', error)
     return NextResponse.json({ error: 'No se pudo procesar el segundo pago' }, { status: 500 })
