@@ -1,6 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendLeadEmail as sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
+import { z } from 'zod'
+import { escapeHtml } from '@/lib/utils/escapeHtml'
+import { getClientIp, rateLimit } from '@/lib/rateLimit'
+
+const subscriptionSchema = z.object({
+  email: z.email().transform(value => value.toLowerCase().trim()),
+  name: z.string().trim().max(100).optional(),
+  resource: z.enum(['guia', 'tiroides']).optional(),
+  _source: z.string().max(80).optional(),
+  _attribution: z.record(z.string().max(80), z.string().max(1000).optional()).optional(),
+})
 
 // API para suscripción a newsletter + envío de guía gratuita por email
 
@@ -66,7 +77,7 @@ function resolveResource(key: unknown): Resource {
 
 function buildGuideEmailHTML(name: string, downloadUrl: string, resource: Resource): string {
   const { guideTitle, introHtml } = resource
-  const displayName = name || 'crack'
+  const displayName = escapeHtml(name) || 'crack'
   return `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
@@ -148,36 +159,30 @@ async function sendGuideEmail(email: string, name: string, resource: Resource) {
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
+    const limit = rateLimit(`newsletter:${getClientIp(request)}`, 5, 15 * 60 * 1000)
+    if (!limit.success) return NextResponse.json({ error: 'Espera unos minutos antes de repetir la solicitud.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } })
+    const parsed = subscriptionSchema.safeParse(await request.json())
+    if (!parsed.success) return NextResponse.json({ error: 'Revisa el nombre y el email.' }, { status: 400 })
+    const body = parsed.data
     const { email, name, _attribution, _source } = body
     const resource = resolveResource(body.resource)
-
-    if (!email) {
-      return NextResponse.json(
-        { error: 'El email es requerido' },
-        { status: 400 }
-      )
-    }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
-      return NextResponse.json(
-        { error: 'Email inválido' },
-        { status: 400 }
-      )
-    }
+    const newsletterOnly = _source === 'footer' && !body.resource
 
     // Confirmar el guardado antes de enviar correos.
     await captureLead({
       request,
       email,
       name: name || null,
-      source: resource.source,
+      source: newsletterOnly ? 'newsletter' : resource.source,
       attribution: _attribution,
       tags: _source ? [`form:${_source}`] : [],
     })
 
-    await sendGuideEmail(email, name || '', resource)
+    if (newsletterOnly) {
+      await sendEmail({ to: email, subject: 'Bienvenida a la newsletter de WellnessReal', html: `<p>Gracias por suscribirte${name ? `, ${escapeHtml(name)}` : ''}.</p><p>Recibirás ideas prácticas sobre entrenamiento de fuerza y hábitos para tu vida real. Puedes darte de baja con el enlace de cada newsletter o respondiendo a este correo.</p><p>Fernando · WellnessReal</p>` })
+    } else {
+      await sendGuideEmail(email, name || '', resource)
+    }
 
     // Suscribir en MailerLite si está configurada (best-effort, await para Vercel)
     // Grupo propio del recurso con fallback al general (mismo patrón que metodo-optin)

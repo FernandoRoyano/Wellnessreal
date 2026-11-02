@@ -72,6 +72,7 @@ export default function FooterNewsletterForm() {
           )}
         </button>
       </form>
+      <p className="mx-auto mt-2 max-w-md text-fluid-xs text-muted">Al suscribirte solicitas recibir la newsletter. Puedes darte de baja cuando quieras. <a href="/privacidad" className="text-accent underline underline-offset-2">Política de privacidad</a>.</p>
 
       <div id="footer-newsletter-status" className="min-h-[1.5rem] pt-1" aria-live="polite">
         {status === 'success' && (

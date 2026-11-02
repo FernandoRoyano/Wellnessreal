@@ -15,7 +15,6 @@ import { buildMetadata } from '@/lib/seo'
 import JsonLd, {
   localBusinessSchema,
   webSiteSchema,
-  reviewSchema,
   personSchema,
 } from '@/components/seo/JsonLd'
 import HeroAnimation from '@/components/animations/HeroAnimation'
@@ -136,19 +135,12 @@ const PLANS = [
   },
 ] as const
 
-const REVIEW_SCHEMA_DATA = TESTIMONIALS.map((t) => ({
-  text: t.text.split('.')[0] + '.',
-  author: t.name,
-  result: t.result,
-}))
-
 export default function HomePage() {
   return (
     <>
       <JsonLd data={localBusinessSchema()} />
       <JsonLd data={webSiteSchema()} />
       <JsonLd data={personSchema()} />
-      <JsonLd data={reviewSchema(REVIEW_SCHEMA_DATA)} />
 
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative min-h-[calc(100svh-4.5rem)] md:min-h-[calc(100svh-5rem)] flex items-center justify-center overflow-hidden py-12">
@@ -172,7 +164,7 @@ export default function HomePage() {
               </span>
             </div>
 
-            <h1 className="headline text-fluid-6xl text-white animate-fade-up">
+            <h1 className="headline break-words text-[clamp(2.25rem,10vw,3.4rem)] sm:text-fluid-6xl text-white animate-fade-up">
               Entrenamiento basado en ciencia
               <br className="hidden sm:block" />
               <span className="text-gradient-brand"> que se adapta a tu vida real.</span>

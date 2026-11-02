@@ -255,11 +255,6 @@ export default function WebinarLanding() {
               <p>Llegué con 92kg y varios intentos fallidos. En 14 meses bajé 21kg. Lo más sorprendente fue que por primera vez no estaba a dieta. Estaba viviendo.</p>
               <div className="who"><span className="name">Padre de familia, 41 años</span><span className="res">−21 kg / 14 meses</span></div>
             </div>
-            <div className="quote reveal d2">
-              <span className="qmark">”</span>
-              <p>A los 45 me dijeron colesterol alto y tensión límite. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación. Mi médico no se lo creía.</p>
-              <div className="who"><span className="name">Hombre, 45 años</span><span className="res">−19 kg</span></div>
-            </div>
             <div className="quote reveal d3">
               <span className="qmark">”</span>
               <p>Empecé en 88kg y terminé en 86kg — casi igual en la báscula. Pero la ropa me queda completamente distinta. Nadie se cree que no haya adelgazado más.</p>

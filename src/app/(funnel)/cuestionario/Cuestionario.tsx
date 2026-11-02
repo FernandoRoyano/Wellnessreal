@@ -64,12 +64,13 @@ const DIGESTION = ["Todo bien", "Estreñimiento", "Digestiones pesadas", "Hincha
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const TOTAL = 8;
 
-export default function Cuestionario({ paidThyroidProgram = false }: { paidThyroidProgram?: boolean }) {
-  const [form, setForm] = useState<FormState>(VACIO);
+export default function Cuestionario({ paidThyroidProgram = false, initialEmail = '' }: { paidThyroidProgram?: boolean; initialEmail?: string }) {
+  const [form, setForm] = useState<FormState>({ ...VACIO, email: initialEmail });
   const [step, setStep] = useState(0);
   const [sending, setSending] = useState(false);
   const [error, setError] = useState("");
   const [done, setDone] = useState(false);
+  const [privacyConsent, setPrivacyConsent] = useState(false);
   const [clientToken, setClientToken] = useState<string | null>(null);
 
   const set = (k: keyof FormState, v: string | string[]) => setForm((f) => ({ ...f, [k]: v }));
@@ -104,6 +105,7 @@ export default function Cuestionario({ paidThyroidProgram = false }: { paidThyro
           origen: paidThyroidProgram ? "metodo-tiroides" : "general",
           nombre: form.nombre.trim(),
           email: form.email.trim(),
+          privacy_consent: privacyConsent,
           edad: num(form.edad),
           sexo: form.sexo || null,
           altura_cm: num(form.altura_cm),
@@ -233,7 +235,7 @@ export default function Cuestionario({ paidThyroidProgram = false }: { paidThyro
               </div>
               <div className="wrq-field">
                 <label>Tu email</label>
-                <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="tu@email.com" />
+                <input type="email" value={form.email} readOnly={Boolean(initialEmail)} onChange={(e) => set("email", e.target.value)} placeholder="tu@email.com" />
               </div>
             </>
           )}
@@ -458,7 +460,7 @@ export default function Cuestionario({ paidThyroidProgram = false }: { paidThyro
                 Fernando lo revisa antes de enviártelo.
               </p>
               <p className="wrq-help" style={{ fontSize: ".85rem" }}>
-                Al enviar aceptas que tratemos tus datos para preparar tu plan, según nuestra{" "}
+                Antes de enviar, revisa y autoriza el tratamiento de tu evaluación según nuestra{" "}
                 <a href="https://wellnessreal.es/privacidad" style={{ color: "var(--yellow)" }}>política de privacidad</a>.
                 Tus datos de salud se tratan con confidencialidad.
               </p>
@@ -467,6 +469,13 @@ export default function Cuestionario({ paidThyroidProgram = false }: { paidThyro
 
           {error && <p className="wrq-error">{error}</p>}
 
+          {step === TOTAL - 1 && (
+            <label className="mt-6 flex items-start gap-3 text-sm leading-relaxed text-white/75">
+              <input type="checkbox" checked={privacyConsent} onChange={event => setPrivacyConsent(event.target.checked)} className="mt-1 size-5 shrink-0 accent-brand-yellow" />
+              <span>Autorizo el tratamiento de los datos de salud que comparta para preparar mi plan, con apoyo de IA y revisión personal de Fernando. He leído la <Link href="/privacidad" target="_blank" className="text-accent underline">política de privacidad</Link>. Puedo retirar mi autorización escribiendo a info@wellnessreal.es.</span>
+            </label>
+          )}
+
           <div className="wrq-nav">
             {step > 0 && <button type="button" className="wrq-btn ghost" onClick={back}>Atrás</button>}
             {step < TOTAL - 1 ? (
@@ -474,11 +483,12 @@ export default function Cuestionario({ paidThyroidProgram = false }: { paidThyro
                 Siguiente →
               </button>
             ) : (
-              <button type="button" className="wrq-btn primary" onClick={enviar} disabled={sending}>
+              <button type="button" className="wrq-btn primary" onClick={enviar} disabled={sending || !privacyConsent}>
                 Generar mi plan →
               </button>
             )}
           </div>
+
         </div>
       </div>
     </div>

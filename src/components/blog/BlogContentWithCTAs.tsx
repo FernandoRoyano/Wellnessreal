@@ -36,7 +36,7 @@ function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; source
     <div className="my-10 p-6 md:p-8 rounded-xl" style={{ backgroundColor: '#1a1535', border: '2px solid #FCEE21' }}>
       <div className="flex flex-col sm:flex-row items-center gap-4">
         <div className="flex-1">
-          <p className="text-xs font-bold uppercase tracking-widest mb-1" style={{ color: '#662D91' }}>
+          <p className="text-xs font-bold uppercase tracking-widest mb-1 text-accent">
             {cfg.eyebrow}
           </p>
           <h3 className="text-lg font-bold text-white mb-1">{cfg.title}</h3>

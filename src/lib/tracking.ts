@@ -1,4 +1,5 @@
 import { trackMetaEvent } from '@/lib/meta-pixel'
+import { hasTrackingConsent } from '@/lib/cookie-consent'
 
 /**
  * Tracking de atribución: captura UTMs y fbc/fbp en el primer landing
@@ -32,10 +33,11 @@ function getCookie(name: string): string | null {
 function setCookie(name: string, value: string, days: number) {
   if (typeof document === 'undefined') return
   const expires = new Date(Date.now() + days * 86400000).toUTCString()
-  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax; Secure`
 }
 
 export function getStoredAttribution(): AttributionData {
+  if (!hasTrackingConsent()) return {}
   const raw = getCookie(COOKIE_NAME)
   if (!raw) return {}
   try {
@@ -50,7 +52,7 @@ export function getStoredAttribution(): AttributionData {
  * Se llama en cada page load desde el componente cliente UtmCapture.
  */
 export function captureAttribution(): AttributionData {
-  if (typeof window === 'undefined') return {}
+  if (!hasTrackingConsent()) return {}
 
   const existing = getStoredAttribution()
   // Si ya tenemos atribución persistida, no la sobrescribimos
@@ -115,7 +117,7 @@ export function trackConversion(
   event: ConversionEvent,
   params: { value?: number; currency?: string; [key: string]: unknown } = {},
 ) {
-  if (typeof window === 'undefined') return
+  if (!hasTrackingConsent()) return
   const w = window as typeof window & {
     gtag?: (...a: unknown[]) => void
     fbq?: (...a: unknown[]) => void
@@ -135,6 +137,7 @@ export function trackConversion(
  * Llamar antes de cualquier submit de formulario.
  */
 export function getAttributionForSubmit(): AttributionData {
+  if (!hasTrackingConsent()) return {}
   const stored = getStoredAttribution()
   const fbcCookie = getCookie('_fbc')
   const fbpCookie = getCookie('_fbp')

@@ -6,6 +6,7 @@ import { getSessionMember } from '@/lib/db/comunidad'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { EntrarForm } from './EntrarForm'
 import styles from './entrar.module.css'
+import { safeInternalPath } from '@/lib/safe-redirect'
 
 export const metadata: Metadata = {
   title: 'Entrar · Comunidad Tiroides · WellnessReal',
@@ -19,11 +20,12 @@ const ERROR_MESSAGES: Record<string, string> = {
   callback: 'Algo falló al confirmar el acceso. Inténtalo de nuevo en un momento.',
 }
 
-export default async function EntrarPage({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
+export default async function EntrarPage({ searchParams }: { searchParams: Promise<{ error?: string; next?: string }> }) {
+  const { error, next: destination } = await searchParams
+  const next = safeInternalPath(destination, '/comunidad')
   const member = await getSessionMember()
-  if (member) redirect('/comunidad')
+  if (member) redirect(next)
 
-  const { error } = await searchParams
   const errorMessage = error ? (ERROR_MESSAGES[error] ?? ERROR_MESSAGES.callback) : undefined
   const cfg = supabaseConfigStatus()
 
@@ -57,7 +59,7 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
           <p className={styles.kicker}>Tu acceso a la comunidad</p>
           <h2>Entra con tu email.</h2>
           <p className={styles.intro}>Si ya eres miembro, utiliza el mismo correo con el que te registraste. Si es tu primera vez, ese correo creará tu acceso.</p>
-          {cfg.ok ? <EntrarForm errorMessage={errorMessage} /> : <ConfigError missing={cfg.missing} />}
+          {cfg.ok ? <EntrarForm errorMessage={errorMessage} next={next} /> : <ConfigError missing={cfg.missing} />}
           <ol className={styles.steps} aria-label="Cómo funciona el acceso">
             <li><span>1</span><p>Escribe tu email</p></li>
             <li><span>2</span><p>Abre el enlace que recibirás</p></li>

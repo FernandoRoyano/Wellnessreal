@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+html[data-cookie-consent] .cookie-banner[data-initial] { display: none; }
+
 /* ============================================================
    WellnessReal — Design Tokens (Tailwind v4 @theme)
    Paleta oficial: deep purple + electric yellow + magenta-purple

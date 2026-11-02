@@ -2,10 +2,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, FileText } from 'lucide-react'
 import Container from '@/components/common/Container'
-import type { PostWithCategory } from '@/lib/types/database'
+import type { PostSummary } from '@/lib/db/posts'
 
 interface RelatedPostsProps {
-  posts: PostWithCategory[]
+  posts: PostSummary[]
 }
 
 // Sección de artículos relacionados al final de cada post. Reparte autoridad

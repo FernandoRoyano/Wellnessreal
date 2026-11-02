@@ -1,3 +1,4 @@
+import ProgramComparison from '@/components/sections/ProgramComparison'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
@@ -18,9 +19,9 @@ function whatsappUrl(plan: string) {
 }
 
 export const metadata = buildMetadata({
-  title: 'Entrenamiento personalizado | 12 semanas',
+  title: 'Programas y entrenamiento personalizado | Precios',
   description:
-    'Entrenamiento individual durante 12 semanas: valoración, programación personalizada, seguimiento semanal y ajustes. Desde 750 €.',
+    'Compara Método BASE Tiroides (349 €) y entrenamiento individual (750 €). Dos recorridos de 12 semanas, con alcance, seguimiento y pagos claros.',
   path: '/tarifas',
   keywords: [
     'tarifas entrenamiento online',
@@ -38,8 +39,8 @@ const PROCESS_STEPS = [
   },
   {
     step: '02',
-    title: 'Tu plan en 48h',
-    desc: 'Diseño tu plan personalizado y te envío acceso a la app. Desde el primer día tienes todo listo para empezar.',
+    title: 'Tu plan revisado',
+    desc: 'Confirmamos el formato, completamos la evaluación y acordamos la fecha de inicio antes de entregarte el plan.',
   },
   {
     step: '03',
@@ -63,11 +64,6 @@ const TESTIMONIALS = [
     text: 'No quería perder peso, quería verme diferente. Empecé en 88kg y terminé en 86kg — casi igual en la báscula. Pero la ropa me queda completamente distinta. Tengo músculo donde antes no había nada. Nadie se cree que no haya adelgazado más.',
     name: 'Mujer, 34 años',
     badge: 'Recomposición corporal',
-  },
-  {
-    text: 'A los 45 años me dijeron que tenía el colesterol alto y tensión límite. En 12 meses perdí 19kg, normalicé los valores y dejé la medicación preventiva. Mi médico no se lo creía.',
-    name: 'Hombre, 45 años',
-    badge: '19kg menos, valores normalizados',
   },
   {
     text: 'Lo que cambió no fue solo mi cuerpo. Cambié yo. Empecé a ir a sitios que antes evitaba, a ponerme ropa que tenía guardada. Me sentí cómoda en mi propio cuerpo por primera vez desde que era adolescente.',
@@ -95,7 +91,7 @@ const FAQ_ITEMS = [
   },
   {
     q: '¿Puedo pagarlo de forma fraccionada?',
-    a: 'Sí. Puedes realizar un pago de 750 € o tres pagos de 270 €. Lo concretamos después de confirmar que el servicio encaja contigo.',
+    a: 'Sí. Para el individual puedes realizar un pago de 750 € o tres pagos de 270 € (810 € en total). Lo concretamos después de confirmar que el servicio encaja contigo.',
   },
   {
     q: '¿Qué necesito para empezar?',
@@ -154,6 +150,7 @@ export default function TarifasPage() {
           </HeroAnimation>
         </Container>
       </section>
+      <ProgramComparison />
 
       {/* ═══════════════ PROCESO ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-dusk">

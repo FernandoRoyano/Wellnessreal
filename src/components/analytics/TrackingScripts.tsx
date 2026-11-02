@@ -1,10 +1,11 @@
 'use client'
 
 import Script from 'next/script'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { captureAttribution } from '@/lib/tracking'
 import { META_PIXEL_ID, canTrackMeta, syncMetaConsent, trackMetaEvent } from '@/lib/meta-pixel'
+import { clearTrackingData, hasTrackingConsent } from '@/lib/cookie-consent'
 
 /**
  * Carga los pixels de Meta y TikTok SOLO tras aceptar cookies (RGPD) y dispara
@@ -24,6 +25,8 @@ declare global {
       page: () => void
       track: (event: string, params?: Record<string, unknown>) => void
       identify: (params: Record<string, unknown>) => void
+      grantConsent?: () => void
+      revokeConsent?: () => void
     }
   }
 }
@@ -33,12 +36,18 @@ const TIKTOK_PIXEL_ID = process.env.NEXT_PUBLIC_TIKTOK_PIXEL_ID
 export default function TrackingScripts() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
+  const lastMetaPage = useRef<string | null>(null)
 
   // Meta y TikTok no tienen Consent Mode: solo se cargan si el usuario aceptó.
   const [consentido, setConsentido] = useState(false)
   useEffect(() => {
     const leer = () => {
-      setConsentido(syncMetaConsent())
+      const accepted = hasTrackingConsent()
+      setConsentido(accepted)
+      syncMetaConsent()
+      if (accepted) window.ttq?.grantConsent?.()
+      else window.ttq?.revokeConsent?.()
+      if (!accepted) { clearTrackingData(); lastMetaPage.current = null }
     }
     leer()
     window.addEventListener('wr-consent-changed', leer)
@@ -48,16 +57,24 @@ export default function TrackingScripts() {
   // Captura UTMs (first-party) y dispara pageview en los pixels ya cargados.
   useEffect(() => {
     captureAttribution()
-    if (typeof window === 'undefined') return
     syncMetaConsent()
-    if (window.fbq) trackMetaEvent('PageView')
-    if (window.ttq) window.ttq.page()
-  }, [pathname, searchParams])
+    const page = `${pathname}?${searchParams.toString()}`
+    const trackPage = () => {
+      if (window.fbq && canTrackMeta() && lastMetaPage.current !== page) {
+        trackMetaEvent('PageView')
+        lastMetaPage.current = page
+      }
+    }
+    trackPage()
+    if (consentido && window.ttq) window.ttq.page()
+    window.addEventListener('wr-meta-ready', trackPage)
+    return () => window.removeEventListener('wr-meta-ready', trackPage)
+  }, [pathname, searchParams, consentido])
 
   return (
     <>
       {consentido && canTrackMeta() && (
-        <Script id="meta-pixel" strategy="afterInteractive" onReady={() => trackMetaEvent('PageView')}>
+        <Script id="meta-pixel" strategy="afterInteractive">
           {`
             !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
@@ -67,6 +84,7 @@ export default function TrackingScripts() {
             fbq('consent', 'revoke');
             fbq('set', 'autoConfig', false, '${META_PIXEL_ID}');
             fbq('init','${META_PIXEL_ID}');
+            window.dispatchEvent(new Event('wr-meta-ready'));
           `}
         </Script>
       )}

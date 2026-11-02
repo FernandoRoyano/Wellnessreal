@@ -17,44 +17,56 @@ import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
 import { getDefaultThyroidRoadmap, getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
 import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
-import { isAdminAuthenticated } from '@/lib/auth'
+import { z } from 'zod'
+import { authorizeProgramGeneration, claimProgramGeneration } from '@/lib/program-generation-access'
+import { getClientIp, rateLimit } from '@/lib/rateLimit'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const optionalText = z.string().max(5000).nullable().optional()
+const generationSchema = z.object({
+  origen: z.enum(['general', 'metodo-tiroides', 'admin-tiroides']).default('general'),
+  nombre: z.string().trim().min(2).max(100),
+  email: z.email().transform(value => value.toLowerCase().trim()),
+  privacy_consent: z.boolean().optional(),
+  objetivo_principal: z.string().min(1).max(1000),
+  objetivos_secundarios: z.array(z.string().max(200)).max(20).optional(),
+  edad: z.number().int().min(18).max(110).nullable().optional(),
+  altura_cm: z.number().int().min(100).max(250).nullable().optional(),
+  peso_kg: z.number().min(30).max(400).nullable().optional(),
+  dias_semana: z.number().int().min(1).max(7).nullable().optional(),
+  minutos_sesion: z.number().int().min(10).max(240).nullable().optional(),
+  sexo: optionalText, donde_entrena: optionalText, horario_entreno: optionalText,
+  material: optionalText, experiencia: optionalText, preferencias_entreno: optionalText,
+  lesiones: optionalText, medicacion: optionalText, consideraciones: optionalText,
+  dormir_calidad: optionalText, dormir_horas: optionalText, comidas_dia: optionalText,
+  alergias: optionalText, preferencias_comida: optionalText, no_le_gusta: optionalText,
+  hambre: optionalText, digestion: optionalText, estilo_vida: optionalText,
+})
 
 export async function POST(req: NextRequest) {
+  let release: (() => Promise<void>) | null = null
   try {
-    const datos = await req.json()
-
-    if (!datos?.nombre || !datos?.email || !datos?.objetivo_principal) {
-      return NextResponse.json(
-        { error: 'Faltan campos obligatorios (nombre, email, objetivo).' },
-        { status: 400 },
-      )
-    }
-    if (!EMAIL_REGEX.test(datos.email)) {
-      return NextResponse.json({ error: 'Email inválido.' }, { status: 400 })
-    }
-
-    const email = String(datos.email).toLowerCase().trim()
-    const isAdminFlow = datos.origen === 'admin-tiroides'
-
-    if (isAdminFlow && !(await isAdminAuthenticated())) {
-      return NextResponse.json({ error: 'No autorizado.' }, { status: 401 })
-    }
-
-    if (datos.origen === 'metodo-tiroides') {
-      const { data: paidApplication } = await supabase
-        .from('asesoria_solicitudes')
-        .select('id')
-        .ilike('email', email)
-        .eq('estado', 'pagada')
-        .limit(1)
-        .maybeSingle()
-      if (!paidApplication) {
-        return NextResponse.json({ error: 'No encontramos un pago confirmado con este correo.' }, { status: 403 })
+    const limit = rateLimit(`generation:${getClientIp(req)}`, 5, 10 * 60 * 1000)
+    if (!limit.success) return NextResponse.json({ error: 'Demasiados intentos. Espera unos minutos.' }, { status: 429 })
+    const parsed = generationSchema.safeParse(await req.json())
+    if (!parsed.success) return NextResponse.json({ error: 'Revisa los datos de la evaluación.' }, { status: 400 })
+    const datos = parsed.data
+    const email = datos.email
+    const access = await authorizeProgramGeneration(email, datos.origen)
+    if (!access.allowed) return NextResponse.json({ error: access.error }, { status: access.status })
+    if (!access.admin && datos.privacy_consent !== true) return NextResponse.json({ error: 'Autoriza el tratamiento de tu evaluación antes de continuar.' }, { status: 400 })
+    const isAdminFlow = access.admin && datos.origen === 'admin-tiroides'
+    if (access.applicationId) {
+      release = await claimProgramGeneration(access.applicationId)
+      if (!release) return NextResponse.json({ error: 'Tu evaluación se está procesando. Espera un momento antes de repetir.' }, { status: 409 })
+      const { data: existing, error: profileError } = await supabase.from('cliente_perfil').select('id,token').eq('email', email).maybeSingle()
+      if (profileError) throw new Error('[ProgramGeneration:existing] No se pudo consultar tu perfil')
+      if (existing) {
+        const { data: program, error: programError } = await supabase.from('programas_generados').select('id').eq('cliente_id', existing.id).eq('vigente', true).limit(1).maybeSingle()
+        if (programError) throw new Error('[ProgramGeneration:existing] No se pudo consultar tu plan')
+        if (program) return NextResponse.json({ ok: true, token: existing.token })
       }
     }
 
@@ -137,7 +149,7 @@ export async function POST(req: NextRequest) {
     const { error: memberLinkError } = await supabase
       .from('member_profiles')
       .update({ cliente_id: perfil.id })
-      .ilike('email', email)
+      .ilike('email', email.replace(/[\\%_]/g, '\\$&'))
     if (memberLinkError) {
       throw new Error(`[generar-programa:linkMember] ${memberLinkError.message}`)
     }
@@ -149,13 +161,21 @@ export async function POST(req: NextRequest) {
         .eq('id', perfil.id)
     }
 
+    if (!access.admin) {
+      const { error: consentError } = await supabase.from('eventos_cliente').insert({
+        cliente_id: perfil.id, tipo: 'nota',
+        contenido: { mensaje: 'Autorización de evaluación recibida', privacy_consent: { accepted: true, version: '2026-11-02', recorded_at: new Date().toISOString() } },
+      })
+      if (consentError) throw new Error('[ProgramGeneration:consent] No se pudo registrar la autorización')
+    }
+
     // --- 3) Construir el mensaje con los datos del cliente ---
     const isThyroidProgram = datos.origen === 'metodo-tiroides' || isAdminFlow
     const baseProgram = isThyroidProgram ? getThyroidBaseProgram(Number(datos.dias_semana) || 3) : null
     const mensajeCliente = `
-Genera el programa completo del Método BASE para este cliente:
+Genera el programa completo del Método BASE para esta persona:
 
-- Nombre: ${datos.nombre}
+- Identidad: persona adulta (no necesaria para diseñar el programa)
 - Edad: ${datos.edad ?? 'no indicada'}
 - Sexo: ${datos.sexo ?? 'no indicado'}
 - Altura: ${datos.altura_cm ?? '?'} cm · Peso: ${datos.peso_kg ?? '?'} kg
@@ -288,11 +308,12 @@ la herramienta 'entregar_programa'.
       cliente_id: perfil.id,
       token: perfil.token,
       programa_id: guardado.id,
-      programa,
+      ...(access.admin ? { programa } : {}),
     })
   } catch (e) {
     console.error('[generar-programa]', e)
-    const message = e instanceof Error ? e.message : 'Error generando el programa.'
-    return NextResponse.json({ error: message }, { status: 500 })
+    return NextResponse.json({ error: 'No se pudo preparar tu evaluación. Inténtalo de nuevo.' }, { status: 500 })
+  } finally {
+    try { await release?.() } catch { console.error('[ProgramGeneration:release] No se pudo liberar la reserva') }
   }
 }

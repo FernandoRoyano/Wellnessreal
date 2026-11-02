@@ -28,7 +28,7 @@ export default function PrivacidadPage() {
             <h1 className="headline text-fluid-5xl text-white">
               Política de <span className="text-gradient-brand">privacidad</span>
             </h1>
-            <p className="text-fluid-sm text-subtle">Última actualización: febrero 2026</p>
+            <p className="text-fluid-sm text-subtle">Última actualización: 2 de noviembre de 2026</p>
           </div>
 
           <div className="space-y-10 text-fluid-base text-muted leading-relaxed">
@@ -67,7 +67,7 @@ export default function PrivacidadPage() {
             <LegalSection title="4. Base legal">
               <ul className="list-disc pl-6 space-y-1 marker:text-accent">
                 <li><strong className="text-white">Ejecución del contrato:</strong> para prestar los servicios contratados</li>
-                <li><strong className="text-white">Consentimiento:</strong> para comunicaciones comerciales y cookies no esenciales</li>
+                <li><strong className="text-white">Consentimiento:</strong> para comunicaciones comerciales, cookies no esenciales y, cuando corresponda, los datos de salud que autorices expresamente en tu evaluación.</li>
                 <li><strong className="text-white">Interés legítimo:</strong> para la mejora de los servicios</li>
                 <li><strong className="text-white">Obligación legal:</strong> para cumplir con la normativa fiscal y mercantil</li>
               </ul>
@@ -86,7 +86,11 @@ export default function PrivacidadPage() {
               <ul className="list-disc pl-6 mt-2 space-y-1 marker:text-accent">
                 <li><strong className="text-white">Stripe:</strong> procesamiento de pagos con tarjeta</li>
                 <li><strong className="text-white">Vercel:</strong> alojamiento web</li>
-                <li><strong className="text-white">MongoDB Atlas:</strong> almacenamiento de datos en la nube</li>
+                <li><strong className="text-white">Supabase:</strong> base de datos, archivos y autenticación de la comunidad.</li>
+                <li><strong className="text-white">Resend o Google Gmail:</strong> envío de correos de acceso, recursos y comunicaciones relacionadas con el servicio, según el canal configurado.</li>
+                <li><strong className="text-white">MailerLite:</strong> gestión de suscripciones y comunicaciones comerciales solicitadas.</li>
+                <li><strong className="text-white">Anthropic:</strong> apoyo a la elaboración de borradores de programas a partir de la evaluación. Fernando revisa el plan antes de entregarlo; no se utiliza para diagnosticar ni decidir tratamientos.</li>
+                <li><strong className="text-white">Google y Meta:</strong> medición o publicidad cuando hayas aceptado las cookies correspondientes. Meta se limita a páginas generales permitidas y no recibe respuestas de formularios o del test.</li>
                 <li><strong className="text-white">Administraciones públicas:</strong> cuando exista obligación legal</li>
               </ul>
               <p className="mt-2">No vendo ni cedo tus datos a terceros con fines comerciales.</p>
@@ -94,9 +98,10 @@ export default function PrivacidadPage() {
 
             <LegalSection title="7. Transferencias internacionales">
               <p>
-                Algunos proveedores de servicios (Vercel, MongoDB Atlas, Stripe) pueden tratar datos fuera del Espacio
-                Económico Europeo, siempre bajo las garantías adecuadas establecidas en el RGPD (cláusulas
-                contractuales tipo o decisiones de adecuación de la Comisión Europea).
+                Algunos proveedores indicados pueden tratar datos fuera del Espacio Económico Europeo. Cuando
+                corresponda, estas transferencias deben contar con las garantías previstas en el RGPD, como una
+                decisión de adecuación o cláusulas contractuales tipo. Puedes solicitar información sobre los
+                proveedores y garantías aplicables escribiendo a info@wellnessreal.es.
               </p>
             </LegalSection>
 
@@ -124,7 +129,11 @@ export default function PrivacidadPage() {
 
             <LegalSection title="9. Cookies">
               <p>
-                Este sitio web utiliza cookies propias y de terceros. Puedes consultar la política de cookies y
+                Este sitio web utiliza cookies propias y de terceros. Las cookies de sesión permiten acceder a las
+                áreas privadas. La elección del aviso se conserva en tu navegador. La atribución de campañas
+                (<code>wr_attr</code>, hasta 30 días) y los identificadores publicitarios solo se utilizan después de aceptar.
+                Al rechazar o retirar la aceptación, dejamos de medir con esos identificadores y limpiamos los datos
+                de seguimiento que gestiona la web. Puedes consultar esta información y
                 gestionar tus preferencias a través del banner. Con tu consentimiento, el píxel de Meta (Meta Platforms Ireland) mide visitas en determinadas páginas generales. No se activa en páginas de salud, tests, resultados ni áreas privadas. No enviamos respuestas del test ni datos de formularios a este píxel.
               </p>
               <CookieSettingsButton />

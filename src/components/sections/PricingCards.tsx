@@ -51,7 +51,7 @@ export default function PricingCards() {
               <span className="text-fluid-xl font-bold text-accent">€</span>
               <span className="text-fluid-sm text-muted">pago único</span>
             </div>
-            <p className="mt-2 text-fluid-xs text-subtle">También disponible en 3 pagos de 270 €.</p>
+            <p className="mt-2 text-fluid-xs text-subtle">También disponible en 3 pagos de 270 € · total 810 €. Acordamos las fechas antes de contratar.</p>
           </div>
 
           <ul className="my-7 grid gap-3 sm:grid-cols-2">

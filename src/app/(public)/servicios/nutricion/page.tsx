@@ -102,6 +102,7 @@ export default function NutricionPersonalizadaPage() {
                 <span className="text-white font-semibold">los mantengas y los disfrutes.</span>
               </p>
 
+              <p className="text-fluid-sm leading-relaxed text-muted">Fernando es graduado en Ciencias del Deporte. Este servicio trabaja educación alimentaria y hábitos generales; no incluye dieta clínica ni tratamiento nutricional de patologías. Cuando sea necesario, esa atención corresponde a un profesional sanitario competente.</p>
               <ul className="space-y-3 pt-2">
                 {BENEFITS.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-fluid-base text-white/90">

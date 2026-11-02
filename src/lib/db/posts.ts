@@ -1,6 +1,17 @@
 import { supabase } from '@/lib/supabase'
 import type { PostWithCategory, Category } from '@/lib/types/database'
 
+export type PostSummary = Pick<PostWithCategory, 'id' | 'title' | 'slug' | 'excerpt' | 'published_at' | 'main_image_url' | 'main_image_alt' | 'read_time' | 'category_id' | 'category'>
+const SUMMARY_FIELDS = 'id,title,slug,excerpt,published_at,main_image_url,main_image_alt,read_time,category_id,category:categories(*)'
+
+export async function getPostSummaries(page: number, pageSize: number, categoryId?: string) {
+  let query = supabase.from('posts').select(SUMMARY_FIELDS, { count: 'exact' }).eq('published', true)
+  if (categoryId) query = query.eq('category_id', categoryId)
+  const { data, count, error } = await query.order('published_at', { ascending: false }).order('id').range((page - 1) * pageSize, page * pageSize - 1).returns<PostSummary[]>()
+  if (error) throw error
+  return { posts: (data ?? []) as PostSummary[], total: count ?? 0 }
+}
+
 // --- Public queries ---
 
 export async function getAllPosts(): Promise<PostWithCategory[]> {
@@ -70,22 +81,17 @@ export async function getRelatedPosts(
   currentSlug: string,
   categoryId: string | null,
   limit = 3,
-): Promise<PostWithCategory[]> {
-  const { data, error } = await supabase
-    .from('posts')
-    .select('*, category:categories(*)')
-    .eq('published', true)
-    .neq('slug', currentSlug)
-    .order('published_at', { ascending: false })
-    .limit(12)
-
+): Promise<PostSummary[]> {
+  const base = () => supabase.from('posts').select(SUMMARY_FIELDS).eq('published', true).neq('slug', currentSlug).order('published_at', { ascending: false })
+  const same = categoryId ? await base().eq('category_id', categoryId).limit(limit).returns<PostSummary[]>() : { data: [], error: null }
+  if (same.error) throw same.error
+  const posts = (same.data ?? []) as PostSummary[]
+  if (posts.length === limit) return posts
+  let fallback = base()
+  if (posts.length) fallback = fallback.not('id', 'in', `(${posts.map(post => post.id).join(',')})`)
+  const { data, error } = await fallback.limit(limit - posts.length).returns<PostSummary[]>()
   if (error) throw error
-  const posts = (data || []) as PostWithCategory[]
-
-  // Priorizar misma categoría; completar con los más recientes del resto
-  const sameCategory = posts.filter((p) => p.category_id === categoryId)
-  const others = posts.filter((p) => p.category_id !== categoryId)
-  return [...sameCategory, ...others].slice(0, limit)
+  return [...posts, ...((data ?? []) as PostSummary[])]
 }
 
 // --- Admin CRUD ---

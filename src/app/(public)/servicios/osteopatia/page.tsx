@@ -9,45 +9,44 @@ import FaqSection from '@/components/sections/FaqSection'
 export const metadata = buildMetadata({
   title: 'Osteopatía y Recuperación en Madrid',
   description:
-    'Osteopatía y recuperación de lesiones en Madrid. Tratamiento personalizado, prevención y optimización del rendimiento físico. Sesiones presenciales.',
+    'Sesiones de técnicas manuales en Madrid para trabajar movilidad y bienestar, con valoración previa y límites claros. No sustituyen la atención sanitaria.',
   path: '/servicios/osteopatia',
   keywords: [
     'osteopatía Madrid',
     'recuperación lesiones',
     'osteópata Madrid',
     'tratamiento lesiones musculares',
-    'fisioterapia Madrid',
   ],
 })
 
 const BENEFITS = [
-  'Tratamiento personalizado de lesiones, tensiones y bloqueos musculares.',
-  'Prevención efectiva: cuida tu cuerpo antes de que falle.',
-  'Mejora de rendimiento físico y recuperación acelerada.',
-  'Integrado con tu plan de entrenamiento para resultados máximos.',
+  'Técnicas manuales adaptadas a tu tolerancia y contexto.',
+  'Trabajo de movilidad y bienestar con valoración previa.',
+  'Sin promesas de curación ni plazos de recuperación garantizados.',
+  'Coordinación con tu entrenamiento cuando resulte adecuado.',
   'Sesiones presenciales en Madrid con atención profesional.',
 ] as const
 
 const FAQS = [
   {
-    question: '¿Qué problemas trata la osteopatía?',
+    question: '¿Qué puedo esperar de una sesión?',
     answer:
-      'Dolores de espalda y cuello, contracturas, tensiones musculares, bloqueos articulares, molestias derivadas de malas posturas y recuperación de lesiones deportivas. Trabajo con técnicas manuales para aliviar el dolor, recuperar movilidad y mejorar cómo se mueve tu cuerpo.',
+      'Una valoración del contexto y técnicas manuales orientadas a movilidad y bienestar, adaptadas a tu tolerancia. No sustituye el diagnóstico ni el tratamiento de una lesión por un profesional sanitario.',
   },
   {
     question: '¿La primera sesión incluye tratamiento o solo valoración?',
     answer:
-      'La primera sesión incluye una valoración completa de tu caso y, salvo que encuentre algo que requiera derivarte, también tratamiento. Reviso tu historial, identifico el origen del problema y empiezo a trabajar sobre él el mismo día.',
+      'Primero revisamos tu situación y el alcance de la sesión. Si hay síntomas que requieren valoración sanitaria, esa revisión tiene prioridad sobre cualquier técnica manual.',
   },
   {
     question: '¿Cuántas sesiones voy a necesitar?',
     answer:
-      'Depende del problema. Una tensión puntual puede resolverse en 1-2 sesiones; una lesión o un patrón más arraigado requiere un plan de varias sesiones. Tras la primera valoración te doy una estimación realista, sin alargar el tratamiento artificialmente.',
+      'Depende de tu situación y respuesta. No se garantiza resolver una molestia en un número fijo de sesiones. Revisamos si tiene sentido continuar y cuándo conviene consultar con un profesional sanitario.',
   },
   {
     question: '¿Es compatible con mi entrenamiento?',
     answer:
-      'No solo compatible: se potencian. Cuando integro la osteopatía con tu plan de entrenamiento, trato la causa del problema y ajusto los ejercicios para que no reaparezca. Es la mejor forma de entrenar con seguridad y prevenir lesiones futuras.',
+      'Podemos coordinar el trabajo de movilidad con el entrenamiento, respetando las indicaciones de tu equipo sanitario cuando existan. No se garantiza prevenir lesiones ni evitar que reaparezcan molestias.',
   },
   {
     question: '¿Dónde se realizan las sesiones?',
@@ -67,9 +66,9 @@ export default function OsteopatiaRecuperacionPage() {
       <JsonLd
         data={serviceSchema({
           name: 'Osteopatía y Recuperación',
-          description: 'Tratamiento personalizado de lesiones, prevención y optimización del rendimiento físico en Madrid.',
+          description: 'Técnicas manuales y trabajo de movilidad en Madrid, con valoración previa y sin sustituir atención sanitaria.',
           url: 'https://wellnessreal.es/servicios/osteopatia',
-          areaServed: 'Madrid, Cantabria, ES',
+          areaServed: 'Madrid, ES',
         })}
       />
       <JsonLd
@@ -98,9 +97,8 @@ export default function OsteopatiaRecuperacionPage() {
               </h1>
 
               <p className="text-fluid-lg text-muted leading-relaxed">
-                Alivia el dolor, recupera movilidad y optimiza tu rendimiento con técnicas manuales avanzadas. Sin
-                pastillas, sin tratamientos invasivos.{' '}
-                <span className="text-white font-semibold">Solo ciencia aplicada al cuidado de tu cuerpo.</span>
+                Técnicas manuales orientadas a movilidad y bienestar, adaptadas a tu contexto.{' '}
+                <span className="text-white font-semibold">No sustituyen un diagnóstico ni un tratamiento sanitario.</span>
               </p>
 
               <ul className="space-y-3 pt-2">
@@ -148,29 +146,22 @@ export default function OsteopatiaRecuperacionPage() {
             <div className="text-center space-y-4 mb-fluid-sm">
               <span className="eyebrow justify-center">Cómo trabajo</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Trato la causa, <span className="text-gradient-brand">no solo el síntoma</span>
+                Primero el contexto, <span className="text-gradient-brand">después la intervención</span>
               </h2>
             </div>
             <div className="space-y-5 text-fluid-base text-white/80 leading-relaxed">
               <p>
-                Cuando algo te duele, lo fácil es tratar el punto donde sientes la molestia. El problema es que muchas
-                veces el dolor aparece en un sitio y se origina en otro. Mi enfoque de{' '}
-                <strong className="text-white">osteopatía en Madrid</strong> empieza por entender de dónde viene
-                realmente: tu postura, tus hábitos, tu forma de moverte y la actividad física que haces. Solo así el
-                alivio dura y el problema no vuelve a las dos semanas.
+                Antes de una sesión revisamos qué te preocupa, cómo te mueves y qué indicaciones sanitarias tienes.
+                El dolor puede tener causas distintas y una sesión manual no permite diagnosticarlas por sí sola.
               </p>
               <p>
-                En cada sesión combino técnicas manuales para liberar tensiones, recuperar movilidad y devolver al
-                cuerpo su capacidad natural de moverse sin dolor. Es un tratamiento sin fármacos ni procedimientos
-                invasivos, adaptado a tu tolerancia y a tu situación concreta. Tanto si vienes por una lesión deportiva,
-                una contractura persistente o simplemente para prevenir, el punto de partida siempre es una valoración
-                honesta de tu caso.
+                Las técnicas se adaptan a tu tolerancia y se revisa su utilidad según tu respuesta. No se prometen
+                curaciones, recuperación acelerada ni prevención garantizada. Si aparecen síntomas nuevos,
+                persistentes o preocupantes, corresponde consultar con un profesional sanitario.
               </p>
               <p>
-                La gran ventaja de tratarte conmigo es la integración con el entrenamiento. Cuando la osteopatía y tu
-                plan de ejercicio van de la mano, no solo resuelvo el problema actual: ajusto cómo entrenas para que no
-                reaparezca. Cuidar el cuerpo antes de que falle es mucho más rentable —y menos doloroso— que reparar
-                una lesión cuando ya te ha frenado.
+                Cuando también entrenas conmigo, podemos coordinar el trabajo de movilidad y la programación,
+                respetando los límites del servicio y las indicaciones de tu equipo sanitario.
               </p>
             </div>
           </div>

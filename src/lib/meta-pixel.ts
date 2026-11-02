@@ -1,6 +1,6 @@
 /** Meta solo recibe eventos genéricos en páginas públicas expresamente permitidas. */
 export const META_PIXEL_ID = '1856252045560196'
-export const CONSENT_KEY = 'wr_cookie_consent_v2'
+import { hasTrackingConsent } from '@/lib/cookie-consent'
 const PUBLIC_PATHS = new Set(['/', '/contacto', '/sobre-mi', '/filosofia', '/servicios', '/tarifas'])
 let excludedJourney = false
 
@@ -13,7 +13,7 @@ export function canTrackMeta(): boolean {
       const referrer = new URL(document.referrer)
       if (!safeUrl(referrer)) excludedJourney = true
     }
-    return !excludedJourney && localStorage.getItem(CONSENT_KEY) === 'accepted'
+    return !excludedJourney && hasTrackingConsent()
   } catch {
     return false
   }

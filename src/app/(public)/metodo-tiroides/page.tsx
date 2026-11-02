@@ -348,7 +348,7 @@ export default async function MetodoTiroidesPage() {
               {launchPhase === 'priority' ? (
                 <p className="mt-5 text-fluid-base leading-relaxed text-muted">Recibirás la clase gratuita ahora y el aviso prioritario cuando se abran las solicitudes. Apuntarte no reserva una plaza ni implica ningún pago.</p>
               ) : launchPhase === 'applications' ? (
-                <p className="mt-5 text-fluid-base leading-relaxed text-muted">Puedes realizar un pago único o {THYROID_PROGRAM.installmentCount} pagos de {THYROID_PROGRAM.installmentPrice} €. El pago solo se realiza después de hablar contigo y confirmar que el programa encaja. No hay ningún cobro en este formulario.</p>
+                <p className="mt-5 text-fluid-base leading-relaxed text-muted">Puedes realizar un pago único de {THYROID_PROGRAM.price} € o {THYROID_PROGRAM.installmentCount} pagos de {THYROID_PROGRAM.installmentPrice} €: {THYROID_PROGRAM.installmentCount * THYROID_PROGRAM.installmentPrice} € en total. El segundo pago se solicita a los 30 días del primero. El pago solo se realiza después de hablar contigo y confirmar que el programa encaja. No hay ningún cobro en este formulario.</p>
               ) : (
                 <p className="mt-5 text-fluid-base leading-relaxed text-muted">Ya no acepto nuevas solicitudes para este grupo. Puedes ver la clase gratuita y recibir contenidos para futuras ediciones.</p>
               )}

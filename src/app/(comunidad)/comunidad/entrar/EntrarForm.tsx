@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle2, LoaderCircle, Mail } from 'lucide-react'
 import { requestMagicLink, type MagicLinkResult } from '../actions'
 import styles from './entrar.module.css'
 
-export function EntrarForm({ errorMessage }: { errorMessage?: string }) {
+export function EntrarForm({ errorMessage, next = '/comunidad' }: { errorMessage?: string; next?: string }) {
   const [state, action, pending] = useActionState<MagicLinkResult | null, FormData>(requestMagicLink, null)
 
   if (state?.ok) {
@@ -22,6 +22,7 @@ export function EntrarForm({ errorMessage }: { errorMessage?: string }) {
 
   return (
     <form action={action} className={styles.form}>
+      <input type="hidden" name="next" value={next} />
       {(errorMessage || state?.error) && <p className={styles.error} role="alert">{errorMessage ?? state?.error}</p>}
       <label htmlFor="email">Email de acceso</label>
       <div className={styles.inputWrap}>

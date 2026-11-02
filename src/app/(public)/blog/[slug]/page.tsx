@@ -127,7 +127,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span className="inline-flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-accent" />
                 {new Date(post.published_at).toLocaleDateString('es-ES', {
-                  day: 'numeric', month: 'long', year: 'numeric',
+                  day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Madrid',
                 })}
               </span>
               {post.read_time && (

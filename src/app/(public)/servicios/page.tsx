@@ -1,3 +1,4 @@
+import ProgramComparison from '@/components/sections/ProgramComparison'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -15,7 +16,7 @@ import MagneticButton from '@/components/animations/MagneticButton'
 export const metadata = buildMetadata({
   title: 'Servicios | Entrenamiento, Nutrición y Osteopatía',
   description:
-    'Servicios de entrenamiento online personalizado, nutrición adaptada y osteopatía. Planes flexibles para gente con vida real. Sin extremos, solo resultados.',
+    'Método BASE Tiroides y entrenamiento individual: dos recorridos de 12 semanas con alcance y seguimiento claros. Educación alimentaria y movilidad como servicios complementarios.',
   path: '/servicios',
   keywords: [
     'servicios entrenamiento online',
@@ -31,7 +32,7 @@ const MAIN_SERVICE_FEATURES = [
   { icon: Video,         text: 'Vídeos explicativos de cada ejercicio' },
   { icon: BarChart3,     text: 'Tracking automático de tu progreso' },
   { icon: RefreshCw,     text: 'Revisión y ajuste semanal' },
-  { icon: MessageCircle, text: 'Soporte directo cuando lo necesites' },
+  { icon: MessageCircle, text: 'Contacto directo en los canales y tiempos acordados' },
   { icon: MapPin,        text: 'Adaptado a casa, gimnasio o donde entrenes' },
 ] as const
 
@@ -52,7 +53,7 @@ const OTHER_SERVICES = [
     icon: Bone,
     title: 'Osteopatía',
     href: '/servicios/osteopatia',
-    desc: 'Recuperación de lesiones, alivio de tensiones crónicas y optimización del rendimiento físico. La pieza que muchos entrenamientos ignoran. Sesiones presenciales en Madrid.',
+    desc: 'Técnicas manuales orientadas a movilidad y bienestar, con valoración previa y límites claros. Sesiones presenciales en Madrid que no sustituyen atención sanitaria.',
   },
 ] as const
 
@@ -97,7 +98,7 @@ export default function ServiciosPage() {
                 className="headline max-w-full text-[clamp(2.25rem,9.5vw,7rem)] leading-[0.94] text-white animate-fade-up"
               >
                 <span className="block sm:inline">Entrenamiento</span>{' '}
-                <span className="block sm:inline">y nutrición</span>
+                <span className="block sm:inline">y hábitos</span>
                 <span className="mt-2 block text-gradient-brand">para tu vida real.</span>
               </h1>
 
@@ -109,6 +110,7 @@ export default function ServiciosPage() {
           </HeroAnimation>
         </Container>
       </section>
+      <ProgramComparison />
 
       {/* ═══════════════ SERVICIO PRINCIPAL ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-dusk">

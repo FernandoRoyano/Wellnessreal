@@ -5,6 +5,8 @@ import { createAsesoriaSolicitud } from '@/lib/db/comunidad'
 import { upsertLead } from '@/lib/db/leads'
 import { attachAnonymousEventsToLead, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { getThyroidLaunchPhase } from '@/lib/metodo-tiroides'
+import { headers } from 'next/headers'
+import { rateLimit } from '@/lib/rateLimit'
 
 const attributionSchema = z.object({
   utm_source: z.string().max(120).optional(),
@@ -37,6 +39,11 @@ export async function applyToThyroidProgram(
   _previous: ThyroidApplicationState,
   formData: FormData
 ): Promise<ThyroidApplicationState> {
+  const requestHeaders = await headers()
+  const ip = requestHeaders.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  if (!rateLimit(`thyroid-application:${ip}`, 5, 15 * 60 * 1000).success) {
+    return { success: false, error: 'Espera unos minutos antes de enviar otra solicitud.' }
+  }
   if (getThyroidLaunchPhase() !== 'applications') {
     return { success: false, error: 'Las solicitudes no están abiertas en este momento.' }
   }

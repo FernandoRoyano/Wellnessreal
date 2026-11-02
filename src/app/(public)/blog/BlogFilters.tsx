@@ -1,25 +1,31 @@
 'use client'
 
-import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import { Calendar, Clock, Filter, ArrowRight, FileText } from 'lucide-react'
-import type { PostWithCategory, Category } from '@/lib/types/database'
+import type { Category } from '@/lib/types/database'
+import type { PostSummary } from '@/lib/db/posts'
+import { formatPostDate } from '@/lib/post-date'
 
 interface BlogFiltersProps {
-  posts: PostWithCategory[]
+  posts: PostSummary[]
   categories: Category[]
+  selectedCategory: string
+  page: number
+  totalPages: number
 }
 
-export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('Todos')
-
-  const filteredPosts = selectedCategory === 'Todos'
-    ? posts
-    : posts.filter(post => post.category?.title === selectedCategory)
-
-  const allCategories = ['Todos', ...categories.map(c => c.title)]
+export default function BlogFilters({ posts, categories, selectedCategory, page, totalPages }: BlogFiltersProps) {
+  const router = useRouter()
+  const allCategories = [{ slug: '', title: 'Todos' }, ...categories]
+  const urlFor = (category: string, number = 1) => {
+    const params = new URLSearchParams()
+    if (category) params.set('categoria', category)
+    if (number > 1) params.set('pagina', String(number))
+    return `/blog${params.size ? `?${params}` : ''}`
+  }
 
   return (
     <>
@@ -32,11 +38,13 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
               Filtros
             </span>
             {allCategories.map((category) => {
-              const active = selectedCategory === category
+              const active = selectedCategory === category.slug
               return (
                 <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
+                  key={category.slug}
+                  type="button"
+                  aria-pressed={active}
+                  onClick={() => router.push(urlFor(category.slug), { scroll: false })}
                   className={
                     'px-4 py-1.5 rounded-full text-fluid-xs font-semibold transition-all ' +
                     (active
@@ -44,7 +52,7 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                       : 'text-muted border border-border-subtle hover:text-white hover:border-border-strong bg-brand-night')
                   }
                 >
-                  {category}
+                  {category.title}
                 </button>
               )
             })}
@@ -55,14 +63,14 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
       {/* ═══════ Posts ═══════ */}
       <section className="relative py-fluid-xl bg-brand-deep">
         <Container>
-          {filteredPosts.length === 0 ? (
+          {posts.length === 0 ? (
             <div className="text-center py-fluid-lg max-w-md mx-auto space-y-4">
               <div className="w-14 h-14 rounded-2xl bg-accent-muted border border-border-subtle flex items-center justify-center mx-auto">
                 <FileText className="w-6 h-6 text-muted" />
               </div>
               <p className="text-fluid-lg text-muted">No hay artículos en esta categoría todavía.</p>
               <button
-                onClick={() => setSelectedCategory('Todos')}
+                onClick={() => router.push('/blog', { scroll: false })}
                 className="btn-ghost text-fluid-sm px-6 py-2.5"
               >
                 Ver todos los artículos
@@ -70,7 +78,7 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredPosts.map((post) => (
+              {posts.map((post) => (
                 <article
                   key={post.id}
                   className="surface-card hover-lift rounded-2xl overflow-hidden group flex flex-col"
@@ -113,9 +121,7 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                     <div className="flex items-center gap-4 text-fluid-xs text-subtle mb-5">
                       <span className="inline-flex items-center gap-1.5">
                         <Calendar className="w-3.5 h-3.5" />
-                        {new Date(post.published_at).toLocaleDateString('es-ES', {
-                          day: 'numeric', month: 'short', year: 'numeric',
-                        })}
+                        {formatPostDate(post.published_at)}
                       </span>
                       {post.read_time && (
                         <span className="inline-flex items-center gap-1.5">
@@ -137,6 +143,15 @@ export default function BlogFilters({ posts, categories }: BlogFiltersProps) {
                 </article>
               ))}
             </div>
+          )}
+          {totalPages > 1 && (
+            <nav aria-label="Páginas del blog" className="mt-10 flex flex-wrap justify-center gap-3">
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(number => (
+                <Link key={number} href={urlFor(selectedCategory, number)} aria-current={page === number ? 'page' : undefined} className={page === number ? 'btn-brand min-h-11 px-4' : 'btn-ghost min-h-11 px-4'}>
+                  <span className="sr-only">Página </span>{number}
+                </Link>
+              ))}
+            </nav>
           )}
         </Container>
       </section>

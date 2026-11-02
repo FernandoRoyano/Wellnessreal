@@ -3,38 +3,29 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Cookie } from 'lucide-react'
+import { CONSENT_KEY, saveCookieConsent } from '@/lib/cookie-consent'
 
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [reopened, setReopened] = useState(false)
 
   useEffect(() => {
-    const consent = localStorage.getItem('wr_cookie_consent_v2')
+    const consent = document.documentElement.dataset.cookieConsent
     // Se lee tras hidratar porque localStorage no existe durante el render del servidor.
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    if (!consent) setVisible(true)
-    const open = () => setVisible(true)
+    if (consent === 'accepted' || consent === 'rejected') setVisible(false)
+    const open = () => { setReopened(true); setVisible(true) }
     window.addEventListener('wr-open-cookie-settings', open)
     return () => window.removeEventListener('wr-open-cookie-settings', open)
   }, [])
 
   const accept = () => {
-    localStorage.setItem('wr_cookie_consent_v2', 'accepted')
-    // Consent Mode v2: concede analítica y publicidad a Google.
-    window.gtag?.('consent', 'update', {
-      ad_storage: 'granted',
-      analytics_storage: 'granted',
-      ad_user_data: 'granted',
-      ad_personalization: 'granted',
-    })
-    // Avisa a TrackingScripts para cargar Meta/TikTok (no tienen consent mode).
-    window.dispatchEvent(new Event('wr-consent-changed'))
+    saveCookieConsent('accepted')
     setVisible(false)
   }
 
   const reject = () => {
-    localStorage.setItem('wr_cookie_consent_v2', 'rejected')
-    window.gtag?.('consent', 'update', { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
-    window.dispatchEvent(new Event('wr-consent-changed'))
+    saveCookieConsent('rejected')
     setVisible(false)
   }
 
@@ -44,7 +35,8 @@ export default function CookieBanner() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="relative z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:fixed md:bottom-0 md:left-0 md:right-0 md:p-5 animate-fade-in"
+      data-initial={!reopened ? CONSENT_KEY : undefined}
+      className="cookie-banner relative z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:fixed md:bottom-0 md:left-0 md:right-0 md:p-5"
     >
       <div className="max-w-5xl mx-auto surface-card-accent rounded-xl p-3 shadow-xl md:rounded-2xl md:p-6 md:backdrop-blur-xl">
         <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:gap-5">

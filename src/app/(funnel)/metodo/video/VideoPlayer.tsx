@@ -13,7 +13,7 @@ export default function VideoPlayer({ url }: VideoPlayerProps) {
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     gsap.from(el, {
       opacity: 0,
       y: 40,

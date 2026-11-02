@@ -3,6 +3,7 @@ import { z } from 'zod'
 import { sendLeadEmail as sendEmail } from '@/lib/email'
 import { captureLead } from '@/lib/leadCapture'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
+import { getClientIp, rateLimit } from '@/lib/rateLimit'
 
 const OBJECTIVES = {
   'perder-grasa': 'Perder grasa',
@@ -44,6 +45,8 @@ function row(label: string, value: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const limit = rateLimit(`valuation:${getClientIp(request)}`, 5, 15 * 60 * 1000)
+    if (!limit.success) return NextResponse.json({ error: 'Espera unos minutos antes de enviar otra solicitud.' }, { status: 429 })
     const parsed = valuationSchema.safeParse(await request.json())
     if (!parsed.success) {
       return NextResponse.json(

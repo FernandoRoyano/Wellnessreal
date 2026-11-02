@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { href: '/servicios/entrenamiento-online', label: 'Entrenamiento personalizado' },
   { href: '/blog', label: 'Blog' },
   { href: '/sobre-mi', label: 'Sobre mí' },
+  { href: '/contacto', label: 'Contacto' },
 ] as const
 
 // Iconos de marca como SVG inline (lucide deprecó sus iconos de marca por temas de marca registrada)

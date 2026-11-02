@@ -1,4 +1,5 @@
 import { getStoredAttribution } from '@/lib/tracking'
+import { hasTrackingConsent } from '@/lib/cookie-consent'
 
 declare global {
   interface Window {
@@ -8,7 +9,7 @@ declare global {
 }
 
 function fireEvent(eventName: string, params?: Record<string, unknown>): void {
-  if (typeof window === 'undefined') return
+  if (!hasTrackingConsent()) return
   if (typeof window.gtag !== 'function') return
   window.gtag('event', eventName, params)
 }
@@ -72,16 +73,18 @@ function getTrackingId(key: string, storage: Storage): string {
 }
 
 export function identifyThyroidLead(leadId: string): void {
-  if (typeof window === 'undefined') return
+  if (!hasTrackingConsent()) return
   window.localStorage.setItem(THYROID_LEAD_KEY, leadId)
 }
 
 export function getThyroidTrackingContext(): { anonymousId: string; sessionId: string } | null {
-  if (typeof window === 'undefined') return null
-  return {
-    anonymousId: getTrackingId(THYROID_ANONYMOUS_KEY, window.localStorage),
-    sessionId: getTrackingId(THYROID_SESSION_KEY, window.sessionStorage),
-  }
+  if (!hasTrackingConsent()) return null
+  try {
+    return {
+      anonymousId: getTrackingId(THYROID_ANONYMOUS_KEY, window.localStorage),
+      sessionId: getTrackingId(THYROID_SESSION_KEY, window.sessionStorage),
+    }
+  } catch { return null }
 }
 
 export function trackThyroidFunnel(
@@ -95,7 +98,7 @@ export function trackThyroidFunnel(
     ].includes(key)),
   )
   fireEvent(event, safeMetadata)
-  if (typeof window === 'undefined' || !persist) return
+  if (!hasTrackingConsent() || !persist) return
 
   const attribution = new URLSearchParams(window.location.search)
   const storedAttribution = getStoredAttribution()

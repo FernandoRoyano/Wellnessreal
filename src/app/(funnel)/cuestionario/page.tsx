@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import Cuestionario from "./Cuestionario";
+import { createServerSupabase } from '@/lib/supabase-ssr'
+import { supabaseConfigStatus } from '@/lib/supabase-env'
 
 export const metadata: Metadata = {
   title: "Tu plan personalizado | WellnessReal",
@@ -13,5 +15,9 @@ export const metadata: Metadata = {
 export default async function Page({ searchParams }: { searchParams: Promise<{ origen?: string }> }) {
   const { origen } = await searchParams;
   if (origen !== "metodo-tiroides") redirect("/valoracion");
-  return <Cuestionario paidThyroidProgram />;
+  if (!supabaseConfigStatus().ok) redirect('/comunidad/entrar')
+  const auth = await createServerSupabase()
+  const { data: { user } } = await auth.auth.getUser()
+  if (!user?.email) redirect('/comunidad/entrar?next=%2Fcuestionario%3Forigen%3Dmetodo-tiroides')
+  return <Cuestionario paidThyroidProgram initialEmail={user.email} />;
 }

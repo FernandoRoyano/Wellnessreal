@@ -7,7 +7,7 @@ export default function HeroAnimation({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     let cancelled = false
     let timeline: ReturnType<typeof import('gsap').gsap.timeline> | null = null
@@ -36,5 +36,5 @@ export default function HeroAnimation({ children }: { children: React.ReactNode 
     }
   }, [])
 
-  return <div ref={ref}>{children}</div>
+  return <div ref={ref} className="w-full min-w-0">{children}</div>
 }

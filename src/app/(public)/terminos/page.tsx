@@ -27,7 +27,7 @@ export default function TerminosPage() {
             <h1 className="headline text-fluid-5xl text-white">
               Términos y <span className="text-gradient-brand">condiciones</span>
             </h1>
-            <p className="text-fluid-sm text-subtle">Última actualización: febrero 2026</p>
+            <p className="text-fluid-sm text-subtle">Última actualización: 2 de noviembre de 2026</p>
           </div>
 
           <div className="space-y-10 text-fluid-base text-muted leading-relaxed">
@@ -53,8 +53,9 @@ export default function TerminosPage() {
               <ul className="list-disc pl-6 space-y-2 marker:text-accent">
                 <li>La contratación de servicios se realiza a través de propuestas personalizadas enviadas de forma individual a cada cliente.</li>
                 <li>El cliente recibirá un enlace único donde podrá revisar la propuesta, aceptar las condiciones y realizar el pago.</li>
-                <li>La aceptación digital del contrato (nombre completo + checkbox de aceptación) tiene la misma validez que una firma manuscrita conforme a la Ley 59/2003 de Firma Electrónica.</li>
-                <li>El servicio comenzará una vez confirmado el pago.</li>
+                <li>La aceptación electrónica deja constancia del nombre, las condiciones aceptadas y la fecha. Se rige por la normativa aplicable de contratación electrónica y firma, incluido eIDAS y la Ley 6/2020; no se presenta como una firma electrónica cualificada.</li>
+                <li>La solicitud o valoración gratuita no implica contratar. Tras confirmar el pago y completar la evaluación, acordamos el inicio del servicio y la entrega del plan revisado.</li>
+                <li>Método BASE Tiroides y el entrenamiento individual duran 12 semanas. El alcance, revisiones, canales y tiempos de respuesta se detallan antes de contratar; no incluyen disponibilidad ilimitada ni atención sanitaria.</li>
               </ul>
             </LegalSection>
 
@@ -68,20 +69,21 @@ export default function TerminosPage() {
                     <li><strong className="text-white">Transferencia bancaria:</strong> a la cuenta indicada en la propuesta.</li>
                   </ul>
                 </li>
-                <li>El pago trimestral se abona íntegramente al inicio del periodo.</li>
+                <li>Método BASE Tiroides: 349 € en un pago o dos pagos de 185 € (370 € en total); el segundo se solicita a los 30 días del primero.</li>
+                <li>Entrenamiento individual: 750 € en un pago o tres pagos de 270 € (810 € en total). Las fechas se acuerdan en la propuesta. Estos programas no se renuevan como una suscripción indefinida.</li>
                 <li>Los precios pueden ser actualizados. El precio vigente será el indicado en la propuesta aceptada.</li>
               </ul>
             </LegalSection>
 
             <LegalSection title="5. Cancelación y reembolsos">
               <ul className="list-disc pl-6 space-y-2 marker:text-accent">
-                <li>Puedes cancelar tu suscripción en cualquier momento comunicándolo a info@wellnessreal.es.</li>
+                <li>Puedes solicitar la cancelación o comunicar un desistimiento por email a info@wellnessreal.es, identificando el servicio y la fecha de contratación.</li>
                 <li>
                   <strong className="text-white">Derecho de desistimiento:</strong> dispones de 14 días naturales desde
-                  la contratación para desistir sin necesidad de justificación, siempre que no se haya comenzado la
-                  prestación del servicio.
+                  la contratación a distancia para comunicar que deseas desistir, con las excepciones legalmente aplicables.
                 </li>
-                <li>Si el servicio ya ha comenzado, no se realizarán reembolsos por el periodo en curso.</li>
+                <li>Si solicitas expresamente empezar durante ese plazo y después desistes, podrá corresponder el importe proporcional del servicio efectivamente prestado, conforme a la normativa de consumo. El comienzo por sí solo no elimina automáticamente este derecho.</li>
+                <li>La excepción por ejecución completa del servicio requiere las condiciones legales de consentimiento previo y conocimiento de la pérdida del derecho. Las condiciones particulares no limitan los derechos obligatorios de las personas consumidoras.</li>
                 <li>
                   <strong className="text-white">Sesiones presenciales:</strong> se pueden cancelar o reprogramar con un
                   mínimo de 48 horas de antelación. Las cancelaciones con menos de 48h no serán reembolsadas.

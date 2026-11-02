@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test.beforeEach(async ({ page }) => {
   await page.route('**/api/funnel/tiroides/event', (route) => route.fulfill({ status: 204 }))
   await page.addInitScript(() => {
-    localStorage.setItem('wr_cookie_consent', 'rejected')
+    localStorage.setItem('wr_cookie_consent_v2', 'rejected')
     localStorage.setItem('wr_lead_submitted', '1')
   })
 })

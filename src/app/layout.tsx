@@ -87,8 +87,9 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" data-scroll-behavior="smooth" className={`${montserrat.variable} ${bricolage.variable}`}>
+    <html lang="es" suppressHydrationWarning data-scroll-behavior="smooth" className={`${montserrat.variable} ${bricolage.variable}`}>
       <head>
+        <script id="cookie-display" dangerouslySetInnerHTML={{ __html: `try{var c=localStorage.getItem('wr_cookie_consent_v2');if(c==='accepted'||c==='rejected')document.documentElement.dataset.cookieConsent=c;}catch(e){}` }} />
         <JsonLd data={organizationSchema()} />
         {GA_ID && (
           <>

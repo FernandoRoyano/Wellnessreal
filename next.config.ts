@@ -67,6 +67,7 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      { source: '/:path*', has: [{ type: 'host', value: 'www.wellnessreal.es' }], destination: 'https://wellnessreal.es/:path*', permanent: true },
       // WordPress common URLs
       {
         source: '/wp-admin',
@@ -159,7 +160,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/el-descanso-el-gran-olvidado',
-        destination: '/blog',
+        destination: '/blog/el-descanso-no-funciona',
         permanent: true,
       },
       {
@@ -230,7 +231,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/como-aumentar-tu-motivacion-y-lograr-resultados',
-        destination: '/blog',
+        destination: '/blog/habito-entrenar-sin-motivacion',
         permanent: true,
       },
       {
@@ -250,7 +251,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/agujetas',
-        destination: '/blog',
+        destination: '/blog/agujetas-mito-acido-lactico',
         permanent: true,
       },
       {
@@ -280,7 +281,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/como-entrenar-durant-el-ciclo-menstrual-guia-completa',
-        destination: '/blog',
+        destination: '/blog/entrenar-con-la-regla-fases-ciclo',
         permanent: true,
       },
       {
@@ -361,7 +362,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/cuanta-proteina-tomar-y-como-hacerlo',
-        destination: '/blog',
+        destination: '/blog/cuanta-proteina-necesitas-de-verdad',
         permanent: true,
       },
       // Feed URLs (noindex en Search Console)
@@ -550,7 +551,7 @@ const nextConfig: NextConfig = {
       },
       {
         source: '/foam-roller-ultimas-evidencias-y-como-aplicarlo',
-        destination: '/blog',
+        destination: '/blog/foam-roller-vibracion-recuperacion',
         permanent: true,
       },
       {

@@ -1,22 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendEmail } from '@/lib/email'
+import { z } from 'zod'
+import { escapeHtml, sanitizeHeader } from '@/lib/utils/escapeHtml'
+import { captureLead } from '@/lib/leadCapture'
+import { getClientIp, rateLimit } from '@/lib/rateLimit'
+
+const contactSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  email: z.email().transform(value => value.toLowerCase().trim()),
+  phone: z.string().trim().min(9).max(30),
+  subject: z.string().trim().min(5).max(200),
+  message: z.string().trim().min(10).max(5000),
+})
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json()
-    const { name, email, phone, subject, message } = body
-
-    if (!name || !email || !phone || !subject || !message) {
+    const limit = rateLimit(`contact:${getClientIp(request)}`, 5, 15 * 60 * 1000)
+    if (!limit.success) return NextResponse.json({ error: 'Has enviado varias consultas. Espera unos minutos antes de repetir.' }, { status: 429, headers: { 'Retry-After': String(limit.retryAfter) } })
+    const parsed = contactSchema.safeParse(await request.json())
+    if (!parsed.success) {
       return NextResponse.json(
         { error: 'Todos los campos son requeridos' },
         { status: 400 }
       )
     }
 
+    const data = parsed.data
+    await captureLead({ request, email: data.email, name: data.name, phone: data.phone, source: 'contacto' })
+    const name = escapeHtml(data.name), email = escapeHtml(data.email), phone = escapeHtml(data.phone)
+    const subject = escapeHtml(data.subject), message = escapeHtml(data.message)
     await sendEmail({
       to: ['info@wellnessreal.es', 'wellnessrealoficial@gmail.com'],
-      replyTo: email,
-      subject: `[WellnessReal] ${subject}`,
+      replyTo: data.email,
+      subject: `[WellnessReal] ${sanitizeHeader(data.subject)}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
           <div style="background: #16122B; padding: 20px; text-align: center;">
@@ -68,7 +84,7 @@ export async function POST(request: NextRequest) {
     })
 
   } catch (error) {
-    console.error('Error en API de contacto:', error)
+    console.error('[Contact:POST] Error procesando la consulta', error)
     return NextResponse.json(
       { error: 'Error al enviar el mensaje' },
       { status: 500 }

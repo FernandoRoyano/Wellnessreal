@@ -11,7 +11,8 @@
     "test:e2e": "playwright test",
     "test:a11y": "playwright test tests/e2e/accessibility.spec.ts",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json}\"",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check:content": "node scripts/check-public-content.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",

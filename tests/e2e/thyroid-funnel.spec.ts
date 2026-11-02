@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test'
 test.beforeEach(async ({ page }) => {
   await page.route('**/api/funnel/tiroides/event', (route) => route.fulfill({ status: 204 }))
   await page.addInitScript(() => {
-    localStorage.setItem('wr_cookie_consent', 'rejected')
+    localStorage.setItem('wr_cookie_consent_v2', 'rejected')
     localStorage.setItem('wr_lead_submitted', '1')
   })
 })
@@ -50,21 +50,12 @@ test('el test conduce desde la portada hasta un resultado accionable', async ({ 
   await expect(page.getByRole('link', { name: 'Entrar en la comunidad gratis' })).toBeVisible()
 })
 
-test('antes de abrir solicitudes se muestra la lista prioritaria', async ({ page }) => {
-  await page.route('**/api/tiroides-priority', (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify({ success: true, leadId: 'lead-priority-e2e' }),
-    })
-  )
+test('las solicitudes abiertas muestran alcance, precio y formulario sin cobrar', async ({ page }) => {
   await page.goto('/metodo-tiroides#solicitud')
-  await expect(page.getByRole('heading', { name: 'Recibe primero la apertura' })).toBeVisible()
-  await page.getByLabel('Nombre').fill('Prueba WellnessReal')
-  await page.getByLabel('Email', { exact: true }).fill('prueba@example.com')
-  await page.getByRole('button', { name: 'Entrar en la lista prioritaria' }).click()
-
-  await expect(page.getByRole('heading', { name: 'Estás en la lista prioritaria' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Cuéntame desde dónde empiezas' })).toBeVisible()
+  await expect(page.getByRole('button', { name: 'Solicitar mi plaza' })).toBeVisible()
+  await expect(page.getByText(/370 € en total/)).toBeVisible()
+  await expect(page.getByText(/No hay ningún cobro en este formulario/)).toBeVisible()
 })
 
 test('la clase gratuita conserva contenido útil cuando no hay vídeo configurado', async ({ page }) => {

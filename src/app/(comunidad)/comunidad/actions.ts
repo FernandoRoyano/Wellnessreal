@@ -75,7 +75,7 @@ export async function requestMagicLink(
     const { error } = await supabase.auth.signInWithOtp({
       email,
       options: {
-        emailRedirectTo: `${origin}/comunidad/confirmar`,
+        emailRedirectTo: `${origin}/comunidad/confirmar?next=${encodeURIComponent(safeInternalPath(String(formData.get('next') ?? ''), '/comunidad'))}`,
         shouldCreateUser: true,
       },
     })

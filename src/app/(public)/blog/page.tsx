@@ -1,11 +1,12 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
 import { ArrowRight, Sparkles } from 'lucide-react'
-import { getAllPosts, getAllCategories } from '@/lib/db/posts'
+import { getPostSummaries, getAllCategories } from '@/lib/db/posts'
+import { notFound } from 'next/navigation'
 import BlogFilters from './BlogFilters'
 import { buildMetadata } from '@/lib/seo'
 
-export const metadata = buildMetadata({
+const metadata = buildMetadata({
   title: 'Blog | Consejos de Entrenamiento y Nutrición',
   description:
     'Blog de entrenamiento y nutrición sin rodeos. Consejos prácticos, artículos de fitness y guías para ponerte en forma de verdad.',
@@ -21,11 +22,32 @@ export const metadata = buildMetadata({
 
 export const revalidate = 60
 
-export default async function BlogPage() {
-  const [posts, categories] = await Promise.all([
-    getAllPosts(),
-    getAllCategories(),
-  ])
+type BlogParams = { categoria?: string; pagina?: string }
+const pageNumber = (value?: string) => value && /^\d+$/.test(value) && Number(value) > 0 && Number(value) < 10_000 ? Number(value) : 1
+
+export async function generateMetadata({ searchParams }: { searchParams: Promise<BlogParams> }) {
+  const params = await searchParams
+  const page = pageNumber(params.pagina)
+  const query = new URLSearchParams()
+  if (params.categoria) query.set('categoria', params.categoria)
+  if (page > 1) query.set('pagina', String(page))
+  return {
+    ...metadata,
+    ...(page > 1 ? { title: `Blog · Página ${page}` } : {}),
+    alternates: { canonical: `https://wellnessreal.es/blog${query.size ? `?${query}` : ''}` },
+    ...(params.categoria ? { robots: { index: false, follow: true } } : {}),
+  }
+}
+
+export default async function BlogPage({ searchParams }: { searchParams: Promise<BlogParams> }) {
+  const params = await searchParams
+  const page = pageNumber(params.pagina)
+  const categories = await getAllCategories()
+  const category = params.categoria ? categories.find(item => item.slug === params.categoria) : undefined
+  if (params.categoria && !category) notFound()
+  const { posts, total } = await getPostSummaries(page, 12, category?.id)
+  const totalPages = Math.max(1, Math.ceil(total / 12))
+  if (page > totalPages) notFound()
 
   return (
     <>
@@ -57,7 +79,7 @@ export default async function BlogPage() {
       </section>
 
       {/* ═══════════════ POSTS + FILTROS ═══════════════ */}
-      <BlogFilters posts={posts} categories={categories} />
+      <BlogFilters posts={posts} categories={categories} selectedCategory={category?.slug ?? ''} page={page} totalPages={totalPages} />
 
       {/* ═══════════════ LEAD MAGNET ═══════════════ */}
       <section className="relative py-fluid-lg bg-brand-dusk">

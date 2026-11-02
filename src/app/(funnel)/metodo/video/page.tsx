@@ -82,11 +82,6 @@ export default function MetodoVideoPage() {
                 badge: '-21kg en 14 meses',
               },
               {
-                text: '"A los 45 me dijeron que tenía colesterol alto y tensión límite. En 12 meses perdí 19kg y dejé la medicación. Mi médico no se lo creía."',
-                author: 'Hombre, 45 años',
-                badge: '-19kg · sin medicación',
-              },
-              {
                 text: '"Empecé en 88kg y terminé en 86kg. Casi igual en la báscula — pero la ropa me queda distinta. Tengo músculo donde no había nada."',
                 author: 'Mujer, 34 años',
                 badge: 'Recomposición corporal',

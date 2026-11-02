@@ -19,8 +19,9 @@ export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
+    '@id': 'https://wellnessreal.es/#organization',
     name: 'WellnessReal',
-    url: 'https://wellnessreal.es/sobre-mi',
+    url: 'https://wellnessreal.es',
     logo: 'https://wellnessreal.es/images/logos/WR_AUX_normal_bg.png',
     email: 'info@wellnessreal.es',
     telephone: '+34633261963',
@@ -38,6 +39,7 @@ export function localBusinessSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'HealthAndBeautyBusiness',
+    '@id': 'https://wellnessreal.es/#organization',
     name: 'WellnessReal',
     description:
       'Entrenamiento online personalizado, nutrición y osteopatía. Planes adaptados a tu vida real.',
@@ -164,7 +166,8 @@ export function articleSchema(article: {
     author: {
       '@type': 'Person',
       name: article.author,
-      url: 'https://wellnessreal.es',
+      '@id': 'https://wellnessreal.es/sobre-mi#person',
+      url: 'https://wellnessreal.es/sobre-mi',
     },
     publisher: {
       '@type': 'Organization',
@@ -204,35 +207,11 @@ export function offerSchema(offers: { name: string; price: string; description: 
   }
 }
 
-export function reviewSchema(reviews: { text: string; author: string; result: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    name: 'WellnessReal',
-    aggregateRating: {
-      '@type': 'AggregateRating',
-      ratingValue: '5',
-      reviewCount: String(reviews.length),
-      bestRating: '5',
-      worstRating: '1',
-    },
-    review: reviews.map((r) => ({
-      '@type': 'Review',
-      reviewBody: r.text,
-      author: { '@type': 'Person', name: r.author },
-      reviewRating: {
-        '@type': 'Rating',
-        ratingValue: '5',
-        bestRating: '5',
-      },
-    })),
-  }
-}
-
 export function personSchema() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
+    '@id': 'https://wellnessreal.es/sobre-mi#person',
     name: 'Fernando Royano',
     jobTitle: 'Entrenador Personal Online',
     url: 'https://wellnessreal.es',
