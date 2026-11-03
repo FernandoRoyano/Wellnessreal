@@ -10,6 +10,16 @@
 
 Los vídeos no son un requisito para este recorrido.
 
+## Calendario y avisos a Fernando
+
+El área privada y los correos comparten el cálculo de semana desde la primera aprobación. El registro del recorrido conserva la fecha entre versiones; los clientes anteriores que todavía no tengan registro usan su primera aprobación guardada. Un borrador inicial muestra «Pendiente de aprobación», y una actualización pendiente mantiene disponible el último plan aprobado. Pausa, finalización y cierre tienen estados explícitos.
+
+La apertura de cada siguiente bloque de Tiroides exige 21 días desde la aprobación de la versión vigente, tanto en la interfaz como en `/api/checkin`. Crear el borrador o registrar el pago antes no adelanta la apertura. Si falta la fecha de aprobación, se pide confirmarla con Fernando. Los programas generales conservan su criterio anterior de cuatro semanas.
+
+Los nuevos borradores guardan `meta.notify_review` y generan un aviso a `info@wellnessreal.es` con enlace al panel. El cron recupera avisos interrumpidos; no incorpora borradores históricos sin esa marca. Si el cliente vuelve a enviar su evaluación, se reutiliza el mismo aviso del borrador existente.
+
+Los rechazos y resultados de envío sin confirmar generan un aviso administrativo por cada correo afectado. Si el correo original se recupera antes de enviar el aviso, este se omite. Los fallos de un aviso administrativo no crean cadenas de nuevos avisos. Si el propio proveedor de correo está caído, el aviso permanece registrado para gestionar el incidente en el panel; no se puede garantizar una alerta por ese mismo canal durante su caída.
+
 ## Persistencia y operación
 
 Se reutiliza `asesoria_solicitudes.notas`, ya empleada para pagos y reservas de generación. El marcador versionado `[lifecycle:v1:…]` contiene el registro de avisos. Los cambios comparan la versión anterior de las notas para conservar las escrituras concurrentes. No requiere migración ni cambia RLS. No editar a mano el marcador.

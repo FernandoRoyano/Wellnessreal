@@ -4,8 +4,9 @@ import { EmailDeliveryError, sendEmail } from '@/lib/email'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
 import { currentWeekStart } from '@/lib/community-tools'
 import { createHash } from 'node:crypto'
+import { programProgress } from '@/lib/program-calendar'
 
-type NoticeKind = 'application' | 'welcome' | 'ready' | 'checkin' | 'review' | 'closing'
+type NoticeKind = 'application' | 'welcome' | 'ready' | 'checkin' | 'review' | 'closing' | 'admin_review' | 'admin_delivery'
 type NoticeStatus = 'pending' | 'sending' | 'sent' | 'failed' | 'uncertain' | 'skipped'
 interface MailContent { to: string; subject: string; html: string; replyTo: string }
 export interface LifecycleNotice {
@@ -14,6 +15,7 @@ export interface LifecycleNotice {
   dueAt: string
   status: NoticeStatus
   programId?: string
+  relatedKey?: string
   week?: number
   lease?: string
   attemptedAt?: string
@@ -81,6 +83,7 @@ export function lifecycleEmail(application: ApplicationRecord, notice: Lifecycle
   let content: string
   let label = 'Entrar en mi programa'
   let path = PORTAL
+  let to = application.email
   switch (notice.kind) {
     case 'application':
       subject = 'Hemos recibido tu solicitud · WellnessReal'
@@ -114,14 +117,66 @@ export function lifecycleEmail(application: ApplicationRecord, notice: Lifecycle
       subject = 'Cierre de tus 12 semanas: próximos pasos · WellnessReal'
       content = `<h1>Revisamos el recorrido y el siguiente paso</h1><p>Hola ${name}. Han transcurrido las 12 semanas desde la aprobación de tu primer plan.</p><p>Antes de cerrar esta etapa, revisa tu punto de partida, lo que has podido sostener y lo que todavía necesita ajustes. Completa tu último check-in y responde a este correo para compartirlo con Fernando y acordar las pautas que te llevarás para continuar.</p><p>Si quieres seguir con acompañamiento, coméntalo con Fernando. La continuidad se acuerda por separado: no hay renovación automática ni nuevos cobros por este cierre.</p>`
       break
+    case 'admin_review':
+      to = 'info@wellnessreal.es'
+      subject = 'Hay un plan pendiente de revisión · WellnessReal'
+      content = `<h1>Plan preparado para revisar</h1><p>La evaluación o actualización de ${name} ya tiene un borrador guardado.</p><p>Revisa el plan en el panel y apruébalo cuando esté listo para entregarlo. El cliente recibirá su aviso después de la aprobación.</p>`
+      path = `/admin/programas/${encodeURIComponent(notice.programId ?? '')}`
+      label = 'Revisar el plan'
+      break
+    case 'admin_delivery':
+      to = 'info@wellnessreal.es'
+      subject = 'Un correo de acompañamiento necesita revisión · WellnessReal'
+      content = `<h1>Revisar un envío</h1><p>Un aviso dirigido a ${name} ha sido rechazado o su entrega no se ha podido confirmar.</p><p>Comprueba su estado en Solicitudes y en el proveedor antes de reenviarlo. Un resultado sin confirmar puede corresponder a un correo ya enviado.</p>`
+      path = '/admin/comunidad/asesoria'
+      label = 'Consultar el envío'
+      break
   }
-  const href = notice.kind === 'application'
+  const href = notice.kind === 'application' || notice.kind.startsWith('admin_')
     ? `${process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'https://wellnessreal.es'}${path}`
     : loginLink(path)
   return {
-    to: application.email, subject, replyTo: 'info@wellnessreal.es',
+    to, subject, replyTo: 'info@wellnessreal.es',
     html: `<div style="max-width:600px;margin:auto;padding:32px;background:#16122b;color:#fff;font-family:Arial,sans-serif;line-height:1.7"><p style="color:#fcee21;font-weight:700">WELLNESSREAL</p>${content}<p><a href="${escapeHtml(href)}" style="display:inline-block;padding:14px 22px;background:#fcee21;color:#16122b;text-decoration:none;border-radius:10px;font-weight:700">${label}</a></p><p>Fernando · WellnessReal<br>¿Necesitas ayuda? Responde a este correo.</p></div>`,
   }
+}
+
+/** La marca del borrador permite que el cron recupere un aviso interrumpido. */
+export async function queueProgramReview(programId: string): Promise<number> {
+  const { data: program, error } = await supabase.from('programas_generados')
+    .select('id,vigente,revisado,cliente:cliente_perfil(email)').eq('id', programId).single()
+  if (error) throw new Error('[ThyroidLifecycle:review] No se pudo consultar el borrador')
+  if (!program?.vigente || program.revisado) return 0
+  const client = program.cliente as unknown as { email: string } | null
+  if (!client) return 0
+  const { data: application, error: applicationError } = await supabase.from('asesoria_solicitudes')
+    .select('id').eq('estado', 'pagada').ilike('email', client.email.replace(/[\\%_]/g, '\\$&'))
+    .order('creado_en', { ascending: false }).limit(1).maybeSingle()
+  if (applicationError) throw new Error('[ThyroidLifecycle:review] No se pudo consultar la solicitud')
+  if (!application) return 0
+  await mutateApplication(application.id, (current) => {
+    const notes = enqueueNotice(current.notas, { key: `admin-review:${programId}`, kind: 'admin_review', programId, dueAt: new Date().toISOString() })
+    return notes === current.notas ? null : { notas: notes }
+  })
+  return deliverApplicationMessages(application.id)
+}
+
+async function queueDeliveryAlerts(id: string): Promise<boolean> {
+  let added = false
+  await mutateApplication(id, (application) => {
+    added = false
+    const state = readLifecycle(application.notas)
+    let notes = application.notas
+    for (const notice of state.messages) {
+      if (notice.kind.startsWith('admin_') || !notice.error || !['failed', 'uncertain', 'pending', 'sending'].includes(notice.status)) continue
+      const key = `admin-delivery:${notice.key}`
+      if (state.messages.some((message) => message.key === key)) continue
+      notes = enqueueNotice(notes, { key, kind: 'admin_delivery', relatedKey: notice.key, dueAt: new Date().toISOString() })
+      added = true
+    }
+    return added && notes ? { notas: notes } : null
+  })
+  return added
 }
 
 /** Solo las nuevas aprobaciones activan el recorrido; nunca se importa un histórico. */
@@ -156,6 +211,15 @@ async function activeClient(application: ApplicationRecord): Promise<ClientState
 }
 
 async function noticeAllowed(application: ApplicationRecord, notice: LifecycleNotice): Promise<'send' | 'wait' | 'skip'> {
+  if (notice.kind === 'admin_delivery') {
+    const related = readLifecycle(application.notas).messages.find((message) => message.key === notice.relatedKey)
+    return related && ['sent', 'skipped'].includes(related.status) ? 'skip' : 'send'
+  }
+  if (notice.kind === 'admin_review') {
+    const { data: draft, error } = await supabase.from('programas_generados').select('vigente,revisado').eq('id', notice.programId!).maybeSingle()
+    if (error) throw new Error('[ThyroidLifecycle:review] No se pudo consultar la revisión')
+    return application.estado === 'pagada' && draft?.vigente && !draft.revisado ? 'send' : 'skip'
+  }
   if (notice.kind === 'application') return application.estado === 'descartada' ? 'skip' : 'send'
   if (notice.kind === 'welcome') return application.estado === 'pagada' ? 'send' : 'wait'
   const client = await activeClient(application)
@@ -214,7 +278,8 @@ export async function deliverApplicationMessages(id: string): Promise<number> {
   const application = await mutateApplication(id, () => null)
   for (const candidate of readLifecycle(application.notas).messages) {
     if (!['pending', 'sending'].includes(candidate.status) || Date.parse(candidate.dueAt) > Date.now()) continue
-    const allowed = await noticeAllowed(application, candidate)
+    const current = await mutateApplication(id, () => null)
+    const allowed = await noticeAllowed(current, candidate)
     if (allowed === 'wait') continue
     const lease = crypto.randomUUID()
     const claimed = await mutateApplication(id, (current) => {
@@ -268,16 +333,22 @@ export async function deliverApplicationMessages(id: string): Promise<number> {
     await finishNotice(id, notice.key, lease, 'sent')
     sent += 1
   }
+  // Los avisos administrativos no generan otros avisos si falla su proveedor.
+  if (await queueDeliveryAlerts(id)) sent += await deliverApplicationMessages(id)
   return sent
 }
 
 export async function startJourney(id: string, programId: string): Promise<void> {
   const { data: program, error } = await supabase.from('programas_generados').select('cliente_id,revisado_en,revisado').eq('id', programId).single()
   if (error || !program?.revisado || !program.revisado_en) throw new Error('[ThyroidLifecycle:start] No se pudo confirmar el inicio')
+  const { data: firstApproval, error: approvalError } = await supabase.from('programas_generados')
+    .select('revisado_en').eq('cliente_id', program.cliente_id).eq('revisado', true)
+    .not('revisado_en', 'is', null).order('revisado_en', { ascending: true }).limit(1).maybeSingle()
+  if (approvalError) throw new Error('[ThyroidLifecycle:start] No se pudo consultar la primera aprobación')
   await mutateApplication(id, (application) => {
     const state = readLifecycle(application.notas)
     if (state.startedAt) return null
-    state.startedAt = program.revisado_en
+    state.startedAt = firstApproval?.revisado_en ?? program.revisado_en
     state.clientId = program.cliente_id
     return { notas: writeLifecycle(application.notas, state) }
   })
@@ -290,7 +361,7 @@ export function scheduleJourney(notes: string | null, now = new Date()): string 
   const days = Math.floor((now.getTime() - start) / DAY)
   if (days < 0) return null
   // Un único aviso al final de cada semana; las semanas 4 y 9 preparan la revisión.
-  const week = Math.min(12, Math.floor(days / 7) + 1)
+  const week = programProgress(state.startedAt, now.getTime()).week
   if (week === 12 && days < 84) return null // El cierre incluye el último check-in.
   const dueDay = [4, 9].includes(week) ? (week - 1) * 7 : week * 7 - 1
   if (days < 84 && days < dueDay) return null
@@ -303,6 +374,18 @@ export function scheduleJourney(notes: string | null, now = new Date()): string 
 export async function processThyroidLifecycle(): Promise<{ sent: number; errors: number }> {
   let sent = 0
   let errors = 0
+  for (let offset = 0; ; offset += 100) {
+    const { data: drafts, error: draftError } = await supabase.from('programas_generados').select('id')
+      .eq('vigente', true).eq('revisado', false).contains('meta', { notify_review: true }).order('id').range(offset, offset + 99)
+    if (draftError) throw new Error('[ThyroidLifecycle:cron] No se pudieron consultar las revisiones pendientes')
+    for (const draft of drafts ?? []) {
+      try { sent += await queueProgramReview(draft.id) } catch {
+        errors += 1
+        console.error('[ThyroidLifecycle:cron] Revisión pendiente de aviso', { programId: draft.id })
+      }
+    }
+    if (!drafts || drafts.length < 100) break
+  }
   // Paginar evita que solicitudes antiguas dejen fuera las nuevas.
   for (let offset = 0; ; offset += 100) {
     const { data, error } = await supabase.from('asesoria_solicitudes').select('id')

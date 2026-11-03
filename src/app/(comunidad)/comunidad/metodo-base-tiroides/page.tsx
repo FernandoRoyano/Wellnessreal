@@ -16,6 +16,7 @@ import { supabase } from '@/lib/supabase'
 import { THYROID_PROGRAM_WEEKS } from '@/lib/metodo-tiroides'
 import { getDefaultThyroidRoadmap } from '@/lib/metodo-tiroides-template'
 import type { Programa } from '@/lib/programa-schema'
+import { getThyroidProgramProgress } from '@/lib/thyroid-program-progress'
 
 export const metadata: Metadata = {
   title: 'Método BASE Tiroides · Tu programa',
@@ -87,10 +88,16 @@ export default async function MetodoBaseTiroidesMemberPage() {
       ])
     : [{ data: null }, { data: [] }]
 
-  const currentWeek = Math.min(12, Math.max(0, profile?.semana_actual ?? 0))
+  const progress = profile ? await getThyroidProgramProgress(profile.id, member.email) : null
+  const currentWeek = progress?.week ?? 0
   const currentPhaseIndex = currentWeek > 0 ? Math.floor((currentWeek - 1) / 3) : 0
   const week = currentWeek > 0 ? THYROID_PROGRAM_WEEKS[currentWeek - 1] : null
-  const programReady = Boolean(programResult.data?.revisado && profile?.token)
+  const programReady = Boolean((currentWeek > 0 || programResult.data?.revisado) && profile?.token)
+  const status = currentWeek === 0 ? programResult.data?.revisado ? 'Fecha de inicio pendiente' : 'Pendiente de aprobación'
+    : profile?.estado_programa === 'pausado' ? 'Programa en pausa'
+      : profile?.estado_programa === 'finalizado' ? 'Programa finalizado'
+        : progress?.complete ? '12 semanas completadas'
+        : `Semana ${currentWeek} de 12`
   const events = (eventsResult.data ?? []) as ClientEvent[]
   const program = programResult.data?.programa as Programa | undefined
   const vision = program?.vision_12_semanas ?? getDefaultThyroidRoadmap()
@@ -106,8 +113,8 @@ export default async function MetodoBaseTiroidesMemberPage() {
           </div>
           <div className="rounded-2xl border border-white/10 bg-black/15 px-6 py-5 lg:min-w-56">
             <small className="text-xs uppercase tracking-wider text-white/40">Estado actual</small>
-            <strong className="mt-2 block text-xl text-white">{currentWeek === 0 ? 'Preparación' : `Semana ${currentWeek} de 12`}</strong>
-            <span className="mt-1 block text-sm text-[#FCEE21]">{week?.title ?? 'Se activa cuando tu plan esté aprobado'}</span>
+            <strong className="mt-2 block text-xl text-white">{status}</strong>
+            <span className="mt-1 block text-sm text-[#FCEE21]">{progress?.complete ? 'Coordina con Fernando el balance y los siguientes pasos' : week?.title ?? 'Se activa cuando tu plan esté aprobado'}</span>
           </div>
         </div>
       </header>
@@ -123,13 +130,15 @@ export default async function MetodoBaseTiroidesMemberPage() {
               <Dumbbell className="text-[#FCEE21]" />
               <h3 className="mt-8 text-lg font-bold">Abrir mi plan</h3>
               <p className="mt-2 text-sm leading-relaxed text-white/50">Consulta ejercicios, alternativas, progresión y alimentación.</p>
+              {programResult.data?.revisado === false && <p className="mt-2 text-sm text-[#FCEE21]">Tu siguiente ajuste está en revisión. Puedes consultar el último plan aprobado.</p>}
               <span className="mt-6 flex items-center gap-2 text-sm font-bold text-[#FCEE21]">Ver plan <ArrowRight size={15} className="transition group-hover:translate-x-1" /></span>
             </Link>
           ) : (
             <article className="rounded-2xl border border-white/10 bg-white/[.035] p-6">
               <Dumbbell className="text-white/45" />
-              <h3 className="mt-8 text-lg font-bold">Plan en preparación</h3>
-              <p className="mt-2 text-sm leading-relaxed text-white/50">Aparecerá aquí cuando Fernando termine de revisarlo y aprobarlo.</p>
+              <h3 className="mt-8 text-lg font-bold">{profile ? 'Plan en preparación' : 'Completa tu evaluación inicial'}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/50">{profile ? 'Aparecerá aquí cuando Fernando termine de revisarlo y aprobarlo.' : 'Necesitamos tu punto de partida antes de preparar el plan.'}</p>
+              {!profile && <Link href="/cuestionario?origen=metodo-tiroides" className="mt-4 inline-block text-sm font-bold text-[#FCEE21]">Completar evaluación <ArrowRight size={15} className="inline" /></Link>}
             </article>
           )}
           <Link href="/comunidad/mi-semana#checkin" className="group rounded-2xl border border-white/10 bg-white/[.035] p-6 transition hover:-translate-y-1 hover:border-white/20">
@@ -147,7 +156,7 @@ export default async function MetodoBaseTiroidesMemberPage() {
         </div>
       </section>
 
-      {week && (
+      {week && !progress?.complete && profile?.estado_programa !== 'finalizado' && (
         <section className="grid gap-6 rounded-3xl border border-white/10 bg-[#17132f] p-7 md:grid-cols-[auto_1fr] md:p-9">
           <span className="headline text-6xl text-[#FCEE21]">{String(week.week).padStart(2, '0')}</span>
           <div>
@@ -166,9 +175,9 @@ export default async function MetodoBaseTiroidesMemberPage() {
         </div>
         <ol className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
           {vision.bloques.map((phase, index) => {
-            const isActive = currentWeek > 0 && index === currentPhaseIndex
-            const isComplete = currentWeek > 0 && index < currentPhaseIndex
-            const status = isComplete ? 'Completado' : isActive ? 'Bloque activo' : currentWeek === 0 && index === 0 ? 'Preparación' : 'Pendiente de revisión'
+            const isActive = currentWeek > 0 && !progress?.complete && index === currentPhaseIndex
+            const isComplete = progress?.complete || currentWeek > 0 && index < currentPhaseIndex
+            const status = isComplete ? 'Bloque transcurrido' : isActive ? 'Bloque actual' : currentWeek === 0 && index === 0 ? 'Preparación' : 'Pendiente de revisión'
             return <li key={phase.semanas} className={`relative overflow-hidden rounded-2xl border p-6 ${isActive ? 'border-[#FCEE21]/40 bg-[#FCEE21]/[.08]' : 'border-white/10 bg-[#17132f]'}`}>
               <div className="flex items-center justify-between gap-3">
                 <span className={`text-xs font-bold uppercase tracking-wider ${isActive ? 'text-[#FCEE21]' : 'text-white/35'}`}>{phase.semanas}</span>

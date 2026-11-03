@@ -72,7 +72,7 @@ const FAQ = [
   {
     question: '¿Qué ocurre después de pagar?',
     answer:
-      'Completarás el cuestionario de incorporación. Revisaré tu punto de partida y prepararé el primer bloque antes del inicio. Después recibirás acceso al espacio del grupo, el calendario y las instrucciones de la primera semana.',
+      'Recibirás un correo con los pasos para entrar usando el mismo email de tu compra y completar la evaluación inicial. Revisaré tu punto de partida y aprobaré tu plan antes de entregártelo. Te avisaré por correo cuando esté listo; podrás abrirlo en tu espacio y consultar el calendario y las instrucciones. Las 12 semanas empiezan con la aprobación de tu primer plan, sin esperar a que se forme un grupo.',
   },
 ] as const
 

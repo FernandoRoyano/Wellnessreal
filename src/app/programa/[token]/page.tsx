@@ -6,6 +6,8 @@ import ProgramaDocumento from '@/components/programa/ProgramaDocumento'
 import CheckinProgreso from '@/components/programa/CheckinProgreso'
 import type { Programa } from '@/lib/programa-schema'
 import { Download } from 'lucide-react'
+import { planUpdateAvailability } from '@/lib/program-calendar'
+import { getThyroidProgramProgress } from '@/lib/thyroid-program-progress'
 
 export const metadata: Metadata = {
   title: 'Tu plan · WellnessReal',
@@ -35,35 +37,16 @@ export default async function ProgramaPublicoPage({
   // Plan vigente (revisado o no) — para el teaser de pago y el check-in.
   const { data: vigenteRow } = await supabase
     .from('programas_generados')
-    .select('programa, creado_en, revisado')
+    .select('programa, creado_en, revisado, revisado_en')
     .eq('cliente_id', perfil.id)
     .eq('vigente', true)
     .order('version', { ascending: false })
     .limit(1)
     .maybeSingle()
 
-  // Elegibilidad del check-in de progreso: plan vigente revisado con ≥4 semanas.
-  // Ancla = lo más reciente entre el alta (pagado_en) y la fecha del plan vigente,
-  // para que un recién suscrito no pueda progresar el día 1.
-  const anclaMs = Math.max(
-    vigenteRow?.creado_en ? new Date(vigenteRow.creado_en).getTime() : 0,
-    perfil.pagado_en ? new Date(perfil.pagado_en).getTime() : 0,
-  )
-  // Es una página dinámica: el cálculo debe usar el momento real de cada petición.
-  // eslint-disable-next-line react-hooks/purity
-  const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
-  const { data: thyroidPayment } = await supabase
-    .from('asesoria_solicitudes')
-    .select('id')
-    .ilike('email', perfil.email)
-    .eq('estado', 'pagada')
-    .limit(1)
-    .maybeSingle()
-  const cycleWeeks = thyroidPayment ? 3 : 4
-  const cycleDays = cycleWeeks * 7
+  const progress = await getThyroidProgramProgress(perfil.id, perfil.email)
+  const availability = planUpdateAvailability(vigenteRow, perfil.pagado_en, progress.hasThyroidPayment)
   const enRevision = vigenteRow?.revisado === false
-  const puedeActualizar = !!vigenteRow && vigenteRow.revisado === true && diasDesde >= cycleDays
-  const disponibleEnDias = Math.max(0, Math.ceil(cycleDays - diasDesde))
 
   // Último plan APROBADO (revisado) — lo que ve el cliente una vez pagado/entregado.
   const { data: aprobadoRow } = await supabase
@@ -98,10 +81,11 @@ export default async function ProgramaPublicoPage({
       <CheckinProgreso
         token={token}
         tier={perfil.plan_tier}
-        puedeActualizar={puedeActualizar}
+        puedeActualizar={availability.eligible}
         enRevision={enRevision}
-        disponibleEnDias={disponibleEnDias}
-        cycleWeeks={cycleWeeks}
+        disponibleEnDias={availability.daysRemaining}
+        cycleWeeks={availability.cycleWeeks}
+        approvalDatePending={availability.approvalDatePending}
       />
     </Shell>
   )

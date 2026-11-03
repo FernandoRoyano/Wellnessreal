@@ -5,13 +5,13 @@ import vm from 'node:vm'
 import ts from 'typescript'
 
 function load(file, dependencies = {}) {
-  const module = { exports: {} }
+  const compiled = { exports: {} }
   const source = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
-  vm.runInNewContext(source, { module, exports: module.exports, console, Date, URL, Map, Set, require: name => {
+  vm.runInNewContext(source, { module: compiled, exports: compiled.exports, console, Date, URL, Map, Set, require: name => {
     if (!(name in dependencies)) throw new Error(`Missing test dependency ${name}`)
     return dependencies[name]
   } })
-  return module.exports
+  return compiled.exports
 }
 
 const measurement = load('src/lib/lead-measurement.ts')

@@ -7,6 +7,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 import { generarAjuste, SinPlanVigenteError } from '@/lib/ajustar-programa'
+import { planUpdateAvailability } from '@/lib/program-calendar'
+import { getThyroidProgramProgress } from '@/lib/thyroid-program-progress'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60
@@ -65,24 +67,16 @@ export async function POST(req: NextRequest) {
 
     if (!cliente) return NextResponse.json({ error: 'Cliente no encontrado.' }, { status: 404 })
 
-    const { data: thyroidPayment } = await supabase
-      .from('asesoria_solicitudes')
-      .select('id')
-      .ilike('email', cliente.email)
-      .eq('estado', 'pagada')
-      .limit(1)
-      .maybeSingle()
-    const semanasCiclo = thyroidPayment ? 3 : 4
-    const diasCiclo = semanasCiclo * 7
+    const progress = await getThyroidProgramProgress(cliente.id, cliente.email)
 
     if (cliente.acceso_manual !== true) {
       return NextResponse.json({ error: 'Tu programa no tiene acceso activo.' }, { status: 403 })
     }
 
-    // --- Elegibilidad: plan vigente con ≥4 semanas y sin ajuste pendiente ---
+    // El siguiente bloque exige tiempo de aplicación del plan aprobado y no tener otro ajuste pendiente.
     const { data: vigente } = await supabase
       .from('programas_generados')
-      .select('creado_en, revisado')
+      .select('creado_en, revisado, revisado_en')
       .eq('cliente_id', cliente.id)
       .eq('vigente', true)
       .maybeSingle()
@@ -93,13 +87,12 @@ export async function POST(req: NextRequest) {
     if (vigente.revisado === false) {
       return NextResponse.json({ error: 'Ya tienes una actualización en revisión. Te avisamos en cuanto esté lista.' }, { status: 409 })
     }
-    const anclaMs = Math.max(
-      vigente.creado_en ? new Date(vigente.creado_en).getTime() : 0,
-      cliente.pagado_en ? new Date(cliente.pagado_en).getTime() : 0,
-    )
-    const diasDesde = anclaMs ? (Date.now() - anclaMs) / (1000 * 60 * 60 * 24) : 0
-    if (diasDesde < diasCiclo) {
-      const faltan = Math.ceil(diasCiclo - diasDesde)
+    const availability = planUpdateAvailability(vigente, cliente.pagado_en, progress.hasThyroidPayment)
+    if (availability.approvalDatePending) {
+      return NextResponse.json({ error: 'Fernando debe confirmar la fecha de aprobación antes de abrir el siguiente bloque.' }, { status: 409 })
+    }
+    if (!availability.eligible) {
+      const faltan = availability.daysRemaining
       return NextResponse.json(
         { error: `Tu plan actual aún está en marcha. Podrás actualizarlo en ${faltan} día${faltan === 1 ? '' : 's'}.` },
         { status: 425 },
@@ -111,7 +104,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Cuéntanos algo sobre cómo te ha ido.' }, { status: 400 })
     }
 
-    const nuevaSemana = (cliente.semana_actual ?? 0) + semanasCiclo
+    const nuevaSemana = progress.hasThyroidPayment ? progress.week : (cliente.semana_actual ?? 0) + availability.cycleWeeks
 
     const res = await generarAjuste({
       cliente_id: cliente.id,

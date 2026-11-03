@@ -38,6 +38,8 @@ function fixture({ resend = true } = {}) {
     let patch, insert, start = 0, end = Infinity
     const query = {
       select() { return this }, order() { return this },
+      contains(field, value) { filters.push((row) => Object.entries(value).every(([key, expected]) => row[field]?.[key] === expected)); return this },
+      not(field, operator, value) { assert.equal(operator, 'is'); filters.push((row) => row[field] !== value && row[field] !== undefined); return this },
       limit(count) { end = count - 1; return this },
       range(from, to) { start = from; end = to; return this },
       eq(field, value) { filters.push((row) => row[field] === value); return this },
@@ -72,6 +74,7 @@ function fixture({ resend = true } = {}) {
   const email = { EmailDeliveryError, sendEmail: async (message) => { if (sendError) throw sendError; sent.push(message) } }
   const lifecycle = load('src/lib/thyroid-lifecycle.ts', {
     '@/lib/supabase': { supabase }, '@/lib/asesoria-notes': notes,
+    '@/lib/program-calendar': load('src/lib/program-calendar.ts', {}, { Date: Clock }),
     'node:crypto': nodeCrypto,
     '@/lib/email': email,
     '@/lib/community-tools': { currentWeekStart: weekStart },
@@ -287,4 +290,52 @@ test('la solicitud queda guardada con aviso pendiente aunque falle el proveedor'
   const saved = f.tables.asesoria_solicitudes.find((row) => row.email === 'new@example.com')
   assert.ok(saved)
   assert.equal(f.lifecycle.readLifecycle(saved.notas).messages[0].status, 'pending')
+})
+
+test('un borrador nuevo avisa a Fernando una sola vez sin entregar el plan al cliente', async () => {
+  const f = fixture()
+  f.tables.programas_generados[0].revisado = false
+  await Promise.all([f.lifecycle.queueProgramReview('program-1'), f.lifecycle.queueProgramReview('program-1')])
+  await f.lifecycle.queueProgramReview('program-1')
+  assert.equal(f.sent.length, 1)
+  assert.equal(f.sent[0].to, 'info@wellnessreal.es')
+  assert.match(f.sent[0].html, /https:\/\/wellnessreal.es\/admin\/programas\/program-1/)
+  assert.equal(f.tables.programas_generados[0].revisado, false)
+})
+
+test('el cron recupera el aviso de un borrador marcado y omite los borradores históricos', async () => {
+  const f = fixture()
+  f.tables.programas_generados[0].revisado = false
+  await f.lifecycle.processThyroidLifecycle()
+  assert.equal(f.sent.length, 0)
+  f.tables.programas_generados[0].meta = { notify_review: true }
+  await f.lifecycle.processThyroidLifecycle()
+  await f.lifecycle.processThyroidLifecycle()
+  assert.equal(f.sent.length, 1)
+  assert.equal(f.sent[0].to, 'info@wellnessreal.es')
+})
+
+test('un fallo del correo del cliente genera un único aviso a Fernando y no una cadena de alertas', async () => {
+  const f = fixture()
+  f.enqueue('application')
+  f.failEmail(new EmailDeliveryError(400))
+  await f.lifecycle.deliverApplicationMessages(f.application.id)
+  const notices = f.lifecycle.readLifecycle(f.application.notas).messages
+  assert.equal(notices.length, 2)
+  assert.equal(notices[1].kind, 'admin_delivery')
+  assert.equal(notices[1].status, 'failed')
+  f.failEmail(null)
+  await f.lifecycle.deliverApplicationMessages(f.application.id)
+  assert.equal(f.lifecycle.readLifecycle(f.application.notas).messages.length, 2)
+})
+
+test('un aviso administrativo de fallo pendiente se omite si el correo del cliente ya se ha recuperado', async () => {
+  const f = fixture()
+  f.enqueue('application')
+  f.failEmail(new EmailDeliveryError(429))
+  await f.lifecycle.deliverApplicationMessages(f.application.id)
+  f.failEmail(null)
+  await f.lifecycle.deliverApplicationMessages(f.application.id)
+  assert.equal(f.sent.length, 1)
+  assert.equal(f.lifecycle.readLifecycle(f.application.notas).messages[1].status, 'skipped')
 })

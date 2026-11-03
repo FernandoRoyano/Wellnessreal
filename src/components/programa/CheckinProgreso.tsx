@@ -11,6 +11,7 @@ export default function CheckinProgreso({
   enRevision,
   disponibleEnDias,
   cycleWeeks,
+  approvalDatePending = false,
 }: {
   token: string
   tier: string | null
@@ -18,6 +19,7 @@ export default function CheckinProgreso({
   enRevision: boolean
   disponibleEnDias: number
   cycleWeeks: number
+  approvalDatePending?: boolean
 }) {
   const [abierto, setAbierto] = useState(false)
   const [enviando, setEnviando] = useState(false)
@@ -71,6 +73,10 @@ export default function CheckinProgreso({
         <p style={p}>Fernando está revisando tu plan actualizado. Te avisamos en cuanto esté listo.</p>
       </Wrap>
     )
+  }
+
+  if (approvalDatePending) {
+    return <Wrap><h3 style={h3}>Fecha de inicio pendiente</h3><p style={p}>Contacta con Fernando para confirmar la fecha de aprobación antes de solicitar el siguiente bloque.</p></Wrap>
   }
 
   // Resultado tras enviar

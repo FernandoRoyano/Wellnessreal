@@ -6,10 +6,10 @@ import ts from 'typescript'
 import * as zod from 'zod'
 
 function load(file, dependencies = {}) {
-  const module = { exports: {} }
+  const compiled = { exports: {} }
   const source = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
-  vm.runInNewContext(source, { module, exports: module.exports, console: { error() {} }, Date, URL, Map, Set, require: name => dependencies[name] })
-  return module.exports
+  vm.runInNewContext(source, { module: compiled, exports: compiled.exports, console: { error() {} }, Date, URL, Map, Set, require: name => dependencies[name] })
+  return compiled.exports
 }
 
 const measurement = load('src/lib/lead-measurement.ts')

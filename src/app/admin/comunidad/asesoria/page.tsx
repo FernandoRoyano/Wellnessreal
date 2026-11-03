@@ -205,7 +205,7 @@ export default function AdminAsesoriaPage() {
                     {!!s.avisos?.length && <div className="w-full space-y-1 text-xs text-gray-300">
                       <p className="font-semibold">Correos de acompañamiento</p>
                       {s.avisos.map((aviso) => <p key={aviso.key}>
-                        {{ application: 'Solicitud recibida', welcome: 'Pago confirmado', ready: 'Plan aprobado', checkin: 'Check-in', review: 'Revisión individual', closing: 'Cierre de 12 semanas' }[aviso.kind]}: {' '}
+                        {{ application: 'Solicitud recibida', welcome: 'Pago confirmado', ready: 'Plan aprobado', checkin: 'Check-in', review: 'Revisión individual', closing: 'Cierre de 12 semanas', admin_review: 'Aviso a Fernando: plan por revisar', admin_delivery: 'Aviso a Fernando: incidencia de correo' }[aviso.kind]}: {' '}
                         {{ pending: 'Pendiente de envío', sending: 'Envío en curso o sin confirmar', sent: 'Aceptado por el proveedor', failed: 'Rechazado: revisar configuración o dirección', uncertain: 'Sin confirmar: comprobar el proveedor antes de reenviar', skipped: 'Omitido: ya no corresponde' }[aviso.status]}
                       </p>)}
                     </div>}

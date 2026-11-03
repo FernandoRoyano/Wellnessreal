@@ -20,6 +20,7 @@ import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { z } from 'zod'
 import { authorizeProgramGeneration, claimProgramGeneration } from '@/lib/program-generation-access'
 import { getClientIp, rateLimit } from '@/lib/rateLimit'
+import { queueProgramReview } from '@/lib/thyroid-lifecycle'
 
 export const runtime = 'nodejs'
 export const maxDuration = 60 // tope duro en Vercel free; la generación debe caber aquí
@@ -66,7 +67,10 @@ export async function POST(req: NextRequest) {
       if (existing) {
         const { data: program, error: programError } = await supabase.from('programas_generados').select('id').eq('cliente_id', existing.id).eq('vigente', true).limit(1).maybeSingle()
         if (programError) throw new Error('[ProgramGeneration:existing] No se pudo consultar tu plan')
-        if (program) return NextResponse.json({ ok: true, token: existing.token })
+        if (program) {
+          try { await queueProgramReview(program.id) } catch { console.error('[ProgramGeneration:review] Aviso pendiente de reintento') }
+          return NextResponse.json({ ok: true, token: existing.token })
+        }
       }
     }
 
@@ -257,6 +261,7 @@ la herramienta 'entregar_programa'.
         origen: isAdminFlow ? 'plantilla-tiroides-manual' : isThyroidProgram ? 'plantilla-tiroides' : 'generacion',
         modelo: MODELO_IA,
         meta: {
+          notify_review: datos.origen === 'metodo-tiroides' || datos.origen === 'admin-tiroides',
           input_tokens: respuesta.usage?.input_tokens,
           output_tokens: respuesta.usage?.output_tokens,
           cache_read: respuesta.usage?.cache_read_input_tokens,
@@ -289,6 +294,12 @@ la herramienta 'entregar_programa'.
       .from('onboarding_respuestas')
       .update({ estado: 'generado' })
       .eq('id', onboarding.id)
+
+    if (isThyroidProgram) {
+      try { await queueProgramReview(guardado.id) } catch {
+        console.error('[ProgramGeneration:review] Aviso pendiente de reintento', { programId: guardado.id })
+      }
+    }
 
     if (datos.origen === 'metodo-tiroides') {
       try {

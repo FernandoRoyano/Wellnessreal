@@ -10,6 +10,7 @@ import { supabase } from '@/lib/supabase'
 import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { AJUSTE_JSON_SCHEMA, type Ajuste } from '@/lib/programa-schema'
 import { construirContextoCliente } from '@/lib/cliente-memoria'
+import { queueProgramReview } from '@/lib/thyroid-lifecycle'
 
 export interface ResultadoAjuste {
   programa_id: string
@@ -104,6 +105,7 @@ junto con 'resumen_cambios': una lista breve de qué has cambiado y por qué, en
       origen: 'ajuste',
       modelo: MODELO_IA,
       meta: {
+        notify_review: !entregarYa,
         input_tokens: respuesta.usage?.input_tokens,
         output_tokens: respuesta.usage?.output_tokens,
         cache_read: respuesta.usage?.cache_read_input_tokens,
@@ -132,5 +134,10 @@ junto con 'resumen_cambios': una lista breve de qué has cambiado y por qué, en
       .eq('id', cliente_id)
   }
 
+  if (!entregarYa) {
+    try { await queueProgramReview(guardado.id) } catch {
+      console.error('[ProgramAdjustment:review] Aviso pendiente de reintento', { programId: guardado.id })
+    }
+  }
   return { programa_id: guardado.id, version: nuevaVersion, resumen_cambios }
 }
