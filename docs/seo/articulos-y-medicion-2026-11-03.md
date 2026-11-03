@@ -46,7 +46,8 @@ Para revisar el histórico: abrir cada ficha y elegir su tipo. En solicitudes re
 - Cuatro pruebas de navegador con datos simulados en Chrome móvil y escritorio: pago confirmado, error de guardado y conservación de la ficha. Se corrigió la superposición de la navegación móvil sobre Guardar.
 - Filtros Supabase comprobados mediante consultas de lectura, sin imprimir datos personales ni modificar contactos.
 - Comprobación de preservación del cuerpo de los tres artículos y de los enlaces comerciales en las vistas previas.
+- El bloque comercial usa un H2 independiente, sin envolver varios párrafos en una sección: el renderizador del blog divide el HTML por párrafos y necesita fragmentos independientes. Dos pruebas adicionales cubren este formato y la prevención de aplicaciones duplicadas.
 
 ## Estado
 
-Preparado en local; artículos pendientes de aplicar en Supabase y cambios del panel pendientes de despliegue. No se han enviado emails, mensajes ni formularios de prueba a producción.
+Publicado el 3 de noviembre de 2026 desde `597e2f8`. Artículos aplicados en Supabase, conservando copia previa y recibos en `output/seo-leads-20261103`. El panel y sus métricas se han comprobado mediante acceso administrativo de lectura; los 23 contactos conservan su contenido anterior. No se han enviado emails, mensajes ni solicitudes comerciales de prueba a producción. Los registros antiguos siguen pendientes de clasificación manual.

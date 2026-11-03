@@ -49,7 +49,7 @@ const changes = [
 function editContent(content, change) {
   if (!/^\s*<p>/.test(content) || content.includes('data-editorial="captacion-20261103"')) throw new Error(`[SEO:prepare] Apertura inesperada o actualización ya aplicada: ${change.slug}`)
   const opening = content.replace(/^\s*<p>[\s\S]*?<\/p>/, `<p>${change.introduction}</p>`)
-  return `${opening.trim()}\n<section data-editorial="captacion-20261103">\n<h2>${change.heading}</h2>\n${change.paragraphs.map(text => `<p>${text}</p>`).join('\n')}\n</section>\n`
+  return `${opening.trim()}\n<h2 data-editorial="captacion-20261103">${change.heading}</h2>\n${change.paragraphs.map(text => `<p>${text}</p>`).join('\n')}\n`
 }
 
 if (process.argv.includes('--apply')) {
