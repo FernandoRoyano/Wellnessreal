@@ -54,8 +54,8 @@ export default function ApplicationForm() {
         <CheckCircle2 className="mx-auto h-12 w-12 text-success" aria-hidden="true" />
         <h3 className="headline mt-4 text-fluid-2xl text-white">Solicitud recibida</h3>
         <p className="mx-auto mt-3 max-w-md text-fluid-sm leading-relaxed text-muted">
-          La revisaré personalmente y te escribiré para entender tu caso. Solicitar plaza no implica
-          pagar ni reservar nada todavía.
+          La revisaré personalmente y te escribiré por WhatsApp para acordar una videollamada.
+          Solicitar plaza no implica pagar ni reservar nada todavía.
         </p>
       </div>
     )
@@ -80,7 +80,8 @@ export default function ApplicationForm() {
         </p>
         <h2 className="headline mt-2 text-fluid-2xl text-white">Cuéntame desde dónde empiezas</h2>
         <p className="mt-2 text-fluid-sm text-muted">
-          Nombre, email y tres preguntas breves. Yo leo cada solicitud.
+          Nombre, email, teléfono y unas preguntas sobre tu objetivo y disponibilidad.
+          Yo leo cada solicitud y te escribo por WhatsApp para acordar una videollamada.
         </p>
       </div>
 
@@ -111,6 +112,17 @@ export default function ApplicationForm() {
           />
         </Field>
       </div>
+      <Field
+        label="Teléfono (con prefijo de país)"
+        error={fieldError('phone')}
+        errorId="application-phone-error"
+      >
+        <input name="phone" type="tel" inputMode="tel" autoComplete="tel" required minLength={9} maxLength={30}
+          aria-invalid={Boolean(fieldError('phone'))}
+          aria-describedby={fieldError('phone') ? 'application-phone-error application-phone-help' : 'application-phone-help'}
+          className={FIELD_CLASS} placeholder="+34 600 000 000" />
+      </Field>
+      <p id="application-phone-help" className="text-fluid-xs text-subtle">Indica un número con WhatsApp y prefijo de país. Te escribiré para acordar la videollamada.</p>
       <Field
         label="¿Qué quieres conseguir en estas 12 semanas?"
         error={fieldError('goal')}

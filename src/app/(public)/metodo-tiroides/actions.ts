@@ -24,6 +24,10 @@ const funnelSchema = z.object({
 const applicationSchema = z.object({
   name: z.string().trim().min(2, 'Escribe tu nombre.').max(100),
   email: z.email('Escribe un email válido.'),
+  phone: z.string().trim().max(30).regex(/^\+?[\d\s().-]+$/, 'Escribe un teléfono válido.').refine(value => {
+    const digits = value.replace(/\D/g, '')
+    return digits.length >= 9 && digits.length <= 15
+  }, 'Escribe un teléfono válido con prefijo de país.'),
   goal: z.string().trim().min(20, 'Cuéntame un poco más sobre lo que quieres conseguir.').max(1500),
   days: z.enum(['1', '2', '3', '4+']),
   limitations: z.string().trim().max(1000).optional(),
@@ -50,6 +54,7 @@ export async function applyToThyroidProgram(
   const parsed = applicationSchema.safeParse({
     name: formData.get('name'),
     email: formData.get('email'),
+    phone: formData.get('phone'),
     goal: formData.get('goal'),
     days: formData.get('days'),
     limitations: formData.get('limitations') || undefined,
@@ -76,6 +81,7 @@ export async function applyToThyroidProgram(
       memberId: null,
       nombre: parsed.data.name,
       email: parsed.data.email,
+      telefono: parsed.data.phone,
       objetivo: parsed.data.goal,
       diasSemana: parsed.data.days,
       lesiones: parsed.data.limitations,
@@ -84,6 +90,7 @@ export async function applyToThyroidProgram(
       const lead = await upsertLead({
         email: parsed.data.email,
         name: parsed.data.name,
+        phone: parsed.data.phone,
         source: 'valoracion',
         landing_page: attribution?.landing_page ?? '/metodo-tiroides',
         referrer: attribution?.referrer ?? null,

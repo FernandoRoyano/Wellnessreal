@@ -23,7 +23,7 @@ const config: TopicHubConfig = {
     { question: '¿El cardio es malo para el hipotiroidismo?', answer: 'No. Se puede combinar con fuerza si la dosis total es tolerable y progresa de forma razonable.' },
     { question: '¿Debo entrenar aunque esté cansada?', answer: 'Depende de la intensidad y duración del cansancio. Puedes adaptar un día puntual; si persiste o progresa, conviene valorarlo.' },
   ],
-  cta: { title: 'Necesitas un plan, no una lista de ejercicios', description: 'Descubre qué priorizar según tu situación con el test gratuito de WellnessReal.', href: '/tiroides', label: 'Hacer el test gratuito' },
+  cta: { title: '¿Quieres acompañamiento para llevarlo a tu semana?', description: 'Conoce Método BASE Tiroides: 12 semanas de fuerza, hábitos y seguimiento con Fernando Royano. Revisa qué incluye y solicita plaza si encaja contigo. No sustituye tu seguimiento sanitario.', href: '/metodo-tiroides', label: 'Ver el programa y cómo empezar' },
 }
 
 export default function EjercicioHipotiroidismoPage() { return <TopicHubPage config={config} /> }

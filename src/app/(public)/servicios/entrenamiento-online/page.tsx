@@ -10,7 +10,7 @@ import PricingCards from '@/components/sections/PricingCards'
 export const metadata = buildMetadata({
   title: 'Entrenador Personal Online | Plan y seguimiento',
   description:
-    'Entrenamiento personalizado durante 12 semanas con valoración, programación individual, seguimiento semanal y ajustes. Plazas limitadas.',
+    'Entrena con Fernando Royano: plan individual y seguimiento semanal durante 12 semanas. Especialización en hipotiroidismo y Hashimoto. Solicita valoración.',
   path: '/servicios/entrenamiento-online',
   keywords: [
     'entrenamiento online personalizado',
@@ -44,6 +44,11 @@ const FIT_ITEMS = [
 ] as const
 
 const FAQS = [
+  {
+    question: '¿Puedo solicitar entrenamiento si tengo hipotiroidismo o Hashimoto?',
+    answer:
+      'Sí. Es una de mis áreas de especialización en entrenamiento. En la valoración revisamos tu experiencia, disponibilidad y contexto para decidir si encaja el acompañamiento individual. También puedes conocer Método BASE Tiroides, que tiene un alcance y precio propios. Ninguno de los dos formatos sustituye tu seguimiento sanitario ni incluye modificar medicación o interpretar analíticas.',
+  },
   {
     question: '¿El entrenamiento online funciona si nunca he entrenado?',
     answer:
@@ -117,6 +122,11 @@ export default function EntrenamientoOnlinePage() {
                 <span className="text-accent font-semibold">Adaptado a tu vida, no al revés.</span>
               </p>
 
+              <p className="text-fluid-base text-muted leading-relaxed max-w-xl">
+                Soy Fernando Royano, entrenador especializado en hipotiroidismo y Hashimoto.
+                También trabajo con otros objetivos: primero revisamos qué necesitas y si puedo ayudarte.
+              </p>
+
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:200ms]">
                 <Link href="/valoracion" className="btn-brand text-fluid-base">
                   Solicitar valoración individual
@@ -136,6 +146,30 @@ export default function EntrenamientoOnlinePage() {
                 className="relative rounded-2xl border border-border-strong shadow-xl"
               />
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section className="py-fluid-lg bg-brand-dusk" aria-labelledby="thyroid-training-heading">
+        <Container>
+          <div className="max-w-3xl mx-auto space-y-5">
+            <span className="eyebrow">Entrenamiento y tiroides</span>
+            <h2 id="thyroid-training-heading" className="headline text-fluid-3xl text-white">
+              ¿Buscas un entrenador que tenga en cuenta tu contexto?
+            </h2>
+            <p className="text-fluid-base text-muted leading-relaxed">
+              Si convives con hipotiroidismo o Hashimoto, revisamos tu experiencia, el tiempo que
+              tienes y cómo respondes al entrenamiento. En el acompañamiento individual diseño tu
+              programación y la reviso contigo cada semana. No tratamos la tiroides ni sustituimos
+              tu seguimiento sanitario.
+            </p>
+            <p className="text-fluid-base text-muted leading-relaxed">
+              Si buscas el recorrido específico de fuerza y hábitos, conoce Método BASE Tiroides.
+              Son dos formatos con alcance y condiciones diferentes.
+            </p>
+            <Link href="/metodo-tiroides" className="btn-ghost text-fluid-base">
+              Ver Método BASE Tiroides <ArrowRight className="w-4 h-4" aria-hidden="true" />
+            </Link>
           </div>
         </Container>
       </section>

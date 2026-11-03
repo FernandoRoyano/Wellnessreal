@@ -16,13 +16,13 @@ const STEPS = [
   },
   {
     icon: MessageCircle,
-    title: 'Te contacto en menos de 24h',
-    description: 'Te escribo por WhatsApp o email con mi análisis y una propuesta de plan personalizado.',
+    title: 'Acordamos una videollamada',
+    description: 'Te escribo por WhatsApp para fijar una fecha que nos venga bien a los dos. En la videollamada revisamos tu situación y resolvemos dudas.',
   },
   {
     icon: CheckCircle,
-    title: 'Empezamos cuando tú quieras',
-    description: 'Sin presión. Te explico todo, resuelvo tus dudas, y si encajamos, arrancamos.',
+    title: 'Acordamos cuándo empezar',
+    description: 'Si decides contratar, preparo tu entrenamiento en 24–48 horas tras completar la valoración y disponer de la información necesaria, o para la fecha posterior que acordemos.',
   },
 ] as const
 
@@ -46,8 +46,8 @@ export default function GraciasValoracionPage() {
             </h1>
 
             <p className="text-fluid-lg text-muted leading-relaxed">
-              He recibido tu información. Ahora me toca a mí analizarla y preparar una propuesta adaptada a tu situación
-              real.
+              He recibido tu información. La revisaré personalmente y te escribiré por WhatsApp
+              para acordar una videollamada. Enviar la solicitud no implica contratar.
             </p>
           </div>
         </Container>
@@ -89,8 +89,8 @@ export default function GraciasValoracionPage() {
               No tienes que hacer nada más. <span className="text-gradient-brand">Yo te escribo.</span>
             </h2>
             <p className="text-fluid-base text-muted max-w-xl mx-auto leading-relaxed">
-              Reviso tu caso personalmente y te contacto en menos de 24h. Mientras tanto, si quieres ir
-              abriendo boca, aquí tienes por dónde.
+              Mantente pendiente de WhatsApp: por ahí coordinaremos la videollamada. Mientras
+              tanto, puedes conocer mejor mi forma de trabajar.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-1">
               <Link href="/blog" className="btn-brand text-fluid-base px-7">
@@ -108,7 +108,7 @@ export default function GraciasValoracionPage() {
               </a>
             </div>
             <p className="text-fluid-xs text-subtle">
-              Revisa también tu carpeta de spam por si mi respuesta cae ahí.
+              También recibirás un email de confirmación; si no lo ves, revisa la carpeta de spam.
             </p>
           </div>
         </Container>

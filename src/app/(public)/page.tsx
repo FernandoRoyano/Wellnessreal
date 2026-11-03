@@ -24,9 +24,9 @@ import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
-  title: 'Entrenamiento basado en ciencia para tu vida real',
+  title: 'Entrenador online | Especialización en hipotiroidismo',
   description:
-    'Entrenamiento de fuerza y hábitos sostenibles, con especialización en hipotiroidismo y Hashimoto y una alternativa de seguimiento individual.',
+    'Entrena con Fernando Royano: fuerza y seguimiento adaptados a tu vida. Especialización en hipotiroidismo y Hashimoto. Conoce los programas y cómo empezar.',
   path: '/',
   keywords: [
     'entrenamiento online personalizado',
@@ -171,7 +171,7 @@ export default function HomePage() {
             </h1>
 
             <p className="text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
-              Construye fuerza y hábitos sostenibles con una estructura que puedas mantener.
+              Soy Fernando Royano. Te acompaño a construir fuerza y una rutina que encaje con tu tiempo y tu energía.
               <span className="text-accent font-semibold">
                 {' '}
                 Especialización en hipotiroidismo y Hashimoto.

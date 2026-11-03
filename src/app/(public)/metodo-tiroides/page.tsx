@@ -96,7 +96,7 @@ export default async function MetodoTiroidesPage() {
           <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.08fr_0.92fr]">
             <div>
               <span className="eyebrow">
-                Acceso por solicitud · recorrido individual de 12 semanas
+                Acceso por solicitud · programa en grupo reducido · 12 semanas
               </span>
               <h1 className="headline mt-5 text-fluid-5xl leading-[1.02] text-white">
                 Doce semanas para construir una rutina que puedas sostener.
@@ -337,7 +337,7 @@ export default async function MetodoTiroidesPage() {
         <Container>
           <div className="relative mx-auto grid max-w-5xl items-start gap-fluid-lg lg:grid-cols-[0.82fr_1.18fr]">
             <div className="lg:sticky lg:top-28">
-              <span className="eyebrow">Acceso individual</span>
+              <span className="eyebrow">Solicitud de acceso</span>
               <h2 className="headline mt-4 text-fluid-4xl text-white">
                 {launchPhase === 'priority'
                   ? 'Apúntate antes de la apertura.'
@@ -358,8 +358,8 @@ export default async function MetodoTiroidesPage() {
               {launchPhase === 'applications' && <ol className="mt-7 space-y-4">
                 {[
                   'Envías tu solicitud.',
-                  'La reviso personalmente.',
-                  'Hablamos y resolvemos dudas.',
+                  'La reviso y te escribo por WhatsApp para acordar una videollamada.',
+                  'En la videollamada revisamos tu situación y resolvemos dudas.',
                   'Si encajas y quieres entrar, formalizamos la plaza.',
                 ].map((step, index) => (
                   <li key={step} className="flex items-center gap-3 text-fluid-sm text-white/85">

@@ -86,6 +86,10 @@ export default function ValoracionPage() {
               Necesito estos datos para valorar si el acompañamiento individual de 750 € encaja con
               tu objetivo. Enviar el formulario no implica pagar ni reservar una plaza.
             </p>
+            <p className="text-fluid-base leading-relaxed text-muted">
+              Revisaré tus respuestas y te escribiré por WhatsApp para acordar una videollamada
+              en una fecha que nos venga bien a los dos.
+            </p>
           </header>
 
           <form
@@ -109,8 +113,11 @@ export default function ValoracionPage() {
                 </Field>
               </div>
               <Field label="Teléfono" htmlFor="valuation-phone">
-                <input id="valuation-phone" name="phone" type="tel" required minLength={9} maxLength={30} autoComplete="tel" inputMode="tel" className={FIELD_CLASS} placeholder="+34 600 000 000" />
+                <input id="valuation-phone" name="phone" type="tel" required minLength={9} maxLength={30} autoComplete="tel" inputMode="tel" aria-describedby="valuation-phone-help" className={FIELD_CLASS} placeholder="+34 600 000 000" />
               </Field>
+              <p id="valuation-phone-help" className="text-fluid-xs text-subtle">
+                Indica un número con WhatsApp y prefijo de país para que podamos coordinar la videollamada.
+              </p>
             </fieldset>
 
             <fieldset className="space-y-4 border-t border-border-subtle pt-6">

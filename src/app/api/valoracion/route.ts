@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
       <div style="max-width:600px;margin:auto;padding:32px;background:#16122B;color:#fff;font-family:Arial,sans-serif">
         <p style="color:#FCEE21;font-weight:700;letter-spacing:.08em">WELLNESSREAL</p>
         <h1 style="font-size:25px">Solicitud recibida, ${safeName}</h1>
-        <p style="color:#d5d0df;line-height:1.7">Revisaré la información y te escribiré para decirte si el acompañamiento individual encaja con tu objetivo. Enviar la solicitud no implica pagar ni reservar una plaza.</p>
+        <p style="color:#d5d0df;line-height:1.7">Revisaré tus respuestas y te escribiré por WhatsApp para acordar una videollamada en una fecha que nos venga bien a los dos. Hablaremos de tu situación y de si el acompañamiento individual encaja contigo. Enviar la solicitud no implica pagar ni reservar una plaza.</p>
         <p style="color:#8f889e;font-size:13px;line-height:1.6">No necesitas responder a este mensaje con información médica. Si avanzamos, te explicaré qué datos son necesarios para adaptar el entrenamiento.</p>
       </div>`
 

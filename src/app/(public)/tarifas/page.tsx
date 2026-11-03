@@ -35,12 +35,12 @@ const PROCESS_STEPS = [
   {
     step: '01',
     title: 'Valoración gratuita',
-    desc: 'Hablamos de tu situación, tus objetivos y tu vida real. Analizamos qué necesitas y si puedo ayudarte. Sin vender, sin presionar.',
+    desc: 'Reviso tu solicitud y te escribo por WhatsApp para acordar una videollamada. Hablamos de tu situación y de si puedo ayudarte.',
   },
   {
     step: '02',
-    title: 'Tu plan revisado',
-    desc: 'Confirmamos el formato, completamos la evaluación y acordamos la fecha de inicio antes de entregarte el plan.',
+    title: 'Tu plan en 24–48 horas',
+    desc: 'Si decides contratar, preparo el entrenamiento tras completar la valoración y disponer de la información necesaria. Si prefieres empezar más adelante, acordamos la fecha.',
   },
   {
     step: '03',
