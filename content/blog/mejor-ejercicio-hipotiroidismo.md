@@ -1,10 +1,10 @@
 ---
-title: "Ejercicio e hipotiroidismo: fuerza, cardio y cómo empezar"
+title: "Ejercicio con hipotiroidismo: fuerza, cardio y cómo empezar"
 slug: "mejor-ejercicio-hipotiroidismo"
-excerpt: "No necesitas elegir entre fuerza y cardio. Qué aporta cada uno, cómo ajustar la dosis a tu energía y una semana sencilla para empezar sin agotarte."
+excerpt: "Qué ejercicio hacer con hipotiroidismo: fuerza, cardio y un ejemplo de semana. Aprende a ajustar el entrenamiento a tu energía y cuándo consultar."
 ---
 
-Si tienes hipotiroidismo y buscas *el mejor ejercicio*, es fácil acabar delante de dos respuestas opuestas: «haz cardio para quemar más» o «olvida el cardio y levanta peso».
+¿Qué ejercicio hacer si tienes hipotiroidismo? No hay una modalidad que sea la mejor para todo el mundo: fuerza, cardio y movimiento diario aportan cosas distintas. Esta guía te ayuda a combinarlos, empezar con una estructura sencilla y observar cómo recuperas.
 
 La realidad es menos espectacular y bastante más útil: **no existe una modalidad ganadora para todo el mundo**. La fuerza, el ejercicio aeróbico y el movimiento cotidiano resuelven necesidades distintas. Lo importante es combinarlos en una dosis que puedas recuperar y mantener.
 
@@ -109,3 +109,8 @@ No tienes que decidir entre fuerza o cardio. Usa la fuerza para construir capaci
 Empieza por una dosis pequeña que puedas repetir. Después observa, recupera y progresa. **La mejor rutina no es la que más te agota: es la que mejora tu vida y todavía puedes sostener dentro de unas semanas.**
 
 Si el cansancio está marcando tus días, empieza por esta guía sobre [cansancio e hipotiroidismo](/blog/cansancio-e-hipotiroidismo). Y si tu objetivo principal es el peso, revisa [cómo adelgazar con hipotiroidismo sin caer en atajos](/blog/adelgazar-con-hipotiroidismo).
+
+## Cómo pasar de esta guía a un entrenamiento acompañado
+Si necesitas ordenar las opciones, continúa con la [guía de ejercicio con hipotiroidismo](/hipotiroidismo/ejercicio). Para entender cómo registrar y ajustar el esfuerzo, tienes la explicación de [RIR y RPE](/blog/rir-rpe-autoregular-entrenamiento).
+
+Si buscas acompañamiento, revisa [qué incluye Método BASE Tiroides y cómo solicitar plaza](/metodo-tiroides). Es un programa de entrenamiento y hábitos de 12 semanas en grupo reducido. Para una programación completamente individual, puedes conocer el [entrenamiento personalizado](/servicios/entrenamiento-online). Ninguno sustituye tu seguimiento sanitario.

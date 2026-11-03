@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 import { Users, TrendingUp, Calendar, Search, X, ExternalLink, Trash2 } from 'lucide-react'
 import { getReadableThyroidTestField, THYROID_TEST_FIELD_ORDER } from '@/lib/test-tiroides'
+import { COMMERCIAL_STAGES, LEAD_KINDS, getAcquisitionChannel, getCommercialStage, getLeadKind, type CommercialStage, type CommercialSummary, type LeadKind } from '@/lib/lead-measurement'
 
 interface Lead {
   id: string
@@ -22,6 +23,7 @@ interface Lead {
   created_at: string
   contacted_at: string | null
   converted_at: string | null
+  updated_at: string
 }
 
 interface Stats {
@@ -33,6 +35,7 @@ interface Stats {
   descartado: number
   last_7_days: number
   last_30_days: number
+  commercial: CommercialSummary
 }
 
 function getReadableFormData(lead: Lead): { key: string; label: string; value: string }[] {
@@ -71,6 +74,8 @@ const STATUS_OPTIONS = [
 const SOURCE_OPTIONS = [
   { value: '', label: 'Todas' },
   { value: 'guia', label: 'Guía' },
+  { value: 'tiroides', label: 'Tiroides' },
+  { value: 'webinar', label: 'Webinar' },
   { value: 'valoracion', label: 'Valoración' },
   { value: 'metodo-optin', label: 'VSL' },
   { value: 'newsletter', label: 'Newsletter' },
@@ -93,39 +98,45 @@ export default function LeadsAdminPage() {
   const [sourceFilter, setSourceFilter] = useState('')
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<Lead | null>(null)
+  const [kindFilter, setKindFilter] = useState('')
+  const [page, setPage] = useState(0)
+  const [hasMore, setHasMore] = useState(false)
+  const [error, setError] = useState('')
 
   const fetchLeads = async () => {
     setLoading(true)
-    const params = new URLSearchParams({ stats: '1' })
+    setError('')
+    const params = new URLSearchParams({ stats: '1', page: String(page) })
+    if (kindFilter) params.set('kind', kindFilter)
     if (statusFilter) params.set('status', statusFilter)
     if (sourceFilter) params.set('source', sourceFilter)
     if (search) params.set('search', search)
 
-    const res = await fetch(`/api/admin/leads?${params}`)
-    const data = await res.json()
-    setLeads(data.leads || [])
-    setStats(data.stats)
-    setLoading(false)
+    try {
+      const res = await fetch(`/api/admin/leads?${params}`)
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || 'No se pudieron cargar los contactos.')
+      setLeads(data.leads || [])
+      setStats(data.stats)
+      setHasMore(data.hasMore ?? false)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'No se pudieron cargar los contactos.')
+    } finally { setLoading(false) }
   }
 
   useEffect(() => {
     fetchLeads()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [statusFilter, sourceFilter])
-
-  const conversionRate = useMemo(() => {
-    if (!stats || stats.total === 0) return 0
-    return Math.round((stats.cliente / stats.total) * 100)
-  }, [stats])
+  }, [statusFilter, sourceFilter, kindFilter, page])
 
   return (
     <div className="flex min-h-screen">
       <AdminSidebar />
-      <main className="flex-1 p-8 overflow-auto" style={{ backgroundColor: '#16122B' }}>
+      <main className="flex-1 p-5 pb-28 lg:p-8 overflow-auto" style={{ backgroundColor: '#16122B' }}>
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white">Leads</h1>
-          <p className="text-gray-500 text-sm mt-1">Captados desde formularios + UTMs de campañas</p>
+          <p className="text-gray-400 text-sm mt-1">Solicitudes comerciales, suscripciones y pruebas por separado. Métricas globales de contactos revisados.</p>
         </div>
 
         {/* Stats cards */}
@@ -133,31 +144,44 @@ export default function LeadsAdminPage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
             <StatCard
               icon={<Users size={18} />}
-              label="Total"
-              value={stats.total}
+              label="Solicitudes comerciales"
+              value={stats.commercial.opportunities}
               accent="#FCEE21"
             />
             <StatCard
               icon={<Calendar size={18} />}
-              label="Últimos 7 días"
-              value={stats.last_7_days}
+              label="Conversaciones realizadas"
+              value={stats.commercial.conversations}
               accent="#60a5fa"
             />
             <StatCard
               icon={<TrendingUp size={18} />}
-              label="Clientes"
-              value={stats.cliente}
+              label="Pagos confirmados"
+              value={stats.commercial.paid}
               accent="#4ade80"
-              subtext={`${conversionRate}% conversión`}
+              subtext="Confirmados expresamente en la ficha"
             />
             <StatCard
               icon={<Users size={18} />}
-              label="Sin contactar"
-              value={stats.nuevo}
+              label="Propuestas enviadas"
+              value={stats.commercial.proposals}
               accent="#a855f7"
             />
           </div>
         )}
+        {stats && <div className="mb-6 space-y-2 text-sm text-gray-400">
+          <p>{stats.commercial.subscribers} descargas / suscripciones · {stats.commercial.tests} pruebas · {stats.commercial.unreviewed} sin revisar · {stats.total} registros en total.</p>
+          {stats.commercial.legacyCustomers > 0 && <p className="text-yellow-200">Hay {stats.commercial.legacyCustomers} registros con la etiqueta antigua «cliente» sin pago confirmado en este seguimiento. Revísalos; no se cuentan como ventas.</p>}
+          {stats.commercial.byChannel.length > 0 && <div className="overflow-x-auto rounded-lg border border-white/10">
+            <table className="w-full text-left text-sm">
+              <caption className="p-3 text-left text-white">Captación comercial por canal · histórico revisado</caption>
+              <thead><tr>{['Canal', 'Solicitudes', 'Conversaciones', 'Propuestas', 'Pagos'].map(label => <th key={label} className="p-3">{label}</th>)}</tr></thead>
+              <tbody>{stats.commercial.byChannel.map(row => <tr key={row.channel} className="border-t border-white/10"><td className="p-3">{row.channel}</td><td className="p-3">{row.opportunities}</td><td className="p-3">{row.conversations}</td><td className="p-3">{row.proposals}</td><td className="p-3">{row.paid}</td></tr>)}</tbody>
+            </table>
+          </div>}
+          <p>Una referencia indica la web de procedencia; no demuestra por sí sola una búsqueda orgánica. Las fases se registran por separado, sin inferir conversaciones a partir de un pago.</p>
+        </div>}
+        {error && <p role="alert" className="mb-4 text-red-300">{error}</p>}
 
         {/* Filters */}
         <div className="flex flex-wrap gap-3 mb-6">
@@ -168,14 +192,19 @@ export default function LeadsAdminPage() {
               placeholder="Buscar por email, nombre o teléfono..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              onKeyDown={(e) => e.key === 'Enter' && fetchLeads()}
+              onKeyDown={(e) => { if (e.key === 'Enter') { if (page) setPage(0); else fetchLeads() } }}
               className="w-full pl-10 pr-4 py-2.5 rounded-lg text-white text-sm outline-none"
               style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
             />
           </div>
+          <select aria-label="Tipo de contacto" value={kindFilter} onChange={e => { setKindFilter(e.target.value); setPage(0) }} className="rounded-lg bg-[#1a1535] px-3 py-2.5 text-sm text-white border border-[#662D91]">
+            <option value="">Todos los tipos</option>
+            {LEAD_KINDS.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+          </select>
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
+            onChange={(e) => { setStatusFilter(e.target.value); setPage(0) }}
+            aria-label="Estado anterior"
             className="px-3 py-2.5 rounded-lg text-white text-sm outline-none"
             style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
           >
@@ -185,7 +214,8 @@ export default function LeadsAdminPage() {
           </select>
           <select
             value={sourceFilter}
-            onChange={(e) => setSourceFilter(e.target.value)}
+            onChange={(e) => { setSourceFilter(e.target.value); setPage(0) }}
+            aria-label="Formulario de origen"
             className="px-3 py-2.5 rounded-lg text-white text-sm outline-none"
             style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
           >
@@ -204,14 +234,14 @@ export default function LeadsAdminPage() {
             <p className="text-gray-500">No hay leads que mostrar</p>
           </div>
         ) : (
-          <div className="rounded-xl overflow-hidden border" style={{ borderColor: '#662D91' }}>
+          <div className="rounded-xl overflow-x-auto border" style={{ borderColor: '#662D91' }}>
             <table className="w-full">
               <thead>
                 <tr style={{ backgroundColor: '#0f0c20' }}>
                   <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Lead</th>
                   <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Origen</th>
                   <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Campaña</th>
-                  <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Estado</th>
+                  <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Tipo / fase comercial</th>
                   <th className="text-left px-4 py-3 text-xs text-gray-400 font-medium uppercase">Fecha</th>
                 </tr>
               </thead>
@@ -240,11 +270,12 @@ export default function LeadsAdminPage() {
                           <p className="text-gray-600">{lead.utm_source} · {lead.utm_medium}</p>
                         </div>
                       ) : (
-                        <span className="text-gray-600">— orgánico —</span>
+                        <span className="text-gray-400">{getAcquisitionChannel(lead)}</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
-                      <StatusBadge status={lead.status} />
+                      <p className="text-xs text-white">{LEAD_KINDS.find(option => option.value === getLeadKind(lead))?.label}</p>
+                      <p className="mt-1 text-xs text-gray-400">{COMMERCIAL_STAGES.find(option => option.value === getCommercialStage(lead))?.label}</p>
                     </td>
                     <td className="px-4 py-3 text-gray-400 text-xs">
                       {new Date(lead.created_at).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
@@ -255,6 +286,11 @@ export default function LeadsAdminPage() {
             </table>
           </div>
         )}
+        <div className="mt-4 flex items-center gap-4 text-sm text-white">
+          <button disabled={loading || page === 0} onClick={() => setPage(page - 1)} className="disabled:opacity-40">Anterior</button>
+          <span>Página {page + 1} · hasta 200 registros por página</span>
+          <button disabled={loading || !hasMore} onClick={() => setPage(page + 1)} className="disabled:opacity-40">Siguiente</button>
+        </div>
       </main>
 
       {selected && (
@@ -299,31 +335,42 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
   lead: Lead; onClose: () => void; onSaved: () => void; onDeleted: () => void
 }) {
   const readableFormData = getReadableFormData(lead)
-  const [status, setStatus] = useState(lead.status)
+  const [kind, setKind] = useState<LeadKind>(getLeadKind(lead))
+  const [stage, setStage] = useState<CommercialStage>(getCommercialStage(lead))
+  const [confirmPayment, setConfirmPayment] = useState(false)
+  const [error, setError] = useState('')
   const [notes, setNotes] = useState(lead.notes || '')
   const [saving, setSaving] = useState(false)
 
   const save = async () => {
     setSaving(true)
-    await fetch(`/api/admin/leads/${lead.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status, notes }),
-    })
-    setSaving(false)
-    onSaved()
+    setError('')
+    try {
+      const response = await fetch(`/api/admin/leads/${lead.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commercialKind: kind, commercialStage: kind === 'oportunidad' ? stage : 'sin_revisar', confirmPayment, notes, expectedUpdatedAt: lead.updated_at }),
+      })
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error || 'No se pudieron guardar los cambios.')
+      onSaved()
+    } catch (err) { setError(err instanceof Error ? err.message : 'No se pudieron guardar los cambios.') }
+    finally { setSaving(false) }
   }
 
   const remove = async () => {
     if (!confirm(`¿Eliminar lead de ${lead.email}?`)) return
-    await fetch(`/api/admin/leads/${lead.id}`, { method: 'DELETE' })
-    onDeleted()
+    try {
+      const response = await fetch(`/api/admin/leads/${lead.id}`, { method: 'DELETE' })
+      if (!response.ok) throw new Error('No se pudo eliminar el contacto.')
+      onDeleted()
+    } catch (err) { setError(err instanceof Error ? err.message : 'No se pudo eliminar el contacto.') }
   }
 
   const phoneClean = lead.phone?.replace(/[^0-9]/g, '') || ''
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end" onClick={onClose}>
+    <div role="dialog" aria-modal="true" aria-labelledby="lead-detail-title" className="fixed inset-0 z-[300] flex justify-end" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60" />
       <div
         className="relative w-full max-w-md overflow-y-auto p-6"
@@ -331,7 +378,7 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-white">Detalle del lead</h2>
+          <h2 id="lead-detail-title" className="text-xl font-bold text-white">Detalle del lead</h2>
           <button onClick={onClose} className="p-2 rounded-lg text-gray-400 hover:text-white">
             <X size={20} />
           </button>
@@ -364,7 +411,7 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
             <div>
               <p className="text-xs text-gray-500 mb-1">Tags</p>
               <div className="flex flex-wrap gap-1">
-                {lead.tags.map((t) => (
+                {lead.tags.filter(tag => !tag.startsWith('crm:')).map((t) => (
                   <span key={t} className="text-xs px-2 py-0.5 rounded-full" style={{ backgroundColor: 'rgba(102,45,145,0.3)', color: '#a78bfa' }}>
                     {t}
                   </span>
@@ -392,18 +439,27 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
 
         <div className="space-y-3 pt-4 border-t" style={{ borderColor: 'rgba(102,45,145,0.3)' }}>
           <div>
-            <label className="block text-xs text-gray-500 mb-1 uppercase">Estado</label>
+            <label htmlFor="commercial-kind" className="block text-xs text-gray-400 mb-1 uppercase">Tipo de contacto</label>
             <select
-              value={status}
-              onChange={(e) => setStatus(e.target.value)}
+              id="commercial-kind"
+              value={kind}
+              onChange={(e) => { setKind(e.target.value as LeadKind); setConfirmPayment(false) }}
               className="w-full px-3 py-2 rounded-lg text-white text-sm outline-none"
               style={{ backgroundColor: '#1a1535', border: '1px solid #662D91' }}
             >
-              {STATUS_OPTIONS.filter((o) => o.value).map((o) => (
+              {LEAD_KINDS.map((o) => (
                 <option key={o.value} value={o.value}>{o.label}</option>
               ))}
             </select>
           </div>
+          {kind === 'oportunidad' && <div>
+            <label htmlFor="commercial-stage" className="mb-1 block text-xs uppercase text-gray-400">Fase comercial</label>
+            <select id="commercial-stage" value={stage} onChange={e => { setStage(e.target.value as CommercialStage); setConfirmPayment(false) }} className="w-full rounded-lg border border-[#662D91] bg-[#1a1535] px-3 py-2 text-sm text-white">
+              {COMMERCIAL_STAGES.map(option => <option key={option.value} value={option.value}>{option.label}</option>)}
+            </select>
+            {stage === 'pagado' && getCommercialStage(lead) !== 'pagado' && <label className="mt-3 flex items-start gap-2 text-sm text-white"><input type="checkbox" checked={confirmPayment} onChange={e => setConfirmPayment(e.target.checked)} />He comprobado que el pago se ha recibido. Una propuesta o una descarga no son un pago.</label>}
+          </div>}
+          <div className="text-xs text-gray-400">Estado anterior: <StatusBadge status={lead.status} />. Se conserva para revisar el histórico; no demuestra un pago.</div>
           <div>
             <label className="block text-xs text-gray-500 mb-1 uppercase">Notas internas</label>
             <textarea
@@ -415,6 +471,7 @@ function LeadDetailDrawer({ lead, onClose, onSaved, onDeleted }: {
             />
           </div>
         </div>
+        {error && <p role="alert" className="mt-4 text-sm text-red-300">{error}</p>}
 
         <div className="flex gap-2 pt-6">
           <button

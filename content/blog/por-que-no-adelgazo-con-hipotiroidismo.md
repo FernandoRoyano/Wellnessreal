@@ -1,11 +1,11 @@
 ---
-title: "¿Por qué no adelgazo con hipotiroidismo aunque lo hago todo bien?"
+title: "¿Por qué no adelgazo con hipotiroidismo? Qué revisar"
 slug: por-que-no-adelgazo-con-hipotiroidismo
-excerpt: "Si comes mejor, entrenas y el peso no cambia, no necesitas castigarte más. Revisa estas siete piezas para distinguir un estancamiento real del ruido de la báscula."
+excerpt: "Si tienes hipotiroidismo y el peso no baja, revisa siete factores: tendencia del peso, alimentación, movimiento, fuerza, descanso y contexto clínico."
 author: "Fernando Royano"
 ---
 
-Comes mejor. Intentas moverte. Has reducido cosas que antes tomabas con frecuencia y, aun así, la báscula parece no haberse enterado.
+Si tienes hipotiroidismo y no adelgazas, antes de comer menos o añadir más cardio conviene revisar tres cosas: el seguimiento de tu tratamiento, si existe un estancamiento real y cómo encajan alimentación, actividad y recuperación en tu semana. Esta guía recorre siete factores sin prometer una pérdida de peso concreta.
 
 En ese punto es fácil llegar a una de estas dos conclusiones: **«mi tiroides no me deja adelgazar»** o **«tendré que comer todavía menos»**. Entiendo por qué aparecen. Cuando haces un esfuerzo y no recibes una señal clara de progreso, buscas una explicación y una solución rápida.
 
@@ -145,3 +145,8 @@ El hipotiroidismo puede influir en el peso, especialmente si todavía no está b
 No necesitas responder a la frustración comiendo cada vez menos o castigándote con más cardio. Necesitas distinguir el ruido de una tendencia real, revisar tu contexto y ajustar la pieza que de verdad limita el proceso.
 
 Para ver cómo encajan alimentación, fuerza, movimiento y recuperación en un plan completo, continúa con la [guía honesta para adelgazar con hipotiroidismo](/blog/adelgazar-con-hipotiroidismo). Y si quieres identificar qué merece la pena priorizar en tu caso, puedes hacer el [test gratuito de tiroides](/tiroides).
+
+## Del estancamiento a un proceso que puedas revisar
+Para ordenar las ideas, consulta la guía de [pérdida de peso con hipotiroidismo](/hipotiroidismo/perder-peso). Si necesitas una referencia para registrar más que el peso, revisa [cómo medir tu progreso](/blog/bascula-te-miente-medir-progreso-real).
+
+Si buscas estructura y seguimiento para entrenar, conoce [Método BASE Tiroides: alcance, precio y solicitud de plaza](/metodo-tiroides). Para programación completamente individual, revisa el [entrenamiento personalizado](/servicios/entrenamiento-online). Son servicios de entrenamiento y hábitos, sin dieta clínica, tratamiento tiroideo ni resultados de peso garantizados.

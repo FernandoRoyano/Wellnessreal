@@ -18,7 +18,7 @@ interface DashboardStats {
   subscribers: { active: number; unsubscribed: number; bounced: number; total: number }
 }
 
-const stages = [{ key: 'nuevo', label: 'Nuevos' }, { key: 'contactado', label: 'Contactados' }, { key: 'qualified', label: 'Cualificados' }, { key: 'cliente', label: 'Clientes' }] as const
+const stages = [{ key: 'nuevo', label: 'Nuevos' }, { key: 'contactado', label: 'Contactados' }, { key: 'qualified', label: 'Cualificados' }, { key: 'cliente', label: 'Etiqueta cliente' }] as const
 const tools = [
   { label: 'Funnel tiroides', note: 'Conversión del test y seguimiento', href: '/admin/funnel-tiroides', icon: UserRound },
   { label: 'Comunidad', note: 'Contenido, módulos y publicaciones', href: '/admin/comunidad', icon: MessageCircle },
@@ -100,7 +100,7 @@ function Metric({ label, value, note }: { label: string; value: string | number;
 
 function Funnel({ stats }: { stats: DashboardStats }) {
   const maximum = Math.max(...stages.map(stage => stats.leads.byStatus[stage.key] || 0), 1)
-  return <section className={styles.panel} aria-labelledby="funnel-title"><PanelHeader label="Conversión" title="Del interés al cliente" id="funnel-title" href="/admin/leads" link="Ver leads" /><div className={styles.funnel}>{stages.map((stage, index) => { const value = stats.leads.byStatus[stage.key] || 0; const previous = index ? stats.leads.byStatus[stages[index - 1].key] || 0 : stats.leads.total; const conversion = previous ? Math.round(value / previous * 100) : 0; return <div className={styles.stage} key={stage.key}><div><span>{stage.label}</span><strong>{value}</strong></div><i><b style={{ width: `${Math.max(value / maximum * 100, value ? 7 : 0)}%` }} /></i><small>{index ? `${conversion}% desde la fase anterior` : `${stats.leads.total} en total`}</small></div> })}</div>{stats.leads.topSources.length > 0 && <div className={styles.sources}><span>Principales orígenes</span><div>{stats.leads.topSources.slice(0, 4).map(item => <span key={item.source}>{item.source} <b>{item.count}</b></span>)}</div></div>}</section>
+  return <section className={styles.panel} aria-labelledby="funnel-title"><PanelHeader label="Histórico sin depurar" title="Estados anteriores del registro" id="funnel-title" href="/admin/leads" link="Revisar medición comercial" /><div className={styles.funnel}>{stages.map(stage => { const value = stats.leads.byStatus[stage.key] || 0; return <div className={styles.stage} key={stage.key}><div><span>{stage.label}</span><strong>{value}</strong></div><i><b style={{ width: `${Math.max(value / maximum * 100, value ? 7 : 0)}%` }} /></i><small>Incluye registros pendientes de revisión</small></div> })}</div>{stats.leads.topSources.length > 0 && <div className={styles.sources}><span>Principales orígenes</span><div>{stats.leads.topSources.slice(0, 4).map(item => <span key={item.source}>{item.source} <b>{item.count}</b></span>)}</div></div>}</section>
 }
 
 function PanelHeader({ label, title, id, href, link }: { label: string; title: string; id: string; href?: string; link?: string }) { return <div className={styles.panelHeader}><div><p className={styles.label}>{label}</p><h2 id={id}>{title}</h2></div>{href && <Link href={href} className={styles.textLink}>{link} <ArrowUpRight size={15}/></Link>}</div> }

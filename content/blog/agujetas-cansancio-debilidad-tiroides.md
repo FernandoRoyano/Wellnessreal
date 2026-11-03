@@ -1,17 +1,17 @@
 ---
-titulo: "Agujetas persistentes, cansancio y debilidad: qué revisar"
+titulo: "Agujetas, cansancio y debilidad: entrenamiento y tiroides"
 slug: agujetas-cansancio-debilidad-tiroides
 categoria: Tiroides y entrenamiento
 fecha: 2026-07-29
 tiempo_lectura: 7 min
-meta_descripcion: "Dolor muscular, fatiga y debilidad no significan automáticamente hipotiroidismo. Aprende a diferenciarlos y cuándo consultar."
+meta_descripcion: "Cómo distinguir agujetas, cansancio y debilidad si tienes hipotiroidismo. Qué revisar del entrenamiento y qué señales requieren consulta sanitaria."
 imagen_destacada: "/blog/agujetas-cansancio-debilidad-tiroides.jpg"
 imagen_alt: "Persona descansando después de entrenar y evaluando su recuperación"
 ---
 
-# Agujetas persistentes, cansancio y debilidad: qué revisar
+# Agujetas, cansancio y debilidad: entrenamiento y tiroides
 
-Dolor muscular, cansancio y debilidad pueden aparecer juntos, pero no significan lo mismo. Tampoco confirman por sí solos que la tiroides esté desajustada. Separarlos ayuda a decidir si conviene ajustar el entrenamiento o consultar.
+¿Son agujetas, cansancio o debilidad? Aunque pueden aparecer juntos, no significan lo mismo ni permiten saber por sí solos si la tiroides está desajustada. Aquí encontrarás qué observar del entrenamiento y cuándo conviene consultar en lugar de atribuirlo todo al esfuerzo.
 
 ## Agujetas, fatiga y debilidad
 
@@ -44,3 +44,8 @@ La recuperación lenta puede aportar información, pero no es una prueba tiroide
 ---
 
 Si necesitas adaptar el entrenamiento a tu energía actual, puedes [solicitar una valoración gratuita](https://wellnessreal.es/valoracion).
+
+## Antes de añadir más entrenamiento, entiende tu punto de partida
+Para ampliar el contexto, lee la guía de [cansancio e hipotiroidismo](/blog/cansancio-e-hipotiroidismo) y la de [ejercicio con hipotiroidismo](/hipotiroidismo/ejercicio). Estas lecturas no sustituyen una valoración sanitaria si hay síntomas nuevos, persistentes o progresivos.
+
+Cuando lo que necesitas es organizar y revisar tu entrenamiento, puedes conocer [Método BASE Tiroides](/metodo-tiroides) o el [acompañamiento individual](/servicios/entrenamiento-online). Revisa el alcance de cada formato antes de solicitarlo. Fernando te escribe por WhatsApp para acordar una videollamada; no se interpretan analíticas ni se modifica medicación.

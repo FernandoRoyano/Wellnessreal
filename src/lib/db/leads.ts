@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { buildCommercialSummary, captureCommercialKind, type CommercialSummary, type LeadKind } from '@/lib/lead-measurement'
 
 export type LeadStatus = 'nuevo' | 'contactado' | 'qualified' | 'cliente' | 'descartado'
 export type LeadSource = 'guia' | 'tiroides' | 'valoracion' | 'metodo-optin' | 'newsletter' | 'contacto' | 'webinar' | 'unknown'
@@ -73,7 +74,7 @@ export async function upsertLead(input: CreateLeadInput): Promise<Lead> {
     if (!existing.phone && input.phone) updates.phone = input.phone
 
     const mergedTags = Array.from(new Set([...(existing.tags || []), newViaTag, ...(input.tags || [])]))
-    updates.tags = mergedTags
+    updates.tags = captureCommercialKind(mergedTags, input.source)
 
     // Merge form_data sin perder lo anterior
     if (input.form_data) {
@@ -105,7 +106,7 @@ export async function upsertLead(input: CreateLeadInput): Promise<Lead> {
     fbc: input.fbc || null,
     fbp: input.fbp || null,
     form_data: input.form_data || null,
-    tags: Array.from(new Set([newViaTag, ...(input.tags || [])])),
+    tags: captureCommercialKind(Array.from(new Set([newViaTag, ...(input.tags || [])])), input.source),
     user_agent: input.user_agent || null,
     ip: input.ip || null,
   }
@@ -124,15 +125,20 @@ export async function listLeads(params?: {
   source?: LeadSource
   search?: string
   limit?: number
+  offset?: number
+  kind?: LeadKind
 }): Promise<Lead[]> {
   let query = supabase.from('leads').select('*').order('created_at', { ascending: false })
   if (params?.status) query = query.eq('status', params.status)
   if (params?.source) query = query.eq('source', params.source)
+  if (params?.kind === 'sin_revisar') {
+    query = query.or('tags.is.null,tags.not.ov.{crm:tipo:prueba,crm:tipo:suscriptor,crm:tipo:oportunidad}')
+  } else if (params?.kind) query = query.contains('tags', [`crm:tipo:${params.kind}`])
   if (params?.search) {
     const term = `%${params.search}%`
     query = query.or(`email.ilike.${term},name.ilike.${term},phone.ilike.${term}`)
   }
-  query = query.limit(params?.limit ?? 200)
+  query = query.range(params?.offset ?? 0, (params?.offset ?? 0) + (params?.limit ?? 200) - 1)
 
   const { data, error } = await query
   if (error) throw error
@@ -145,7 +151,7 @@ export async function getLead(id: string): Promise<Lead | null> {
   return (data as Lead) || null
 }
 
-export async function updateLead(id: string, updates: Partial<Lead>): Promise<Lead> {
+export async function updateLead(id: string, updates: Partial<Lead>, expectedUpdatedAt?: string): Promise<Lead> {
   const allowed: (keyof Lead)[] = [
     'name', 'phone', 'status', 'notes', 'tags', 'contacted_at', 'converted_at',
   ]
@@ -162,7 +168,9 @@ export async function updateLead(id: string, updates: Partial<Lead>): Promise<Le
     filtered.converted_at = new Date().toISOString()
   }
 
-  const { data, error } = await supabase.from('leads').update(filtered).eq('id', id).select().single()
+  let query = supabase.from('leads').update(filtered).eq('id', id)
+  if (expectedUpdatedAt) query = query.eq('updated_at', expectedUpdatedAt)
+  const { data, error } = await query.select().single()
   if (error) throw error
   return data as Lead
 }
@@ -181,11 +189,15 @@ export async function getLeadStats(): Promise<{
   descartado: number
   last_7_days: number
   last_30_days: number
+  commercial: CommercialSummary
 }> {
-  const { data, error } = await supabase
-    .from('leads')
-    .select('status, created_at')
-  if (error) throw error
+  const data: Pick<Lead, 'status' | 'created_at' | 'tags' | 'utm_source' | 'utm_medium' | 'referrer'>[] = []
+  for (let offset = 0; ; offset += 1000) {
+    const batch = await supabase.from('leads').select('status,created_at,tags,utm_source,utm_medium,referrer').order('id').range(offset, offset + 999)
+    if (batch.error) throw batch.error
+    data.push(...(batch.data ?? []))
+    if ((batch.data?.length ?? 0) < 1000) break
+  }
 
   const now = Date.now()
   const sevenDaysAgo = now - 7 * 24 * 60 * 60 * 1000
@@ -200,12 +212,13 @@ export async function getLeadStats(): Promise<{
     descartado: 0,
     last_7_days: 0,
     last_30_days: 0,
+    commercial: buildCommercialSummary(data),
   }
 
   for (const row of data || []) {
     stats.total++
     const status = row.status as LeadStatus
-    if (status in stats) (stats as Record<string, number>)[status]++
+    if (['nuevo', 'contactado', 'qualified', 'cliente', 'descartado'].includes(status)) stats[status]++
     const created = new Date(row.created_at).getTime()
     if (created >= sevenDaysAgo) stats.last_7_days++
     if (created >= thirtyDaysAgo) stats.last_30_days++
