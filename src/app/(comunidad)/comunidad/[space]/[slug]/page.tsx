@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, permanentRedirect, redirect } from 'next/navigation'
 import { ArrowLeft, ArrowRight, Clock, Lock } from 'lucide-react'
 import { LessonReader, type RelatedArticle } from '@/components/comunidad/LessonReader'
 import { LessonCompletionButton } from '@/components/comunidad/LessonCompletionButton'
@@ -23,11 +23,21 @@ export default async function LessonPage({
 }) {
   const { space: spaceSlug, slug } = await params
   const member = await getSessionMember()
+  if (!member) redirect(`/comunidad/entrar?next=${encodeURIComponent(`/comunidad/${spaceSlug}/${slug}`)}`)
   const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
   const lessons = await getLessons(space.id, member)
+  const renamedBlocks: Record<string, string> = {
+    'bloque-1-semanas-1-4': 'bloque-1-semanas-1-3',
+    'bloque-2-semanas-5-8': 'bloque-2-semanas-4-6',
+    'bloque-3-semanas-9-12': 'bloque-3-semanas-7-9',
+  }
   const idx = lessons.findIndex((lesson) => lesson.slug === slug)
+  if (idx === -1 && spaceSlug === 'metodo-base-tiroides' && renamedBlocks[slug]
+    && lessons.some(lesson => lesson.slug === renamedBlocks[slug])) {
+    permanentRedirect(`/comunidad/${spaceSlug}/${renamedBlocks[slug]}`)
+  }
   if (idx === -1) notFound()
 
   const lesson = lessons[idx]
@@ -66,7 +76,7 @@ export default async function LessonPage({
               <Clock className="h-4 w-4" />
               {lesson.lockReason === 'drip'
                 ? `Se desbloquea en ${lesson.daysUntilUnlock} ${lesson.daysUntilUnlock === 1 ? 'día' : 'días'}`
-                : 'Contenido premium'}
+                : lesson.lockReason === 'approval' ? 'Disponible cuando tu plan esté aprobado' : 'Contenido premium'}
             </p>
             <p className="mx-auto mt-2 max-w-sm text-sm text-white/50">
               Vamos paso a paso: el contenido se libera poco a poco para que lo asimiles sin agobios.
@@ -98,11 +108,11 @@ export default async function LessonPage({
       )}
 
       {(prev || next) && (
-        <nav className="mt-14 grid gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-2">
+        <nav className="mt-14 grid min-w-0 gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-2">
           {prev ? (
             <Link
               href={`/comunidad/${spaceSlug}/${prev.slug}`}
-              className="hover-lift surface-card flex items-center gap-3 rounded-xl p-4"
+              className="hover-lift surface-card flex min-w-0 items-center gap-3 rounded-xl p-4"
             >
               <ArrowLeft className="h-5 w-5 shrink-0 text-white/40" />
               <span className="min-w-0">
@@ -116,7 +126,7 @@ export default async function LessonPage({
           {next && (
             <Link
               href={`/comunidad/${spaceSlug}/${next.slug}`}
-              className="hover-lift surface-card flex items-center justify-end gap-3 rounded-xl p-4 text-right"
+              className="hover-lift surface-card flex min-w-0 items-center justify-end gap-3 rounded-xl p-4 text-right"
             >
               <span className="min-w-0">
                 <span className="block text-xs text-white/40">Siguiente</span>

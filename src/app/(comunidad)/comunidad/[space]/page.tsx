@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { notFound } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 import {
   getSessionMember,
   getSpace,
@@ -9,6 +9,7 @@ import {
   type MemberProfile,
 } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
+import { CommunityImage } from '@/components/comunidad/CommunityImage'
 import { Avatar } from '@/components/comunidad/Avatar'
 import { NuevoHilo } from '@/components/comunidad/NuevoHilo'
 import { timeAgo } from '@/lib/comunidad-format'
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 export default async function SpacePage({ params }: { params: Promise<{ space: string }> }) {
   const { space: spaceSlug } = await params
   const member = await getSessionMember()
+  if (!member) redirect(`/comunidad/entrar?next=${encodeURIComponent(`/comunidad/${spaceSlug}`)}`)
   const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
@@ -62,7 +64,7 @@ async function LessonList({
   const lessons = await getLessons(spaceId, member)
   const completedIds = member ? await getCompletedLessonIds() : new Set<string>()
   const availableCount = lessons.filter((lesson) => !lesson.locked).length
-  const completedCount = lessons.filter((lesson) => completedIds.has(lesson.id)).length
+  const completedCount = lessons.filter((lesson) => !lesson.locked && completedIds.has(lesson.id)).length
 
   if (lessons.length === 0) {
     return (
@@ -92,7 +94,7 @@ async function LessonList({
                 <Clock className="h-3 w-3" />
                 {l.lockReason === 'drip'
                   ? `Disponible en ${l.daysUntilUnlock} ${l.daysUntilUnlock === 1 ? 'día' : 'días'}`
-                  : 'Contenido premium'}
+                  : l.lockReason === 'approval' ? 'Disponible cuando tu plan esté aprobado' : 'Contenido premium'}
               </p>
             </div>
             <Lock className="h-4 w-4 shrink-0 text-white/30" />
@@ -105,17 +107,19 @@ async function LessonList({
             >
               <NumberBadge n={i + 1} completed={completedIds.has(l.id)} />
               {l.cover_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <CommunityImage
                   src={l.cover_url}
                   alt=""
-                  className="hidden h-12 w-20 shrink-0 rounded-lg object-cover sm:block"
+                  sizes="80px"
+                  className={`h-12 w-16 shrink-0 rounded-lg sm:w-20 ${l.cover_url.endsWith('.svg') ? 'object-contain' : 'object-cover'}`}
                 />
               ) : null}
               <p className="min-w-0 flex-1 font-medium text-white group-hover:text-[var(--color-accent)]">
                 {l.title}
               </p>
-              <PlayCircle className="h-5 w-5 shrink-0 text-white/30 transition group-hover:text-[var(--color-accent)]" />
+              {/<(?:iframe|video)\b/i.test(l.content)
+                ? <PlayCircle className="h-5 w-5 shrink-0 text-white/30 transition group-hover:text-[var(--color-accent)]" />
+                : <BookOpen className="h-5 w-5 shrink-0 text-white/30 transition group-hover:text-[var(--color-accent)]" />}
             </Link>
           </li>
         )

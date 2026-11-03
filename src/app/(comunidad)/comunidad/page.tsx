@@ -1,6 +1,5 @@
 import type { CSSProperties } from 'react'
 import type { Metadata } from 'next'
-import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ArrowRight, BookOpen, Check, Download, FileText, MessageCircle, Route } from 'lucide-react'
@@ -15,6 +14,7 @@ import {
   getSpacesOverview,
 } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
+import { CommunityImage } from '@/components/comunidad/CommunityImage'
 
 export const metadata: Metadata = {
   title: 'Comunidad Tiroides · WellnessReal',
@@ -54,7 +54,7 @@ export default async function ComunidadHome() {
         <div className="community-journey-copy">
           <p className="community-eyebrow"><Route className="h-4 w-4" /> Tu recorrido</p>
           <h1 className="headline">Hola, {member.display_name.split(' ')[0]}.<br />Una cosa cada vez.</h1>
-          <p>No necesitas hacerlo perfecto. Necesitas entender qué te pasa, elegir una acción posible y repetirla.</p>
+          <p>No necesitas hacerlo perfecto. Empieza con una acción posible, entiende cómo aplicarla y repítela.</p>
           {nextLesson && nextSpace && (
             <Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="community-primary-action">
               Continuar por aquí <ArrowRight className="h-4 w-4" />
@@ -74,7 +74,7 @@ export default async function ComunidadHome() {
         <section className="community-next">
           <SectionTitle number="01" eyebrow="Tu siguiente paso" title="Hoy solo necesitas esto" />
           <Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="community-feature-card">
-            {nextLesson.cover_url && <Image src={nextLesson.cover_url} alt="" width={900} height={520} />}
+            {nextLesson.cover_url && <CommunityImage src={nextLesson.cover_url} alt="" loading="eager" sizes="(min-width: 1024px) 520px, 100vw" />}
             <div>
               <p>{nextSpace.name} · {Math.max(1, Math.ceil(nextLesson.content.replace(/<[^>]*>/g, ' ').split(/\s+/).length / 210))} min</p>
               <h3>{nextLesson.title}</h3>
@@ -91,9 +91,13 @@ export default async function ComunidadHome() {
             const available = lessonGroups[index].filter((lesson) => !lesson.locked)
             const done = available.filter((lesson) => completedIds.has(lesson.id)).length
             const percentage = available.length ? Math.round((done / available.length) * 100) : 0
+            const cover = space.slug === 'aprende-tiroides' ? '/community/tiroides-eje-hpt.svg'
+              : space.slug === 'metodo-base-tiroides' ? '/community/editorial/seguimiento-cuaderno.webp'
+                : lessonGroups[index][0]?.cover_url
             return (
               <Link href={`/comunidad/${space.slug}`} key={space.id} className="community-map-card">
-                <div><span>0{index + 1}</span><BookOpen className="h-5 w-5" /></div>
+                {cover && <CommunityImage src={cover} alt="" className="community-map-image" sizes="(min-width: 1024px) 520px, 90vw" />}
+                <div className="community-map-index"><span>0{index + 1}</span><BookOpen className="h-5 w-5" /></div>
                 <h3>{space.name}</h3><p>{space.description}</p>
                 <div className="community-map-progress"><span style={{ width: `${percentage}%` }} /></div>
                 <small>{done}/{available.length} completadas</small>

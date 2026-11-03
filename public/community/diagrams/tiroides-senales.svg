@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">El circuito de señales de la tiroides</title><desc id="desc">El hipotálamo participa en la regulación; la hipófisis libera TSH y la tiroides produce T4 y T3. Las hormonas tiroideas intervienen en la retroalimentación.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="m1 1 7 4-7 4" fill="none" stroke="#fcee21" stroke-width="1.6"/></marker></defs>
+  <rect width="600" height="760" rx="24" fill="#15112f"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <text x="300" y="65" fill="#fff" font-size="32" font-weight="700">Un circuito de señales</text>
+    <text x="300" y="102" fill="#c6bfd8" font-size="22">No trabaja una sola glándula</text>
+    <g fill="#211b3d" stroke="#76618e"><rect x="105" y="148" width="390" height="105" rx="16"/><rect x="105" y="310" width="390" height="105" rx="16"/><rect x="105" y="472" width="390" height="105" rx="16"/></g>
+    <g fill="#fff" font-size="30" font-weight="700"><text x="300" y="190">Hipotálamo</text><text x="300" y="352">Hipófisis</text><text x="300" y="514">Tiroides</text></g>
+    <g fill="#d4cfea" font-size="23"><text x="300" y="226">Participa en la regulación</text><text x="300" y="388">Libera TSH</text><text x="300" y="550">Produce T4 y T3</text></g>
+    <g stroke="#fcee21" stroke-width="3" marker-end="url(#arrow)"><path d="M300 261v38"/><path d="M300 423v38"/></g>
+    <path d="M495 524h48V200h-37" fill="none" stroke="#baa0d3" stroke-width="3" stroke-dasharray="8 6"/>
+    <text x="300" y="640" fill="#fcee21" font-size="24" font-weight="700">Las señales se regulan entre sí</text>
+    <text x="300" y="679" fill="#d4cfea" font-size="21">Esquema simplificado de retroalimentación.</text>
+    <text x="300" y="716" fill="#d4cfea" font-size="21">No permite interpretar una analítica.</text>
+  </g>
+</svg>

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 760" role="img" aria-labelledby="title desc">
+  <title id="title">Hashimoto y seguimiento profesional</title><desc id="desc">Hashimoto es una enfermedad autoinmune que puede afectar a la función tiroidea. El seguimiento sanitario y el apoyo a los hábitos tienen funciones distintas.</desc>
+  <rect width="600" height="760" rx="24" fill="#15112f"/>
+  <g font-family="Arial,sans-serif" text-anchor="middle">
+    <text x="300" y="65" fill="#fff" font-size="32" font-weight="700">Entender Hashimoto</text>
+    <text x="300" y="102" fill="#c6bfd8" font-size="22">Situar cada parte del cuidado</text>
+    <rect x="60" y="148" width="480" height="115" rx="16" fill="#211b3d" stroke="#76618e"/>
+    <text x="300" y="194" fill="#fff" font-size="31" font-weight="700">Autoinmunidad</text><text x="300" y="231" fill="#d4cfea" font-size="22">Puede afectar a la tiroides</text>
+    <path d="M300 274v35m-8-8 8 8 8-8" fill="none" stroke="#fcee21" stroke-width="3"/>
+    <rect x="60" y="325" width="480" height="115" rx="16" fill="#211b3d" stroke="#76618e"/>
+    <text x="300" y="371" fill="#fff" font-size="29" font-weight="700">Seguimiento sanitario</text><text x="300" y="409" fill="#d4cfea" font-size="21">Valora función tiroidea y tratamiento</text>
+    <path d="M60 488h480" stroke="#76618e"/>
+    <text x="300" y="544" fill="#fcee21" font-size="28" font-weight="700">Apoyo a tu vida cotidiana</text>
+    <text x="300" y="589" fill="#d4cfea" font-size="23">Entrenamiento · organización · descanso</text>
+    <text x="300" y="671" fill="#d4cfea" font-size="22">Los hábitos no sustituyen el tratamiento</text><text x="300" y="708" fill="#d4cfea" font-size="22">de una enfermedad autoinmune.</text>
+  </g>
+</svg>

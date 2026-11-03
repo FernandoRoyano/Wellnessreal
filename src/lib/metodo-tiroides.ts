@@ -81,7 +81,7 @@ export const THYROID_PROGRAM_WEEKS = [
   { week: 6, title: 'Recuperación con contexto', outcome: 'Elegir una mejora concreta de recuperación.' },
   { week: 7, title: 'Volver sin empezar de cero', outcome: 'Crear tu protocolo personal para retomar.' },
   { week: 8, title: 'Carga bien distribuida', outcome: 'Equilibrar volumen, intensidad y disponibilidad.' },
-  { week: 9, title: 'Segunda revisión', outcome: 'Detectar el límite principal y aprobar el último bloque.' },
+  { week: 9, title: 'Segunda revisión', outcome: 'Detectar el límite principal y preparar el último bloque.' },
   { week: 10, title: 'Decidir con criterio', outcome: 'Definir cuándo mantener, reducir o progresar.' },
   { week: 11, title: 'Semanas fuera de rutina', outcome: 'Preparar un plan de contingencia realista.' },
   { week: 12, title: 'Autonomía', outcome: 'Salir con un plan de continuidad de cuatro semanas.' },

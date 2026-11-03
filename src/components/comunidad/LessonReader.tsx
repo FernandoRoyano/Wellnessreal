@@ -3,6 +3,8 @@
 import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowUpRight, BookOpen, Clock3, Download, ShieldCheck } from 'lucide-react'
+import { CommunityImage } from '@/components/comunidad/CommunityImage'
+import { communityMedia } from '@/lib/community-media'
 
 export interface RelatedArticle {
   slug: string
@@ -143,10 +145,12 @@ export function LessonReader({
         </div>
       </header>
 
-      {coverUrl && (
-        <figure className="lesson-cover">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={coverUrl} alt={`Portada de ${title}`} />
+      {coverUrl && !(communityMedia(coverUrl).kind === 'diagram' && content.includes(`src="${coverUrl}"`)) && (
+        <figure className={`lesson-cover lesson-cover--${communityMedia(coverUrl).kind}`}>
+          <a className="lesson-cover-image" href={coverUrl} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar imagen: ${title}`}>
+            <CommunityImage src={coverUrl} loading="eager" sizes="(min-width: 1024px) 1000px, 100vw" />
+          </a>
+          {communityMedia(coverUrl).credit && <figcaption>{communityMedia(coverUrl).credit}</figcaption>}
         </figure>
       )}
 
