@@ -46,10 +46,46 @@ const weekExample = [
 ]
 
 const movementExamples = [
-  { pattern: 'Sentarte y levantarte', home: 'Levantarte de una silla firme, con apoyo de manos si lo necesitas.', gym: 'Sentadilla a un banco o prensa ajustada a tu movilidad.' },
-  { pattern: 'Mover la cadera', home: 'Puente de glúteos o bisagra de cadera con una carga ligera si conoces el movimiento.', gym: 'Puente de glúteos con carga o peso muerto con mancuernas, si dominas la técnica.' },
-  { pattern: 'Empujar', home: 'Flexiones contra una pared o una superficie firme y estable.', gym: 'Press de pecho en máquina o con mancuernas.' },
-  { pattern: 'Tirar hacia ti', home: 'Remo con mancuerna y apoyo estable, o con una goma fijada en un anclaje adecuado.', gym: 'Remo en polea o en máquina.' },
+  {
+    pattern: 'Sentarte y levantarte',
+    home: 'Levantarte de una silla firme, con apoyo de manos si lo necesitas.',
+    gym: 'Sentadilla a un banco o prensa ajustada a tu movilidad.',
+    image: '/guides/ejercicio-hipotiroidismo/sentarte-levantarte-compact-v1.webp',
+    alt: 'Levantarse de una silla con apoyo de manos y sentadilla a un banco, con cuádriceps y glúteos destacados.',
+    homeLabel: 'Casa · silla',
+    gymLabel: 'Gimnasio · sentadilla a banco',
+    muscles: 'Cuádriceps, en la parte anterior del muslo, y glúteo mayor.',
+  },
+  {
+    pattern: 'Mover la cadera',
+    home: 'Puente de glúteos o bisagra de cadera con una carga ligera si conoces el movimiento.',
+    gym: 'Puente de glúteos con carga o peso muerto con mancuernas, si dominas la técnica.',
+    image: '/guides/ejercicio-hipotiroidismo/mover-cadera-compact-v1.webp',
+    alt: 'Puente de glúteos en el suelo y peso muerto rumano con mancuernas, con glúteos e isquiotibiales destacados.',
+    homeLabel: 'Casa · puente de glúteos',
+    gymLabel: 'Gimnasio · peso muerto rumano',
+    muscles: 'Glúteos e isquiotibiales, en la parte posterior del muslo. El reparto del esfuerzo cambia según la variante.',
+  },
+  {
+    pattern: 'Empujar',
+    home: 'Flexiones contra una pared o una superficie firme y estable.',
+    gym: 'Press de pecho en máquina o con mancuernas.',
+    image: '/guides/ejercicio-hipotiroidismo/empujar-compact-v1.webp',
+    alt: 'Flexión contra la pared y press de pecho con mancuernas sobre banco, con pecho, hombros y tríceps destacados.',
+    homeLabel: 'Casa · flexión en pared',
+    gymLabel: 'Gimnasio · press con mancuernas',
+    muscles: 'Pectoral mayor, deltoides anterior y tríceps: pecho, parte delantera del hombro y parte posterior del brazo.',
+  },
+  {
+    pattern: 'Tirar hacia ti',
+    home: 'Remo con mancuerna y apoyo estable, o con una goma fijada en un anclaje adecuado.',
+    gym: 'Remo en polea o en máquina.',
+    image: '/guides/ejercicio-hipotiroidismo/tirar-hacia-ti-compact-v1.webp',
+    alt: 'Remo con mancuerna y apoyo en un banco, junto a remo sentado en polea, con dorsal ancho y espalda media destacados.',
+    homeLabel: 'Casa · remo con mancuerna',
+    gymLabel: 'Gimnasio · remo en polea',
+    muscles: 'Dorsal ancho y espalda media, incluido el trapecio medio. Los flexores del codo también ayudan.',
+  },
 ]
 
 export default function EjercicioHipotiroidismoPage() {
@@ -104,37 +140,29 @@ export default function EjercicioHipotiroidismoPage() {
               <span className="eyebrow">Los mismos patrones, distinto material</span>
               <h2>Una sesión de fuerza en casa o en el gimnasio</h2>
               <p>Dedica unos minutos a moverte y ensayar cada ejercicio sin carga o con una carga fácil. Después, elige una variante de cada patrón que puedas realizar con control y sin dolor preocupante. Si un movimiento es nuevo, pide ayuda para aprenderlo antes de hacerlo más difícil.</p>
-              <figure className={styles.anatomy} aria-labelledby="musculos-ejercicios">
-                <h3 id="musculos-ejercicios">Qué músculos trabaja cada movimiento</h3>
-                <Image
-                  src="/guides/ejercicio-hipotiroidismo/musculos-patrones-fuerza-v1.webp"
-                  alt="Cuatro ejercicios con músculos destacados: sentadilla con cuádriceps y glúteos; puente con glúteos e isquiotibiales; flexión en pared con pecho, hombros y tríceps; remo con dorsal ancho y espalda media."
-                  width={1086}
-                  height={1448}
-                  sizes="(max-width: 896px) calc(100vw - 2rem), 832px"
-                  className={styles.anatomyImage}
-                />
-                <ol className={styles.muscleLegend}>
-                  <li><strong>Sentadilla.</strong> Cuádriceps, en la parte anterior del muslo, y glúteo mayor.</li>
-                  <li><strong>Puente de glúteos.</strong> Glúteo mayor, con participación de los isquiotibiales, en la parte posterior del muslo.</li>
-                  <li><strong>Flexión en pared.</strong> Pectoral mayor, deltoides anterior y tríceps: pecho, parte delantera del hombro y parte posterior del brazo.</li>
-                  <li><strong>Remo con apoyo.</strong> Dorsal ancho y musculatura de la espalda media, como el trapecio medio. Los flexores del codo también ayudan.</li>
-                </ol>
-                <figcaption>
-                  Ilustración anatómica generada con IA. El rojo destaca algunas zonas implicadas; no mide su activación ni muestra todos los músculos que participan.
-                  {' '}<a href="/guides/ejercicio-hipotiroidismo/musculos-patrones-fuerza-v1.webp" target="_blank" rel="noopener noreferrer">Ampliar la lámina (nueva pestaña)</a>.
-                </figcaption>
-              </figure>
-              <p className={styles.movementSources}>Referencias para los movimientos: <a href="https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/">sentadilla</a> y <a href="https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/">puente de glúteos, de ACE</a>; <a href="https://www.nasm.org/resource-center/exercise-library/push-up">flexiones, de NASM</a>; <a href="https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/seated-row/vid-20084669">remo, de Mayo Clinic</a>.</p>
+              <p className={styles.movementSources}>Las imágenes muestran un ejemplo de casa y otro de gimnasio para cada movimiento. Pulsa en cada una para ampliarla en una nueva pestaña.</p>
               <dl className={styles.movements}>
                 {movementExamples.map((item) => (
                   <div key={item.pattern}>
                     <dt>{item.pattern}</dt>
-                    <dd><strong>En casa:</strong> {item.home}</dd>
-                    <dd><strong>En gimnasio:</strong> {item.gym}</dd>
+                    <dd>
+                      <figure className={styles.movementFigure}>
+                        <a href={item.image} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar imágenes de ${item.pattern.toLowerCase()} (nueva pestaña)`}>
+                          <Image src={item.image} alt={item.alt} width={768} height={512} sizes="320px" className={styles.movementImage} />
+                        </a>
+                        <figcaption><span>{item.homeLabel}</span><span>{item.gymLabel}</span></figcaption>
+                      </figure>
+                    </dd>
+                    <dd>
+                      <p><strong>En casa:</strong> {item.home}</p>
+                      <p><strong>En gimnasio:</strong> {item.gym}</p>
+                      <p><strong>Músculos implicados:</strong> {item.muscles}</p>
+                    </dd>
                   </div>
                 ))}
               </dl>
+              <p className={styles.movementSources}>Ilustraciones anatómicas generadas con IA. El rojo destaca algunas zonas implicadas; no mide su activación ni muestra todos los músculos que participan.</p>
+              <p className={styles.movementSources}>Referencias para los movimientos: <a href="https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/">sentadilla</a>, <a href="https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/">puente de glúteos</a> y <a href="https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/">press de pecho, de ACE</a>; <a href="https://www.nasm.org/resource-center/exercise-library/dumbbell-romanian-deadlift">peso muerto rumano</a> y <a href="https://www.nasm.org/resource-center/exercise-library/push-up">flexiones, de NASM</a>; <a href="https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/seated-row/vid-20084669">remo, de Mayo Clinic</a>.</p>
               <p>Como ejemplo de aprendizaje, puedes probar una serie de 6–10 repeticiones por movimiento. Si resulta tolerable y recuperas bien, valora una segunda serie en sesiones posteriores. El número se adapta: no es una dosis específica para la tiroides.</p>
               <p>Descansa entre series hasta poder repetir el movimiento con control; uno o dos minutos pueden servir de referencia, y puedes necesitar más. Termina con la sensación de que podrías hacer unas dos o tres repeticiones adicionales sin perder la técnica. Eso significa dejar <Link href="/blog/rir-rpe-autoregular-entrenamiento">repeticiones en reserva, o RIR</Link>.</p>
               <p>Si no tienes material seguro para un remo, no improvises anclajes en muebles o puertas. Adapta la sesión al material disponible y busca una alternativa con ayuda profesional.</p>
