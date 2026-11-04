@@ -21,7 +21,7 @@ export const metadata = {
   ...buildMetadata({
     title: PAGE_TITLE,
     description:
-      'Entrenamiento de fuerza con hipotiroidismo o Hashimoto: plan adaptado, hábitos y seguimiento con Fernando Royano. Método BASE Tiroides, 12 semanas.',
+      'Entrenamiento de fuerza para mujeres con hipotiroidismo o Hashimoto: plan adaptado, hábitos y seguimiento con Fernando Royano durante 12 semanas.',
     path: '/metodo-tiroides',
     keywords: [
       'programa entrenamiento hipotiroidismo',
@@ -111,7 +111,7 @@ export default async function MetodoTiroidesPage() {
               </h1>
               <p className="mt-6 max-w-2xl text-fluid-lg leading-relaxed text-muted">
                 Doce semanas de fuerza adaptada, hábitos y seguimiento en grupo reducido con
-                Fernando Royano. Para personas con hipotiroidismo o Hashimoto, según su energía,
+                Fernando Royano. Para mujeres con hipotiroidismo o Hashimoto, según su energía,
                 experiencia y horarios.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">

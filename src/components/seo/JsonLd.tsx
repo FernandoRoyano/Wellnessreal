@@ -144,6 +144,10 @@ export function breadcrumbSchema(items: { name: string; url: string }[]) {
   }
 }
 
+export function isFernandoAuthor(author: string): boolean {
+  return author.trim().toLowerCase() === 'fernando royano'
+}
+
 export function articleSchema(article: {
   title: string
   description: string
@@ -166,8 +170,10 @@ export function articleSchema(article: {
     author: {
       '@type': 'Person',
       name: article.author,
-      '@id': 'https://wellnessreal.es/sobre-mi#person',
-      url: 'https://wellnessreal.es/sobre-mi',
+      ...(isFernandoAuthor(article.author) ? {
+        '@id': 'https://wellnessreal.es/sobre-mi#person',
+        url: 'https://wellnessreal.es/sobre-mi',
+      } : {}),
     },
     publisher: {
       '@type': 'Organization',
@@ -214,7 +220,7 @@ export function personSchema() {
     '@id': 'https://wellnessreal.es/sobre-mi#person',
     name: 'Fernando Royano',
     jobTitle: 'Entrenador Personal Online',
-    url: 'https://wellnessreal.es',
+    url: 'https://wellnessreal.es/sobre-mi',
     worksFor: {
       '@type': 'Organization',
       name: 'WellnessReal',
@@ -225,6 +231,7 @@ export function personSchema() {
       'Entrenamiento personal',
       'Planificación del entrenamiento',
       'Fitness online',
+      'Adaptación del entrenamiento con hipotiroidismo y Hashimoto',
     ],
     sameAs: [LINKEDIN, INSTAGRAM, YOUTUBE, GOOGLE_BUSINESS],
   }

@@ -17,14 +17,14 @@ import Container from '@/components/common/Container'
 import JsonLd, { breadcrumbSchema, personSchema } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
-  title: 'Sobre mí | Fernando Royano, entrenador de WellnessReal',
+  title: 'Fernando Royano, entrenador personal',
   description:
-    'Conoce a Fernando Royano, graduado en Ciencias del Deporte y fundador de WellnessReal. Entrenamiento explicado con criterio y adaptado a una vida real.',
+    'Fernando Royano, graduado en Ciencias del Deporte. Entrenamiento para mujeres con hipotiroidismo o Hashimoto, desde la experiencia y el estudio continuado.',
   alternates: { canonical: '/sobre-mi' },
   openGraph: {
     title: 'Fernando Royano | Quién está detrás de WellnessReal',
     description:
-      'Mi forma de entender el entrenamiento: criterio, adaptación y acompañamiento sin extremos.',
+      'Mi formación, experiencia con clientes y estudio continuado aplicados al entrenamiento y los hábitos, con foco en mujeres con hipotiroidismo o Hashimoto.',
     url: 'https://wellnessreal.es/sobre-mi',
     type: 'profile',
     images: [
@@ -71,9 +71,15 @@ export default function AboutPage() {
     <>
       <JsonLd
         data={{
-          ...personSchema(),
+          '@context': 'https://schema.org',
+          '@type': 'ProfilePage',
+          '@id': 'https://wellnessreal.es/sobre-mi#profile',
+          name: 'Fernando Royano, entrenador de WellnessReal',
           url: 'https://wellnessreal.es/sobre-mi',
-          image: 'https://wellnessreal.es/images/fernando-royano-about.jpg',
+          mainEntity: {
+            ...personSchema(),
+            image: 'https://wellnessreal.es/images/fernando-royano-about.jpg',
+          },
         }}
       />
       <JsonLd
@@ -181,6 +187,24 @@ export default function AboutPage() {
               </p>
             </div>
           </AnimatedSection>
+        </Container>
+      </section>
+
+      <section id="enfoque-tiroides" className="scroll-mt-28 bg-brand-deep py-[clamp(4rem,8vw,7rem)]" aria-labelledby="enfoque-tiroides-titulo">
+        <Container>
+          <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+            <div>
+              <span className="eyebrow">Formación y enfoque</span>
+              <h2 id="enfoque-tiroides-titulo" className="headline mt-5 text-fluid-3xl text-white">Entrenamiento para mujeres con hipotiroidismo o Hashimoto</h2>
+            </div>
+            <div className="space-y-5 text-fluid-base leading-relaxed text-muted">
+              <p>Mi formación de base es el grado en Ciencias de la Actividad Física y del Deporte. Mi enfoque en entrenamiento con alteraciones tiroideas se ha construido a través de la experiencia con clientes y del estudio continuado de este contexto.</p>
+              <p>Me interesa entender cómo encajan el entrenamiento, el descanso, los hábitos y las circunstancias de cada persona. Esa visión me ayuda a organizar la semana, elegir una carga razonable y revisar cómo respondes antes de progresar.</p>
+              <p>Mi trabajo se centra en el ejercicio y su adaptación. El diagnóstico, la interpretación de analíticas, la medicación y las decisiones de tratamiento corresponden a tu equipo sanitario.</p>
+              <p>En WellnessReal priorizo acompañar a mujeres con hipotiroidismo o Hashimoto que quieren empezar o retomar la fuerza y construir una rutina sostenible.</p>
+              <Link href="/hipotiroidismo/ejercicio" className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Ver cómo lo aplico en la guía de ejercicio <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
+            </div>
+          </div>
         </Container>
       </section>
 

@@ -5,7 +5,7 @@ import { Calendar, Clock, User, ArrowLeft, ArrowRight } from 'lucide-react'
 import { notFound } from 'next/navigation'
 import { getPostBySlug, getAllPostSlugs, getRelatedPosts } from '@/lib/db/posts'
 import type { Metadata } from 'next'
-import JsonLd, { articleSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
+import JsonLd, { articleSchema, breadcrumbSchema, isFernandoAuthor } from '@/components/seo/JsonLd'
 import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
 import RelatedPosts from '@/components/blog/RelatedPosts'
 import '../markdown.css'
@@ -74,6 +74,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // Los artículos de tiroides funnelizan a su propia guía y a la comunidad,
   // no al embudo general de fitness.
   const isThyroid = post.category?.slug === 'tiroides'
+  const hasFernandoAuthor = isFernandoAuthor(post.author)
 
   return (
     <>
@@ -122,7 +123,9 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             <div className="flex flex-wrap items-center gap-5 text-fluid-sm text-muted pb-6 border-b border-border-subtle">
               <span className="inline-flex items-center gap-2">
                 <User className="w-4 h-4 text-accent" />
-                {post.author}
+                {hasFernandoAuthor ? (
+                  <Link href="/sobre-mi" rel="author" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">{post.author}</Link>
+                ) : post.author}
               </span>
               <span className="inline-flex items-center gap-2">
                 <Calendar className="w-4 h-4 text-accent" />
@@ -170,6 +173,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </p>
 
             <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} sourceSlug={slug} />
+            {hasFernandoAuthor && (
+              <aside aria-labelledby="sobre-el-autor" className="mt-12 border-t border-border-subtle pt-7">
+                <div className="flex items-center gap-4">
+                  <Image src="/images/fernando-royano-avatar.webp" alt="Fernando Royano, autor del artículo" width={64} height={64} className="h-16 w-16 rounded-full object-cover object-top" />
+                  <h2 id="sobre-el-autor" className="font-display text-fluid-xl font-bold text-white">Sobre Fernando Royano</h2>
+                </div>
+                <p className="mt-4 text-fluid-base leading-relaxed text-muted">Graduado en Ciencias de la Actividad Física y del Deporte, con 14 años de experiencia ayudando a personas a entrenar y organizar sus hábitos.</p>
+                {isThyroid && (
+                  <p className="mt-3 text-fluid-base leading-relaxed text-muted">Mi foco en mujeres con hipotiroidismo o Hashimoto nace de la experiencia con clientes y del estudio continuado sobre entrenamiento y alteraciones tiroideas. Trabajo sobre la planificación y la adaptación del ejercicio, manteniendo el diagnóstico y el tratamiento en el ámbito sanitario.</p>
+                )}
+                <Link href={isThyroid ? '/sobre-mi#enfoque-tiroides' : '/sobre-mi'} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Conoce mi formación y cómo trabajo <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
+              </aside>
+            )}
           </div>
         </Container>
       </section>
