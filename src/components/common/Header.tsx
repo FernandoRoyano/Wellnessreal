@@ -11,6 +11,7 @@ const navigationItems = [
   { href: '/tiroides', label: 'Tiroides' },
   { href: '/servicios/entrenamiento-online', label: 'Entrenamiento' },
   { href: '/blog', label: 'Blog' },
+  { href: '/comunidad/entrar', label: 'Comunidad gratuita' },
   { href: '/sobre-mi', label: 'Sobre mí' },
 ]
 
@@ -71,8 +72,8 @@ export default function Header() {
           ) : (
             <>
               {/* Navegación general: se oculta en la página de venta para evitar fugas del embudo. */}
-              <div className="hidden lg:flex items-center gap-9 shrink-0">
-                <nav className="flex items-center gap-9">
+              <div className="hidden xl:flex items-center gap-6 shrink-0">
+                <nav aria-label="Navegación principal" className="flex items-center gap-6">
                   {navigationItems.map((item) => (
                     <Link
                       key={item.href}
@@ -103,7 +104,7 @@ export default function Header() {
 
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="min-h-11 min-w-11 lg:hidden shrink-0 p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
+                className="min-h-11 min-w-11 xl:hidden shrink-0 p-2 rounded-lg text-accent hover:bg-accent-muted transition-colors"
                 aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-navigation"
@@ -116,7 +117,7 @@ export default function Header() {
 
         {/* Mobile nav */}
         {!isThyroidSalesPage && isMenuOpen && (
-          <nav id="mobile-navigation" aria-label="Navegación principal" className="lg:hidden py-5 border-t border-border-subtle animate-fade-in">
+          <nav id="mobile-navigation" aria-label="Navegación principal" className="xl:hidden max-h-[calc(100dvh-4.5rem)] overflow-y-auto py-5 border-t border-border-subtle animate-fade-in md:max-h-[calc(100dvh-5rem)]">
             <div className="flex flex-col gap-1">
               {navigationItems.map((item) => (
                 <Link

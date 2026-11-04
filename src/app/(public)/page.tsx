@@ -10,6 +10,8 @@ import {
   GraduationCap,
   MessageCircle,
   UserRound,
+  BookOpen,
+  Download,
 } from 'lucide-react'
 import { buildMetadata } from '@/lib/seo'
 import JsonLd, {
@@ -60,6 +62,24 @@ const SUPPORTING_BENEFITS = [
   'Entrenamiento de fuerza',
   'Hábitos sostenibles',
   'Límites sanitarios claros',
+] as const
+
+const COMMUNITY_BENEFITS = [
+  {
+    icon: BookOpen,
+    title: 'Lecciones para comprender',
+    description: 'Tiroides, fuerza y hábitos, explicados paso a paso y con fuentes.',
+  },
+  {
+    icon: Download,
+    title: 'Recursos para aplicar',
+    description: 'Herramientas descargables para organizarte y poner lo aprendido en práctica.',
+  },
+  {
+    icon: MessageCircle,
+    title: 'Un espacio para compartir',
+    description: 'Plantea dudas generales y comparte tu experiencia con otras personas de la comunidad.',
+  },
 ] as const
 
 const STEPS = [
@@ -208,6 +228,39 @@ export default function HomePage() {
             </div>
           </div>
         </HeroAnimation>
+      </section>
+
+      <section id="comunidad" aria-labelledby="community-heading" className="border-y border-border-subtle bg-brand-deep py-[clamp(3rem,6vw,5rem)]">
+        <Container>
+          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+            <div className="min-w-0">
+              <span className="eyebrow">Comunidad gratuita</span>
+              <h2 id="community-heading" className="headline mt-4 text-fluid-3xl text-white">
+                Aprende a entrenar <span className="text-accent">con más criterio.</span>
+              </h2>
+              <p className="mt-5 max-w-xl text-fluid-base leading-relaxed text-muted">
+                Un espacio para mujeres con hipotiroidismo o Hashimoto que quieren entender mejor el entrenamiento y llevarlo a su día a día.
+              </p>
+              <Link href="/comunidad/entrar" className="btn-brand mt-6 text-fluid-sm">
+                Entrar con mi email <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+              <p className="mt-4 max-w-xl text-fluid-sm leading-relaxed text-muted">
+                Las lecciones y conversaciones están reservadas a los miembros. El acceso gratuito se confirma por email; Método BASE tiene su propio acceso de pago.
+              </p>
+            </div>
+            <ul className="divide-y divide-border-subtle">
+              {COMMUNITY_BENEFITS.map(({ icon: Icon, title, description }) => (
+                <li key={title} className="flex gap-4 py-5 first:pt-0 last:pb-0">
+                  <Icon className="mt-1 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+                  <div className="min-w-0">
+                    <h3 className="text-fluid-lg font-semibold text-white">{title}</h3>
+                    <p className="mt-2 text-fluid-sm leading-relaxed text-muted">{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Container>
       </section>
 
       {/* ═══════════════ BENEFICIOS ═══════════════ */}
