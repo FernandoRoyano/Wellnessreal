@@ -23,6 +23,7 @@ const config: TopicHubConfig = {
     { title: 'Hábitos', body: 'Comida, sueño y actividad diaria aportan estructura. No necesitas detox, prohibiciones generales ni suplementos milagro.' },
   ],
   guides: [
+    { href: '/hashimoto/entrenamiento', title: 'Entrenamiento con Hashimoto', description: 'Contexto clínico, fuerza y un ejemplo de cómo ajustar las sesiones según tu recuperación.' },
     { href: '/hipotiroidismo/ejercicio', title: 'Ejercicio con hipotiroidismo', description: 'Cómo combinar fuerza y cardio y adaptar la carga cuando cambia tu energía.' },
     { href: '/hipotiroidismo/perder-peso', title: 'Perder peso con hipotiroidismo', description: 'Qué puede influir, cómo medir el progreso y qué promesas conviene evitar.' },
     { href: '/blog/cansancio-e-hipotiroidismo', title: 'Cansancio e hipotiroidismo', description: 'Qué revisar con tu profesional y cómo ajustar el entrenamiento mientras tanto.' },

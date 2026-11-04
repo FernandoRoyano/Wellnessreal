@@ -99,9 +99,9 @@ const THYROID_GUIDES = [
     description: 'Yodo, selenio, vitamina D y hierro: evidencia frente a promesas.',
   },
   {
-    href: '/blog/adelgazar-con-hipotiroidismo',
-    title: 'Adelgazar con hipotiroidismo',
-    description: 'Una guía para organizar comida, fuerza, movimiento y descanso sin extremos.',
+    href: '/hashimoto/entrenamiento',
+    title: 'Entrenamiento con Hashimoto',
+    description: 'Cómo organizar la fuerza, observar tu recuperación y ajustar las sesiones con contexto.',
   },
 ] as const
 

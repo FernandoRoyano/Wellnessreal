@@ -25,7 +25,7 @@ const config: TopicHubConfig = {
     { href: '/blog/mejor-ejercicio-hipotiroidismo', title: '¿Cuál es el mejor ejercicio?', description: 'Beneficios, dosis y criterios para elegir fuerza y cardio.' },
     { href: '/blog/agujetas-cansancio-debilidad-tiroides', title: 'Agujetas, cansancio o debilidad', description: 'Cómo distinguir patrones y cuándo conviene consultar.' },
     { href: '/blog/rutina-30-minutos-en-casa', title: 'Rutina de 30 minutos', description: 'Una plantilla adaptable para entrenar fuerza en casa.' },
-    { href: '/blog/rir-rpe-autoregular-entrenamiento', title: 'Regular el esfuerzo con RIR y RPE', description: 'Dos herramientas para ajustar sin improvisar.' },
+    { href: '/hashimoto/entrenamiento', title: 'Entrenamiento con Hashimoto', description: 'Cómo situar el diagnóstico y adaptar el entrenamiento según tu contexto y recuperación.' },
   ],
   faqs: [
     { question: '¿Cuántos días debo entrenar con hipotiroidismo?', answer: 'Dos sesiones de fuerza en días separados pueden ser un inicio si tu situación clínica y tu recuperación lo permiten. Si es demasiado, empieza con menos. La frecuencia se ajusta a tu experiencia, disponibilidad y respuesta.' },

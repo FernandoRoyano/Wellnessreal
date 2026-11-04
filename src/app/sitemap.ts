@@ -99,6 +99,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/hashimoto/entrenamiento`,
+      lastModified: new Date('2026-11-04'),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
       url: `${SITE_URL}/hipotiroidismo/perder-peso`,
       lastModified: STATIC_PAGES_UPDATED_AT,
       changeFrequency: 'monthly',
