@@ -15,18 +15,23 @@ import {
 } from '@/lib/metodo-tiroides'
 import { buildMetadata } from '@/lib/seo'
 
-export const metadata = buildMetadata({
-  title: 'Método BASE Tiroides | Programa de 12 semanas',
-  description:
-    'Programa acompañado para organizar fuerza, alimentación y descanso cuando tienes hipotiroidismo o Hashimoto. 12 semanas, grupo reducido y plan adaptado.',
-  path: '/metodo-tiroides',
-  keywords: [
-    'programa entrenamiento hipotiroidismo',
-    'entrenar con Hashimoto',
-    'Método BASE Tiroides',
-    'plan de fuerza hipotiroidismo',
-  ],
-})
+const PAGE_TITLE = 'Entrenamiento con hipotiroidismo | Método BASE'
+
+export const metadata = {
+  ...buildMetadata({
+    title: PAGE_TITLE,
+    description:
+      'Entrenamiento de fuerza con hipotiroidismo o Hashimoto: plan adaptado, hábitos y seguimiento con Fernando Royano. Método BASE Tiroides, 12 semanas.',
+    path: '/metodo-tiroides',
+    keywords: [
+      'programa entrenamiento hipotiroidismo',
+      'entrenar con Hashimoto',
+      'Método BASE Tiroides',
+      'plan de fuerza hipotiroidismo',
+    ],
+  }),
+  title: { absolute: PAGE_TITLE },
+}
 
 const FITS = [
   'Tienes hipotiroidismo o Hashimoto diagnosticado y seguimiento sanitario.',
@@ -96,18 +101,18 @@ export default async function MetodoTiroidesPage() {
           <div className="relative grid items-center gap-fluid-lg lg:grid-cols-[1.08fr_0.92fr]">
             <div>
               <span className="eyebrow">
-                Acceso por solicitud · programa en grupo reducido · 12 semanas
+                Método BASE Tiroides · 12 semanas
               </span>
               <h1 className="headline mt-5 text-fluid-5xl leading-[1.02] text-white">
-                Doce semanas para construir una rutina que puedas sostener.
+                Entrenamiento con hipotiroidismo.
                 <span className="mt-2 block text-gradient-brand">
-                  Incluso cuando tu energía cambia.
+                  Fuerza que encaja en tu semana.
                 </span>
               </h1>
               <p className="mt-6 max-w-2xl text-fluid-lg leading-relaxed text-muted">
-                Método BASE Tiroides organiza fuerza, alimentación, descanso y seguimiento alrededor
-                de tu vida real. No tratamos la tiroides: construimos contigo la parte que sí puedes
-                entrenar.
+                Doce semanas de fuerza adaptada, hábitos y seguimiento en grupo reducido con
+                Fernando Royano. Para personas con hipotiroidismo o Hashimoto, según su energía,
+                experiencia y horarios.
               </p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a href={primaryHref} className="btn-brand px-7 py-4 text-fluid-base">

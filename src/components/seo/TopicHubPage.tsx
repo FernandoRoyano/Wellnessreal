@@ -90,11 +90,12 @@ export default function TopicHubPage({ config, children }: { config: TopicHubCon
                 <article key={guide.href} className="surface-card flex h-full gap-4 rounded-2xl p-6">
                   <BookOpen className="mt-1 h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
                   <div className="flex flex-1 flex-col">
-                    <h3 className="text-fluid-lg font-semibold text-white">{guide.title}</h3>
+                    <h3 className="text-fluid-lg font-semibold">
+                      <Link href={guide.href} className="inline-flex items-start gap-2 text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">
+                        <span>{guide.title}</span><ArrowRight className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />
+                      </Link>
+                    </h3>
                     <p className="mt-2 flex-1 text-fluid-sm leading-relaxed text-muted">{guide.description}</p>
-                    <Link href={guide.href} className="mt-4 inline-flex items-center gap-2 text-fluid-sm font-semibold text-accent">
-                      Leer la guía <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </Link>
                   </div>
                 </article>
               ))}

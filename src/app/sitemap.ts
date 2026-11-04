@@ -82,13 +82,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/tiroides`,
-      lastModified: STATIC_PAGES_UPDATED_AT,
+      lastModified: new Date('2026-11-04'),
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${SITE_URL}/hipotiroidismo`,
-      lastModified: STATIC_PAGES_UPDATED_AT,
+      lastModified: new Date('2026-11-04'),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
@@ -124,7 +124,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/metodo-tiroides`,
-      lastModified: STATIC_PAGES_UPDATED_AT,
+      lastModified: new Date('2026-11-04'),
       changeFrequency: 'monthly',
       priority: 0.9,
     },

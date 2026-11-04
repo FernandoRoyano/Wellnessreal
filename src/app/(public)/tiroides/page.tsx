@@ -8,9 +8,9 @@ import JsonLd, { breadcrumbSchema } from '@/components/seo/JsonLd'
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: 'Hipotiroidismo y entrenamiento | Guías y test gratuito',
+  title: 'Test gratuito de hábitos con hipotiroidismo',
   description:
-    'Información práctica sobre fuerza, energía y hábitos cuando tienes hipotiroidismo o Hashimoto. Haz el test gratuito para ordenar tus prioridades.',
+    'Ordena tus prioridades de entrenamiento, descanso y hábitos con un test gratuito para personas con hipotiroidismo o Hashimoto. No es un test diagnóstico.',
   path: '/tiroides',
   keywords: [
     'entrenamiento hipotiroidismo',
@@ -74,9 +74,9 @@ const CONSEJO_VS = [
 
 const THYROID_GUIDES = [
   {
-    href: '/blog/mejor-ejercicio-hipotiroidismo',
-    title: 'Ejercicio e hipotiroidismo',
-    description: 'Qué aportan la fuerza y el cardio y cómo ajustar la dosis a tu energía.',
+    href: '/hipotiroidismo/ejercicio',
+    title: 'Guía de ejercicio con hipotiroidismo',
+    description: 'Una semana orientativa, ejercicios ilustrados en casa y gimnasio y criterios para ajustar el esfuerzo.',
   },
   {
     href: '/blog/por-que-no-adelgazo-con-hipotiroidismo',
@@ -134,9 +134,9 @@ export default async function TiroidesPage({ searchParams }: {
               </div>
 
               <h1 className="headline text-[clamp(2.7rem,13vw,3.5rem)] leading-[0.98] text-white animate-fade-up lg:text-fluid-5xl lg:leading-[1.1]">
-                No necesitas hacer más.
+                Test de hábitos
                 <br />
-                <span className="text-gradient-brand">Necesitas saber qué priorizar.</span>
+                <span className="text-gradient-brand">con hipotiroidismo.</span>
               </h1>
 
               <p className="max-w-2xl text-sm text-muted leading-relaxed lg:text-fluid-lg">
@@ -248,17 +248,14 @@ export default async function TiroidesPage({ searchParams }: {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
               {THYROID_GUIDES.map((guide) => (
                 <article key={guide.href} className="surface-card flex h-full flex-col rounded-2xl p-6">
-                  <h3 className="headline text-fluid-xl text-white">{guide.title}</h3>
+                  <h3 className="headline text-fluid-xl">
+                    <Link href={guide.href} className="inline-flex items-start gap-2 text-accent underline decoration-accent/40 underline-offset-4 hover:decoration-accent">
+                      <span>{guide.title}</span><ArrowRight className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />
+                    </Link>
+                  </h3>
                   <p className="mt-3 flex-1 text-fluid-sm leading-relaxed text-muted">
                     {guide.description}
                   </p>
-                  <Link
-                    href={guide.href}
-                    className="mt-5 inline-flex min-h-11 items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] hover:gap-3"
-                  >
-                    Leer la guía
-                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                  </Link>
                 </article>
               ))}
             </div>
