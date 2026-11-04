@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import type { ReactNode } from 'react'
 import { ArrowRight, CheckCircle, BookOpen } from 'lucide-react'
 import Container from '@/components/common/Container'
 import JsonLd, { breadcrumbSchema, faqSchema } from '@/components/seo/JsonLd'
@@ -16,7 +17,7 @@ export interface TopicHubConfig {
   cta: { title: string; description: string; href: string; label: string }
 }
 
-export default function TopicHubPage({ config }: { config: TopicHubConfig }) {
+export default function TopicHubPage({ config, children }: { config: TopicHubConfig; children?: ReactNode }) {
   const url = `https://wellnessreal.es${config.path}`
 
   return (
@@ -69,6 +70,8 @@ export default function TopicHubPage({ config }: { config: TopicHubConfig }) {
           </div>
         </Container>
       </section>
+
+      {children}
 
       <section className="bg-brand-deep py-fluid-xl" aria-labelledby="guias-relacionadas">
         <Container>

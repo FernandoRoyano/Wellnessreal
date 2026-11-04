@@ -94,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/hipotiroidismo/ejercicio`,
-      lastModified: STATIC_PAGES_UPDATED_AT,
+      lastModified: new Date('2026-11-04'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
