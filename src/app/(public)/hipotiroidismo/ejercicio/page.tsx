@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import Container from '@/components/common/Container'
 import TopicHubPage, { type TopicHubConfig } from '@/components/seo/TopicHubPage'
 import { buildMetadata } from '@/lib/seo'
@@ -67,7 +68,7 @@ export default function EjercicioHipotiroidismoPage() {
               <ol>
                 <li><a href="#antes-de-empezar">Antes de empezar</a></li>
                 <li><a href="#semana-ejemplo">Ejemplo de semana</a></li>
-                <li><a href="#casa-o-gimnasio">Casa o gimnasio</a></li>
+                <li><a href="#casa-o-gimnasio">Ejercicios y músculos</a></li>
                 <li><a href="#ajustar-esfuerzo">Ajustar y progresar</a></li>
                 <li><a href="#cuando-consultar">Cuándo parar y consultar</a></li>
                 <li><a href="#fuentes">Fuentes y alcance</a></li>
@@ -103,6 +104,28 @@ export default function EjercicioHipotiroidismoPage() {
               <span className="eyebrow">Los mismos patrones, distinto material</span>
               <h2>Una sesión de fuerza en casa o en el gimnasio</h2>
               <p>Dedica unos minutos a moverte y ensayar cada ejercicio sin carga o con una carga fácil. Después, elige una variante de cada patrón que puedas realizar con control y sin dolor preocupante. Si un movimiento es nuevo, pide ayuda para aprenderlo antes de hacerlo más difícil.</p>
+              <figure className={styles.anatomy} aria-labelledby="musculos-ejercicios">
+                <h3 id="musculos-ejercicios">Qué músculos trabaja cada movimiento</h3>
+                <Image
+                  src="/guides/ejercicio-hipotiroidismo/musculos-patrones-fuerza-v1.webp"
+                  alt="Cuatro ejercicios con músculos destacados: sentadilla con cuádriceps y glúteos; puente con glúteos e isquiotibiales; flexión en pared con pecho, hombros y tríceps; remo con dorsal ancho y espalda media."
+                  width={1086}
+                  height={1448}
+                  sizes="(max-width: 896px) calc(100vw - 2rem), 832px"
+                  className={styles.anatomyImage}
+                />
+                <ol className={styles.muscleLegend}>
+                  <li><strong>Sentadilla.</strong> Cuádriceps, en la parte anterior del muslo, y glúteo mayor.</li>
+                  <li><strong>Puente de glúteos.</strong> Glúteo mayor, con participación de los isquiotibiales, en la parte posterior del muslo.</li>
+                  <li><strong>Flexión en pared.</strong> Pectoral mayor, deltoides anterior y tríceps: pecho, parte delantera del hombro y parte posterior del brazo.</li>
+                  <li><strong>Remo con apoyo.</strong> Dorsal ancho y musculatura de la espalda media, como el trapecio medio. Los flexores del codo también ayudan.</li>
+                </ol>
+                <figcaption>
+                  Ilustración anatómica generada con IA. El rojo destaca algunas zonas implicadas; no mide su activación ni muestra todos los músculos que participan.
+                  {' '}<a href="/guides/ejercicio-hipotiroidismo/musculos-patrones-fuerza-v1.webp" target="_blank" rel="noopener noreferrer">Ampliar la lámina (nueva pestaña)</a>.
+                </figcaption>
+              </figure>
+              <p className={styles.movementSources}>Referencias para los movimientos: <a href="https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/">sentadilla</a> y <a href="https://www.acefitness.org/resources/everyone/exercise-library/49/glute-bridge/">puente de glúteos, de ACE</a>; <a href="https://www.nasm.org/resource-center/exercise-library/push-up">flexiones, de NASM</a>; <a href="https://www.mayoclinic.org/healthy-lifestyle/fitness/multimedia/seated-row/vid-20084669">remo, de Mayo Clinic</a>.</p>
               <dl className={styles.movements}>
                 {movementExamples.map((item) => (
                   <div key={item.pattern}>
