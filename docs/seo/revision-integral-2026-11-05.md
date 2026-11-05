@@ -2,6 +2,8 @@
 
 Fecha: 5 de noviembre de 2026. Público prioritario: mujeres con hipotiroidismo o Hashimoto, inicialmente en España.
 
+**Actualización de publicación, 5 de noviembre:** Fernando ha autorizado subir los ajustes y los dos artículos. Levotiroxina y ejercicio e Hipotiroidismo y colesterol alto ya se han publicado en Supabase con su fecha real de salida, manteniendo el contenido revisado y las portadas. El informe siguiente documenta el estado de la revisión previa; el despliegue y su comprobación pública se registran en `publicacion-tiroides-2026-11-05.md`.
+
 ## Resultado y estado de publicación
 
 Los dos artículos de esta tanda están revisados y guardados en Supabase como **borradores**. Sus URLs públicas siguen devolviendo 404 y no aparecen en el sitemap. Las correcciones menores de interfaz y metadatos están preparadas y verificadas localmente; **esta revisión no incluye un nuevo despliegue del frontend**.
