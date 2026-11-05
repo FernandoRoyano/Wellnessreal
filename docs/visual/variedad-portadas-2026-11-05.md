@@ -27,6 +27,8 @@ Las fotografías son ilustrativas. No se presentan como clientes, consultas, ses
 
 Las fuentes Markdown se sincronizan con los destinos de las portadas. Las copias y recibos quedan en `output/cover-variety-20261105/`, excluida de Git, junto a las capturas de antes, después y recortes móviles. Los originales nuevos PNG se conservan allí y en el directorio de imágenes generadas de Codex.
 
+La imagen para compartir el centro de biohacking y longevidad se alinea también con el nuevo esquema de hábitos.
+
 Se revisa la composición conjunta, el recorte en tarjetas y artículos, la carga de las imágenes y los metadatos en móvil y escritorio. La comprobación general `npm run check:content` verifica las 59 URLs y sus portadas publicadas.
 
 ## Criterio para las siguientes publicaciones
