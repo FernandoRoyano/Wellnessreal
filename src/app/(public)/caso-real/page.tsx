@@ -10,7 +10,7 @@ import AnimatedCounter from '@/components/animations/AnimatedCounter'
 import MagneticButton from '@/components/animations/MagneticButton'
 
 export const metadata = buildMetadata({
-  title: 'De 92kg a 71kg en 14 meses | Caso Real — WellnessReal',
+  title: 'De 92kg a 71kg en 14 meses | Caso Real',
   description:
     'Cómo un padre de familia de 41 años perdió 21kg sin dietas extremas ni entrenamientos imposibles. Historia real de un cliente de WellnessReal.',
   path: '/caso-real',

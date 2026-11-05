@@ -27,7 +27,7 @@ export function EntrarForm({ errorMessage, next = '/comunidad' }: { errorMessage
       <label htmlFor="email">Email de acceso</label>
       <div className={styles.inputWrap}>
         <Mail size={18} aria-hidden="true" />
-        <input id="email" name="email" type="email" required autoComplete="email" autoFocus placeholder="tu@email.com" aria-invalid={Boolean(errorMessage || state?.error)} />
+        <input id="email" name="email" type="email" required autoComplete="email" spellCheck={false} placeholder="tu@email.com" aria-invalid={Boolean(errorMessage || state?.error)} />
       </div>
       <button type="submit" disabled={pending}>
         <span>{pending ? 'Enviando enlace…' : 'Recibir enlace de acceso'}</span>

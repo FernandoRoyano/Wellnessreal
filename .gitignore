@@ -60,5 +60,8 @@ temp_*.png
 # Copia y recibos locales de la revisión editorial de fatiga.
 /output/fatigue-decisions-20261104/
 /output/muscle-hypothyroidism-20261105/
+/output/levothyroxine-review-20261105/
+/output/cholesterol-review-20261105/
+/output/review-20261105/
 
 .vercel

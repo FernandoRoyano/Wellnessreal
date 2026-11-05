@@ -4,7 +4,7 @@ import { Check, Clock3, Dumbbell, ShieldCheck } from 'lucide-react'
 import ThyroidClassForm from './ThyroidClassForm'
 
 export const metadata: Metadata = {
-  title: 'Clase gratuita: entrenamiento y tiroides | WellnessReal',
+  title: 'Clase gratuita: entrenamiento y tiroides',
   description: 'Aprende a organizar fuerza, alimentación y descanso cuando tienes hipotiroidismo, sin planes extremos ni falsas promesas.',
   robots: { index: false, follow: false },
 }

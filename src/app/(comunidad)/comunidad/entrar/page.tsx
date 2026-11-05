@@ -9,7 +9,7 @@ import styles from './entrar.module.css'
 import { safeInternalPath } from '@/lib/safe-redirect'
 
 export const metadata: Metadata = {
-  title: 'Entrar · Comunidad Tiroides · WellnessReal',
+  title: 'Entrar · Comunidad Tiroides',
   description: 'Accede a la comunidad gratuita de tiroides de WellnessReal con tu email.',
   robots: { index: false, follow: false },
 }

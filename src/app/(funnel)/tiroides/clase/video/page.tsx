@@ -5,7 +5,7 @@ import ThyroidClassVideo from './ThyroidClassVideo'
 import ThyroidVslCta from './ThyroidVslCta'
 
 export const metadata: Metadata = {
-  title: 'Tu clase de tiroides | WellnessReal',
+  title: 'Tu clase de tiroides',
   description: 'Clase gratuita sobre entrenamiento, alimentación y descanso cuando tienes hipotiroidismo.',
   robots: { index: false, follow: false },
 }
