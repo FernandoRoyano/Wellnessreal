@@ -7,8 +7,8 @@ estado: borrador_revision_fernando
 tiempo_lectura: 11 min
 meta_título: "Péptidos, recuperación y longevidad: evidencia y riesgos"
 meta_descripción: "Qué dice la evidencia sobre BPC-157, TB-500, CJC-1295, ipamorelina, MOTS-c y GHK-Cu: datos humanos, riesgos y señales de alarma."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/peptidos-evidencia-foto-v4.webp"
-imagen_alt: "Portada «Péptidos: qué sabemos de verdad», con una lupa y una mano revisando un documento junto a material de entrenamiento."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/peptidos-serie-plantilla-v5.webp"
+imagen_alt: "Portada «Péptidos para recuperación y longevidad», con una lupa y una mano revisando documentos junto a material de entrenamiento."
 ---
 
 # Péptidos para recuperación y longevidad: qué sabemos y qué no
