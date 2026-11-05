@@ -1,6 +1,7 @@
 ---
 title: "Ganar masa muscular con hipotiroidismo: guía práctica"
 slug: ganar-masa-muscular-con-hipotiroidismo
+fecha: "2026-10-22T09:00:00+02:00"
 categoria: "Tiroides y entrenamiento"
 excerpt: "Cómo plantear la ganancia muscular con hipotiroidismo: fuerza, progresión, alimentación y recuperación, con un ejemplo de dos días y sus ajustes."
 author: "Fernando Royano"

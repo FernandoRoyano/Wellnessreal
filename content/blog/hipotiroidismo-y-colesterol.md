@@ -1,6 +1,7 @@
 ---
 title: "Hipotiroidismo y colesterol alto: qué relación tienen"
 slug: hipotiroidismo-y-colesterol
+fecha: "2026-10-29T09:00:00+01:00"
 categoria: "Tiroides y entrenamiento"
 excerpt: "Hipotiroidismo y colesterol alto: qué puede cambiar con el tratamiento, cómo ayuda el ejercicio y por qué importa el seguimiento médico."
 author: "Fernando Royano"
