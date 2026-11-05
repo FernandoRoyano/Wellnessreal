@@ -4,8 +4,8 @@ slug: ganar-masa-muscular-con-hipotiroidismo
 categoria: "Tiroides y entrenamiento"
 excerpt: "Cómo plantear la ganancia muscular con hipotiroidismo: fuerza, progresión, alimentación y recuperación, con un ejemplo de dos días y sus ajustes."
 author: "Fernando Royano"
-imagen_destacada: "/community/editorial/progresion-fuerza.webp"
-imagen_alt: "Escena ilustrativa de una mujer preparando mancuernas junto a un banco en casa."
+imagen_destacada: "/blog/editorial/masa-muscular-tiroides-plantilla-v1.webp"
+imagen_alt: "Portada «Ganar masa muscular con hipotiroidismo», con una mujer preparando mancuernas junto a un banco en casa."
 ---
 
 **Tener hipotiroidismo no implica por sí solo que debas descartar ganar masa muscular.** Si tu situación clínica permite hacer ejercicio, puedes plantear un entrenamiento de fuerza progresivo, ajustado a tu experiencia y recuperación. El diagnóstico no determina cuánto peso debes mover ni cuánto músculo vas a ganar.

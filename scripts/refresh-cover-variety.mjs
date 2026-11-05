@@ -13,18 +13,21 @@ const revisions = {
   scenes: { output: 'output/cover-variety-20261105', manifest: 'content/blog/cover-variety-2026-11.json' },
   series: { output: 'output/cover-style-20261105', manifest: 'content/blog/cover-style-2026-11.json' },
   peptides: { output: 'output/peptides-cover-20261105', manifest: 'content/blog/cover-peptides-2026-11.json' },
+  muscle: { output: 'output/muscle-cover-20261105', manifest: 'content/blog/cover-muscle-2026-11.json' },
 }
 if (!Object.hasOwn(revisions, revision)) throw new Error('[Covers:scope] Revisión no prevista')
 const output = path.join(root, revisions[revision].output)
 const planPath = path.join(output, 'plan.json')
 const manifest = JSON.parse(fs.readFileSync(path.join(root, revisions[revision].manifest), 'utf8'))
-const expected = revision === 'peptides' ? ['peptidos-recuperacion-longevidad-evidencia'] : ['levotiroxina-y-ejercicio', 'hipotiroidismo-y-colesterol', 'peptidos-recuperacion-longevidad-evidencia', 'terapia-hormonal-antienvejecimiento', 'edad-biologica-wearables-biomarcadores', 'fuerza-longevidad-masa-muscular', 'biohacking-longevidad-que-funciona', 'cuanto-cuesta-entrenador-personal-online']
+const singlePostRevisions = { peptides: ['peptidos-recuperacion-longevidad-evidencia'], muscle: ['ganar-masa-muscular-con-hipotiroidismo'] }
+const expected = singlePostRevisions[revision] ?? ['levotiroxina-y-ejercicio', 'hipotiroidismo-y-colesterol', 'peptidos-recuperacion-longevidad-evidencia', 'terapia-hormonal-antienvejecimiento', 'edad-biologica-wearables-biomarcadores', 'fuerza-longevidad-masa-muscular', 'biohacking-longevidad-que-funciona', 'cuanto-cuesta-entrenador-personal-online']
 if (JSON.stringify(manifest.map(entry => entry.slug)) !== JSON.stringify(expected)) throw new Error('[Covers:scope] Selección fuera del alcance previsto')
 const hash = value => createHash('sha256').update(value).digest('hex')
 const manifestHash = hash(JSON.stringify(manifest))
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const editableKeys = ['main_image_url', 'main_image_alt', 'updated_at']
-if (revision !== 'series') editableKeys.push('content')
+const preserveContent = ['series', 'muscle'].includes(revision)
+if (!preserveContent) editableKeys.push('content')
 const protectedKeys = post => Object.keys(post).filter(key => !editableKeys.includes(key))
 
 async function readPost(slug) {
@@ -39,6 +42,7 @@ async function checkImage(url) {
 }
 
 function revisedContent(post, entry) {
+  if (preserveContent) return post.content
   const caption = `<p><em>${entry.caption}</em></p>`
   if (post.content.includes(caption)) return post.content
   if (entry.previousCaption) {
@@ -79,7 +83,7 @@ if (!process.argv.includes('--apply') && !process.argv.includes('--upload')) {
     const url = entry.storageObject ? db.storage.from('media').getPublicUrl(entry.storageObject).data.publicUrl : entry.publicUrl
     if (hash(fs.readFileSync(path.join(root, entry.file))) !== planned.assetHash) throw new Error('[Covers:plan] Recurso modificado desde la revisión')
     if (JSON.stringify(Object.keys(planned.updates).sort()) !== JSON.stringify(['content', 'main_image_alt', 'main_image_url']) || planned.updates.main_image_url !== url || planned.updates.main_image_alt !== entry.alt || planned.updates.content !== revisedContent(planned.post, entry)) throw new Error('[Covers:plan] Campos distintos de la revisión visual autorizada')
-    if (revision === 'series' && planned.updates.content !== planned.post.content) throw new Error('[Covers:plan] La revisión de estilo debe conservar el contenido del artículo')
+    if (preserveContent && planned.updates.content !== planned.post.content) throw new Error('[Covers:plan] La revisión de estilo debe conservar el contenido del artículo')
   }
   if (process.argv.includes('--upload')) {
     for (let index = 0; index < manifest.length; index++) {
