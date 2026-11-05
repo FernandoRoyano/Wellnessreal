@@ -1,6 +1,11 @@
 import { supabase } from '@/lib/supabase'
 
 export const THYROID_FUNNEL_EVENTS = [
+  'community_entry_click',
+  'community_access_requested',
+  'community_signup_confirmed',
+  'community_first_lesson_completed',
+  'community_program_visit',
   'thyroid_landing_view',
   'thyroid_landing_cta_click',
   'thyroid_test_start',

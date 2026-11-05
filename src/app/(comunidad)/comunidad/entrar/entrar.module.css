@@ -307,6 +307,10 @@
 
 .success h3 { margin: 0 0 0.4rem; font-size: 1rem; }
 .success p { margin: 0; color: rgba(36, 24, 39, 0.65); font-size: 0.84rem; line-height: 1.6; }
+.retry { margin-top: 1rem; min-height: 44px; color: #39233d; text-align: left; text-decoration: underline; text-underline-offset: 3px; font-size: .84rem; cursor: pointer; }
+.quickAccess { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1rem; color: #f3cf94; text-decoration: underline; text-underline-offset: 4px; font-weight: 600; }
+@media (min-width: 1024px) { .quickAccess { display: none; } }
+.formNote a { text-decoration: underline; text-underline-offset: 3px; }
 
 .steps {
   margin: 2.5rem 0 0;

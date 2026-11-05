@@ -53,6 +53,7 @@ export function getStoredAttribution(): AttributionData {
  */
 export function captureAttribution(): AttributionData {
   if (!hasTrackingConsent()) return {}
+  if (window.location.pathname.startsWith('/comunidad')) return getStoredAttribution()
 
   const existing = getStoredAttribution()
   // Si ya tenemos atribución persistida, no la sobrescribimos

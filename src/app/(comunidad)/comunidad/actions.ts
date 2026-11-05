@@ -13,7 +13,9 @@ import {
   ensureMemberProfile,
   memberCanAccessLesson,
 } from '@/lib/db/comunidad'
-import { setLessonCompletion } from '@/lib/community-progress'
+import { getCompletedLessonIds, setLessonCompletion } from '@/lib/community-progress'
+import { parseCommunityTracking } from '@/lib/community-tracking'
+import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { safeInternalPath } from '@/lib/safe-redirect'
 import { currentWeekStart, saveWeeklyCheckin, setLessonFavorite, setLessonFeedback } from '@/lib/community-tools'
 
@@ -94,6 +96,9 @@ export async function requestMagicLink(
       }
     }
 
+    const tracking = parseCommunityTracking(formData.get('_community_tracking'))
+    if (tracking) await recordThyroidFunnelEvent({ eventName: 'community_access_requested', ...tracking })
+      .catch(error => console.error('[comunidad:accessTracking]', error))
     return { ok: true }
   } catch (err) {
     console.error('[comunidad:magicLink:throw]', err)
@@ -126,6 +131,7 @@ export async function confirmMagicLink(
 
   const supabase = await createServerSupabase()
 
+  const tracking = parseCommunityTracking(formData.get('_community_tracking'))
   let userId: string | null = null
   let authError: string | null = null
 
@@ -135,7 +141,7 @@ export async function confirmMagicLink(
       userId = data?.user?.id ?? null
       authError = error?.message ?? null
       if (data?.user) {
-        await ensureMemberProfile(data.user).catch((err) =>
+        await ensureMemberProfile(data.user, tracking).catch((err) =>
           console.error('[comunidad:confirmMagicLink:ensureMemberProfile]', err)
         )
       }
@@ -144,7 +150,7 @@ export async function confirmMagicLink(
       userId = data?.user?.id ?? null
       authError = error?.message ?? null
       if (data?.user) {
-        await ensureMemberProfile(data.user).catch((err) =>
+        await ensureMemberProfile(data.user, tracking).catch((err) =>
           console.error('[comunidad:confirmMagicLink:ensureMemberProfile]', err)
         )
       }
@@ -214,8 +220,16 @@ export async function setLessonCompletionAction(formData: FormData) {
   const lessonId = String(formData.get('lesson_id') ?? '')
   const completed = String(formData.get('completed') ?? '') === 'true'
   if (!/^[0-9a-f-]{36}$/i.test(lessonId)) return
+  if (!(await memberCanAccessLesson(member, lessonId))) return
 
+  const previous = await getCompletedLessonIds()
   await setLessonCompletion(lessonId, completed)
+  const tracking = parseCommunityTracking(formData.get('_community_tracking'))
+  if (completed && previous.size === 0 && tracking) {
+    await recordThyroidFunnelEvent({ eventName: 'community_first_lesson_completed', ...tracking,
+      email: member.email, externalId: `community:first-lesson:${member.id}`,
+    }).catch(error => console.error('[comunidad:completionTracking]', error))
+  }
   revalidatePath('/comunidad')
 }
 

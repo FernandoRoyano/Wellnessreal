@@ -3,6 +3,7 @@
 import { useActionState } from 'react'
 import { solicitarPlazaAction, type SolicitudResult } from './actions'
 import { CheckCircle2, Loader2 } from 'lucide-react'
+import { getThyroidTrackingContext } from '@/lib/analytics'
 
 const inputClass =
   'w-full rounded-lg border border-[var(--color-border)] bg-[var(--color-brand-deep)] px-4 py-2.5 text-white placeholder:text-white/30 focus:border-[var(--color-accent)] focus:outline-none'
@@ -27,7 +28,10 @@ export function SolicitudForm({ yaSolicitada }: { yaSolicitada: boolean }) {
   }
 
   return (
-    <form action={action} className="surface-card space-y-4 rounded-2xl p-6">
+    <form action={formData => {
+      formData.set('_community_tracking', JSON.stringify(getThyroidTrackingContext()))
+      action(formData)
+    }} className="surface-card space-y-4 rounded-2xl p-6">
       <div>
         <label className="mb-1.5 block text-sm font-semibold text-white/80">
           ¿Qué te gustaría conseguir en estos 3 meses?

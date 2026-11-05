@@ -47,7 +47,7 @@ test('el test conduce desde la portada hasta un resultado accionable', async ({ 
 
   await expect(page.getByText('Orientación según tus respuestas')).toBeVisible()
   await expect(page.getByRole('heading', { name: /Tienes piezas sueltas/ })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Entrar en la comunidad gratis' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Seguir aprendiendo en la comunidad gratuita' })).toBeVisible()
 })
 
 test('las solicitudes abiertas muestran alcance, precio y formulario sin cobrar', async ({ page }) => {

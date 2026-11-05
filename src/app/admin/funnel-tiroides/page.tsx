@@ -32,6 +32,14 @@ const STAGES = [
   ['Renovaciones', 'thyroid_continuity'],
 ] as const
 
+const COMMUNITY_STAGES = [
+  ['Clic para entrar', 'community_entry_click'],
+  ['Enlace solicitado', 'community_access_requested'],
+  ['Alta nueva confirmada', 'community_signup_confirmed'],
+  ['Primera lección completada', 'community_first_lesson_completed'],
+  ['Programa desde comunidad', 'community_program_visit'],
+] as const
+
 const PROFILE_LABELS: Record<string, string> = {
   buena_base: 'Buena base',
   falta_estructura: 'Falta de estructura',
@@ -82,6 +90,11 @@ export default function ThyroidFunnelPage() {
         {error && <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-5 text-red-300">{error}</div>}
         {data && !loading && (
           <>
+            <section className="mb-8" aria-labelledby="community-funnel-heading">
+              <h2 id="community-funnel-heading" className="text-xl font-semibold text-white">De la comunidad al acompañamiento</h2>
+              <p className="mt-2 mb-4 max-w-3xl text-sm leading-relaxed text-white/70">Identidades con consentimiento en el periodo. Pedir un enlace no confirma un alta; volver a iniciar sesión no cuenta como miembro nuevo. Solicitudes y pagos confirmados aparecen en las etapas comerciales.</p>
+              <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">{COMMUNITY_STAGES.map(([label, key]) => <div key={key} className="border-t border-white/20 pt-4"><dt className="text-sm text-white/75">{label}</dt><dd className="mt-2 text-2xl font-semibold text-white">{data.counts[key] ?? 0}</dd></div>)}</dl>
+            </section>
             <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {STAGES.map(([label, key], index) => (
                 <div key={key} className="relative rounded-xl border border-white/10 bg-[#1a1535] p-4">

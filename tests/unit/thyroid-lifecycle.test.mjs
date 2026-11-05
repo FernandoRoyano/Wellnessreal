@@ -239,12 +239,13 @@ test('los correos escapan el nombre y no inventan citas ni renovaciones', () => 
   assert.match(closing.html, /no hay renovación automática/)
 })
 
-function webhook(f, session) {
+function webhook(f, session, stopInvitations = async () => {}) {
   return load('src/app/api/stripe/webhook/route.ts', {
     'next/server': { NextResponse: Response },
     '@/lib/stripe': { getStripe: () => ({ webhooks: { constructEvent: () => ({ id: 'evt-test', type: 'checkout.session.completed', data: { object: session } }) } }) },
     '@/lib/supabase': { supabase: f.supabase }, '@/lib/asesoria-notes': f.notes,
     '@/lib/thyroid-lifecycle': f.lifecycle,
+    '@/lib/mailerlite': { stopCommunityPurchaseInvitations: stopInvitations },
     '@/lib/db/thyroid-funnel': { markThyroidLeadAsCustomer: async () => null, recordThyroidFunnelEvent: async () => {} },
   }, { process: { env: {} }, Date: f.Clock })
 }
@@ -263,6 +264,23 @@ test('el webhook repetido del pago inicial conserva la fecha y una sola bienveni
   assert.equal(f.sent.length, 1)
   assert.equal(f.tables.cliente_perfil[0].pagado_en, date)
   assert.match(f.application.notas, /payment:installments:1/)
+})
+
+test('un fallo al detener invitaciones conserva el acceso pagado y el reintento no duplica la bienvenida', async () => {
+  const f = fixture()
+  f.application.notas = null
+  f.application.estado = 'aceptada'
+  const session = { payment_status: 'paid', metadata: { kind: 'metodo_tiroides', asesoria_id: f.application.id, payment_plan: 'one_time' } }
+  const request = () => new Request('https://example.com/webhook', { method: 'POST', headers: { 'stripe-signature': 'test' }, body: '{}' })
+  assert.equal((await webhook(f, session, async () => { throw new Error('provider unavailable') }).POST(request())).status, 500)
+  assert.equal(f.application.estado, 'pagada')
+  assert.equal(f.tables.cliente_perfil[0].acceso_manual, true)
+  const date = f.tables.cliente_perfil[0].pagado_en
+  const api = webhook(f, session)
+  assert.equal((await api.POST(request())).status, 200)
+  assert.equal((await api.POST(request())).status, 200)
+  assert.equal(f.sent.length, 1)
+  assert.equal(f.tables.cliente_perfil[0].pagado_en, date)
 })
 
 test('el segundo pago no vuelve a enviar la bienvenida y un fallo de correo no revierte el pago', async () => {

@@ -123,13 +123,19 @@ test('no reintenta rechazos permanentes ni envíos de resultado ambiguo', async 
   }
 })
 
-test('el CTA del blog abre la guía y mide un clic sin registrar una suscripción', () => {
+test('el CTA tiroideo abre la comunidad y el general conserva la guía sin contar suscripciones', () => {
   const clicks = []
+  const communityClicks = []
   let signups = 0
   const jsx = (type, props) => ({ type, props })
+  const community = loadModule('src/components/comunidad/CommunityLink.tsx', {
+    'react/jsx-runtime': { jsx, jsxs: jsx }, 'next/link': { default: 'a' },
+    '@/lib/analytics': { trackThyroidFunnel: (...args) => communityClicks.push(args) },
+  })
   const { default: Blog } = loadModule('src/components/blog/BlogContentWithCTAs.tsx', {
     'react/jsx-runtime': { jsx, jsxs: jsx },
     'next/link': { default: 'a' },
+    '@/components/comunidad/CommunityLink': community,
     '@/lib/analytics': {
       trackBlogCtaClick: (...args) => clicks.push(args), trackSignUp: () => { signups += 1 },
     },
@@ -141,14 +147,14 @@ test('el CTA del blog abre la guía y mide un clic sin registrar una suscripció
     return [...(node.type === 'a' ? [node.props] : []), ...links(node.props?.children)]
   }
   const tree = Blog({ content: '<p>Contenido</p>'.repeat(10), isThyroid: true, sourceSlug: 'articulo' })
-  const guide = links(tree).find((link) => link.href === '/tiroides?recurso=guia#test')
+  const guide = links(tree).find((link) => link.href === '/comunidad/entrar')
   assert.ok(guide)
-  guide.onClick()
-  assert.deepEqual(clicks, [['articulo', '/tiroides?recurso=guia#test', 'inline']])
+  guide.onClick({ defaultPrevented: false })
+  assert.deepEqual(JSON.parse(JSON.stringify(communityClicks)), [['community_entry_click', { position: 'blog_inline' }]])
   const general = Blog({ content: '<p>Contenido</p>'.repeat(10), sourceSlug: 'general' })
   const generalGuide = links(general).find((link) => link.href === '/recurso-gratis#formulario')
   assert.ok(generalGuide)
   generalGuide.onClick()
-  assert.deepEqual(clicks[1], ['general', '/recurso-gratis#formulario', 'inline'])
+  assert.deepEqual(clicks[0], ['general', '/recurso-gratis#formulario', 'inline'])
   assert.equal(signups, 0)
 })

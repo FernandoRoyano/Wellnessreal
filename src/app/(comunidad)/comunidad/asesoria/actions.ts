@@ -3,6 +3,8 @@
 import { redirect } from 'next/navigation'
 import { revalidatePath } from 'next/cache'
 import { getSessionMember, isApproved, createAsesoriaSolicitud } from '@/lib/db/comunidad'
+import { recordThyroidApplicationLead } from '@/lib/thyroid-application-lead'
+import { parseCommunityTracking } from '@/lib/community-tracking'
 
 export interface SolicitudResult {
   ok: boolean
@@ -35,6 +37,10 @@ export async function solicitarPlazaAction(
       disponibilidadDirecto:
         String(formData.get('disponibilidad_directo') ?? '').trim() || undefined,
     })
+    await recordThyroidApplicationLead({ name: member.display_name, email: member.email,
+      phone: String(formData.get('telefono') ?? '').trim() || undefined, origin: 'community',
+      tracking: parseCommunityTracking(formData.get('_community_tracking')),
+    }).catch(error => console.error('[comunidad:applicationTracking]', error))
   } catch (err) {
     console.error('[comunidad:solicitarPlaza]', err)
     const detalle = err instanceof Error ? err.message : String(err)

@@ -1,7 +1,8 @@
 /** Meta solo recibe eventos genéricos en páginas públicas expresamente permitidas. */
 export const META_PIXEL_ID = '1856252045560196'
 import { hasTrackingConsent } from '@/lib/cookie-consent'
-const PUBLIC_PATHS = new Set(['/', '/contacto', '/sobre-mi', '/filosofia', '/servicios', '/tarifas'])
+// La portada ahora presenta expresamente la comunidad sobre salud tiroidea.
+const PUBLIC_PATHS = new Set(['/contacto', '/sobre-mi', '/filosofia', '/servicios', '/tarifas'])
 let excludedJourney = false
 
 export function canTrackMeta(): boolean {

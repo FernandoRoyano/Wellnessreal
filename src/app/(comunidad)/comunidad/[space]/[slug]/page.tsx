@@ -6,7 +6,8 @@ import { LessonReader, type RelatedArticle } from '@/components/comunidad/Lesson
 import { LessonCompletionButton } from '@/components/comunidad/LessonCompletionButton'
 import { LessonEngagement } from '@/components/comunidad/CommunityEngagement'
 import { LessonFavorite, LessonFeedback } from '@/components/comunidad/LessonTools'
-import { getSessionMember, getSpace, getLessons } from '@/lib/db/comunidad'
+import { getSessionMember, getSpace, getLessons, memberHasPremium } from '@/lib/db/comunidad'
+import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getAllPosts } from '@/lib/db/posts'
 import { getFavoriteLessonIds, getLessonFeedback } from '@/lib/community-tools'
@@ -48,6 +49,8 @@ export default async function LessonPage({
     : await getLessonRelatedArticles(lesson.title, lesson.content)
   const completedLessonIds = member ? await getCompletedLessonIds() : new Set<string>()
   const resource = getLessonResource(lesson.slug, lesson.title)
+  const showProgramInvitation = !lesson.locked && space.access_tier === 'free' && /entren|fuerza|cansancio|energ|hábitos|habitos/.test(`${lesson.slug} ${lesson.title}`.toLowerCase())
+  const hasPremium = showProgramInvitation ? await memberHasPremium(member) : false
   const [favoriteIds, lessonFeedback] = member && !lesson.locked
     ? await Promise.all([getFavoriteLessonIds(member.id), getLessonFeedback(member.id, lesson.id)])
     : [new Set<string>(), null]
@@ -104,6 +107,7 @@ export default async function LessonPage({
           />
           <LessonEngagement resource={resource} />
           <LessonFeedback lessonId={lesson.id} initialFeedback={lessonFeedback} />
+          {showProgramInvitation && <ProgramInvitation hasPremium={hasPremium} />}
         </>
       )}
 

@@ -2,8 +2,7 @@
 
 import { z } from 'zod'
 import { createAsesoriaSolicitud } from '@/lib/db/comunidad'
-import { upsertLead } from '@/lib/db/leads'
-import { attachAnonymousEventsToLead, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { recordThyroidApplicationLead } from '@/lib/thyroid-application-lead'
 import { getThyroidLaunchPhase } from '@/lib/metodo-tiroides'
 import { headers } from 'next/headers'
 import { rateLimit } from '@/lib/rateLimit'
@@ -87,31 +86,8 @@ export async function applyToThyroidProgram(
       lesiones: parsed.data.limitations,
     })
     try {
-      const lead = await upsertLead({
-        email: parsed.data.email,
-        name: parsed.data.name,
-        phone: parsed.data.phone,
-        source: 'valoracion',
-        landing_page: attribution?.landing_page ?? '/metodo-tiroides',
-        referrer: attribution?.referrer ?? null,
-        utm_source: attribution?.utm_source ?? null,
-        utm_medium: attribution?.utm_medium ?? null,
-        utm_campaign: attribution?.utm_campaign ?? null,
-        form_data: { funnel: 'metodo-tiroides-application' },
-        tags: ['via:tiroides', 'form:metodo-tiroides'],
-      })
-      if (funnel?.anonymousId) {
-        await attachAnonymousEventsToLead(funnel.anonymousId, lead.id)
-      }
-      await recordThyroidFunnelEvent({
-        eventName: 'thyroid_valuation_submit',
-        leadId: lead.id,
-        anonymousId: funnel?.anonymousId,
-        sessionId: funnel?.sessionId,
-        source: attribution?.utm_source ?? null,
-        medium: attribution?.utm_medium ?? null,
-        campaign: attribution?.utm_campaign ?? null,
-        metadata: { product: 'metodo_tiroides', value: 349 },
+      await recordThyroidApplicationLead({ ...parsed.data, origin: formData.get('_origin') === 'community' ? 'community' : 'public', attribution,
+        tracking: funnel?.anonymousId && funnel.sessionId ? { anonymousId: funnel.anonymousId, sessionId: funnel.sessionId } : undefined,
       })
     } catch (trackingError) {
       console.error('[MetodoTiroides:trackApplication]', trackingError)

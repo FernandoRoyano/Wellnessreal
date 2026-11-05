@@ -41,6 +41,8 @@ export function trackSignUp(method: string): void {
 }
 
 export type ThyroidFunnelEvent =
+  | 'community_entry_click'
+  | 'community_program_visit'
   | 'thyroid_landing_view'
   | 'thyroid_landing_cta_click'
   | 'thyroid_test_start'
@@ -97,7 +99,8 @@ export function trackThyroidFunnel(
       'view_type', 'cta_position', 'page', 'percent', 'action', 'position', 'source', 'product', 'value',
     ].includes(key)),
   )
-  fireEvent(event, safeMetadata)
+  // El recorrido de la comunidad se mide solo en nuestra base de datos.
+  if (!event.startsWith('community_')) fireEvent(event, safeMetadata)
   if (!hasTrackingConsent() || !persist) return
 
   const attribution = new URLSearchParams(window.location.search)

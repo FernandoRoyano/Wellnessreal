@@ -6,6 +6,7 @@ import type Stripe from 'stripe'
 import { markThyroidLeadAsCustomer, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { mutateApplication } from '@/lib/asesoria-notes'
 import { deliverApplicationMessages, enqueueNotice } from '@/lib/thyroid-lifecycle'
+import { stopCommunityPurchaseInvitations } from '@/lib/mailerlite'
 
 export const runtime = 'nodejs'
 
@@ -92,6 +93,7 @@ export async function POST(request: NextRequest) {
                 .update({ pagado_en: new Date().toISOString() })
                 .ilike('email', application.email.replace(/[\\%_]/g, '\\$&')).is('pagado_en', null)
               if (dateError) throw new Error('[Stripe:access] No se pudo registrar la fecha de pago')
+              await stopCommunityPurchaseInvitations(application.email)
             }
             try {
               await deliverApplicationMessages(applicationId)

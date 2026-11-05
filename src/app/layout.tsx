@@ -2,8 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Suspense } from 'react'
 import { Montserrat, Bricolage_Grotesque } from 'next/font/google'
 import Script from 'next/script'
-import { Analytics } from '@vercel/analytics/next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
+import PrivacyAnalytics from '@/components/analytics/PrivacyAnalytics'
 import JsonLd, { organizationSchema } from '@/components/seo/JsonLd'
 import WhatsAppBubble from '@/components/common/WhatsAppBubble'
 import TrackingScripts from '@/components/analytics/TrackingScripts'
@@ -103,7 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               strategy="afterInteractive"
             />
             <Script id="gtag-init" strategy="afterInteractive">
-              {`gtag('js',new Date());gtag('config','${GA_ID}');`}
+              {`if(!location.pathname.startsWith('/comunidad')){gtag('js',new Date());var r;try{var u=new URL(document.referrer);r=u.origin+u.pathname;}catch(e){}gtag('config','${GA_ID}',{page_location:location.origin+location.pathname,page_referrer:r});}`}
             </Script>
           </>
         )}
@@ -114,8 +113,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Suspense>
         {children}
         <WhatsAppBubble />
-        <Analytics />
-        <SpeedInsights />
+        <PrivacyAnalytics />
       </body>
     </html>
   )

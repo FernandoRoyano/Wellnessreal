@@ -1,4 +1,5 @@
 'use client'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 
 import Link from 'next/link'
 import { trackBlogCtaClick } from '@/lib/analytics'
@@ -21,10 +22,10 @@ function splitIntoParagraphs(html: string): string[] {
 function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourceSlug: string }) {
   const cfg = isThyroid
     ? {
-        eyebrow: 'Guía gratuita',
-        title: '¿Tienes hipotiroidismo y esto te suena?',
-        desc: 'Descarga la guía gratuita “Entrenar y adelgazar con hipotiroidismo”.',
-        href: '/tiroides?recurso=guia#test',
+        eyebrow: 'Comunidad gratuita',
+        title: 'Lleva estas ideas a una primera semana posible',
+        desc: 'Lecciones, un planificador semanal y un espacio para dudas generales. Acceso gratuito con tu email.',
+        href: '/comunidad/entrar',
       }
     : {
         eyebrow: 'Recurso gratuito',
@@ -42,14 +43,14 @@ function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; source
           <h3 className="text-lg font-bold text-white mb-1">{cfg.title}</h3>
           <p className="text-sm text-gray-400">{cfg.desc}</p>
         </div>
-        <Link
+        {isThyroid ? <CommunityLink href={cfg.href} source="blog_inline" className="btn-brand flex-shrink-0 px-6 py-3 text-sm">Entrar gratis</CommunityLink> : <Link
           href={cfg.href}
           onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105"
           style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
         >
           Descargar gratis
-        </Link>
+        </Link>}
       </div>
     </div>
   )

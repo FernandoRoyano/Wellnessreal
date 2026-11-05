@@ -12,9 +12,12 @@ import {
   getRecentThreads,
   getSessionMember,
   getSpacesOverview,
+  memberHasPremium,
 } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { CommunityImage } from '@/components/comunidad/CommunityImage'
+import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
+import FooterNewsletterForm from '@/components/common/FooterNewsletterForm'
 
 export const metadata: Metadata = {
   title: 'Comunidad Tiroides · WellnessReal',
@@ -32,11 +35,12 @@ export default async function ComunidadHome() {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const [spaces, recent, online, completedIds] = await Promise.all([
+  const [spaces, recent, online, completedIds, hasPremium] = await Promise.all([
     getSpacesOverview(member),
     getRecentThreads(member, 4),
     getOnlineMembers(),
     getCompletedLessonIds(),
+    memberHasPremium(member),
   ])
   const contentSpaces = spaces.filter((space) => space.type === 'content')
   const lessonGroups = await Promise.all(contentSpaces.map((space) => getLessons(space.id, member)))
@@ -69,6 +73,17 @@ export default async function ComunidadHome() {
           <p>{completedCount} de {unlockedLessons.length} lecciones disponibles</p>
         </div>
       </header>
+
+      {hasPremium && <ProgramInvitation hasPremium />}
+      {completedIds.size === 0 && <section className="my-8 border-y border-border-subtle py-7" aria-labelledby="start-heading">
+        <h2 id="start-heading" className="headline text-fluid-2xl">Empieza aquí: una primera visita útil</h2>
+        <p className="mt-3 max-w-2xl text-muted">Todo este recorrido se puede leer. Elige una acción posible para esta semana y vuelve cuando necesites repasar.</p>
+        <ol className="mt-5 space-y-4 text-fluid-base leading-relaxed">
+          {contentSpaces.some(space => space.slug === 'empieza-aqui') && <li><Link href="/comunidad/empieza-aqui" className="text-accent underline underline-offset-4">1. Lee la bienvenida</Link><p className="mt-1 text-muted">Conoce el recorrido y la diferencia entre orientación general y acompañamiento individual.</p></li>}
+          {nextLesson && nextSpace && <li><Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="text-accent underline underline-offset-4">2. Abre tu primera lección</Link><p className="mt-1 text-muted">O realiza el <Link href="/tiroides#test" className="text-accent underline underline-offset-4">test orientativo</Link>. Es opcional y no constituye un diagnóstico.</p></li>}
+          <li><a href="#recursos" className="text-accent underline underline-offset-4">3. Reserva dos momentos posibles en tu planificador</a><p className="mt-1 text-muted">Anota también una alternativa para una semana difícil. Las dudas generales se plantean en <Link href="/comunidad/preguntas-apoyo" className="text-accent underline underline-offset-4">Preguntas y apoyo</Link>.</p></li>
+        </ol>
+      </section>}
 
       {nextLesson && nextSpace && (
         <section className="community-next">
@@ -107,7 +122,7 @@ export default async function ComunidadHome() {
         </div>
       </section>
 
-      <section className="community-library">
+      <section id="recursos" className="community-library scroll-mt-24">
         <SectionTitle number="03" eyebrow="Biblioteca práctica" title="Herramientas que puedes usar hoy" />
         <div className="community-resource-grid">
           {resources.map((resource) => (
@@ -117,6 +132,13 @@ export default async function ComunidadHome() {
           ))}
         </div>
       </section>
+
+      {!hasPremium && <ProgramInvitation hasPremium={false} />}
+      {!hasPremium && <section className="my-8 border-t border-border-subtle pt-7 text-center" aria-labelledby="community-email-heading">
+        <h2 id="community-email-heading" className="headline text-fluid-2xl">Si quieres seguir también por email</h2>
+        <p className="mx-auto my-4 max-w-xl text-muted">Puedes solicitar ideas prácticas y conocer los servicios de Fernando. Esta elección es independiente del acceso gratuito y puedes darte de baja cuando quieras.</p>
+        <FooterNewsletterForm source="community" initialEmail={member.email} />
+      </section>}
 
       <section className="community-bottom-grid">
         <div>

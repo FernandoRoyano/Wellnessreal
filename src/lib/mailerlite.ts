@@ -79,6 +79,18 @@ export async function deleteSubscriber(id: string): Promise<void> {
   })
 }
 
+/** Retira solo las invitaciones de compra; conserva otras suscripciones y las bajas. */
+export async function stopCommunityPurchaseInvitations(email: string): Promise<void> {
+  const group = process.env.MAILERLITE_COMUNIDAD_GROUP_ID
+  if (!group || !process.env.MAILERLITE_API_KEY) return
+  const response = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(email.trim().toLowerCase())}`, { headers: getHeaders(), signal: AbortSignal.timeout(10000) })
+  if (response.status === 404) return
+  if (!response.ok) throw new Error('[MailerLite:stopInvitations] No se pudo consultar la suscripción')
+  const { data } = await response.json() as { data: { id: string } }
+  const removed = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(data.id)}/groups/${encodeURIComponent(group)}`, { method: 'DELETE', headers: getHeaders(), signal: AbortSignal.timeout(10000) })
+  if (!removed.ok && removed.status !== 404) throw new Error('[MailerLite:stopInvitations] No se pudo retirar del grupo de captación')
+}
+
 export async function getSubscriberCount(): Promise<{
   active: number
   unsubscribed: number

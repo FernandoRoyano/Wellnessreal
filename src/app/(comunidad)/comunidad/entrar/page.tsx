@@ -37,7 +37,8 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
           <div className={styles.copy}>
             <p>Comunidad gratuita · Tiroides</p>
             <h1>No entras a otro grupo.<br /><span>Entras a un recorrido.</span></h1>
-            <p className={styles.lead}>Contenido revisado, herramientas para aplicar y un espacio donde preguntar sin sentir que llegas tarde.</p>
+            <p className={styles.lead}>Para mujeres con hipotiroidismo o Hashimoto que quieren entender cómo organizar la fuerza y los hábitos. Lecciones, herramientas y preguntas generales, a tu ritmo.</p>
+            <a href="#community-access" className={styles.quickAccess}>Ir al acceso gratuito</a>
           </div>
 
           <div className={styles.features}>
@@ -53,13 +54,15 @@ export default async function EntrarPage({ searchParams }: { searchParams: Promi
         </div>
       </section>
 
-      <section className={styles.access}>
+      <section id="community-access" className={styles.access}>
         <div className={styles.mobileLogo}><Image src="/images/logos/WR_AUX_normal_bg.png" alt="WellnessReal" width={4167} height={507} priority /></div>
         <div className={styles.accessInner}>
           <p className={styles.kicker}>Tu acceso a la comunidad</p>
           <h2>Entra con tu email.</h2>
           <p className={styles.intro}>Si ya eres miembro, utiliza el mismo correo con el que te registraste. Si es tu primera vez, ese correo creará tu acceso.</p>
+          <p className={styles.intro}>En tu primera visita podrás leer la bienvenida, elegir una lección y reservar dos momentos posibles en el planificador semanal. Método BASE Tiroides es un programa de pago independiente.</p>
           {cfg.ok ? <EntrarForm errorMessage={errorMessage} next={next} /> : <ConfigError missing={cfg.missing} />}
+          <p className={styles.formNote}>Tu email se utiliza para darte acceso. La suscripción a ideas y ofertas por correo se elige por separado dentro de la comunidad. <a href="/privacidad">Privacidad</a>.</p>
           <ol className={styles.steps} aria-label="Cómo funciona el acceso">
             <li><span>1</span><p>Escribe tu email</p></li>
             <li><span>2</span><p>Abre el enlace que recibirás</p></li>

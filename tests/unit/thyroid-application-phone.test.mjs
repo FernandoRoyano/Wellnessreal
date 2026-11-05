@@ -11,6 +11,7 @@ function application() {
     zod,
     '@/lib/db/comunidad': { createAsesoriaSolicitud: async input => writes.push(['application', input]) },
     '@/lib/db/leads': { upsertLead: async input => { writes.push(['lead', input]); return { id: 'test-lead' } } },
+    '@/lib/thyroid-application-lead': { recordThyroidApplicationLead: async input => writes.push(['lead', input]) },
     '@/lib/db/thyroid-funnel': { recordThyroidFunnelEvent: async () => {}, attachAnonymousEventsToLead: async () => {} },
     'next/headers': { headers: async () => new Headers() },
     '@/lib/rateLimit': { rateLimit: () => ({ success: true }) },

@@ -4,6 +4,7 @@ import { useOptimistic } from 'react'
 import { useFormStatus } from 'react-dom'
 import { Check, Circle } from 'lucide-react'
 import { setLessonCompletionAction } from '@/app/(comunidad)/comunidad/actions'
+import { getThyroidTrackingContext } from '@/lib/analytics'
 
 export function LessonCompletionButton({
   lessonId,
@@ -18,6 +19,7 @@ export function LessonCompletionButton({
     <form
       action={async (formData) => {
         setOptimisticCompleted(!optimisticCompleted)
+        formData.set('_community_tracking', JSON.stringify(getThyroidTrackingContext()))
         await setLessonCompletionAction(formData)
       }}
       className="lesson-completion"

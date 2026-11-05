@@ -383,7 +383,10 @@ export default function CampaignForm() {
                     <button
                       key={t.id}
                       type="button"
-                      onClick={() => setSelectedTemplate(t.id)}
+                      onClick={() => {
+                        setSelectedTemplate(t.id)
+                        setTemplateVars(t.defaults ? { ...t.defaults } : getDefaultVars())
+                      }}
                       className="p-3 rounded-lg text-left transition-all text-sm"
                       style={{
                         backgroundColor: selectedTemplate === t.id ? 'rgba(252, 238, 33, 0.1)' : '#16122B',

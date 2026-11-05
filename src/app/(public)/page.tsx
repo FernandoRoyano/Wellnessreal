@@ -24,6 +24,7 @@ import ParallaxImage from '@/components/animations/ParallaxImage'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 
 export const metadata = buildMetadata({
   title: 'Entrenador online | Especialización en hipotiroidismo',
@@ -180,44 +181,39 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                Entrenamiento y hábitos basados en ciencia
+                Comunidad gratuita · Hipotiroidismo y Hashimoto
               </span>
             </div>
 
-            <h1 className="headline break-words text-[clamp(2.25rem,10vw,3.4rem)] sm:text-fluid-6xl text-white animate-fade-up">
-              Entrenamiento basado en ciencia
-              <br className="hidden sm:block" />
-              <span className="text-gradient-brand"> que se adapta a tu vida real.</span>
+            <h1 className="headline break-words text-[clamp(2rem,8vw,3.4rem)] sm:text-fluid-6xl text-white animate-fade-up">
+              Aprende a entrenar y organizar tus hábitos cuando tu energía cambia.
             </h1>
 
-            <p className="text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
-              Soy Fernando Royano. Te acompaño a construir fuerza y una rutina que encaje con tu tiempo y tu energía.
-              <span className="text-accent font-semibold">
-                {' '}
-                Especialización en hipotiroidismo y Hashimoto.
-              </span>
+            <p className="text-fluid-base sm:text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
+              Soy Fernando Royano. En la comunidad gratuita de WellnessReal encontrarás lecciones y herramientas para empezar a organizar la fuerza, la alimentación y el descanso a tu ritmo.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2 animate-fade-up [animation-delay:300ms]">
               <MagneticButton strength={0.25}>
-                <Link href="/metodo-tiroides" className="btn-brand text-fluid-base">
-                  Conocer Método BASE Tiroides
+                <CommunityLink href="/comunidad/entrar" source="home_hero" className="btn-brand text-fluid-base">
+                  Entrar gratis a la comunidad
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </CommunityLink>
               </MagneticButton>
               <Link
-                href="/servicios/entrenamiento-online"
+                href="/metodo-tiroides"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Busco entrenamiento personalizado <ArrowRight className="w-4 h-4" />
+                Conocer Método BASE Tiroides <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            {/* Micro-prueba social */}
+            <p className="text-fluid-sm text-white/80">Acceso gratuito con tu email. El acompañamiento individual se ofrece por separado.</p>
+            {/* Experiencia y alcance */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-5 text-fluid-xs text-white/70 animate-fade-up [animation-delay:400ms]">
               <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                Método BASE Tiroides · 12 semanas
+                Lecciones y herramientas prácticas
               </span>
               <span className="rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
                 Entrenamiento para la vida real
@@ -241,12 +237,22 @@ export default function HomePage() {
               <p className="mt-5 max-w-xl text-fluid-base leading-relaxed text-muted">
                 Un espacio para mujeres con hipotiroidismo o Hashimoto que quieren entender mejor el entrenamiento y llevarlo a su día a día.
               </p>
-              <Link href="/comunidad/entrar" className="btn-brand mt-6 text-fluid-sm">
-                Entrar con mi email <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </Link>
+              <CommunityLink href="/comunidad/entrar" source="home_benefits" className="btn-brand mt-6 text-fluid-sm">
+                Organizar mi primera semana <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </CommunityLink>
               <p className="mt-4 max-w-xl text-fluid-sm leading-relaxed text-muted">
                 Las lecciones y conversaciones están reservadas a los miembros. El acceso gratuito se confirma por email; Método BASE tiene su propio acceso de pago.
               </p>
+              <div className="mt-6 border-t border-border-subtle pt-5">
+                <h3 className="text-fluid-lg text-white">Así empieza «Por qué empezar con fuerza»</h3>
+                <blockquote className="my-3 text-fluid-sm leading-relaxed text-muted">«Entrenar fuerza no significa empezar con barras enormes ni terminar agotada. Significa enseñar a tu cuerpo a producir fuerza con movimientos que puedas controlar.»</blockquote>
+                <CommunityLink href="/comunidad/entrar?next=/comunidad/entrena-organizate/por-que-empezar-con-fuerza" source="home_lesson_preview" className="inline-flex min-h-11 items-center gap-2 text-fluid-sm font-semibold text-accent">Leer la lección en la comunidad <ArrowRight className="h-4 w-4" /></CommunityLink>
+              </div>
+              <div className="mt-5 border-t border-border-subtle pt-5">
+                <h3 className="text-fluid-lg text-white">Una herramienta que encontrarás dentro</h3>
+                <p className="mt-2 text-fluid-sm leading-relaxed text-muted">El planificador semanal te ayuda a reservar dos momentos posibles para entrenar y prever una alternativa si cambia tu semana.</p>
+                <CommunityLink href="/comunidad/entrar?next=%2Fcomunidad%23recursos" source="home_resource" className="mt-3 inline-flex min-h-11 items-center gap-2 text-fluid-sm font-semibold text-accent">Acceder al planificador <ArrowRight className="h-4 w-4" /></CommunityLink>
+              </div>
             </div>
             <ul className="divide-y divide-border-subtle">
               {COMMUNITY_BENEFITS.map(({ icon: Icon, title, description }) => (

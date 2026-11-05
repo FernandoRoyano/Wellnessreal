@@ -1,4 +1,6 @@
 'use client'
+import Link from 'next/link'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, CheckCircle, Loader2, ShieldCheck } from 'lucide-react'
@@ -159,7 +161,10 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
           <p className="text-fluid-sm text-white/85 leading-relaxed">{result.nextStep}</p>
         </div>
 
-        <a
+        {result.cta.href.startsWith('/comunidad') || result.cta.href.startsWith('/metodo-tiroides') ? <>
+          <CommunityLink href="/comunidad/entrar?next=%2Fcomunidad%23recursos" source="test_result" className="btn-brand w-full mt-5 text-fluid-base py-4">Seguir aprendiendo en la comunidad gratuita <ArrowRight className="w-4 h-4" /></CommunityLink>
+          {!result.requiresMedicalReview && <Link href="/metodo-tiroides" className="mt-3 inline-flex min-h-11 w-full items-center justify-center text-center text-fluid-sm font-semibold text-accent">Conocer el acompañamiento de Método BASE</Link>}
+        </> : <a
           href={result.cta.href}
           onClick={() => {
             if (result.cta.href.startsWith('/valoracion')) {
@@ -180,7 +185,7 @@ export default function TestTiroides({ onWantGuide }: { onWantGuide?: () => void
         >
           {result.cta.label}
           <ArrowRight className="w-4 h-4" />
-        </a>
+        </a>}
         <p className="text-fluid-xs text-subtle text-center mt-3">{result.cta.description}</p>
         <p className="text-fluid-xs text-subtle text-center mt-4 leading-relaxed">
           Te hemos enviado este resultado y la guía al email. El test es orientativo: no diagnostica

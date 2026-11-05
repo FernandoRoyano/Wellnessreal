@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import Container from './Container'
 import { Menu, X } from 'lucide-react'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 
 const navigationItems = [
   { href: '/tiroides', label: 'Tiroides' },
   { href: '/servicios/entrenamiento-online', label: 'Entrenamiento' },
   { href: '/blog', label: 'Blog' },
-  { href: '/comunidad/entrar', label: 'Comunidad gratuita' },
+  { href: '/metodo-tiroides', label: 'Método BASE' },
   { href: '/sobre-mi', label: 'Sobre mí' },
 ]
 
@@ -97,9 +98,9 @@ export default function Header() {
                     </Link>
                   ))}
                 </nav>
-                <Link href="/metodo-tiroides" className="btn-brand text-fluid-sm px-5 py-2.5">
-                  Método BASE Tiroides
-                </Link>
+                <CommunityLink href="/comunidad/entrar" source="header" className="btn-brand text-fluid-sm px-5 py-2.5">
+                  Comunidad gratuita
+                </CommunityLink>
               </div>
 
               <button
@@ -135,13 +136,14 @@ export default function Header() {
                   {item.label}
                 </Link>
               ))}
-              <Link
-                href="/metodo-tiroides"
+              <CommunityLink
+                href="/comunidad/entrar"
+                source="mobile_menu"
                 className="btn-brand mt-3 w-full"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Conocer Método BASE Tiroides
-              </Link>
+                Entrar gratis a la comunidad
+              </CommunityLink>
             </div>
           </nav>
         )}

@@ -4,6 +4,7 @@ import { useActionState } from 'react'
 import { confirmMagicLink, type ConfirmResult } from '../actions'
 import { ShieldCheck, Loader2 } from 'lucide-react'
 import styles from '../entrar/entrar.module.css'
+import { getThyroidTrackingContext } from '@/lib/analytics'
 
 export function ConfirmarForm({
   code,
@@ -22,7 +23,10 @@ export function ConfirmarForm({
   )
 
   return (
-    <form action={action} className={styles.confirmForm}>
+    <form action={formData => {
+      formData.set('_community_tracking', JSON.stringify(getThyroidTrackingContext()))
+      action(formData)
+    }} className={styles.confirmForm}>
       <input type="hidden" name="code" value={code ?? ''} />
       <input type="hidden" name="token_hash" value={tokenHash ?? ''} />
       <input type="hidden" name="type" value={type ?? ''} />

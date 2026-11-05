@@ -67,7 +67,11 @@ export default function ApplicationForm() {
   return (
     <form
       ref={formRef}
-      action={action}
+      action={formData => {
+        formData.set('_origin', new URLSearchParams(window.location.search).get('origen') === 'comunidad' ? 'community' : 'public')
+        formData.set('_funnel', JSON.stringify(getThyroidTrackingContext()))
+        action(formData)
+      }}
       aria-busy={pending}
       aria-describedby={state.error ? 'application-form-error' : undefined}
       className="space-y-4 rounded-[1.75rem] border border-accent/25 bg-brand-dusk p-6 shadow-2xl md:p-8"

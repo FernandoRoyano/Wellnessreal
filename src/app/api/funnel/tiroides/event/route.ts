@@ -29,6 +29,9 @@ export async function POST(request: NextRequest) {
   try {
     const parsed = EventSchema.safeParse(await request.json())
     if (!parsed.success) return NextResponse.json({ error: 'Evento inválido' }, { status: 400 })
+    if (['community_access_requested', 'community_signup_confirmed', 'community_first_lesson_completed', 'thyroid_lead_capture', 'thyroid_vsl_registration', 'thyroid_valuation_submit', 'thyroid_sale', 'thyroid_onboarding_complete', 'thyroid_continuity'].includes(parsed.data.eventName)) {
+      return NextResponse.json({ error: 'Este evento se confirma en el servidor' }, { status: 400 })
+    }
     await recordThyroidFunnelEvent({ ...parsed.data, metadata: parsed.data.metadata ?? {} })
     return NextResponse.json({ success: true })
   } catch (error) {

@@ -5,6 +5,7 @@ import { Mail, MapPin, Phone } from 'lucide-react'
 import FooterNewsletterForm from './FooterNewsletterForm'
 
 const NAV_LINKS = [
+  { href: '/comunidad/entrar', label: 'Comunidad gratuita' },
   { href: '/metodo-tiroides', label: 'Método BASE Tiroides' },
   { href: '/tiroides', label: 'Información sobre tiroides' },
   { href: '/servicios/entrenamiento-online', label: 'Entrenamiento personalizado' },

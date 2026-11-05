@@ -2,7 +2,8 @@ import { supabase } from '@/lib/supabase'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
-import { createSubscriber } from '@/lib/mailerlite'
+import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import type { CommunityTrackingContext } from '@/lib/community-tracking'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
 import { deliverApplicationMessages, enqueueNotice, lifecycleSummary } from '@/lib/thyroid-lifecycle'
 import { getThyroidProgramProgress } from '@/lib/thyroid-program-progress'
@@ -84,7 +85,7 @@ function defaultDisplayName(email: string): string {
  * Crea el perfil del miembro si no existe (primer login). Idempotente.
  * Se llama desde el callback del magic link.
  */
-export async function ensureMemberProfile(user: User): Promise<MemberProfile> {
+export async function ensureMemberProfile(user: User, tracking?: CommunityTrackingContext): Promise<MemberProfile> {
   const email = user.email ?? ''
 
   const { data: existing } = await supabase
@@ -120,8 +121,11 @@ export async function ensureMemberProfile(user: User): Promise<MemberProfile> {
     console.error('[comunidad:ensureMemberProfile] email de bienvenida falló:', err)
   }
 
-  // Comunidad → newsletter (solo si el grupo está configurado). No bloquea.
-  await subscribeMemberToNewsletter(email, displayName)
+  if (tracking) {
+    await recordThyroidFunnelEvent({ eventName: 'community_signup_confirmed', ...tracking, email,
+      externalId: `community:signup:${user.id}`,
+    }).catch(error => console.error('[comunidad:signupTracking]', error))
+  }
 
   return data as MemberProfile
 }
@@ -146,10 +150,7 @@ async function sendWelcomeEmail(email: string, name: string): Promise<void> {
           Entrar en la comunidad
         </a>
       </p>
-      <p style="color:#444;font-size:14px">Por cierto: además de la comunidad, cada semana mando un
-      email con lo que de verdad aplico con mis clientes. Y en el
-      <a href="${BASE_URL()}/blog" style="color:#8a6d00">blog</a> tienes artículos sin postureo por si
-      quieres seguir leyendo.</p>
+      <p>Empieza por «Lee esto antes que nada». Después, elige una primera lección y reserva dos momentos posibles para entrenar en el planificador semanal. Puedes leerlo todo sin esperar a un vídeo.</p>
     `),
   })
 }
@@ -168,27 +169,9 @@ async function sendApprovedEmail(email: string, name: string): Promise<void> {
           Entrar en la comunidad
         </a>
       </p>
-      <p style="color:#444;font-size:14px">Por cierto: además de la comunidad, cada semana mando un
-      email con lo que de verdad aplico con mis clientes. Y en el
-      <a href="${BASE_URL()}/blog" style="color:#8a6d00">blog</a> tienes artículos sin postureo por si
-      quieres seguir leyendo.</p>
+      <p>Consulta la bienvenida y elige una primera lección. La suscripción a comunicaciones comerciales es independiente del acceso.</p>
     `),
   })
-}
-
-/**
- * Conecta al miembro aprobado con la newsletter (comunidad → email).
- * Solo actúa si MAILERLITE_COMUNIDAD_GROUP_ID está configurado, así Fernando
- * decide cuándo activarlo. No bloquea la aprobación si falla.
- */
-async function subscribeMemberToNewsletter(email: string, name: string): Promise<void> {
-  const groupId = process.env.MAILERLITE_COMUNIDAD_GROUP_ID
-  if (!groupId) return
-  try {
-    await createSubscriber({ email, name, groups: [groupId] })
-  } catch (err) {
-    console.error('[comunidad:subscribeMemberToNewsletter]', err)
-  }
 }
 
 /** Cambia el estado del miembro (admin). Avisa por email al aprobar. */
@@ -218,8 +201,6 @@ export async function setMemberStatus(
       // No tumbamos la aprobación por un fallo de email, pero lo registramos.
       console.error('[comunidad:setMemberStatus] email de aprobación falló:', err)
     }
-    // Comunidad → newsletter (solo si está configurado el grupo).
-    await subscribeMemberToNewsletter(before.email as string, before.display_name as string)
   }
 }
 
