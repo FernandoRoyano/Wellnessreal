@@ -2,7 +2,7 @@
 
 Objetivo: convertir visitas interesadas en solicitudes válidas y clientas de Método BASE Tiroides. Prioridad: mujeres con hipotiroidismo o Hashimoto en España. Los vídeos siguen pendientes; ningún paso necesita una grabación.
 
-La captación anterior ya está publicada. Los ajustes de esta tanda están preparados en la rama `feat/email-ecosystem` del checkout `wellnessreal-cookie-publish`. El checkout principal conserva sus cambios. La preparación de MailerLite sí existe en la cuenta real, pero permanece sin contactos nuevos, sin programación y sin activar.
+La captación anterior ya está publicada. Los ajustes de esta tanda están preparados en la rama `feat/email-ecosystem` del checkout `wellnessreal-cookie-publish`. El checkout principal conserva sus cambios. La preparación comercial de MailerLite sí existe en la cuenta real: su grupo permanece vacío, los cuatro correos sin programar y la automatización inactiva. La prueba interna autorizada posteriormente utiliza una copia y un grupo separados, descritos a continuación.
 
 ## Recorrido y destinos
 
@@ -67,6 +67,19 @@ Se conserva la automatización activa «Grupo Tiroides - Bienvenida», su grupo 
 
 La exportación local incluye HTML, texto, manifiesto y una portada de revisión en `output/email-ecosystem-20261105/index.html`. Se regenera con `node scripts/prepare-community-email.mjs`, sin escrituras remotas. Solo el parámetro explícito `--prepare-provider` prepara recursos remotos; no dispone de acciones para programar, enviar o incorporar contactos. Los resultados locales están excluidos de Git.
 
+### Prueba interna autorizada
+
+Fernando confirmó `info@wellnessreal.es` como dirección de prueba. Se preparó una copia del correo del día 2, identificada como prueba interna, con remitente y respuesta en esa misma dirección. Antes de solicitar el envío se comprobó dos veces que la audiencia contenía exactamente esa cuenta activa; no se reactivó ninguna dirección dada de baja.
+
+- Grupo de prueba separado: `203314203599045670`.
+- Copia de prueba: `203314204858386401`.
+- Asunto: `[PRUEBA INTERNA] WellnessReal · Tu primer paso con la fuerza`.
+- Solicitud de envío aceptada por MailerLite el 5 de noviembre a las 17:18:57 (Madrid); el proveedor la dejó preparada para procesar a las 17:19:56.
+- En la consulta de las 17:20:59 figuraba como `sent`, pero todavía con cero envíos y entregas en las estadísticas y sin actividad de destinatario. La recepción sigue sin confirmar; no se reenvía automáticamente una solicitud ya aceptada.
+- Los cuatro borradores originales siguen sin programar, el grupo comercial sigue vacío y su automatización continúa apagada.
+
+El recibo y las consultas de estado están en `output/email-ecosystem-20261105/internal-test-receipt.json`. Una aceptación del proveedor no acredita recepción en bandeja de entrada: Fernando debe comprobar su buzón. Siguen pendientes la confirmación postal y la prueba completa de baja y salida del recorrido; esta copia no activa la secuencia. El método de copia y envío a una cuenta propia está descrito en la [guía de pruebas de MailerLite](https://www.mailerlite.com/help/everything-about-test-emails).
+
 ## Ajustes de la aplicación
 
 - La suscripción de comunidad exige sesión aprobada, coincidencia con el email verificado y elección expresa. El email del formulario es de solo lectura. Una clienta con acceso al programa queda excluida, también si intenta llamar directamente a la API.
@@ -83,7 +96,7 @@ En la consulta de lectura realizada no había preferencias registradas con la ve
 
 ## Lo que falta para activar
 
-1. **Confirmar dirección postal profesional y cuenta propia de prueba.** El pie redactado tiene marca, motivo de recepción, baja, privacidad y contacto. Falta verificar el domicilio configurado en MailerLite y que aparezca en el envío final. No se inventará una dirección ni se usará un domicilio personal sin indicación.
+1. **Confirmar dirección postal profesional.** La cuenta de prueba ya está confirmada: `info@wellnessreal.es`. El pie redactado tiene marca, motivo de recepción, baja, privacidad y contacto. Falta verificar el domicilio configurado en MailerLite y que aparezca en el envío final. No se inventará una dirección ni se usará un domicilio personal sin indicación.
 2. **Montar el recorrido en el panel de MailerLite.** La API pública permite crear la automatización vacía, pero no configurar sus pasos. Seleccionar el nuevo grupo como disparador, dejar la repetición desactivada y marcar la opción de sacar del recorrido cuando se abandona el grupo. No duplicar la bienvenida transaccional.
 3. **Añadir los correos:** esperar 2 días → día 2; esperar 3 → día 5; esperar 3 → día 8; esperar 4 → día 12. Copiar los contenidos de los borradores preparados a los pasos del editor. Los días se cuentan desde la suscripción comercial, aunque la entrada a la comunidad fuese anterior. Se puede añadir una espera final de 2 días y retirar el grupo para cerrar el recorrido; no dar de baja a la persona de otras comunicaciones.
 4. **Comprobar permanencia en el grupo y estado activo antes de enviar.** La retirada al pagar necesita esa configuración de salida para cancelar los pasos futuros. Probarla con una cuenta propia; no basta con comprobar que el contacto desaparece del grupo.
