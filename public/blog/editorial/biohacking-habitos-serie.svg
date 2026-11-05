@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941" role="img" aria-labelledby="title desc">
+  <title id="title">Biohacking: empieza por la base</title>
+  <desc id="desc">Portada de la serie WellnessReal con un esquema de movimiento, sueño, alimentación y seguimiento.</desc>
+  <defs><linearGradient id="background"><stop stop-color="#16122b"/><stop offset=".55" stop-color="#16122b"/><stop offset="1" stop-color="#2b263e"/></linearGradient></defs>
+  <rect width="1672" height="941" fill="url(#background)"/>
+  <g font-family="Montserrat, Arial, sans-serif">
+    <text x="150" y="266" font-size="27" font-weight="700" letter-spacing="6" fill="#d8d5e6">HÁBITOS · LONGEVIDAD</text>
+    <rect x="150" y="288" width="78" height="5" fill="#fcee21"/>
+    <text x="150" y="748" font-size="27" font-weight="500" fill="#b9b6c8">Movimiento, sueño, alimentación y seguimiento.</text>
+    <text x="150" y="832" font-size="28" font-weight="800" fill="#fcee21">wellnessreal.es</text>
+  </g>
+  <rect x="112" y="337" width="7" height="320" fill="#fcee21"/>
+  <g font-family="Montserrat Alternates, Arial, sans-serif" font-size="91" font-weight="900">
+    <text x="150" y="417" fill="#fff">Biohacking:</text>
+    <text x="150" y="526" fill="#fff">empieza por</text>
+    <text x="150" y="635" fill="#fcee21">la base</text>
+  </g>
+  <g stroke="#5c526e" stroke-width="2" fill="#2b253c">
+    <rect x="952" y="230" width="239" height="235" rx="22"/>
+    <rect x="1221" y="230" width="239" height="235" rx="22"/>
+    <rect x="952" y="505" width="239" height="235" rx="22"/>
+    <rect x="1221" y="505" width="239" height="235" rx="22"/>
+  </g>
+  <g stroke="#fcee21" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M1028 327h88m-101-18v36m13-48v60m88-60v60m13-48v36"/>
+    <path d="M1352 285a49 49 0 1 0 25 88 49 49 0 0 1-25-88z"/>
+    <path d="M1042 563v35m16-35v35m-8-35v91m48-91v91m0-91c-22 4-23 40 0 42"/>
+    <rect x="1307" y="560" width="67" height="95" rx="8"/><rect x="1324" y="550" width="33" height="18" rx="4" fill="#2b253c"/>
+    <path d="m1323 607 13 13 22-28"/>
+  </g>
+  <g font-family="Montserrat, Arial, sans-serif" font-size="25" font-weight="700" fill="#efedf5" text-anchor="middle">
+    <text x="1071" y="424">Movimiento</text><text x="1340" y="424">Sueño</text>
+    <text x="1071" y="699">Alimentación</text><text x="1340" y="699">Seguimiento</text>
+  </g>
+</svg>

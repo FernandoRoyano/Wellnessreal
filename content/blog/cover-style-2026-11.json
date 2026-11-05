@@ -1,0 +1,66 @@
+[
+  {
+    "slug": "levotiroxina-y-ejercicio",
+    "file": "public/blog/editorial/levotiroxina-rutina-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/levotiroxina-rutina-serie-v3.webp",
+    "alt": "Portada «Levotiroxina y ejercicio con criterio», con un vaso de agua, un envase sin marca y unas zapatillas al fondo.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  },
+  {
+    "slug": "hipotiroidismo-y-colesterol",
+    "file": "public/blog/editorial/colesterol-habitos-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/colesterol-habitos-serie-v3.webp",
+    "alt": "Portada «Tiroides y colesterol», con un plato de lentejas, huevo y verduras en una mesa.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  },
+  {
+    "slug": "peptidos-recuperacion-longevidad-evidencia",
+    "file": "public/blog/editorial/peptidos-evidencia-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/peptidos-evidencia-serie-v3.webp",
+    "alt": "Portada «Péptidos: qué sabemos de verdad», con un esquema de mecanismo, estudios humanos, beneficio y seguridad.",
+    "caption": "Portada: esquema conceptual para distinguir preguntas sobre la evidencia.",
+    "origin": "SVG editable con el diseño de la serie WellnessReal"
+  },
+  {
+    "slug": "terapia-hormonal-antienvejecimiento",
+    "file": "public/blog/editorial/hormonas-longevidad-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/hormonas-longevidad-serie-v3.webp",
+    "alt": "Portada «Hormonas y longevidad sin atajos», con una mujer caminando por un sendero arbolado.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  },
+  {
+    "slug": "edad-biologica-wearables-biomarcadores",
+    "file": "public/blog/editorial/wearables-medicion-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/wearables-medicion-serie-v3.webp",
+    "alt": "Portada «Edad biológica y wearables», con el detalle de una muñeca y un reloj de actividad en un parque.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  },
+  {
+    "slug": "fuerza-longevidad-masa-muscular",
+    "file": "public/blog/editorial/fuerza-longevidad-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/fuerza-longevidad-serie-v3.webp",
+    "alt": "Portada «Fuerza para vivir con autonomía», con una mujer realizando un paseo con una mancuerna en cada mano.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  },
+  {
+    "slug": "biohacking-longevidad-que-funciona",
+    "file": "public/blog/editorial/biohacking-habitos-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/biohacking-habitos-serie-v3.webp",
+    "alt": "Portada «Biohacking: empieza por la base», con un esquema de movimiento, sueño, alimentación y seguimiento.",
+    "caption": "Portada: esquema conceptual de hábitos a largo plazo.",
+    "origin": "SVG editable con el diseño de la serie WellnessReal"
+  },
+  {
+    "slug": "cuanto-cuesta-entrenador-personal-online",
+    "file": "public/blog/editorial/entrenador-precio-serie-v3.webp",
+    "storageObject": "blog/editorial/2026-11-05/entrenador-precio-serie-v3.webp",
+    "alt": "Portada «Qué incluye el precio de un entrenador», con unas manos revisando una lista en un cuaderno.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición con referencia de la serie WellnessReal"
+  }
+]

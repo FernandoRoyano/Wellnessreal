@@ -7,8 +7,8 @@ estado: borrador_revision_fernando
 tiempo_lectura: 12 min
 meta_título: "Biohacking y longevidad: guía basada en evidencia | WellnessReal"
 meta_descripción: "Qué hay de útil en el biohacking y qué sigue siendo experimental: hábitos, wearables, hormonas, fármacos y péptidos explicados sin humo."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/biohacking-base-habitos-v2.webp"
-imagen_alt: "Esquema de movimiento, sueño, alimentación y seguimiento como base de hábitos a largo plazo."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/biohacking-habitos-serie-v3.webp"
+imagen_alt: "Portada «Biohacking: empieza por la base», con un esquema de movimiento, sueño, alimentación y seguimiento."
 ---
 
 # Biohacking y longevidad: qué funciona de verdad y qué sigue siendo una promesa

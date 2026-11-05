@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1672" height="941" viewBox="0 0 1672 941" role="img" aria-labelledby="title desc">
+  <title id="title">Péptidos: qué sabemos de verdad</title>
+  <desc id="desc">Portada de la serie WellnessReal. Un esquema distingue mecanismo, estudios humanos, beneficio y seguridad sin atribuir eficacia a un compuesto.</desc>
+  <defs><linearGradient id="background"><stop stop-color="#16122b"/><stop offset=".55" stop-color="#16122b"/><stop offset="1" stop-color="#2b263e"/></linearGradient></defs>
+  <rect width="1672" height="941" fill="url(#background)"/>
+  <g font-family="Montserrat, Arial, sans-serif">
+    <text x="150" y="266" font-size="27" font-weight="700" letter-spacing="6" fill="#d8d5e6">EVIDENCIA · PÉPTIDOS</text>
+    <rect x="150" y="288" width="78" height="5" fill="#fcee21"/>
+    <text x="150" y="748" font-size="28" font-weight="500" fill="#b9b6c8">Mecanismo, estudios humanos y seguridad.</text>
+    <text x="150" y="832" font-size="28" font-weight="800" fill="#fcee21">wellnessreal.es</text>
+  </g>
+  <rect x="112" y="337" width="7" height="320" fill="#fcee21"/>
+  <g font-family="Montserrat Alternates, Arial, sans-serif" font-size="91" font-weight="900">
+    <text x="150" y="417" fill="#fff">Péptidos:</text>
+    <text x="150" y="526" fill="#fff">qué sabemos</text>
+    <text x="150" y="635" fill="#fcee21">de verdad</text>
+  </g>
+  <g stroke="#5c526e" stroke-width="2" fill="#2b253c">
+    <rect x="990" y="227" width="470" height="143" rx="20"/>
+    <rect x="990" y="412" width="470" height="143" rx="20"/>
+    <rect x="990" y="597" width="470" height="163" rx="20"/>
+  </g>
+  <g stroke="#8c7d9f" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1225 381v20m-7-7 7 7 7-7M1225 566v20m-7-7 7 7 7-7"/></g>
+  <g stroke="#fcee21" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m1032 308 31-24 33 29 24-18"/>
+    <circle cx="1032" cy="308" r="8" fill="#2b253c"/><circle cx="1063" cy="284" r="8" fill="#2b253c"/><circle cx="1096" cy="313" r="8" fill="#2b253c"/><circle cx="1120" cy="295" r="8" fill="#2b253c"/>
+    <circle cx="1074" cy="460" r="16"/><path d="M1047 510v-12a27 27 0 0 1 54 0v12m-63-43a13 13 0 0 0-13 24m89-24a13 13 0 0 1 13 24m-106 19v-4a17 17 0 0 1 19-16m90 20v-4a17 17 0 0 0-19-16"/>
+    <path d="m1075 639 35 15v27c0 24-17 38-35 48-18-10-35-24-35-48v-27z"/>
+    <path d="M1065 668a11 11 0 1 1 16 11c-5 2-6 6-6 9m0 14v1"/>
+  </g>
+  <g font-family="Montserrat, Arial, sans-serif" font-size="29" font-weight="700" fill="#efedf5">
+    <text x="1161" y="309">Mecanismo</text>
+    <text x="1161" y="478">Estudios</text><text x="1161" y="516">humanos</text>
+    <text x="1161" y="673">Beneficio</text><text x="1161" y="711">y seguridad</text>
+  </g>
+</svg>

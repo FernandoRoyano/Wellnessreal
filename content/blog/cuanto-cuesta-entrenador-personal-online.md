@@ -6,8 +6,8 @@ fecha: 2026-10-14
 tiempo_lectura: 8 min
 meta_título: "Cuánto cuesta un entrenador personal online | WellnessReal"
 meta_descripción: "Qué determina el precio de un entrenador personal online, qué debería incluir el servicio y cómo valorar si el coste está justificado."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/entrenador-online-planificacion-v2.webp"
-imagen_alt: "Manos revisando una lista en un cuaderno junto a una banda elástica y un vaso de agua."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/entrenador-precio-serie-v3.webp"
+imagen_alt: "Portada «Qué incluye el precio de un entrenador», con unas manos revisando una lista en un cuaderno."
 ---
 
 # Cuánto cuesta un entrenador personal online y qué debería incluir

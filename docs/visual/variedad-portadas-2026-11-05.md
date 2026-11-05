@@ -2,6 +2,8 @@
 
 Fecha: 5 de noviembre de 2026.
 
+Actualización: Fernando ha pedido conservar el estilo de la serie anterior en todas las portadas nuevas. Los recursos de esta primera propuesta se sustituyen por las versiones documentadas en [Portadas con el estilo de la serie](portadas-estilo-serie-2026-11-05.md), manteniendo la variedad de escenas.
+
 La revisión visual de las 59 portadas mostró que la repetición de la imagen de Fernando se concentraba en las entradas recientes: 9 de las 12 primeras. Se sustituyen ocho portadas y se conserva una presencia del entrenador en el artículo que compara acompañamiento online y apps. El resultado combina personas, objetos, alimentación, actividad al aire libre y esquemas.
 
 ## Recursos finales y procedencia

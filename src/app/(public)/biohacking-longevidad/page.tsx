@@ -5,7 +5,7 @@ export const metadata = buildMetadata({
   title: 'Biohacking y longevidad: qué funciona de verdad',
   description: 'Una guía para separar hábitos útiles, medicina con indicación y promesas experimentales sobre longevidad, hormonas, péptidos y medición.',
   path: '/biohacking-longevidad',
-  ogImage: '/blog/editorial/biohacking-base-habitos-v2.webp',
+  ogImage: '/blog/editorial/biohacking-habitos-serie-v3.webp',
   keywords: ['biohacking', 'longevidad', 'antienvejecimiento', 'péptidos', 'envejecimiento saludable'],
 })
 

@@ -7,8 +7,8 @@ estado: borrador_revision_fernando
 tiempo_lectura: 10 min
 meta_título: "Terapia hormonal y antienvejecimiento: qué debes saber"
 meta_descripción: "Testosterona, menopausia y longevidad: diferencias entre una indicación clínica, la optimización hormonal y las promesas antienvejecimiento."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/terapia-hormonal-actividad-cotidiana-v2.webp"
-imagen_alt: "Mujer caminando por un sendero arbolado en una escena ilustrativa de actividad cotidiana."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/hormonas-longevidad-serie-v3.webp"
+imagen_alt: "Portada «Hormonas y longevidad sin atajos», con una mujer caminando por un sendero arbolado."
 ---
 
 # Terapia hormonal y antienvejecimiento: cuándo es tratamiento y cuándo es marketing

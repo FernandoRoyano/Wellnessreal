@@ -4,8 +4,8 @@ slug: levotiroxina-y-ejercicio
 categoria: "Tiroides y entrenamiento"
 excerpt: "Levotiroxina y ejercicio: cómo organizar el entrenamiento, el desayuno y los suplementos respetando tu tratamiento y cuándo consultar."
 author: "Fernando Royano"
-imagen_alt: "Vaso de agua y envase sin marca junto a unas zapatillas, en una escena ilustrativa de una rutina de mañana."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/levotiroxina-rutina-manana-v2.webp"
+imagen_alt: "Portada «Levotiroxina y ejercicio con criterio», con un vaso de agua, un envase sin marca y unas zapatillas al fondo."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/levotiroxina-rutina-serie-v3.webp"
 ---
 
 Si tomas levotiroxina y entrenas por la mañana, es normal que aparezcan dudas: ¿puedo entrenar en ayunas?, ¿tengo que esperar para desayunar?, ¿qué hago con el café o el batido?, ¿afecta el ejercicio a la medicación?

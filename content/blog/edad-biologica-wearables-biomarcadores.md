@@ -7,8 +7,8 @@ estado: borrador_revision_fernando
 tiempo_lectura: 9 min
 meta_título: "Edad biológica y wearables: qué miden de verdad"
 meta_descripción: "Qué significan la edad biológica, los relojes epigenéticos y las puntuaciones de recuperación, y cuándo esos datos ayudan a tomar decisiones."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/wearables-actividad-cotidiana-v2.webp"
-imagen_alt: "Detalle de una muñeca con reloj de actividad en un parque, con zapatillas al fondo."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/wearables-medicion-serie-v3.webp"
+imagen_alt: "Portada «Edad biológica y wearables», con el detalle de una muñeca y un reloj de actividad en un parque."
 ---
 
 # Edad biológica, wearables y biomarcadores: qué miden de verdad

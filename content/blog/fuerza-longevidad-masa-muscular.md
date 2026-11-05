@@ -7,8 +7,8 @@ estado: borrador_revision_fernando
 tiempo_lectura: 9 min
 meta_título: "Fuerza y longevidad: músculo, capacidad y salud | WellnessReal"
 meta_descripción: "Por qué la fuerza y la masa muscular importan para envejecer con autonomía, cuánto entrenar y cómo empezar sin buscar protocolos extremos."
-imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/fuerza-longevidad-mujer-v2.webp"
-imagen_alt: "Mujer de pelo canoso realizando un paseo con una mancuerna en cada mano en una sala de entrenamiento."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/fuerza-longevidad-serie-v3.webp"
+imagen_alt: "Portada «Fuerza para vivir con autonomía», con una mujer realizando un paseo con una mancuerna en cada mano."
 ---
 
 # Fuerza y longevidad: por qué el músculo importa más que parecer joven
