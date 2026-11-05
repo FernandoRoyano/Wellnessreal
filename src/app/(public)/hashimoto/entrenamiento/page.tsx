@@ -28,7 +28,7 @@ const config: TopicHubConfig = {
     { href: '/hipotiroidismo/ejercicio', title: 'Ejercicios y semana de inicio', description: 'Los cuatro patrones ilustrados, variantes de casa y gimnasio y un ejemplo de distribución semanal.' },
     { href: '/blog/agujetas-cansancio-debilidad-tiroides', title: 'Agujetas, cansancio y debilidad', description: 'Diferencias que conviene observar y situaciones en las que hay que consultar.' },
     { href: '/blog/rir-rpe-autoregular-entrenamiento', title: 'Cómo regular el esfuerzo', description: 'Qué significan RIR y RPE y cómo usarlos al describir una sesión.' },
-    { href: '/blog/gluten-e-hipotiroidismo', title: 'Gluten y tiroides', description: 'Qué conviene saber antes de hacer restricciones por tu cuenta.' },
+    { href: '/blog/ganar-masa-muscular-con-hipotiroidismo', title: 'Ganar masa muscular con hipotiroidismo', description: 'Fuerza, progresión y recuperación, distinguiendo la evidencia general de los ejemplos prácticos.' },
   ],
   faqs: [
     { question: '¿Hashimoto e hipotiroidismo son lo mismo?', answer: 'Hashimoto es una enfermedad autoinmune que puede causar hipotiroidismo, que describe una función tiroidea insuficiente. Puede haber etapas con función conservada. Por eso la planificación necesita conocer tu situación clínica actual, además del nombre del diagnóstico.' },

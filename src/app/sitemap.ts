@@ -88,7 +88,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/hipotiroidismo`,
-      lastModified: new Date('2026-11-04'),
+      lastModified: new Date('2026-11-05'),
       changeFrequency: 'monthly',
       priority: 0.9,
     },
@@ -100,7 +100,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/hashimoto/entrenamiento`,
-      lastModified: new Date('2026-11-04'),
+      lastModified: new Date('2026-11-05'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
