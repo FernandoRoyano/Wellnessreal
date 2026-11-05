@@ -7,13 +7,15 @@ estado: borrador_revision_fernando
 tiempo_lectura: 9 min
 meta_título: "Edad biológica y wearables: qué miden de verdad"
 meta_descripción: "Qué significan la edad biológica, los relojes epigenéticos y las puntuaciones de recuperación, y cuándo esos datos ayudan a tomar decisiones."
-imagen_destacada: "/blog/edad-biologica-wearables-biomarcadores.webp"
-imagen_alt: "Fernando Royano comparando datos de un wearable con un registro de entrenamiento"
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/wearables-actividad-cotidiana-v2.webp"
+imagen_alt: "Detalle de una muñeca con reloj de actividad en un parque, con zapatillas al fondo."
 ---
 
 # Edad biológica, wearables y biomarcadores: qué miden de verdad
 
 Tu reloj dice que has recuperado un 42 %. Una prueba comercial afirma que tu edad biológica está tres años por debajo de la cronológica. La cifra parece precisa. La pregunta es si sabes qué hacer con ella.
+
+*Imagen de portada generada con IA con finalidad ilustrativa.*
 
 Medir puede ayudarte a entender tendencias. También puede hacerte creer que conoces algo con más exactitud de la que permite la herramienta.
 

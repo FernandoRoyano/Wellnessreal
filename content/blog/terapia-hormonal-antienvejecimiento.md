@@ -7,13 +7,15 @@ estado: borrador_revision_fernando
 tiempo_lectura: 10 min
 meta_título: "Terapia hormonal y antienvejecimiento: qué debes saber"
 meta_descripción: "Testosterona, menopausia y longevidad: diferencias entre una indicación clínica, la optimización hormonal y las promesas antienvejecimiento."
-imagen_destacada: "/blog/terapia-hormonal-antienvejecimiento.webp"
-imagen_alt: "Fernando Royano revisando documentación sobre hormonas, salud y entrenamiento"
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/terapia-hormonal-actividad-cotidiana-v2.webp"
+imagen_alt: "Mujer caminando por un sendero arbolado en una escena ilustrativa de actividad cotidiana."
 ---
 
 # Terapia hormonal y antienvejecimiento: cuándo es tratamiento y cuándo es marketing
 
 “Tus hormonas están dentro del rango, pero no son óptimas”. Con esa frase puede empezar una conversación clínica razonable o una venta difícil de justificar. La diferencia está en el diagnóstico, los síntomas, la evidencia, el seguimiento y el interés de quien recomienda el tratamiento.
+
+*Imagen de portada generada con IA con finalidad ilustrativa.*
 
 Las hormonas no son suplementos avanzados. Son señales que actúan sobre numerosos tejidos. Modificarlas puede aliviar síntomas y tratar problemas concretos; también puede producir efectos adversos y exigir controles.
 

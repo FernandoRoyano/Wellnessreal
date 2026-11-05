@@ -4,14 +4,15 @@ slug: hipotiroidismo-y-colesterol
 categoria: "Tiroides y entrenamiento"
 excerpt: "Hipotiroidismo y colesterol alto: qué puede cambiar con el tratamiento, cómo ayuda el ejercicio y por qué importa el seguimiento médico."
 author: "Fernando Royano"
-imagen_alt: "Hombre mostrando una tableta con gráficos junto a alimentos y material de entrenamiento."
+imagen_alt: "Manos sirviendo un plato de lentejas, huevo y verduras junto a pan y ensalada."
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/colesterol-alimentacion-cotidiana-v2.webp"
 ---
 
 Descubrir el colesterol alto en una analítica y atribuirlo todo a la comida es una simplificación. **El hipotiroidismo puede alterar el perfil lipídico**, especialmente cuando no está tratado o no está bien controlado. Pero tampoco significa que cualquier LDL elevado vaya a desaparecer solo al ajustar la tiroides.
 
 Hay dos trabajos distintos: revisar la causa médica y reducir el riesgo cardiovascular global. El entrenamiento puede formar parte del segundo, pero no sustituye el tratamiento tiroideo ni la medicación para el colesterol cuando está indicada.
 
-*La portada es ilustrativa. Sus gráficos no representan resultados clínicos.*
+*Imagen de portada generada con IA con finalidad ilustrativa.*
 
 ## Qué relación existe
 

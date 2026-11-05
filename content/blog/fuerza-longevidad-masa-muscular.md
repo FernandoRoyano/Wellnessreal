@@ -7,13 +7,15 @@ estado: borrador_revision_fernando
 tiempo_lectura: 9 min
 meta_título: "Fuerza y longevidad: músculo, capacidad y salud | WellnessReal"
 meta_descripción: "Por qué la fuerza y la masa muscular importan para envejecer con autonomía, cuánto entrenar y cómo empezar sin buscar protocolos extremos."
-imagen_destacada: "/blog/fuerza-longevidad-masa-muscular.webp"
-imagen_alt: "Fernando Royano preparando un entrenamiento de fuerza en un gimnasio"
+imagen_destacada: "https://htkqpdaiscaytwuejmfa.supabase.co/storage/v1/object/public/media/blog/editorial/2026-11-05/fuerza-longevidad-mujer-v2.webp"
+imagen_alt: "Mujer de pelo canoso realizando un paseo con una mancuerna en cada mano en una sala de entrenamiento."
 ---
 
 # Fuerza y longevidad: por qué el músculo importa más que parecer joven
 
 Cuando se habla de longevidad, es fácil acabar mirando suplementos, relojes o pruebas que prometen calcular la edad biológica. Hay una pregunta bastante más sencilla: **¿qué podrá hacer tu cuerpo dentro de diez o veinte años?**
+
+*Imagen de portada generada con IA con finalidad ilustrativa.*
 
 Levantarte del suelo, cargar la compra, subir escaleras, reaccionar ante un tropiezo o seguir entrenando no dependen de una sola cifra. Dependen, entre otras cosas, de conservar fuerza, músculo, potencia, equilibrio y capacidad cardiovascular.
 

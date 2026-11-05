@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">La base del cuidado a largo plazo</title>
+  <desc id="desc">Movimiento, sueño, alimentación y seguimiento. Esquema conceptual de hábitos, sin puntuaciones ni promesas de rejuvenecimiento.</desc>
+  <rect width="1600" height="900" fill="#16122b"/>
+  <circle cx="60" cy="950" r="480" fill="#221735"/>
+  <circle cx="1530" cy="40" r="330" fill="#201a36"/>
+  <g transform="translate(120 67.5) scale(.85)">
+  <g font-family="Arial, sans-serif">
+    <text x="95" y="150" fill="#c1b6d0" font-size="28" font-weight="700" letter-spacing="6">LONGEVIDAD · HÁBITOS</text>
+    <text x="95" y="320" fill="#fffdf8" font-size="92" font-weight="700">Lo básico</text>
+    <text x="95" y="431" fill="#fffdf8" font-size="92" font-weight="700">también</text>
+    <text x="95" y="542" fill="#fcee21" font-size="92" font-weight="700">cuenta.</text>
+    <path d="M101 604h230" stroke="#fcee21" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g stroke="#55436d" stroke-width="2">
+    <rect x="775" y="120" width="335" height="300" rx="36" fill="#292039"/>
+    <rect x="1150" y="120" width="335" height="300" rx="36" fill="#24213c"/>
+    <rect x="775" y="460" width="335" height="300" rx="36" fill="#24213c"/>
+    <rect x="1150" y="460" width="335" height="300" rx="36" fill="#292039"/>
+  </g>
+  <g stroke="#fcee21" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="m882 238 120 0M867 211v54m15-70v86m120-86v86m15-70v54"/>
+    <path d="M1344 184a69 69 0 1 0 36 124 68 68 0 0 1-36-124z" fill="#39304f"/>
+    <path d="M893 570v44m22-44v44m-11-44v126m73-126v126m0-126c-26 8-28 56 0 57"/>
+    <rect x="1274" y="557" width="88" height="133" rx="12"/>
+    <rect x="1295" y="545" width="46" height="23" rx="6" fill="#292039"/>
+    <path d="m1296 619 15 15 29-34"/>
+  </g>
+  <g fill="#fffdf8" font-family="Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle">
+    <text x="942" y="358">Movimiento</text>
+    <text x="1317" y="358">Sueño</text>
+    <text x="942" y="720">Alimentación</text>
+    <text x="1317" y="720">Seguimiento</text>
+  </g>
+  </g>
+</svg>

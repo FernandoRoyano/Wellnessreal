@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Preguntas para leer la evidencia sobre péptidos</title>
+  <desc id="desc">Tres aspectos que hay que distinguir: mecanismo, estudios humanos y beneficio y seguridad. El esquema no atribuye eficacia a ningún compuesto.</desc>
+  <rect width="1600" height="900" fill="#f3f0e9"/>
+  <circle cx="1530" cy="45" r="310" fill="#e9e3ef"/>
+  <path d="M1185 0v900" stroke="#e1dbe6" stroke-width="2"/>
+  <g transform="translate(120 67.5) scale(.85)">
+  <g font-family="Arial, sans-serif" fill="#211732">
+    <text x="100" y="116" font-size="28" font-weight="700" letter-spacing="6" fill="#662d91">PÉPTIDOS · LECTURA CRÍTICA</text>
+    <text x="100" y="235" font-size="82" font-weight="700">Qué sabemos.</text>
+    <text x="100" y="333" font-size="82" font-weight="700">Qué falta por demostrar.</text>
+  </g>
+  <path d="M105 376h252" stroke="#b6a160" stroke-width="9" stroke-linecap="round"/>
+  <g fill="#fffefa" stroke="#dfd7e5" stroke-width="2">
+    <rect x="100" y="442" width="430" height="342" rx="28"/>
+    <rect x="585" y="442" width="430" height="342" rx="28"/>
+    <rect x="1070" y="442" width="430" height="342" rx="28"/>
+  </g>
+  <g stroke="#b7a4c9" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M545 610h25m-10-10 10 10-10 10M1030 610h25m-10-10 10 10-10 10"/>
+  </g>
+  <g stroke="#662d91" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="m222 577 58-44 69 57 58-44"/>
+    <circle cx="222" cy="577" r="18" fill="#e8ddf1"/>
+    <circle cx="280" cy="533" r="18" fill="#fcee21"/>
+    <circle cx="349" cy="590" r="18" fill="#e8ddf1"/>
+    <circle cx="407" cy="546" r="18" fill="#e8ddf1"/>
+    <circle cx="800" cy="533" r="28" fill="#e8ddf1"/>
+    <path d="M746 612v-21a54 54 0 0 1 108 0v21M719 540a23 23 0 0 0-20 40m182-40a23 23 0 0 1 20 40M696 612v-7a35 35 0 0 1 37-35m171 42v-7a35 35 0 0 0-37-35"/>
+    <path d="m1285 494 65 26v52c0 42-31 69-65 87-34-18-65-45-65-87v-52z" fill="#e8ddf1"/>
+    <path d="M1267 551a18 18 0 1 1 25 17c-7 3-7 9-7 14m0 24v2"/>
+  </g>
+  <g fill="#211732" font-family="Arial, sans-serif" font-size="38" font-weight="700" text-anchor="middle">
+    <text x="315" y="719">Mecanismo</text>
+    <text x="800" y="719">Estudios humanos</text>
+    <text x="1285" y="696">Beneficio</text>
+    <text x="1285" y="741">y seguridad</text>
+  </g>
+  </g>
+</svg>

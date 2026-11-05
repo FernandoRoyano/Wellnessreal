@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "levotiroxina-y-ejercicio",
+    "file": "public/blog/editorial/levotiroxina-rutina-manana-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/levotiroxina-rutina-manana-v2.webp",
+    "alt": "Vaso de agua y envase sin marca junto a unas zapatillas, en una escena ilustrativa de una rutina de mañana.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "previousCaption": "La portada se utiliza como imagen ilustrativa.",
+    "origin": "image_gen, nueva fotografía ilustrativa"
+  },
+  {
+    "slug": "hipotiroidismo-y-colesterol",
+    "file": "public/blog/editorial/colesterol-alimentacion-cotidiana-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/colesterol-alimentacion-cotidiana-v2.webp",
+    "alt": "Manos sirviendo un plato de lentejas, huevo y verduras junto a pan y ensalada.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "previousCaption": "La portada es ilustrativa. Sus gráficos no representan resultados clínicos.",
+    "origin": "Biblioteca ilustrativa de la comunidad, generada previamente con IA"
+  },
+  {
+    "slug": "peptidos-recuperacion-longevidad-evidencia",
+    "file": "public/blog/editorial/peptidos-preguntas-evidencia-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/peptidos-preguntas-evidencia-v2.webp",
+    "alt": "Esquema que distingue mecanismo, estudios humanos, beneficio y seguridad al leer evidencia sobre péptidos.",
+    "caption": "Portada: esquema conceptual para distinguir preguntas sobre la evidencia.",
+    "origin": "SVG editable de elaboración propia, exportado a WebP"
+  },
+  {
+    "slug": "terapia-hormonal-antienvejecimiento",
+    "file": "public/blog/editorial/terapia-hormonal-actividad-cotidiana-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/terapia-hormonal-actividad-cotidiana-v2.webp",
+    "alt": "Mujer caminando por un sendero arbolado en una escena ilustrativa de actividad cotidiana.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "Biblioteca ilustrativa de la comunidad, generada previamente con IA"
+  },
+  {
+    "slug": "edad-biologica-wearables-biomarcadores",
+    "file": "public/blog/editorial/wearables-actividad-cotidiana-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/wearables-actividad-cotidiana-v2.webp",
+    "alt": "Detalle de una muñeca con reloj de actividad en un parque, con zapatillas al fondo.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, nueva fotografía ilustrativa"
+  },
+  {
+    "slug": "fuerza-longevidad-masa-muscular",
+    "file": "public/blog/editorial/fuerza-longevidad-mujer-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/fuerza-longevidad-mujer-v2.webp",
+    "alt": "Mujer de pelo canoso realizando un paseo con una mancuerna en cada mano en una sala de entrenamiento.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, nueva fotografía ilustrativa"
+  },
+  {
+    "slug": "biohacking-longevidad-que-funciona",
+    "file": "public/blog/editorial/biohacking-base-habitos-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/biohacking-base-habitos-v2.webp",
+    "alt": "Esquema de movimiento, sueño, alimentación y seguimiento como base de hábitos a largo plazo.",
+    "caption": "Portada: esquema conceptual de hábitos a largo plazo.",
+    "origin": "SVG editable de elaboración propia, exportado a WebP"
+  },
+  {
+    "slug": "cuanto-cuesta-entrenador-personal-online",
+    "file": "public/blog/editorial/entrenador-online-planificacion-v2.webp",
+    "storageObject": "blog/editorial/2026-11-05/entrenador-online-planificacion-v2.webp",
+    "alt": "Manos revisando una lista en un cuaderno junto a una banda elástica y un vaso de agua.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "Biblioteca ilustrativa de la comunidad, generada previamente con IA"
+  }
+]
