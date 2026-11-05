@@ -12,18 +12,19 @@ const revision = process.argv.find(value => value.startsWith('--revision='))?.sl
 const revisions = {
   scenes: { output: 'output/cover-variety-20261105', manifest: 'content/blog/cover-variety-2026-11.json' },
   series: { output: 'output/cover-style-20261105', manifest: 'content/blog/cover-style-2026-11.json' },
+  peptides: { output: 'output/peptides-cover-20261105', manifest: 'content/blog/cover-peptides-2026-11.json' },
 }
 if (!Object.hasOwn(revisions, revision)) throw new Error('[Covers:scope] Revisión no prevista')
 const output = path.join(root, revisions[revision].output)
 const planPath = path.join(output, 'plan.json')
 const manifest = JSON.parse(fs.readFileSync(path.join(root, revisions[revision].manifest), 'utf8'))
-const expected = ['levotiroxina-y-ejercicio', 'hipotiroidismo-y-colesterol', 'peptidos-recuperacion-longevidad-evidencia', 'terapia-hormonal-antienvejecimiento', 'edad-biologica-wearables-biomarcadores', 'fuerza-longevidad-masa-muscular', 'biohacking-longevidad-que-funciona', 'cuanto-cuesta-entrenador-personal-online']
+const expected = revision === 'peptides' ? ['peptidos-recuperacion-longevidad-evidencia'] : ['levotiroxina-y-ejercicio', 'hipotiroidismo-y-colesterol', 'peptidos-recuperacion-longevidad-evidencia', 'terapia-hormonal-antienvejecimiento', 'edad-biologica-wearables-biomarcadores', 'fuerza-longevidad-masa-muscular', 'biohacking-longevidad-que-funciona', 'cuanto-cuesta-entrenador-personal-online']
 if (JSON.stringify(manifest.map(entry => entry.slug)) !== JSON.stringify(expected)) throw new Error('[Covers:scope] Selección fuera del alcance previsto')
 const hash = value => createHash('sha256').update(value).digest('hex')
 const manifestHash = hash(JSON.stringify(manifest))
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } })
 const editableKeys = ['main_image_url', 'main_image_alt', 'updated_at']
-if (revision === 'scenes') editableKeys.push('content')
+if (revision !== 'series') editableKeys.push('content')
 const protectedKeys = post => Object.keys(post).filter(key => !editableKeys.includes(key))
 
 async function readPost(slug) {
@@ -68,7 +69,7 @@ if (!process.argv.includes('--apply') && !process.argv.includes('--upload')) {
   }
   if (new Set(entries.map(entry => entry.updates.main_image_url)).size !== expected.length) throw new Error('[Covers:prepare] Hay portadas repetidas en el plan')
   fs.writeFileSync(planPath, JSON.stringify({ manifestHash, entries }, null, 2), { flag: 'wx' })
-  console.log('[Covers:prepare] Ocho portadas preparadas; sin escrituras en Supabase')
+  console.log(`[Covers:prepare] Plan preparado (${expected.length}); sin escrituras en Supabase`)
 } else {
   const plan = JSON.parse(fs.readFileSync(planPath, 'utf8'))
   if (plan.manifestHash !== manifestHash || JSON.stringify(plan.entries.map(entry => entry.post.slug)) !== JSON.stringify(expected)) throw new Error('[Covers:plan] El plan no coincide con la selección revisada')
@@ -118,6 +119,6 @@ if (!process.argv.includes('--apply') && !process.argv.includes('--upload')) {
       receipts.push({ slug: post.slug, main_image_url: after.main_image_url, updated_at: after.updated_at })
     }
     fs.writeFileSync(path.join(output, 'receipts.json'), JSON.stringify(receipts, null, 2))
-    console.log('[Covers:verify] Ocho portadas actualizadas; identidad, títulos, publicación y fechas originales conservados')
+    console.log(`[Covers:verify] Portadas actualizadas: ${expected.length}; identidad, títulos, publicación y fechas originales conservados`)
   }
 }

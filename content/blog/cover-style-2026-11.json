@@ -17,11 +17,11 @@
   },
   {
     "slug": "peptidos-recuperacion-longevidad-evidencia",
-    "file": "public/blog/editorial/peptidos-evidencia-serie-v3.webp",
-    "storageObject": "blog/editorial/2026-11-05/peptidos-evidencia-serie-v3.webp",
-    "alt": "Portada «Péptidos: qué sabemos de verdad», con un esquema de mecanismo, estudios humanos, beneficio y seguridad.",
-    "caption": "Portada: esquema conceptual para distinguir preguntas sobre la evidencia.",
-    "origin": "SVG editable con el diseño de la serie WellnessReal"
+    "file": "public/blog/editorial/peptidos-evidencia-foto-v4.webp",
+    "storageObject": "blog/editorial/2026-11-05/peptidos-evidencia-foto-v4.webp",
+    "alt": "Portada «Péptidos: qué sabemos de verdad», con una lupa y una mano revisando un documento junto a material de entrenamiento.",
+    "caption": "Imagen de portada generada con IA con finalidad ilustrativa.",
+    "origin": "image_gen, edición fotográfica con referencia de la serie WellnessReal"
   },
   {
     "slug": "terapia-hormonal-antienvejecimiento",
