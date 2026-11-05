@@ -53,9 +53,20 @@ export function getStoredAttribution(): AttributionData {
  */
 export function captureAttribution(): AttributionData {
   if (!hasTrackingConsent()) return {}
-  if (window.location.pathname.startsWith('/comunidad')) return getStoredAttribution()
 
   const existing = getStoredAttribution()
+  if (window.location.pathname.startsWith('/comunidad')) {
+    if (window.location.pathname !== '/comunidad/entrar' || existing.first_seen_at) return existing
+    const params = new URLSearchParams(window.location.search)
+    const safeCampaign = Object.fromEntries(['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'].flatMap(key => {
+      const value = params.get(key)
+      return value && /^[a-zA-Z0-9_-]{1,100}$/.test(value) ? [[key, value]] : []
+    }))
+    if (!Object.keys(safeCampaign).length) return existing
+    const data: AttributionData = { ...safeCampaign, landing_page: '/comunidad/entrar', first_seen_at: new Date().toISOString() }
+    setCookie(COOKIE_NAME, JSON.stringify(data), COOKIE_DAYS)
+    return data
+  }
   // Si ya tenemos atribución persistida, no la sobrescribimos
   // (first-touch attribution)
   if (existing.first_seen_at) {

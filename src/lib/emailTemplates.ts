@@ -1,4 +1,4 @@
-import { COMMUNITY_EMAIL_DRAFTS } from '@/lib/community-email-drafts'
+import { COMMUNITY_EMAIL_DRAFTS, renderCommunityEmail } from '@/lib/community-email-drafts'
 
 export interface EmailTemplate {
   id: string
@@ -178,7 +178,7 @@ export const emailTemplates: EmailTemplate[] = [
 emailTemplates.push(...COMMUNITY_EMAIL_DRAFTS.map(draft => ({
   id: `community-day-${draft.day}`, name: `Borrador comunidad · día ${draft.day}`,
   description: draft.subject, defaults: draft.vars,
-  getHtml: (vars: TemplateVars) => emailTemplates[0].getHtml(vars),
+  getHtml: (vars: TemplateVars) => renderCommunityEmail(vars, draft.preheader),
 })))
 
 export function getDefaultVars(): TemplateVars {

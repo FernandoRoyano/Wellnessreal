@@ -91,8 +91,8 @@ export async function requestMagicLink(
         error: cooldown
           ? `Por seguridad, espera ${cooldown[1]} segundos antes de pedir otro enlace.`
           : esRate
-            ? 'Demasiados envíos: has alcanzado el límite de emails de Supabase. Espera un rato o configura SMTP propio (Resend).'
-            : `No se pudo enviar el enlace: ${error.message}`,
+            ? 'Hay demasiados intentos en este momento. Espera unos minutos y vuelve a pedir el enlace.'
+            : 'No se pudo enviar el enlace. Inténtalo en unos minutos o escribe a info@wellnessreal.es.',
       }
     }
 

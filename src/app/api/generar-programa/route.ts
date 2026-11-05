@@ -17,6 +17,7 @@ import { METODO_BASE_KB } from '@/lib/metodo-base-kb'
 import { PROGRAMA_JSON_SCHEMA, type Programa } from '@/lib/programa-schema'
 import { getDefaultThyroidRoadmap, getThyroidBaseProgram, THYROID_ADAPTATION_RULES, THYROID_TEMPLATE_VERSION } from '@/lib/metodo-tiroides-template'
 import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { stopCommunityPurchaseInvitations } from '@/lib/mailerlite'
 import { z } from 'zod'
 import { authorizeProgramGeneration, claimProgramGeneration } from '@/lib/program-generation-access'
 import { getClientIp, rateLimit } from '@/lib/rateLimit'
@@ -163,6 +164,7 @@ export async function POST(req: NextRequest) {
         .from('cliente_perfil')
         .update({ acceso_manual: true, pagado_en: new Date().toISOString() })
         .eq('id', perfil.id)
+      await stopCommunityPurchaseInvitations(email).catch(() => console.error('[generar-programa:emailSequence] Acceso concedido; exclusión comercial pendiente de revisión'))
     }
 
     if (!access.admin) {

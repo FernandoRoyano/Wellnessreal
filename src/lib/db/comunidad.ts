@@ -2,7 +2,8 @@ import { supabase } from '@/lib/supabase'
 import { createServerSupabase } from '@/lib/supabase-ssr'
 import { supabaseConfigStatus } from '@/lib/supabase-env'
 import { sendEmail } from '@/lib/email'
-import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { markThyroidLeadAsCustomer, recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
+import { stopCommunityPurchaseInvitations } from '@/lib/mailerlite'
 import type { CommunityTrackingContext } from '@/lib/community-tracking'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
 import { deliverApplicationMessages, enqueueNotice, lifecycleSummary } from '@/lib/thyroid-lifecycle'
@@ -385,6 +386,12 @@ export async function setAsesoriaEstado(
     .update({ estado })
     .eq('id', id)
   if (error) throw new Error(`[comunidad:setAsesoriaEstado] ${error.message}`)
+  if (estado === 'pagada') {
+    const { data, error: readError } = await supabase.from('asesoria_solicitudes').select('email').eq('id', id).single()
+    if (readError || !data?.email) throw new Error('[comunidad:setAsesoriaEstado] No se pudo confirmar el contacto de la clienta')
+    await markThyroidLeadAsCustomer(data.email)
+    await stopCommunityPurchaseInvitations(data.email)
+  }
 }
 
 /** Borra una solicitud del Grupo Tiroides definitivamente (spam / pruebas). */
@@ -445,7 +452,7 @@ export interface LessonWithLock extends Lesson {
 const DAY_MS = 24 * 60 * 60 * 1000
 
 /** Resuelve el acceso premium desde una única frontera de autorización. */
-async function memberHasTier(member: MemberProfile | null, tier: string): Promise<boolean> {
+async function memberHasTier(member: MemberProfile | null, tier: string, failOnReadError = false): Promise<boolean> {
   if (tier === 'free') return true
   if (!member) return false
   // El equipo puede previsualizar y revisar el contenido premium sin ser cliente.
@@ -479,6 +486,7 @@ async function memberHasTier(member: MemberProfile | null, tier: string): Promis
   if (applicationResult.error) {
     console.error('[comunidad:memberHasTier:application]', applicationResult.error.message)
   }
+  if (failOnReadError && (profileResult.error || applicationResult.error)) throw new Error('[comunidad:memberHasTier] No se pudo comprobar el acceso del miembro')
 
   const profile = profileResult.data
   const hasProfileAccess = Boolean(profile?.acceso_manual || profile?.pagado_en)
@@ -487,8 +495,8 @@ async function memberHasTier(member: MemberProfile | null, tier: string): Promis
 }
 
 /** Indica si el miembro puede entrar en la experiencia de pago de Método BASE. */
-export async function memberHasPremium(member: MemberProfile | null): Promise<boolean> {
-  return memberHasTier(member, 'premium')
+export async function memberHasPremium(member: MemberProfile | null, failOnReadError = false): Promise<boolean> {
+  return memberHasTier(member, 'premium', failOnReadError)
 }
 
 /** Verifica en servidor que una lección pertenece a un espacio visible y a un nivel autorizado. */

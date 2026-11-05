@@ -1,6 +1,6 @@
 # Captación desde la comunidad · revisión del 5 de noviembre de 2026
 
-Implementación local en la rama `feat/community-acquisition`, en el checkout `wellnessreal-cookie-publish`. El checkout principal del usuario conserva sus cambios. Esta tanda no se despliega, no modifica datos reales y no activa campañas. Los vídeos siguen pendientes; los pasos disponibles funcionan por escrito.
+La captación descrita se publicó en el commit `372bebd`, tras la indicación de Fernando de subirla. Fernando comunicó la aplicación de la migración; no se ejecutó desde esta revisión. El checkout principal conserva sus cambios. Los vídeos siguen pendientes; los pasos disponibles funcionan por escrito. La preparación posterior de correos, sus recursos reales y los pendientes de activación están en [el informe del ecosistema de correo](email/ecosistema-y-activacion-2026-11-05.md).
 
 ## Recorridos
 
@@ -36,13 +36,13 @@ El progreso reutiliza la cookie actual del navegador. No se ha creado otro siste
 
 Los días 2, 5, 8 y 12 están en el selector del editor como «Borrador comunidad · día N». Se pueden editar antes de crear una campaña. Una sola acción principal por correo; el formato habitual conserva el enlace de baja de MailerLite. El día 0 no debe añadirse de nuevo a una automatización comercial. La persona puede solicitar plaza desde el primer día.
 
-Inspección de MailerLite mediante GET, sin mutaciones: existe una automatización activa «Grupo Tiroides - Bienvenida», no repetible, con un correo «Entrega guía». No se ha modificado. En la configuración local no está definido `MAILERLITE_COMUNIDAD_GROUP_ID`; esto no demuestra qué hay configurado en producción.
+En la inspección inicial de MailerLite se encontró la automatización activa «Grupo Tiroides - Bienvenida», no repetible, con un correo «Entrega guía». Se conserva. Posteriormente se prepararon un grupo separado, una automatización vacía e inactiva y cuatro campañas en borrador; véase el informe enlazado para su estado real.
 
-## Configuración manual antes de publicar o activar
+## Configuración antes de activar correos comerciales
 
-1. Revisar esta tanda local y aplicar `supabase/migrations/20261105_community_acquisition_events.sql` en el entorno de destino antes de desplegar. Solo amplía los nombres admitidos en la tabla existente; no migra ni borra contactos. No se ha ejecutado contra producción.
+1. La captación ya está publicada. La migración `supabase/migrations/20261105_community_acquisition_events.sql` fue comunicada como aplicada por Fernando. Solo amplía los nombres admitidos en la tabla existente; no migra ni borra contactos. Esta preparación de correos no requiere otra migración.
 2. Mantener `COMMUNITY_EMAIL_SEQUENCE_ENABLED=false` hasta revisar el flujo de MailerLite. Con el valor predeterminado, el CRM guarda las elecciones comerciales nuevas sin incorporarlas a ninguna campaña.
-3. Preparar en MailerLite un grupo exclusivo y su automatización en borrador, reutilizando el editor y los borradores disponibles. No reutilizar el grupo que dispara la entrega de guía. Configurar `MAILERLITE_COMUNIDAD_GROUP_ID` con ese grupo, sin publicar secretos en el repositorio.
+3. Usar el grupo exclusivo y los borradores ya preparados, siguiendo el informe del ecosistema. Falta montar los pasos de la automatización en el panel de MailerLite. No reutilizar el grupo que dispara la entrega de guía. Configurar `MAILERLITE_COMUNIDAD_GROUP_ID` con el nuevo grupo, sin publicar secretos en el repositorio.
 4. La entrada comercial comienza al solicitar expresamente la suscripción. Si sucede después del alta, los retrasos se cuentan desde esa elección, manteniendo la bienvenida transaccional ya recibida. Retrasos sucesivos: 2, 3, 3 y 4 días; no repetir la automatización al volver al grupo.
 5. Antes de cada envío, exigir estado activo y permanencia en el grupo; al salir del grupo debe finalizar el recorrido. El webhook retira del grupo al confirmar pago. Revisar clientas con acceso concedido manualmente y pagos anteriores antes de importar contactos: solo incorporar consentimientos acreditados, nunca toda la lista histórica de miembros. Conservar bajas y excluir clientas del recorrido de compra.
 6. Verificar con una cuenta propia de prueba la entrega real de acceso, baja y salida al pagar en el entorno de pruebas del proveedor. Solo después activar la secuencia mediante la configuración. Esta tarea no realiza envíos reales ni cobros.

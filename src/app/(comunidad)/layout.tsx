@@ -1,6 +1,7 @@
 import { getSessionMember, getSpaces, touchMember, isApproved, memberHasPremium } from '@/lib/db/comunidad'
 import { Sidebar } from '@/components/comunidad/Sidebar'
 import { PendingApproval } from '@/components/comunidad/PendingApproval'
+import CookieBanner from '@/components/common/CookieBanner'
 
 // La comunidad depende de la sesión y de config leída en runtime: nunca estática.
 export const dynamic = 'force-dynamic'
@@ -10,7 +11,7 @@ export default async function ComunidadLayout({ children }: { children: React.Re
 
   // Sin sesión: sin shell (las páginas /comunidad/entrar y perfil ya redirigen).
   if (!member) {
-    return <div className="min-h-screen bg-[var(--color-brand-deep)]">{children}</div>
+    return <div className="min-h-screen bg-[var(--color-brand-deep)]"><CookieBanner />{children}</div>
   }
 
   // Sin aprobación no ve nada de la comunidad (ni espacios ni foro).

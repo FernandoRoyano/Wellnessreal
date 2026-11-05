@@ -4,6 +4,9 @@ import { captureLead } from '@/lib/leadCapture'
 import { z } from 'zod'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
 import { getClientIp, rateLimit } from '@/lib/rateLimit'
+import { getSessionMember, isApproved, memberHasPremium } from '@/lib/db/comunidad'
+import { upsertLead } from '@/lib/db/leads'
+import { syncCommunitySubscriber } from '@/lib/mailerlite'
 
 const subscriptionSchema = z.object({
   email: z.email().transform(value => value.toLowerCase().trim()),
@@ -169,33 +172,57 @@ export async function POST(request: NextRequest) {
     const resource = resolveResource(body.resource)
     const communitySubscription = _source === 'community'
     if (communitySubscription && body.marketingConsent !== true) return NextResponse.json({ error: 'Confirma si quieres recibir comunicaciones por email.' }, { status: 400 })
+    const communityMember = communitySubscription ? await getSessionMember() : null
+    if (communitySubscription) {
+      if (!communityMember || !isApproved(communityMember)) return NextResponse.json({ error: 'Vuelve a entrar en la comunidad para guardar tu preferencia.' }, { status: 401 })
+      if (communityMember.email.toLowerCase() !== email) return NextResponse.json({ error: 'Utiliza el mismo email con el que has entrado a la comunidad.' }, { status: 400 })
+      if (await memberHasPremium(communityMember, true)) return NextResponse.json({ error: 'Ya tienes acceso al programa. Encontrarás tu acompañamiento en «Mi programa».' }, { status: 409 })
+    }
+    const subscriberName = communityMember?.display_name ?? name
+    const communityConsent = { accepted: true, version: 'community-email-2026-11-05', recorded_at: new Date().toISOString(), sync_status: 'held' }
     const newsletterOnly = ['footer', 'community'].includes(_source ?? '') && !body.resource
 
     // Confirmar el guardado antes de enviar correos.
     await captureLead({
       request,
       email,
-      name: name || null,
+      name: subscriberName || null,
       source: newsletterOnly ? 'newsletter' : resource.source,
       attribution: _attribution,
       tags: _source ? [`form:${_source}`] : [],
-      ...(communitySubscription ? { form_data: { marketing_consent: { accepted: true, version: 'community-email-2026-11-05', recorded_at: new Date().toISOString() } } } : {}),
+      ...(communitySubscription ? { form_data: { marketing_consent: communityConsent } } : {}),
     })
 
-    if (newsletterOnly && !communitySubscription) {
+    if (communitySubscription) {
+      let subscriptionStatus: 'held' | 'synced' | 'suppressed' | 'pending' = 'held'
+      const groupId = process.env.MAILERLITE_COMUNIDAD_GROUP_ID
+      if (process.env.COMMUNITY_EMAIL_SEQUENCE_ENABLED === 'true' && process.env.MAILERLITE_API_KEY && groupId) {
+        try {
+          subscriptionStatus = await syncCommunitySubscriber({ email, name: subscriberName, groupId })
+        } catch {
+          subscriptionStatus = 'pending'
+          console.error('[Newsletter:community] Preferencia guardada; sincronización pendiente de revisión')
+        }
+        try {
+          await upsertLead({ email, name: subscriberName, source: 'newsletter', form_data: { marketing_consent: { ...communityConsent, sync_status: subscriptionStatus } } })
+        } catch {
+          console.error('[Newsletter:community] No se pudo actualizar el estado de sincronización')
+        }
+      }
+      return NextResponse.json({ success: true, preferenceSaved: true, subscriptionStatus })
+    }
+
+    if (newsletterOnly) {
       await sendEmail({ to: email, subject: 'Bienvenida a la newsletter de WellnessReal', html: `<p>Gracias por suscribirte${name ? `, ${escapeHtml(name)}` : ''}.</p><p>Recibirás ideas prácticas sobre entrenamiento de fuerza y hábitos para tu vida real. Puedes darte de baja con el enlace de cada newsletter o respondiendo a este correo.</p><p>Fernando · WellnessReal</p>` })
-    } else if (!communitySubscription) {
+    } else {
       await sendGuideEmail(email, name || '', resource)
     }
 
     // Suscribir en MailerLite si está configurada (best-effort, await para Vercel)
     // Grupo propio del recurso con fallback al general (mismo patrón que metodo-optin)
     const MAILERLITE_API_KEY = process.env.MAILERLITE_API_KEY
-    const MAILERLITE_GROUP_ID = communitySubscription
-      ? process.env.MAILERLITE_COMUNIDAD_GROUP_ID
-      : process.env[resource.groupEnv] || process.env.MAILERLITE_GROUP_ID
-    const communitySequenceEnabled = process.env.COMMUNITY_EMAIL_SEQUENCE_ENABLED === 'true'
-    if (MAILERLITE_API_KEY && (!communitySubscription || MAILERLITE_GROUP_ID && communitySequenceEnabled)) {
+    const MAILERLITE_GROUP_ID = process.env[resource.groupEnv] || process.env.MAILERLITE_GROUP_ID
+    if (MAILERLITE_API_KEY) {
       try {
         const mlRes = await fetch('https://connect.mailerlite.com/api/subscribers', {
           method: 'POST',
@@ -208,7 +235,7 @@ export async function POST(request: NextRequest) {
             email,
             fields: { name: name || '' },
             groups: MAILERLITE_GROUP_ID ? [MAILERLITE_GROUP_ID] : [],
-            ...(!communitySubscription ? { status: 'active' } : {}),
+            status: 'active',
           }),
         })
         if (!mlRes.ok) console.error('[Newsletter] MailerLite respondió', mlRes.status)

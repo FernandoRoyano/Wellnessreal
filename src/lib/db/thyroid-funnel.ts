@@ -1,4 +1,5 @@
 import { supabase } from '@/lib/supabase'
+import { getLeadKind, updateCommercialTags } from '@/lib/lead-measurement'
 
 export const THYROID_FUNNEL_EVENTS = [
   'community_entry_click',
@@ -85,7 +86,7 @@ export async function markThyroidLeadAsCustomer(email: string): Promise<string |
   const normalizedEmail = email.toLowerCase().trim()
   const { data: lead, error: findError } = await supabase
     .from('leads')
-    .select('id,tags')
+    .select('id,tags,converted_at')
     .eq('email', normalizedEmail)
     .maybeSingle()
   if (findError) throw new Error(`[ThyroidFunnel:findCustomer] ${findError.message}`)
@@ -93,10 +94,12 @@ export async function markThyroidLeadAsCustomer(email: string): Promise<string |
   const tags = lead.tags as string[] | null
   const isThyroidLead = tags?.some((tag) => tag === 'via:tiroides' || tag === 'form:test-tiroides')
   if (!isThyroidLead) return null
+  const now = new Date().toISOString()
+  const commercialTags = getLeadKind({ tags }) === 'prueba' ? tags : updateCommercialTags(tags ?? [], 'oportunidad', 'pagado', now)
 
   const { error } = await supabase
     .from('leads')
-    .update({ status: 'cliente', converted_at: new Date().toISOString() })
+    .update({ status: 'cliente', converted_at: lead.converted_at ?? now, tags: commercialTags })
     .eq('id', lead.id)
   if (error) throw new Error(`[ThyroidFunnel:markCustomer] ${error.message}`)
   return lead.id as string

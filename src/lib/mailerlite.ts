@@ -72,6 +72,24 @@ export async function createSubscriber(data: {
   })
 }
 
+export async function syncCommunitySubscriber(input: { email: string; name?: string; groupId: string }): Promise<'synced' | 'suppressed'> {
+  const existing = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(input.email)}`, { headers: getHeaders(), signal: AbortSignal.timeout(10000) })
+  if (existing.ok) {
+    const { data } = await existing.json() as { data: MLSubscriber }
+    if (data.status !== 'active') return 'suppressed'
+    if (data.groups.some(group => group.id === input.groupId)) return 'synced'
+  } else if (existing.status !== 404) {
+    throw new Error('[MailerLite:community] No se pudo comprobar la suscripción')
+  }
+  const response = await fetch(`${MAILERLITE_BASE}/subscribers`, {
+    method: 'POST', headers: getHeaders(), signal: AbortSignal.timeout(10000),
+    body: JSON.stringify({ email: input.email, fields: { name: input.name ?? '' }, groups: [input.groupId] }),
+  })
+  if (!response.ok) throw new Error('[MailerLite:community] No se pudo incorporar la preferencia al grupo')
+  const { data } = await response.json() as { data: MLSubscriber }
+  return data.status === 'active' ? 'synced' : 'suppressed'
+}
+
 export async function deleteSubscriber(id: string): Promise<void> {
   await fetch(`${MAILERLITE_BASE}/subscribers/${id}`, {
     method: 'DELETE',

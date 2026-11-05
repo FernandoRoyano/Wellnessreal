@@ -38,7 +38,7 @@ export default function CookieBanner() {
       data-initial={!reopened ? CONSENT_KEY : undefined}
       className="cookie-banner relative z-[220] px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] md:fixed md:bottom-0 md:left-0 md:right-0 md:p-5"
     >
-      <div className="max-w-5xl mx-auto surface-card-accent rounded-xl p-3 shadow-xl md:rounded-2xl md:p-6 md:backdrop-blur-xl">
+      <div style={{ backgroundColor: 'var(--color-brand-deep)' }} className="max-w-5xl mx-auto surface-card-accent rounded-xl p-3 shadow-xl md:rounded-2xl md:p-6 md:backdrop-blur-xl">
         <div className="flex flex-col items-stretch gap-3 md:flex-row md:items-center md:gap-5">
           <div className="flex min-w-0 flex-1 items-start gap-3 md:items-center">
             <span

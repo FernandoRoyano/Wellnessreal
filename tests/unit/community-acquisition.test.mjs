@@ -77,6 +77,17 @@ test('pedir un enlace solo registra solicitud cuando el proveedor la acepta', as
   assert.equal(limited.events.length, 0)
 })
 
+test('los errores de acceso explican qué hacer sin mostrar configuración interna del proveedor', async () => {
+  for (const message of ['email rate limit exceeded', 'Email address not authorized']) {
+    const f = actions({ otpError: { message } })
+    const result = await f.api.requestMagicLink(null, f.data)
+    assert.equal(result.ok, false)
+    assert.match(result.error, /Espera|Inténtalo/)
+    assert.ok(!/Supabase|SMTP|Resend|not authorized/.test(result.error))
+    assert.equal(f.events.length, 0)
+  }
+})
+
 test('completar una lección exige permiso y solo el primer avance genera el hito', async () => {
   const denied = actions({ allowed: false })
   await denied.api.setLessonCompletionAction(denied.data)
@@ -97,6 +108,7 @@ test('la suscripción comercial requiere elección explícita y no duplica la bi
     '@/lib/rateLimit': { getClientIp: () => 'fixture', rateLimit: () => ({ success: true }) },
     '@/lib/leadCapture': { captureLead: async value => captured.push(value) },
     '@/lib/email': { sendLeadEmail: async () => { mails++ } },
+    '@/lib/db/comunidad': { getSessionMember: async () => ({ email: 'ana@example.com', display_name: 'Ana', status: 'approved' }), isApproved: () => true, memberHasPremium: async () => false },
     '@/lib/utils/escapeHtml': { escapeHtml: value => value },
   })
   const submit = marketingConsent => POST({ json: async () => ({ email: 'ana@example.com', _source: 'community', marketingConsent }) })
@@ -149,6 +161,7 @@ test('la secuencia no se incorpora a MailerLite mientras siga desactivada', asyn
     zod, 'next/server': { NextResponse: Response },
     '@/lib/rateLimit': { getClientIp: () => 'fixture', rateLimit: () => ({ success: true }) },
     '@/lib/leadCapture': { captureLead: async () => ({ id: 'fixture' }) },
+    '@/lib/db/comunidad': { getSessionMember: async () => ({ email: 'ana@example.com', display_name: 'Ana', status: 'approved' }), isApproved: () => true, memberHasPremium: async () => false },
   }, { process: { env: { MAILERLITE_API_KEY: 'fixture', MAILERLITE_COMUNIDAD_GROUP_ID: 'fixture-group', COMMUNITY_EMAIL_SEQUENCE_ENABLED: 'false' } }, fetch: async () => { calls++; return Response.json({}) } })
   assert.equal((await POST({ json: async () => ({ email: 'ana@example.com', _source: 'community', marketingConsent: true }) })).status, 200)
   assert.equal(calls, 0)

@@ -132,7 +132,7 @@ export async function POST(request: NextRequest) {
           headers: { 'Content-Type': 'application/json', Accept: 'application/json', Authorization: `Bearer ${mailerLiteApiKey}` },
           body: JSON.stringify({
             email,
-            fields: { name, nivel_tiroides: result.profile },
+            fields: { name },
             groups: groupId ? [groupId] : [],
             status: 'active',
           }),

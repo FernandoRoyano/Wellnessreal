@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
+import { stopCommunityPurchaseInvitations } from '@/lib/mailerlite'
 import type { Programa } from '@/lib/programa-schema'
 import { applicationNotificationStatus, deliverApplicationMessages, planNotificationStatus, queuePlanApproval, startJourney } from '@/lib/thyroid-lifecycle'
 
@@ -67,11 +68,13 @@ export async function PATCH(
 
     // --- Acceso manual del cliente (pruebas / cortesía), al margen de Stripe ---
     if (typeof body.acceso_manual === 'boolean' && body.cliente_id) {
-      const { error: accErr } = await supabase
+      const { data: accessProfile, error: accErr } = await supabase
         .from('cliente_perfil')
         .update({ acceso_manual: body.acceso_manual })
         .eq('id', body.cliente_id)
+        .select('email').single()
       if (accErr) throw new Error(accErr.message)
+      if (body.acceso_manual && accessProfile?.email) await stopCommunityPurchaseInvitations(accessProfile.email)
       // Si solo se togglea el acceso, respondemos aquí.
       if (body.revisado === undefined && !body.programa) {
         return NextResponse.json({ ok: true, acceso_manual: body.acceso_manual })
