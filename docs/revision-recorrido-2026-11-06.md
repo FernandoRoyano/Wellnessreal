@@ -1,6 +1,6 @@
 # Comprobación del recorrido · 6 de noviembre de 2026
 
-El recorrido funcional está comprobado con datos ficticios hasta consultar el plan aprobado, descargarlo y guardar el check-in. Se han corregido dos fallos: recuperación de enlaces caducados y confirmación de pagos manuales. Los ajustes están en `feat/email-ecosystem`; todavía no están desplegados. El recorrido comercial de MailerLite sigue sin activar y sin pasos configurados.
+El recorrido funcional está comprobado con datos ficticios hasta consultar el plan aprobado, descargarlo y guardar el check-in. Se han corregido dos fallos: recuperación de enlaces caducados y confirmación de pagos manuales. Los ajustes del commit `ec4f9db` se publicaron el 6 de noviembre a las 09:35, hora de Madrid. El recorrido comercial de MailerLite sigue sin activar y sin pasos configurados.
 
 ## Resultado por etapa
 
@@ -29,7 +29,7 @@ No se ha aplicado ninguna migración ni modificado datos de clientas para estas 
 
 ## Servicios reales
 
-- **Web publicada:** Vercel confirma el despliegue `dpl_4Q27JPy6CCaah9svZTMHgQNyCuFx` como `Ready`, creado el 5 de noviembre. Las correcciones de esta revisión siguen locales.
+- **Web publicada:** Vercel confirma el despliegue `dpl_HUYTTijeRufvKGXr1TtQDUdsSgdt` como `Ready`, creado el 6 de noviembre y asignado a `wellnessreal.es`. Tras desplegar se comprobó `/comunidad/entrar`: HTTP 200, aviso de cookies presente y caché privada sin almacenamiento.
 - **Supabase Auth:** solicitud de acceso a la cuenta de prueba aceptada por la web publicada. La recepción y apertura desde el buzón real siguen sin confirmar. La comprobación local no acredita ese paso externo.
 - **Correo de la aplicación:** diagnóstico autenticado de producción correcto. Usa Resend desde `noreply@wellnessreal.es`; el acompañamiento fija respuesta en `info@wellnessreal.es`. El cron está configurado y las tablas consultadas por el diagnóstico existen. No se ha cambiado el remitente.
 - **Stripe:** comprobación de lectura con la configuración de producción, separada de la clave de pruebas local. El webhook actual está activo; se conserva otro endpoint deshabilitado. No se han creado sesiones de pago ni modificado endpoints. La comprobación de configuración no sustituye una compra real ni demuestra una entrega reciente de un evento de Stripe.

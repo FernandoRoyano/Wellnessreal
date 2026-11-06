@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next'
 import { getAllPosts } from '@/lib/db/posts'
+import { getBlogPartner } from '@/lib/blog-partners'
 
 const SITE_URL = 'https://wellnessreal.es'
 const STATIC_PAGES_UPDATED_AT = new Date('2026-10-16')
@@ -170,7 +171,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogPages: MetadataRoute.Sitemap = []
   try {
     const posts = await getAllPosts()
-    blogPages = posts.map((post) => ({
+    blogPages = posts.filter((post) => !getBlogPartner(post.slug)).map((post) => ({
       url: `${SITE_URL}/blog/${post.slug}`,
       lastModified: new Date(post.updated_at || post.published_at),
       changeFrequency: 'monthly' as const,

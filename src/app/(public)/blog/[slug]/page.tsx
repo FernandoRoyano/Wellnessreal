@@ -8,6 +8,7 @@ import type { Metadata } from 'next'
 import JsonLd, { articleSchema, breadcrumbSchema, isFernandoAuthor } from '@/components/seo/JsonLd'
 import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
 import RelatedPosts from '@/components/blog/RelatedPosts'
+import { getBlogPartner } from '@/lib/blog-partners'
 import '../markdown.css'
 
 export const revalidate = 60
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: post.title,
     description: post.excerpt,
+    ...(getBlogPartner(slug) ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } } : {}),
     alternates: {
       canonical: `https://wellnessreal.es/blog/${slug}`,
     },
@@ -69,7 +71,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const post = await getPostBySlug(slug)
   if (!post) notFound()
 
-  const relatedPosts = await getRelatedPosts(slug, post.category_id, 3)
+  const partner = getBlogPartner(slug)
+  const relatedPosts = partner ? [] : await getRelatedPosts(slug, post.category_id, 3)
 
   // Los artículos de tiroides funnelizan a su propia guía y a la comunidad,
   // no al embudo general de fitness.
@@ -172,8 +175,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               {post.excerpt}
             </p>
 
-            <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} sourceSlug={slug} />
-            {hasFernandoAuthor && (
+            <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} sourceSlug={slug} showCtas={!partner} />
+            {hasFernandoAuthor && !partner && (
               <aside aria-labelledby="sobre-el-autor" className="mt-12 border-t border-border-subtle pt-7">
                 <div className="flex items-center gap-4">
                   <Image src="/images/fernando-royano-avatar.webp" alt="Fernando Royano, autor del artículo" width={64} height={64} className="h-16 w-16 rounded-full object-cover object-top" />
@@ -191,6 +194,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* ═══════════════ ARTÍCULOS RELACIONADOS ═══════════════ */}
+      {!partner && <>
       <RelatedPosts posts={relatedPosts} />
 
       {/* ═══════════════ LEAD MAGNET ═══════════════ */}
@@ -268,6 +272,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </div>
         </Container>
       </section>
+      </>}
     </>
   )
 }

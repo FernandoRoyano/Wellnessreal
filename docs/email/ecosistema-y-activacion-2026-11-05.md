@@ -4,7 +4,7 @@ Objetivo: convertir visitas interesadas en solicitudes válidas y clientas de M�
 
 Actualización del 6 de noviembre: [comprobación completa del recorrido](../revision-recorrido-2026-11-06.md), con la entrega técnica de la prueba confirmada, verificación de Stripe en producción y correcciones de enlaces caducados y pagos manuales.
 
-La captación anterior ya está publicada. Los ajustes de esta tanda están preparados en la rama `feat/email-ecosystem` del checkout `wellnessreal-cookie-publish`. El checkout principal conserva sus cambios. La preparación comercial de MailerLite sí existe en la cuenta real: su grupo permanece vacío, los cuatro correos sin programar y la automatización inactiva. La prueba interna autorizada posteriormente utiliza una copia y un grupo separados, descritos a continuación.
+La captación y los ajustes del recorrido ya están publicados: commit `ec4f9db`, despliegue de producción del 6 de noviembre `dpl_HUYTTijeRufvKGXr1TtQDUdsSgdt`. El checkout principal conserva sus cambios. La preparación comercial de MailerLite existe en la cuenta real: su grupo permanece vacío, los cuatro correos sin programar y la automatización inactiva. La prueba interna autorizada posteriormente utiliza una copia y un grupo separados, descritos a continuación.
 
 ## Recorrido y destinos
 

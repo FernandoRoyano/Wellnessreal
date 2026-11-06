@@ -9,6 +9,7 @@ interface Props {
   /** Artículos de la categoría tiroides funnelizan a su guía + comunidad, no al embudo general. */
   isThyroid?: boolean
   sourceSlug?: string
+  showCtas?: boolean
 }
 
 function splitIntoParagraphs(html: string): string[] {
@@ -96,11 +97,11 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
   )
 }
 
-export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = 'unknown' }: Props) {
+export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = 'unknown', showCtas = true }: Props) {
   const paragraphs = splitIntoParagraphs(content)
   const total = paragraphs.length
 
-  if (total < 4) {
+  if (!showCtas || total < 4) {
     return (
       <article
         className="prose prose-invert prose-lg max-w-none markdown-content"
