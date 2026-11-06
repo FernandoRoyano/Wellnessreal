@@ -6,7 +6,7 @@ Fernando ha comunicado el acuerdo con Javier para recomendarse contenidos mutuam
 
 - Título: «Caminar y salud ósea: una lectura de Osteofit».
 - Autor de la recomendación: Fernando Royano. Atribución expresa del recurso original a Javier Giménez.
-- Estado: **borrador** en Supabase, creado sin publicar mediante el importador existente. ID `88d4321e-d650-4d40-8aea-3b31c46c0eb7`.
+- Estado: **publicado** en Supabase el 6 de noviembre a las 10:37, hora de Madrid, por indicación de Fernando. ID `88d4321e-d650-4d40-8aea-3b31c46c0eb7`. [Artículo publicado](https://wellnessreal.es/blog/caminar-salud-osea-osteofit).
 - Revisión: [abrir en administración](https://wellnessreal.es/admin/blog/88d4321e-d650-4d40-8aea-3b31c46c0eb7).
 - Slug protegido: `caminar-salud-osea-osteofit`. No cambiarlo sin actualizar `src/lib/blog-partners.ts` y las pruebas.
 - Texto original de recomendación; no se reproduce el artículo completo ni sus imágenes. Dos enlaces al recurso original y uno a la explicación del método de Javier, sin redirección automática.
@@ -14,7 +14,7 @@ Fernando ha comunicado el acuerdo con Javier para recomendarse contenidos mutuam
 
 ## Indexación y lectura
 
-Cuando se publique, la plantilla emitirá `noindex, follow` tanto para robots generales como para Googlebot. El sitemap excluye ese slug aunque el post esté publicado. No se bloquea su rastreo mediante `robots.txt`, para que el buscador pueda leer la directiva, conforme a [la documentación de Google](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
+La plantilla emite `noindex, follow` tanto para robots generales como para Googlebot, comprobado en producción tras publicar. El sitemap excluye ese slug aunque el post esté publicado. No se bloquea su rastreo mediante `robots.txt`, para que el buscador pueda leer la directiva, conforme a [la documentación de Google](https://developers.google.com/search/docs/crawling-indexing/block-indexing).
 
 No se insertan las promociones automáticas de nuestros programas ni artículos relacionados en esta colaboración. Se mantienen la navegación y el pie comunes de la web. Las pruebas comparan también un artículo normal para conservar su comportamiento.
 
@@ -28,4 +28,4 @@ Original conservado en `output/osteofit-collaboration-20261106/cover-source.png`
 
 ## Verificación
 
-Pruebas unitarias de metadatos, enlaces, promociones y exclusión del sitemap. Revisión local con post ficticio publicado para comprobar el estado que tendría al publicarse; el borrador real permanece privado. Evidencias locales en `output/osteofit-collaboration-20261106/`.
+Pruebas unitarias de metadatos, enlaces, promociones y exclusión del sitemap. Revisión local en móvil y escritorio. Tras publicar se confirmó en producción: HTTP 200, portada cargada, ambas directivas `noindex, follow`, dos enlaces al original, uno al método y exclusión del sitemap. La primera petición recibió el 404 anterior en caché; la regeneración de la ruta lo sustituyó por la página publicada. Evidencias locales en `output/osteofit-collaboration-20261106/`, incluido `publication-receipt.json`.

@@ -1,14 +1,14 @@
 ---
 title: "Caminar y salud ósea: una lectura de Osteofit"
 slug: caminar-salud-osea-osteofit
-fecha: "2026-11-06T10:00:00+01:00"
+fecha: "2026-11-06T10:37:01.603+01:00"
 categoria: "Entrenamiento de fuerza"
 tiempo_lectura: "3 min"
 excerpt: "Una lectura de Javier Giménez para entender qué aporta caminar y cuándo buscar orientación adaptada si tienes osteopenia u osteoporosis."
 author: "Fernando Royano"
 imagen_destacada: "/blog/editorial/caminar-salud-osea-osteofit.webp"
 imagen_alt: "Portada «Caminar y salud ósea», con una mujer caminando por un sendero arbolado y referencia a la lectura de Osteofit."
-published: false
+published: true
 robots: "noindex, follow"
 original_url: "https://metodoosteofit.com/caminar-y-osteoporosis/"
 colaboracion: "Javier Giménez · Método Osteofit"
