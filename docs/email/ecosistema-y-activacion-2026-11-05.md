@@ -2,9 +2,9 @@
 
 Objetivo: convertir visitas interesadas en solicitudes válidas y clientas de Método BASE Tiroides. Prioridad: mujeres con hipotiroidismo o Hashimoto en España. Los vídeos siguen pendientes; ningún paso necesita una grabación.
 
-Actualización del 6 de noviembre: [comprobación completa del recorrido](../revision-recorrido-2026-11-06.md), con la entrega técnica de la prueba confirmada, verificación de Stripe en producción y correcciones de enlaces caducados y pagos manuales.
+Actualización del 6 de noviembre: [comprobación completa del recorrido](../revision-recorrido-2026-11-06.md), con la entrega técnica de la prueba confirmada, verificación de Stripe en producción y correcciones de enlaces caducados y pagos manuales. Actualización posterior: [integración de grupos y automatización ya montada](verificacion-integracion-2026-11-06.md). Ese informe sustituye los pendientes de montaje descritos más abajo: ahora hay cinco correos configurados, incluyendo día 0, y la automatización continúa inactiva.
 
-La captación y los ajustes del recorrido ya están publicados: commit `ec4f9db`, despliegue de producción del 6 de noviembre `dpl_HUYTTijeRufvKGXr1TtQDUdsSgdt`. El checkout principal conserva sus cambios. La preparación comercial de MailerLite existe en la cuenta real: su grupo permanece vacío, los cuatro correos sin programar y la automatización inactiva. La prueba interna autorizada posteriormente utiliza una copia y un grupo separados, descritos a continuación.
+La captación y los ajustes del recorrido ya están publicados: commit `ec4f9db`, despliegue de producción del 6 de noviembre `dpl_HUYTTijeRufvKGXr1TtQDUdsSgdt`. El checkout principal conserva sus cambios. La preparación inicial creó cuatro campañas en borrador; después se montaron los pasos de la automatización y una bienvenida comercial de día 0. El grupo permanece vacío y la automatización inactiva. Las pruebas internas autorizadas utilizan copias y un grupo separados.
 
 ## Recorrido y destinos
 

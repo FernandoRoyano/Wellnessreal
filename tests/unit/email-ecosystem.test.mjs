@@ -131,6 +131,64 @@ test('no interpreta un fallo de consulta como suscriptor inexistente ni oculta u
   await assert.rejects(mailerlite(null, { lookupStatus: 404, uploadStatus: 503 }).sync(), /incorporar/)
 })
 
+function customerGroups({ status = 'active', groups = [], lookupStatus = 200, assignStatus = 201, customerGroup = 'customers' } = {}) {
+  const requests = []
+  const api = load('src/lib/mailerlite.ts', {}, {
+    process: { env: { MAILERLITE_API_KEY: 'fixture', MAILERLITE_COMUNIDAD_GROUP_ID: 'community', MAILERLITE_CLIENTES_GROUP_ID: customerGroup } },
+    fetch: async (url, options) => {
+      const method = options.method ?? 'GET'
+      requests.push({ url, method, body: options.body })
+      if (method === 'DELETE') return new Response(null, { status: 204 })
+      if (method === 'POST') return Response.json({}, { status: assignStatus })
+      return Response.json({ data: { id: 'subscriber-1', status, groups } }, { status: lookupStatus })
+    },
+  })
+  return { api, requests }
+}
+
+test('un pago retira captación y añade clientes sin modificar otras suscripciones ni su estado', async () => {
+  const f = customerGroups({ groups: [{ id: 'community' }, { id: 'other' }] })
+  await f.api.stopCommunityPurchaseInvitations(' ANA@example.com ')
+  assert.ok(f.requests[0].url.endsWith('/subscribers/ana%40example.com'))
+  assert.equal(f.requests[1].method, 'DELETE')
+  assert.ok(f.requests[1].url.endsWith('/subscriber-1/groups/community'))
+  assert.equal(f.requests[2].method, 'POST')
+  assert.ok(f.requests[2].url.endsWith('/subscriber-1/groups/customers'))
+  assert.ok(f.requests.every(request => request.body === undefined))
+})
+
+test('el pago no crea contactos y los reintentos no vuelven a añadir una clienta ya clasificada', async () => {
+  const missing = customerGroups({ lookupStatus: 404 })
+  await missing.api.stopCommunityPurchaseInvitations('ana@example.com')
+  assert.equal(missing.requests.length, 1)
+  const existing = customerGroups({ groups: [{ id: 'customers' }] })
+  await existing.api.stopCommunityPurchaseInvitations('ana@example.com')
+  assert.equal(existing.requests.length, 2)
+  assert.ok(existing.requests.every(request => request.method !== 'POST'))
+})
+
+test('la clasificación de pago no reactiva bajas y un fallo de asignación permite reintentar', async () => {
+  const suppressed = customerGroups({ status: 'unsubscribed' })
+  await suppressed.api.stopCommunityPurchaseInvitations('ana@example.com')
+  assert.ok(suppressed.requests.every(request => request.body === undefined))
+  const failed = customerGroups({ assignStatus: 503 })
+  await assert.rejects(failed.api.stopCommunityPurchaseInvitations('ana@example.com'), /grupo de clientes/)
+  assert.equal(failed.requests[1].method, 'DELETE')
+})
+
+test('el grupo de clientes bloquea otra entrada comercial aunque la solicitud llegue directamente', async () => {
+  const f = customerGroups({ groups: [{ id: 'customers' }] })
+  assert.equal(await f.api.syncCommunitySubscriber({ email: 'ana@example.com', groupId: 'community' }), 'suppressed')
+  assert.equal(f.requests.length, 1)
+})
+
+test('una configuración con el mismo grupo para clientas y captación falla antes de escribir', async () => {
+  const f = customerGroups({ customerGroup: 'community' })
+  await assert.rejects(f.api.stopCommunityPurchaseInvitations('ana@example.com'), /distintos/)
+  await assert.rejects(f.api.syncCommunitySubscriber({ email: 'ana@example.com', groupId: 'community' }), /distintos/)
+  assert.equal(f.requests.length, 0)
+})
+
 test('los correos comparten marca, un único CTA principal y baja, con texto escapado y enlaces seguros', () => {
   const escape = load('src/lib/utils/escapeHtml.ts')
   const { COMMUNITY_EMAIL_DRAFTS, renderCommunityEmail } = load('src/lib/community-email-drafts.ts', { '@/lib/utils/escapeHtml': escape })

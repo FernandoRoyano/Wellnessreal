@@ -35,7 +35,7 @@ const checks = await Promise.allSettled([
 const value = index => checks[index].status === 'fulfilled' ? checks[index].value : null
 const report = { checkedAt: new Date().toISOString(),
   configurationScope: 'Entorno local del checkout; la configuración de producción se verifica por separado',
-  configured: { communityGroup: !!process.env.MAILERLITE_COMUNIDAD_GROUP_ID, sequenceEnabled: process.env.COMMUNITY_EMAIL_SEQUENCE_ENABLED === 'true', mailerlite: !!process.env.MAILERLITE_API_KEY },
+  configured: { communityGroup: !!process.env.MAILERLITE_COMUNIDAD_GROUP_ID, customerGroup: !!process.env.MAILERLITE_CLIENTES_GROUP_ID, sequenceEnabled: process.env.COMMUNITY_EMAIL_SEQUENCE_ENABLED === 'true', mailerlite: !!process.env.MAILERLITE_API_KEY },
   dns: { spfIncludesMailerLite: value(0)?.flat().some(text => text.includes('_spf.mlsend.com')) ?? null,
     mailerliteDkim: value(1)?.some(host => host === 'litesrv._domainkey.mlsend.com') ?? null, dmarc: value(2)?.flat().join(' ') ?? null },
   consentCounts: Object.fromEntries(['held', 'pending', 'suppressed', 'synced', 'legacy'].map((status, i) => [status, value(i + 3)])),
@@ -44,7 +44,9 @@ const report = { checkedAt: new Date().toISOString(),
 if (prepared && process.env.MAILERLITE_API_KEY) {
   const [group, automation, ...campaigns] = await Promise.all([getProvider(`/groups/${prepared.group.id}`), getProvider(`/automations/${prepared.automation.id}`), ...prepared.campaigns.map(campaign => getProvider(`/campaigns/${campaign.id}`))])
   report.provider = { group: { id: group.id, name: group.name, activeCount: group.active_count },
-    automation: { id: automation.id, name: automation.name, enabled: automation.enabled, stepCount: automation.steps?.length ?? 0, triggers: automation.triggers?.length ?? 0 },
+    automation: { id: automation.id, name: automation.name, enabled: automation.enabled, stepCount: automation.steps?.length ?? 0, triggers: automation.triggers?.length ?? 0,
+      repeatable: automation.trigger_data?.repeatable, sent: automation.stats?.sent,
+      groups: automation.triggers?.map(trigger => ({ entry: trigger.group_ids, excluded: trigger.exclude_group_ids, exitWhenNoLongerMatches: trigger.exit_when_no_longer_matches })) },
     campaigns: campaigns.map(campaign => ({ id: campaign.id, name: campaign.name, status: campaign.status, languageId: campaign.language_id,
       scheduled: !!campaign.scheduled_for, contentReady: campaign.emails?.every(email => email.is_designed === true), missingData: campaign.missing_data ?? [] })),
   }

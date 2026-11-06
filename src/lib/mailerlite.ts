@@ -73,10 +73,13 @@ export async function createSubscriber(data: {
 }
 
 export async function syncCommunitySubscriber(input: { email: string; name?: string; groupId: string }): Promise<'synced' | 'suppressed'> {
+  const customerGroup = process.env.MAILERLITE_CLIENTES_GROUP_ID
+  if (customerGroup && customerGroup === input.groupId) throw new Error('[MailerLite:community] Los grupos de captación y clientes deben ser distintos')
   const existing = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(input.email)}`, { headers: getHeaders(), signal: AbortSignal.timeout(10000) })
   if (existing.ok) {
     const { data } = await existing.json() as { data: MLSubscriber }
     if (data.status !== 'active') return 'suppressed'
+    if (customerGroup && data.groups.some(group => group.id === customerGroup)) return 'suppressed'
     if (data.groups.some(group => group.id === input.groupId)) return 'synced'
   } else if (existing.status !== 404) {
     throw new Error('[MailerLite:community] No se pudo comprobar la suscripción')
@@ -97,16 +100,24 @@ export async function deleteSubscriber(id: string): Promise<void> {
   })
 }
 
-/** Retira solo las invitaciones de compra; conserva otras suscripciones y las bajas. */
+/** Retira las invitaciones y registra la exclusión de clientes sin crear suscripciones ni reactivar bajas. */
 export async function stopCommunityPurchaseInvitations(email: string): Promise<void> {
   const group = process.env.MAILERLITE_COMUNIDAD_GROUP_ID
-  if (!group || !process.env.MAILERLITE_API_KEY) return
+  const customerGroup = process.env.MAILERLITE_CLIENTES_GROUP_ID
+  if ((!group && !customerGroup) || !process.env.MAILERLITE_API_KEY) return
+  if (customerGroup && customerGroup === group) throw new Error('[MailerLite:stopInvitations] Los grupos de captación y clientes deben ser distintos')
   const response = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(email.trim().toLowerCase())}`, { headers: getHeaders(), signal: AbortSignal.timeout(10000) })
   if (response.status === 404) return
   if (!response.ok) throw new Error('[MailerLite:stopInvitations] No se pudo consultar la suscripción')
-  const { data } = await response.json() as { data: { id: string } }
-  const removed = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(data.id)}/groups/${encodeURIComponent(group)}`, { method: 'DELETE', headers: getHeaders(), signal: AbortSignal.timeout(10000) })
-  if (!removed.ok && removed.status !== 404) throw new Error('[MailerLite:stopInvitations] No se pudo retirar del grupo de captación')
+  const { data } = await response.json() as { data: Pick<MLSubscriber, 'id'> & Partial<Pick<MLSubscriber, 'groups'>> }
+  if (group) {
+    const removed = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(data.id)}/groups/${encodeURIComponent(group)}`, { method: 'DELETE', headers: getHeaders(), signal: AbortSignal.timeout(10000) })
+    if (!removed.ok && removed.status !== 404) throw new Error('[MailerLite:stopInvitations] No se pudo retirar del grupo de captación')
+  }
+  if (customerGroup && !data.groups?.some(group => group.id === customerGroup)) {
+    const assigned = await fetch(`${MAILERLITE_BASE}/subscribers/${encodeURIComponent(data.id)}/groups/${encodeURIComponent(customerGroup)}`, { method: 'POST', headers: getHeaders(), signal: AbortSignal.timeout(10000) })
+    if (!assigned.ok) throw new Error('[MailerLite:stopInvitations] No se pudo asignar el grupo de clientes')
+  }
 }
 
 export async function getSubscriberCount(): Promise<{
