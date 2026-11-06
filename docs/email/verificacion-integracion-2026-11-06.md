@@ -35,6 +35,14 @@ Evidencias locales ignoradas por Git: `output/email-ecosystem-20261105/wiring-ve
 
 Confirmar recepción de la prueba y revisar remitente, respuesta, enlaces y pie de los correos del panel. La dirección postal alternativa al domicilio particular sigue sin estar confirmada en este repositorio; no se ha inventado ninguna ni modificado el perfil postal del proveedor. La automatización y el interruptor de la aplicación permanecen apagados.
 
+### Recepción todavía no confirmada
+
+Fernando indica que el mensaje no ha llegado. En la consulta de las 13:25, hora de Madrid, MailerLite sigue registrando un envío y una entrega, sin rebotes ni aperturas. El envío terminó a las 13:14; el destinatario exacto es `info@wellnessreal.es` y el asunto «Prueba de recepción · WellnessReal · 6 noviembre». La entrega indicada por el proveedor no se considera confirmación de llegada a la bandeja de entrada.
+
+Los MX públicos de `wellnessreal.es` son `mx1.improvmx.com` y `mx2.improvmx.com`. SPF anuncia MailerLite y el selector DKIM `litesrv._domainkey` resuelve a MailerLite; esto no sustituye comprobar las firmas del mensaje ni los registros del receptor. El siguiente punto a investigar es el reenvío de ImprovMX al buzón final. No hay credencial de ImprovMX configurada en el entorno local consultado y el destino del alias no se puede deducir de DNS.
+
+Se ha solicitado confirmar qué buzón consulta Fernando. Para seguir, revisar el registro de ImprovMX para ese destinatario y esa hora: dirección final, estado del reenvío y respuesta del servidor. Su [guía de registros](https://improvmx.com/guides/privacy-logging-levels/) documenta estos datos. No se ha reenviado la prueba, cambiado DNS ni activado ninguna secuencia. Evidencia: `output/email-ecosystem-20261105/delivery-investigation-20261106.json`.
+
 ## Limpieza temporal bloqueada
 
 La revisión automática rechazó eliminar `output/email-ecosystem-20261105/production-config-check.env` con «blocked by policy», sin explicar un motivo adicional. El archivo exportado contiene configuración y credenciales de producción; está excluido de Git y debe retirarse manualmente. No se ha intentado eludir el bloqueo con otra herramienta de borrado.
