@@ -41,7 +41,9 @@ Fernando indica que el mensaje no ha llegado. En la consulta de las 13:25, hora 
 
 Los MX públicos de `wellnessreal.es` son `mx1.improvmx.com` y `mx2.improvmx.com`. SPF anuncia MailerLite y el selector DKIM `litesrv._domainkey` resuelve a MailerLite; esto no sustituye comprobar las firmas del mensaje ni los registros del receptor. El siguiente punto a investigar es el reenvío de ImprovMX al buzón final. No hay credencial de ImprovMX configurada en el entorno local consultado y el destino del alias no se puede deducir de DNS.
 
-Se ha solicitado confirmar qué buzón consulta Fernando. Para seguir, revisar el registro de ImprovMX para ese destinatario y esa hora: dirección final, estado del reenvío y respuesta del servidor. Su [guía de registros](https://improvmx.com/guides/privacy-logging-levels/) documenta estos datos. No se ha reenviado la prueba, cambiado DNS ni activado ninguna secuencia. Evidencia: `output/email-ecosystem-20261105/delivery-investigation-20261106.json`.
+Fernando confirma que consulta Gmail y tiene `info@wellnessreal.es` redirigido. Se intentó una consulta IMAP limitada al asunto de la prueba en la cuenta de Gmail ya configurada para WellnessReal. La conexión se detuvo antes de autenticar: Node devolvió `UNABLE_TO_VERIFY_LEAF_SIGNATURE` y la validación TLS de Windows también rechazó el certificado. No se ha desactivado la comprobación de certificados ni leído mensajes del buzón. Evidencia: `output/email-ecosystem-20261105/gmail-receipt-check-20261106.json`.
+
+El siguiente paso es buscar manualmente en todo Gmail, incluido Spam y Papelera, con `in:anywhere to:info@wellnessreal.es subject:"Prueba de recepción"`. Si no aparece, revisar el registro de ImprovMX para ese destinatario y esa hora: dirección final, estado del reenvío y respuesta del servidor. Su [guía de registros](https://improvmx.com/guides/privacy-logging-levels/) documenta estos datos. No se ha reenviado la prueba, cambiado DNS ni activado ninguna secuencia. Evidencia: `output/email-ecosystem-20261105/delivery-investigation-20261106.json`.
 
 ## Limpieza temporal bloqueada
 
