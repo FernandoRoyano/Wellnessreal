@@ -8,7 +8,7 @@ import * as zod from 'zod'
 function load(file, deps = {}, globals = {}) {
   const source = ts.transpileModule(fs.readFileSync(file, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
   const mod = { exports: {} }
-  vm.runInNewContext(source, { module: mod, exports: mod.exports, URL, URLSearchParams, Response, Headers, AbortSignal, crypto,
+  vm.runInNewContext(source, { module: mod, exports: mod.exports, URL, URLSearchParams, Response, Headers, AbortSignal, crypto, Buffer,
     process: { env: {} }, console: { error() {} }, require: name => deps[name] ?? {}, ...globals }, { filename: file })
   return mod.exports
 }
@@ -188,24 +188,32 @@ test('el pago no transforma pruebas en oportunidades ni modifica contactos de ot
 
 test('confirmar una asesoría pagada utiliza su email guardado y retira las invitaciones también al reintentar', async () => {
   const calls = []
+  const application = { id: 'application-1', email: 'owner@example.com', estado: 'nueva', notas: null }
+  const lifecycle = load('src/lib/thyroid-lifecycle.ts')
   let failure = false
-  const query = { update(patch) { calls.push(['estado', patch.estado]); return this }, select() { return this }, eq() { return this },
-    single: async () => ({ data: { email: 'owner@example.com' }, error: null }),
+  const query = { update(patch) { calls.push(['update', patch]); return this }, eq() { return this }, ilike(field, value) { assert.equal(field, 'email'); assert.equal(value, 'owner@example.com'); return this },
+    is(field, value) { calls.push(['condition', field, value]); return this },
     then(resolve) { return Promise.resolve({ error: null }).then(resolve) },
   }
   const api = load('src/lib/db/comunidad.ts', {
     '@/lib/supabase': { supabase: { from: () => query } },
+    '@/lib/asesoria-notes': { mutateApplication: async (_id, mutate) => { const patch = mutate(application); if (patch) Object.assign(application, patch); return application } },
+    '@/lib/thyroid-lifecycle': { ...lifecycle, deliverApplicationMessages: async id => calls.push(['delivery', id]) },
     '@/lib/db/thyroid-funnel': { markThyroidLeadAsCustomer: async email => calls.push(['crm', email]) },
     '@/lib/mailerlite': { stopCommunityPurchaseInvitations: async email => { calls.push(['stop', email]); if (failure) throw new Error('provider unavailable') } },
   })
   await api.setAsesoriaEstado('application-1', 'contactada')
   assert.equal(calls.length, 1)
   await api.setAsesoriaEstado('application-1', 'pagada')
-  assert.equal(JSON.stringify(calls.slice(-3)), JSON.stringify([['estado', 'pagada'], ['crm', 'owner@example.com'], ['stop', 'owner@example.com']]))
+  assert.equal(application.estado, 'pagada')
+  assert.equal(JSON.stringify(calls.slice(-3)), JSON.stringify([['crm', 'owner@example.com'], ['stop', 'owner@example.com'], ['delivery', 'application-1']]))
+  assert.ok(calls.some(([kind, patch]) => kind === 'update' && patch.acceso_manual === true))
+  assert.ok(calls.some(([kind, field, value]) => kind === 'condition' && field === 'pagado_en' && value === null))
   failure = true
   await assert.rejects(api.setAsesoriaEstado('application-1', 'pagada'), /provider unavailable/)
   failure = false
   await api.setAsesoriaEstado('application-1', 'pagada')
+  assert.equal(lifecycle.readLifecycle(application.notas).messages.filter(notice => notice.key === 'welcome').length, 1)
 })
 
 test('el acceso manual exige administrador y retira invitaciones solo al conceder acceso', async () => {

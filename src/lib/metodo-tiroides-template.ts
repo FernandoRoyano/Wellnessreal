@@ -6,7 +6,7 @@ export const THYROID_TEMPLATE_VERSION = 'BASE-T12-v1'
 export function getDefaultThyroidRoadmap(): NonNullable<Programa['vision_12_semanas']> {
   return {
     titulo: 'Tu recorrido de 12 semanas',
-    descripcion: 'El plan avanza en cuatro bloques. Cada tres semanas revisamos tu respuesta antes de activar la siguiente progresiÃ³n.',
+    descripcion: 'El plan avanza en cuatro bloques. Cada tres semanas revisamos tu respuesta antes de activar la siguiente progresión.',
     bloques: THYROID_PROGRAM_PHASES.map((phase, index) => ({
       semanas: phase.weeks,
       titulo: phase.title,

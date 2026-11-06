@@ -7,6 +7,7 @@ import { stopCommunityPurchaseInvitations } from '@/lib/mailerlite'
 import type { CommunityTrackingContext } from '@/lib/community-tracking'
 import { escapeHtml } from '@/lib/utils/escapeHtml'
 import { deliverApplicationMessages, enqueueNotice, lifecycleSummary } from '@/lib/thyroid-lifecycle'
+import { mutateApplication } from '@/lib/asesoria-notes'
 import { getThyroidProgramProgress } from '@/lib/thyroid-program-progress'
 import type { User } from '@supabase/supabase-js'
 
@@ -381,17 +382,30 @@ export async function setAsesoriaEstado(
   id: string,
   estado: AsesoriaSolicitud['estado']
 ): Promise<void> {
+  if (estado === 'pagada') {
+    const application = await mutateApplication(id, (current) => {
+      const notes = enqueueNotice(current.notas, { key: 'welcome', kind: 'welcome', dueAt: new Date().toISOString() })
+      return current.estado === 'pagada' && notes === current.notas ? null : { estado: 'pagada', notas: notes }
+    })
+    const email = application.email.replace(/[\\%_]/g, '\\$&')
+    const { error: accessError } = await supabase.from('cliente_perfil').update({ acceso_manual: true }).ilike('email', email)
+    if (accessError) throw new Error('[comunidad:setAsesoriaEstado] No se pudo activar el acceso')
+    const { error: dateError } = await supabase.from('cliente_perfil').update({ pagado_en: new Date().toISOString() }).ilike('email', email).is('pagado_en', null)
+    if (dateError) throw new Error('[comunidad:setAsesoriaEstado] No se pudo registrar la fecha del pago')
+    await markThyroidLeadAsCustomer(application.email)
+    await stopCommunityPurchaseInvitations(application.email)
+    try {
+      await deliverApplicationMessages(id)
+    } catch {
+      console.error('[comunidad:setAsesoriaEstado] Confirmación de pago pendiente de reintento', { applicationId: id })
+    }
+    return
+  }
   const { error } = await supabase
     .from('asesoria_solicitudes')
     .update({ estado })
     .eq('id', id)
   if (error) throw new Error(`[comunidad:setAsesoriaEstado] ${error.message}`)
-  if (estado === 'pagada') {
-    const { data, error: readError } = await supabase.from('asesoria_solicitudes').select('email').eq('id', id).single()
-    if (readError || !data?.email) throw new Error('[comunidad:setAsesoriaEstado] No se pudo confirmar el contacto de la clienta')
-    await markThyroidLeadAsCustomer(data.email)
-    await stopCommunityPurchaseInvitations(data.email)
-  }
 }
 
 /** Borra una solicitud del Grupo Tiroides definitivamente (spam / pruebas). */

@@ -2,6 +2,8 @@
 
 Objetivo: convertir visitas interesadas en solicitudes válidas y clientas de Método BASE Tiroides. Prioridad: mujeres con hipotiroidismo o Hashimoto en España. Los vídeos siguen pendientes; ningún paso necesita una grabación.
 
+Actualización del 6 de noviembre: [comprobación completa del recorrido](../revision-recorrido-2026-11-06.md), con la entrega técnica de la prueba confirmada, verificación de Stripe en producción y correcciones de enlaces caducados y pagos manuales.
+
 La captación anterior ya está publicada. Los ajustes de esta tanda están preparados en la rama `feat/email-ecosystem` del checkout `wellnessreal-cookie-publish`. El checkout principal conserva sus cambios. La preparación comercial de MailerLite sí existe en la cuenta real: su grupo permanece vacío, los cuatro correos sin programar y la automatización inactiva. La prueba interna autorizada posteriormente utiliza una copia y un grupo separados, descritos a continuación.
 
 ## Recorrido y destinos
@@ -76,6 +78,7 @@ Fernando confirmó `info@wellnessreal.es` como dirección de prueba. Se preparó
 - Asunto: `[PRUEBA INTERNA] WellnessReal · Tu primer paso con la fuerza`.
 - Solicitud de envío aceptada por MailerLite el 5 de noviembre a las 17:18:57 (Madrid); el proveedor la dejó preparada para procesar a las 17:19:56.
 - En la consulta de las 17:20:59 figuraba como `sent`, pero todavía con cero envíos y entregas en las estadísticas y sin actividad de destinatario. La recepción sigue sin confirmar; no se reenvía automáticamente una solicitud ya aceptada.
+- La consulta posterior del 6 de noviembre confirma un envío y una entrega, sin rebotes, y una única cuenta destinataria: `info@wellnessreal.es`. La carpeta de recepción y la apertura siguen sin comprobar desde el buzón.
 - Los cuatro borradores originales siguen sin programar, el grupo comercial sigue vacío y su automatización continúa apagada.
 
 El recibo y las consultas de estado están en `output/email-ecosystem-20261105/internal-test-receipt.json`. Una aceptación del proveedor no acredita recepción en bandeja de entrada: Fernando debe comprobar su buzón. Siguen pendientes la confirmación postal y la prueba completa de baja y salida del recorrido; esta copia no activa la secuencia. El método de copia y envío a una cuenta propia está descrito en la [guía de pruebas de MailerLite](https://www.mailerlite.com/help/everything-about-test-emails).
@@ -89,6 +92,7 @@ El recibo y las consultas de estado están en `output/email-ecosystem-20261105/i
 - No se envían puntuación ni perfil del test a MailerLite desde la captura del test. No se han borrado campos históricos ni alterado resultados guardados en la aplicación.
 - La confirmación de pago mantiene la fecha de primera conversión y actualiza la fase comercial a «Pago confirmado». Los contactos marcados como pruebas siguen separados.
 - La confirmación manual de asesoría pagada y la concesión de acceso manual también solicitan retirar el grupo de invitaciones. Un fallo posterior a un acceso concedido no lo revoca; revisar el error y reintentar la exclusión. Stripe conserva el reintento del webhook.
+- La revisión del 6 de noviembre añade al pago manual la confirmación de inicio persistida y el acceso al perfil existente. Se conserva la primera fecha y una única bienvenida aunque se repita la acción.
 - La entrada directa desde anuncios permite elegir cookies antes de conservar UTMs. Solo se guardan códigos de campaña admitidos, con consentimiento; se excluyen tokens, emails, identificadores publicitarios y el enlace de confirmación. Se mantiene el primer origen conocido.
 - Los fallos de envío de acceso ofrecen un reintento o el contacto de ayuda, en lugar de pedir al visitante que configure el proveedor. Se conserva el límite de tiempo cuando el proveedor lo especifica.
 

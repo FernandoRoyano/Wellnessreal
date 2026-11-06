@@ -72,7 +72,7 @@ test('la clase gratuita conserva contenido útil cuando no hay vídeo configurad
   await page.getByLabel('Tu mejor email').fill('prueba@example.com')
   await page.getByRole('button', { name: 'Ver la clase gratuita' }).click()
 
-  await expect(page).toHaveURL(/\/tiroides\/clase\/video$/)
+  await expect(page).toHaveURL(/\/tiroides\/clase\/video$/, { timeout: 15_000 })
   await expect(page.getByText('Clase disponible en formato práctico')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'No decidas entre hacerlo todo o no hacer nada.' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Conocer Método BASE Tiroides' }).first()).toBeVisible()

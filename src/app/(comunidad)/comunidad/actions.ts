@@ -164,7 +164,7 @@ export async function confirmMagicLink(
     console.error('[comunidad:confirmMagicLink]', authError)
     return {
       ok: false,
-      error: 'El enlace ha caducado o ya se ha usado. Pide uno nuevo desde "Enviar enlace de acceso".',
+      error: 'El enlace ha caducado o ya se ha usado. Pide uno nuevo para continuar.',
     }
   }
 

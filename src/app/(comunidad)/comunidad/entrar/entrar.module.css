@@ -373,6 +373,7 @@
 .confirmForm .error { color: #ffc0c0; background: rgba(180, 56, 56, 0.14); border-color: rgba(255, 192, 192, 0.18); }
 .confirmForm button { background: #d7ad72; color: #211626; box-shadow: 0 14px 35px rgba(0, 0, 0, 0.2); }
 .confirmForm button:hover { background: #e4bf89; }
+.confirmRetry { display: inline-flex; align-items: center; min-height: 44px; margin-top: 1rem; color: #f3cf94; text-decoration: underline; text-underline-offset: 4px; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 

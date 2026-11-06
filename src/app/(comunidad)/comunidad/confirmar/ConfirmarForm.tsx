@@ -1,10 +1,12 @@
 'use client'
 
 import { useActionState } from 'react'
+import Link from 'next/link'
 import { confirmMagicLink, type ConfirmResult } from '../actions'
 import { ShieldCheck, Loader2 } from 'lucide-react'
 import styles from '../entrar/entrar.module.css'
 import { getThyroidTrackingContext } from '@/lib/analytics'
+import { safeInternalPath } from '@/lib/safe-redirect'
 
 export function ConfirmarForm({
   code,
@@ -45,6 +47,7 @@ export function ConfirmarForm({
           'Confirmar acceso'
         )}
       </button>
+      {state?.error && <Link href={`/comunidad/entrar?next=${encodeURIComponent(safeInternalPath(next, '/comunidad'))}`} className={styles.confirmRetry}>Pedir un nuevo enlace de acceso</Link>}
     </form>
   )
 }
