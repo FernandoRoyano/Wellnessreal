@@ -49,10 +49,10 @@ Los fixtures solo escuchan en `127.0.0.1`, usan identidades ficticias y bloquean
 
 ## Pendiente para operar todo en producción
 
-1. Publicar los ajustes ya preparados y probados.
+1. Ajustes publicados y comprobados. La integración posterior de los grupos de MailerLite también está [publicada y verificada](email/verificacion-integracion-2026-11-06.md); la automatización permanece inactiva.
 2. Confirmar en el buzón la recepción del acceso de Supabase y completar una entrada real. La entrega técnica de MailerLite está registrada, pero no sustituye esa comprobación de acceso.
 3. Resolver una dirección postal alternativa que respete la decisión de no publicar el domicilio particular; comprobar también el pie automático del proveedor.
-4. Montar y probar los pasos y la salida al contratar en MailerLite antes de activar su automatización y las nuevas incorporaciones. Sus cuatro borradores todavía no forman una secuencia conectada.
+4. El recorrido de MailerLite ya está montado y la exclusión de clientes probada. Antes de activarlo quedan la confirmación del buzón y la revisión final del contenido y pie de los mensajes del panel.
 
 Los detalles de configuración y los identificadores están en [el informe del ecosistema](email/ecosistema-y-activacion-2026-11-05.md). Los vídeos continúan pendientes de grabar.
 
