@@ -3,6 +3,7 @@ import { CommunityLink } from '@/components/comunidad/CommunityLink'
 
 import Link from 'next/link'
 import { trackBlogCtaClick } from '@/lib/analytics'
+import { splitBlogSections } from '@/lib/blog-content'
 
 interface Props {
   content: string
@@ -10,13 +11,6 @@ interface Props {
   isThyroid?: boolean
   sourceSlug?: string
   showCtas?: boolean
-}
-
-function splitIntoParagraphs(html: string): string[] {
-  return html
-    .split('</p>')
-    .map((chunk) => (chunk.trim() ? chunk + '</p>' : ''))
-    .filter(Boolean)
 }
 
 /** Primer CTA (~30%): captar el email con el lead magnet adecuado. */
@@ -98,8 +92,8 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
 }
 
 export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = 'unknown', showCtas = true }: Props) {
-  const paragraphs = splitIntoParagraphs(content)
-  const total = paragraphs.length
+  const sections = splitBlogSections(content)
+  const total = sections.length
 
   if (!showCtas || total < 4) {
     return (
@@ -110,12 +104,12 @@ export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = '
     )
   }
 
-  const guideIndex = Math.floor(total * 0.3)
-  const valoracionIndex = Math.floor(total * 0.7)
+  const guideIndex = Math.max(2, Math.floor(total * 0.3))
+  const valoracionIndex = Math.min(total - 1, Math.max(guideIndex + 1, Math.floor(total * 0.7)))
 
   return (
     <>
-      {paragraphs.map((chunk, index) => (
+      {sections.map((chunk, index) => (
         <div key={index}>
           <div
             className="prose prose-invert prose-lg max-w-none markdown-content"
