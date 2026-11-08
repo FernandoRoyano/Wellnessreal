@@ -181,5 +181,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Supabase not configured or unavailable — skip blog posts
   }
 
-  return [...staticPages, ...blogPages]
+  // Mantener estos artículos publicados aunque la consulta devuelva datos antiguos.
+  const publishedArticleSlugs = [
+    'rutina-fuerza-casa-hipotiroidismo',
+    'entrenador-online-hipotiroidismo',
+    'retomar-entrenamiento-fuerza-despues-paron',
+  ]
+  const blogUrls = new Set(blogPages.map((page) => page.url))
+  const missingArticlePages: MetadataRoute.Sitemap = publishedArticleSlugs
+    .map((slug) => `${SITE_URL}/blog/${slug}`)
+    .filter((url) => !blogUrls.has(url))
+    .map((url) => ({ url, changeFrequency: 'monthly', priority: 0.6 }))
+
+  return [...staticPages, ...blogPages, ...missingArticlePages]
 }
