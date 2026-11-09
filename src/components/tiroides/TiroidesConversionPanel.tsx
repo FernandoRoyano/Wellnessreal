@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import TestTiroides from '@/components/tiroides/TestTiroides'
 import { trackLeadFormStart, trackSignUp, trackThyroidFunnel } from '@/lib/analytics'
+import { rememberGuideRequest } from '@/lib/guide-popup'
 
 const FIELD_CLASS =
   'w-full rounded-xl border border-border-subtle bg-brand-night px-4 py-4 text-fluid-base text-white ' +
@@ -52,7 +53,7 @@ export default function TiroidesConversionPanel({ initialShowGuide = false }: { 
         }),
       })
       if (!response.ok) throw new Error('Error al suscribir')
-
+      rememberGuideRequest('tiroides')
       trackSignUp('tiroides')
       router.push('/gracias-tiroides')
     } catch {

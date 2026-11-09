@@ -4,18 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
-
-const HIDDEN_PATHS = [
-  '/admin',
-  '/studio',
-  '/cliente',
-  '/valoracion',
-  '/recurso-gratis',
-  '/gracias',
-  '/metodo-tiroides',
-]
-const SESSION_KEY = 'wr_popup_shown'
-const LOCAL_KEY = 'wr_lead_submitted'
+import { getPopupResource, popupAllowed, requestedGuides, rememberGuideRequest, POPUP_GUIDES, POPUP_LAST_SHOWN_KEY, POPUP_SESSION_KEY, type GuideResource } from '@/lib/guide-popup'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
 
@@ -26,26 +15,47 @@ const FIELD_CLASS =
 
 export default function LeadMagnetPopup() {
   const pathname = usePathname()
-  const [visible, setVisible] = useState(false)
+  const [popup, setPopup] = useState<{ pathname: string; resource: GuideResource } | null>(null)
+  const visible = popup?.pathname === pathname && Boolean(getPopupResource(pathname))
+  const guide = POPUP_GUIDES[popup?.resource ?? 'guia']
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<Status>('idle')
   const dialogRef = useRef<HTMLDivElement>(null)
+  const shownInMemory = useRef(false)
 
   useEffect(() => {
-    if (HIDDEN_PATHS.some((p) => pathname.startsWith(p))) return
-    if (localStorage.getItem(LOCAL_KEY)) return
-    if (sessionStorage.getItem(SESSION_KEY)) return
-
-    const handleExitIntent = (event: MouseEvent) => {
-      if (event.clientY <= 8 && window.matchMedia('(pointer: fine)').matches) {
-        setVisible(true)
-        sessionStorage.setItem(SESSION_KEY, '1')
-        document.removeEventListener('mouseout', handleExitIntent)
-      }
+    if (!getPopupResource(pathname)) return
+    const started = Date.now()
+    let opened = false
+    const open = () => {
+      if (opened || shownInMemory.current || document.visibilityState !== 'visible') return
+      if (document.activeElement?.matches('input, textarea, select') || document.querySelector('[aria-modal="true"]')) return
+      const resource = getPopupResource(pathname, document.querySelector('[data-lead-resource]')?.getAttribute('data-lead-resource'))
+      if (!resource) return
+      let sessionShown = false
+      let lastShown = 0
+      try { sessionShown = Boolean(sessionStorage.getItem(POPUP_SESSION_KEY)); lastShown = Number(localStorage.getItem(POPUP_LAST_SHOWN_KEY)) } catch { /* Mantener la protección en memoria. */ }
+      if (!popupAllowed(resource, requestedGuides(), sessionShown, lastShown, Date.now())) return
+      opened = true
+      shownInMemory.current = true
+      try { sessionStorage.setItem(POPUP_SESSION_KEY, '1'); localStorage.setItem(POPUP_LAST_SHOWN_KEY, String(Date.now())) } catch { /* No impedir el cierre ni la lectura. */ }
+      setPopup({ pathname, resource })
     }
-
+    const handleExitIntent = (event: MouseEvent) => {
+      if (event.clientY <= 8 && event.relatedTarget === null && Date.now() - started >= 15000 && window.matchMedia('(pointer: fine)').matches) open()
+    }
+    const handleReading = () => {
+      if (window.matchMedia('(pointer: fine)').matches || Date.now() - started < 45000) return
+      if ((window.scrollY + window.innerHeight) / document.documentElement.scrollHeight >= 0.5) open()
+    }
+    const timer = window.setTimeout(handleReading, 45000)
     document.addEventListener('mouseout', handleExitIntent)
-    return () => document.removeEventListener('mouseout', handleExitIntent)
+    window.addEventListener('scroll', handleReading, { passive: true })
+    return () => {
+      window.clearTimeout(timer)
+      window.removeEventListener('scroll', handleReading)
+      document.removeEventListener('mouseout', handleExitIntent)
+    }
   }, [pathname])
 
   useEffect(() => {
@@ -53,20 +63,18 @@ export default function LeadMagnetPopup() {
     const dialog = dialogRef.current
     const previousFocus =
       document.activeElement instanceof HTMLElement ? document.activeElement : null
-    const focusable = dialog?.querySelectorAll<HTMLElement>(
-      'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-    )
-    const first = focusable?.[0]
-    const last = focusable?.[focusable.length - 1]
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    first?.focus()
+    dialog?.querySelector<HTMLElement>('button')?.focus()
 
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setVisible(false)
+        setPopup(null)
         return
       }
+      const focusable = dialog?.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])')
+      const first = focusable?.[0]
+      const last = focusable?.[focusable.length - 1]
       if (event.key !== 'Tab' || !first || !last) return
       if (event.shiftKey && document.activeElement === first) {
         event.preventDefault()
@@ -80,25 +88,26 @@ export default function LeadMagnetPopup() {
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = previousOverflow
-      previousFocus?.focus()
+      if (previousFocus?.isConnected) previousFocus.focus()
     }
   }, [visible])
 
-  const close = () => setVisible(false)
+  const close = () => setPopup(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (!popup) return
     setStatus('loading')
     try {
       const { getAttributionForSubmit } = await import('@/lib/tracking')
       const res = await fetch('/api/newsletter', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, _source: 'popup', _attribution: getAttributionForSubmit() }),
+        body: JSON.stringify({ email, resource: popup.resource, _source: `popup_${popup.resource}`, _attribution: getAttributionForSubmit() }),
       })
       if (!res.ok) throw new Error()
-      localStorage.setItem(LOCAL_KEY, '1')
-      trackSignUp('popup')
+      rememberGuideRequest(popup.resource)
+      trackSignUp(`popup_${popup.resource}`)
       setStatus('success')
     } catch {
       setStatus('error')
@@ -118,7 +127,8 @@ export default function LeadMagnetPopup() {
     >
       <div
         ref={dialogRef}
-        className="relative w-full max-w-md surface-card-accent rounded-2xl p-7 md:p-8 animate-scale-in"
+        style={{ backgroundColor: 'var(--color-brand-night)' }}
+        className="relative max-h-[calc(100dvh-2rem)] w-full max-w-md overflow-y-auto surface-card-accent rounded-2xl p-6 md:p-8 animate-scale-in"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -140,19 +150,20 @@ export default function LeadMagnetPopup() {
               ¡Perfecto!
             </p>
             <p id="leadmagnet-description" className="text-fluid-sm text-muted">
-              Revisa tu email — la guía está en camino.
+              Tu guía ya está disponible. Puedes descargarla aquí y revisar también tu correo.
             </p>
+            <a href={guide.file} download className="btn-brand mt-3 inline-flex min-h-11 px-5">Descargar mi guía</a>
           </div>
         ) : (
           <>
             <h2 id="leadmagnet-title" className="headline text-fluid-xl text-white mb-1">
-              Antes de irte, llévate esto.
+              {guide.title}
             </h2>
             <p id="leadmagnet-description" className="text-fluid-sm text-muted mb-1">
-              La guía base que doy a todos mis clientes antes de empezar:
+              {guide.description}
             </p>
             <p className="text-fluid-base font-bold text-accent mb-5">
-              &ldquo;Fitness real para gente con vida real&rdquo;
+              &ldquo;{guide.guide}&rdquo;
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-3">
@@ -193,14 +204,14 @@ export default function LeadMagnetPopup() {
                   'Enviando…'
                 ) : (
                   <>
-                    Quiero la guía gratis <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                    {guide.button} <ArrowRight className="w-4 h-4" aria-hidden="true" />
                   </>
                 )}
               </button>
             </form>
 
             <p className="text-fluid-xs text-subtle text-center mt-4">
-              Sin spam. Puedes darte de baja cuando quieras.
+              Recibirás la guía y contenidos de entrenamiento. Puedes darte de baja cuando quieras. <a href="/privacidad" className="underline underline-offset-2">Privacidad</a>.
             </p>
           </>
         )}

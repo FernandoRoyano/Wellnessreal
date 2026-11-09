@@ -8,6 +8,7 @@ import { useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { CheckCircle, X, Briefcase, Baby, Utensils, ArrowRight, Sparkles } from 'lucide-react'
 import { trackLeadFormStart, trackSignUp } from '@/lib/analytics'
+import { rememberGuideRequest } from '@/lib/guide-popup'
 
 const newsletterSchema = z.object({
   email: z.email({ message: 'Email inválido' }),
@@ -17,10 +18,10 @@ const newsletterSchema = z.object({
 type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 const BENEFITS = [
-  'Por qué el "todo o nada" te mantiene estancado',
-  'El sistema de "mínimos no negociables" para semanas buenas, normales y caóticas',
-  'Las 3 prioridades reales: entrenamiento, nutrición y descanso',
-  '7 acciones concretas que puedes implementar hoy mismo',
+  'Cómo ajustar el plan a semanas normales y con menos tiempo',
+  'Cuatro ejercicios ilustrados y una progresión para empezar',
+  'Comidas sencillas, descanso y movimiento cotidiano',
+  'Un plan semanal rellenable para elegir tus próximos pasos',
 ] as const
 
 const IS_FOR = [
@@ -33,10 +34,10 @@ const IS_FOR = [
 
 const IS_NOT_FOR = [
   'Buscas pastillas mágicas o atajos',
-  'Quieres resultados sin hacer nada',
-  'Crees que existe la dieta perfecta',
-  'No estás dispuesto a ser flexible',
-  'Prefieres excusas antes que soluciones',
+  'Necesitas rehabilitación o una pauta médica individual',
+  'Buscas una dieta clínica o un menú prescrito',
+  'Quieres una rutina diseñada para una competición concreta',
+  'Necesitas una valoración individual antes de entrenar',
 ] as const
 
 const CONTEXT_ITEMS = [
@@ -68,7 +69,7 @@ export default function RecursoGratisPage() {
         body: JSON.stringify({ ...data, _attribution: getAttributionForSubmit() }),
       })
       if (!response.ok) throw new Error('Error al suscribir')
-
+      rememberGuideRequest('guia')
       trackSignUp('recurso_gratis')
       router.push('/gracias-recurso')
     } catch {
@@ -203,7 +204,7 @@ export default function RecursoGratisPage() {
             <article className="surface-card rounded-2xl p-8 border-l-4 border-l-danger">
               <h3 className="text-fluid-xl font-semibold text-white mb-6 flex items-center gap-2 tracking-tight">
                 <X className="w-5 h-5 text-danger" />
-                NO es para ti si...
+                Necesitas otro tipo de apoyo si...
               </h3>
               <ul className="space-y-3">
                 {IS_NOT_FOR.map((item, i) => (
@@ -230,11 +231,11 @@ export default function RecursoGratisPage() {
             </div>
 
             <p className="text-fluid-lg text-muted leading-relaxed">
-              Unos te dicen que puedes comer basura y adelgazar. Otros que todo tiene que ser perfecto.
+              Entre promesas rápidas y rutinas que piden demasiado tiempo, cuesta decidir por dónde empezar.
             </p>
             <p className="text-fluid-lg text-muted leading-relaxed">
-              <span className="text-white font-semibold">La realidad:</span> ninguno de los dos extremos funciona para
-              alguien con una vida real.
+              <span className="text-white font-semibold">Un criterio útil:</span> elegir acciones que puedas repetir
+              y saber cómo ajustarlas cuando cambie tu semana.
             </p>
 
             <div className="grid md:grid-cols-3 gap-6 pt-4">
@@ -252,7 +253,7 @@ export default function RecursoGratisPage() {
             </div>
 
             <p className="text-fluid-xl text-white pt-4">
-              <span className="text-accent font-bold">El contexto es lo más importante.</span>
+              <span className="text-accent font-bold">Tu contexto cuenta.</span>
               <br />
               <span className="text-muted">Esta guía te enseña a trabajar con el tuyo, no contra él.</span>
             </p>

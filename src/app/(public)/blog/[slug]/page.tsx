@@ -171,7 +171,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       )}
 
       {/* ═══════════════ CONTENIDO ═══════════════ */}
-      <section className="bg-brand-deep pb-fluid-xl">
+      <section data-lead-resource={isThyroid ? 'tiroides' : 'guia'} className="bg-brand-deep pb-fluid-xl">
         <Container>
           <div className="max-w-3xl mx-auto">
             <p className="text-fluid-xl text-white/85 leading-relaxed mb-fluid-md pb-fluid-sm border-b border-border-subtle font-medium">
