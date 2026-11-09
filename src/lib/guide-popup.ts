@@ -32,7 +32,7 @@ export function rememberGuideRequest(resource: GuideResource): void {
 export const POPUP_GUIDES = {
   guia: {
     title: 'Un plan tiene que caber en tu vida.',
-    description: 'Ideas prácticas para organizar entrenamiento, alimentación y descanso sin necesitar una semana perfecta.',
+    description: 'Entiende las bases de la fuerza y la alimentación para la salud, con ejercicios ilustrados, variantes y ejemplos prácticos.',
     guide: 'Fitness real para gente con vida real',
     button: 'Quiero la guía fitness',
     file: '/guia-wellness-real.pdf',

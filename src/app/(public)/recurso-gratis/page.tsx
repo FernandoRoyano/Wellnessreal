@@ -18,9 +18,9 @@ const newsletterSchema = z.object({
 type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 const BENEFITS = [
-  'Cómo ajustar el plan a semanas normales y con menos tiempo',
-  'Cuatro ejercicios ilustrados y una progresión para empezar',
-  'Comidas sencillas, descanso y movimiento cotidiano',
+  'Fundamentos de fuerza, actividad aeróbica y esfuerzo explicados con claridad',
+  'Cuatro ejercicios ilustrados, variantes y ejemplos para progresar',
+  'Nutrición para la salud con fuentes científicas, platos y compra práctica',
   'Un plan semanal rellenable para elegir tus próximos pasos',
 ] as const
 

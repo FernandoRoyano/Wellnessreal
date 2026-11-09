@@ -13,7 +13,7 @@ const NEXT_STEPS = [
   {
     icon: BookOpen,
     title: 'Léela con calma',
-    desc: 'No es un PDF de 100 páginas. Es directo y al grano. Puedes leerla en 10 minutos.',
+    desc: 'Empieza por los fundamentos y vuelve a las fichas cuando practiques. No necesitas leerlo todo de una vez.',
   },
   {
     icon: PenLine,
@@ -61,7 +61,7 @@ export default function GraciasRecursoPage() {
               </a>
             </div>
 
-            <p className="text-fluid-sm text-subtle">PDF · Lectura de 10 minutos</p>
+            <p className="text-fluid-sm text-subtle">PDF · 18 páginas · Ejercicios, variantes y plan rellenable</p>
           </div>
         </Container>
       </section>

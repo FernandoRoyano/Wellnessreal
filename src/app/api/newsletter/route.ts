@@ -122,7 +122,7 @@ function buildGuideEmailHTML(name: string, downloadUrl: string, resource: Resour
               <h3 style="color:#ffffff;font-size:18px;margin:0 0 16px;">Próximos pasos:</h3>
               <table width="100%" cellpadding="0" cellspacing="0">
                 <tr><td style="padding:8px 0;color:#d1d5db;font-size:14px;">
-                  <span style="color:#FCEE21;font-weight:bold;">1.</span> Lee la guía con calma (10 min de lectura)
+                  <span style="color:#FCEE21;font-weight:bold;">1.</span> Lee la guía a tu ritmo y vuelve a los ejemplos cuando los necesites
                 </td></tr>
                 <tr><td style="padding:8px 0;color:#d1d5db;font-size:14px;">
                   <span style="color:#FCEE21;font-weight:bold;">2.</span> Elige UNA idea y ponla en práctica esta semana
