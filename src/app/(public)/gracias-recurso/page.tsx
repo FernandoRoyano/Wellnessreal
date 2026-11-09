@@ -61,7 +61,7 @@ export default function GraciasRecursoPage() {
               </a>
             </div>
 
-            <p className="text-fluid-sm text-subtle">PDF · 18 páginas · Ejercicios, variantes y plan rellenable</p>
+            <p className="text-fluid-sm text-subtle">PDF · 20 páginas · Ejercicios, variantes y plan rellenable</p>
           </div>
         </Container>
       </section>
