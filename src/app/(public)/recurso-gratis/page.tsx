@@ -19,7 +19,7 @@ type NewsletterFormData = z.infer<typeof newsletterSchema>
 
 const BENEFITS = [
   'Fundamentos de fuerza, actividad aeróbica y esfuerzo explicados con claridad',
-  'Cuatro ejercicios ilustrados, variantes y ejemplos para progresar',
+  'Sentadilla, flexiones, peso muerto, dominadas y remos ilustrados, con variantes',
   'Nutrición para la salud con fuentes científicas, platos y compra práctica',
   'Un plan semanal rellenable para elegir tus próximos pasos',
 ] as const
