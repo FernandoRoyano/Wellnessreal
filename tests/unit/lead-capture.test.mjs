@@ -15,7 +15,7 @@ function loadModule(path, dependencies = {}, globals = {}) {
     console: { error() {}, log() {} }, process: { env: {} },
     crypto: { randomUUID: () => 'delivery-test' },
     setTimeout: (callback) => callback(),
-    require: (name) => dependencies[name] ?? {}, ...globals,
+    require: (name) => dependencies[name] ?? (name === '@/lib/article-attribution' ? loadModule('src/lib/article-attribution.ts', {}, { URL }) : {}), ...globals,
   }, { filename: path })
   return compiled.exports
 }
@@ -133,6 +133,7 @@ test('el CTA tiroideo abre la comunidad y el general conserva la guía sin conta
     '@/lib/analytics': { trackThyroidFunnel: (...args) => communityClicks.push(args) },
   })
   const { default: Blog } = loadModule('src/components/blog/BlogContentWithCTAs.tsx', {
+    '@/lib/blog-content': loadModule('src/lib/blog-content.ts'),
     'react/jsx-runtime': { jsx, jsxs: jsx },
     'next/link': { default: 'a' },
     '@/components/comunidad/CommunityLink': community,
@@ -146,12 +147,13 @@ test('el CTA tiroideo abre la comunidad y el general conserva la guía sin conta
     if (typeof node.type === 'function') return links(node.type(node.props))
     return [...(node.type === 'a' ? [node.props] : []), ...links(node.props?.children)]
   }
-  const tree = Blog({ content: '<p>Contenido</p>'.repeat(10), isThyroid: true, sourceSlug: 'articulo' })
+  const content = '<p>Introducción</p>' + Array.from({ length: 6 }, (_, i) => `<h2>Sección ${i}</h2><p>Contenido</p>`).join('')
+  const tree = Blog({ content, isThyroid: true, sourceSlug: 'articulo' })
   const guide = links(tree).find((link) => link.href === '/comunidad/entrar')
   assert.ok(guide)
   guide.onClick({ defaultPrevented: false })
   assert.deepEqual(JSON.parse(JSON.stringify(communityClicks)), [['community_entry_click', { position: 'blog_inline' }]])
-  const general = Blog({ content: '<p>Contenido</p>'.repeat(10), sourceSlug: 'general' })
+  const general = Blog({ content, sourceSlug: 'general' })
   const generalGuide = links(general).find((link) => link.href === '/recurso-gratis#formulario')
   assert.ok(generalGuide)
   generalGuide.onClick()

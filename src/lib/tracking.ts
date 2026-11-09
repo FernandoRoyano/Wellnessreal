@@ -1,5 +1,6 @@
 import { trackMetaEvent } from '@/lib/meta-pixel'
 import { hasTrackingConsent } from '@/lib/cookie-consent'
+import { sanitizeArticleSource } from '@/lib/article-attribution'
 
 /**
  * Tracking de atribución: captura UTMs y fbc/fbp en el primer landing
@@ -22,6 +23,8 @@ export interface AttributionData {
   fbc?: string
   fbp?: string
   first_seen_at?: string
+  source_article?: string
+  submission_page?: string
 }
 
 function getCookie(name: string): string | null {
@@ -100,14 +103,8 @@ export function captureAttribution(): AttributionData {
   const fbpCookie = getCookie('_fbp')
   if (fbpCookie) data.fbp = fbpCookie
 
-  // Solo persistimos si hay algo que valga la pena
-  const hasUtm = data.utm_source || data.utm_medium || data.utm_campaign
-  const hasFb = data.fbc
-  const hasReferrer = data.referrer && !data.referrer.includes(window.location.hostname)
-
-  if (hasUtm || hasFb || hasReferrer) {
-    setCookie(COOKIE_NAME, JSON.stringify(data), COOKIE_DAYS)
-  }
+  // Con consentimiento, conserva también la primera página de una visita sin campaña.
+  setCookie(COOKIE_NAME, JSON.stringify(data), COOKIE_DAYS)
 
   return data
 }
@@ -155,6 +152,8 @@ export function getAttributionForSubmit(): AttributionData {
   const fbpCookie = getCookie('_fbp')
   return {
     ...stored,
+    source_article: sanitizeArticleSource(new URLSearchParams(window.location.search).get('articulo')),
+    submission_page: window.location.pathname,
     fbc: stored.fbc || fbcCookie || undefined,
     fbp: fbpCookie || stored.fbp || undefined,
   }

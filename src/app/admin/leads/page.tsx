@@ -49,7 +49,7 @@ function getReadableFormData(lead: Lead): { key: string; label: string; value: s
   if (lead.source !== 'tiroides') {
     return entries.map(([key, value]) => ({
       key,
-      label: key.replaceAll('_', ' '),
+      label: ({ source_article: 'Artículo de origen de la solicitud', submission_page: 'Formulario enviado desde' } as Record<string, string>)[key] || key.replaceAll('_', ' '),
       value: String(value),
     }))
   }

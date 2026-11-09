@@ -40,6 +40,10 @@ export function trackSignUp(method: string): void {
   fireEvent('sign_up', { method })
 }
 
+export function trackResourceDownload(resourceId: string): void {
+  fireEvent('resource_download_click', { resource_id: resourceId })
+}
+
 export type ThyroidFunnelEvent =
   | 'community_entry_click'
   | 'community_program_visit'

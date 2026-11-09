@@ -11,6 +11,9 @@ const attributionSchema = z.object({
   utm_source: z.string().max(120).optional(),
   utm_medium: z.string().max(120).optional(),
   utm_campaign: z.string().max(200).optional(),
+  utm_content: z.string().max(120).optional(),
+  source_article: z.string().max(120).optional(),
+  submission_page: z.enum(['/metodo-tiroides']).optional(),
   landing_page: z.string().max(500).optional(),
   referrer: z.string().max(500).optional(),
 }).optional()

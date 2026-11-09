@@ -45,9 +45,10 @@ export default function ApplicationForm() {
   if (state.success) {
     return (
       <div
+        id="solicitud-formulario"
         ref={successRef}
         tabIndex={-1}
-        className="rounded-2xl border border-success/30 bg-success/10 p-8 text-center"
+        className="scroll-mt-24 rounded-2xl border border-success/30 bg-success/10 p-8 text-center"
         role="status"
         aria-live="polite"
       >
@@ -66,15 +67,17 @@ export default function ApplicationForm() {
 
   return (
     <form
+      id="solicitud-formulario"
       ref={formRef}
       action={formData => {
+        formData.set('_attribution', JSON.stringify(getAttributionForSubmit()))
         formData.set('_origin', new URLSearchParams(window.location.search).get('origen') === 'comunidad' ? 'community' : 'public')
         formData.set('_funnel', JSON.stringify(getThyroidTrackingContext()))
         action(formData)
       }}
       aria-busy={pending}
       aria-describedby={state.error ? 'application-form-error' : undefined}
-      className="space-y-4 rounded-[1.75rem] border border-accent/25 bg-brand-dusk p-6 shadow-2xl md:p-8"
+      className="scroll-mt-24 space-y-4 rounded-[1.75rem] border border-accent/25 bg-brand-dusk p-6 shadow-2xl md:p-8"
     >
       <input type="hidden" name="_attribution" value={attribution} />
       <input type="hidden" name="_funnel" value={funnel} />

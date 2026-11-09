@@ -89,7 +89,7 @@ export default async function MetodoTiroidesPage() {
     : launchPhase === 'applications'
       ? 'Solicitar una plaza'
       : 'Ver la clase gratuita'
-  const primaryHref = launchPhase === 'closed' ? '/tiroides/clase' : '#solicitud'
+  const primaryHref = launchPhase === 'closed' ? '/tiroides/clase' : launchPhase === 'applications' ? '#solicitud-formulario' : '#solicitud'
 
   return (
     <>

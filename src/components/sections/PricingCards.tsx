@@ -6,6 +6,7 @@ import { ArrowRight, Check, MessageCircle } from 'lucide-react'
 import Container from '@/components/common/Container'
 import { trackClickPlan, trackViewPricing } from '@/lib/analytics'
 import { useReveal } from '@/hooks/useGSAP'
+import { withArticleSource } from '@/lib/article-attribution'
 
 const PHONE = '34633261963'
 const SERVICE_ID = 'personal_12_semanas'
@@ -23,7 +24,7 @@ function whatsappUrl() {
   return `https://wa.me/${PHONE}?text=${encodeURIComponent(message)}`
 }
 
-export default function PricingCards() {
+export default function PricingCards({ articleSource }: { articleSource?: string } = {}) {
   const cardRef = useReveal<HTMLDivElement>({ y: 50 })
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function PricingCards() {
 
           <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
             <Link
-              href={`/valoracion?plan=${SERVICE_ID}`}
+              href={withArticleSource(`/valoracion?plan=${SERVICE_ID}`, articleSource)}
               onClick={() => trackClickPlan(SERVICE_ID)}
               className="btn-brand justify-center py-3.5 text-fluid-sm"
             >

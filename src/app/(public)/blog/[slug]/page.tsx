@@ -8,6 +8,8 @@ import type { Metadata } from 'next'
 import JsonLd, { articleSchema, breadcrumbSchema, isFernandoAuthor } from '@/components/seo/JsonLd'
 import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
 import RelatedPosts from '@/components/blog/RelatedPosts'
+import WeeklyLogDownload from '@/components/blog/WeeklyLogDownload'
+import { withArticleSource } from '@/lib/article-attribution'
 import { getBlogPartner } from '@/lib/blog-partners'
 import '../markdown.css'
 
@@ -78,6 +80,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   // no al embudo general de fitness.
   const isThyroid = post.category?.slug === 'tiroides'
   const hasFernandoAuthor = isFernandoAuthor(post.author)
+  const hasWeeklyLog = !partner && ['rutina-fuerza-casa-hipotiroidismo', 'retomar-entrenamiento-fuerza-despues-paron', 'rutina-30-minutos-en-casa', 'mejor-ejercicio-hipotiroidismo'].includes(slug)
 
   return (
     <>
@@ -176,6 +179,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </p>
 
             <BlogContentWithCTAs content={stripLeadingH1(post.content)} isThyroid={isThyroid} sourceSlug={slug} showCtas={!partner} />
+            {hasWeeklyLog && <WeeklyLogDownload />}
             {hasFernandoAuthor && !partner && (
               <aside aria-labelledby="sobre-el-autor" className="mt-12 border-t border-border-subtle pt-7">
                 <div className="flex items-center gap-4">
@@ -198,7 +202,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <RelatedPosts posts={relatedPosts} />
 
       {/* ═══════════════ LEAD MAGNET ═══════════════ */}
-      <section className="relative py-fluid-lg bg-brand-dusk">
+      {!hasWeeklyLog && <section className="relative py-fluid-lg bg-brand-dusk">
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
         <Container>
           <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
@@ -222,7 +226,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             </div>
           </div>
         </Container>
-      </section>
+      </section>}
 
       {/* ═══════════════ CTA FINAL ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-deep overflow-hidden">
@@ -240,7 +244,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   con seguimiento profesional y ajustes alrededor de tu vida real.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                  <Link href="/metodo-tiroides" className="btn-brand text-fluid-base px-8">
+                  <Link href={withArticleSource('/metodo-tiroides', slug)} className="btn-brand text-fluid-base px-8">
                     Ver Método BASE Tiroides
                     <ArrowRight className="w-4 h-4" />
                   </Link>
@@ -259,7 +263,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                   adaptado a tu vida real.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                  <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
+                  <Link href={withArticleSource('/valoracion', slug)} className="btn-brand text-fluid-base px-8">
                     Solicitar valoración gratuita
                     <ArrowRight className="w-4 h-4" />
                   </Link>

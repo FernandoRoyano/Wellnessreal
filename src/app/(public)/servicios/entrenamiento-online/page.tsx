@@ -6,6 +6,7 @@ import { buildMetadata } from '@/lib/seo'
 import JsonLd, { serviceSchema, breadcrumbSchema } from '@/components/seo/JsonLd'
 import FaqSection from '@/components/sections/FaqSection'
 import PricingCards from '@/components/sections/PricingCards'
+import { withArticleSource } from '@/lib/article-attribution'
 
 export const metadata = buildMetadata({
   title: 'Entrenador Personal Online | Plan y seguimiento',
@@ -81,7 +82,9 @@ const FAQS = [
   },
 ] as const
 
-export default function EntrenamientoOnlinePage() {
+export default async function EntrenamientoOnlinePage({ searchParams }: { searchParams: Promise<{ articulo?: string }> }) {
+  const { articulo } = await searchParams
+  const valuationHref = withArticleSource('/valoracion', articulo)
   return (
     <>
       <JsonLd
@@ -128,7 +131,7 @@ export default function EntrenamientoOnlinePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-up [animation-delay:200ms]">
-                <Link href="/valoracion" className="btn-brand text-fluid-base">
+                <Link href={valuationHref} className="btn-brand text-fluid-base">
                   Solicitar valoración individual
                   <ArrowRight className="w-4 h-4" />
                 </Link>
@@ -167,7 +170,7 @@ export default function EntrenamientoOnlinePage() {
               Si buscas el recorrido específico de fuerza y hábitos, conoce Método BASE Tiroides.
               Son dos formatos con alcance y condiciones diferentes.
             </p>
-            <Link href="/metodo-tiroides" className="btn-ghost text-fluid-base">
+            <Link href={withArticleSource('/metodo-tiroides', articulo)} className="btn-ghost text-fluid-base">
               Ver Método BASE Tiroides <ArrowRight className="w-4 h-4" aria-hidden="true" />
             </Link>
           </div>
@@ -285,7 +288,7 @@ export default function EntrenamientoOnlinePage() {
       </section>
 
       <div id="precio" className="scroll-mt-24">
-        <PricingCards />
+        <PricingCards articleSource={articulo} />
       </div>
 
       {/* ═══════════════ FAQ ═══════════════ */}
@@ -325,7 +328,7 @@ export default function EntrenamientoOnlinePage() {
               La valoración inicial es gratuita. Me cuentas tu situación y vemos si puedo ayudarte. Sin compromiso.
             </p>
             <div className="pt-2">
-              <Link href="/valoracion" className="btn-brand text-fluid-lg px-10 py-5">
+              <Link href={valuationHref} className="btn-brand text-fluid-lg px-10 py-5">
                 Solicitar valoración individual
                 <ArrowRight className="w-5 h-5" />
               </Link>

@@ -4,6 +4,7 @@ import { CommunityLink } from '@/components/comunidad/CommunityLink'
 import Link from 'next/link'
 import { trackBlogCtaClick } from '@/lib/analytics'
 import { splitBlogSections } from '@/lib/blog-content'
+import { attributeArticleLinks, withArticleSource } from '@/lib/article-attribution'
 
 interface Props {
   content: string
@@ -39,7 +40,7 @@ function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; source
           <p className="text-sm text-gray-400">{cfg.desc}</p>
         </div>
         {isThyroid ? <CommunityLink href={cfg.href} source="blog_inline" className="btn-brand flex-shrink-0 px-6 py-3 text-sm">Entrar gratis</CommunityLink> : <Link
-          href={cfg.href}
+          href={withArticleSource(cfg.href, sourceSlug)}
           onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105"
           style={{ backgroundColor: '#FCEE21', color: '#16122B' }}
@@ -80,7 +81,7 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
           <p className="text-sm text-gray-400">{cfg.desc}</p>
         </div>
         <Link
-          href={cfg.href}
+          href={withArticleSource(cfg.href, sourceSlug)}
           onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105 border-2 border-[#FCEE21] text-[#FCEE21] hover:bg-[#FCEE21] hover:text-[#16122B]"
         >
@@ -92,14 +93,15 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
 }
 
 export default function BlogContentWithCTAs({ content, isThyroid, sourceSlug = 'unknown', showCtas = true }: Props) {
-  const sections = splitBlogSections(content)
+  const attributedContent = attributeArticleLinks(content, sourceSlug)
+  const sections = splitBlogSections(attributedContent)
   const total = sections.length
 
   if (!showCtas || total < 4) {
     return (
       <article
         className="prose prose-invert prose-lg max-w-none markdown-content"
-        dangerouslySetInnerHTML={{ __html: content }}
+        dangerouslySetInnerHTML={{ __html: attributedContent }}
       />
     )
   }

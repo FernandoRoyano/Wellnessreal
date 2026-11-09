@@ -1,5 +1,6 @@
 import type { NextRequest } from 'next/server'
 import { upsertLead, type LeadSource } from '@/lib/db/leads'
+import { sanitizeArticleSource } from '@/lib/article-attribution'
 
 interface AttributionInBody {
   utm_source?: string
@@ -11,6 +12,8 @@ interface AttributionInBody {
   landing_page?: string
   fbc?: string
   fbp?: string
+  source_article?: string
+  submission_page?: string
 }
 
 /**
@@ -33,6 +36,11 @@ export async function captureLead(params: {
     const a = params.attribution || {}
     const ip = params.request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || null
     const userAgent = params.request.headers.get('user-agent') || null
+    const formData = {
+      ...(params.form_data || {}),
+      ...(sanitizeArticleSource(a.source_article) ? { source_article: a.source_article } : {}),
+      ...(a.submission_page && ['/valoracion', '/metodo-tiroides'].includes(a.submission_page) ? { submission_page: a.submission_page } : {}),
+    }
 
     const lead = await upsertLead({
       email: params.email,
@@ -48,7 +56,7 @@ export async function captureLead(params: {
       utm_content: a.utm_content || null,
       fbc: a.fbc || null,
       fbp: a.fbp || null,
-      form_data: params.form_data || null,
+      form_data: Object.keys(formData).length ? formData : null,
       tags: params.tags || [],
       user_agent: userAgent,
       ip,
