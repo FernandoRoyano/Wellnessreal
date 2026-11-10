@@ -2,8 +2,10 @@
 
 ## Cambios
 
-- Inicio: dos entradas, aprender gratis o recibir acompañamiento. Guía y test quedan como recursos dentro del primer recorrido.
-- Comparación existente de Método BASE e individual reutilizada en inicio. Precios, duración y condiciones conservados.
+- Prioridad comercial confirmada por Fernando: contenido de valor → comunidad gratuita → Método BASE de pago. El entrenamiento individual general no es la venta prioritaria ahora.
+- Inicio: acceso directo a la comunidad como acción principal y explicación de lo que hay dentro como acción secundaria. Guía y test son recursos complementarios.
+- Método BASE se presenta más abajo como continuación opcional de pago. Se retiraron de inicio la comparación entre formatos, el bloque de 750 €, la promoción de la app y los testimonios del entrenamiento individual. La página de servicio individual sigue disponible; precios y condiciones conservados.
+- Blog: la llamada final prioriza la comunidad y la invitación intermedia de artículos generales deja de vender entrenamiento individual. Se identifica el público actual de la comunidad: mujeres con hipotiroidismo o Hashimoto. En artículos de tiroides, BASE queda como paso opcional de pago.
 - Inicio y servicio individual: tres ejemplos didácticos de decisiones sobre carga, tiempo disponible y variantes. No representan clientes ni resultados reales.
 - Política editorial: ejemplos identificados, aplicación práctica, coherencia de portadas y resúmenes, fecha de revisión separada de publicación original.
 

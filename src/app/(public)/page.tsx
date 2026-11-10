@@ -25,21 +25,19 @@ import AnimatedSection from '@/components/animations/AnimatedSection'
 import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
 import { CommunityLink } from '@/components/comunidad/CommunityLink'
-import ProgramComparison from '@/components/sections/ProgramComparison'
+import { THYROID_PROGRAM } from '@/lib/metodo-tiroides'
 import TrainingDecisions from '@/components/sections/TrainingDecisions'
 
 export const metadata = buildMetadata({
-  title: 'Entrenador online | Especialización en hipotiroidismo',
+  title: 'Comunidad gratuita de entrenamiento y hábitos | Tiroides',
   description:
-    'Entrena con Fernando Royano: fuerza y seguimiento adaptados a tu vida. Especialización en hipotiroidismo y Hashimoto. Conoce los programas y cómo empezar.',
+    'Aprende con Fernando Royano en la comunidad gratuita para mujeres con hipotiroidismo o Hashimoto: lecciones, recursos y dudas sobre fuerza y hábitos.',
   path: '/',
   keywords: [
-    'entrenamiento online personalizado',
-    'entrenador personal Madrid',
-    'entrenamiento a distancia',
-    'fitness online personalizado',
-    'plan entrenamiento app',
-    'nutrición personalizada',
+    'comunidad gratuita hipotiroidismo',
+    'entrenamiento con hipotiroidismo',
+    'fuerza y hábitos',
+    'Hashimoto entrenamiento',
   ],
 })
 
@@ -52,12 +50,12 @@ const BENEFITS = [
   {
     icon: Target,
     title: 'Adaptado a tu contexto',
-    desc: 'El punto de partida es tu nivel, tu tiempo, tu energía y el material que tienes disponible.',
+    desc: 'Aprendes a tener en cuenta tu nivel, tu tiempo, tu energía y el material disponible.',
   },
   {
     icon: BarChart3,
     title: 'Progreso que se puede ajustar',
-    desc: 'Observamos tu respuesta y modificamos la carga, el volumen o los hábitos cuando hace falta.',
+    desc: 'Aprendes qué registrar y qué observar antes de cambiar la carga, el volumen o los hábitos.',
   },
 ] as const
 
@@ -88,73 +86,23 @@ const COMMUNITY_BENEFITS = [
 const STEPS = [
   {
     step: '01',
-    title: 'Elige tu punto de entrada',
-    desc: 'Método BASE Tiroides si necesitas una estructura específica, o entrenamiento individual si buscas máxima personalización.',
+    title: 'Entra gratis a la comunidad',
+    desc: 'Confirma tu acceso por email y empieza por la bienvenida. No necesitas contratar un programa.',
   },
   {
     step: '02',
-    title: 'Valoramos tu contexto',
-    desc: 'Revisamos tu punto de partida, experiencia, disponibilidad, limitaciones y objetivo realista.',
+    title: 'Comprende una idea cada vez',
+    desc: 'Lee las lecciones sobre fuerza y hábitos, consulta las fuentes y plantea tus dudas generales.',
   },
   {
     step: '03',
-    title: 'Construyes una estructura',
-    desc: 'Aplicas un plan de fuerza y hábitos que puedas integrar en tu semana sin depender de la motivación perfecta.',
+    title: 'Llévalo a una semana posible',
+    desc: 'Usa los recursos y el planificador para organizarte a tu ritmo, sin intentar cambiarlo todo a la vez.',
   },
   {
     step: '04',
-    title: 'Observas y ajustas',
-    desc: 'El progreso se revisa con datos, sensaciones y contexto para decidir qué mantener y qué cambiar.',
-  },
-] as const
-
-const APP_FEATURES = [
-  'App móvil nativa (iOS y Android) súper intuitiva',
-  'Vídeos explicativos de cada ejercicio',
-  'Tracking automático de peso, sensaciones y progreso',
-  'Notificaciones y recordatorios personalizados',
-  'Conexión directa conmigo desde la app',
-] as const
-
-const TESTIMONIALS = [
-  {
-    text: 'Llegué con varios intentos fallidos y sin creer que esto funcionara. En 14 meses bajé 21 kg, pero lo mejor fue sentir que, por primera vez en años, no estaba a dieta: estaba viviendo.',
-    initials: 'PF',
-    name: 'Padre de familia, 41 años',
-    result: '-21kg en 14 meses',
-  },
-  {
-    text: 'No quería perder peso, quería verme diferente. La báscula apenas cambió, pero la ropa me queda completamente distinta y ahora tengo músculo donde antes no había.',
-    initials: 'M34',
-    name: 'Mujer, 34 años',
-    result: 'Recomposición corporal',
-  },
-  {
-    text: 'Mi médico me recomendó cambiar hábitos. En 12 meses perdí 19 kg y mejoré mis marcadores de salud con seguimiento profesional. Volví a sentir que tenía el control.',
-    initials: 'H45',
-    name: 'Hombre, 45 años',
-    result: '-19 kg en 12 meses',
-  },
-  {
-    text: 'No cambió solo mi cuerpo. Volví a ponerme ropa que tenía guardada y a sentirme cómoda conmigo misma. Ese cambio no aparece en ninguna báscula.',
-    initials: 'M29',
-    name: 'Mujer, 29 años',
-    result: 'Cambio de vida',
-  },
-] as const
-
-const PLANS = [
-  {
-    name: 'Entrenamiento personalizado',
-    price: '750',
-    period: '12 semanas · pago único',
-    desc: 'Programación y seguimiento completamente individuales',
-    features: [
-      'Valoración y plan completamente adaptado',
-      'Seguimiento semanal y ajustes',
-      'Contacto directo con plazas limitadas',
-    ],
-    popular: false,
+    title: 'Da otro paso si lo necesitas',
+    desc: 'Si después buscas estructura y seguimiento, puedes conocer Método BASE Tiroides. Es opcional y de pago; puedes seguir en la comunidad gratuita.',
   },
 ] as const
 
@@ -183,34 +131,34 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                Entrenamiento y hábitos · Especialización en tiroides
+                Comunidad gratuita · Hipotiroidismo y Hashimoto
               </span>
             </div>
 
             <h1 className="headline break-words text-[clamp(2rem,8vw,3.4rem)] sm:text-fluid-6xl text-white animate-fade-up">
-              Entrena con criterio.<br />A tu ritmo o acompañado.
+              Aprende a entrenar.<br />Empieza en comunidad.
             </h1>
 
             <p className="text-fluid-base sm:text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
-              Soy Fernando Royano. Empieza con recursos gratuitos o busca un proceso de entrenamiento con seguimiento. Trabajo especialmente con hipotiroidismo y Hashimoto, y también con otros objetivos en el formato individual.
+              Soy Fernando Royano. He creado un espacio gratuito para mujeres con hipotiroidismo o Hashimoto que quieren entender la fuerza, la alimentación y los hábitos. Lecciones, recursos y dudas generales para llevar lo aprendido a tu vida real.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2 animate-fade-up [animation-delay:300ms]">
               <MagneticButton strength={0.25}>
-                <Link href="#aprender" className="btn-brand text-fluid-base">
-                  Quiero aprender gratis
+                <CommunityLink href="/comunidad/entrar" source="home_hero" className="btn-brand text-fluid-base">
+                  Entrar gratis a la comunidad
                   <ArrowRight className="w-4 h-4" />
-                </Link>
+                </CommunityLink>
               </MagneticButton>
               <Link
-                href="#comparar-programas"
+                href="#aprender"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Busco acompañamiento <ArrowRight className="w-4 h-4" />
+                Ver qué encontrarás dentro <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <p className="text-fluid-sm text-white/80">Aprender gratis no implica contratar. Los programas de pago tienen su propio proceso de solicitud.</p>
+            <p className="text-fluid-sm text-white/80">Acceso gratuito con tu email. Aprende a tu ritmo, sin obligación de contratar.</p>
             {/* Experiencia y alcance */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-5 text-fluid-xs text-white/70 animate-fade-up [animation-delay:400ms]">
               <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
@@ -281,7 +229,7 @@ export default function HomePage() {
         <Container>
           <AnimatedSection>
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
-              <span className="eyebrow">Método BASE</span>
+              <span className="eyebrow">Qué vas a aprender</span>
               <h2 className="headline text-fluid-4xl text-white">
                 Entender, aplicar y{' '}
                 <span className="text-gradient-brand">ajustar</span>
@@ -323,7 +271,6 @@ export default function HomePage() {
         </Container>
       </section>
 
-      <ProgramComparison />
       <TrainingDecisions />
 
       {/* ═══════════════ CÓMO FUNCIONA ═══════════════ */}
@@ -333,7 +280,7 @@ export default function HomePage() {
             <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
               <span className="eyebrow">Paso a paso</span>
               <h2 className="headline text-fluid-4xl text-white">
-                Del punto de partida al <span className="text-gradient-brand">ajuste</span>
+                De comprender a <span className="text-gradient-brand">ponerlo en práctica</span>
               </h2>
             </div>
           </AnimatedSection>
@@ -364,58 +311,6 @@ export default function HomePage() {
               ))}
             </StaggerChildren>
           </div>
-        </Container>
-      </section>
-
-      {/* ═══════════════ TECNOLOGÍA ═══════════════ */}
-      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-dusk overflow-x-clip">
-        <div className="absolute inset-0 bg-radial-violet opacity-60" />
-        <Container>
-          <AnimatedSection>
-            <div className="relative grid lg:grid-cols-2 gap-fluid-md items-center">
-              <div className="relative order-2 lg:order-1">
-                <div className="absolute -inset-8 bg-accent/10 rounded-full blur-3xl" />
-                <div className="relative rounded-2xl overflow-hidden border border-border-strong shadow-xl">
-                  <Image
-                    src="/images/wr_app_interface.png"
-                    alt="App profesional de entrenamiento"
-                    width={500}
-                    height={640}
-                    className="w-full h-auto"
-                  />
-                </div>
-                {/* Badge flotante */}
-                <div className="absolute -top-4 -right-4 md:-right-8 surface-card-accent rounded-xl px-4 py-3 animate-float">
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-                    <span className="text-fluid-xs font-semibold text-white">Tracking en vivo</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="order-1 lg:order-2 space-y-6">
-                <span className="eyebrow">Tecnología</span>
-                <h2 className="headline text-fluid-4xl text-white">
-                  La tecnología acompaña.
-                  <span className="text-gradient-brand"> El criterio decide.</span>
-                </h2>
-                <p className="text-fluid-lg text-muted">
-                  La app organiza el plan, los vídeos y el seguimiento. La parte importante sigue
-                  siendo tomar buenas decisiones según tu respuesta y tu contexto.
-                </p>
-                <ul className="space-y-3 pt-2">
-                  {APP_FEATURES.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-3 text-fluid-base text-white/85">
-                      <span className="shrink-0 mt-0.5 w-5 h-5 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
-                        <Check className="w-3 h-3 text-accent" strokeWidth={3} />
-                      </span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </AnimatedSection>
         </Container>
       </section>
 
@@ -461,8 +356,8 @@ export default function HomePage() {
                     culpa: creo en planes que siguen funcionando cuando la semana se complica.
                   </p>
                   <p className="text-white font-semibold">
-                    Yo diseño tu plan, leo cómo respondes y lo ajusto contigo cada semana. No hablas
-                    con un bot ni recibes una rutina genérica.
+                    En la comunidad comparto explicaciones y herramientas para que aprendas con
+                    criterio. El plan adaptado y el seguimiento pertenecen a los programas de pago.
                   </p>
                 </div>
 
@@ -470,7 +365,7 @@ export default function HomePage() {
                   {[
                     { icon: GraduationCap, figure: '14 años', label: 'de experiencia' },
                     { icon: UserRound, figure: '+100', label: 'clientes' },
-                    { icon: MessageCircle, figure: 'Semanal', label: 'seguimiento real' },
+                    { icon: BookOpen, figure: 'Lecciones', label: 'para aprender a tu ritmo' },
                   ].map(({ icon: Icon, figure, label }) => (
                     <div key={figure} className="surface-card rounded-xl p-4">
                       <Icon className="w-4 h-4 text-accent mb-3" />
@@ -491,121 +386,18 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* ═══════════════ TESTIMONIOS ═══════════════ */}
-      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-dusk">
+      <section id="comparar-programas" aria-labelledby="base-next-step" className="scroll-mt-24 bg-brand-deep py-fluid-lg">
         <Container>
-          <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
-              <span className="eyebrow">Historias reales</span>
-              <h2 className="headline text-fluid-4xl text-white">
-                Lo que <span className="text-gradient-brand">cambió</span> para ellos
-              </h2>
-              <p className="text-fluid-lg text-muted">
-                Personas normales con vidas ocupadas. Resultados que duran porque el proceso
-                funciona.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <StaggerChildren className="grid md:grid-cols-2 gap-6 max-w-6xl mx-auto">
-            {TESTIMONIALS.map(({ text, name, result, initials }, i) => (
-              <figure key={i} className="surface-card rounded-2xl p-8 relative hover-lift">
-                {/* Comilla decorativa */}
-                <span
-                  aria-hidden
-                  className="absolute top-4 right-6 font-display text-fluid-6xl text-accent/20 leading-none select-none"
-                >
-                  &ldquo;
-                </span>
-                <blockquote className="text-fluid-base text-white/90 leading-relaxed italic relative">
-                  {text}
-                </blockquote>
-                <figcaption className="flex flex-wrap items-center justify-between gap-3 mt-6 pt-5 border-t border-border-subtle">
-                  <span className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full border border-border-strong bg-accent-muted text-[0.65rem] font-bold text-accent">
-                      {initials}
-                    </span>
-                    <span className="text-fluid-sm font-semibold text-white">{name}</span>
-                  </span>
-                  <span className="shrink-0 px-3 py-1 rounded-full text-fluid-xs font-bold bg-accent text-accent-fg">
-                    {result}
-                  </span>
-                </figcaption>
-              </figure>
-            ))}
-          </StaggerChildren>
-        </Container>
-      </section>
-
-      {/* ═══════════════ PRICING ═══════════════ */}
-      <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-deep">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
-        <Container>
-          <AnimatedSection>
-            <div className="max-w-3xl mx-auto text-center mb-fluid-lg space-y-4">
-              <span className="eyebrow">Entrenamiento individual</span>
-              <h2 className="headline text-fluid-4xl text-white">
-                Un proceso <span className="text-gradient-brand">adaptado a ti</span>
-              </h2>
-              <p className="text-fluid-lg text-muted">
-                Doce semanas con un principio, un seguimiento y un final definidos.
-              </p>
-            </div>
-          </AnimatedSection>
-
-          <StaggerChildren className="mx-auto grid max-w-2xl items-stretch gap-6">
-            {PLANS.map(({ name, price, period, desc, features, popular }, i) => (
-              <article
-                key={i}
-                className={
-                  'relative rounded-2xl p-8 flex flex-col transition-all duration-300 ' +
-                  (popular
-                    ? 'surface-card-accent md:-translate-y-3 md:scale-[1.03] shadow-xl'
-                    : 'surface-card hover:-translate-y-1')
-                }
-              >
-                {popular && (
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-accent-fg text-fluid-xs font-bold px-4 py-1.5 rounded-full tracking-wide uppercase shadow-lg">
-                    Más elegido
-                  </span>
-                )}
-                <div className="space-y-1 mb-6">
-                  <h3 className="text-fluid-xl text-white tracking-tight">{name}</h3>
-                  <p className="text-fluid-sm text-muted">{desc}</p>
-                </div>
-                <div className="mb-6">
-                  <div className="flex items-baseline gap-1">
-                    <span className="stat-figure text-fluid-6xl text-accent">{price}</span>
-                    <span className="text-fluid-xl text-accent font-bold">€</span>
-                  </div>
-                  <p className="text-fluid-xs text-subtle mt-1">{period}</p>
-                </div>
-                <ul className="space-y-3 mb-7">
-                  {features.map((feature) => (
-                    <li
-                      key={feature}
-                      className="flex items-start gap-2.5 text-fluid-sm text-white/80"
-                    >
-                      <Check className="w-4 h-4 mt-0.5 shrink-0 text-accent" />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  href="/servicios/entrenamiento-online"
-                  className={
-                    'mt-auto inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold text-fluid-sm transition-all ' +
-                    (popular
-                      ? 'btn-brand'
-                      : 'border border-border text-white hover:bg-accent-muted hover:border-border-strong')
-                  }
-                >
-                  Ver entrenamiento personalizado
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </article>
-            ))}
-          </StaggerChildren>
+          <div className="mx-auto max-w-3xl border-t border-border-subtle pt-10">
+            <span className="eyebrow">El siguiente paso es opcional</span>
+            <h2 id="base-next-step" className="headline mt-4 text-fluid-3xl text-white">Cuando aprender te lleva a querer un plan.</h2>
+            <p className="mt-5 text-fluid-base leading-relaxed text-muted">La comunidad gratuita te ayuda a comprender y empezar a organizarte. Si necesitas una estructura adaptada y seguimiento, Método BASE Tiroides es el programa de pago de 12 semanas para personas con hipotiroidismo o Hashimoto diagnosticado y seguimiento sanitario.</p>
+            <p className="mt-4 text-fluid-base leading-relaxed text-muted">Incluye plan de fuerza adaptado, contenidos, grupo privado, check-in semanal y dos revisiones individuales. Puedes seguir en la comunidad gratuita aunque no contrates.</p>
+            <p className="mt-5 font-semibold text-accent">{THYROID_PROGRAM.price} € · pago único</p>
+            <p className="mt-2 text-fluid-sm text-muted">2 pagos de {THYROID_PROGRAM.installmentPrice} € · total {THYROID_PROGRAM.installmentPrice * THYROID_PROGRAM.installmentCount} €. El segundo pago se solicita a los 30 días.</p>
+            <Link href="/metodo-tiroides" className="mt-5 inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Ver qué incluye Método BASE <ArrowRight className="h-4 w-4" /></Link>
+            <p className="mt-4 text-fluid-sm text-subtle">La solicitud no implica contratar. No incluye diagnóstico ni cambios de medicación.</p>
+          </div>
         </Container>
       </section>
 
@@ -617,28 +409,28 @@ export default function HomePage() {
 
         <AnimatedSection className="relative z-10">
           <div className="max-w-3xl mx-auto px-6 text-center space-y-8">
-            <span className="eyebrow justify-center">Elige tu siguiente paso</span>
+            <span className="eyebrow justify-center">Tu primer paso</span>
             <h2 className="headline text-fluid-5xl text-white">
-              Empieza por la opción
+              Empieza aprendiendo.
               <br />
-              <span className="text-gradient-brand">que encaja contigo.</span>
+              <span className="text-gradient-brand">Hazlo en comunidad.</span>
             </h2>
             <p className="text-fluid-xl text-white/80 font-medium">
-              Si convives con hipotiroidismo o Hashimoto, conoce el programa específico. Para otros
-              objetivos, revisa el acompañamiento individual.
+              Entra en la comunidad gratuita, lee tu primera lección y utiliza los recursos para
+              organizar tu semana. Si después necesitas más apoyo, podrás conocer Método BASE.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center justify-center pt-2">
               <MagneticButton strength={0.25}>
-                <Link href="/metodo-tiroides" className="btn-brand text-fluid-lg px-12 py-5">
-                  Ver Método BASE Tiroides
+                <CommunityLink href="/comunidad/entrar" source="home_final" className="btn-brand text-fluid-base px-8 py-5">
+                  Entrar gratis a la comunidad
                   <ArrowRight className="w-5 h-5" />
-                </Link>
+                </CommunityLink>
               </MagneticButton>
               <Link
-                href="/servicios/entrenamiento-online"
+                href="/metodo-tiroides"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Ver entrenamiento personalizado <ArrowRight className="w-4 h-4" />
+                Conocer el siguiente paso de pago <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <p className="text-fluid-xs text-white/65 pt-4">

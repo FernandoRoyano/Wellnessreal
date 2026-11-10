@@ -52,11 +52,11 @@ function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; source
   )
 }
 
-/** Segundo CTA (~70%): presentar la oferta cuando ya existe suficiente contexto. */
+/** Segundo CTA (~70%): comunidad como entrada; BASE como continuación contextual. */
 function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourceSlug: string }) {
   const cfg = isThyroid
     ? {
-        eyebrow: 'Programa acompañado',
+        eyebrow: 'Siguiente paso opcional · De pago',
         title: '¿Quieres convertirlo en un plan para tu semana?',
         desc: 'Conoce Método BASE Tiroides: 12 semanas de fuerza, organización y seguimiento.',
         href: '/metodo-tiroides',
@@ -64,11 +64,11 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
         track: 'blog_inline_metodo_tiroides',
       }
     : {
-        eyebrow: 'Entrenamiento individual',
-        title: '¿Necesitas adaptar estas ideas a tu caso?',
-        desc: 'Conoce el proceso de entrenamiento personalizado de 12 semanas y valora si encaja contigo.',
-        href: '/servicios/entrenamiento-online',
-        cta: 'Ver el acompañamiento',
+        eyebrow: 'Comunidad gratuita · Tiroides',
+        title: '¿Convives con hipotiroidismo o Hashimoto?',
+        desc: 'Tenemos un espacio para mujeres que quieren aprender sobre fuerza y hábitos: lecciones, recursos y dudas generales, a tu ritmo.',
+        href: '/comunidad/entrar',
+        cta: 'Entrar gratis',
       }
   return (
     <div className="my-10 p-6 md:p-8 rounded-xl" style={{ backgroundColor: '#1a1535', border: '2px solid #662D91' }}>
@@ -80,13 +80,18 @@ function SecondCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; sourc
           <h3 className="text-lg font-bold text-white mb-1">{cfg.title}</h3>
           <p className="text-sm text-gray-400">{cfg.desc}</p>
         </div>
-        <Link
+        {isThyroid ? <Link
           href={withArticleSource(cfg.href, sourceSlug)}
           onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
           className="flex-shrink-0 px-6 py-3 rounded-lg font-bold text-sm transition hover:scale-105 border-2 border-[#FCEE21] text-[#FCEE21] hover:bg-[#FCEE21] hover:text-[#16122B]"
         >
           {cfg.cta}
-        </Link>
+        </Link> : <CommunityLink
+          href={withArticleSource(cfg.href, sourceSlug)}
+          source="blog_inline_community"
+          onClick={() => trackBlogCtaClick(sourceSlug, cfg.href, 'inline')}
+          className="btn-brand flex-shrink-0 px-6 py-3 text-sm"
+        >{cfg.cta}</CommunityLink>}
       </div>
     </div>
   )

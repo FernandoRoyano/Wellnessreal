@@ -9,6 +9,7 @@ import JsonLd, { articleSchema, breadcrumbSchema, isFernandoAuthor } from '@/com
 import BlogContentWithCTAs from '@/components/blog/BlogContentWithCTAs'
 import RelatedPosts from '@/components/blog/RelatedPosts'
 import WeeklyLogDownload from '@/components/blog/WeeklyLogDownload'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 import { withArticleSource } from '@/lib/article-attribution'
 import { getBlogPartner } from '@/lib/blog-partners'
 import '../markdown.css'
@@ -237,36 +238,37 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
             {isThyroid ? (
               <>
                 <h2 className="headline text-fluid-4xl text-white">
-                  Convierte lo aprendido <span className="text-gradient-brand">en un plan.</span>
+                  Sigue aprendiendo <span className="text-gradient-brand">en comunidad.</span>
                 </h2>
                 <p className="text-fluid-lg text-muted leading-relaxed">
-                  Método BASE Tiroides son 12 semanas para organizar fuerza, alimentación y descanso
-                  con seguimiento profesional y ajustes alrededor de tu vida real.
+                  Lecciones, recursos y dudas generales sobre fuerza y hábitos para mujeres con
+                  hipotiroidismo o Hashimoto. Empieza gratis; si después necesitas seguimiento,
+                  podrás conocer Método BASE Tiroides.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                  <Link href={withArticleSource('/metodo-tiroides', slug)} className="btn-brand text-fluid-base px-8">
-                    Ver Método BASE Tiroides
+                  <CommunityLink href={withArticleSource('/comunidad/entrar', slug)} source="blog_final" className="btn-brand text-fluid-base px-8">
+                    Entrar gratis a la comunidad
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link href="/comunidad/entrar" className="btn-ghost text-fluid-base px-8">
-                    Prefiero empezar gratis
+                  </CommunityLink>
+                  <Link href={withArticleSource('/metodo-tiroides', slug)} className="btn-ghost text-fluid-base px-8">
+                    Conocer el programa de pago
                   </Link>
                 </div>
               </>
             ) : (
               <>
                 <h2 className="headline text-fluid-4xl text-white">
-                  ¿Prefieres un <span className="text-gradient-brand">plan personalizado?</span>
+                  Un espacio para aprender <span className="text-gradient-brand">sobre fuerza y hábitos.</span>
                 </h2>
                 <p className="text-fluid-lg text-muted leading-relaxed">
-                  Esto que lees aquí es contenido general. Una valoración analiza TU caso y diseña un plan
-                  adaptado a tu vida real.
+                  Si eres una mujer con hipotiroidismo o Hashimoto, puedes continuar en nuestra
+                  comunidad gratuita. Encontrarás lecciones, recursos y un espacio para dudas generales.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-                  <Link href={withArticleSource('/valoracion', slug)} className="btn-brand text-fluid-base px-8">
-                    Solicitar valoración gratuita
+                  <CommunityLink href={withArticleSource('/comunidad/entrar', slug)} source="blog_final" className="btn-brand text-fluid-base px-8">
+                    Conocer la comunidad gratuita
                     <ArrowRight className="w-4 h-4" />
-                  </Link>
+                  </CommunityLink>
                   <Link href="/blog" className="btn-ghost text-fluid-base px-8">
                     Ver más artículos
                   </Link>
