@@ -11,14 +11,14 @@ test.beforeEach(async ({ page }) => {
 
 test('las dos confirmaciones orientan a comunidad sin vender rapidez o entrenamiento individual', async ({ page }) => {
   await page.goto('/gracias-recurso')
-  await expect(page.getByRole('link', { name: 'Continuar en la comunidad gratuita', exact: true })).toHaveAttribute('href', '/comunidad/entrar')
+  await expect(page.getByRole('link', { name: 'Entrar en la comunidad', exact: true })).toHaveAttribute('href', '/comunidad/entrar')
   await expect(page.locator('main a[href="/servicios/entrenamiento-online"]')).toHaveCount(0)
   await expect(page.locator('main a[href="/tiroides#test"]')).toHaveCount(0)
   await page.goto('/gracias-tiroides')
   await expect(page.getByRole('link', { name: 'Entrar en la comunidad', exact: true })).toHaveAttribute('href', '/comunidad/entrar')
   await expect(page.getByText('Entras con tu email en 10 segundos.', { exact: false })).toHaveCount(0)
   await expect(page.getByRole('link', { name: 'Solicitar valoración gratuita', exact: true })).toHaveCount(0)
-  await expect(page.getByRole('link', { name: 'Conocer Método BASE Tiroides', exact: true })).toHaveAttribute('href', '/metodo-tiroides')
+  await expect(page.getByRole('link', { name: 'Ver Método BASE', exact: true })).toHaveAttribute('href', '/metodo-tiroides')
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
 })
 

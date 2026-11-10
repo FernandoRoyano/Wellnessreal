@@ -97,7 +97,7 @@ export default function GraciasRecursoPage() {
             <Users className="mx-auto h-8 w-8 text-accent" aria-hidden="true" />
             <h2 id="guide-community-heading" className="headline text-fluid-3xl text-white">¿Convives con hipotiroidismo o Hashimoto?</h2>
             <p className="mx-auto max-w-xl text-fluid-lg leading-relaxed text-muted">Puedes continuar aprendiendo en nuestra comunidad gratuita para mujeres con hipotiroidismo o Hashimoto: lecciones de fuerza y hábitos, recursos y dudas generales. Empieza por la bienvenida y una acción posible.</p>
-            <CommunityLink href="/comunidad/entrar" source="fitness_guide_confirmation" className="btn-brand max-w-full whitespace-normal text-fluid-base px-6">Continuar en la comunidad gratuita <ArrowRight className="h-4 w-4 shrink-0" /></CommunityLink>
+            <CommunityLink href="/comunidad/entrar" source="fitness_guide_confirmation" className="btn-brand text-fluid-base px-6">Entrar en la comunidad <ArrowRight className="h-4 w-4 shrink-0" /></CommunityLink>
             <p className="text-fluid-sm text-muted">Acceso por email, sin obligación de contratar. La guía también puedes utilizarla por tu cuenta.</p>
             <p className="text-fluid-sm text-subtle">Si después buscas un plan adaptado y seguimiento, <Link href="/metodo-tiroides" className="text-accent underline underline-offset-4">Método BASE Tiroides</Link> es el paso opcional de pago.</p>
           </div>

@@ -104,7 +104,7 @@ export default function GraciasTiroidesPage() {
             </p>
             <div className="pt-2">
               <Link href="/metodo-tiroides" className="btn-ghost max-w-full whitespace-normal text-fluid-base px-8">
-                Conocer Método BASE Tiroides
+                Ver Método BASE
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
