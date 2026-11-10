@@ -24,7 +24,7 @@ const subscriptionSchema = z.object({
 const RESOURCES = {
   guia: {
     pdf: '/guia-wellness-real.pdf',
-    guideTitle: 'Fitness real para gente con vida real',
+    guideTitle: 'Fuerza para la vida real',
     subject: '¡Tu guía WellnessReal está lista! Descárgala ahora',
     source: 'guia',
     groupEnv: 'MAILERLITE_GROUP_ID',

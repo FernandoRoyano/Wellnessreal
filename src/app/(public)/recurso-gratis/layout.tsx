@@ -1,9 +1,9 @@
 import { buildMetadata } from '@/lib/seo'
 
 export const metadata = buildMetadata({
-  title: 'Guía Gratis de Fitness Real',
+  title: 'Fuerza para la vida real | Guía gratuita',
   description:
-    'Descarga gratis la guía de fitness real para gente con vida real. Sin dietas extremas, sin vivir en el gimnasio. Aprende a ponerte en forma con sentido.',
+    'Fuerza para la vida real: guía gratuita de 20 páginas con ejercicios ilustrados, variantes, nutrición para la salud y un plan rellenable. Mira dos páginas de muestra.',
   path: '/recurso-gratis',
   keywords: [
     'guía fitness gratis',

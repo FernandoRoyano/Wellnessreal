@@ -33,7 +33,7 @@ export const POPUP_GUIDES = {
   guia: {
     title: 'Un plan tiene que caber en tu vida.',
     description: 'Entiende las bases de la fuerza y la alimentación para la salud, con ejercicios ilustrados, variantes y ejemplos prácticos.',
-    guide: 'Fitness real para gente con vida real',
+    guide: 'Fuerza para la vida real',
     button: 'Quiero la guía fitness',
     file: '/guia-wellness-real.pdf',
   },

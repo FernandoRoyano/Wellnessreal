@@ -5,7 +5,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Descarga tu Guía | WellnessReal',
-  description: 'Descarga tu guía gratuita de fitness real.',
+  description: 'Descarga Fuerza para la vida real, tu guía gratuita de entrenamiento y alimentación para la salud.',
   robots: 'noindex, nofollow',
 }
 
@@ -43,7 +43,7 @@ export default function GraciasRecursoPage() {
             </div>
 
             <h1 className="headline text-fluid-5xl text-white">
-              ¡Tu guía <span className="text-gradient-brand">está lista!</span>
+              Fuerza para la vida real: <span className="text-gradient-brand">tu guía está lista.</span>
             </h1>
 
             <p className="text-fluid-xl text-white/85 font-medium">

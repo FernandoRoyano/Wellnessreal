@@ -1,6 +1,7 @@
 'use client'
 
 import Container from '@/components/common/Container'
+import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -26,14 +27,13 @@ const BENEFITS = [
 
 const IS_FOR = [
   'Tienes trabajo, familia y poco tiempo libre',
-  'Has probado dietas y siempre acabas rebotando',
+  'Quieres aprender las bases antes de complicar tu plan',
   'Quieres resultados pero sin obsesionarte',
   'Buscas algo sostenible, no una solución mágica',
   'Estás cansado de consejos extremos que no aplican a tu vida',
 ] as const
 
 const IS_NOT_FOR = [
-  'Buscas pastillas mágicas o atajos',
   'Necesitas rehabilitación o una pauta médica individual',
   'Buscas una dieta clínica o un menú prescrito',
   'Quieres una rutina diseñada para una competición concreta',
@@ -98,39 +98,40 @@ export default function RecursoGratisPage() {
               </div>
 
               <h1 className="headline text-fluid-5xl text-white animate-fade-up">
-                Fitness real para
+                Fuerza para
                 <br />
-                <span className="text-gradient-brand">gente con vida real.</span>
+                <span className="text-gradient-brand">la vida real.</span>
               </h1>
 
               <p className="text-fluid-lg text-muted leading-relaxed">
-                Descarga la guía que te enseña a ponerte en forma{' '}
-                <span className="text-white font-semibold">sin dietas extremas, sin vivir en el gimnasio</span> y sin
-                necesitar una vida perfecta.
+                Aprende los fundamentos del entrenamiento y la alimentación para cuidar tu salud,
+                con ejercicios ilustrados y ejemplos que puedes adaptar a tu semana.
               </p>
 
-              <p className="text-fluid-base text-muted leading-relaxed">
-                Es la guía base que doy a todos mis clientes antes de personalizar el plan. Escrita por alguien que ha acompañado a perder <span className="text-white font-semibold">35 kg en 9 meses</span> o a ganar <span className="text-white font-semibold">8 kg de músculo a los 50</span>.{' '}
-                <span className="text-accent font-semibold">Solo lo que funciona de verdad.</span>
-              </p>
-
-              <ul className="space-y-3 pt-2">
-                {BENEFITS.map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-fluid-base text-white/85">
-                    <span className="shrink-0 mt-0.5 w-6 h-6 rounded-full bg-accent/15 border border-accent/30 flex items-center justify-center">
-                      <CheckCircle className="w-3.5 h-3.5 text-accent" strokeWidth={2.2} />
-                    </span>
-                    <span className="leading-relaxed">{item}</span>
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-center gap-5 sm:gap-7">
+                <Image
+                  src="/recursos/guia-fuerza/portada.webp"
+                  alt="Portada de Fuerza para la vida real, de Fernando Royano"
+                  width={953}
+                  height={1348}
+                  sizes="(max-width: 640px) 128px, 160px"
+                  preload
+                  className="w-32 sm:w-40 h-auto shrink-0 rounded-sm shadow-2xl border border-white/10"
+                />
+                <div className="space-y-3">
+                  <p className="text-fluid-sm font-semibold text-accent">20 páginas · PDF gratuito</p>
+                  <p className="text-fluid-base text-white">Ejercicios, variantes y nutrición con fuentes científicas.</p>
+                  <p className="text-fluid-sm text-muted">Por Fernando Royano</p>
+                  <a href="#muestra" className="inline-flex min-h-11 items-center text-fluid-sm text-accent underline underline-offset-4">Ver dos páginas de muestra</a>
+                </div>
+              </div>
             </div>
 
             {/* Formulario */}
-            <div id="formulario" className="surface-card-accent rounded-2xl p-fluid-md">
+            <div id="formulario" className="surface-card rounded-2xl p-fluid-md scroll-mt-28">
               <div className="text-center mb-6 space-y-2">
                 <h2 className="headline text-fluid-2xl text-white">Llévate la guía gratis</h2>
-                <p className="text-fluid-sm text-muted">Los principios que aplico con todos mis clientes antes de personalizar. En tu email en menos de 1 minuto.</p>
+                <p className="text-fluid-sm text-muted">Al completar la solicitud podrás descargarla. También te enviaremos el enlace por correo.</p>
               </div>
 
               <form
@@ -149,9 +150,12 @@ export default function RecursoGratisPage() {
                 )}
 
                 <div>
+                  <label htmlFor="guide-name" className="sr-only">Tu nombre</label>
                   <input
                     {...register('name')}
+                    id="guide-name"
                     type="text"
+                    autoComplete="given-name"
                     placeholder="Tu nombre"
                     className={`${FIELD_CLASS} ${borderClass(!!errors.name)}`}
                   />
@@ -159,9 +163,12 @@ export default function RecursoGratisPage() {
                 </div>
 
                 <div>
+                  <label htmlFor="guide-email" className="sr-only">Tu email</label>
                   <input
                     {...register('email')}
+                    id="guide-email"
                     type="email"
+                    autoComplete="email"
                     placeholder="tu@email.com"
                     className={`${FIELD_CLASS} ${borderClass(!!errors.email)}`}
                   />
@@ -173,10 +180,44 @@ export default function RecursoGratisPage() {
                 </button>
 
                 <p className="text-fluid-xs text-subtle text-center">
-                  Sin spam. Solo contenido útil. Puedes darte de baja cuando quieras.
+                  Recibirás la guía y contenidos de entrenamiento. Puedes darte de baja cuando quieras.{' '}
+                  <a href="/privacidad" className="underline underline-offset-2">Privacidad</a>.
                 </p>
               </form>
             </div>
+          </div>
+        </Container>
+      </section>
+
+      <section id="muestra" className="py-fluid-xl bg-brand-deep scroll-mt-24" aria-labelledby="guide-preview-title">
+        <Container>
+          <div className="max-w-5xl mx-auto">
+            <div className="max-w-2xl mb-8 space-y-4">
+              <span className="eyebrow">Por dentro</span>
+              <h2 id="guide-preview-title" className="headline text-fluid-3xl text-white">Mira qué vas a encontrar.</h2>
+              <p className="text-fluid-base text-muted">Dos páginas reales de la guía. Puedes ampliarlas antes de decidir si te resulta útil.</p>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-6 md:gap-10">
+              {[
+                { file: 'sentadilla-barra', title: 'Aprender un movimiento', description: 'Sentadilla con barra: ejecución, músculos principales y variantes.', page: 6 },
+                { file: 'alimentacion', title: 'Llevar la ciencia a la compra', description: 'Recomendaciones de alimentación y cómo empezar a aplicarlas.', page: 14 },
+              ].map(sample => (
+                <figure key={sample.file} className="space-y-4">
+                  <a href={`/recursos/guia-fuerza/${sample.file}.webp`} target="_blank" rel="noopener noreferrer" className="block rounded-lg focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4" aria-label={`Ampliar página ${sample.page}: ${sample.title} (abre en otra pestaña)`}>
+                    <Image src={`/recursos/guia-fuerza/${sample.file}.webp`} alt={sample.description} width={953} height={1348} sizes="(max-width: 640px) calc(100vw - 48px), 480px" className="w-full h-auto rounded-lg border border-white/10" />
+                  </a>
+                  <figcaption className="space-y-1">
+                    <p className="text-fluid-xs font-semibold text-accent">PÁGINA {sample.page} · AMPLIAR IMAGEN ↗</p>
+                    <h3 className="text-fluid-lg font-semibold text-white">{sample.title}</h3>
+                    <p className="text-fluid-sm text-muted">{sample.description}</p>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+            <ul className="mt-10 grid sm:grid-cols-2 gap-4">
+              {BENEFITS.map(item => <li key={item} className="flex gap-3 text-fluid-base text-muted"><CheckCircle className="w-5 h-5 text-accent shrink-0 mt-1" aria-hidden="true" /><span>{item}</span></li>)}
+            </ul>
+            <a href="#formulario" className="btn-brand mt-8 inline-flex min-h-11 px-6 py-3">Quiero la guía completa <ArrowRight className="w-4 h-4" aria-hidden="true" /></a>
           </div>
         </Container>
       </section>
@@ -266,7 +307,7 @@ export default function RecursoGratisPage() {
         <Container>
           <div className="max-w-2xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
             <h2 className="headline text-fluid-3xl text-white">
-              Empieza hoy. <span className="text-gradient-brand">Sin excusas.</span>
+              Empieza por <span className="text-gradient-brand">entender las bases.</span>
             </h2>
             <p className="text-fluid-base text-muted">
               Descarga la guía y empieza a entrenar con sentido.

@@ -214,7 +214,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               <span className="text-accent font-semibold">
                 {isThyroid
                   ? '“Entrenar y adelgazar con hipotiroidismo”'
-                  : '“Fitness real para gente con vida real”'}
+                  : '“Fuerza para la vida real”'}
               </span>
               .
             </p>

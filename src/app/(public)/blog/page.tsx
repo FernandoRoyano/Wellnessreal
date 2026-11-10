@@ -90,7 +90,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
               Descarga la guía gratuita{' '}
-              <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+              <span className="text-accent font-semibold">&ldquo;Fuerza para la vida real&rdquo;</span>.
               Sin teoría, solo lo que funciona.
             </p>
             <div className="pt-2">

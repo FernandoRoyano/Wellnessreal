@@ -261,7 +261,7 @@ export default function ServiciosPage() {
               </h2>
               <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
                 Descarga la guía gratuita{' '}
-                <span className="text-accent font-semibold">&ldquo;Fitness real para gente con vida real&rdquo;</span>.
+                <span className="text-accent font-semibold">&ldquo;Fuerza para la vida real&rdquo;</span>.
                 Te ayudará a entender qué necesitas.
               </p>
               <div className="pt-2">

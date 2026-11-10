@@ -26,7 +26,7 @@ function GuideCtaBanner({ isThyroid, sourceSlug }: { isThyroid?: boolean; source
     : {
         eyebrow: 'Recurso gratuito',
         title: '¿Quieres aplicar esto a tu caso real?',
-        desc: 'Descarga la guía gratuita: “Fitness real para gente con vida real”.',
+        desc: 'Descarga la guía gratuita: “Fuerza para la vida real”.',
         href: '/recurso-gratis#formulario',
       }
   return (
