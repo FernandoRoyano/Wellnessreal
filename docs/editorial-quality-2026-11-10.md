@@ -34,3 +34,18 @@ Las fuentes principales incluyen NIH ODS, Endocrine Society 2024, AESAN, AIS, NI
 - Navegador local: ocho rutas, anclas, precios, contenido e imágenes; móvil y escritorio sin desbordamiento y sin errores JavaScript.
 
 Preparación reproducible: `scripts/prepare-editorial-quality-20261110.mjs`. La preparación no modifica la base de datos. Los respaldos y comprobantes están en el directorio local `output/editorial-quality-2026-11-10` del espacio principal; no contienen credenciales.
+
+## Segunda revisión: coherencia de encabezados y recomendaciones
+
+Se revisaron los títulos y entradillas de los 63 artículos publicados. Se corrigieron seis publicaciones; esto no equivale a validar clínicamente todo el catálogo:
+
+- Vitamina D: título y entradilla sin analítica universal; resumen, pruebas, toxicidad y explicación de síntesis coherentes; ejemplo didáctico.
+- Hierro: texto reescrito, diferenciando déficit, anemia, prevención y seguimiento. Eliminadas las reglas «NUNCA sin analítica» y «reanalítica para parar», las promesas de tolerancia y la atribución diagnóstica al entrenamiento. Ejemplo didáctico y portada «Déficit y valoración».
+- Suplementos y tiroides: corregida la regla «si no sabes tus niveles, primero se mide» y la entradilla; pruebas según indicación clínica.
+- Omega 3: no comer pescado no convierte automáticamente un complemento en necesario.
+- Proteína: título y entradilla sobrios; precios identificados como históricos y retirada la declaración comercial no verificada.
+- Gluten: entradilla compatible con los distintos escenarios explicados en el cuerpo.
+
+Se conservaron URL, publicación original, autor y categoría. Dos llamadas del cuerpo de artículos se orientaron a la comunidad gratuita, manteniendo su público y los límites sanitarios. Las decisiones clínicas no se ofrecen como parte de la comunidad.
+
+Fuentes contrastadas: Endocrine Society 2024, NIH ODS sobre vitamina D y hierro, OMS sobre ferritina y prevención del déficit, NHS sobre anemia y sulfato ferroso. Cada artículo enlaza las fuentes en contexto. Preparación: `scripts/prepare-editorial-coherence-20261110.mjs`; no escribe en Supabase.
