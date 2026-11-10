@@ -33,7 +33,7 @@ export default function PoliticaEditorialPage() {
               Publicamos contenido para ayudarte a tomar decisiones más informadas sobre
               entrenamiento, alimentación y hábitos, sin sustituir la atención sanitaria.
             </p>
-            <p className="text-fluid-sm text-subtle">Última actualización: septiembre de 2026</p>
+            <p className="text-fluid-sm text-subtle">Última actualización: 10 de noviembre de 2026</p>
           </header>
 
           <div className="space-y-10 text-fluid-base leading-relaxed text-muted">
@@ -70,6 +70,9 @@ export default function PoliticaEditorialPage() {
                 <li>No presentamos asociaciones como si demostraran causalidad.</li>
                 <li>No recomendamos modificar medicación ni sustituir seguimiento médico.</li>
                 <li>Indicamos cuándo una recomendación general necesita adaptación individual.</li>
+                <li>Explicamos cómo aplicar una idea con ejemplos y un siguiente paso concreto.</li>
+                <li>Identificamos los ejemplos didácticos; no los presentamos como casos de clientes.</li>
+                <li>Las portadas y los resúmenes deben respetar los matices del artículo.</li>
               </ul>
             </EditorialSection>
 
@@ -85,8 +88,9 @@ export default function PoliticaEditorialPage() {
             <EditorialSection title="6. Actualizaciones y correcciones">
               <p>
                 Revisamos los contenidos cuando aparece evidencia relevante, cambian las guías o
-                detectamos que una explicación puede mejorarse. Las modificaciones sustanciales
-                actualizan la fecha del artículo. Si encuentras un error, puedes escribir a{' '}
+                detectamos que una explicación puede mejorarse. Conservamos la fecha original de
+                publicación y señalamos las revisiones sustanciales con una fecha de revisión.
+                Si encuentras un error, puedes escribir a{' '}
                 <a
                   href="mailto:info@wellnessreal.es"
                   className="text-accent underline underline-offset-2 hover:opacity-80"

@@ -7,8 +7,9 @@ export default function ProgramComparison() {
     <section id="comparar-programas" aria-labelledby="program-comparison-title" className="scroll-mt-24 bg-brand-deep py-fluid-lg">
       <Container>
         <div className="mx-auto max-w-5xl">
-          <h2 id="program-comparison-title" className="headline text-fluid-3xl text-white">Dos formas de trabajar contigo</h2>
-          <p className="mt-4 max-w-2xl text-fluid-base text-muted">Ambas duran 12 semanas. La diferencia está en el alcance de la programación y el seguimiento que necesitas.</p>
+          <p className="eyebrow">Recibir acompañamiento</p>
+          <h2 id="program-comparison-title" className="headline mt-4 text-fluid-3xl text-white">Dos formatos, una elección según lo que necesitas.</h2>
+          <p className="mt-4 max-w-2xl text-fluid-base text-muted">Son programas de pago de 12 semanas. Método BASE combina una estructura adaptada, contenidos y grupo; el formato individual centra la programación y el seguimiento en tu caso. La comunidad gratuita no incluye ninguno de los dos.</p>
           <div className="mt-8 grid gap-6 md:grid-cols-2">
             <article className="rounded-xl border border-border-subtle p-6">
               <h3 className="text-fluid-xl font-bold text-white">Método BASE Tiroides</h3>

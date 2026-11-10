@@ -25,6 +25,8 @@ import AnimatedSection from '@/components/animations/AnimatedSection'
 import StaggerChildren from '@/components/animations/StaggerChildren'
 import MagneticButton from '@/components/animations/MagneticButton'
 import { CommunityLink } from '@/components/comunidad/CommunityLink'
+import ProgramComparison from '@/components/sections/ProgramComparison'
+import TrainingDecisions from '@/components/sections/TrainingDecisions'
 
 export const metadata = buildMetadata({
   title: 'Entrenador online | Especialización en hipotiroidismo',
@@ -181,34 +183,34 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-border-subtle bg-accent-muted backdrop-blur-sm animate-fade-in">
               <Sparkles className="w-3.5 h-3.5 text-accent" />
               <span className="text-fluid-xs font-semibold tracking-wider uppercase text-accent">
-                Comunidad gratuita · Hipotiroidismo y Hashimoto
+                Entrenamiento y hábitos · Especialización en tiroides
               </span>
             </div>
 
             <h1 className="headline break-words text-[clamp(2rem,8vw,3.4rem)] sm:text-fluid-6xl text-white animate-fade-up">
-              Aprende a entrenar y organizar tus hábitos cuando tu energía cambia.
+              Entrena con criterio.<br />A tu ritmo o acompañado.
             </h1>
 
             <p className="text-fluid-base sm:text-fluid-xl text-white/85 max-w-3xl mx-auto font-medium leading-relaxed animate-fade-up [animation-delay:100ms]">
-              Soy Fernando Royano. En la comunidad gratuita de WellnessReal encontrarás lecciones y herramientas para empezar a organizar la fuerza, la alimentación y el descanso a tu ritmo.
+              Soy Fernando Royano. Empieza con recursos gratuitos o busca un proceso de entrenamiento con seguimiento. Trabajo especialmente con hipotiroidismo y Hashimoto, y también con otros objetivos en el formato individual.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-2 animate-fade-up [animation-delay:300ms]">
               <MagneticButton strength={0.25}>
-                <CommunityLink href="/comunidad/entrar" source="home_hero" className="btn-brand text-fluid-base">
-                  Entrar gratis a la comunidad
+                <Link href="#aprender" className="btn-brand text-fluid-base">
+                  Quiero aprender gratis
                   <ArrowRight className="w-4 h-4" />
-                </CommunityLink>
+                </Link>
               </MagneticButton>
               <Link
-                href="/metodo-tiroides"
+                href="#comparar-programas"
                 className="inline-flex items-center gap-2 px-3 py-3 text-fluid-sm font-semibold text-white/75 hover:text-accent transition-colors"
               >
-                Conocer Método BASE Tiroides <ArrowRight className="w-4 h-4" />
+                Busco acompañamiento <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
 
-            <p className="text-fluid-sm text-white/80">Acceso gratuito con tu email. El acompañamiento individual se ofrece por separado.</p>
+            <p className="text-fluid-sm text-white/80">Aprender gratis no implica contratar. Los programas de pago tienen su propio proceso de solicitud.</p>
             {/* Experiencia y alcance */}
             <div className="flex flex-wrap items-center justify-center gap-2 pt-5 text-fluid-xs text-white/70 animate-fade-up [animation-delay:400ms]">
               <span className="flex items-center gap-1.5 rounded-full border border-white/10 bg-black/15 px-3 py-1.5">
@@ -228,9 +230,9 @@ export default function HomePage() {
 
       <section id="comunidad" aria-labelledby="community-heading" className="border-y border-border-subtle bg-brand-deep py-[clamp(3rem,6vw,5rem)]">
         <Container>
-          <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
+          <div id="aprender" className="grid scroll-mt-28 items-center gap-8 lg:grid-cols-2 lg:gap-16">
             <div className="min-w-0">
-              <span className="eyebrow">Comunidad gratuita</span>
+              <span className="eyebrow">Aprender gratis</span>
               <h2 id="community-heading" className="headline mt-4 text-fluid-3xl text-white">
                 Aprende a entrenar <span className="text-accent">con más criterio.</span>
               </h2>
@@ -252,6 +254,10 @@ export default function HomePage() {
                 <h3 className="text-fluid-lg text-white">Una herramienta que encontrarás dentro</h3>
                 <p className="mt-2 text-fluid-sm leading-relaxed text-muted">El planificador semanal te ayuda a reservar dos momentos posibles para entrenar y prever una alternativa si cambia tu semana.</p>
                 <CommunityLink href="/comunidad/entrar?next=%2Fcomunidad%23recursos" source="home_resource" className="mt-3 inline-flex min-h-11 items-center gap-2 text-fluid-sm font-semibold text-accent">Acceder al planificador <ArrowRight className="h-4 w-4" /></CommunityLink>
+              </div>
+              <div className="mt-5 space-y-3 border-t border-border-subtle pt-5 text-fluid-sm text-muted">
+                <p><Link href="/recurso-gratis" className="font-semibold text-accent underline underline-offset-4">Guía Fuerza para la vida real</Link>: fundamentos, ejercicios y alimentación para la salud, sin entrar en la comunidad.</p>
+                <p><Link href="/tiroides" className="font-semibold text-accent underline underline-offset-4">Test de hábitos con hipotiroidismo</Link>: una herramienta orientativa si ese es tu contexto, no un diagnóstico ni un paso obligatorio.</p>
               </div>
             </div>
             <ul className="divide-y divide-border-subtle">
@@ -313,30 +319,12 @@ export default function HomePage() {
               </div>
             ))}
           </div>
-          <div className="mt-8 grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
-            <Link href="/metodo-tiroides" className="surface-card-accent group rounded-2xl p-6 hover-lift">
-              <span className="eyebrow">Programa principal</span>
-              <h3 className="mt-3 text-fluid-2xl text-white">Método BASE Tiroides</h3>
-              <p className="mt-2 text-fluid-sm leading-relaxed text-muted">
-                Doce semanas para ordenar fuerza, actividad y hábitos cuando convives con hipotiroidismo o Hashimoto.
-              </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] group-hover:gap-3">
-                Ver el programa <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </span>
-            </Link>
-            <Link href="/servicios/entrenamiento-online" className="surface-card group rounded-2xl p-6 hover-lift">
-              <span className="eyebrow">Alternativa individual</span>
-              <h3 className="mt-3 text-fluid-2xl text-white">Entrenamiento personalizado</h3>
-              <p className="mt-2 text-fluid-sm leading-relaxed text-muted">
-                Para otros objetivos o situaciones que necesitan programación y seguimiento completamente individuales.
-              </p>
-              <span className="mt-5 inline-flex items-center gap-2 text-fluid-sm font-semibold text-accent transition-[gap] group-hover:gap-3">
-                Ver cómo funciona <ArrowRight className="h-4 w-4" aria-hidden="true" />
-              </span>
-            </Link>
-          </div>
+
         </Container>
       </section>
+
+      <ProgramComparison />
+      <TrainingDecisions />
 
       {/* ═══════════════ CÓMO FUNCIONA ═══════════════ */}
       <section className="relative py-[clamp(4rem,7vw,6.5rem)] bg-brand-deep">

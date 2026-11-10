@@ -1,3 +1,4 @@
+import TrainingDecisions from '@/components/sections/TrainingDecisions'
 import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
@@ -176,6 +177,8 @@ export default async function EntrenamientoOnlinePage({ searchParams }: { search
           </div>
         </Container>
       </section>
+
+      <TrainingDecisions />
 
       {/* ═══════════════ CÓMO FUNCIONA ═══════════════ */}
       <section className="relative py-fluid-xl bg-brand-dusk">
