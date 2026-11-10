@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import { X, Gift, ArrowRight, CheckCircle, AlertCircle } from 'lucide-react'
 import { trackSignUp } from '@/lib/analytics'
+import GuideDownloadLink from '@/components/common/GuideDownloadLink'
 import { getPopupResource, popupAllowed, requestedGuides, rememberGuideRequest, POPUP_GUIDES, POPUP_LAST_SHOWN_KEY, POPUP_SESSION_KEY, type GuideResource } from '@/lib/guide-popup'
 
 type Status = 'idle' | 'loading' | 'success' | 'error'
@@ -152,7 +153,7 @@ export default function LeadMagnetPopup() {
             <p id="leadmagnet-description" className="text-fluid-sm text-muted">
               Tu guía ya está disponible. Puedes descargarla aquí y revisar también tu correo.
             </p>
-            <a href={guide.file} download className="btn-brand mt-3 inline-flex min-h-11 px-5">Descargar mi guía</a>
+            <GuideDownloadLink resource={popup.resource} placement="popup" className="btn-brand mt-3 inline-flex min-h-11 px-5">Descargar mi guía</GuideDownloadLink>
           </div>
         ) : (
           <>

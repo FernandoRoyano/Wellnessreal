@@ -1,4 +1,5 @@
 import Container from '@/components/common/Container'
+import GuideDownloadLink from '@/components/common/GuideDownloadLink'
 import Link from 'next/link'
 import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Activity } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -12,18 +13,18 @@ export const metadata: Metadata = {
 const NEXT_STEPS = [
   {
     icon: BookOpen,
-    title: 'Léela con calma',
-    desc: 'Empieza por los fundamentos y vuelve a las fichas cuando practiques. No necesitas leerlo todo de una vez.',
+    title: 'Entiende las bases',
+    desc: 'Empieza por las páginas 3 y 4: movimiento, series, repeticiones y esfuerzo. No necesitas leer toda la guía de una vez.',
   },
   {
     icon: PenLine,
-    title: 'Aplica una cosa',
-    desc: 'No intentes cambiar todo a la vez. Elige UNA idea de la guía y ponla en práctica esta semana.',
+    title: 'Elige un primer paso',
+    desc: 'Revisa la sesión de ejemplo de la página 12 y elige variantes que ya sepas hacer con control. Si un movimiento te resulta nuevo, pide ayuda para aprenderlo.',
   },
   {
     icon: MessageCircle,
-    title: 'Cuéntame qué tal',
-    desc: 'Si tienes dudas o quieres contarme tu caso, responde al email o escríbeme por aquí.',
+    title: 'Ponlo en tu semana',
+    desc: 'Rellena el plan de la página 19 con tus momentos disponibles y un cambio de alimentación. Al terminar la semana, anota qué encajó y qué ajustarás.',
   },
 ] as const
 
@@ -51,17 +52,40 @@ export default function GraciasRecursoPage() {
             </p>
 
             <div className="pt-4">
-              <a
-                href="/guia-wellness-real.pdf"
-                download
+              <GuideDownloadLink
+                resource="guia"
+                placement="confirmation"
                 className="btn-brand text-fluid-lg px-8 py-5"
               >
                 <Download className="w-5 h-5" />
                 Descargar guía gratis
-              </a>
+              </GuideDownloadLink>
             </div>
 
             <p className="text-fluid-sm text-subtle">PDF · 20 páginas · Ejercicios, variantes y plan rellenable</p>
+            <p className="text-fluid-sm text-muted">Puedes guardar una copia aquí. Si esperabas el correo y no lo ves, revisa también promociones y spam.</p>
+          </div>
+        </Container>
+      </section>
+
+      {/* ═══════════════ MIENTRAS TANTO ═══════════════ */}
+      <section className="relative py-fluid-xl bg-brand-deep">
+        <Container>
+          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
+            <span className="eyebrow justify-center">Tu primer paso</span>
+            <h2 className="headline text-fluid-3xl text-white">Empieza por una decisión concreta.</h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {NEXT_STEPS.map(({ icon: Icon, title, desc }, i) => (
+              <article key={i} className="surface-card rounded-2xl p-7 text-center hover-lift">
+                <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-5">
+                  <Icon className="w-6 h-6 text-accent" strokeWidth={2} />
+                </div>
+                <h3 className="text-fluid-lg text-white mb-2 tracking-tight">{title}</h3>
+                <p className="text-fluid-sm text-muted leading-relaxed">{desc}</p>
+              </article>
+            ))}
           </div>
         </Container>
       </section>
@@ -72,10 +96,10 @@ export default function GraciasRecursoPage() {
         <Container>
           <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-md">
             <h2 className="headline text-fluid-3xl text-white">
-              ¿Quieres ir <span className="text-gradient-brand">más rápido?</span>
+              ¿Quieres <span className="text-gradient-brand">adaptarlo a tu caso?</span>
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
-              La guía te da las bases. Si quieres algo hecho para ti, tienes dos formas de empezar.
+              Puedes empezar con la guía por tu cuenta. Si necesitas orientación o un plan individual, estas son las opciones.
             </p>
           </div>
 
@@ -113,28 +137,6 @@ export default function GraciasRecursoPage() {
               </Link>
               <p className="text-fluid-xs text-subtle mt-3">Proceso individual · 12 semanas</p>
             </article>
-          </div>
-        </Container>
-      </section>
-
-      {/* ═══════════════ MIENTRAS TANTO ═══════════════ */}
-      <section className="relative py-fluid-xl bg-brand-deep">
-        <Container>
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-lg">
-            <span className="eyebrow justify-center">Mientras tanto</span>
-            <h2 className="headline text-fluid-3xl text-white">Lee la guía y…</h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {NEXT_STEPS.map(({ icon: Icon, title, desc }, i) => (
-              <article key={i} className="surface-card rounded-2xl p-7 text-center hover-lift">
-                <div className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-5">
-                  <Icon className="w-6 h-6 text-accent" strokeWidth={2} />
-                </div>
-                <h3 className="text-fluid-lg text-white mb-2 tracking-tight">{title}</h3>
-                <p className="text-fluid-sm text-muted leading-relaxed">{desc}</p>
-              </article>
-            ))}
           </div>
         </Container>
       </section>

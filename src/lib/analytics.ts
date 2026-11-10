@@ -40,8 +40,8 @@ export function trackSignUp(method: string): void {
   fireEvent('sign_up', { method })
 }
 
-export function trackResourceDownload(resourceId: string): void {
-  fireEvent('resource_download_click', { resource_id: resourceId })
+export function trackResourceDownload(resourceId: string, placement?: 'confirmation' | 'popup'): void {
+  fireEvent('resource_download_click', { resource_id: resourceId, ...(placement ? { placement } : {}) })
 }
 
 export type ThyroidFunnelEvent =
