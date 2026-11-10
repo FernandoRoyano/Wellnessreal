@@ -62,6 +62,7 @@ export default function PrivacidadPage() {
                 <li>Gestionar la facturación y cobros de los servicios contratados</li>
                 <li>Cumplir con obligaciones legales y fiscales</li>
               </ul>
+              <p className="mt-3">Si aceptas la analítica, medimos internamente los días de actividad y los clics en recursos de la comunidad para conocer su uso y continuidad. Estos eventos se vinculan a tu cuenta mediante un identificador; no incluyen títulos de lecciones, búsquedas, mensajes ni respuestas de salud, y no se envían a Google o Meta.</p>
             </LegalSection>
 
             <LegalSection title="4. Base legal">

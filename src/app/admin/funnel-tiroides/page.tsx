@@ -9,6 +9,11 @@ interface FunnelData {
   counts: Record<string, number>
   rates: Record<string, number>
   landingSignals: { engagedViews: number; landingCtaClicks: number }
+  communityRetention?: {
+    enabled: boolean; startedAt: string | null; activeMembers: number; resourceMembers: number;
+    eligibleMembers: number; returnedMembers: number; returnRate: number | null;
+    cohortStart: string; cohortEnd: string; truncated: boolean;
+  }
   revenue: number
   recurringRevenue: number
   revenuePer100Leads: number
@@ -95,6 +100,17 @@ export default function ThyroidFunnelPage() {
               <p className="mt-2 mb-4 max-w-3xl text-sm leading-relaxed text-white/70">Identidades con consentimiento en el periodo. Pedir un enlace no confirma un alta; volver a iniciar sesión no cuenta como miembro nuevo. Solicitudes y pagos confirmados aparecen en las etapas comerciales.</p>
               <dl className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">{COMMUNITY_STAGES.map(([label, key]) => <div key={key} className="border-t border-white/20 pt-4"><dt className="text-sm text-white/75">{label}</dt><dd className="mt-2 text-2xl font-semibold text-white">{data.counts[key] ?? 0}</dd></div>)}</dl>
             </section>
+            {data.communityRetention && <section className="mb-8 rounded-xl border border-white/10 p-5" aria-labelledby="community-retention-heading">
+              <h2 id="community-retention-heading" className="font-semibold text-white">Continuidad en la comunidad</h2>
+              {!data.communityRetention.enabled ? <p className="mt-3 text-sm text-white/60">Medición preparada, pendiente de activar los eventos en la base de datos. No hay datos históricos de continuidad.</p> : data.communityRetention.truncated ? <p className="mt-3 text-sm text-white/60">El rango supera el límite de eventos. Reduce el periodo antes de interpretar la continuidad.</p> : <>
+                <div className="mt-4 grid gap-4 sm:grid-cols-3">
+                  <div><p className="text-sm text-white/60">Miembros activos</p><strong className="text-2xl text-white">{data.communityRetention.activeMembers}</strong></div>
+                  <div><p className="text-sm text-white/60">Miembros con clic en recursos</p><strong className="text-2xl text-white">{data.communityRetention.resourceMembers}</strong></div>
+                  <div><p className="text-sm text-white/60">Volvieron durante los días 1–7</p><strong className="text-2xl text-white">{data.communityRetention.returnRate === null ? '—' : `${data.communityRetention.returnRate}%`}</strong><p className="text-xs text-white/50">{data.communityRetention.returnedMembers} de {data.communityRetention.eligibleMembers} altas con ventana completa</p></div>
+                </div>
+                <p className="mt-4 text-xs leading-relaxed text-white/50">Solo actividad con consentimiento de analítica, medida internamente. Clic no confirma descarga ni lectura del recurso. Retorno: una visita en otro día entre el 1 y el 7 tras el alta; no cuenta la sesión inicial. Cohorte de altas del {data.communityRetention.cohortStart} al {data.communityRetention.cohortEnd} (UTC), desde el inicio de medición. Las altas recientes esperan a completar la ventana.</p>
+              </>}
+            </section>}
             <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
               {STAGES.map(([label, key], index) => (
                 <div key={key} className="relative rounded-xl border border-white/10 bg-[#1a1535] p-4">

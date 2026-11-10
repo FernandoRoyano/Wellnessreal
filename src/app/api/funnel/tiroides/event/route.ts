@@ -29,6 +29,9 @@ export async function POST(request: NextRequest) {
   try {
     const parsed = EventSchema.safeParse(await request.json())
     if (!parsed.success) return NextResponse.json({ error: 'Evento inválido' }, { status: 400 })
+    if (['community_active_day', 'community_resource_click'].includes(parsed.data.eventName)) {
+      return NextResponse.json({ error: 'Este evento requiere una sesión de comunidad' }, { status: 400 })
+    }
     if (['community_access_requested', 'community_signup_confirmed', 'community_first_lesson_completed', 'thyroid_lead_capture', 'thyroid_vsl_registration', 'thyroid_valuation_submit', 'thyroid_sale', 'thyroid_onboarding_complete', 'thyroid_continuity'].includes(parsed.data.eventName)) {
       return NextResponse.json({ error: 'Este evento se confirma en el servidor' }, { status: 400 })
     }

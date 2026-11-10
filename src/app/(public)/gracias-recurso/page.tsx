@@ -1,7 +1,8 @@
 import Container from '@/components/common/Container'
 import GuideDownloadLink from '@/components/common/GuideDownloadLink'
 import Link from 'next/link'
-import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Activity } from 'lucide-react'
+import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Users } from 'lucide-react'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -90,53 +91,15 @@ export default function GraciasRecursoPage() {
         </Container>
       </section>
 
-      {/* ═══════════════ ¿QUIERES IR MÁS RÁPIDO? — DOS CAMINOS ═══════════════ */}
-      <section className="relative py-fluid-lg bg-brand-dusk">
-        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-border-strong to-transparent" />
+      <section className="relative bg-brand-dusk py-fluid-lg" aria-labelledby="guide-community-heading">
         <Container>
-          <div className="max-w-3xl mx-auto text-center space-y-4 mb-fluid-md">
-            <h2 className="headline text-fluid-3xl text-white">
-              ¿Quieres <span className="text-gradient-brand">adaptarlo a tu caso?</span>
-            </h2>
-            <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
-              Puedes empezar con la guía por tu cuenta. Si necesitas orientación o un plan individual, estas son las opciones.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
-            {/* Especialización prioritaria: tiroides */}
-            <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
-              <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
-                <Activity className="w-6 h-6 text-accent" strokeWidth={2} />
-              </span>
-              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Tengo hipotiroidismo o Hashimoto</h3>
-              <p className="text-fluid-sm text-muted leading-relaxed mb-5">
-                Haz el test gratuito y descubre qué parte de tu entrenamiento y tus hábitos merece
-                atención primero. <span className="text-white font-semibold">No es un diagnóstico</span>.
-              </p>
-              <Link href="/tiroides#test" className="btn-brand text-fluid-base px-6 mt-auto">
-                Hacer el test gratuito
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <p className="text-fluid-xs text-subtle mt-3">Orientación inicial · 2 minutos</p>
-            </article>
-
-            {/* Alternativa de alto contacto: entrenamiento individual */}
-            <article className="surface-card rounded-2xl p-7 flex flex-col text-center hover-lift">
-              <span className="w-14 h-14 rounded-xl flex items-center justify-center bg-accent-muted border border-border-strong mx-auto mb-4">
-                <MessageCircle className="w-6 h-6 text-accent" strokeWidth={2} />
-              </span>
-              <h3 className="text-fluid-xl text-white mb-2 tracking-tight">Prefiero que hablemos</h3>
-              <p className="text-fluid-sm text-muted leading-relaxed mb-5">
-                Cuéntame tu caso y te digo honestamente si puedo ayudarte y cómo. Una conversación,{' '}
-                <span className="text-white font-semibold">sin compromiso</span>.
-              </p>
-              <Link href="/servicios/entrenamiento-online" className="btn-ghost text-fluid-base px-6 mt-auto">
-                Ver entrenamiento personalizado
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <p className="text-fluid-xs text-subtle mt-3">Proceso individual · 12 semanas</p>
-            </article>
+          <div className="mx-auto max-w-3xl space-y-5 border-y border-border-subtle py-8 text-center">
+            <Users className="mx-auto h-8 w-8 text-accent" aria-hidden="true" />
+            <h2 id="guide-community-heading" className="headline text-fluid-3xl text-white">¿Convives con hipotiroidismo o Hashimoto?</h2>
+            <p className="mx-auto max-w-xl text-fluid-lg leading-relaxed text-muted">Puedes continuar aprendiendo en nuestra comunidad gratuita para mujeres con hipotiroidismo o Hashimoto: lecciones de fuerza y hábitos, recursos y dudas generales. Empieza por la bienvenida y una acción posible.</p>
+            <CommunityLink href="/comunidad/entrar" source="fitness_guide_confirmation" className="btn-brand max-w-full whitespace-normal text-fluid-base px-6">Continuar en la comunidad gratuita <ArrowRight className="h-4 w-4 shrink-0" /></CommunityLink>
+            <p className="text-fluid-sm text-muted">Acceso por email, sin obligación de contratar. La guía también puedes utilizarla por tu cuenta.</p>
+            <p className="text-fluid-sm text-subtle">Si después buscas un plan adaptado y seguimiento, <Link href="/metodo-tiroides" className="text-accent underline underline-offset-4">Método BASE Tiroides</Link> es el paso opcional de pago.</p>
           </div>
         </Container>
       </section>

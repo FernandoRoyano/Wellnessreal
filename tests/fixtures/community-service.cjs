@@ -68,7 +68,8 @@ const server = http.createServer(async (req, res) => {
     return true
   }))
   if (req.method === 'POST') {
-    const newRows = (Array.isArray(body) ? body : [body]).map(row => ({ id: randomUUID(), creado_en: date, ...row }))
+    if (table === 'thyroid_funnel_events' && body.external_id && tables[table].some(row => row.external_id === body.external_id)) return reply(409, { code: '23505', message: 'Duplicate fixture external_id' })
+    const newRows = (Array.isArray(body) ? body : [body]).map(row => ({ id: randomUUID(), creado_en: date, ...(table === 'thyroid_funnel_events' ? { created_at: new Date().toISOString() } : {}), ...row }))
     const conflict = url.searchParams.get('on_conflict')?.split(',')
     for (const row of newRows) {
       const existing = conflict && tables[table].find(value => conflict.every(key => value[key] === row[key]))

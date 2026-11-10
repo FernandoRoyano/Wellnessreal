@@ -2,6 +2,7 @@ import { getSessionMember, getSpaces, touchMember, isApproved, memberHasPremium 
 import { Sidebar } from '@/components/comunidad/Sidebar'
 import { PendingApproval } from '@/components/comunidad/PendingApproval'
 import CookieBanner from '@/components/common/CookieBanner'
+import { CommunityActivityTracker } from '@/components/comunidad/CommunityActivityTracker'
 
 // La comunidad depende de la sesión y de config leída en runtime: nunca estática.
 export const dynamic = 'force-dynamic'
@@ -30,6 +31,7 @@ export default async function ComunidadLayout({ children }: { children: React.Re
 
   return (
     <div className="min-h-screen bg-[var(--color-brand-deep)]">
+      <CommunityActivityTracker />
       <Sidebar spaces={spaces} member={member} hasPremium={hasPremium} />
       <div className="lg:pl-64">
         <div className="mx-auto min-h-screen max-w-6xl px-5 py-8 sm:px-8 sm:py-12">{children}</div>

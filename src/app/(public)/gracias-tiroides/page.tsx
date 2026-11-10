@@ -1,5 +1,6 @@
 import Container from '@/components/common/Container'
 import Link from 'next/link'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 import { CheckCircle, Download, MessageCircle, ArrowRight, BookOpen, PenLine, Users } from 'lucide-react'
 import type { Metadata } from 'next'
 
@@ -13,7 +14,7 @@ const NEXT_STEPS = [
   {
     icon: BookOpen,
     title: 'Léela con calma',
-    desc: 'No es un PDF de 100 páginas. Es directo y al grano. Puedes leerla en 10 minutos.',
+    desc: 'Empieza por una sección que te resulte útil. Puedes leerla a tu ritmo y volver cuando necesites repasar.',
   },
   {
     icon: PenLine,
@@ -47,7 +48,7 @@ export default function GraciasTiroidesPage() {
             </h1>
 
             <p className="text-fluid-xl text-white/85 font-medium">
-              Descárgala ahora y entiende por fin qué le pasa a tu metabolismo.
+              Descárgala y aprende las bases sobre entrenamiento y hábitos con hipotiroidismo. La guía no identifica la causa de tus síntomas ni sustituye una consulta.
             </p>
 
             <div className="pt-4">
@@ -61,7 +62,7 @@ export default function GraciasTiroidesPage() {
               </a>
             </div>
 
-            <p className="text-fluid-sm text-subtle">PDF · Lectura de 10 minutos</p>
+            <p className="text-fluid-sm text-subtle">PDF gratuito · Lectura a tu ritmo</p>
           </div>
         </Container>
       </section>
@@ -77,16 +78,15 @@ export default function GraciasTiroidesPage() {
               Únete a la <span className="text-gradient-brand">comunidad de tiroides</span>
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
-              Gratis. Contenido paso a paso, un foro para preguntar sin miedo y gente que entiende
-              exactamente por lo que pasas. No estás sola en esto.
+              Lecciones, recursos y un foro para dudas generales sobre fuerza y hábitos. Un espacio gratuito para mujeres con hipotiroidismo o Hashimoto, sin obligación de contratar.
             </p>
             <div className="pt-2">
-              <Link href="/comunidad/entrar" className="btn-brand text-fluid-base px-8">
+              <CommunityLink href="/comunidad/entrar" source="thyroid_guide_confirmation" className="btn-brand text-fluid-base px-8">
                 Entrar en la comunidad
                 <ArrowRight className="w-4 h-4" />
-              </Link>
+              </CommunityLink>
             </div>
-            <p className="text-fluid-xs text-subtle">Sin contraseñas. Entras con tu email en 10 segundos.</p>
+            <p className="text-fluid-xs text-subtle">Sin contraseña. Solicita el enlace por email, ábrelo y confirma el acceso.</p>
           </div>
         </Container>
       </section>
@@ -97,20 +97,19 @@ export default function GraciasTiroidesPage() {
         <Container>
           <div className="max-w-3xl mx-auto surface-card-accent rounded-2xl p-fluid-md text-center space-y-5">
             <h2 className="headline text-fluid-3xl text-white">
-              ¿Quieres ir <span className="text-gradient-brand">más rápido?</span>
+              Si más adelante buscas <span className="text-gradient-brand">seguimiento.</span>
             </h2>
             <p className="text-fluid-lg text-muted max-w-xl mx-auto leading-relaxed">
-              La guía te da las bases. Pero si quieres un{' '}
-              <span className="text-accent font-semibold">plan 100% personalizado</span> a tu situación, podemos hablar.
+              Método BASE Tiroides es el programa opcional de pago: 12 semanas con evaluación, plan de fuerza adaptado y seguimiento. Puedes seguir en la comunidad gratuita aunque no contrates.
             </p>
             <div className="pt-2">
-              <Link href="/valoracion" className="btn-brand text-fluid-base px-8">
-                Solicitar valoración gratuita
+              <Link href="/metodo-tiroides" className="btn-ghost max-w-full whitespace-normal text-fluid-base px-8">
+                Conocer Método BASE Tiroides
                 <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
             <p className="text-fluid-xs text-subtle">
-              Sin compromiso. Solo una conversación para ver si puedo ayudarte.
+              Consulta alcance, precio y proceso de solicitud antes de decidir.
             </p>
           </div>
         </Container>

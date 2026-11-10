@@ -40,6 +40,7 @@ const LessonToolSchema = z.object({
 export interface MagicLinkResult {
   ok: boolean
   error?: string
+  email?: string
 }
 
 /**
@@ -99,7 +100,7 @@ export async function requestMagicLink(
     const tracking = parseCommunityTracking(formData.get('_community_tracking'))
     if (tracking) await recordThyroidFunnelEvent({ eventName: 'community_access_requested', ...tracking })
       .catch(error => console.error('[comunidad:accessTracking]', error))
-    return { ok: true }
+    return { ok: true, email }
   } catch (err) {
     console.error('[comunidad:magicLink:throw]', err)
     return { ok: false, error: 'Error al enviar el enlace. Inténtalo en un momento.' }

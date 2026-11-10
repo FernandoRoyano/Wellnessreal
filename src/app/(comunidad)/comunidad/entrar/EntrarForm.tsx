@@ -17,7 +17,7 @@ export function EntrarForm({ errorMessage, next = '/comunidad' }: { errorMessage
         <span><CheckCircle2 size={24} /></span>
         <div>
           <h3>Revisa tu correo</h3>
-          <p>Te hemos enviado un enlace de acceso. Ábrelo y pulsa “Confirmar acceso”. Si no aparece en unos minutos, revisa spam o promociones.</p>
+          <p>Te hemos enviado un enlace de acceso a <strong className="break-all">{state.email}</strong>. Ábrelo y pulsa “Confirmar acceso”. Si no aparece en unos minutos, revisa spam o promociones.</p>
           <button type="button" onClick={() => setRetry(true)} className={styles.retry}>Volver a pedir el enlace o corregir mi email</button>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { isAdminAuthenticated } from '@/lib/auth'
 import { supabase } from '@/lib/supabase'
 import { THYROID_FUNNEL_EVENTS } from '@/lib/db/thyroid-funnel'
+import { getCommunityRetention } from '@/lib/community-retention'
 
 interface EventRow {
   id: string
@@ -39,15 +40,18 @@ export async function GET(request: NextRequest) {
     const requestedDays = Number(request.nextUrl.searchParams.get('days') || 30)
     const days = [7, 30, 90].includes(requestedDays) ? requestedDays : 30
     const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString()
+    const historySince = new Date(Date.parse(since) - 7 * 86_400_000).toISOString().slice(0, 10) + 'T00:00:00Z'
     const { data, error } = await supabase
       .from('thyroid_funnel_events')
       .select('id,event_name,lead_id,anonymous_id,session_id,external_id,profile,intent,question_id,source,value,created_at,metadata')
-      .gte('created_at', since)
+      .gte('created_at', historySince)
       .order('created_at', { ascending: false })
       .limit(10000)
     if (error) throw new Error(`[ThyroidFunnelDashboard:events] ${error.message}`)
 
-    const events = (data ?? []) as EventRow[]
+    const history = (data ?? []) as EventRow[]
+    const events = history.filter(event => Date.parse(event.created_at) >= Date.parse(since))
+    const communityRetention = { ...getCommunityRetention(history, since, new Date(), process.env.COMMUNITY_ACTIVITY_SINCE), truncated: history.length >= 10000 }
     const leadIds = Array.from(new Set(events.flatMap((event) => event.lead_id ? [event.lead_id] : [])))
     let leads: LeadContext[] = []
     if (leadIds.length > 0) {
@@ -144,6 +148,7 @@ export async function GET(request: NextRequest) {
         saleToOnboarding: rate('thyroid_sale', 'thyroid_onboarding_complete'),
       },
       landingSignals: { engagedViews, landingCtaClicks },
+      communityRetention,
       revenue,
       recurringRevenue,
       revenuePer100Leads: counts.thyroid_lead_capture > 0

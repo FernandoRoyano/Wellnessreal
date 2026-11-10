@@ -10,7 +10,7 @@ export default async function BuscarPage() {
   if (!member) redirect('/comunidad/entrar?next=/comunidad/buscar')
   const spaces = (await getSpaces(member)).filter((space) => space.type === 'content')
   const groups = await Promise.all(spaces.map((space) => getLessons(space.id, member)))
-  const lessons = spaces.flatMap((space, index) => groups[index].map((lesson) => ({ id: lesson.id, title: lesson.title, slug: lesson.slug, spaceName: space.name, spaceSlug: space.slug, locked: lesson.locked })))
+  const lessons = spaces.flatMap((space, index) => groups[index].map((lesson) => ({ id: lesson.id, title: lesson.title, slug: lesson.slug, spaceName: space.name, spaceSlug: space.slug, locked: lesson.locked, lockReason: lesson.lockReason, daysUntilUnlock: lesson.daysUntilUnlock })))
 
   return <main className="community-search-page"><header><p>Biblioteca WellnessReal</p><h1 className="headline">Encuentra justo lo que necesitas.</h1><span>Busca entre todas las lecciones disponibles para ti. Los permisos del Método BASE siguen protegidos.</span></header><CommunitySearch lessons={lessons} /></main>
 }

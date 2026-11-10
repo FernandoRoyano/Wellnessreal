@@ -7,6 +7,8 @@ export const THYROID_FUNNEL_EVENTS = [
   'community_signup_confirmed',
   'community_first_lesson_completed',
   'community_program_visit',
+  'community_active_day',
+  'community_resource_click',
   'thyroid_landing_view',
   'thyroid_landing_cta_click',
   'thyroid_test_start',
