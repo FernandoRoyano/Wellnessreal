@@ -41,7 +41,7 @@ function CompletionSubmit({ isCompleted }: { isCompleted: boolean }) {
       </span>
       <span>
         <strong>{isCompleted ? 'Lección completada' : 'Marcar como completada'}</strong>
-        <small>{isCompleted ? 'Ya forma parte de tu recorrido' : 'Guarda tu avance para continuar después'}</small>
+        <small>{isCompleted ? 'Guardado en este navegador; puedes repasar cuando quieras' : 'Guarda tu avance en este navegador para continuar después'}</small>
       </span>
     </button>
   )

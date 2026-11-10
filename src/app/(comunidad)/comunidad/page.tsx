@@ -15,6 +15,7 @@ import {
   memberHasPremium,
 } from '@/lib/db/comunidad'
 import { getCompletedLessonIds } from '@/lib/community-progress'
+import { getCommunityJourney } from '@/lib/community-journey'
 import { CommunityImage } from '@/components/comunidad/CommunityImage'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
 import FooterNewsletterForm from '@/components/common/FooterNewsletterForm'
@@ -44,13 +45,9 @@ export default async function ComunidadHome() {
   ])
   const contentSpaces = spaces.filter((space) => space.type === 'content')
   const lessonGroups = await Promise.all(contentSpaces.map((space) => getLessons(space.id, member)))
-  const unlockedLessons = lessonGroups.flat().filter((lesson) => !lesson.locked)
-  const completedCount = unlockedLessons.filter((lesson) => completedIds.has(lesson.id)).length
-  const nextLesson = unlockedLessons.find((lesson) => !completedIds.has(lesson.id)) ?? unlockedLessons[0]
-  const nextSpace = nextLesson
-    ? contentSpaces[lessonGroups.findIndex((lessons) => lessons.some((lesson) => lesson.id === nextLesson.id))]
-    : null
-  const progress = unlockedLessons.length ? Math.round((completedCount / unlockedLessons.length) * 100) : 0
+  const journey = getCommunityJourney(contentSpaces, lessonGroups, completedIds)
+  const { available: unlockedLessons, completedCount, progress, next: nextLesson } = journey
+  const nextSpace = nextLesson?.space
 
   return (
     <div className="community-home animate-[fadeUp_500ms_var(--ease-out)_both]">
@@ -61,9 +58,10 @@ export default async function ComunidadHome() {
           <p>No necesitas hacerlo perfecto. Empieza con una acción posible, entiende cómo aplicarla y repítela.</p>
           {nextLesson && nextSpace && (
             <Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="community-primary-action">
-              Continuar por aquí <ArrowRight className="h-4 w-4" />
+              {completedCount === 0 ? journey.welcome?.id === nextLesson.id ? 'Empezar por la bienvenida' : 'Abrir mi primera lección' : 'Continuar mi aprendizaje'} <ArrowRight className="h-4 w-4" />
             </Link>
           )}
+          {!nextLesson && <Link href="/comunidad/mi-semana" className="community-primary-action">Organizar mi semana <ArrowRight className="h-4 w-4" /></Link>}
           <Link href="/comunidad/recorrido" className="community-journey-link">
             Ver qué incluye la comunidad y el Método BASE <ArrowRight className="h-3.5 w-3.5" />
           </Link>
@@ -71,18 +69,26 @@ export default async function ComunidadHome() {
         <div className="community-score" style={{ '--journey-progress': `${progress * 3.6}deg` } as CSSProperties}>
           <div><strong>{progress}%</strong><span>completado</span></div>
           <p>{completedCount} de {unlockedLessons.length} lecciones disponibles</p>
+          <p>Avance guardado en este navegador.</p>
         </div>
       </header>
 
       {hasPremium && <ProgramInvitation hasPremium />}
-      {completedIds.size === 0 && <section className="my-8 border-y border-border-subtle py-7" aria-labelledby="start-heading">
+      {completedCount === 0 && <section className="my-8 border-y border-border-subtle py-7" aria-labelledby="start-heading">
         <h2 id="start-heading" className="headline text-fluid-2xl">Empieza aquí: una primera visita útil</h2>
-        <p className="mt-3 max-w-2xl text-muted">Todo este recorrido se puede leer. Elige una acción posible para esta semana y vuelve cuando necesites repasar.</p>
+        <p className="mt-3 max-w-2xl text-muted">Empieza por estas tres acciones. Las lecciones escritas están listas para leer; algunas se abren progresivamente desde tu registro y muestran cuándo estarán disponibles.</p>
         <ol className="mt-5 space-y-4 text-fluid-base leading-relaxed">
-          {contentSpaces.some(space => space.slug === 'empieza-aqui') && <li><Link href="/comunidad/empieza-aqui" className="text-accent underline underline-offset-4">1. Lee la bienvenida</Link><p className="mt-1 text-muted">Conoce el recorrido y la diferencia entre orientación general y acompañamiento individual.</p></li>}
-          {nextLesson && nextSpace && <li><Link href={`/comunidad/${nextSpace.slug}/${nextLesson.slug}`} className="text-accent underline underline-offset-4">2. Abre tu primera lección</Link><p className="mt-1 text-muted">O realiza el <Link href="/tiroides#test" className="text-accent underline underline-offset-4">test orientativo</Link>. Es opcional y no constituye un diagnóstico.</p></li>}
-          <li><a href="#recursos" className="text-accent underline underline-offset-4">3. Reserva dos momentos posibles en tu planificador</a><p className="mt-1 text-muted">Anota también una alternativa para una semana difícil. Las dudas generales se plantean en <Link href="/comunidad/preguntas-apoyo" className="text-accent underline underline-offset-4">Preguntas y apoyo</Link>.</p></li>
+          {journey.welcome && <li><Link href={`/comunidad/${journey.welcome.space.slug}/${journey.welcome.slug}`} className="text-accent underline underline-offset-4">1. Lee la bienvenida</Link><p className="mt-1 text-muted">Conoce el recorrido y la diferencia entre orientación general y acompañamiento.</p></li>}
+          {journey.firstPractical && <li><Link href={`/comunidad/${journey.firstPractical.space.slug}/${journey.firstPractical.slug}`} className="text-accent underline underline-offset-4">2. Lee «Por qué empezar con fuerza»</Link><p className="mt-1 text-muted">Comprende la idea antes de elegir una acción. Leer no te obliga a entrenar hoy ni a completar una rutina.</p></li>}
+          <li><a href="/community/resources/planificador-semanal-tiroides.pdf" target="_blank" rel="noreferrer" className="text-accent underline underline-offset-4">3. Abre el planificador y reserva un momento posible</a><p className="mt-1 text-muted">Puede ser para leer, preparar material o moverte si tu situación lo permite. Añade una alternativa; no es una prescripción de ejercicio.</p></li>
         </ol>
+        <p className="mt-5 text-muted">Para volver: abre <Link href="/comunidad/mi-semana" className="text-accent underline underline-offset-4">Mi semana</Link>, revisa qué pudiste aplicar y elige tu siguiente paso. Las dudas generales van en <Link href="/comunidad/preguntas-apoyo" className="text-accent underline underline-offset-4">Preguntas y apoyo</Link>, sin datos clínicos privados.</p>
+      </section>}
+
+      {journey.allAvailableCompleted && <section className="my-8 border-y border-border-subtle py-7" aria-labelledby="caught-up-heading">
+        <h2 id="caught-up-heading" className="headline text-fluid-2xl">Estás al día con tus lecciones disponibles</h2>
+        <p className="mt-3 text-muted">{journey.nextUnlockDays ? `La próxima se abre en ${journey.nextUnlockDays} ${journey.nextUnlockDays === 1 ? 'día' : 'días'}. Mientras tanto, repasa una idea o utiliza un recurso.` : 'Puedes repasar una idea, utilizar un recurso o compartir una duda general. No hace falta empezar otra vez para mantener el recorrido.'}</p>
+        <Link href="/comunidad/mi-semana" className="mt-4 inline-flex min-h-11 items-center text-accent underline underline-offset-4">Revisar mi semana</Link>
       </section>}
 
       {nextLesson && nextSpace && (

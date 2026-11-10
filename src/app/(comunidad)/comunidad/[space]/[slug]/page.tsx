@@ -106,6 +106,17 @@ export default async function LessonPage({
             isCompleted={completedLessonIds.has(lesson.id)}
           />
           <LessonEngagement resource={resource} />
+          {space.access_tier === 'free' && <section className="my-7 border-y border-border-subtle py-6" aria-labelledby="lesson-continue-heading">
+            <h2 id="lesson-continue-heading" className="headline text-fluid-xl">Tu siguiente paso, a tu ritmo</h2>
+            <p className="mt-3 text-sm leading-relaxed text-muted">{spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero'
+              ? 'Después de la bienvenida, lee «Por qué empezar con fuerza». No necesitas completar toda la biblioteca en una visita.'
+              : 'Elige una idea de esta lección y una acción que encaje en tu situación. Puede ser preparar una pregunta o reservar tiempo; no tiene que ser entrenar hoy.'}</p>
+            <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
+              {spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero' && <Link href="/comunidad/entrena-organizate/por-que-empezar-con-fuerza" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Leer mi primera lección de fuerza</Link>}
+              <Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Volver a Mi semana</Link>
+            </div>
+            <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en este navegador. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
+          </section>}
           <LessonFeedback lessonId={lesson.id} initialFeedback={lessonFeedback} />
           {showProgramInvitation && <ProgramInvitation hasPremium={hasPremium} />}
         </>
