@@ -51,3 +51,5 @@ Se aplican fundamentos de accesibilidad de rastreo, claridad y contenido útil. 
 ## Validación
 
 TypeScript y ESLint focalizado; comprobación con navegador sin envío de formularios en 390 y 1440 px: páginas 200, título, enlaces a comunidad, perfil estructurado, tres pasos del ejemplo y ausencia de desbordamiento horizontal. Proveedores de prueba locales y comunicaciones externas bloqueadas. Capturas y auditoría reproducible guardadas en output/search-visibility-2026-11-11 del workspace principal.
+
+Implementación b49b388 publicada en dpl_F8bqB9F8GvJ93MQF8h7rQ6Qm6TxK. Se comprueba READY y la versión previa antes de promocionar. La comprobación en producción incluye ambas páginas en móvil y escritorio, firma del artículo de elección de entrenador y lastModified de las dos páginas en sitemap. No se modifica la configuración de rastreadores, autenticación, pagos ni medición de continuidad.
