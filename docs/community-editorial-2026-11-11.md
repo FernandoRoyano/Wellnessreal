@@ -41,3 +41,5 @@ Son fechas de revisión propuestas, sin recordatorios automáticos ni promesas p
 ## Verificación
 
 TypeScript, ESLint focalizado, dos pruebas unitarias del ciclo y límites horarios Madrid; pruebas de navegador con proveedores locales ficticios en móvil y escritorio para borradores, BASE y calendario bloqueado a 320 px. Sin mensajes, hilos ni cuentas reales creados. HTML, descripciones de imágenes y destinos de enlaces del blog comprobados antes de actualizar el CMS.
+
+Publicación: implementación 60e487c, deployment dpl_4s1r25aFcMm8tFJwHxZKVt88oarM, promocionado tras verificar READY y mantener la versión previa como referencia. Pasan seis pruebas de navegador, dos unitarias, TypeScript y ESLint. Los cuatro artículos públicos responden 200 con título y revisión esperados, canónica correcta, fecha original en datos estructurados e imágenes válidas. Los tres PDF responden correctamente. Las rutas privadas siguen exigiendo acceso; la interacción de miembros se probó con sesiones ficticias locales. El panel real confirma medición activa y ninguna cohorte madura; no se han extraído conclusiones de rendimiento.
