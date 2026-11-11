@@ -17,11 +17,11 @@ Se reutiliza `thyroid_funnel_events` y el panel existente. Dos eventos nuevos: `
 - El panel indica medición pendiente si no está activada y advierte si el rango supera el límite de eventos.
 - Un clic no confirma descarga, lectura o aplicación del recurso.
 
-## Activación de producción pendiente
+## Activación de producción
 
-La conexión disponible permite gestionar contenido con la API de Supabase, pero no ejecutar cambios de esquema. Hace falta ejecutar `supabase/migrations/20261110_community_activity_events.sql` en el SQL Editor del proyecto. El script amplía la validación de nombres sin eliminar datos y conserva la validación anterior; se ejecuta en una transacción y admite repetición.
+Fernando confirmó el 11 de noviembre de 2026 la ejecución de `supabase/migrations/20261110_community_activity_events.sql` en el SQL Editor. El script amplía la validación de nombres sin eliminar datos y conserva la validación anterior; se ejecuta en una transacción y admite repetición.
 
-Después de confirmar su ejecución correcta, configurar `COMMUNITY_ACTIVITY_SINCE` en Vercel con la fecha y hora UTC reales de activación, y desplegar. Hasta entonces, el registro de estos dos eventos permanece desactivado. La aplicación y la medición previa continúan funcionando.
+Configurado `COMMUNITY_ACTIVITY_SINCE=2026-11-11T07:31:17Z` en Vercel para producción. Despliegue activado: `dpl_2x1A8WmTsAqignTsMYGiBJP4Xwni`. Se conservó la versión de aplicación existente y se comprobó antes de promover que producción no había cambiado. Mantener esta fecha en futuros despliegues para no reiniciar las cohortes.
 
 ## Comprobaciones
 
@@ -31,4 +31,4 @@ Después de confirmar su ejecución correcta, configurar `COMMUNITY_ACTIVITY_SIN
 - Confirmaciones revisadas también a 320 px sin desbordamiento.
 - No se enviaron correos ni pagos reales durante las pruebas.
 
-La migración SQL no se ha ejecutado en producción desde esta sesión. No se afirma que la nueva medición ya recoja datos reales.
+Verificación autenticada del panel en producción: HTTP 200, `communityRetention.enabled=true` e inicio coincidente con la configuración. En el día de activación devuelve cero altas elegibles y porcentaje de retorno nulo, como corresponde a la ausencia de ventanas completas. No se insertaron eventos ficticios ni se utilizaron sesiones de miembros para verificarlo; la comprobación de la migración se basa en la confirmación de Fernando. Comprobante local: `output/community-discovery-2026-11-10/activation-verification.json` del espacio principal.
