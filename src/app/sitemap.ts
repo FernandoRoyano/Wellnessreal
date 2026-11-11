@@ -71,7 +71,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/sobre-mi`,
-      lastModified: new Date('2026-11-04'),
+      lastModified: new Date('2026-11-11'),
       changeFrequency: 'monthly',
       priority: 0.8,
     },
@@ -131,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     },
     {
       url: `${SITE_URL}/metodo-tiroides`,
-      lastModified: new Date('2026-11-04'),
+      lastModified: new Date('2026-11-11'),
       changeFrequency: 'monthly',
       priority: 0.9,
     },

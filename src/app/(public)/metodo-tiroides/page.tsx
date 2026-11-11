@@ -15,7 +15,7 @@ import {
 } from '@/lib/metodo-tiroides'
 import { buildMetadata } from '@/lib/seo'
 
-const PAGE_TITLE = 'Entrenamiento con hipotiroidismo | Método BASE'
+const PAGE_TITLE = 'Entrenador online: hipotiroidismo y Hashimoto | Método BASE'
 
 export const metadata = {
   ...buildMetadata({
@@ -104,7 +104,7 @@ export default async function MetodoTiroidesPage() {
                 Método BASE Tiroides · 12 semanas
               </span>
               <h1 className="headline mt-5 text-fluid-5xl leading-[1.02] text-white">
-                Entrenamiento con hipotiroidismo.
+                Entrenamiento de fuerza con hipotiroidismo y Hashimoto.
                 <span className="mt-2 block text-gradient-brand">
                   Fuerza que encaja en tu semana.
                 </span>
@@ -239,6 +239,17 @@ export default async function MetodoTiroidesPage() {
                 </li>
               ))}
             </ol>
+            <div id="ejemplo-seguimiento" className="mt-10 scroll-mt-24 border-t border-border-subtle pt-8" aria-labelledby="ejemplo-seguimiento-titulo">
+              <h3 id="ejemplo-seguimiento-titulo" className="font-display text-fluid-2xl font-bold text-white">Cómo decido qué cambiar en una semana</h3>
+              <p className="mt-4 max-w-3xl text-fluid-base leading-relaxed text-muted"><strong className="text-white">Ejemplo didáctico:</strong> tienes dos momentos para entrenar y uno se acorta por un cambio de horario. Este ejemplo explica mi criterio; no describe un caso real ni prescribe una rutina.</p>
+              <ol className="mt-5 list-decimal space-y-4 pl-5 text-fluid-base leading-relaxed text-muted">
+                <li><strong className="text-white">Aclarar qué ha cambiado.</strong> Distingo un problema de agenda de una dificultad con el plan. Reviso el tiempo disponible, lo realizado y qué parte resultó difícil antes de decidir qué tocar.</li>
+                <li><strong className="text-white">Elegir una alternativa concreta.</strong> Si el obstáculo es el tiempo, podemos mover la sesión o usar la versión breve acordada. No hace falta cambiar todos los ejercicios ni recuperar lo perdido acumulándolo al día siguiente.</li>
+                <li><strong className="text-white">Comprobar si el ajuste ayudó.</strong> En el siguiente check-in revisamos si la alternativa encajó y cómo respondiste. Mantener, reducir o progresar son decisiones distintas; la progresión no es automática cada semana.</li>
+              </ol>
+              <p className="mt-5 max-w-3xl text-fluid-sm leading-relaxed text-muted">El cansancio nuevo o persistente y otros síntomas requieren valoración sanitaria cuando corresponde. Una adaptación del entrenamiento no permite atribuirlos a la tiroides ni decidir cambios de medicación.</p>
+              <p className="mt-5 text-fluid-base leading-relaxed text-muted">Puedes empezar por la <Link href="/blog/entrenador-online-hipotiroidismo" className="text-accent underline underline-offset-4">guía para elegir entrenador con hipotiroidismo</Link> o conocer <Link href="/sobre-mi#enfoque-tiroides" className="text-accent underline underline-offset-4">mi formación y enfoque de trabajo</Link>.</p>
+            </div>
           </div>
         </Container>
       </section>

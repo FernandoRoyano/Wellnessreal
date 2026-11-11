@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 import Container from '@/components/common/Container'
+import { CommunityLink } from '@/components/comunidad/CommunityLink'
 import JsonLd, { breadcrumbSchema, personSchema } from '@/components/seo/JsonLd'
 
 export const metadata: Metadata = {
@@ -108,10 +109,10 @@ export default function AboutPage() {
               </div>
 
               <div className="flex flex-col gap-3 sm:flex-row">
-                <Link href="/metodo-tiroides" className="btn-brand group">
-                  Conocer Método BASE Tiroides
+                <CommunityLink href="/comunidad/entrar" source="about_hero" className="btn-brand group">
+                  Entrar gratis a la comunidad
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
+                </CommunityLink>
                 <Link href="/blog" className="btn-outline-light">
                   Leer mis artículos
                 </Link>
@@ -119,7 +120,7 @@ export default function AboutPage() {
 
               <div className="grid max-w-2xl grid-cols-3 gap-3 border-t border-white/10 pt-6">
                 {[
-                  { value: '14 años', label: 'de experiencia' },
+                  { value: '14 años', label: 'de experiencia en entrenamiento' },
                   { value: '+100', label: 'personas acompañadas' },
                   { value: '1 a 1', label: 'criterio humano' },
                 ].map((item) => (
@@ -198,7 +199,7 @@ export default function AboutPage() {
               <h2 id="enfoque-tiroides-titulo" className="headline mt-5 text-fluid-3xl text-white">Entrenamiento para mujeres con hipotiroidismo o Hashimoto</h2>
             </div>
             <div className="space-y-5 text-fluid-base leading-relaxed text-muted">
-              <p>Mi formación de base es el grado en Ciencias de la Actividad Física y del Deporte. Mi enfoque en entrenamiento con alteraciones tiroideas se ha construido a través de la experiencia con clientes y del estudio continuado de este contexto.</p>
+              <p>Mi formación de base es el grado en Ciencias de la Actividad Física y del Deporte. Mi estudio sobre entrenamiento e hipotiroidismo es autodidacta: llevo años leyendo y contrastando información sobre este contexto. No lo presento como una titulación específica en tiroides.</p>
               <p>Me interesa entender cómo encajan el entrenamiento, el descanso, los hábitos y las circunstancias de cada persona. Esa visión me ayuda a organizar la semana, elegir una carga razonable y revisar cómo respondes antes de progresar.</p>
               <p>Mi trabajo se centra en el ejercicio y su adaptación. El diagnóstico, la interpretación de analíticas, la medicación y las decisiones de tratamiento corresponden a tu equipo sanitario.</p>
               <p>En WellnessReal priorizo acompañar a mujeres con hipotiroidismo o Hashimoto que quieren empezar o retomar la fuerza y construir una rutina sostenible.</p>
@@ -302,19 +303,20 @@ export default function AboutPage() {
           <AnimatedSection className="mx-auto max-w-3xl space-y-7">
             <span className="eyebrow justify-center">Siguiente paso</span>
             <h2 className="headline text-fluid-5xl text-white">
-              Si esta forma de trabajar encaja contigo, conoce el programa con calma.
+              Empieza por aprender y aplicar una idea.
             </h2>
             <p className="mx-auto max-w-2xl text-fluid-lg leading-relaxed text-muted">
-              Revisa qué incluye, qué no incluye y para quién está pensado antes de solicitar una
-              plaza. Sin presión y sin promesas que nadie puede garantizar.
+              En la comunidad gratuita tienes lecciones y recursos para organizar tus primeros pasos.
+              Si después buscas un plan adaptado y seguimiento, puedes conocer Método BASE Tiroides,
+              el programa opcional de pago.
             </p>
             <div className="flex flex-col justify-center gap-3 sm:flex-row">
-              <Link href="/metodo-tiroides" className="btn-brand group">
-                Conocer Método BASE Tiroides
+              <CommunityLink href="/comunidad/entrar" source="about_final" className="btn-brand group">
+                Entrar gratis a la comunidad
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-              <Link href="/servicios/entrenamiento-online" className="btn-outline-light">
-                Ver entrenamiento individual
+              </CommunityLink>
+              <Link href="/metodo-tiroides" className="btn-outline-light">
+                Conocer el programa de pago
               </Link>
             </div>
           </AnimatedSection>

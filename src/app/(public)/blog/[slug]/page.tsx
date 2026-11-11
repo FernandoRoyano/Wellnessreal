@@ -189,7 +189,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 </div>
                 <p className="mt-4 text-fluid-base leading-relaxed text-muted">Graduado en Ciencias de la Actividad Física y del Deporte, con 14 años de experiencia ayudando a personas a entrenar y organizar sus hábitos.</p>
                 {isThyroid && (
-                  <p className="mt-3 text-fluid-base leading-relaxed text-muted">Mi foco en mujeres con hipotiroidismo o Hashimoto nace de la experiencia con clientes y del estudio continuado sobre entrenamiento y alteraciones tiroideas. Trabajo sobre la planificación y la adaptación del ejercicio, manteniendo el diagnóstico y el tratamiento en el ámbito sanitario.</p>
+                  <p className="mt-3 text-fluid-base leading-relaxed text-muted">Llevo años de estudio autodidacta sobre entrenamiento e hipotiroidismo. Es el contexto en el que enfoco mi trabajo con mujeres con hipotiroidismo o Hashimoto; no lo presento como una titulación específica en tiroides. Trabajo sobre la planificación y la adaptación del ejercicio, manteniendo el diagnóstico y el tratamiento en el ámbito sanitario.</p>
                 )}
                 <Link href={isThyroid ? '/sobre-mi#enfoque-tiroides' : '/sobre-mi'} className="mt-3 inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Conoce mi formación y cómo trabajo <ArrowRight className="h-4 w-4 shrink-0" aria-hidden="true" /></Link>
               </aside>
