@@ -18,6 +18,7 @@ import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getCommunityJourney } from '@/lib/community-journey'
 import { CommunityImage } from '@/components/comunidad/CommunityImage'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
+import { CommunityWeeklyPlan } from '@/components/comunidad/CommunityWeeklyPlan'
 import FooterNewsletterForm from '@/components/common/FooterNewsletterForm'
 
 export const metadata: Metadata = {
@@ -104,6 +105,8 @@ export default async function ComunidadHome() {
           </Link>
         </section>
       )}
+
+      <CommunityWeeklyPlan lessons={contentSpaces.flatMap((space, index) => lessonGroups[index].map(lesson => ({ ...lesson, space })))} />
 
       <section className="community-map">
         <SectionTitle number="02" eyebrow="Mapa de aprendizaje" title="Un sistema, no una colección de consejos" />

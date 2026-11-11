@@ -20,8 +20,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
-export default async function SpacePage({ params }: { params: Promise<{ space: string }> }) {
+export default async function SpacePage({ params, searchParams }: { params: Promise<{ space: string }>; searchParams: Promise<{ pregunta?: string | string[] }> }) {
   const { space: spaceSlug } = await params
+  const question = (await searchParams).pregunta
+  const initialQuestion = typeof question === 'string' ? question : undefined
   const member = await getSessionMember()
   if (!member) redirect(`/comunidad/entrar?next=${encodeURIComponent(`/comunidad/${spaceSlug}`)}`)
   const space = await getSpace(spaceSlug, member)
@@ -44,7 +46,7 @@ export default async function SpacePage({ params }: { params: Promise<{ space: s
       </header>
 
       {space.type === 'forum' ? (
-        <ForumView spaceId={space.id} spaceSlug={space.slug} member={member} />
+        <ForumView spaceId={space.id} spaceSlug={space.slug} member={member} initialQuestion={initialQuestion} />
       ) : (
         <LessonList spaceId={space.id} spaceSlug={space.slug} member={member} />
       )}
@@ -149,17 +151,19 @@ async function ForumView({
   spaceId,
   spaceSlug,
   member,
+  initialQuestion,
 }: {
   spaceId: string
   spaceSlug: string
   member: MemberProfile | null
+  initialQuestion?: string
 }) {
   const threads = await getThreads(spaceId, member)
 
   return (
     <div>
       <div className="mb-6">
-        <NuevoHilo spaceSlug={spaceSlug} />
+        <NuevoHilo key={initialQuestion ?? 'new'} spaceSlug={spaceSlug} initialQuestion={initialQuestion} />
       </div>
 
       {threads.length === 0 ? (
