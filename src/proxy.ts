@@ -10,7 +10,7 @@ import { supabaseAnonKey, supabaseUrl } from '@/lib/supabase-env'
 
 function redirectToCommunityLogin(request: NextRequest): NextResponse {
   const loginUrl = new URL('/comunidad/entrar', request.url)
-  loginUrl.searchParams.set('next', request.nextUrl.pathname)
+  loginUrl.searchParams.set('next', `${request.nextUrl.pathname}${request.nextUrl.search}`)
   return NextResponse.redirect(loginUrl)
 }
 

@@ -28,7 +28,7 @@ En el lector se mantiene el contexto mediante el parámetro validado. «Continua
 
 ## Verificación
 
-Cuatro pruebas unitarias: lista permitida de identificadores, orden y progreso compartido, bloqueo sin salto, ausencias y contenido premium excluidos. Seis casos de navegador entre móvil y escritorio: selección y retorno tras completar, cambio conservando avance, bloqueo con recurso disponible, rutas completadas y consulta inválida. Revisadas capturas de 320 y 1440 px sin desbordamiento. TypeScript y ESLint focalizado pasan.
+Cinco pruebas unitarias: lista permitida de identificadores, orden y progreso compartido, bloqueo sin salto, ausencias y contenido premium excluidos, y conservación del destino interno con su consulta al pedir acceso. Seis casos de navegador entre móvil y escritorio: selección y retorno tras completar, cambio conservando avance, bloqueo con recurso disponible, rutas completadas y consulta inválida. Revisadas capturas de 320 y 1440 px sin desbordamiento. TypeScript y ESLint focalizado pasan.
 
 Consulta de metadatos reales confirma las siete lecciones utilizadas como publicadas, gratuitas y dentro de sus espacios correspondientes. No se modifica contenido del CMS ni se crean registros de miembros o progreso de prueba en producción. No requiere SQL adicional.
 
