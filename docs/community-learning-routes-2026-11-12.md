@@ -33,3 +33,7 @@ Cinco pruebas unitarias: lista permitida de identificadores, orden y progreso co
 Consulta de metadatos reales confirma las siete lecciones utilizadas como publicadas, gratuitas y dentro de sus espacios correspondientes. No se modifica contenido del CMS ni se crean registros de miembros o progreso de prueba en producción. No requiere SQL adicional.
 
 Evidencias locales: output/community-learning-routes-2026-11-12 del workspace principal. Las pruebas privadas usan servicios y sesiones ficticios; no equivalen a una sesión real en producción.
+
+## Publicación
+
+Implementación final f380f79 publicada en dpl_5iRZMM9tgiC2KzezNELah97xsM4H tras verificar READY y la versión previa activa. Comprobación pública: rutas y lector requieren acceso; el parámetro de ruta se conserva como destino interno al entrar. La página de entrada responde 200. Comprobante: public-verification.json en el directorio de evidencias. No se crean miembros ni marcas de progreso de prueba en producción.
