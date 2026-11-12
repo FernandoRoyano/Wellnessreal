@@ -181,6 +181,43 @@ export function getCommunityExercise(slug: string) {
   return COMMUNITY_EXERCISES.find(exercise => exercise.slug === slug)
 }
 
+export const EXERCISE_ALTERNATIVES: Record<string, { slug: string; label: string; reason: string }[]> = {
+  'sentadilla': [
+    { slug: 'sentadilla', label: 'Si necesitas una referencia: hacia un cajón', reason: 'Usa un apoyo estable para orientar la profundidad, sin dejarte caer. Está descrita en las variantes de esta ficha.' },
+    { slug: 'sentadilla-barra', label: 'Si dispones de barra y rack', reason: 'Puedes cargar el mismo patrón con barra. Requiere aprender a colocarla y a usar los seguros; no es un paso obligatorio.' },
+  ],
+  'sentadilla-barra': [
+    { slug: 'sentadilla', label: 'Sin barra: sentadilla goblet o sin peso', reason: 'Mantienes un movimiento de rodillas y caderas, con otra forma de cargar. Reajusta el esfuerzo; los kilos no son equivalentes.' },
+    { slug: 'zancadas', label: 'Con poco material: split squat', reason: 'Trabajas las piernas con apoyos separados. Cambian equilibrio y reparto de carga; cuenta las repeticiones por lado.' },
+  ],
+  'zancadas': [
+    { slug: 'zancadas', label: 'Si cuesta coordinar el paso: posición fija', reason: 'El split squat elimina el paso entre repeticiones. Puedes empezar sin mancuernas; sigue necesitando equilibrio.' },
+    { slug: 'sentadilla', label: 'Si prefieres dos apoyos paralelos: sentadilla', reason: 'Puedes trabajar las piernas sin el paso ni la postura dividida. No reproduce exactamente la demanda de la zancada.' },
+  ],
+  'flexiones': [
+    { slug: 'flexiones', label: 'Si la versión de pies exige demasiado: manos elevadas', reason: 'Un apoyo alto y fijo permite ajustar la exigencia. Otra opción es apoyar las rodillas. Prueba una altura o variante que controles.' },
+  ],
+  'peso-muerto': [
+    { slug: 'peso-muerto', label: 'Sin barra: rumano con mancuernas', reason: 'Practicas la bisagra desde de pie. La carga baja hasta donde mantengas el control; no necesita tocar el suelo.' },
+    { slug: 'peso-muerto', label: 'Si el inicio desde el suelo no encaja: elevar la carga', reason: 'Apoyos firmes pueden acortar el recorrido de inicio. Cambia la altura antes de forzar una posición; no sustituye aprender la bisagra.' },
+  ],
+  'dominadas': [
+    { slug: 'dominadas', label: 'Con polea: jalón al pecho', reason: 'Conserva una tracción vertical con una carga regulable. Su técnica y apoyos son distintos; esta ficha solo describe la alternativa, sin ilustrarla.' },
+    { slug: 'remos', label: 'Sin barra de dominadas, con mancuerna: remo', reason: 'Permite trabajar la espalda, pero cambia a tracción horizontal. No reemplaza exactamente la dominada ni exige colgarse.' },
+  ],
+  'remos': [
+    { slug: 'remos', label: 'Sin polea: mancuerna con apoyo', reason: 'Mantienes una tracción horizontal con otro material. Necesitas un apoyo estable y una carga que no te obligue a girar el tronco.' },
+    { slug: 'remos', label: 'Con polea: remo sentado', reason: 'Puedes regular la carga y usar los apoyos de la máquina. Ajusta asiento y agarre; el número de kilos no se traslada desde la mancuerna.' },
+  ],
+  'press-militar-barra': [
+    { slug: 'press-hombros-mancuernas', label: 'Sin barra: press con mancuernas', reason: 'Mantienes el empuje vertical, con cada mano independiente. Sentarte con respaldo cambia la demanda de estabilidad.' },
+  ],
+  'press-hombros-mancuernas': [
+    { slug: 'press-hombros-mancuernas', label: 'Otra forma de sujetar: agarre neutro', reason: 'Las palmas se miran entre sí. Ajusta agarre y recorrido según tu control; no es una solución garantizada para una molestia.' },
+    { slug: 'press-militar-barra', label: 'Con barra y rack: press militar estricto', reason: 'Ambas manos comparten una barra y el recorrido cambia. Aprende a sacarla y devolverla; empieza con una carga apropiada para esa variante.' },
+  ],
+}
+
 export function getExerciseSummaries() {
   return COMMUNITY_EXERCISES.map(exercise => ({
     slug: exercise.slug, name: exercise.name, pattern: exercise.pattern, summary: exercise.summary,

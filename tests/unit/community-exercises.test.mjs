@@ -11,7 +11,8 @@ function load(file) {
   }).outputText, { module: compiled, exports: compiled.exports })
   return compiled.exports
 }
-const { COMMUNITY_EXERCISES, EXERCISE_EQUIPMENT, getCommunityExercise, getExerciseSummaries } = load('src/lib/community-exercises.ts')
+const { COMMUNITY_EXERCISES, EXERCISE_EQUIPMENT, EXERCISE_ALTERNATIVES, getCommunityExercise, getExerciseSummaries } = load('src/lib/community-exercises.ts')
+const { COMMUNITY_WORKOUTS } = load('src/lib/community-workouts.ts')
 const { matchesCommunitySearch } = load('src/lib/community-search.ts')
 
 test('each exercise has an existing web image, distinct URL and complete teaching fields', () => {
@@ -49,4 +50,26 @@ test('military press searches find both options and materials distinguish their 
   assert(found.find(item => item.slug === 'press-militar-barra').equipment.includes('barra'))
   assert(!found.find(item => item.slug === 'press-militar-barra').equipment.includes('mancuernas'))
   assert(found.find(item => item.slug === 'press-hombros-mancuernas').equipment.includes('mancuernas'))
+})
+
+test('every exercise offers alternatives that resolve to a real teaching card', () => {
+  for (const exercise of COMMUNITY_EXERCISES) {
+    const alternatives = EXERCISE_ALTERNATIVES[exercise.slug]
+    assert(alternatives?.length, exercise.slug)
+    for (const option of alternatives) {
+      assert(getCommunityExercise(option.slug), option.slug)
+      assert(option.label && option.reason)
+    }
+  }
+})
+
+test('both example sessions cover legs, hinge, horizontal push and pull with valid cards', () => {
+  assert.equal(COMMUNITY_WORKOUTS.length, 2)
+  for (const workout of COMMUNITY_WORKOUTS) {
+    const required = workout.exercises.filter(exercise => !exercise.optional)
+    assert.equal(required.length, 4)
+    assert(required.some(exercise => ['sentadilla', 'sentadilla-barra', 'zancadas'].includes(exercise.slug)))
+    for (const slug of ['peso-muerto', 'flexiones', 'remos']) assert(required.some(exercise => exercise.slug === slug))
+    for (const exercise of workout.exercises) assert(getCommunityExercise(exercise.slug), exercise.slug)
+  }
 })

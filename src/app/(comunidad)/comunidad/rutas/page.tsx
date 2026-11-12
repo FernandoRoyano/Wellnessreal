@@ -59,6 +59,7 @@ export default async function LearningRoutesPage({ searchParams }: { searchParam
         <a href={`/community/resources/${route.file}`} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-accent underline underline-offset-4">Abrir {route.resource.toLocaleLowerCase('es')} (PDF)<ArrowRight className="h-4 w-4" aria-hidden="true" /></a>
         <p><Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Revisar Mi semana</Link></p>
         <p><Link href="/comunidad/ejercicios" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Consultar la biblioteca de ejercicios</Link></p>
+        <p><Link href="/comunidad/ejercicios/sesiones" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Ver cómo combinar ejercicios en una sesión</Link></p>
       </section>
     </>}
   </main>
