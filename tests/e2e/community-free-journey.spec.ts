@@ -3,6 +3,7 @@ import { fixtureSession } from '../fixtures/community-session'
 
 test.beforeEach(async ({ page, context }) => {
   test.skip(process.env.COMMUNITY_LOCAL_FIXTURE !== '1', 'Requiere proveedores y datos locales ficticios')
+  await page.request.delete('http://127.0.0.1:54329/rest/v1/lesson_progress?member_id=eq.30000000-0000-4000-8000-000000000000')
   await page.route('https://**/*', route => route.abort())
   await page.addInitScript(() => localStorage.setItem('wr_cookie_consent_v2', 'rejected'))
   await fixtureSession(context, 'free')

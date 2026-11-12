@@ -23,6 +23,8 @@ const tables = {
   leads: [], thyroid_funnel_events: [], asesoria_solicitudes: [], proposals: [], posts: [], threads: [], comments: [], thread_likes: [], lesson_favorites: [], lesson_feedback: [], programas_generados: [], eventos_cliente: [], community_checkins: [],
 }
 const writes = []
+tables.lesson_progress = []
+let failProgressWrites = false
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://127.0.0.1:${port}`)
   const reply = (code, value) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(value)) }
@@ -30,6 +32,7 @@ const server = http.createServer(async (req, res) => {
   for await (const chunk of req) raw += chunk
   const body = raw ? JSON.parse(raw) : null
   if (url.pathname === '/__writes') return reply(200, writes)
+  if (url.pathname === '/__progress-failure' && req.method === 'POST') { failProgressWrites = Boolean(body.fail); return reply(200, {}) }
   if (url.pathname === '/__reset-journey' && req.method === 'POST') {
     const member = tables.member_profiles.find(row => row.email === 'journey@example.com')
     member.cliente_id = null
@@ -57,6 +60,7 @@ const server = http.createServer(async (req, res) => {
   if (!url.pathname.startsWith('/rest/v1/')) return reply(404, {})
   const table = url.pathname.split('/').at(-1)
   if (!tables[table]) return reply(400, { message: `Unknown fixture table: ${table}` })
+  if (table === 'lesson_progress' && failProgressWrites && ['POST', 'DELETE'].includes(req.method)) return reply(503, { message: 'Fixture progress unavailable' })
   let rows = tables[table].filter(row => [...url.searchParams].every(([key, value]) => {
     if (['select', 'order', 'limit', 'offset'].includes(key)) return true
     if (value.startsWith('eq.')) return String(row[key]) === value.slice(3)
@@ -69,17 +73,22 @@ const server = http.createServer(async (req, res) => {
   }))
   if (req.method === 'POST') {
     if (table === 'thyroid_funnel_events' && body.external_id && tables[table].some(row => row.external_id === body.external_id)) return reply(409, { code: '23505', message: 'Duplicate fixture external_id' })
-    const newRows = (Array.isArray(body) ? body : [body]).map(row => ({ id: randomUUID(), creado_en: date, ...(table === 'thyroid_funnel_events' ? { created_at: new Date().toISOString() } : {}), ...row }))
+    const newRows = (Array.isArray(body) ? body : [body]).map(row => ({ id: randomUUID(), creado_en: date, ...(table === 'thyroid_funnel_events' ? { created_at: new Date().toISOString() } : {}), ...(table === 'lesson_progress' ? { completed_at: new Date().toISOString() } : {}), ...row }))
     const conflict = url.searchParams.get('on_conflict')?.split(',')
     for (const row of newRows) {
       const existing = conflict && tables[table].find(value => conflict.every(key => value[key] === row[key]))
-      if (existing) Object.assign(existing, { ...row, id: existing.id })
+      if (existing) {
+        if (!req.headers.prefer?.includes('resolution=ignore-duplicates')) Object.assign(existing, { ...row, id: existing.id })
+      }
       else tables[table].push(row)
     }
     rows = newRows
     writes.push({ table, method: req.method, rows: newRows })
   } else if (req.method === 'PATCH') {
     rows.forEach(row => Object.assign(row, body))
+    writes.push({ table, method: req.method, count: rows.length })
+  } else if (req.method === 'DELETE') {
+    tables[table] = tables[table].filter(row => !rows.includes(row))
     writes.push({ table, method: req.method, count: rows.length })
   } else if (!['GET', 'HEAD'].includes(req.method)) return reply(405, {})
   const [sort, direction] = url.searchParams.get('order')?.split('.') ?? []

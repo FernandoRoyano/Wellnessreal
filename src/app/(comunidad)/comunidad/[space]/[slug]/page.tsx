@@ -47,7 +47,7 @@ export default async function LessonPage({
   const relatedArticles = lesson.locked
     ? []
     : await getLessonRelatedArticles(lesson.title, lesson.content)
-  const completedLessonIds = member ? await getCompletedLessonIds() : new Set<string>()
+  const completedLessonIds = member ? await getCompletedLessonIds(member.id) : new Set<string>()
   const resource = getLessonResource(lesson.slug, lesson.title)
   const showProgramInvitation = !lesson.locked && space.access_tier === 'free' && /entren|fuerza|cansancio|energ|hábitos|habitos/.test(`${lesson.slug} ${lesson.title}`.toLowerCase())
   const hasPremium = showProgramInvitation ? await memberHasPremium(member) : false
@@ -115,7 +115,7 @@ export default async function LessonPage({
               {spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero' && <Link href="/comunidad/entrena-organizate/por-que-empezar-con-fuerza" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Leer mi primera lección de fuerza</Link>}
               <Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Volver a Mi semana</Link>
             </div>
-            <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en este navegador. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
+            <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en tu cuenta y continuar desde otro dispositivo. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
           </section>}
           <LessonFeedback lessonId={lesson.id} initialFeedback={lessonFeedback} />
           {showProgramInvitation && <ProgramInvitation hasPremium={hasPremium} />}

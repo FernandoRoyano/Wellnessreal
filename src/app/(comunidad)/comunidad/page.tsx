@@ -14,7 +14,8 @@ import {
   getSpacesOverview,
   memberHasPremium,
 } from '@/lib/db/comunidad'
-import { getCompletedLessonIds } from '@/lib/community-progress'
+import { getCompletedLessonIds, getLegacyLessonIds } from '@/lib/community-progress'
+import { LegacyProgressImport } from '@/components/comunidad/LegacyProgressImport'
 import { getCommunityJourney } from '@/lib/community-journey'
 import { CommunityImage } from '@/components/comunidad/CommunityImage'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
@@ -37,12 +38,13 @@ export default async function ComunidadHome() {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const [spaces, recent, online, completedIds, hasPremium] = await Promise.all([
+  const [spaces, recent, online, completedIds, hasPremium, legacyIds] = await Promise.all([
     getSpacesOverview(member),
     getRecentThreads(member, 4),
     getOnlineMembers(),
-    getCompletedLessonIds(),
+    getCompletedLessonIds(member.id),
     memberHasPremium(member),
+    getLegacyLessonIds(),
   ])
   const contentSpaces = spaces.filter((space) => space.type === 'content')
   const lessonGroups = await Promise.all(contentSpaces.map((space) => getLessons(space.id, member)))
@@ -70,9 +72,11 @@ export default async function ComunidadHome() {
         <div className="community-score" style={{ '--journey-progress': `${progress * 3.6}deg` } as CSSProperties}>
           <div><strong>{progress}%</strong><span>completado</span></div>
           <p>{completedCount} de {unlockedLessons.length} lecciones disponibles</p>
-          <p>Avance guardado en este navegador.</p>
+          <p>Avance guardado en tu cuenta.</p>
         </div>
       </header>
+
+      <LegacyProgressImport lessons={unlockedLessons.filter(lesson => legacyIds.has(lesson.id) && !completedIds.has(lesson.id)).map(lesson => ({ id: lesson.id, title: lesson.title }))} />
 
       {hasPremium && <ProgramInvitation hasPremium />}
       {completedCount === 0 && <section className="my-8 border-y border-border-subtle py-7" aria-labelledby="start-heading">

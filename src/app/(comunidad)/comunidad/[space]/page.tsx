@@ -64,7 +64,7 @@ async function LessonList({
   member: MemberProfile | null
 }) {
   const lessons = await getLessons(spaceId, member)
-  const completedIds = member ? await getCompletedLessonIds() : new Set<string>()
+  const completedIds = member ? await getCompletedLessonIds(member.id) : new Set<string>()
   const availableCount = lessons.filter((lesson) => !lesson.locked).length
   const completedCount = lessons.filter((lesson) => !lesson.locked && completedIds.has(lesson.id)).length
 

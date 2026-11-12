@@ -17,7 +17,7 @@ export default async function MiSemanaPage() {
   const spaces = (await getSpaces(member)).filter((space) => space.type === 'content')
   const [groups, completedIds, favoriteIds, latest] = await Promise.all([
     Promise.all(spaces.map((space) => getLessons(space.id, member))),
-    getCompletedLessonIds(), getFavoriteLessonIds(member.id), getLatestCheckin(member.id),
+    getCompletedLessonIds(member.id), getFavoriteLessonIds(member.id), getLatestCheckin(member.id),
   ])
   const { available, next, allAvailableCompleted, nextUnlockDays } = getCommunityJourney(spaces, groups, completedIds)
   const favorites = available.filter((lesson) => favoriteIds.has(lesson.id))

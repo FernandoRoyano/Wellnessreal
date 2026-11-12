@@ -12,8 +12,10 @@ import {
   updateMemberProfile,
   ensureMemberProfile,
   memberCanAccessLesson,
+  getSpaces,
+  getLessons,
 } from '@/lib/db/comunidad'
-import { getCompletedLessonIds, setLessonCompletion } from '@/lib/community-progress'
+import { getCompletedLessonIds, getLegacyLessonIds, removeImportedLegacyIds, saveCompletedLessons, setLessonCompletion } from '@/lib/community-progress'
 import { parseCommunityTracking } from '@/lib/community-tracking'
 import { recordThyroidFunnelEvent } from '@/lib/db/thyroid-funnel'
 import { safeInternalPath } from '@/lib/safe-redirect'
@@ -214,24 +216,48 @@ export async function signOut() {
 }
 
 /** Marca o desmarca una lección como completada. */
-export async function setLessonCompletionAction(formData: FormData) {
+export async function setLessonCompletionAction(_previous: CommunityToolResult | null, formData: FormData): Promise<CommunityToolResult> {
   const member = await getSessionMember()
-  if (!member) redirect('/comunidad/entrar')
-
-  const lessonId = String(formData.get('lesson_id') ?? '')
-  const completed = String(formData.get('completed') ?? '') === 'true'
-  if (!/^[0-9a-f-]{36}$/i.test(lessonId)) return
-  if (!(await memberCanAccessLesson(member, lessonId))) return
-
-  const previous = await getCompletedLessonIds()
-  await setLessonCompletion(lessonId, completed)
-  const tracking = parseCommunityTracking(formData.get('_community_tracking'))
-  if (completed && previous.size === 0 && tracking) {
-    await recordThyroidFunnelEvent({ eventName: 'community_first_lesson_completed', ...tracking,
-      email: member.email, externalId: `community:first-lesson:${member.id}`,
-    }).catch(error => console.error('[comunidad:completionTracking]', error))
+  if (!member) return { ok: false, message: 'Tu sesión ha caducado. Vuelve a entrar.' }
+  const parsed = z.object({ lesson_id: z.string().uuid(), completed: z.enum(['true', 'false']) }).safeParse(Object.fromEntries(formData))
+  if (!parsed.success) return { ok: false, message: 'No se ha podido identificar la lección o el cambio.' }
+  const lessonId = parsed.data.lesson_id
+  const completed = parsed.data.completed === 'true'
+  if (!(await memberCanAccessLesson(member, lessonId))) return { ok: false, message: 'No tienes acceso a esta lección.' }
+  try {
+    const previous = await getCompletedLessonIds(member.id)
+    await setLessonCompletion(member.id, lessonId, completed)
+    const tracking = parseCommunityTracking(formData.get('_community_tracking'))
+    if (completed && previous.size === 0 && tracking) {
+      await recordThyroidFunnelEvent({ eventName: 'community_first_lesson_completed', ...tracking,
+        email: member.email, externalId: `community:first-lesson:${member.id}`,
+      }).catch(error => console.error('[comunidad:completionTracking]', error))
+    }
+    revalidatePath('/comunidad', 'layout')
+    return { ok: true, message: completed ? 'Avance guardado en tu cuenta.' : 'Lección marcada como pendiente en tu cuenta.' }
+  } catch (error) {
+    console.error('[comunidad:setLessonCompletionAction]', error)
+    return { ok: false, message: 'No se ha podido guardar tu avance. Inténtalo de nuevo.' }
   }
-  revalidatePath('/comunidad')
+}
+
+export async function importLegacyProgressAction(): Promise<CommunityToolResult> {
+  const member = await getSessionMember()
+  if (!member) return { ok: false, message: 'Tu sesión ha caducado. Vuelve a entrar.' }
+  try {
+    const legacy = await getLegacyLessonIds()
+    const spaces = (await getSpaces(member)).filter(space => space.type === 'content')
+    const groups = await Promise.all(spaces.map(space => getLessons(space.id, member)))
+    const ids = groups.flat().filter(lesson => !lesson.locked && legacy.has(lesson.id)).map(lesson => lesson.id)
+    if (!ids.length) return { ok: false, message: 'No hay marcas antiguas de lecciones disponibles para añadir.' }
+    await saveCompletedLessons(member.id, ids)
+    await removeImportedLegacyIds(ids)
+    revalidatePath('/comunidad', 'layout')
+    return { ok: true, message: 'Las marcas se han añadido a tu cuenta.' }
+  } catch (error) {
+    console.error('[comunidad:importLegacyProgressAction]', error)
+    return { ok: false, message: 'No se han podido añadir las marcas. Se conservan en este navegador para volver a intentarlo.' }
+  }
 }
 
 export async function saveWeeklyCheckinAction(_previous: CommunityToolResult | null, formData: FormData): Promise<CommunityToolResult> {
