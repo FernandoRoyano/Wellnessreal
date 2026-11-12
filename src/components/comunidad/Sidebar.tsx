@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Avatar } from './Avatar'
 import { signOut } from '@/app/(comunidad)/comunidad/actions'
-import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search, CalendarDays, Sparkles } from 'lucide-react'
+import { Home, BookOpen, MessagesSquare, LogOut, Menu, X, ArrowLeft, Map, Search, CalendarDays, Sparkles, Dumbbell } from 'lucide-react'
 import type { Space, MemberProfile } from '@/lib/db/comunidad'
 
 export function Sidebar({ spaces, member, hasPremium }: { spaces: Space[]; member: MemberProfile; hasPremium: boolean }) {
@@ -95,6 +95,13 @@ function SidebarBody({
           label="Rutas de aprendizaje"
           icon={<BookOpen className="h-[18px] w-[18px]" />}
           active={isActive('/comunidad/rutas')}
+          onNavigate={onNavigate}
+        />
+        <NavItem
+          href="/comunidad/ejercicios"
+          label="Ejercicios"
+          icon={<Dumbbell className="h-[18px] w-[18px]" />}
+          active={isActive('/comunidad/ejercicios')}
           onNavigate={onNavigate}
         />
         <NavItem

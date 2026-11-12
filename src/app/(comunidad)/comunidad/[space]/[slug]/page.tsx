@@ -120,6 +120,7 @@ export default async function LessonPage({
               {learningRoute && <Link href={`/comunidad/rutas?ruta=${learningRoute.id}`} className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Continuar ruta: {learningRoute.title}</Link>}
               {!learningRoute && spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero' && <Link href="/comunidad/entrena-organizate/por-que-empezar-con-fuerza" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Leer mi primera lección de fuerza</Link>}
               <Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Volver a Mi semana</Link>
+              {spaceSlug === 'entrena-organizate' && <Link href="/comunidad/ejercicios" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Consultar ejercicios y variantes</Link>}
             </div>
             <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en tu cuenta y continuar desde otro dispositivo. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
           </section>}
