@@ -30,3 +30,7 @@ Antes de desplegar se comprobó por REST que la tabla no está disponible (404).
 - Pruebas con servicios y cuentas locales ficticios; sin usuarios ni actividad de prueba en producción.
 
 Pendiente de ejecutar SQL y verificar la tabla real. Las pruebas locales no sustituyen esa activación ni una comprobación de los permisos reales de Postgres.
+
+## Publicación
+
+Implementación 2f84ea4 desplegada en wellnessreal.es el 12/11/2026. Deployment activo: dpl_6jZMJpQGtiYx7Pzf9H2mrWjqpzHF (READY); promovido tras comprobar la versión anterior. Sesiones y Mi semana mantienen acceso protegido (307 al inicio de sesión con destino correcto). La migración sigue pendiente: el calendario se activará al crear la tabla; mientras tanto se mantiene el PDF. No se ha probado guardado con cuentas reales en producción.
