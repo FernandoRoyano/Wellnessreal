@@ -26,7 +26,7 @@ export default async function ExercisePage({ params }: { params: Promise<{ slug:
 
     <figure className="space-y-4">
       <a href={image} target="_blank" rel="noopener noreferrer" aria-label={`Ampliar ilustración de ${exercise.name} (abre en otra pestaña)`} className="relative block aspect-[3/2] overflow-hidden rounded-xl bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-4"><Image src={image} alt={exercise.imageAlt} fill loading="eager" sizes="(max-width: 1024px) 100vw, 900px" className="object-contain" /></a>
-      <figcaption className="space-y-2 text-sm leading-relaxed text-muted"><p>{exercise.imageCaption}</p><p>Ilustración generada para la guía de WellnessReal. El resaltado orienta sobre algunos músculos implicados; no representa su activación exacta.</p></figcaption>
+      <figcaption className="space-y-2 text-sm leading-relaxed text-muted"><p>{exercise.imageCaption}</p><p>Ilustración generada para WellnessReal. El resaltado orienta sobre algunos músculos implicados; no representa su activación exacta.</p></figcaption>
     </figure>
 
     <section aria-labelledby="exercise-muscles" className="border-y border-border-subtle py-6"><h2 id="exercise-muscles" className="headline text-fluid-2xl text-white">Músculos implicados</h2><ul className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-muted">{exercise.muscles.map(muscle => <li key={muscle}>{muscle}</li>)}</ul></section>

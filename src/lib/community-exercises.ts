@@ -25,6 +25,39 @@ interface Exercise {
 
 export const COMMUNITY_EXERCISES: readonly Exercise[] = [
   {
+    slug: 'press-militar-barra', name: 'Press militar con barra', pattern: 'Empuje vertical',
+    summary: 'Empuja la barra por encima de la cabeza con el tronco controlado, sin impulso de piernas.',
+    muscles: ['Deltoides anterior y medio', 'Tríceps', 'Tronco como estabilizador'],
+    imageAlt: 'Press militar de pie con barra delante de los hombros y elevada sobre la cabeza, con hombros y tríceps resaltados.',
+    imageCaption: 'Press estricto de pie: la barra parte por delante de los hombros y las piernas no impulsan la subida. La variante sentada no aparece en la imagen.',
+    steps: ['Coloca la barra en un rack a una altura accesible. Usa un agarre cerrado y cómodo, aproximadamente a la anchura de hombros o algo mayor; sácala con control y estabiliza los pies.', 'Desde delante de los hombros, empuja hacia arriba dejando espacio para que pase la barra. Controla el tronco y evita ganar recorrido arqueando en exceso la zona lumbar.', 'Termina con la barra sobre una base estable y baja con control hasta el inicio. Permite el movimiento natural de los hombros al elevar los brazos.'],
+    checks: ['Convertir la repetición en un impulso de rodillas y caderas cuando buscas un press estricto.', 'Llevar la barra innecesariamente lejos del cuerpo o dejarla caer al bajar.', 'Forzar muñecas, agarre o recorrido para mover una carga que no controlas.'],
+    variants: [
+      { name: 'De pie, estricto', description: 'El tronco estabiliza y las piernas no impulsan la barra.', equipment: ['barra'] },
+      { name: 'Sentado', description: 'Cambia la demanda de estabilización. Usa banco y soportes adecuados para colocar y retirar la barra.', equipment: ['barra'] },
+      { name: 'Push press: ejercicio distinto', description: 'Añade impulso de piernas. Cambian técnica y objetivo; no es la misma ejecución que el press estricto.', equipment: ['barra'] },
+    ],
+    source: { title: 'ACE · Standing Shoulder Press', url: 'https://www.acefitness.org/resources/everyone/exercise-library/71/standing-shoulder-press/' },
+    aliases: ['press hombros', 'overhead press', 'military press', 'hombro', 'triceps'],
+  },
+  {
+    slug: 'press-hombros-mancuernas', name: 'Press de hombros con mancuernas', pattern: 'Empuje vertical',
+    summary: 'Compara la versión sentada y de pie, y el agarre prono o neutro, manteniendo el control de cada carga.',
+    muscles: ['Deltoides anterior y medio', 'Tríceps', 'Tronco como estabilizador'],
+    imageAlt: 'Press de hombros sentado con dos mancuernas, al inicio y con los brazos elevados, resaltando deltoides y tríceps.',
+    imageCaption: 'La ilustración muestra el press sentado con respaldo y pies apoyados. La opción de pie y el agarre neutro se describen en el texto.',
+    steps: ['Siéntate con apoyo estable de pies y espalda en un respaldo casi vertical. Coloca las mancuernas a la altura de los hombros con muñecas y antebrazos en una posición cómoda.', 'Empuja ambas cargas hacia arriba sin golpear las mancuernas entre sí ni despegar el tronco para ganar recorrido. Los codos pueden quedar algo por delante del cuerpo.', 'Baja con control y repite solo el recorrido que puedas sostener. Prepara también cómo dejar las mancuernas al terminar.'],
+    checks: ['Arquear cada vez más la espalda para completar la subida.', 'Golpear o perder el control de una mancuerna sobre la cabeza.', 'Forzar la orientación de manos y codos en lugar de ajustar el agarre.'],
+    variants: [
+      { name: 'Sentado con respaldo', description: 'El banco aporta una referencia de apoyo; no convierte cualquier carga en adecuada.', equipment: ['mancuernas'] },
+      { name: 'De pie', description: 'Requiere estabilizar el tronco sin usar impulso de piernas si buscas un press estricto.', equipment: ['mancuernas'] },
+      { name: 'Agarre neutro', description: 'Las palmas se miran entre sí. Ajusta la orientación a un recorrido que controles.', equipment: ['mancuernas'] },
+      { name: 'Unilateral', description: 'Trabaja un brazo cada vez manteniendo el tronco estable, sin inclinarte para levantar la carga.', equipment: ['mancuernas'] },
+    ],
+    source: { title: 'ACE · Seated Overhead Press', url: 'https://www.acefitness.org/resources/everyone/exercise-library/45/seated-overhead-press/' },
+    aliases: ['press militar con mancuernas', 'press hombros', 'shoulder press', 'overhead press', 'hombro', 'triceps'],
+  },
+  {
     slug: 'sentadilla', name: 'Sentadilla libre y goblet', pattern: 'Dominante de rodilla',
     summary: 'Aprende a bajar y subir con control y conoce opciones sin carga externa o con una pesa delante del pecho.',
     muscles: ['Cuádriceps', 'Glúteos', 'Aductores y tronco como colaboradores'],

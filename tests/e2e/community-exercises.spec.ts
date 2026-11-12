@@ -10,7 +10,7 @@ test.beforeEach(async ({ page, context }) => {
 })
 
 test('search leads to a complete illustrated exercise with the requested common variants', async ({ page }) => {
-  await expect(page.locator('article')).toHaveCount(7)
+  await expect(page.locator('article')).toHaveCount(9)
   await page.getByLabel('Buscar ejercicio, músculo o variante').fill('fondos')
   await expect(page.locator('article')).toHaveCount(1)
   await page.locator('article').getByRole('link').click()
@@ -34,11 +34,24 @@ test('material controls fold after selection and empty searches can be cleared',
   await page.getByLabel('Buscar ejercicio, músculo o variante').fill('no-existe')
   await expect(page.getByRole('heading', { name: 'No hay fichas que coincidan' })).toBeVisible()
   await page.getByRole('button', { name: 'Ver todos los ejercicios' }).click()
-  await expect(page.locator('article')).toHaveCount(7)
+  await expect(page.locator('article')).toHaveCount(9)
 })
 
-test('all seven exercise pages and images work and unknown slugs return 404', async ({ page, request }) => {
-  for (const slug of ['sentadilla', 'sentadilla-barra', 'zancadas', 'flexiones', 'peso-muerto', 'dominadas', 'remos']) {
+test('military press search includes both forms and material distinguishes them', async ({ page }) => {
+  await page.getByLabel('Buscar ejercicio, músculo o variante').fill('press militar')
+  await expect(page.locator('article')).toHaveCount(2)
+  await page.locator('summary').filter({ hasText: 'Material:' }).click()
+  await page.getByLabel('Material de alguna de las variantes').selectOption('barra')
+  await expect(page.locator('article')).toHaveCount(1)
+  await expect(page.locator('article')).toContainText('Press militar con barra')
+  await page.locator('summary').filter({ hasText: 'Material:' }).click()
+  await page.getByLabel('Material de alguna de las variantes').selectOption('mancuernas')
+  await expect(page.locator('article')).toHaveCount(1)
+  await expect(page.locator('article')).toContainText('Press de hombros con mancuernas')
+})
+
+test('all exercise pages and images work and unknown slugs return 404', async ({ page, request }) => {
+  for (const slug of ['sentadilla', 'sentadilla-barra', 'zancadas', 'flexiones', 'peso-muerto', 'dominadas', 'remos', 'press-militar-barra', 'press-hombros-mancuernas']) {
     expect((await page.goto(`/comunidad/ejercicios/${slug}`))?.status()).toBe(200)
     await expect(page.getByRole('heading', { name: 'Músculos implicados', exact: true })).toBeVisible()
     await expect(page.getByRole('heading', { name: 'Cómo realizarlo', exact: true })).toBeVisible()

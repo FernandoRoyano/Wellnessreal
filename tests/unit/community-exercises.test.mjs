@@ -15,8 +15,8 @@ const { COMMUNITY_EXERCISES, EXERCISE_EQUIPMENT, getCommunityExercise, getExerci
 const { matchesCommunitySearch } = load('src/lib/community-search.ts')
 
 test('each exercise has an existing web image, distinct URL and complete teaching fields', () => {
-  assert.equal(COMMUNITY_EXERCISES.length, 7)
-  assert.equal(new Set(COMMUNITY_EXERCISES.map(item => item.slug)).size, 7)
+  assert.equal(COMMUNITY_EXERCISES.length, 9)
+  assert.equal(new Set(COMMUNITY_EXERCISES.map(item => item.slug)).size, 9)
   for (const item of COMMUNITY_EXERCISES) {
     const image = fs.readFileSync(`public/community/exercises/${item.slug}-v1.webp`)
     assert.equal(image.subarray(8, 12).toString(), 'WEBP')
@@ -41,4 +41,12 @@ test('equipment includes only materials associated with the listed variants', ()
   assert(!summaries.find(item => item.slug === 'sentadilla-barra').equipment.includes('sin-material'))
   assert.equal(getCommunityExercise('unknown'), undefined)
   assert.equal(getCommunityExercise('../private'), undefined)
+})
+
+test('military press searches find both options and materials distinguish their variants', () => {
+  const found = getExerciseSummaries().filter(item => matchesCommunitySearch('press militar', item.searchText))
+  assert.equal(found.length, 2)
+  assert(found.find(item => item.slug === 'press-militar-barra').equipment.includes('barra'))
+  assert(!found.find(item => item.slug === 'press-militar-barra').equipment.includes('mancuernas'))
+  assert(found.find(item => item.slug === 'press-hombros-mancuernas').equipment.includes('mancuernas'))
 })
