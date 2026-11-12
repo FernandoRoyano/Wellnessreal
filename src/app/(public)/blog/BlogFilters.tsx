@@ -1,10 +1,11 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import Container from '@/components/common/Container'
 import Link from 'next/link'
-import { Calendar, Clock, Filter, ArrowRight, FileText } from 'lucide-react'
+import { Calendar, Clock, Filter, ArrowRight, FileText, ChevronDown } from 'lucide-react'
 import type { Category } from '@/lib/types/database'
 import type { PostSummary } from '@/lib/db/posts'
 import { formatPostDate } from '@/lib/post-date'
@@ -19,7 +20,11 @@ interface BlogFiltersProps {
 
 export default function BlogFilters({ posts, categories, selectedCategory, page, totalPages }: BlogFiltersProps) {
   const router = useRouter()
+  const [filtersOpen, setFiltersOpen] = useState(false)
+  const filtersId = useId()
+  const filtersToggle = useRef<HTMLButtonElement>(null)
   const allCategories = [{ slug: '', title: 'Todos' }, ...categories]
+  const selectedTitle = allCategories.find(category => category.slug === selectedCategory)?.title ?? 'Todos'
   const urlFor = (category: string, number = 1) => {
     const params = new URLSearchParams()
     if (category) params.set('categoria', category)
@@ -30,10 +35,22 @@ export default function BlogFilters({ posts, categories, selectedCategory, page,
   return (
     <>
       {/* ═══════ Filtros ═══════ */}
-      <section className="relative bg-brand-dusk py-6 border-y border-border-subtle sticky top-20 md:top-24 z-20 backdrop-blur-sm">
+      <section aria-label="Filtros del blog" className="relative bg-brand-dusk py-2 md:py-6 border-y border-border-subtle sticky top-20 md:top-24 z-20 backdrop-blur-sm">
         <Container>
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <span className="inline-flex items-center gap-1.5 text-fluid-xs text-muted mr-3 uppercase tracking-wider font-semibold">
+          <button
+            ref={filtersToggle}
+            type="button"
+            aria-expanded={filtersOpen}
+            aria-controls={filtersId}
+            onClick={() => setFiltersOpen(open => !open)}
+            className="flex min-h-11 w-full items-center gap-2 text-left text-fluid-sm font-semibold text-white md:hidden"
+          >
+            <Filter className="h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+            <span className="min-w-0 flex-1 truncate">Filtrar: {selectedTitle}</span>
+            <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${filtersOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+          </button>
+          <div id={filtersId} className={`${filtersOpen ? 'flex' : 'hidden md:flex'} max-h-[min(50dvh,20rem)] flex-wrap items-center justify-center gap-2 overflow-y-auto md:max-h-none md:overflow-visible`}>
+            <span className="hidden md:inline-flex items-center gap-1.5 text-fluid-xs text-muted mr-3 uppercase tracking-wider font-semibold">
               <Filter className="w-3.5 h-3.5" />
               Filtros
             </span>
@@ -44,9 +61,13 @@ export default function BlogFilters({ posts, categories, selectedCategory, page,
                   key={category.slug}
                   type="button"
                   aria-pressed={active}
-                  onClick={() => router.push(urlFor(category.slug), { scroll: false })}
+                  onClick={() => {
+                    setFiltersOpen(false)
+                    filtersToggle.current?.focus()
+                    router.push(urlFor(category.slug), { scroll: false })
+                  }}
                   className={
-                    'px-4 py-1.5 rounded-full text-fluid-xs font-semibold transition-all ' +
+                    'min-h-11 md:min-h-0 px-4 py-1.5 rounded-full text-fluid-xs font-semibold transition-all ' +
                     (active
                       ? 'bg-accent text-accent-fg shadow-glow'
                       : 'text-muted border border-border-subtle hover:text-white hover:border-border-strong bg-brand-night')
