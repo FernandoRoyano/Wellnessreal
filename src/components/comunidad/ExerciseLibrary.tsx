@@ -34,9 +34,9 @@ export function ExerciseLibrary({ exercises }: { exercises: ReturnType<typeof ge
     </div>
 
     {visible.length ? <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-      {visible.map(exercise => <article key={exercise.slug} className="min-w-0 overflow-hidden rounded-xl border border-border-subtle">
+      {visible.map((exercise, index) => <article key={exercise.slug} className="min-w-0 overflow-hidden rounded-xl border border-border-subtle">
         <Link href={`/comunidad/ejercicios/${exercise.slug}`} className="group block h-full focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2">
-          <div className="relative aspect-[3/2] bg-white"><Image src={`/community/exercises/${exercise.slug}-v1.webp`} alt={exercise.imageAlt} fill sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 340px" className="object-contain" /></div>
+          <div className="relative aspect-[3/2] bg-white"><Image src={`/community/exercises/${exercise.slug}-v1.webp`} alt={exercise.imageAlt} fill loading={index < 3 ? 'eager' : 'lazy'} sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 340px" className="object-contain" /></div>
           <div className="space-y-3 p-5"><p className="text-xs font-semibold uppercase tracking-wide text-muted">{exercise.pattern}</p><h2 className="font-display text-xl font-bold text-white group-hover:text-accent">{exercise.name}</h2><p className="text-sm leading-relaxed text-muted">{exercise.summary}</p><span className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent">Ver ejecución y variantes <ArrowRight className="h-4 w-4" aria-hidden="true" /></span></div>
         </Link>
       </article>)}
