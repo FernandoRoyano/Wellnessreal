@@ -3,6 +3,9 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { ArrowRight, Bookmark, CalendarDays, CheckCircle2, Dumbbell, Gauge, Sparkles } from 'lucide-react'
 import { WeeklyCheckinForm } from '@/components/comunidad/WeeklyCheckinForm'
+import { WeeklyWorkoutPlan } from '@/components/comunidad/WeeklyWorkoutPlan'
+import { getWorkoutWeek } from '@/lib/community-workout-week'
+import { getWorkoutDays } from '@/lib/community-workout-plans'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getCommunityJourney } from '@/lib/community-journey'
 import { getFavoriteLessonIds, getLatestCheckin } from '@/lib/community-tools'
@@ -15,9 +18,11 @@ export default async function MiSemanaPage() {
   if (!member) redirect('/comunidad/entrar?next=/comunidad/mi-semana')
 
   const spaces = (await getSpaces(member)).filter((space) => space.type === 'content')
-  const [groups, completedIds, favoriteIds, latest] = await Promise.all([
+  const week = getWorkoutWeek()
+  const [groups, completedIds, favoriteIds, latest, workoutPlan] = await Promise.all([
     Promise.all(spaces.map((space) => getLessons(space.id, member))),
     getCompletedLessonIds(member.id), getFavoriteLessonIds(member.id), getLatestCheckin(member.id),
+    getWorkoutDays(member.id, week.dates),
   ])
   const { available, next, allAvailableCompleted, nextUnlockDays } = getCommunityJourney(spaces, groups, completedIds)
   const favorites = available.filter((lesson) => favoriteIds.has(lesson.id))
@@ -39,10 +44,12 @@ export default async function MiSemanaPage() {
       <div className="my-week-priority-list">
         {next && <Link href={`/comunidad/${next.space.slug}/${next.slug}`}><span className="my-week-priority-number">1</span><span className="my-week-priority-icon"><CheckCircle2 /></span><span className="my-week-priority-copy"><small>Aprender</small><strong>{next.title}</strong><p>Continúa por tu siguiente lección disponible.</p></span><ArrowRight /></Link>}
         {!next && <Link href="/comunidad"><span className="my-week-priority-number">1</span><span className="my-week-priority-icon"><CheckCircle2 /></span><span className="my-week-priority-copy"><small>Aprender</small><strong>{allAvailableCompleted ? 'Estás al día' : 'Explora las lecciones disponibles'}</strong><p>{nextUnlockDays ? `Próxima apertura en ${nextUnlockDays} ${nextUnlockDays === 1 ? 'día' : 'días'}. Puedes repasar mientras tanto.` : 'Vuelve al mapa para elegir qué te interesa repasar.'}</p></span><ArrowRight /></Link>}
-        <a href="/community/resources/planificador-semanal-tiroides.pdf" target="_blank" rel="noreferrer"><span className="my-week-priority-number">2</span><span className="my-week-priority-icon"><Dumbbell /></span><span className="my-week-priority-copy"><small>Aplicar</small><strong>Reserva un momento posible</strong><p>Abre el planificador, elige una acción y prevé una alternativa.</p></span><ArrowRight /></a>
+        <a href="#sesiones"><span className="my-week-priority-number">2</span><span className="my-week-priority-icon"><Dumbbell /></span><span className="my-week-priority-copy"><small>Aplicar</small><strong>Reserva un momento posible</strong><p>Elige un día y abre el ejemplo de sesión que hayas reservado.</p></span><ArrowRight /></a>
         <a href="#checkin"><span className="my-week-priority-number">3</span><span className="my-week-priority-icon"><Gauge /></span><span className="my-week-priority-copy"><small>Observar</small><strong>Revisa cómo llegas</strong><p>Adapta el plan antes de tener que improvisar.</p></span><ArrowRight /></a>
       </div>
     </section>
+
+    <WeeklyWorkoutPlan key={week.start} week={week} days={workoutPlan.days} available={workoutPlan.available} />
 
     <section id="checkin" className="my-week-checkin">
       <div className="my-week-checkin-intro"><p>02 · Check-in semanal</p><h2 className="headline">No es una nota.<br />Es contexto.</h2><span>{hasPremium ? 'En el Método BASE, este registro ayuda a preparar las revisiones y ajustar el entrenamiento.' : 'Te ayuda a observar patrones y organizarte mejor, sin sacar conclusiones clínicas.'}</span>{latest && <small><CheckCircle2 size={14} /> Último registro: semana del {new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long' }).format(new Date(`${latest.week_start}T12:00:00Z`))}</small>}</div>

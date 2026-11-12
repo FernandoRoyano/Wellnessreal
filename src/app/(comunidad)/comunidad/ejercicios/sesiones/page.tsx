@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { redirect } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { getSessionMember, isApproved } from '@/lib/db/comunidad'
@@ -35,12 +36,15 @@ export default async function ExampleWorkoutsPage() {
 
     {COMMUNITY_WORKOUTS.map(workout => <section key={workout.id} id={workout.id} aria-labelledby={`${workout.id}-heading`} className="scroll-mt-24 border-t border-border-subtle pt-8">
       <header className="space-y-3"><h2 id={`${workout.id}-heading`} className="headline text-fluid-3xl text-white">{workout.title}</h2><p className="leading-relaxed text-muted">{workout.description}</p><p className="text-sm text-muted"><span className="font-semibold text-white">Material: </span>{workout.equipment}</p></header>
-      <ol className="mt-5 divide-y divide-border-subtle">{workout.exercises.map((exercise, index) => <li key={`${workout.id}-${exercise.slug}`} className="space-y-3 py-6">
+      <ol className="mt-5 divide-y divide-border-subtle">{workout.exercises.map((exercise, index) => <li key={`${workout.id}-${exercise.slug}`} className="grid min-w-0 gap-5 py-6 sm:grid-cols-[13rem_minmax(0,1fr)]">
+        <figure className="min-w-0 space-y-2"><Link href={`/comunidad/ejercicios/${exercise.slug}`} aria-label={`Ver ficha ilustrada: ${exercise.variant}`} className="relative block aspect-[3/2] w-full max-w-xs overflow-hidden rounded-lg bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent"><Image src={`/community/exercises/${exercise.slug}-v1.webp`} alt={getCommunityExercise(exercise.slug)?.imageAlt ?? exercise.variant} fill sizes="(max-width: 639px) 280px, 208px" className="object-contain" /></Link><figcaption className="max-w-xs text-xs leading-relaxed text-muted">{getCommunityExercise(exercise.slug)?.imageCaption}</figcaption></figure>
+        <div className="min-w-0 space-y-3">
         <p className="text-sm text-muted">{exercise.optional ? 'Opcional' : `Movimiento ${index + 1}`} · {getCommunityExercise(exercise.slug)?.pattern}</p>
         <h3 className="text-xl font-semibold text-white">{exercise.variant}</h3>
         <p className="font-semibold text-white">1–2 series · {exercise.repetitions} · unos 2 min de descanso</p>
         <p className="max-w-2xl leading-relaxed text-muted">{exercise.note}</p>
         <Link href={`/comunidad/ejercicios/${exercise.slug}`} className="inline-flex min-h-11 items-center gap-2 text-accent underline underline-offset-4">Ver técnica y alternativas <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+        </div>
       </li>)}</ol>
     </section>)}
 
@@ -48,7 +52,7 @@ export default async function ExampleWorkoutsPage() {
       <h2 id="workout-adjustments" className="headline text-fluid-2xl text-white">Cómo decidir el siguiente paso</h2>
       <div className="space-y-3 leading-relaxed text-muted"><p><strong className="text-white">Si completas el rango con margen: </strong>repite para afianzar el control. Cuando alcances el extremo alto en todas las series durante dos sesiones y aún te queden repeticiones posibles, prueba el incremento de carga más pequeño disponible. Vuelve hacia el extremo bajo del rango.</p><p><strong className="text-white">Ejemplo: </strong>si haces 2 × 12 en el remo sin balancearte y con margen durante dos sesiones, puedes subir un poco el peso y volver a 8–10. Si pierdes el control, ese incremento aún no te encaja.</p><p><strong className="text-white">Si hoy cuesta más: </strong>mantén o reduce la carga, usa una variante menos exigente o haz una serie. Si la fatiga es inusual, empeora o no cede, no la atribuyas automáticamente al entrenamiento o a la tiroides: busca orientación sanitaria.</p><p><strong className="text-white">Si aparece dolor: </strong>interrumpe ese ejercicio. No fuerces otra variante para terminar la sesión. Una molestia persistente o que no entiendes merece valoración.</p></div>
       <p className="text-sm leading-relaxed text-muted">Anota ejercicio, variante, peso, repeticiones y cómo terminó cada serie en tu registro habitual. Son ejemplos de fuerza; caminar y otras actividades aeróbicas siguen formando parte de una semana activa.</p>
-      <Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Reservar mis días en Mi semana <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+      <Link href="/comunidad/mi-semana#sesiones" className="inline-flex min-h-11 items-center gap-2 font-semibold text-accent underline underline-offset-4">Reservar mis días en Mi semana <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
     </section>
 
     <footer className="space-y-3 border-t border-border-subtle pt-6 text-sm leading-relaxed text-muted"><p>Propuesta didáctica de <Link href="/sobre-mi" className="text-accent underline underline-offset-4">Fernando Royano</Link>. La selección, los descansos y la regla práctica de progresión son ejemplos editoriales ajustables, no una receta validada como conjunto ni una prescripción específica para tiroides.</p><p>Base general: entrenar los principales grupos musculares al menos dos días por semana, empezar de forma gradual y ajustar el programa a la persona. No es necesario llevar cada serie al fallo. Referencias consultadas el 12 de noviembre de 2026: <a href="https://acsm.org/resistance-training-guidelines-update-2026/" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">ACSM, actualización de fuerza 2026</a> y <a href="https://www.cdc.gov/physical-activity-basics/adding-adults/what-counts.html" target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">CDC, actividad física y fortalecimiento</a>.</p></footer>

@@ -24,7 +24,9 @@ const tables = {
 }
 const writes = []
 tables.lesson_progress = []
+tables.community_workout_days = []
 let failProgressWrites = false
+let failWorkoutMode = ''
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://127.0.0.1:${port}`)
   const reply = (code, value) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(value)) }
@@ -33,6 +35,7 @@ const server = http.createServer(async (req, res) => {
   const body = raw ? JSON.parse(raw) : null
   if (url.pathname === '/__writes') return reply(200, writes)
   if (url.pathname === '/__progress-failure' && req.method === 'POST') { failProgressWrites = Boolean(body.fail); return reply(200, {}) }
+  if (url.pathname === '/__workout-failure' && req.method === 'POST') { failWorkoutMode = body.mode || ''; return reply(200, {}) }
   if (url.pathname === '/__reset-journey' && req.method === 'POST') {
     const member = tables.member_profiles.find(row => row.email === 'journey@example.com')
     member.cliente_id = null
@@ -60,6 +63,7 @@ const server = http.createServer(async (req, res) => {
   if (!url.pathname.startsWith('/rest/v1/')) return reply(404, {})
   const table = url.pathname.split('/').at(-1)
   if (!tables[table]) return reply(400, { message: `Unknown fixture table: ${table}` })
+  if (table === 'community_workout_days' && (failWorkoutMode === 'all' || (failWorkoutMode === 'writes' && req.method === 'POST'))) return reply(503, { message: 'Fixture workout plan unavailable' })
   if (table === 'lesson_progress' && failProgressWrites && ['POST', 'DELETE'].includes(req.method)) return reply(503, { message: 'Fixture progress unavailable' })
   let rows = tables[table].filter(row => [...url.searchParams].every(([key, value]) => {
     if (['select', 'order', 'limit', 'offset'].includes(key)) return true
