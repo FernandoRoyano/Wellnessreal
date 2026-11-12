@@ -38,3 +38,9 @@ Ejemplo de variante distinta: la ilustración de peso muerto muestra el convenci
 - Pruebas privadas con sesiones y servicios locales ficticios; sin registros ni marcas ficticias en producción.
 
 Evidencias en output/community-exercises-2026-11-12 del workspace principal. No se añaden vídeos simulados ni anuncios de grabaciones futuras; los vídeos propios quedan como ampliación cuando exista material real.
+
+## Publicación
+
+Implementación final 6b40507 publicada en dpl_4kof6n1nCZPyuRZvWPg3xe3ba6Uh tras comprobar READY y la versión previa activa. Las primeras tres ilustraciones visibles se cargan eager y las restantes lazy. Se acorta la introducción móvil: la primera ficha aparece a unos 562 px a 320 px de anchura.
+
+Comprobación real: índice y fichas probadas requieren acceso y conservan su destino al entrar; los siete WebP responden 200 con el tipo y tamaño esperados. No se crean cuentas ni marcas ficticias en producción. Comprobante: public-verification.json en el directorio de evidencias. Las interacciones privadas se han validado con cuentas locales de prueba.
