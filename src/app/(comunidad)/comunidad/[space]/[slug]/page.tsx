@@ -9,6 +9,7 @@ import { LessonFavorite, LessonFeedback } from '@/components/comunidad/LessonToo
 import { getSessionMember, getSpace, getLessons, memberHasPremium } from '@/lib/db/comunidad'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
 import { getCompletedLessonIds } from '@/lib/community-progress'
+import { getLearningRoute } from '@/lib/community-learning-routes'
 import { getAllPosts } from '@/lib/db/posts'
 import { getFavoriteLessonIds, getLessonFeedback } from '@/lib/community-tools'
 
@@ -19,12 +20,16 @@ export const metadata: Metadata = {
 
 export default async function LessonPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ space: string; slug: string }>
+  searchParams: Promise<{ ruta?: string | string[] }>
 }) {
   const { space: spaceSlug, slug } = await params
+  const requestedRoute = getLearningRoute((await searchParams).ruta)
+  const learningRoute = requestedRoute?.steps.some(step => step.space === spaceSlug && step.slug === slug) ? requestedRoute : undefined
   const member = await getSessionMember()
-  if (!member) redirect(`/comunidad/entrar?next=${encodeURIComponent(`/comunidad/${spaceSlug}/${slug}`)}`)
+  if (!member) redirect(`/comunidad/entrar?next=${encodeURIComponent(`/comunidad/${spaceSlug}/${slug}${learningRoute ? `?ruta=${learningRoute.id}` : ''}`)}`)
   const space = await getSpace(spaceSlug, member)
   if (!space) notFound()
 
@@ -108,11 +113,12 @@ export default async function LessonPage({
           <LessonEngagement resource={resource} />
           {space.access_tier === 'free' && <section className="my-7 border-y border-border-subtle py-6" aria-labelledby="lesson-continue-heading">
             <h2 id="lesson-continue-heading" className="headline text-fluid-xl">Tu siguiente paso, a tu ritmo</h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted">{spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero'
+            <p className="mt-3 text-sm leading-relaxed text-muted">{learningRoute ? 'Vuelve a tu ruta para ver qué has completado y cuál es el siguiente paso. Puedes repasar esta lectura cuando quieras.' : spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero'
               ? 'Después de la bienvenida, lee «Por qué empezar con fuerza». No necesitas completar toda la biblioteca en una visita.'
               : 'Elige una idea de esta lección y una acción que encaje en tu situación. Puede ser preparar una pregunta o reservar tiempo; no tiene que ser entrenar hoy.'}</p>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
-              {spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero' && <Link href="/comunidad/entrena-organizate/por-que-empezar-con-fuerza" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Leer mi primera lección de fuerza</Link>}
+              {learningRoute && <Link href={`/comunidad/rutas?ruta=${learningRoute.id}`} className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Continuar ruta: {learningRoute.title}</Link>}
+              {!learningRoute && spaceSlug === 'empieza-aqui' && slug === 'lee-esto-primero' && <Link href="/comunidad/entrena-organizate/por-que-empezar-con-fuerza" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Leer mi primera lección de fuerza</Link>}
               <Link href="/comunidad/mi-semana" className="inline-flex min-h-11 items-center text-accent underline underline-offset-4">Volver a Mi semana</Link>
             </div>
             <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en tu cuenta y continuar desde otro dispositivo. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
@@ -122,7 +128,7 @@ export default async function LessonPage({
         </>
       )}
 
-      {(prev || next) && (
+      {!learningRoute && (prev || next) && (
         <nav className="mt-14 grid min-w-0 gap-3 border-t border-[var(--color-border)] pt-6 sm:grid-cols-2">
           {prev ? (
             <Link

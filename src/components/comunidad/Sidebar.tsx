@@ -91,8 +91,15 @@ function SidebarBody({
           onNavigate={onNavigate}
         />
         <NavItem
+          href="/comunidad/rutas"
+          label="Rutas de aprendizaje"
+          icon={<BookOpen className="h-[18px] w-[18px]" />}
+          active={isActive('/comunidad/rutas')}
+          onNavigate={onNavigate}
+        />
+        <NavItem
           href="/comunidad/recorrido"
-          label="Tu recorrido"
+          label="Comunidad y BASE"
           icon={<Map className="h-[18px] w-[18px]" />}
           active={isActive('/comunidad/recorrido')}
           onNavigate={onNavigate}
