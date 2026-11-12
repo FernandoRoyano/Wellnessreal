@@ -34,3 +34,7 @@ Pendiente de ejecutar SQL y verificar la tabla real. Las pruebas locales no sust
 ## Publicación
 
 Implementación 2f84ea4 desplegada en wellnessreal.es el 12/11/2026. Deployment activo: dpl_6jZMJpQGtiYx7Pzf9H2mrWjqpzHF (READY); promovido tras comprobar la versión anterior. Sesiones y Mi semana mantienen acceso protegido (307 al inicio de sesión con destino correcto). La migración sigue pendiente: el calendario se activará al crear la tabla; mientras tanto se mantiene el PDF. No se ha probado guardado con cuentas reales en producción.
+
+## Activación confirmada
+
+El usuario confirma la ejecución del SQL. Verificación posterior el 12/11/2026: lectura de las cuatro columnas con service_role HTTP 200 (limit=0, sin consultar datos de miembros); solicitud REST sin credenciales HTTP 401. La tabla ya está disponible y la lectura dinámica activa el calendario sin desplegar de nuevo. No se hicieron escrituras ni se crearon usuarios de prueba en producción. La clave anon está configurada como sensible en Vercel y no se pudo recuperar para probar directamente ese rol; esta comprobación no sustituye una auditoría de RLS. Guardado y separación por cuenta están comprobados con servicios locales ficticios.
