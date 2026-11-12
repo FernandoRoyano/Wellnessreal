@@ -31,3 +31,7 @@ Se conserva la identidad actual. Alternativas en lista dentro de cada ficha y se
 Seis pruebas unitarias correctas. Doce casos de navegador comprobados entre Chrome móvil y escritorio: nueve pasaron en la primera ejecución y tres tras corregir el desplazamiento de anclas, una expectativa de título y precalentar la compilación local. Se verifican búsqueda, variantes, sesiones, acceso desde una lección gratuita y redirección sin sesión. Capturas revisadas a 320 y 1440 px; sin desbordamiento horizontal. El arranque local usa webpack porque el enlace de node_modules del worktree no es compatible con la raíz de Turbopack; no se cambia la configuración de producción.
 
 TypeScript y ESLint de los archivos afectados: sin errores.
+
+## Publicación
+
+Publicado en wellnessreal.es el 12/11/2026. Commit de implementación: 05d7500. Deployment activo: dpl_fNE2WAi2YPRk8gHA6ALViwii2nSU (READY); promoción tras comprobar que producción seguía en la versión anterior. La comprobación pública confirmó acceso protegido (307 al inicio de sesión, destino conservado) a sesiones y dos fichas. La interacción autenticada se verificó localmente con cuentas ficticias; no se generaron usuarios ni progreso en producción.
