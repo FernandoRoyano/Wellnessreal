@@ -21,14 +21,14 @@ La acción vuelve a comprobar la cookie y los permisos en servidor. Se importan 
 - Los duplicados y reintentos de importación son seguros gracias a la clave compuesta.
 - No se cambian planes, pagos, accesos ni la fecha de inicio de la medición de continuidad.
 
-## Activación pendiente
+## Procedimiento de activación
 
 1. Ejecutar supabase/migrations/20261112_community_lesson_progress.sql en el SQL Editor del proyecto correcto de Supabase.
 2. Confirmar lectura del esquema con select de cero filas y las columnas member_id, lesson_id y completed_at.
 3. Compilar y desplegar la versión aislada. Comprobar la versión activa antes de promocionar para no reemplazar trabajo concurrente.
 4. Verificar entrada protegida y con una cuenta de prueba autorizada el guardado y la recuperación en otro navegador. No se crean miembros ni progresos ficticios en producción durante esta preparación.
 
-La conexión disponible es la API de datos con service_role; no hay conexión PostgreSQL de administración ni token de gestión disponibles para ejecutar DDL. La comprobación del esquema devuelve 404. La aplicación preparada no se despliega hasta crear la tabla.
+La conexión disponible es la API de datos con service_role; no hay conexión PostgreSQL de administración ni token de gestión disponibles para ejecutar DDL. La comprobación inicial del esquema devolvía 404. La aplicación preparada se mantuvo sin desplegar hasta crear la tabla.
 
 La migración es aditiva y repetible, no modifica tablas existentes. Si hay que revertir código, conservar la tabla y sus datos. Las marcas ya importadas seguirán en la base de datos; una versión antigua que solo lea cookies no las mostrará hasta recuperar el código compatible.
 
@@ -40,4 +40,12 @@ La migración es aditiva y repetible, no modifica tablas existentes. Si hay que 
 - TypeScript y ESLint focalizado sin errores.
 - Migración ejecutada dos veces en PostgreSQL WASM (PGlite 0.5.16) aislado: RLS activo, lectura/escritura denegadas a anon/authenticated, acceso service_role, clave compuesta, fecha original, clave foránea y cascada al borrar miembro.
 
-PGlite es una dependencia temporal de pruebas instalada en output del workspace principal; no se añade a las dependencias de la aplicación. No sustituye la comprobación final en Supabase. Evidencias: output/community-progress-2026-11-12 del workspace principal. No hay cambios en producción todavía.
+PGlite es una dependencia temporal de pruebas instalada en output del workspace principal; no se añade a las dependencias de la aplicación. No sustituye la comprobación final en Supabase. Evidencias: output/community-progress-2026-11-12 del workspace principal.
+
+## Activación — 12 de noviembre de 2026
+
+Fernando confirmó la ejecución del SQL. Comprobada la tabla real por la API de datos con una consulta sin filas: HTTP 200 y columnas member_id, lesson_id y completed_at disponibles. Publicada la implementación 1f889b7 en dpl_9HPCZ1dhcTasapJKfCp2W9aggwYv después de comprobar READY y que producción seguía en la versión prevista.
+
+No se crean cuentas ni marcas de prueba en producción. El guardado, la recuperación en otro navegador y el aislamiento se han probado con servicios y sesiones locales ficticios; no se afirma haber validado una sesión real de miembro en producción.
+
+Comprobación pública tras promocionar: comunidad, Mi semana y lector redirigen a entrada sin sesión; entrada y blog responden 200. El panel de continuidad sigue activo con COMMUNITY_ACTIVITY_SINCE=2026-11-11T07:31:17Z, retorno nulo y cero altas con ventana completa. Comprobante público: output/community-progress-2026-11-12/public-activation.json.
