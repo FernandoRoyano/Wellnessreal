@@ -31,3 +31,7 @@ Original educational anatomical exercise illustration for WellnessReal. Landscap
 Se amplían los controles del catálogo y los casos de navegador para nueve ejercicios, búsqueda de ambos press y filtro por barra/mancuernas. Sin cambios de esquema, de permisos o del PDF fitness. Los nuevos ejercicios se añaden a la biblioteca de la comunidad.
 
 Verificado: 4 pruebas unitarias y 8 ejecuciones de navegador (móvil y escritorio) correctas; TypeScript y ESLint sin errores. Capturas revisadas a 320 y 1440 px, sin desbordamiento horizontal.
+
+## Publicación
+
+Publicado en wellnessreal.es el 12 de noviembre de 2026. Implementación: 20921dc. Deployment activo: dpl_96VhFaRse5Cc2yD4cVCrmgWhkgAF (READY), promovido tras comprobar la versión anterior. En producción: ambas imágenes HTTP 200 WebP y ambas fichas conservan el acceso protegido (307 al inicio de sesión con destino correcto). La navegación autenticada se verificó con datos locales de prueba, sin crear actividad ni usuarios en producción.
