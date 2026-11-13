@@ -8,7 +8,7 @@ const compiled = { exports: {} }
 vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/lib/community-weekly-plan.ts', 'utf8'), {
   compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
 }).outputText, { module: compiled, exports: compiled.exports })
-const { getCommunityWeeklyPlan, COMMUNITY_QUESTIONS } = compiled.exports
+const { getCommunityWeeklyPlan, COMMUNITY_QUESTIONS, getLessonParticipationQuestion } = compiled.exports
 
 test('the next week becomes the current proposal and repeats after eight weeks', () => {
   const initial = getCommunityWeeklyPlan(new Date('2026-11-11T12:00:00Z'))
@@ -27,6 +27,16 @@ test('eight distinct focuses use existing resources and reviewed public readings
     assert(COMMUNITY_QUESTIONS.some(question => question.id === topic.question))
     assert(['por-que-empezar-con-fuerza', 'organizar-dos-dias', 'alimentacion-practica', 'descanso-recuperacion'].includes(topic.lesson))
   }
+})
+
+test('lesson prompts use supported editable forum questions and avoid unrelated or paid lessons', () => {
+  assert.equal(getLessonParticipationQuestion('empieza-aqui', 'lee-esto-primero').id, 'primer-paso')
+  assert.equal(getLessonParticipationQuestion('entrena-organizate', 'por-que-empezar-con-fuerza').id, 'primer-paso')
+  assert.equal(getLessonParticipationQuestion('entrena-organizate', 'organizar-dos-dias').id, 'organizar')
+  assert.equal(getLessonParticipationQuestion('entrena-organizate', 'descanso-recuperacion').id, 'continuar')
+  assert.equal(getLessonParticipationQuestion('metodo-base-tiroides', 'por-que-empezar-con-fuerza'), undefined)
+  assert.equal(getLessonParticipationQuestion('aprende-tiroides', 'sintomas'), undefined)
+  assert.equal(new Set(COMMUNITY_QUESTIONS.map(question => question.id)).size, COMMUNITY_QUESTIONS.length)
 })
 
 test('the week changes at Madrid midnight, including summer time and earlier cycles', () => {

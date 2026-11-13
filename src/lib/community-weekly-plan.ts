@@ -1,8 +1,20 @@
 export const COMMUNITY_QUESTIONS = [
+  { id: 'primer-paso', title: '¿Qué idea te gustaría probar esta semana?', hint: 'Puede ser reservar un rato, preparar material o elegir una lectura. No hace falta haber entrenado ni contar datos de salud.' },
   { id: 'aplicar', title: '¿Qué idea has podido aplicar?', hint: 'Puedes contar una acción de organización o algo que hayas aprendido. No necesitas explicar tu historia personal.' },
   { id: 'organizar', title: '¿Qué te cuesta organizar esta semana?', hint: 'Por ejemplo, reservar tiempo, preparar material o elegir por dónde empezar. Evita datos clínicos o de otras personas.' },
   { id: 'continuar', title: '¿Qué te gustaría repetir o cambiar?', hint: 'Elige una cosa que haya encajado o una dificultad de organización. Puedes dejar el cuerpo vacío y editar el título.' },
 ] as const
+
+export function getLessonParticipationQuestion(space: string, slug: string) {
+  const prompts: Record<string, typeof COMMUNITY_QUESTIONS[number]['id']> = {
+    'empieza-aqui/lee-esto-primero': 'primer-paso',
+    'entrena-organizate/por-que-empezar-con-fuerza': 'primer-paso',
+    'entrena-organizate/organizar-dos-dias': 'organizar',
+    'entrena-organizate/alimentacion-practica': 'aplicar',
+    'entrena-organizate/descanso-recuperacion': 'continuar',
+  }
+  return COMMUNITY_QUESTIONS.find(question => question.id === prompts[`${space}/${slug}`])
+}
 
 interface WeeklyTopic {
   title: string

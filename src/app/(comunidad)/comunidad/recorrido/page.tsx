@@ -31,7 +31,7 @@ export default async function RecorridoPage() {
     <TopicSection number="02" eyebrow="Método BASE Tiroides" title="Los temas que convierten información en un plan" topics={PREMIUM_TOPICS} premium />
     <section className={styles.decision}>
       <div><p>{hasPremium ? 'Tu programa está activo' : 'Cuando el contenido general ya no es suficiente'}</p><h2>{hasPremium ? 'Continúa con tu semana del Método BASE.' : 'No compras más información. Solicitas acompañamiento.'}</h2><span>{hasPremium ? 'Tu espacio premium contiene el calendario y las revisiones de las 12 semanas.' : 'Primero revisamos tu caso. Solo después, si encaja, se realiza el pago y se activa el programa.'}</span></div>
-      <Link href={hasPremium ? '/comunidad/metodo-base-tiroides' : '/comunidad/asesoria'}>{hasPremium ? 'Ir al Método BASE' : 'Solicitar valoración'} <ArrowRight size={17} /></Link>
+      <Link href={hasPremium ? '/comunidad/metodo-base-tiroides' : '/metodo-tiroides?origen=comunidad'}>{hasPremium ? 'Ir al Método BASE' : 'Ver programa y solicitud'} <ArrowRight size={17} /></Link>
     </section>
   </main>
 }

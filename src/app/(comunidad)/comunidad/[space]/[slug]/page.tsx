@@ -8,6 +8,7 @@ import { LessonEngagement } from '@/components/comunidad/CommunityEngagement'
 import { LessonFavorite, LessonFeedback } from '@/components/comunidad/LessonTools'
 import { getSessionMember, getSpace, getLessons, memberHasPremium } from '@/lib/db/comunidad'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
+import { LessonParticipation } from '@/components/comunidad/LessonParticipation'
 import { getCompletedLessonIds } from '@/lib/community-progress'
 import { getLearningRoute } from '@/lib/community-learning-routes'
 import { getAllPosts } from '@/lib/db/posts'
@@ -125,6 +126,7 @@ export default async function LessonPage({
             </div>
             <p className="mt-3 text-sm text-muted">Marca la lección como completada para guardar tu lectura en tu cuenta y continuar desde otro dispositivo. Eso no significa que hayas realizado el ejercicio ni que debas progresar.</p>
           </section>}
+          {space.access_tier === 'free' && <LessonParticipation space={spaceSlug} slug={slug} />}
           <LessonFeedback lessonId={lesson.id} initialFeedback={lessonFeedback} />
           {showProgramInvitation && <ProgramInvitation hasPremium={hasPremium} />}
         </>

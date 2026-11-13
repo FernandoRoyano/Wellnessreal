@@ -4,7 +4,7 @@ export const FREE_COMMUNITY = {
   label: 'Comunidad gratuita',
   objective: 'Entender lo esencial, dejar de ir a ciegas y poner en marcha una primera semana sostenible.',
   promise: 'Criterio y herramientas para empezar por tu cuenta.',
-  includes: ['20 lecciones educativas y prácticas', '4 recursos descargables', 'Foro para preguntar y compartir', 'Recorrido progresivo, sin saturarte'],
+  includes: ['Lecciones y rutas de aprendizaje', 'Ejercicios ilustrados y sesiones de ejemplo', 'Planificación semanal guardada en tu cuenta', 'Foro y recursos descargables'],
   limits: 'Contenido general: no incluye valoración individual, prescripción, ajustes personales ni seguimiento.',
 }
 
@@ -12,7 +12,7 @@ export const PREMIUM_PROGRAM = {
   label: 'Método BASE Tiroides',
   objective: 'Convertir los principios en un plan de 12 semanas adaptado a tu situación y revisarlo contigo.',
   promise: 'Precisión, seguimiento y decisiones individuales.',
-  includes: ['Valoración previa y admisión personal', 'Plan de entrenamiento y nutrición adaptado', 'Calendario de 12 semanas', 'Revisiones y ajustes periódicos', 'Directos y espacio privado del grupo'],
+  includes: ['Valoración previa y admisión personal', 'Plan de fuerza adaptado y orientación de hábitos', 'Calendario de 12 semanas', 'Check-in semanal y dos revisiones individuales', 'Espacio privado y directos cuando estén programados'],
   limits: 'Programa de entrenamiento y hábitos. No sustituye el diagnóstico, la medicación ni el seguimiento sanitario.',
 }
 
