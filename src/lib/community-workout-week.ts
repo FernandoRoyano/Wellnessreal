@@ -5,6 +5,7 @@ export function getWorkoutWeek(date = new Date()) {
   const parts = new Intl.DateTimeFormat('en', { timeZone: 'Europe/Madrid', year: 'numeric', month: '2-digit', day: '2-digit' }).formatToParts(date)
   const part = (name: string) => Number(parts.find(item => item.type === name)?.value)
   const monday = new Date(Date.UTC(part('year'), part('month') - 1, part('day')))
+  const today = monday.toISOString().slice(0, 10)
   monday.setUTCDate(monday.getUTCDate() - ((monday.getUTCDay() + 6) % 7))
   const dates = WORKOUT_DAYS.map((_, index) => {
     const day = new Date(monday)
@@ -12,5 +13,10 @@ export function getWorkoutWeek(date = new Date()) {
     return day.toISOString().slice(0, 10)
   })
   const label = new Intl.DateTimeFormat('es-ES', { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(monday)
-  return { start: dates[0], dates, label }
+  return { start: dates[0], today, dates, label }
+}
+
+export function getNextPlannedWorkout(days: readonly { workout_date: string; workout_id: string | null }[], today: string) {
+  return days.filter(day => day.workout_date >= today && ['mancuernas', 'gimnasio'].includes(day.workout_id ?? ''))
+    .sort((a, b) => a.workout_date.localeCompare(b.workout_date))[0] ?? null
 }

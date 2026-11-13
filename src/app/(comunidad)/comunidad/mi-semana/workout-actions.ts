@@ -24,6 +24,7 @@ export async function saveWorkoutPlanAction(_previous: WorkoutPlanResult | null,
   try {
     await saveWorkoutDays(member.id, week.dates, parsed.data)
     revalidatePath('/comunidad/mi-semana')
+    revalidatePath('/comunidad')
     return { ok: true, message: 'Planificación guardada en tu cuenta.', choices: parsed.data }
   } catch (error) {
     console.error('[comunidad:saveWorkoutPlanAction]', error)

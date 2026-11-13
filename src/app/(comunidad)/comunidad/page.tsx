@@ -20,6 +20,9 @@ import { getCommunityJourney } from '@/lib/community-journey'
 import { CommunityImage } from '@/components/comunidad/CommunityImage'
 import { ProgramInvitation } from '@/components/comunidad/ProgramInvitation'
 import { CommunityWeeklyPlan } from '@/components/comunidad/CommunityWeeklyPlan'
+import { NextPlannedWorkout } from '@/components/comunidad/NextPlannedWorkout'
+import { getWorkoutDays } from '@/lib/community-workout-plans'
+import { getWorkoutWeek } from '@/lib/community-workout-week'
 import FooterNewsletterForm from '@/components/common/FooterNewsletterForm'
 
 export const metadata: Metadata = {
@@ -38,13 +41,15 @@ export default async function ComunidadHome() {
   const member = await getSessionMember()
   if (!member) redirect('/comunidad/entrar')
 
-  const [spaces, recent, online, completedIds, hasPremium, legacyIds] = await Promise.all([
+  const week = getWorkoutWeek()
+  const [spaces, recent, online, completedIds, hasPremium, legacyIds, workoutPlan] = await Promise.all([
     getSpacesOverview(member),
     getRecentThreads(member, 4),
     getOnlineMembers(),
     getCompletedLessonIds(member.id),
     memberHasPremium(member),
     getLegacyLessonIds(),
+    getWorkoutDays(member.id, week.dates),
   ])
   const contentSpaces = spaces.filter((space) => space.type === 'content')
   const lessonGroups = await Promise.all(contentSpaces.map((space) => getLessons(space.id, member)))
@@ -76,6 +81,8 @@ export default async function ComunidadHome() {
           <p>Avance guardado en tu cuenta.</p>
         </div>
       </header>
+
+      <NextPlannedWorkout days={workoutPlan.days} today={week.today} available={workoutPlan.available} />
 
       <LegacyProgressImport lessons={unlockedLessons.filter(lesson => legacyIds.has(lesson.id) && !completedIds.has(lesson.id)).map(lesson => ({ id: lesson.id, title: lesson.title }))} />
 

@@ -15,7 +15,7 @@ function load(file, mocks = {}) {
   return compiled.exports
 }
 
-const { getWorkoutWeek } = load('src/lib/community-workout-week.ts')
+const { getWorkoutWeek, getNextPlannedWorkout } = load('src/lib/community-workout-week.ts')
 test('week follows Madrid midnight and handles year and daylight-saving boundaries', () => {
   assert.equal(getWorkoutWeek(new Date('2026-11-15T22:59:00Z')).start, '2026-11-09')
   assert.equal(getWorkoutWeek(new Date('2026-11-15T23:00:00Z')).start, '2026-11-16')
@@ -25,6 +25,23 @@ test('week follows Madrid midnight and handles year and daylight-saving boundari
   const dst = getWorkoutWeek(new Date('2026-03-29T22:30:00Z'))
   assert.equal(dst.start, '2026-03-30')
   assert.equal(new Set(dst.dates).size, 7)
+  assert.equal(getWorkoutWeek(new Date('2026-11-15T23:00:00Z')).today, '2026-11-16')
+})
+
+test('next workout includes today, excludes past and unknown choices, and keeps input order intact', () => {
+  const days = [
+    { workout_date: '2026-11-15', workout_id: 'gimnasio' },
+    { workout_date: '2026-11-13', workout_id: 'mancuernas' },
+    { workout_date: '2026-11-12', workout_id: 'gimnasio' },
+    { workout_date: '2026-11-13', workout_id: null },
+    { workout_date: '2026-11-13', workout_id: 'unknown' },
+  ]
+  const original = JSON.stringify(days)
+  assert.equal(getNextPlannedWorkout(days, '2026-11-13').workout_id, 'mancuernas')
+  assert.equal(getNextPlannedWorkout(days, '2026-11-14').workout_date, '2026-11-15')
+  assert.equal(getNextPlannedWorkout(days, '2026-11-16'), null)
+  assert.equal(getNextPlannedWorkout([], '2026-11-13'), null)
+  assert.equal(JSON.stringify(days), original)
 })
 
 let member = { id: 'member-a', status: 'approved' }
