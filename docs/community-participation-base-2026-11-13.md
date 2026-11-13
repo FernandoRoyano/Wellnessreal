@@ -20,3 +20,7 @@ Comprobación controlada en producción: navegador con consentimiento de una cue
 ## Verificación
 
 Cuatro pruebas unitarias de calendario/preguntas y seis casos de navegador en Chrome móvil y escritorio correctos: borrador opcional editable sin POST, encaje/precio/condiciones de BASE, acceso a la solicitud sin enviarla, coherencia de la página antigua y conservación del acceso premium. TypeScript y ESLint de archivos afectados correctos. Las pruebas de texto y navegación no sustituyen una prueba de comprensión con personas reales; el informe incluye un protocolo breve para esa validación.
+
+## Publicación
+
+Implementación 343d0fb publicada el 13/11/2026. Deployment activo dpl_Bvc3wThejyg4F5sVcvTkzb1JAhci (READY), promovido tras comprobar la versión anterior. La bienvenida, asesoría y recorrido conservan redirección a login sin sesión (307); la oferta pública responde 200. Revisadas capturas de participación y BASE a 390 y 1440 px, con selector de detalles plegado por defecto y sin desbordamiento. No se han enviado solicitudes, mensajes al foro ni pagos de prueba. Los recuentos privados permanecen en el informe local.
