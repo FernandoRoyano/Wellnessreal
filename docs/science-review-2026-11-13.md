@@ -45,3 +45,7 @@ El calendario de ocho semanas está en [el plan editorial](community-editorial-c
 ## Validación del calendario
 
 Tres pruebas unitarias del ciclo y seis ejecuciones de navegador en Chrome móvil/escritorio correctas, incluido desbloqueo futuro a 320 px, acceso gratuito, participación opcional editable y conservación del acceso de pago. TypeScript y ESLint de archivos afectados correctos. No se envían mensajes ni se crean hilos automáticamente.
+
+## Verificación pública y despliegue
+
+Implementación fd64d3f. Deployment activo dpl_DzZNgbZ3bnw6PkJ1wyphfSn3JFvb (READY), promovido tras comprobar la versión anterior. Las nueve páginas actualizadas responden HTTP 200 y muestran la revisión del 13/11/2026; verificación después de renovar la versión servida. Dos comprobaciones visuales en producción: biotina a 390 px y evidencia de creatina a 1440 px, sin desbordamiento horizontal. El bloque de comunidad mantiene las seis pruebas de navegador con datos ficticios locales, sin generar publicaciones ni correos reales. El plan de ocho semanas queda activo como rotación de material existente; los recursos nuevos propuestos siguen pendientes de producción y no se anuncian como confirmados.
