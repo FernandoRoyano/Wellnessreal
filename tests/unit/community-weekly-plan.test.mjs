@@ -10,11 +10,23 @@ vm.runInNewContext(ts.transpileModule(fs.readFileSync('src/lib/community-weekly-
 }).outputText, { module: compiled, exports: compiled.exports })
 const { getCommunityWeeklyPlan, COMMUNITY_QUESTIONS } = compiled.exports
 
-test('the next week becomes the current proposal and repeats after four weeks', () => {
+test('the next week becomes the current proposal and repeats after eight weeks', () => {
   const initial = getCommunityWeeklyPlan(new Date('2026-11-11T12:00:00Z'))
   assert.match(initial[0].period, /9 de noviembre.*15 de noviembre/)
   assert.equal(initial[1].lesson, getCommunityWeeklyPlan(new Date('2026-11-16T12:00:00Z'))[0].lesson)
-  assert.equal(initial[0].lesson, getCommunityWeeklyPlan(new Date('2026-12-07T12:00:00Z'))[0].lesson)
+  assert.equal(initial[0].title, getCommunityWeeklyPlan(new Date('2027-01-04T12:00:00Z'))[0].title)
+  assert.notEqual(initial[0].title, getCommunityWeeklyPlan(new Date('2026-12-07T12:00:00Z'))[0].title)
+})
+
+test('eight distinct focuses use existing resources and reviewed public readings', () => {
+  const focuses = Array.from({ length: 8 }, (_, index) => getCommunityWeeklyPlan(new Date(Date.UTC(2026, 10, 9 + index * 7, 12)))[0])
+  assert.equal(new Set(focuses.map(topic => topic.title)).size, 8)
+  assert.equal(focuses.filter(topic => topic.article).length, 4)
+  for (const topic of focuses) {
+    assert(fs.existsSync(`public/community/resources/${topic.file}`))
+    assert(COMMUNITY_QUESTIONS.some(question => question.id === topic.question))
+    assert(['por-que-empezar-con-fuerza', 'organizar-dos-dias', 'alimentacion-practica', 'descanso-recuperacion'].includes(topic.lesson))
+  }
 })
 
 test('the week changes at Madrid midnight, including summer time and earlier cycles', () => {

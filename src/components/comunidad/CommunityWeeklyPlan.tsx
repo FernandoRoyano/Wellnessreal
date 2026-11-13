@@ -13,7 +13,7 @@ export function CommunityWeeklyPlan({ lessons }: { lessons: AvailableLesson[] })
   return <section className="my-9 border-y border-border-subtle py-7" aria-labelledby="weekly-focus-title">
     <p className="community-eyebrow">Una razón para volver</p>
     <h2 id="weekly-focus-title" className="headline mt-3 text-fluid-2xl">Una lectura, una acción y una pregunta.</h2>
-    <p className="mt-3 max-w-2xl text-muted">Una propuesta semanal con lecturas y recursos ya disponibles. El tema se alterna cada lunes en un ciclo de cuatro semanas; puedes seguirlo a tu ritmo.</p>
+    <p className="mt-3 max-w-2xl text-muted">Una propuesta semanal con lecturas y recursos ya disponibles. El tema cambia cada lunes en un ciclo de ocho semanas; puedes seguirlo a tu ritmo. Las fechas organizan el uso del contenido, no anuncian publicaciones nuevas ni encuentros.</p>
     <div className="mt-6 grid gap-7 md:grid-cols-2">
       {getCommunityWeeklyPlan().map(topic => {
         const lesson = lessons.find(item => item.slug === topic.lesson && item.space.slug === topic.space)
@@ -22,6 +22,7 @@ export function CommunityWeeklyPlan({ lessons }: { lessons: AvailableLesson[] })
           <p className="text-sm font-semibold text-accent">{topic.label} · {topic.period}</p>
           <h3 className="mt-3 text-fluid-xl text-white">{topic.title}</h3>
           <p className="mt-3 text-sm leading-relaxed text-muted">{topic.action}</p>
+          {topic.article && <Link href={`/blog/${topic.article.slug}`} className="mt-3 inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4">Lectura pública disponible: {topic.article.title}</Link>}
           {lesson && !lesson.locked ? <Link href={`/comunidad/${topic.space}/${topic.lesson}`} className="mt-3 inline-flex min-h-11 items-center text-sm text-accent underline underline-offset-4">Leer: {lesson.title}</Link> : <p className="mt-3 text-sm text-muted">{lesson?.daysUntilUnlock ? `La lectura se abre para ti en ${lesson.daysUntilUnlock} ${lesson.daysUntilUnlock === 1 ? 'día' : 'días'}. Mientras tanto, puedes usar el recurso.` : 'Consulta tu mapa de aprendizaje para ver las lecturas disponibles.'}</p>}
           <a href={`/community/resources/${topic.file}`} target="_blank" rel="noreferrer" className="mt-1 flex min-h-11 items-center text-sm text-accent underline underline-offset-4">Abrir {topic.resource.toLocaleLowerCase('es')} (PDF)</a>
           <p className="mt-3 text-sm text-white">{question.title}</p>
