@@ -38,3 +38,7 @@ Implementación 2f84ea4 desplegada en wellnessreal.es el 12/11/2026. Deployment 
 ## Activación confirmada
 
 El usuario confirma la ejecución del SQL. Verificación posterior el 12/11/2026: lectura de las cuatro columnas con service_role HTTP 200 (limit=0, sin consultar datos de miembros); solicitud REST sin credenciales HTTP 401. La tabla ya está disponible y la lectura dinámica activa el calendario sin desplegar de nuevo. No se hicieron escrituras ni se crearon usuarios de prueba en producción. La clave anon está configurada como sensible en Vercel y no se pudo recuperar para probar directamente ese rol; esta comprobación no sustituye una auditoría de RLS. Guardado y separación por cuenta están comprobados con servicios locales ficticios.
+
+## Prueba en producción — 13/11/2026
+
+Completada con una cuenta temporal de QA creada mediante Supabase Auth admin y autenticada mediante contraseña temporal, sin envíos de correo. Se guardaron dos sesiones mediante la interfaz pública, se verificó su persistencia tras recarga y se abrieron ambas desde un contexto independiente a 390 × 844 px con imágenes cargadas y sin desbordamiento. Se confirmó también por lectura del servidor la existencia de dos elecciones no vacías. Cuenta temporal eliminada al terminar; comprobado que no quedan perfil ni registros de calendario asociados. No se modificó la cuenta de Fernando. La vista móvil fue emulada, no un teléfono físico. Evidencias y resultado: output/calendar-production-qa-2026-11-13 en el workspace principal.
